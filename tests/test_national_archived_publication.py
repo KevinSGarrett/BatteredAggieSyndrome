@@ -501,5 +501,85 @@ class IndependentValidatorTests(unittest.TestCase):
         self.assertIn("every_record_reconstructed_independently", doc["failed_checks"])
 
 
+GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_gate.json"
+SIDECAR = "national_archived_publication.sqlite"
+
+
+def _canonical_hash(document: dict) -> str:
+    return hashlib.sha256(json.dumps(document, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+                          .encode("utf-8")).hexdigest()
+
+
+class DeliveredGateTests(unittest.TestCase):
+    """Unmounted: the committed delivery gate binds the current contract and recomputes its own identities."""
+
+    def test_gate_binds_the_current_contract_and_its_identities_recompute(self) -> None:
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        contract = json.loads(fx.CONTRACT_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(gate["contract_sha256"], hashlib.sha256(fx.CONTRACT_PATH.read_bytes()).hexdigest())
+        content, database = gate["content_identity_document"], gate["database_identity_document"]
+        self.assertEqual(_canonical_hash(content), gate["content_identity"])
+        self.assertEqual(_canonical_hash(database), gate["database_identity"])
+        self.assertEqual(database["content_identity"], gate["content_identity"])
+        self.assertEqual((content["contract_sha256"], database["contract_sha256"]),
+                         (gate["contract_sha256"], gate["contract_sha256"]))
+        parent = contract["parent_binding"]["source_time"]
+        self.assertEqual(content["parent"]["source_time"], {k: parent[k] for k in (
+            "database_identity", "sqlite_sha256", "content_identity", "contract_sha256")})
+        self.assertEqual((content["tranche_sha256"], gate["tranche_sha256"]), (contract["scope"]["tranche_sha256"],) * 2)
+        self.assertEqual(content["row_counts"]["dispositions.jsonl"], contract["scope"]["tranche_count"])
+        self.assertEqual(sum(gate["dispositions"].values()), contract["scope"]["tranche_count"])
+        self.assertEqual(content["acquisition_identity"], gate["acquisition_identity"])
+        self.assertLessEqual(gate["acquisition_totals"]["requests"], contract["acquisition"]["limits"]["total_requests"])
+        self.assertEqual(gate["row_labels"], contract["row_labels"])
+        self.assertEqual(gate["state"], "MATERIALIZED_ARCHIVED_PUBLICATION_EVIDENCE_ONLY")
+
+
+def _delivered_root() -> Path | None:
+    root = os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")
+    if not root or not Path(root).is_dir() or not GATE.is_file():
+        return None
+    gate = json.loads(GATE.read_text(encoding="utf-8"))
+    path = Path(root) / "canonical" / "national_archived_publication_2019"
+    return path if (path / "sha256" / gate["database_identity"] / SIDECAR).is_file() else None
+
+
+@unittest.skipUnless(_delivered_root(), "mounted: needs the delivered archive sidecar under AGGIE_ANALYTICS_DATA_ROOT")
+class MountedDeliveredGateTests(unittest.TestCase):
+    """Read-only: the lake bytes and manifests equal the committed gate; the query composes the delivered sidecar."""
+
+    def test_lake_payloads_sidecar_acquisition_and_manifests_match_the_gate(self) -> None:
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        root = _delivered_root()
+        manifests = root.parent.parent / "manifests" / "national_archived_publication_2019" / "sha256"
+        content = gate["content_identity_document"]
+        for name, sha in content["outputs"].items():
+            data = (root / "sha256" / gate["content_identity"] / name).read_bytes()
+            self.assertEqual(hashlib.sha256(data).hexdigest(), sha)
+            self.assertEqual(hashlib.sha256(gzip.decompress(data)).hexdigest(), content["semantic_outputs"][name[:-3]])
+        db = root / "sha256" / gate["database_identity"] / SIDECAR
+        self.assertEqual(hashlib.sha256(db.read_bytes()).hexdigest(),
+                         gate["database_identity_document"]["outputs"][SIDECAR])
+        acquisition = root / "acquisition" / "sha256" / gate["acquisition_identity"] / "acquisition.json"
+        self.assertEqual(hashlib.sha256(acquisition.read_bytes()).hexdigest(), gate["acquisition_identity"])
+        for key, doc in (("content_identity", "content_identity_document"),
+                         ("database_identity", "database_identity_document")):
+            manifest = json.loads((manifests / gate[key] / "run_manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual((manifest["identity"], manifest["identity_document"]), (gate[key], gate[doc]))
+        parent = content["parent"]["source_time"]
+        source = root.parent / "national_source_time_2016_2023" / "sha256" / parent["database_identity"] /             "national_source_time.sqlite"
+        sys.path.insert(0, str(fx.ROOT / "src"))
+        from aggie_analytics.national_source_time import archive, query  # noqa: PLC0415
+        with query.SourceTimeDatabase(source, expect_identity=parent["database_identity"]) as handle:
+            with archive.ArchiveEvidence(db, handle, expect_identity=gate["database_identity"]) as evidence:
+                dispositions = evidence.query("archive-disposition", all_rows=True)
+                control = evidence.query("contest", contest="ncaa:1735109", cutoff="2019-09-02T01:00:50.999999Z")
+        self.assertEqual(dispositions["total"], 28)
+        fields = control["rows"][0]["fields"]
+        self.assertEqual(fields["a_points"]["archive"]["historically_published_by_cutoff"], "TRUE")
+        self.assertEqual(fields["a_points"]["observed_by_cutoff"], "UNKNOWN")
+        self.assertEqual(control["rows"][0]["pit_admission"]["state"], "NOT_ADMITTED")
+
+
 if __name__ == "__main__":
     unittest.main()

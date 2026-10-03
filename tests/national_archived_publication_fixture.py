@@ -30,7 +30,8 @@ sys.path.insert(0, str(HERE))
 
 import national_source_time_fixture as stfx  # noqa: E402
 
-CONTRACT_PATH = ROOT / "configs" / "national_archived_publication_2019_contract.json"
+CONTRACT_PATH = ROOT / "configs" / "national_archived_publication_2019_contract_v1_1.json"
+PREDECESSOR_CONTRACT_PATH = ROOT / "configs" / "national_archived_publication_2019_contract.json"
 BUILDER_PATH = ROOT / "tools" / "build_national_archived_publication.py"
 VALIDATOR_PATH = ROOT / "tools" / "validate_national_archived_publication.py"
 #: synthetic tranche: (contest key, selection role, stratum); ncaa:1003 is the retained route control
@@ -75,16 +76,19 @@ def game_url(game: str, scheme: str = "https") -> str:
 def espn_page(game: str, home: str, away: str, home_score: Any, away_score: Any, *, status: str = "post",
               detail: str = "Final", kickoff: str = "2019-08-31T23:30Z", nav_game: str | None = None,
               js_game: str | None = None, info_date: str | None = None, home_href: str | None = None,
+              home_name: str | None = None, away_name: str | None = None,
               decoy: list[tuple[str, str, str]] | None = None, extra_script: str = "") -> bytes:
-    """A 2019-style archived ESPN game page; ``decoy`` games fill a global scoreboard that the extractor must ignore."""
-    def team(side: str, team_id: str, href_id: str, score: Any) -> str:
+    """A 2019-style archived ESPN game page; ``decoy`` games fill a global scoreboard that the extractor must ignore.
+    Each team block shows its ESPN location name (``home_name``/``away_name``, default ``T<id>``)."""
+    def team(side: str, team_id: str, href_id: str, score: Any, name: str | None) -> str:
         score_div = "" if score is None else f'<div class="score-container"><div class="score icon-font-after">' \
                                              f'{score}</div></div>'
         return (f'<div class="team {side}"><div class="team__content"><div class="team-container">'
                 f'<div class="team-info"><div class="team-info-wrapper"><span class="rank">9</span>'
                 f'<a name="&amp;lpos=ncf:game:game:clubhouse:team" class="team-name" '
-                f'href="/college-football/team/_/id/{href_id}/team-{href_id}"><span class="long-name">T{team_id}'
-                f'</span></a></div><div class="record">1-0</div></div><div class="team-info-logo"><div class="logo">'
+                f'href="/college-football/team/_/id/{href_id}/team-{href_id}"><span class="long-name">'
+                f'{name or "T" + team_id}</span><span class="short-name">Fixture</span></a></div>'
+                f'<div class="record">1-0</div></div><div class="team-info-logo"><div class="logo">'
                 f'<a href="/college-football/team/_/id/{href_id}/team-{href_id}"><img class="team-logo" '
                 f'src="https://a.example.invalid/{href_id}.png"/></a></div></div></div>{score_div}</div></div>')
     board = "".join(f'<a href="/college-football/game/_/gameId/{g}"><div class="score">{s}</div>'
@@ -98,9 +102,9 @@ def espn_page(game: str, home: str, away: str, home_score: Any, away_score: Any,
         f'<div id="custom-nav" data-id="gamepackage-{nav_game or game}"><div id="gamepackage-header-wrap">'
         f'<div id="gamepackage-matchup-wrap"><header class="game-strip game-package college-football {status}">'
         f'<div class="game-details header">FIXTURE KICKOFF</div><div class="competitors">'
-        + team("away", away, away, away_score)
+        + team("away", away, away, away_score, away_name)
         + f'<div class="game-status"><span class="game-time status-detail">{detail}</span></div>'
-        + team("home", home, home_href or home, home_score)
+        + team("home", home, home_href or home, home_score, home_name)
         + '</div></header></div></div></div>\n</section>\n<section id="main-container">'
         '<div id="gamepackage-game-information" data-module="gameInformation"><article class="sub-module '
         'game-information"><div class="game-field"><div class="game-details"><div class="game-location">Fixture Field'
@@ -213,10 +217,21 @@ def side_ids(record: dict[str, Any]) -> tuple[str, str]:
     return ESPN_IDS[a_org], ESPN_IDS[b_org]
 
 
+def side_names(record: dict[str, Any]) -> tuple[str, str]:
+    """(home, away) documented team names of a synthetic contest (the parent's CFBD route and NCAA names)."""
+    if record["parent_site"] == "HOME_B":
+        return record["b_team_name"], record["a_team_name"]
+    return record["a_team_name"], record["b_team_name"]
+
+
 def page_for(row: dict[str, Any], *, status: str = "post", detail: str = "Final", swap_scores: bool = False,
-             **kw: Any) -> bytes:
+             ids: tuple[str, str] | None = None, **kw: Any) -> bytes:
+    """``ids`` overrides the (home, away) ESPN team ids shown by both the JS assignments and the team-name hrefs."""
     record = row["_record"]
-    home, away = side_ids(record)
+    home, away = ids or side_ids(record)
+    names = side_names(record)
+    kw.setdefault("home_name", names[0])
+    kw.setdefault("away_name", names[1])
     home_is_a = record["parent_site"] != "HOME_B"
     home_score, away_score = (row["a_points"], row["b_points"]) if home_is_a else (row["b_points"], row["a_points"])
     if swap_scores:
@@ -300,8 +315,9 @@ def build_world(base: Path, scenarios: dict[str, Callable[[FakeArchive, dict[str
 
 
 def default_scenarios(archive: FakeArchive, by_key: dict[str, dict[str, Any]]) -> None:
-    """1001 qualifies fully; 1002 is first archived before kickoff then after the game; 1004 shows a team id in
-    another namespace; 1005 has no capture; 1007 meets a 503 then a redirect to the live host (refused)."""
+    """1001 qualifies fully; 1002 is first archived before kickoff then after the game; 1004 is a pre-game version
+    whose Echo block shows an ESPN team id (99105) that differs from Echo's CFBD id (105), mapped only through the
+    documented names, CFBD role and date; 1005 has no capture; 1007 meets a 503 then a redirect to the live host."""
     def set_capture(row: dict[str, Any], probe: str, ts: str, page: bytes) -> None:
         game = row["cfbd_game_id"]["value"]
         archive.meta[(game, probe)] = ts
@@ -315,7 +331,7 @@ def default_scenarios(archive: FakeArchive, by_key: dict[str, dict[str, Any]]) -
     archive.meta[(game2, probe2)] = "20190902100000"
     archive.replay[("20190902100000", game2)] = (200, replay_headers("20190902100000", game_url(game2)), page_for(r2))
     r4 = by_key["ncaa:1004"]
-    set_capture(r4, r4["metadata_probe_timestamp"], "20190909030000", page_for(r4))
+    set_capture(r4, r4["metadata_probe_timestamp"], "20190906030000", page_for(r4, status="pre", detail="7:30 PM ET"))
     r5 = by_key["ncaa:1005"]
     archive.meta[(r5["cfbd_game_id"]["value"], "*")] = None
     r7 = by_key["ncaa:1007"]

@@ -251,22 +251,18 @@ class QualificationTests(unittest.TestCase):
         result, _ = self.judge(fx.page_for(self.row), headers=headers)
         self.assertIn("MEMENTO_FOR_ANOTHER_URL", result["reasons"])
 
-    def test_orientation_comes_from_identity_and_swapped_scores_conflict(self) -> None:
+    def test_orientation_comes_from_the_evidenced_map_and_swapped_scores_conflict(self) -> None:
         result, _ = self.judge(fx.page_for(self.row, swap_scores=True))
         self.assertEqual(result["states"]["a_points"], "CONFLICTS_WITH_PARENT")
         self.assertEqual(result["states"]["a_participant"], QUAL)
-
-    def test_equal_number_in_another_namespace_never_joins(self) -> None:
-        caps = [c for c in payload("captures.jsonl") if c["contest_key"] == "ncaa:1004"]
-        self.assertEqual(caps[0]["orientation"]["a_side"], None)
-        self.assertEqual(caps[0]["field_states"]["a_participant"], "ORIENTATION_UNRESOLVED")
-        self.assertEqual(caps[0]["field_states"]["b_points"], "ORIENTATION_UNRESOLVED")
-        self.assertEqual(disposition("ncaa:1004")["disposition"], "ARCHIVED_VERSION_QUALIFIED_PARTIAL_FIELDS")
+        self.assertEqual(result["participant_mapping"]["state"], "QUALIFIED")
 
     def test_absent_score_is_never_filled_from_the_parent(self) -> None:
         record = self.row["_record"]
         home, away = fx.side_ids(record)
-        page = fx.espn_page(self.game, home, away, None, None, kickoff="2019-08-31T23:30Z")
+        names = fx.side_names(record)
+        page = fx.espn_page(self.game, home, away, None, None, kickoff="2019-08-31T23:30Z", home_name=names[0],
+                            away_name=names[1])
         result, _ = self.judge(page)
         self.assertEqual(result["states"]["a_points"], "NOT_WITNESSED_IN_VERSION")
         self.assertFalse([a for a in result["assertions"] if a["field"] in ("a_points", "b_points")])
@@ -288,6 +284,209 @@ class QualificationTests(unittest.TestCase):
         for item in result["assertions"]:
             start, end = item["witness_span"]
             self.assertEqual(page[start:end].decode("utf-8"), item["literal"])
+
+
+def _lineage(key: str) -> tuple[dict, list[dict]]:
+    import zlib  # noqa: PLC0415
+    conn = sqlite3.connect(Path(STATE["world"]["st_db"]).resolve().as_uri() + "?mode=ro", uri=True)
+    try:
+        record, blob = conn.execute("SELECT record, lineage FROM contests WHERE contest_key = ?", (key,)).fetchone()
+    finally:
+        conn.close()
+    return json.loads(record), [json.loads(x) for x in zlib.decompress(blob).decode("utf-8").splitlines()]
+
+
+class ParticipantMappingTests(unittest.TestCase):
+    """MF41A01-02: participants join only through documented parent names, the CFBD route role and the version's
+    date; equal numbers in the ESPN and CFBD namespaces are never evidence."""
+
+    def setUp(self) -> None:
+        self.build = fx.builder()
+        self.row = STATE["world"]["by_key"]["ncaa:1001"]
+        self.game = self.row["cfbd_game_id"]["value"]
+        self.parent = self.build.read_parent(STATE["world"]["st_db"], [
+            {k: v for k, v in self.row.items() if not k.startswith("_")}])["ncaa:1001"]
+        self.home, self.away = fx.side_ids(self.row["_record"])
+        self.names = fx.side_names(self.row["_record"])
+
+    def judge(self, page: bytes, parent=None):
+        ts = "20190901041500"
+        url = f"https://web.archive.org/web/{ts}id_/{fx.game_url(self.game)}"
+        _c, reasons, derived = self.build.receipt_checks(url, 200, fx.replay_headers(ts, fx.game_url(self.game)), page,
+                                                         self.game)
+        return self.build.qualify("ncaa:1001", parent or self.parent, self.game, page, derived["bound"], reasons)
+
+    def unresolved(self, result, reason: str) -> None:
+        self.assertEqual((result["participant_mapping"]["state"], result["participant_mapping"]["reason"]),
+                         ("UNRESOLVED", reason))
+        self.assertEqual(result["states"]["a_participant"], "PARTICIPANT_MAPPING_UNRESOLVED")
+        self.assertEqual(result["states"]["b_participant"], "PARTICIPANT_MAPPING_UNRESOLVED")
+        self.assertEqual(result["states"]["a_points"], "ORIENTATION_UNRESOLVED")
+        self.assertEqual(result["orientation"]["a_side"], None)
+        self.assertFalse([a for a in result["assertions"] if a["field"] in ("a_participant", "a_points")])
+
+    def test_genuine_names_roles_and_date_map_both_teams(self) -> None:
+        result = self.judge(fx.page_for(self.row))
+        mapping = result["participant_mapping"]
+        self.assertEqual(mapping["state"], "QUALIFIED")
+        self.assertEqual({s["documented_name"] for s in mapping["sides"].values()}, set(self.names))
+        self.assertTrue(all("CFBD_SCHOOL_NAME" in s["name_sources"] for s in mapping["sides"].values()))
+        rows = [a for a in result["assertions"] if a["field"] == "a_participant"]
+        self.assertEqual(sorted(a["witness"] for a in rows), ["HOME_TEAM_HREF", "HOME_TEAM_NAME", "JS_HOME_TEAM_ID"])
+        self.assertEqual(rows[0]["parent_comparator"]["rule"], "DOCUMENTED_PARENT_NAME_CFBD_ROLE_AND_DATE")
+
+    def test_equal_numeric_ids_with_unrelated_names_never_join(self) -> None:
+        """The manager's synthetic conflict: real numbers, unrelated main-element names."""
+        result = self.judge(fx.page_for(self.row, home_name="Unrelated College", away_name="Unrelated College"))
+        self.unresolved(result, "HOME_TEAM_NAME_NOT_DOCUMENTED_FOR_EITHER_PARENT_TEAM")
+
+    def test_swapped_roles_never_join(self) -> None:
+        swapped = fx.espn_page(self.game, self.away, self.home, self.row["b_points"], self.row["a_points"],
+                               kickoff="2019-08-31T23:30Z", home_name=self.names[1], away_name=self.names[0])
+        self.unresolved(self.judge(swapped), "HOME_TEAM_ROLE_CONTRADICTS_THE_CFBD_ROUTE_ROLE")
+        names_only = fx.page_for(self.row, home_name=self.names[1], away_name=self.names[0])
+        self.unresolved(self.judge(names_only), "HOME_TEAM_ROLE_CONTRADICTS_THE_CFBD_ROUTE_ROLE")
+
+    def test_cross_assigned_espn_id_never_joins(self) -> None:
+        cfbd = {k: self.row["_record"][f"{k}_cfbd_team_id"]["value"] for k in ("a", "b")}
+        page = fx.page_for(self.row, ids=(cfbd["b"], self.away))
+        self.unresolved(self.judge(page), "HOME_ESPN_TEAM_ID_EQUALS_THE_OPPONENT_CFBD_ID")
+
+    def test_absent_duplicate_and_contradictory_names_never_join(self) -> None:
+        self.unresolved(self.judge(fx.page_for(self.row).replace(b'<span class="long-name">', b'<span class="x">', 1)),
+                        "AWAY_TEAM_NAME_ABSENT")
+        page = fx.page_for(self.row)
+        doubled = page.replace(b'<span class="short-name">Fixture</span>',
+                               b'<span class="long-name">' + self.names[1].encode() + b'</span>', 1)
+        self.unresolved(self.judge(doubled), "AWAY_TEAM_NAME_DUPLICATED")
+        other = page.replace(b'<span class="short-name">Fixture</span>', b'<span class="long-name">Bravo</span>', 1)
+        self.unresolved(self.judge(other), "AWAY_TEAM_NAME_CONTRADICTORY")
+
+    def test_ambiguous_documented_name_never_joins(self) -> None:
+        parent = copy.deepcopy(self.parent)
+        for letter in ("a", "b"):
+            parent["participants"]["sides"][letter]["documented_names"].append(
+                {"name": "Shared Name", "sources": ["NCAA_TEAM_NAME"]})
+        result = self.judge(fx.page_for(self.row, home_name="Shared Name"), parent)
+        self.unresolved(result, "HOME_TEAM_NAME_AMBIGUOUS_BETWEEN_PARENT_TEAMS")
+
+    def test_missing_or_contradictory_cfbd_route_source_never_joins(self) -> None:
+        record, lineage = _lineage("ncaa:1001")
+        without = [r for r in lineage if r["source_kind"] != "CFBD_ROUTE_RESPONSE"]
+        parent = dict(self.parent, participants=self.build.participant_sources(record, without))
+        self.unresolved(self.judge(fx.page_for(self.row), parent), "CFBD_SOURCE_ABSENT")
+        cfbd = next(r for r in lineage if r["source_kind"] == "CFBD_ROUTE_RESPONSE")
+        flipped = copy.deepcopy(cfbd)
+        flipped["orientation"]["home_side"] = "B" if cfbd["orientation"]["home_side"] == "A" else "A"
+        flipped["literals"].update(homeTeam=cfbd["literals"]["awayTeam"], awayTeam=cfbd["literals"]["homeTeam"],
+                                   homeId=cfbd["literals"]["awayId"], awayId=cfbd["literals"]["homeId"])
+        flipped["native_row_key"] = "contradictory"
+        parent = dict(self.parent, participants=self.build.participant_sources(record, lineage + [flipped]))
+        self.unresolved(self.judge(fx.page_for(self.row), parent), "CFBD_SOURCE_CONTRADICTORY")
+        unbound = copy.deepcopy(cfbd)
+        unbound["literals"]["homeId"] = "424242"
+        parent = dict(self.parent, participants=self.build.participant_sources(record, [unbound]))
+        self.unresolved(self.judge(fx.page_for(self.row), parent), "CFBD_SOURCE_CONTRADICTORY")
+
+    def test_documented_ncaa_alias_and_differing_provider_ids_map(self) -> None:
+        record, lineage = _lineage("ncaa:1001")
+        ncaa = copy.deepcopy(next(r for r in lineage if r["source_kind"] == "NCAA_TEAM_SEASON_PAGE"))
+        side = ncaa["orientation"]["page_team_side"]
+        ncaa["literals"]["page_team_name"] = "Alpha University" if side == "A" else ncaa["literals"]["page_team_name"]
+        ncaa["literals"]["opponent_name"] = "Alpha University" if side == "B" else ncaa["literals"]["opponent_name"]
+        parent = dict(self.parent, participants=self.build.participant_sources(record, lineage + [ncaa]))
+        page = fx.page_for(self.row, home_name="Alpha University", ids=("501", self.away))
+        result = self.judge(page, parent)
+        self.assertEqual(result["participant_mapping"]["state"], "QUALIFIED")
+        home = result["participant_mapping"]["sides"]["home"]
+        self.assertEqual((home["documented_name"], home["name_sources"], home["id_relation"]),
+                         ("Alpha University", ["NCAA_TEAM_NAME"], "ESPN_ID_DIFFERS_FROM_CFBD_ID"))
+        self.assertEqual(result["states"]["a_participant"], QUAL)
+        caps = [c for c in payload("captures.jsonl") if c["contest_key"] == "ncaa:1004"]
+        echo = next(s for s in caps[0]["participant_mapping"]["sides"].values() if s["parent_key"] == "org:5")
+        self.assertEqual((echo["espn_team_id"]["value"], echo["cfbd_team_id"]["value"], echo["id_relation"]),
+                         ("99105", "105", "ESPN_ID_DIFFERS_FROM_CFBD_ID"))
+        self.assertEqual(disposition("ncaa:1004")["disposition"], "ARCHIVED_VERSION_QUALIFIED_PARTIAL_FIELDS")
+
+    def test_a_rematch_on_another_date_cannot_borrow_the_map(self) -> None:
+        page = fx.page_for(self.row, kickoff="2019-10-05T23:30Z")
+        result = self.judge(page)
+        self.assertEqual(result["states"]["contest_date"], "CONFLICTS_WITH_PARENT")
+        self.unresolved(result, "CONTEST_DATE_NOT_CORROBORATED_IN_THIS_VERSION")
+
+    def test_contradictory_maps_across_the_tranche_refuse_the_build(self) -> None:
+        def alpha_renumbered(archive, row):
+            record = row["_record"]
+            home, away = fx.side_ids(record)
+            page = fx.page_for(row, ids=("777", away))
+            game = row["cfbd_game_id"]["value"]
+            archive.meta[(game, row["metadata_probe_timestamp"])] = "20190901041500"
+            archive.replay[("20190901041500", game)] = (200, fx.replay_headers("20190901041500", fx.game_url(game)),
+                                                         page)
+        world = fresh_world("mc", {"ncaa:1001": alpha_renumbered})
+        fx.run_capture(world)
+        code, _result, err = fx.run_build(world)
+        self.assertEqual((code, fx.refusal(err)), (2, "PARTICIPANT_MAPPING_CONTRADICTORY"))
+        self.assertIn("org:1", err)
+
+
+class FieldGrainTests(unittest.TestCase):
+    """MF41A01-01: a witness is only an exact occurrence of its own element, attribute or line-start assignment."""
+
+    def setUp(self) -> None:
+        self.case = ParticipantMappingTests("test_genuine_names_roles_and_date_map_both_teams")
+        self.case.setUp()
+        self.row = self.case.row
+
+    def test_pregame_page_borrowed_substrings_are_not_witnesses(self) -> None:
+        bait = ('posterImages = {"href": "x"}; var h = "Final Game Highlight"; var bet365 = 35;\n'
+                '  var s = \'espn.gamepackage.status = "post";\';\n')
+        page = fx.page_for(self.row, status="pre", detail="7:30 PM ET", extra_script=bait)
+        result = self.case.judge(page)
+        names = [w["witness"] for w in self.case.build.extract(page)["witnesses"]]
+        self.assertEqual(names.count("JS_STATUS"), 1)
+        self.assertNotIn("HOME_SCORE", names)
+        self.assertEqual(result["page_status"]["js_status"], "pre")
+        self.assertEqual(result["states"]["completion"], "NOT_SUPPORTED_BY_VERSION_STATUS")
+        self.assertEqual(result["states"]["a_points"], "NOT_SUPPORTED_BY_VERSION_STATUS")
+
+    def test_score_digits_in_team_identity_are_not_score_occurrences(self) -> None:
+        page = fx.page_for(self.row)
+        extraction = self.case.build.extract(page)
+        scores = [w for w in extraction["witnesses"] if w["witness"].endswith("_SCORE")]
+        self.assertEqual(len(scores), 2)
+        for w in scores:
+            self.assertEqual(page[w["span"][0] - len(b'icon-font-after">'):w["span"][0]], b'icon-font-after">')
+
+    def test_duplicate_and_contradictory_status_witnesses(self) -> None:
+        dup = fx.page_for(self.row, extra_script='espn.gamepackage.status = "post";\n')
+        result = self.case.judge(dup)
+        self.assertEqual(result["states"]["completion"], "DUPLICATED_WITNESS")
+        self.assertNotEqual(result["states"]["a_points"], QUAL)
+        con = fx.page_for(self.row, extra_script='espn.gamepackage.status = "in";\n')
+        self.assertEqual(self.case.judge(con)["states"]["completion"], "CONTRADICTORY_WITHIN_VERSION")
+        game = fx.page_for(self.row, extra_script=f'espn.gamepackage.gameId = "{self.case.game}";\n')
+        self.assertIn("GAME_IDENTITY_DUPLICATED", self.case.judge(game)["reasons"])
+
+    def test_js_assignment_must_begin_a_line(self) -> None:
+        page = fx.page_for(self.row, extra_script='var x = 1; espn.gamepackage.status = "in";\n')
+        result = self.case.judge(page)
+        self.assertEqual(result["states"]["completion"], QUAL)
+
+    def test_child_markup_in_a_text_witness_is_unparseable(self) -> None:
+        result = self.case.judge(fx.page_for(self.row, detail="<b>Final</b>"))
+        self.assertEqual(result["states"]["completion"], "WITNESS_LITERAL_UNPARSEABLE")
+
+    def test_attribute_boundaries_are_exact(self) -> None:
+        page = fx.page_for(self.row)
+        hidden = page.replace(b'class="team-name"', b"title=' href=\"/college-football/team/_/id/999\"' "
+                                                    b'class="team-name"', 1)
+        result = self.case.judge(hidden)
+        self.assertEqual(result["participant_mapping"]["state"], "QUALIFIED")
+        self.assertNotIn("999", [w["literal"] for w in self.case.build.extract(hidden)["witnesses"]])
+        repeated = page.replace(b'class="team-name"', b'href="/college-football/team/_/id/999" class="team-name"', 1)
+        self.assertEqual(self.case.judge(repeated)["participant_mapping"]["reason"],
+                         "AWAY_TEAM_ID_WITNESSES_NOT_SINGLE_AND_EQUAL")
 
 
 class RefusalTests(unittest.TestCase):
@@ -322,6 +521,13 @@ class RefusalTests(unittest.TestCase):
         conn.commit()
         conn.close()
         self.assertEqual(self.refused(database=copy_dir / st.name), "PARENT_TAMPERED")
+
+    def test_predecessor_contract_and_an_altered_mapping_rule_refuse(self) -> None:
+        self.assertEqual(self.refused(contract=fx.PREDECESSOR_CONTRACT_PATH), "CONTRACT_SUPERSEDED")
+        self.assertEqual(self.refused(mutate=lambda c: c["participant_mapping"].update(
+            numeric_identifier_equality="ALLOWED")), "CONTRACT_SCHEMA_UNKNOWN")
+        self.assertEqual(self.refused(mutate=lambda c: c["participant_mapping"].update(rule="equal ids join")),
+                         "CONTRACT_SCHEMA_UNKNOWN")
 
     def test_unknown_schema_and_forged_authority_refuse(self) -> None:
         self.assertEqual(self.refused(mutate=lambda c: c.update(schema_version="9.9.9")), "CONTRACT_SCHEMA_UNKNOWN")
@@ -501,7 +707,8 @@ class IndependentValidatorTests(unittest.TestCase):
         self.assertIn("every_record_reconstructed_independently", doc["failed_checks"])
 
 
-GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_gate.json"
+GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_v1_1_gate.json"
+PREDECESSOR_GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_gate.json"
 SIDECAR = "national_archived_publication.sqlite"
 
 
@@ -533,6 +740,23 @@ class DeliveredGateTests(unittest.TestCase):
         self.assertLessEqual(gate["acquisition_totals"]["requests"], contract["acquisition"]["limits"]["total_requests"])
         self.assertEqual(gate["row_labels"], contract["row_labels"])
         self.assertEqual(gate["state"], "MATERIALIZED_ARCHIVED_PUBLICATION_EVIDENCE_ONLY")
+        self.assertEqual((content["schema"], database["db_schema_version"]),
+                         ("BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-2", "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-2"))
+
+    def test_predecessor_contract_and_gate_bytes_are_retained_and_superseded(self) -> None:
+        old_gate = json.loads(PREDECESSOR_GATE.read_text(encoding="utf-8"))
+        old_sha = hashlib.sha256(fx.PREDECESSOR_CONTRACT_PATH.read_bytes()).hexdigest()
+        successor = json.loads(fx.CONTRACT_PATH.read_text(encoding="utf-8"))
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        self.assertEqual(old_gate["contract_sha256"], old_sha)
+        self.assertEqual(successor["predecessor"]["sha256"], old_sha)
+        self.assertEqual((successor["predecessor"]["predecessor_outputs"]["content_identity"],
+                          successor["predecessor"]["predecessor_outputs"]["database_identity"]),
+                         (old_gate["content_identity"], old_gate["database_identity"]))
+        self.assertEqual(gate["predecessor_gate"]["sha256"], hashlib.sha256(PREDECESSOR_GATE.read_bytes()).hexdigest())
+        self.assertEqual(gate["acquisition_identity"], old_gate["acquisition_identity"])
+        old_contract = json.loads(fx.PREDECESSOR_CONTRACT_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(successor["acquisition"], old_contract["acquisition"])
 
 
 def _delivered_root() -> Path | None:
@@ -579,6 +803,19 @@ class MountedDeliveredGateTests(unittest.TestCase):
         self.assertEqual(fields["a_points"]["archive"]["historically_published_by_cutoff"], "TRUE")
         self.assertEqual(fields["a_points"]["observed_by_cutoff"], "UNKNOWN")
         self.assertEqual(control["rows"][0]["pit_admission"]["state"], "NOT_ADMITTED")
+
+    def test_the_predecessor_sidecar_is_refused_as_superseded(self) -> None:
+        old_gate = json.loads(PREDECESSOR_GATE.read_text(encoding="utf-8"))
+        root = _delivered_root()
+        db = root / "sha256" / old_gate["database_identity"] / SIDECAR
+        parent = old_gate["content_identity_document"]["parent"]["source_time"]
+        source = root.parent / "national_source_time_2016_2023" / "sha256" / parent["database_identity"] /             "national_source_time.sqlite"
+        sys.path.insert(0, str(fx.ROOT / "src"))
+        from aggie_analytics.national_source_time import archive, query  # noqa: PLC0415
+        with query.SourceTimeDatabase(source, expect_identity=parent["database_identity"]) as handle:
+            with self.assertRaises(archive.ArchiveEvidenceError) as caught:
+                archive.ArchiveEvidence(db, handle)
+        self.assertEqual(caught.exception.code, "ARCHIVE_SCHEMA_SUPERSEDED")
 
 
 if __name__ == "__main__":

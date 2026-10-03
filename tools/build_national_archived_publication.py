@@ -1,6 +1,6 @@
 r"""Build the archived-publication evidence sidecar for the fixed 2019 tranche (BAT-713, Cycle #41 TP41-A01).
 
-``python -B tools/build_national_archived_publication.py --contract configs/national_archived_publication_2019_contract.json
+``python -B tools/build_national_archived_publication.py --contract configs/national_archived_publication_2019_contract_v1_1.json
 --source-database <data>/canonical/national_source_time_2016_2023/sha256/<id>/national_source_time.sqlite
 --source-bindings <INPUT_BINDINGS.json> --tranche <ARCHIVE_TRANCHE.json>
 --output-root <data>/canonical/national_archived_publication_2019
@@ -18,9 +18,14 @@ Standard library only. Two stages:
 * ``materialize`` (offline): verifies the contract, the parent source-time database (location, run manifest, identity
   document, bytes), the manager's source bindings and tranche, the acquisition document and journal, every raw body
   and the control's retained receipts; checks each replayed version's receipts; reads only the main game element of
-  each archived page with an HTML tokenizer; qualifies every field witness against the parent's accepted values; and
-  writes, create-only and content addressed, ``dispositions.jsonl``, ``requests.jsonl``, ``captures.jsonl``,
-  ``assertions.jsonl`` (gzip) and ``national_archived_publication.sqlite`` with their run manifests.
+  each archived page at its exact field grain (``aggie_analytics.national_source_time.archive_fields``: tokenized
+  attributes, closed text-only elements, line-start JS assignments, every occurrence counted); maps the page teams to
+  the parent's a/b teams only through documented parent names, the CFBD route role and a qualified date (contract
+  V1.1; numeric ESPN/CFBD identifiers are never equated); qualifies every field witness against the parent's accepted
+  values; refuses contradictory participant mappings across the tranche; and writes, create-only and content
+  addressed, ``dispositions.jsonl``, ``requests.jsonl``, ``captures.jsonl``, ``assertions.jsonl`` (gzip) and
+  ``national_archived_publication.sqlite`` with their run manifests. The consumer re-derives every capture and
+  assertion record with the same field-grain module and refuses any difference.
 
 Nothing here admits anything: an archive capture is an upper bound for the exact witnessed version, the parent's
 assertions and clocks are untouched, and the query decides cutoffs from the retained receipt literals.
@@ -31,7 +36,6 @@ from __future__ import annotations
 
 import argparse
 import datetime as _dt
-import email.utils
 import gzip
 import hashlib
 import json
@@ -47,18 +51,24 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import zlib
-from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Callable, Sequence
 
-PRODUCER = "national_archived_publication/1.0.0"
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from aggie_analytics.national_source_time import archive_fields as af  # noqa: E402
+
+PRODUCER = "national_archived_publication/1.1.0"
 POPULATION = "national_archived_publication_2019"
-CONTRACT_SCHEMA = "1.0.0"
+CONTRACT_SCHEMA = "1.1.0"
 CONTRACT_ID_PREFIX = "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-"
-PAYLOAD_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-1"
-CONTENT_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-1"
-DATABASE_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-1"
-DB_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-1"
+CONTRACT_ID = CONTRACT_ID_PREFIX + "V1.1"
+SUPERSEDED_CONTRACTS = {("1.0.0", CONTRACT_ID_PREFIX + "V1.0")}
+PAYLOAD_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-2"
+CONTENT_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-2"
+DATABASE_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-2"
+DB_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-2"
 ACQUISITION_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-ACQUISITION-1"
 JOURNAL_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-JOURNAL-1"
 CHECKPOINT_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-CHECKPOINT-1"
@@ -70,10 +80,9 @@ AUTHORITY = {"evidence_authority": "ARCHIVED_PUBLICATION_EVIDENCE_ONLY",
              "pit_admission": "NOT_ADMITTED_NO_SEPARATE_PIT_ADMISSION_AUTHORITY",
              "publication_inference": "ARCHIVE_CAPTURE_UPPER_BOUND_FOR_EXACT_WITNESSED_VERSION_ONLY_NOT_FIRST_PUBLICATION",
              "scope": "BOUNDED_2019_TRANCHE_28_CONTESTS_NOT_NATIONAL_COVERAGE"}
-FIELDS = ("season", "contest_date", "a_participant", "b_participant", "completion", "a_points", "b_points")
-ROLES = {"season": "IDENTITY", "contest_date": "IDENTITY", "a_participant": "IDENTITY", "b_participant": "IDENTITY",
-         "completion": "OUTCOME", "a_points": "OUTCOME", "b_points": "OUTCOME"}
-WITNESSABLE = ("contest_date", "a_participant", "b_participant", "completion", "a_points", "b_points")
+FIELDS = af.FIELDS
+ROLES = af.ROLES
+WITNESSABLE = af.WITNESSABLE
 PAYLOAD_FILES = ("dispositions.jsonl", "requests.jsonl", "captures.jsonl", "assertions.jsonl")
 BUNDLE_FILES = {"archive_disposition": "dispositions.jsonl", "archive_request": "requests.jsonl",
                 "archive_capture": "captures.jsonl", "archive_assertion": "assertions.jsonl"}
@@ -91,7 +100,8 @@ RECORD_FIELDS: dict[str, tuple[str, ...]] = {
                         "origin_date_literal", "link_original", "archive_src", "payload_sha256", "payload_bytes",
                         "payload_path", "receipt_document", "receipt_document_sha256", "receipt_pointer",
                         "receipt_checks", "state", "quarantine_reasons", "time_evidence_class", "clocks",
-                        "main_element_spans", "page_status", "page_participants", "orientation", "field_states"),
+                        "main_element_spans", "page_status", "page_participants", "orientation", "participant_mapping",
+                        "field_states"),
     "archive_assertion": ("record_type", "contest_key", "original_url", "capture_id", "payload_sha256",
                           "source_revision", "field", "field_role", "witness", "witness_span", "literal", "value",
                           "parent_value", "parent_comparator", "corroboration", "field_state"),
@@ -100,20 +110,9 @@ RECORD_FIELDS: dict[str, tuple[str, ...]] = {
 }
 CLOCK_KINDS = ("archive_capture", "retrieval", "event")
 INPUT_ORDER = re.compile(r"^(natural|reverse|shuffle:[0-9]{1,9})$")
-TS14_RE = re.compile(r"^[0-9]{14}$")
-DIGITS_RE = re.compile(r"^[0-9]{1,12}$")
-SCORE_RE = re.compile(r"^[0-9]{1,3}$")
-FINAL_RE = re.compile(r"^Final(/[0-9]*OT)?$")
-INSTANT_RE = re.compile(r"^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2})(?::([0-9]{2}))?(Z|[+-][0-9]{2}:[0-9]{2})$")
-TEAM_HREF_RE = re.compile(r"^(?:https?://www\.espn\.com)?/college-football/team/_/id/([0-9]{1,12})(?:/[^\s\"'<>]*)?$")
-NAV_ID_RE = re.compile(r"^gamepackage-([0-9]{1,12})$")
-JS_ASSIGN_RE = re.compile(r'espn\.gamepackage\.(gameId|status|homeTeamId|awayTeamId|timestamp)\s*=\s*"([^"\\\r\n]*)"\s*;')
-GAME_PATH_RE = re.compile(r"^/college-football/game/_/gameId/([0-9]{1,12})$")
-REPLAY_PATH_RE = re.compile(r"^/web/([0-9]{14})id_/(.+)$")
+TS14_RE = af.TS14_RE
 CLOSEST_URL_RE = re.compile(r"^https?://web\.archive\.org/web/([0-9]{14})(?:[a-z]{2}_)?/(.+)$")
-US_LOCAL_OFFSETS_HOURS = (-4, -10)
-EARLIEST_ZONE_HOURS = 14
-ORIGIN_DATE_TOLERANCE_SECONDS = 300
+ORIGIN_DATE_TOLERANCE_SECONDS = af.ORIGIN_DATE_TOLERANCE_SECONDS
 USABLE_CLOSEST_STATUS = ("200", "301", "302", "307", "308")
 REDIRECT_STATUS = (301, 302, 303, 307, 308)
 RETRYABLE_STATUS = (429, 500, 502, 503, 504)
@@ -187,107 +186,25 @@ def record_line(record: dict[str, Any]) -> bytes:
 
 
 # --------------------------------------------------------------------------------------------- clocks and URLs
+# The clock, URL and header rules are the shared field-grain module's (the consumer re-derives with the same rules).
 
-def fmt_utc(value: _dt.datetime) -> str:
-    return value.astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+fmt_utc = af.fmt_utc
+parse_utc = af.parse_utc
+ts14_instant = af.ts14_instant
+rfc1123 = af.rfc1123
+end_of_second = af.end_of_second
+earliest_event_instant = af.earliest_event_instant
+clock = af.clock
+event_interval = af.event_interval
+local_candidate_dates = af.local_candidate_dates
+equivalent_original = af.equivalent_original
+replay_parts = af.replay_parts
+link_original = af.link_original
+header = af.header
 
 
 def utc_now() -> str:
     return fmt_utc(_dt.datetime.now(UTC))
-
-
-def parse_utc(text: str) -> _dt.datetime:
-    return _dt.datetime.strptime(text, "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=UTC)
-
-
-def ts14_instant(ts: str) -> _dt.datetime:
-    if not TS14_RE.match(ts or ""):
-        raise ValueError("TIMESTAMP_NOT_14_DIGITS")
-    return _dt.datetime.strptime(ts, "%Y%m%d%H%M%S").replace(tzinfo=UTC)
-
-
-def rfc1123(text: Any) -> _dt.datetime:
-    """An RFC 1123 HTTP date in GMT; anything else (naive, other zone, malformed) raises ValueError."""
-    if not isinstance(text, str) or not text.strip().endswith("GMT"):
-        raise ValueError("HTTP_DATE_NOT_GMT")
-    parsed = email.utils.parsedate_to_datetime(text)
-    if parsed is None or parsed.tzinfo is None or parsed.utcoffset() != _dt.timedelta(0):
-        raise ValueError("HTTP_DATE_MALFORMED")
-    return parsed.astimezone(UTC)
-
-
-def end_of_second(value: _dt.datetime) -> _dt.datetime:
-    return value.replace(microsecond=999999)
-
-
-def earliest_event_instant(contest_date: str) -> _dt.datetime:
-    day = _dt.date.fromisoformat(contest_date)
-    zone = _dt.timezone(_dt.timedelta(hours=EARLIEST_ZONE_HOURS))
-    return _dt.datetime(day.year, day.month, day.day, tzinfo=zone).astimezone(UTC)
-
-
-def clock(state: str, *, role: str | None = None, literal: str | None = None, start_literal: str | None = None,
-          zone: str | None = None, precision: str | None = None, earliest: str | None = None,
-          latest: str | None = None, document: str | None = None, pointer: str | None = None,
-          reason: str | None = None) -> dict[str, Any]:
-    return {"state": state, "role": role, "literal": literal, "start_literal": start_literal, "zone": zone,
-            "precision": precision, "earliest_utc": earliest, "latest_utc": latest, "evidence_document": document,
-            "evidence_pointer": pointer, "reason": reason}
-
-
-def event_interval(literal: str) -> tuple[str, str, str, str]:
-    """(precision, zone, earliest_utc, latest_utc) of an ISO event instant literal with minute or second precision."""
-    match = INSTANT_RE.match(literal or "")
-    if not match:
-        raise ValueError("EVENT_INSTANT_MALFORMED")
-    year, month, day, hour, minute, second, zone = match.groups()
-    if zone == "Z":
-        tz = UTC
-    else:
-        sign = 1 if zone[0] == "+" else -1
-        tz = _dt.timezone(sign * _dt.timedelta(hours=int(zone[1:3]), minutes=int(zone[4:6])))
-    value = _dt.datetime(int(year), int(month), int(day), int(hour), int(minute), int(second or 0), tzinfo=tz)
-    if second is None:
-        return "minute", zone, fmt_utc(value), fmt_utc(value + _dt.timedelta(seconds=59, microseconds=999999))
-    return "second", zone, fmt_utc(value), fmt_utc(value.replace(microsecond=999999))
-
-
-def local_candidate_dates(earliest_utc: str, latest_utc: str) -> list[str]:
-    out = set()
-    for bound in (earliest_utc, latest_utc):
-        instant = parse_utc(bound)
-        for hours in US_LOCAL_OFFSETS_HOURS:
-            out.add((instant + _dt.timedelta(hours=hours)).date().isoformat())
-    return sorted(out)
-
-
-def equivalent_original(url: str, game_id: str) -> bool:
-    """The contract's original-URL equivalence for one requested ESPN game page."""
-    try:
-        parts = urllib.parse.urlsplit(url)
-        port = parts.port
-    except ValueError:
-        return False
-    if parts.scheme not in ("http", "https") or (parts.hostname or "").lower() != "www.espn.com":
-        return False
-    if port not in (None, 80, 443) or parts.query or parts.fragment or parts.username or parts.password:
-        return False
-    match = GAME_PATH_RE.match(parts.path)
-    return bool(match) and match.group(1) == game_id
-
-
-def replay_parts(url: str) -> tuple[str, str] | None:
-    """(timestamp, original) of a https://web.archive.org/web/<ts>id_/<original> replay URL, else None."""
-    try:
-        parts = urllib.parse.urlsplit(url)
-    except ValueError:
-        return None
-    if parts.scheme != "https" or (parts.hostname or "").lower() != "web.archive.org" or parts.port not in (None, 443):
-        return None
-    if parts.query or parts.fragment or parts.username or parts.password:
-        return None
-    match = REPLAY_PATH_RE.match(parts.path)
-    return (match.group(1), match.group(2)) if match else None
 
 
 def replay_url(ts: str, original: str) -> str:
@@ -298,24 +215,6 @@ def metadata_url(candidate: str, ts: str) -> str:
     return "https://archive.org/wayback/available?" + urllib.parse.urlencode({"url": candidate, "timestamp": ts})
 
 
-def link_original(link: str | None) -> str | None:
-    """The rel="original" URL of a Memento Link header."""
-    if not link:
-        return None
-    for match in re.finditer(r'<([^>]*)>\s*;\s*([^,<]*)', link):
-        if re.search(r'\brel\s*=\s*"?original"?', match.group(2)):
-            return match.group(1)
-    return None
-
-
-def header(headers: list[list[Any]], name: str) -> str | None:
-    values = [v for k, v in headers if str(k).lower() == name.lower()]
-    if not values:
-        return None
-    value = values[0]
-    return value if isinstance(value, str) else None
-
-
 # --------------------------------------------------------------------------------------------- contract and parents
 
 def load_contract(path: Path) -> tuple[dict[str, Any], str]:
@@ -324,9 +223,14 @@ def load_contract(path: Path) -> tuple[dict[str, Any], str]:
         contract = json.loads(raw.decode("utf-8"))
     except (UnicodeDecodeError, ValueError) as exc:
         raise BuildRefused("CONTRACT_INVALID", str(exc)) from exc
-    if contract.get("schema_version") != CONTRACT_SCHEMA or not str(contract.get("contract_id", "")).startswith(
-            CONTRACT_ID_PREFIX):
+    if (contract.get("schema_version"), contract.get("contract_id")) in SUPERSEDED_CONTRACTS:
+        raise BuildRefused("CONTRACT_SUPERSEDED", "contract V1.0 equated ESPN and CFBD team identifiers and read "
+                                                  "witnesses by first match; build with its successor V1.1")
+    if contract.get("schema_version") != CONTRACT_SCHEMA or contract.get("contract_id") != CONTRACT_ID:
         raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", f"{contract.get('schema_version')} {contract.get('contract_id')}")
+    mapping = contract.get("participant_mapping") or {}
+    if mapping.get("numeric_identifier_equality") != "NEVER_AUTHORITY" or mapping.get("rule") != af.MAPPING_RULE:
+        raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", "participant mapping rule")
     if contract.get("population_id") != POPULATION:
         raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", "population")
     if contract.get("row_labels") != AUTHORITY:
@@ -434,12 +338,14 @@ def verify_source_bindings(contract: dict[str, Any], path: Path, parent: dict[st
 
 
 def read_parent(database: Path, rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    """Accepted parent values for every tranche key (contest record plus the single parent value of each field)."""
+    """Accepted parent values for every tranche key (contest record plus the single parent value of each field) and
+    the participant sources documented by the parent's own joined lineage rows (CFBD route school names and roles,
+    NCAA names); the participant mapping uses nothing else."""
     conn = sqlite3.connect(Path(database).resolve().as_uri() + "?mode=ro", uri=True)
     out: dict[str, dict[str, Any]] = {}
     try:
         for row in rows:
-            found = conn.execute("SELECT record, assertions FROM contests WHERE contest_key = ?",
+            found = conn.execute("SELECT record, assertions, lineage FROM contests WHERE contest_key = ?",
                                  (row["contest_key"],)).fetchone()
             if found is None:
                 raise BuildRefused("TRANCHE_PARENT_MISMATCH", f"{row['contest_key']} is not a source-time contest")
@@ -459,7 +365,9 @@ def read_parent(database: Path, rows: list[dict[str, Any]]) -> dict[str, dict[st
             if record["a_cfbd_team_id"].get("namespace") != "CFBD_TEAM_ID" or \
                     record["b_cfbd_team_id"].get("namespace") != "CFBD_TEAM_ID":
                 raise BuildRefused("TRANCHE_PARENT_MISMATCH", f"{row['contest_key']} team id namespace")
-            out[row["contest_key"]] = {"record": record, "values": parent_values}
+            lineage = [json.loads(line) for line in zlib.decompress(found[2]).decode("utf-8").splitlines()]
+            out[row["contest_key"]] = {"record": record, "values": parent_values,
+                                       "participants": af.participant_sources(record, lineage)}
     finally:
         conn.close()
     return out
@@ -893,432 +801,14 @@ def load_acquisition(path: Path, output_root: Path) -> dict[str, Any]:
 
 
 # --------------------------------------------------------------------------------------------- extraction
+# Field-grain extraction, receipt rules, participant mapping and qualification live in the shared module so that the
+# consumer re-derives exactly the same records from the retained bytes (the independent validator does not use it).
 
-VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr", "param"}
-
-
-class GamePageParser(HTMLParser):
-    """HTML tokenizer pass over one archived page that records only the main game element's witnesses and spans."""
-
-    def __init__(self, text: str) -> None:
-        super().__init__(convert_charrefs=False)
-        self.text = text
-        self.line_starts = [0]
-        for index, char in enumerate(text):
-            if char == "\n":
-                self.line_starts.append(index + 1)
-        self.stack: list[dict[str, Any]] = []
-        self.nav: list[dict[str, Any]] = []
-        self.info: list[dict[str, Any]] = []
-        self.js: list[dict[str, Any]] = []
-        self.witnesses: list[dict[str, Any]] = []
-        self.in_script = False
-        self.pending_text: dict[str, Any] | None = None
-
-    def char_offset(self) -> int:
-        line, col = self.getpos()
-        return self.line_starts[line - 1] + col
-
-    def _context(self, predicate) -> dict[str, Any] | None:
-        for item in reversed(self.stack):
-            if predicate(item):
-                return item
-        return None
-
-    def _attr_span(self, start: int, name: str) -> tuple[int, int] | None:
-        raw = self.get_starttag_text() or ""
-        match = re.search(r"\s" + re.escape(name) + r"\s*=\s*(\"([^\"]*)\"|'([^']*)')", raw)
-        if not match:
-            return None
-        group = 2 if match.group(2) is not None else 3
-        return start + match.start(group), start + match.end(group)
-
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        start = self.char_offset()
-        values = dict(attrs)
-        item = {"tag": tag, "attrs": values, "classes": set((values.get("class") or "").split()), "start": start}
-        in_nav = bool(self.nav) and self.nav[-1].get("end") is None
-        in_info = bool(self.info) and self.info[-1].get("end") is None
-        if tag == "div" and values.get("id") == "custom-nav":
-            span = self._attr_span(start, "data-id")
-            item["role"] = "NAV"
-            self.nav.append({"start": start, "end": None, "data_id": values.get("data-id"), "data_id_span": span})
-            if span:
-                self.witnesses.append({"witness": "NAV_GAME_ID", "span": span, "scope": "NAV"})
-        elif tag == "div" and values.get("id") == "gamepackage-game-information":
-            item["role"] = "INFO"
-            self.info.append({"start": start, "end": None})
-        elif in_nav and tag == "div" and {"team", "home"} <= item["classes"]:
-            item["side"] = "HOME"
-        elif in_nav and tag == "div" and {"team", "away"} <= item["classes"]:
-            item["side"] = "AWAY"
-        elif in_nav and tag == "a" and "team-name" in item["classes"]:
-            team = self._context(lambda i: "side" in i)
-            if team is not None and not team.get("href_seen"):
-                team["href_seen"] = True
-                span = self._attr_span(start, "href")
-                if span:
-                    self.witnesses.append({"witness": f"{team['side']}_TEAM_HREF", "span": span, "scope": "NAV"})
-        elif in_nav and tag == "div" and "score" in item["classes"]:
-            team = self._context(lambda i: "side" in i)
-            if team is not None and not team.get("score_seen"):
-                team["score_seen"] = True
-                self.pending_text = {"witness": f"{team['side']}_SCORE", "scope": "NAV", "tag": "div"}
-        elif in_nav and tag == "span" and "status-detail" in item["classes"]:
-            self.pending_text = {"witness": "STATUS_DETAIL", "scope": "NAV", "tag": "span"}
-        elif in_info and tag == "span" and values.get("data-behavior") == "date_time" and \
-                self._context(lambda i: "game-date-time" in i["classes"]) is not None:
-            span = self._attr_span(start, "data-date")
-            if span:
-                self.witnesses.append({"witness": "INFO_EVENT_DATE", "span": span, "scope": "INFO"})
-        if tag == "script":
-            self.in_script = True
-        if tag not in VOID:
-            self.stack.append(item)
-
-    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        self.handle_starttag(tag, attrs)
-        if tag not in VOID and self.stack and self.stack[-1]["tag"] == tag:
-            self.stack.pop()
-
-    def handle_endtag(self, tag: str) -> None:
-        position = self.char_offset()
-        end = self.text.find(">", position) + 1
-        if tag == "script":
-            self.in_script = False
-        if self.pending_text and self.pending_text["tag"] == tag:
-            self.pending_text = None
-        if not any(item["tag"] == tag for item in self.stack):
-            return
-        while self.stack:
-            item = self.stack.pop()
-            if item.get("role") == "NAV" and self.nav and self.nav[-1]["end"] is None:
-                self.nav[-1]["end"] = end
-            if item.get("role") == "INFO" and self.info and self.info[-1]["end"] is None:
-                self.info[-1]["end"] = end
-            if item["tag"] == tag:
-                break
-
-    def handle_data(self, data: str) -> None:
-        start = self.char_offset()
-        if self.in_script:
-            for match in JS_ASSIGN_RE.finditer(data):
-                names = {"gameId": "JS_GAME_ID", "status": "JS_STATUS", "homeTeamId": "JS_HOME_TEAM_ID",
-                         "awayTeamId": "JS_AWAY_TEAM_ID", "timestamp": "JS_EVENT_TIMESTAMP"}
-                self.js.append({"start": start + match.start(), "end": start + match.end()})
-                self.witnesses.append({"witness": names[match.group(1)],
-                                       "span": (start + match.start(2), start + match.end(2)), "scope": "JS"})
-            return
-        if self.pending_text is not None:
-            stripped = data.strip()
-            if stripped:
-                lead = len(data) - len(data.lstrip())
-                self.witnesses.append({"witness": self.pending_text["witness"],
-                                       "span": (start + lead, start + lead + len(stripped)),
-                                       "scope": self.pending_text["scope"]})
-                self.pending_text = None
-
-
-def byte_offsets(text: str) -> Callable[[int], int]:
-    starts = [0]
-    acc = 0
-    for line in text.splitlines(keepends=True):
-        acc += len(line.encode("utf-8"))
-        starts.append(acc)
-    char_starts = [0]
-    for line in text.splitlines(keepends=True):
-        char_starts.append(char_starts[-1] + len(line))
-
-    def convert(index: int) -> int:
-        lo, hi = 0, len(char_starts) - 1
-        while lo < hi:
-            mid = (lo + hi + 1) // 2
-            if char_starts[mid] <= index:
-                lo = mid
-            else:
-                hi = mid - 1
-        return starts[lo] + len(text[char_starts[lo]:index].encode("utf-8"))
-    return convert
-
-
-def extract(payload: bytes) -> dict[str, Any]:
-    """Witnesses of the main game element with byte spans; the scope spans; problems found while reading."""
-    try:
-        text = payload.decode("utf-8")
-    except UnicodeDecodeError:
-        return {"problems": ["BODY_NOT_UTF8"], "witnesses": [], "scopes": []}
-    parser = GamePageParser(text)
-    parser.feed(text)
-    parser.close()
-    to_byte = byte_offsets(text)
-    scopes = []
-    for nav in parser.nav:
-        if nav["end"]:
-            scopes.append({"kind": "NAV", "span": [to_byte(nav["start"]), to_byte(nav["end"])]})
-    for info in parser.info:
-        if info["end"]:
-            scopes.append({"kind": "INFO", "span": [to_byte(info["start"]), to_byte(info["end"])]})
-    for js in parser.js:
-        scopes.append({"kind": "JS", "span": [to_byte(js["start"]), to_byte(js["end"])]})
-    witnesses = []
-    for w in parser.witnesses:
-        start, end = to_byte(w["span"][0]), to_byte(w["span"][1])
-        witnesses.append({"witness": w["witness"], "span": [start, end], "literal": payload[start:end].decode("utf-8"),
-                          "scope": w["scope"]})
-    problems = []
-    if len([n for n in parser.nav if n["end"]]) == 0:
-        problems.append("MAIN_GAME_ELEMENT_ABSENT")
-    elif len(parser.nav) > 1:
-        problems.append("MAIN_GAME_ELEMENT_DUPLICATED")
-    return {"problems": problems, "witnesses": witnesses,
-            "scopes": sorted(scopes, key=lambda s: (s["span"][0], s["kind"]))}
-
-
-def witness_value(witness: str, literal: str) -> tuple[Any, str | None]:
-    """(normalized value, problem) for one witness literal."""
-    if witness in ("JS_GAME_ID",):
-        return (literal, None) if DIGITS_RE.match(literal) else (None, "UNPARSEABLE")
-    if witness == "NAV_GAME_ID":
-        match = NAV_ID_RE.match(literal)
-        return (match.group(1), None) if match else (None, "UNPARSEABLE")
-    if witness in ("JS_HOME_TEAM_ID", "JS_AWAY_TEAM_ID"):
-        return (literal, None) if DIGITS_RE.match(literal) else (None, "UNPARSEABLE")
-    if witness in ("HOME_TEAM_HREF", "AWAY_TEAM_HREF"):
-        match = TEAM_HREF_RE.match(literal)
-        return (match.group(1), None) if match else (None, "UNPARSEABLE")
-    if witness in ("HOME_SCORE", "AWAY_SCORE"):
-        return (int(literal), None) if SCORE_RE.match(literal) else (None, "UNPARSEABLE")
-    if witness in ("JS_EVENT_TIMESTAMP", "INFO_EVENT_DATE"):
-        try:
-            event_interval(literal)
-        except ValueError:
-            return None, "UNPARSEABLE"
-        return literal, None
-    if witness in ("JS_STATUS", "STATUS_DETAIL"):
-        return literal, None
-    return None, "UNKNOWN_WITNESS"
-
-
-# --------------------------------------------------------------------------------------------- qualification
-
-def receipt_checks(final_url: str, status: int | None, headers: list[list[Any]], payload: bytes,
-                   game_id: str) -> tuple[dict[str, Any], list[str], dict[str, Any]]:
-    """Receipt rules R1-R6; returns (checks, quarantine reasons, derived clock fields)."""
-    reasons, derived = [], {}
-    parts = replay_parts(final_url)
-    checks = {"replay_url_valid": bool(parts) and equivalent_original(parts[1], game_id)}
-    if not checks["replay_url_valid"]:
-        reasons.append("REPLAY_URL_INVALID")
-    memento = header(headers, "Memento-Datetime")
-    origin = header(headers, "x-archive-orig-date")
-    original = link_original(header(headers, "Link"))
-    content_type = header(headers, "Content-Type") or ""
-    derived.update(memento=memento, origin=origin, original=original, content_type=content_type,
-                   wayback_timestamp=parts[0] if parts else None, archive_src=header(headers, "x-archive-src"))
-    try:
-        memento_at = rfc1123(memento)
-        checks["memento_datetime_valid"] = True
-    except (ValueError, TypeError):
-        memento_at = None
-        checks["memento_datetime_valid"] = False
-        reasons.append("MEMENTO_DATETIME_ABSENT" if memento is None else "MEMENTO_DATETIME_MALFORMED")
-    checks["memento_equals_url_timestamp"] = bool(memento_at and parts and
-                                                  memento_at == ts14_instant(parts[0]))
-    if memento_at and parts and not checks["memento_equals_url_timestamp"]:
-        reasons.append("ARCHIVE_TIMESTAMPS_CONTRADICTORY")
-    checks["link_original_equivalent"] = bool(original) and equivalent_original(original, game_id)
-    if not checks["link_original_equivalent"]:
-        reasons.append("MEMENTO_FOR_ANOTHER_URL")
-    checks["html_200"] = status == 200 and content_type.lower().startswith("text/html")
-    if not checks["html_200"]:
-        reasons.append("NOT_AN_ARCHIVED_HTML_200")
-    bound = end_of_second(memento_at) if memento_at else None
-    checks["origin_date_consistent"] = True
-    if origin is not None:
-        try:
-            origin_at = rfc1123(origin)
-            if memento_at and origin_at > memento_at + _dt.timedelta(seconds=ORIGIN_DATE_TOLERANCE_SECONDS):
-                checks["origin_date_consistent"] = False
-                reasons.append("ORIGIN_DATE_CONTRADICTORY")
-            elif memento_at and origin_at > memento_at:
-                bound = end_of_second(origin_at)
-        except (ValueError, TypeError):
-            checks["origin_date_consistent"] = False
-            reasons.append("ORIGIN_DATE_CONTRADICTORY")
-    try:
-        payload.decode("utf-8")
-        checks["body_utf8"] = True
-    except UnicodeDecodeError:
-        checks["body_utf8"] = False
-        reasons.append("BODY_NOT_UTF8")
-    derived["bound"] = fmt_utc(bound) if bound else None
-    return checks, reasons, derived
-
-
-def qualify(contest_key: str, parent: dict[str, Any], game_id: str, payload: bytes, bound: str | None,
-            receipt_reasons: list[str]) -> dict[str, Any]:
-    """Field states, assertions and page facts of one archived version."""
-    record, values = parent["record"], parent["values"]
-    extraction = extract(payload) if "BODY_NOT_UTF8" not in receipt_reasons else \
-        {"problems": ["BODY_NOT_UTF8"], "witnesses": [], "scopes": []}
-    reasons = list(receipt_reasons) + [p for p in extraction["problems"] if p not in receipt_reasons]
-    by: dict[str, list[dict[str, Any]]] = {}
-    for w in extraction["witnesses"]:
-        value, problem = witness_value(w["witness"], w["literal"])
-        by.setdefault(w["witness"], []).append(dict(w, value=value, problem=problem))
-
-    def single(name: str) -> tuple[Any, str]:
-        items = by.get(name) or []
-        if not items:
-            return None, "ABSENT"
-        if any(i["problem"] for i in items):
-            return None, "UNPARSEABLE"
-        distinct = {json.dumps(i["value"]) for i in items}
-        return (items[0]["value"], "OK") if len(distinct) == 1 else (None, "CONTRADICTORY")
-    nav_game, nav_state = single("NAV_GAME_ID")
-    js_game, js_state = single("JS_GAME_ID")
-    if "MAIN_GAME_ELEMENT_ABSENT" not in reasons and "MAIN_GAME_ELEMENT_DUPLICATED" not in reasons:
-        if nav_state != "OK" or nav_game != game_id:
-            reasons.append("WRONG_GAME_NODE")
-        if js_state == "CONTRADICTORY":
-            reasons.append("GAME_IDENTITY_CONTRADICTORY")
-        elif js_state != "OK" or js_game != game_id:
-            reasons.append("GAME_IDENTITY_MISMATCH")
-    js_status, _s1 = single("JS_STATUS")
-    detail, _s2 = single("STATUS_DETAIL")
-    final = js_status == "post" and isinstance(detail, str) and bool(FINAL_RE.match(detail))
-    if final and bound and parse_utc(bound) < earliest_event_instant(record["contest_date"]):
-        reasons.append("IMPOSSIBLE_CHRONOLOGY")
-    sides = {}
-    for side in ("HOME", "AWAY"):
-        js_id, js_st = single(f"JS_{side}_TEAM_ID")
-        href_id, href_st = single(f"{side}_TEAM_HREF")
-        sides[side] = {"js": js_id, "js_state": js_st, "href": href_id, "href_state": href_st,
-                       "agree": js_st == "OK" and href_st == "OK" and js_id == href_id}
-    page_participants = {s.lower(): {"espn_team_id": sides[s]["js"] if sides[s]["agree"] else None,
-                                     "js_state": sides[s]["js_state"], "href_state": sides[s]["href_state"],
-                                     "witnesses_agree": sides[s]["agree"],
-                                     "witness_spans": sorted([w["witness"], list(w["span"])]
-                                                             for n in (f"JS_{s}_TEAM_ID", f"{s}_TEAM_HREF")
-                                                             for w in by.get(n) or [])}
-                         for s in ("HOME", "AWAY")}
-    a_id, b_id = record["a_cfbd_team_id"]["value"], record["b_cfbd_team_id"]["value"]
-    orientation = {"a_side": None, "b_side": None, "rule": "page team block whose ESPN id equals the parent's a/b "
-                                                           "CFBD id literal; pair must match exactly"}
-    pair_ok = sides["HOME"]["agree"] and sides["AWAY"]["agree"] and \
-        {sides["HOME"]["js"], sides["AWAY"]["js"]} == {a_id, b_id} and a_id != b_id
-    if pair_ok:
-        orientation["a_side"] = "HOME" if sides["HOME"]["js"] == a_id else "AWAY"
-        orientation["b_side"] = "AWAY" if orientation["a_side"] == "HOME" else "HOME"
-    qualified_capture = not reasons
-    assertions: list[dict[str, Any]] = []
-    states: dict[str, str] = {}
-
-    def emit(field: str, witness_names: list[str], state: str, corroboration: str, parent_value: Any,
-             comparator: Any) -> None:
-        """One assertion per witness; ``value`` is that witness's own normalized value (participants namespaced)."""
-        states[field] = state
-        for name in sorted(witness_names):
-            for item in by.get(name) or []:
-                value = item["value"]
-                if field in ("a_participant", "b_participant") and value is not None:
-                    value = {"namespace": "ESPN_TEAM_ID", "value": value}
-                assertions.append({"field": field, "witness": name, "witness_span": list(item["span"]),
-                                   "literal": item["literal"], "value": value, "parent_value": parent_value,
-                                   "parent_comparator": comparator,
-                                   "corroboration": "UNPARSEABLE" if item["problem"] else corroboration,
-                                   "field_state": state})
-    states["season"] = "NOT_WITNESSED_IN_VERSION"
-    # contest_date: both witnesses must be present, parse and agree
-    date_names = ["JS_EVENT_TIMESTAMP", "INFO_EVENT_DATE"]
-    present = [n for n in date_names if by.get(n)]
-    if not present:
-        states["contest_date"] = "NOT_WITNESSED_IN_VERSION"
-    else:
-        vals = [single(n) for n in present]
-        if any(s == "UNPARSEABLE" for _v, s in vals):
-            date_state, corr = "WITNESS_LITERAL_UNPARSEABLE", "UNPARSEABLE"
-        elif any(s == "CONTRADICTORY" for _v, s in vals) or len({v for v, _s in vals}) != 1:
-            date_state, corr = "CONTRADICTORY_WITHIN_VERSION", "CONTRADICTORY_WITHIN_VERSION"
-        else:
-            _p, _z, earliest, latest = event_interval(vals[0][0])
-            agrees = record["contest_date"] in local_candidate_dates(earliest, latest)
-            corr = "AGREES_WITH_PARENT" if agrees else "CONFLICTS_WITH_PARENT"
-            date_state = ("QUALIFIED_AGREES_WITH_PARENT" if agrees else "CONFLICTS_WITH_PARENT") \
-                if len(present) == len(date_names) else "INCOMPLETE_WITNESS_SET"
-        if not qualified_capture:
-            date_state = "CAPTURE_NOT_QUALIFIED"
-        emit("contest_date", present, date_state, corr, values["contest_date"],
-             {"basis": "US_LOCAL_CANDIDATE_DATES_-4H_-10H", "value": record["contest_date"]})
-    # participants
-    for field, parent_side in (("a_participant", "a"), ("b_participant", "b")):
-        names_present = [n for n in ("JS_HOME_TEAM_ID", "HOME_TEAM_HREF", "JS_AWAY_TEAM_ID", "AWAY_TEAM_HREF")
-                         if by.get(n)]
-        if not names_present:
-            states[field] = "NOT_WITNESSED_IN_VERSION"
-            continue
-        comparator = record[f"{parent_side}_cfbd_team_id"]
-        if not pair_ok:
-            states[field] = "CAPTURE_NOT_QUALIFIED" if not qualified_capture else (
-                "CONTRADICTORY_WITHIN_VERSION" if not (sides["HOME"]["agree"] and sides["AWAY"]["agree"])
-                else "ORIENTATION_UNRESOLVED")
-            continue
-        side = orientation[f"{parent_side}_side"]
-        state = "QUALIFIED_AGREES_WITH_PARENT" if qualified_capture else "CAPTURE_NOT_QUALIFIED"
-        emit(field, [f"JS_{side}_TEAM_ID", f"{side}_TEAM_HREF"], state, "AGREES_WITH_PARENT", values[field],
-             comparator)
-    # completion: both status witnesses must be present; COMPLETED only for post + Final
-    status_names = [n for n in ("JS_STATUS", "STATUS_DETAIL") if by.get(n)]
-    completed_ok = False
-    if not status_names:
-        states["completion"] = "NOT_WITNESSED_IN_VERSION"
-    else:
-        if len(status_names) < 2 or _s1 != "OK" or _s2 != "OK":
-            state, corr = ("INCOMPLETE_WITNESS_SET", "VERSION_PREDATES_OUTCOME") if len(status_names) < 2 else \
-                ("CONTRADICTORY_WITHIN_VERSION", "CONTRADICTORY_WITHIN_VERSION")
-        elif final:
-            completed_ok = values["completion"] == "COMPLETED"
-            state = "QUALIFIED_AGREES_WITH_PARENT" if completed_ok else "CONFLICTS_WITH_PARENT"
-            corr = "AGREES_WITH_PARENT" if completed_ok else "CONFLICTS_WITH_PARENT"
-        else:
-            state, corr = "NOT_SUPPORTED_BY_VERSION_STATUS", "VERSION_PREDATES_OUTCOME"
-        if not qualified_capture:
-            state = "CAPTURE_NOT_QUALIFIED"
-        emit("completion", status_names, state, corr, values["completion"], None)
-    final = final and len(status_names) == 2 and _s1 == "OK" and _s2 == "OK"
-    # points: only in a final version, oriented by team identity
-    for field, parent_side in (("a_points", "a"), ("b_points", "b")):
-        if not final:
-            states[field] = "NOT_SUPPORTED_BY_VERSION_STATUS" if status_names else "NOT_WITNESSED_IN_VERSION"
-            if not qualified_capture:
-                states[field] = "CAPTURE_NOT_QUALIFIED"
-            continue
-        if not pair_ok:
-            states[field] = "CAPTURE_NOT_QUALIFIED" if not qualified_capture else "ORIENTATION_UNRESOLVED"
-            continue
-        side = orientation[f"{parent_side}_side"]
-        score, score_state = single(f"{side}_SCORE")
-        if score_state == "ABSENT":
-            states[field] = "NOT_WITNESSED_IN_VERSION" if qualified_capture else "CAPTURE_NOT_QUALIFIED"
-            continue
-        if score_state == "UNPARSEABLE":
-            state, corr = "WITNESS_LITERAL_UNPARSEABLE", "UNPARSEABLE"
-        elif score_state == "CONTRADICTORY":
-            state, corr = "CONTRADICTORY_WITHIN_VERSION", "CONTRADICTORY_WITHIN_VERSION"
-        else:
-            agrees = score == values[field]
-            corr = "AGREES_WITH_PARENT" if agrees else "CONFLICTS_WITH_PARENT"
-            state = "QUALIFIED_AGREES_WITH_PARENT" if agrees and completed_ok else (
-                "CONFLICTS_WITH_PARENT" if not agrees else "NOT_SUPPORTED_BY_VERSION_STATUS")
-        if not qualified_capture:
-            state = "CAPTURE_NOT_QUALIFIED"
-        emit(field, [f"{side}_SCORE"], state, corr, values[field], None)
-    for field in FIELDS:
-        states.setdefault(field, "NOT_WITNESSED_IN_VERSION")
-    return {"reasons": reasons, "qualified": qualified_capture, "states": states, "assertions": assertions,
-            "scopes": extraction["scopes"],
-            "page_status": {"js_status": js_status, "status_detail": detail, "final": final},
-            "page_participants": page_participants, "orientation": orientation}
+extract = af.extract
+witness_value = af.witness_value
+receipt_checks = af.receipt_checks
+qualify = af.qualify
+participant_sources = af.participant_sources
 
 
 # --------------------------------------------------------------------------------------------- materialization model
@@ -1343,89 +833,25 @@ class Model:
         return [r for r in self.acquisition["requests"] if r["contest_key"] == key]
 
     def capture_records(self, key: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        """Every archived version of one key: the retained control (zero requests) and each 200 replay, each derived
+        by the shared field-grain module exactly as the consumer re-derives it."""
         spec = self.keys[key]
         game = spec["game_id_literal"]
         parent = self.parent[key]
         versions = []
         if spec["selection_role"] == "SEPARATE_PREQUALIFIED_ROUTE_CONTROL":
-            receipt = self.control["receipt"]
-            headers = [[k, v] for k, v in receipt["headers"].items()]
-            observed = _dt.datetime.fromisoformat(receipt["observed_at"]).astimezone(UTC)
-            retrieval = clock("PRESENT", role="RECORDED_POSSESSION_UPPER_BOUND", literal=receipt["observed_at"],
-                              zone="+00:00", precision="microsecond", earliest=fmt_utc(observed),
-                              latest=fmt_utc(observed), document=raw_rel(sha256_bytes(self.control["receipt_raw"])),
-                              pointer="/observed_at")
-            versions.append({"origin": "MANAGER_RETAINED_CONTROL_REPLAY", "request_seq": None,
-                             "final_url": receipt["final_url"], "status": receipt["status"], "headers": headers,
-                             "payload": self.control["payload"], "retrieval": retrieval,
-                             "receipt_document": raw_rel(sha256_bytes(self.control["receipt_raw"])),
-                             "receipt_document_sha256": sha256_bytes(self.control["receipt_raw"]),
-                             "receipt_pointer": "/headers"})
+            versions.append(af.control_version(sha256_bytes(self.control["receipt_raw"]), self.control["receipt"],
+                                               self.control["payload"]))
         for index, request in enumerate(self.acquisition["requests"]):
             if request["contest_key"] != key or request["kind"] != "REPLAY" or request["http_status"] != 200:
                 continue
-            payload = read_raw(self.root, request["body_sha256"])
-            retrieval = clock("PRESENT", role="EXACT_REQUEST_INTERVAL", literal=request["ended_utc"],
-                              start_literal=request["started_utc"], zone="Z", precision="microsecond",
-                              earliest=request["started_utc"], latest=request["ended_utc"],
-                              document=self.receipt_document(), pointer=f"/requests/{index}/ended_utc")
-            versions.append({"origin": "WORKER_ARCHIVE_REPLAY", "request_seq": request["seq"],
-                             "final_url": request["url"], "status": request["http_status"],
-                             "headers": request["headers"], "payload": payload, "retrieval": retrieval,
-                             "receipt_document": self.receipt_document(),
-                             "receipt_document_sha256": self.acquisition_id, "receipt_pointer": f"/requests/{index}"})
+            versions.append(af.worker_version(self.acquisition_id, index, request,
+                                              read_raw(self.root, request["body_sha256"])))
         captures, assertions = [], []
         for version in versions:
-            payload_sha = sha256_bytes(version["payload"])
-            checks, receipt_reasons, derived = receipt_checks(version["final_url"], version["status"],
-                                                              version["headers"], version["payload"], game)
-            result = qualify(key, parent, game, version["payload"], derived["bound"], receipt_reasons)
-            ts = derived["wayback_timestamp"] or "00000000000000"
-            capture_id = f"wayback:{ts}:{payload_sha}"
-            bound = derived["bound"]
-            archive_clock = clock("PRESENT", role="ARCHIVE_CAPTURE_UPPER_BOUND", literal=derived["memento"],
-                                  zone="GMT", precision="second", latest=bound, document=version["receipt_document"],
-                                  pointer=version["receipt_pointer"]) if bound else \
-                clock("INVALID", role="ARCHIVE_CAPTURE_UPPER_BOUND", literal=derived["memento"],
-                      document=version["receipt_document"], pointer=version["receipt_pointer"],
-                      reason=",".join(receipt_reasons) or "MEMENTO_DATETIME_ABSENT")
-            if result["reasons"] and bound:
-                archive_clock["reason"] = "CAPTURE_QUARANTINED:" + ",".join(result["reasons"])
-            event_literal = next((a["literal"] for a in result["assertions"] if a["field"] == "contest_date"
-                                  and a["witness"] == "JS_EVENT_TIMESTAMP"), None)
-            if event_literal:
-                precision, zone, earliest, latest = event_interval(event_literal)
-                event = clock("PRESENT", role="SOURCE_ASSERTED_EVENT_INSTANT", literal=event_literal, zone=zone,
-                              precision=precision, earliest=earliest, latest=latest, document=raw_rel(payload_sha),
-                              pointer="JS_EVENT_TIMESTAMP")
-            else:
-                event = clock("ABSENT", role="SOURCE_ASSERTED_EVENT_INSTANT", reason="NOT_WITNESSED_IN_VERSION")
-            original = replay_parts(version["final_url"])[1] if replay_parts(version["final_url"]) else None
-            captures.append({
-                "record_type": "archive_capture", "capture_id": capture_id, "contest_key": key,
-                "origin": version["origin"], "request_seq": version["request_seq"], "original_url": original,
-                "final_url": version["final_url"], "wayback_timestamp": derived["wayback_timestamp"],
-                "http_status": version["status"], "content_type": derived["content_type"],
-                "memento_datetime_literal": derived["memento"], "origin_date_literal": derived["origin"],
-                "link_original": derived["original"], "archive_src": derived["archive_src"],
-                "payload_sha256": payload_sha, "payload_bytes": len(version["payload"]),
-                "payload_path": raw_rel(payload_sha), "receipt_document": version["receipt_document"],
-                "receipt_document_sha256": version["receipt_document_sha256"],
-                "receipt_pointer": version["receipt_pointer"], "receipt_checks": checks,
-                "state": "QUALIFIED" if result["qualified"] else "QUARANTINED",
-                "quarantine_reasons": result["reasons"], "time_evidence_class": "ARCHIVE_CAPTURE_UPPER_BOUND",
-                "clocks": {"archive_capture": archive_clock, "retrieval": version["retrieval"], "event": event},
-                "main_element_spans": result["scopes"], "page_status": result["page_status"],
-                "page_participants": result["page_participants"], "orientation": result["orientation"],
-                "field_states": result["states"]})
-            for a in result["assertions"]:
-                assertions.append({"record_type": "archive_assertion", "contest_key": key, "original_url": original,
-                                   "capture_id": capture_id, "payload_sha256": payload_sha,
-                                   "source_revision": capture_id, "field": a["field"], "field_role": ROLES[a["field"]],
-                                   "witness": a["witness"], "witness_span": a["witness_span"], "literal": a["literal"],
-                                   "value": a["value"], "parent_value": a["parent_value"],
-                                   "parent_comparator": a["parent_comparator"], "corroboration": a["corroboration"],
-                                   "field_state": a["field_state"]})
+            capture, rows = af.derive_capture(key, parent, game, version, sha256_bytes(version["payload"]))
+            captures.append(capture)
+            assertions += rows
         captures.sort(key=lambda c: (c["wayback_timestamp"] or "", c["payload_sha256"]))
         rank = {c["capture_id"]: i for i, c in enumerate(captures)}
         assertions.sort(key=lambda a: (rank[a["capture_id"]], FIELDS.index(a["field"]), a["witness"],
@@ -1437,36 +863,18 @@ class Model:
         requests = self.requests(key)
         captures, assertions = self.capture_records(key)
         outcome = self.acquisition["outcomes"][key]
-        support: dict[str, Any] = {}
-        for field in WITNESSABLE:
-            bounds = sorted(c["clocks"]["archive_capture"]["latest_utc"] for c in captures
-                            if c["field_states"][field] == "QUALIFIED_AGREES_WITH_PARENT")
-            support[field] = bounds[0] if bounds else None
-        qualified = [c["capture_id"] for c in captures if c["state"] == "QUALIFIED"]
-        supported = [f for f in WITNESSABLE if support[f]]
-        reasons = sorted({r for c in captures for r in c["quarantine_reasons"]})
-        if outcome == "CONTROL_REUSED":
-            disposition = "CONTROL_REUSED_QUALIFIED" if len(supported) == len(WITNESSABLE) else \
-                "ARCHIVED_VERSION_NOT_QUALIFIED"
-        elif captures:
-            disposition = ("ARCHIVED_VERSION_QUALIFIED_ALL_WITNESSABLE_FIELDS" if len(supported) == len(WITNESSABLE)
-                           else "ARCHIVED_VERSION_QUALIFIED_PARTIAL_FIELDS" if supported
-                           else "ARCHIVED_VERSION_NOT_QUALIFIED")
-        else:
-            disposition = outcome
-        if outcome in ("REDIRECT_REFUSED", "REPLAY_REQUEST_FAILED") and captures:
-            reasons.append(f"ACQUISITION_{outcome}")
+        summary = af.disposition_summary(outcome, captures)
         lines = [record_line({
             "record_type": "archive_disposition", "ord": self.order.index(key), "contest_key": key,
             "season": row["season"], "contest_date": row["contest_date"], "a_key": row["a_key"], "b_key": row["b_key"],
             "classification_pair": row["classification_pair"], "stratum": row["stratum"],
             "selection_role": row["selection_role"], "candidate_url": spec["candidate_url"],
-            "game_id_literal": spec["game_id_literal"], "acquisition_outcome": outcome, "disposition": disposition,
-            "reasons": sorted(set(reasons)), "request_count": len(requests),
+            "game_id_literal": spec["game_id_literal"], "acquisition_outcome": outcome,
+            "disposition": summary["disposition"], "reasons": summary["reasons"], "request_count": len(requests),
             "metadata_requests": sum(1 for r in requests if r["kind"] == "METADATA"),
             "replay_requests": sum(1 for r in requests if r["kind"] == "REPLAY"),
-            "capture_ids": [c["capture_id"] for c in captures], "qualified_capture_ids": qualified,
-            "field_support": support, "parent_values": parent["values"]})]
+            "capture_ids": summary["capture_ids"], "qualified_capture_ids": summary["qualified_capture_ids"],
+            "field_support": summary["field_support"], "parent_values": parent["values"]})]
         for request in requests:
             answer = None
             if request["kind"] == "METADATA" and request["http_status"] == 200:
@@ -1816,6 +1224,10 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
                 "completed_chunks": len(checkpoint.completed(keys)) if checkpoint else 0, "unit_count": len(keys)}
     ordered = b"".join(blobs[k] for k in model.order)
     payloads = split_bundles(ordered)
+    conflicts = af.mapping_conflicts([json.loads(line) for line in payloads["captures.jsonl"].splitlines()])
+    if conflicts:
+        raise BuildRefused("PARTICIPANT_MAPPING_CONTRADICTORY", f"qualified participant mappings disagree across the "
+                                                                f"tranche: {conflicts[:5]}")
     counts = {name: payloads[name].count(b"\n") for name in PAYLOAD_FILES}
     if counts["dispositions.jsonl"] != contract["scope"]["tranche_count"] or \
             counts["requests.jsonl"] != len(acquisition["requests"]):
@@ -1843,7 +1255,9 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
                 "fields": json.dumps({"order": list(FIELDS), "roles": ROLES, "witnessable": list(WITNESSABLE)},
                                      sort_keys=True),
                 "record_homes": json.dumps(RECORD_HOMES, sort_keys=True),
-                "origin_date_tolerance_seconds": str(ORIGIN_DATE_TOLERANCE_SECONDS)}
+                "origin_date_tolerance_seconds": str(ORIGIN_DATE_TOLERANCE_SECONDS),
+                "participant_mapping_rule": af.MAPPING_RULE,
+                "field_witnesses": json.dumps({f: sorted(w) for f, w in af.FIELD_WITNESSES.items()}, sort_keys=True)}
         db_counts = build_database(db_path, payloads, meta)
         if db_counts["record_counts"] != counts:
             raise BuildRefused("CENSUS_INCOMPLETE", f"database records {db_counts['record_counts']} != {counts}")

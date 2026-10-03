@@ -1,19 +1,24 @@
 r"""Independent validator for the 2019 archived-publication evidence sidecar (BAT-713, Cycle #41 TP41-A01).
 
-``python -B tools/validate_national_archived_publication.py --contract configs/national_archived_publication_2019_contract.json
---source-database <bound source-time sqlite> --source-bindings <INPUT_BINDINGS.json> --tranche <ARCHIVE_TRANCHE.json>
+``python -B tools/validate_national_archived_publication.py --contract
+configs/national_archived_publication_2019_contract_v1_1.json --source-database <bound source-time sqlite>
+--source-bindings <INPUT_BINDINGS.json> --tranche <ARCHIVE_TRANCHE.json>
 --manifest <manifests/national_archived_publication_2019/sha256/<content id>/run_manifest.json> --report <new path>``
 
-Standard library only. It imports no producer, query or project code. From the files themselves it re-verifies the
-contract, the parent source-time database (location, run manifest identity document, bytes), the manager's bindings,
-tranche and retained control; it re-reads the acquisition journal and document, every raw body and receipt; it scans
-every archived page with its own byte scanner (div balance, attribute and text-node rules, script assignments) to
-rebuild every main-element span, witness, value, orientation, field state, capture state, upper bound and disposition;
-it compares every delivered record field by field by natural key, recomputes both identity documents and every
-database row, and recomputes cutoff decisions that it compares with the delivered query consumer run as a subprocess.
+Standard library only. It imports no producer, query or project code (in particular not the shared field-grain module
+the producer and consumer use). From the files themselves it re-verifies the contract (the V1.1 successor), the parent
+source-time database (location, run manifest identity document, bytes), the manager's bindings, tranche and retained
+control; it re-reads the acquisition journal and document, every raw body and receipt; it scans every archived page
+with its own byte scanner (start-tag attribute tokenizing, div/span/a balance, complete text of child-free elements,
+line-start script assignments, every occurrence counted) and reads the parent's CFBD/NCAA lineage itself to rebuild
+every main-element span, witness, value, participant map (documented parent name, CFBD role and date; numeric ESPN
+and CFBD identifiers are never equated), orientation, field state, capture state, upper bound and disposition; it
+compares every delivered record field by field by natural key, recomputes both identity documents and every database
+row, and recomputes cutoff decisions that it compares with the delivered query consumer run as a subprocess.
 Coordinated semantic tampers of the delivered records (as if every outer hash were consistently recomputed) and oracle
-self-challenges are reported with their limits. The report is a new file written once. Exit 0 only when every check
-passes.
+self-challenges on in-memory page copies (borrowed status/score substrings, same-element digits, unrelated or swapped
+team names with equal numbers, duplicated witnesses) are reported with their limits. The report is a new file written
+once. Exit 0 only when every check passes.
 """
 from __future__ import annotations
 
@@ -22,6 +27,7 @@ import copy
 import datetime as dt
 import gzip
 import hashlib
+import html
 import json
 import os
 import re
@@ -170,6 +176,73 @@ def link_rel_original(link: Any) -> str | None:
 
 
 # --------------------------------------------------------------------------------------------- byte scanner
+#: a start tag whose quoted attribute values may contain '>' (the value is skipped whole)
+START_TAG = rb"<%s\b(?:[^>\"']|\"[^\"]*\"|'[^']*')*>"
+JS_LINE = re.compile(rb'^[ \t]*(espn\.gamepackage\.(gameId|status|homeTeamId|awayTeamId|timestamp)[ \t]*=[ \t]*'
+                     rb'"([^"\\\r\n]*)"[ \t]*;)', re.M)
+JS_WITNESS = {b"gameId": "JS_GAME_ID", b"status": "JS_STATUS", b"homeTeamId": "JS_HOME_TEAM_ID",
+              b"awayTeamId": "JS_AWAY_TEAM_ID", b"timestamp": "JS_EVENT_TIMESTAMP"}
+
+
+def tag_attrs(tag: bytes) -> list[tuple[bytes, bytes | None, int, int]]:
+    """Every attribute of one raw start tag, in order: (lower name, value, value start, value end) offsets inside
+    ``tag``. A quoted value is consumed whole, so text inside one attribute's value never becomes an attribute."""
+    out: list[tuple[bytes, bytes | None, int, int]] = []
+    head = re.match(rb"<[A-Za-z][^\s/>]*", tag)
+    i = head.end() if head else len(tag)
+    n = len(tag) - (2 if tag.endswith(b"/>") else 1)
+    space = b" \t\r\n\f"
+    while i < n:
+        while i < n and tag[i:i + 1] in space + b"/":
+            i += 1
+        if i >= n:
+            break
+        j = i
+        while j < n and tag[j:j + 1] not in space + b"/>=\"'":
+            j += 1
+        if j == i:
+            i += 1
+            continue
+        name = tag[i:j].lower()
+        k = j
+        while k < n and tag[k:k + 1] in space:
+            k += 1
+        if k < n and tag[k:k + 1] == b"=":
+            k += 1
+            while k < n and tag[k:k + 1] in space:
+                k += 1
+            quote = tag[k:k + 1]
+            if quote in (b'"', b"'"):
+                close = tag.find(quote, k + 1)
+                close = n if close < 0 or close > n else close
+                out.append((name, tag[k + 1:close], k + 1, close))
+                i = close + 1
+            else:
+                e = k
+                while e < n and tag[e:e + 1] not in space + b">":
+                    e += 1
+                out.append((name, tag[k:e], k, e))
+                i = e
+        else:
+            out.append((name, None, j, j))
+            i = j
+    return out
+
+
+def one_attr(tag: bytes, name: bytes) -> Any:
+    """(value, start, end) of the single attribute ``name``; None if absent; "REPEATED" if it occurs twice."""
+    found = [a for a in tag_attrs(tag) if a[0] == name]
+    if not found:
+        return None
+    if len(found) > 1:
+        return "REPEATED"
+    return found[0][1], found[0][2], found[0][3]
+
+
+def class_set(tag: bytes) -> set[bytes]:
+    value = one_attr(tag, b"class")
+    return set(value[0].split()) if isinstance(value, tuple) and value[0] is not None else set()
+
 
 def div_end(data: bytes, open_end: int) -> int | None:
     """End offset (after '</div>') of the div whose start tag ends at ``open_end`` (div balance)."""
@@ -181,7 +254,8 @@ def div_end(data: bytes, open_end: int) -> int | None:
     return None
 
 
-def element_end(data: bytes, open_end: int, tag: bytes) -> int | None:
+def close_start(data: bytes, open_end: int, tag: bytes) -> int | None:
+    """Start offset of the closing tag that balances the ``tag`` element whose start tag ends at ``open_end``."""
     depth = 1
     for m in re.finditer(rb"<(/?)" + tag + rb"\b[^>]*>", data[open_end:]):
         depth += -1 if m.group(1) else 1
@@ -190,105 +264,101 @@ def element_end(data: bytes, open_end: int, tag: bytes) -> int | None:
     return None
 
 
-def attr(tag: bytes, name: bytes) -> tuple[bytes, int, int] | None:
-    m = re.search(rb"\s" + re.escape(name) + rb'\s*=\s*"([^"]*)"', tag)
-    return (m.group(1), m.start(1), m.end(1)) if m else None
+def text_witness(data: bytes, open_end: int, close: int | None) -> tuple[int, int, str | None] | None:
+    """The complete text of a closed, child-free element, trimmed; None when it is empty."""
+    if close is None:
+        return open_end, open_end, "ELEMENT_NOT_CLOSED"
+    content = data[open_end:close]
+    if b"<" in content or b">" in content:
+        return open_end, close, "CHILD_MARKUP_IN_TEXT_WITNESS"
+    text = content.decode("utf-8")
+    stripped = text.strip()
+    if not stripped:
+        return None
+    start = open_end + len(text[:len(text) - len(text.lstrip())].encode("utf-8"))
+    return start, start + len(stripped.encode("utf-8")), None
 
 
-def classes(tag: bytes) -> set[bytes]:
-    a = attr(tag, b"class")
-    return set(a[0].split()) if a else set()
-
-
-def first_text(data: bytes, start: int, end: int) -> tuple[int, int] | None:
-    pos = start
-    for m in re.finditer(rb"<[^>]*>", data[start:end]):
-        segment = data[pos:start + m.start()]
-        if segment.strip():
-            lead = len(segment) - len(segment.lstrip())
-            return pos + lead, pos + lead + len(segment.strip())
-        pos = start + m.end()
-    segment = data[pos:end]
-    if segment.strip():
-        lead = len(segment) - len(segment.lstrip())
-        return pos + lead, pos + lead + len(segment.strip())
-    return None
+def tags(data: bytes, name: bytes, lo: int, hi: int) -> list[re.Match]:
+    return [m for m in re.finditer(START_TAG % name, data[lo:hi])]
 
 
 def scan_page(data: bytes) -> dict[str, Any]:
-    """Main-element scopes and witnesses from raw bytes (independent of any HTML parser library)."""
-    out: dict[str, Any] = {"navs": [], "infos": [], "js": [], "witnesses": []}
-    for m in re.finditer(rb"<div\s[^>]*>", data):
-        tag = m.group(0)
-        ident = attr(tag, b"id")
-        if not ident:
-            continue
-        if ident[0] == b"custom-nav":
+    """Every main-element witness occurrence from raw bytes (independent of any HTML parser library)."""
+    out: dict[str, Any] = {"navs": [], "infos": [], "js": [], "witnesses": [], "problems": []}
+
+    def attr_witness(name: str, tag_start: int, tag: bytes, attribute: bytes) -> None:
+        value = one_attr(tag, attribute)
+        if value == "REPEATED":
+            first = next(a for a in tag_attrs(tag) if a[0] == attribute)
+            out["witnesses"].append((name, tag_start + first[2], tag_start + first[3], "ATTRIBUTE_REPEATED"))
+        elif value is not None:
+            out["witnesses"].append((name, tag_start + value[1], tag_start + value[2], None))
+
+    def text_of(name: str, open_end: int, close: int | None) -> None:
+        found = text_witness(data, open_end, close)
+        if found is not None:
+            out["witnesses"].append((name, found[0], found[1], found[2]))
+    for m in tags(data, b"div", 0, len(data)):
+        ident = one_attr(m.group(0), b"id")
+        ident = ident[0] if isinstance(ident, tuple) else None
+        if ident == b"custom-nav":
             end = div_end(data, m.end())
             out["navs"].append((m.start(), end))
-            data_id = attr(tag, b"data-id")
-            if data_id:
-                out["witnesses"].append(("NAV_GAME_ID", m.start() + data_id[1], m.start() + data_id[2]))
+            attr_witness("NAV_GAME_ID", m.start(), m.group(0), b"data-id")
             if end is None:
                 continue
             nav = (m.start(), end)
-            for team in re.finditer(rb"<div\s[^>]*>", data[nav[0]:nav[1]]):
-                cls = classes(team.group(0))
-                side = "HOME" if {b"team", b"home"} <= cls else ("AWAY" if {b"team", b"away"} <= cls else None)
-                if side is None:
+            for team in tags(data, b"div", nav[0], nav[1]):
+                cls = class_set(team.group(0))
+                if b"team" not in cls or not ({b"home", b"away"} & cls):
                     continue
-                t_start, t_open = nav[0] + team.start(), nav[0] + team.end()
-                t_end = div_end(data, t_open)
-                block = data[t_start:t_end]
-                for anchor in re.finditer(rb"<a\s[^>]*>", block):
-                    if b"team-name" in classes(anchor.group(0)):
-                        href = attr(anchor.group(0), b"href")
-                        if href:
-                            base = t_start + anchor.start()
-                            out["witnesses"].append((f"{side}_TEAM_HREF", base + href[1], base + href[2]))
-                        break
-                for div in re.finditer(rb"<div\s[^>]*>", block):
-                    if b"score" in classes(div.group(0)):
-                        d_open = t_start + div.end()
-                        d_close = element_end(data, d_open, b"div")
-                        text = first_text(data, d_open, d_close) if d_close else None
-                        if text:
-                            out["witnesses"].append((f"{side}_SCORE", text[0], text[1]))
-                        break
-            for span in re.finditer(rb"<span\s[^>]*>", data[nav[0]:nav[1]]):
-                if b"status-detail" in classes(span.group(0)):
+                if {b"home", b"away"} <= cls:
+                    out["problems"].append("TEAM_BLOCK_SIDE_AMBIGUOUS")
+                    continue
+                side = "HOME" if b"home" in cls else "AWAY"
+                t_start = nav[0] + team.start()
+                t_end = div_end(data, nav[0] + team.end()) or nav[1]
+                for anchor in tags(data, b"a", t_start, t_end):
+                    if b"team-name" not in class_set(anchor.group(0)):
+                        continue
+                    a_start = t_start + anchor.start()
+                    attr_witness(f"{side}_TEAM_HREF", a_start, anchor.group(0), b"href")
+                    a_open = t_start + anchor.end()
+                    a_close = close_start(data, a_open, b"a") or t_end
+                    for span in tags(data, b"span", a_open, a_close):
+                        if b"long-name" in class_set(span.group(0)):
+                            s_open = a_open + span.end()
+                            text_of(f"{side}_TEAM_NAME", s_open, close_start(data, s_open, b"span"))
+                for div in tags(data, b"div", t_start + len(team.group(0)), t_end):
+                    if b"score" in class_set(div.group(0)):
+                        d_open = t_start + len(team.group(0)) + div.end()
+                        text_of(f"{side}_SCORE", d_open, close_start(data, d_open, b"div"))
+            for span in tags(data, b"span", nav[0], nav[1]):
+                if b"status-detail" in class_set(span.group(0)):
                     s_open = nav[0] + span.end()
-                    s_close = element_end(data, s_open, b"span")
-                    text = first_text(data, s_open, s_close) if s_close else None
-                    if text:
-                        out["witnesses"].append(("STATUS_DETAIL", text[0], text[1]))
-                    break
-        elif ident[0] == b"gamepackage-game-information":
+                    text_of("STATUS_DETAIL", s_open, close_start(data, s_open, b"span"))
+        elif ident == b"gamepackage-game-information":
             end = div_end(data, m.end())
             out["infos"].append((m.start(), end))
             if end is None:
                 continue
-            for box in re.finditer(rb"<div\s[^>]*>", data[m.start():end]):
-                if b"game-date-time" not in classes(box.group(0)):
+            for box in tags(data, b"div", m.start(), end):
+                if b"game-date-time" not in class_set(box.group(0)):
                     continue
                 b_start = m.start() + box.start()
-                b_end = div_end(data, m.start() + box.end())
-                for span in re.finditer(rb"<span\s[^>]*>", data[b_start:b_end]):
-                    behaviour = attr(span.group(0), b"data-behavior")
-                    stamp = attr(span.group(0), b"data-date")
-                    if behaviour and behaviour[0] == b"date_time" and stamp:
-                        base = b_start + span.start()
-                        out["witnesses"].append(("INFO_EVENT_DATE", base + stamp[1], base + stamp[2]))
-                        break
-                break
-    names = {b"gameId": "JS_GAME_ID", b"status": "JS_STATUS", b"homeTeamId": "JS_HOME_TEAM_ID",
-             b"awayTeamId": "JS_AWAY_TEAM_ID", b"timestamp": "JS_EVENT_TIMESTAMP"}
-    for script in re.finditer(rb"<script\b[^>]*>(.*?)</script\s*>", data, re.S):
-        body_start = script.start(1)
-        for js in re.finditer(rb'espn\.gamepackage\.(gameId|status|homeTeamId|awayTeamId|timestamp)\s*=\s*'
-                              rb'"([^"\\\r\n]*)"\s*;', script.group(1)):
-            out["js"].append((body_start + js.start(), body_start + js.end()))
-            out["witnesses"].append((names[js.group(1)], body_start + js.start(2), body_start + js.end(2)))
+                b_end = div_end(data, m.start() + box.end()) or end
+                for span in tags(data, b"span", b_start, b_end):
+                    behaviour = one_attr(span.group(0), b"data-behavior")
+                    if isinstance(behaviour, tuple) and behaviour[0] == b"date_time":
+                        attr_witness("INFO_EVENT_DATE", b_start + span.start(), span.group(0), b"data-date")
+    for script in re.finditer(rb"<script\b(?:[^>\"']|\"[^\"]*\"|'[^']*')*>(.*?)</script\s*>", data, re.S | re.I):
+        body = script.start(1)
+        for js in JS_LINE.finditer(script.group(1)):
+            out["js"].append((body + js.start(1), body + js.end(1)))
+            out["witnesses"].append((JS_WITNESS[js.group(2)], body + js.start(3), body + js.end(3), None))
+    out["witnesses"].sort(key=lambda w: (w[1], w[2], w[0]))
+    out["problems"] = list(dict.fromkeys(out["problems"]))
     return out
 
 
@@ -302,11 +372,126 @@ def normalize(name: str, literal: str) -> Any:
         m = re.fullmatch(r"(?:https?://www\.espn\.com)?/college-football/team/_/id/(\d{1,12})(?:/[^\s\"'<>]*)?",
                          literal)
         return m.group(1) if m else None
+    if name in ("HOME_TEAM_NAME", "AWAY_TEAM_NAME"):
+        text = " ".join(html.unescape(literal).split())
+        return text or None
     if name in ("HOME_SCORE", "AWAY_SCORE"):
         return int(literal) if re.fullmatch(r"\d{1,3}", literal) else None
     if name in ("JS_EVENT_TIMESTAMP", "INFO_EVENT_DATE"):
         return literal if iso_interval(literal) else None
     return literal
+
+
+# --------------------------------------------------------------------------------------------- participant evidence
+
+def team_sources(rec: dict[str, Any], lineage: list[dict[str, Any]], rule: str) -> dict[str, Any]:
+    """The parent's own documented team names and CFBD roles, read here from the parent lineage rows."""
+    cfbd_ids = {"A": (rec.get("a_cfbd_team_id") or {}).get("value"),
+                "B": (rec.get("b_cfbd_team_id") or {}).get("value")}
+    named: dict[str, dict[str, set[str]]] = {"A": {}, "B": {}}
+
+    def note(side: str, name: Any, source: str) -> None:
+        if name:
+            named[side].setdefault(str(name), set()).add(source)
+    note("A", rec.get("a_team_name"), "NCAA_TEAM_NAME")
+    note("B", rec.get("b_team_name"), "NCAA_TEAM_NAME")
+    rows, views, problems = [], set(), []
+    for row in lineage:
+        if row.get("join_state") != "PARENT_LINEAGE":
+            continue
+        lit = row.get("literals") or {}
+        if row.get("source_kind") == "NCAA_TEAM_SEASON_PAGE":
+            mine = (row.get("orientation") or {}).get("page_team_side")
+            if mine in ("A", "B"):
+                note(mine, lit.get("page_team_name"), "NCAA_TEAM_NAME")
+                note("B" if mine == "A" else "A", lit.get("opponent_name"), "NCAA_TEAM_NAME")
+        elif row.get("source_kind") == "CFBD_ROUTE_RESPONSE":
+            home = (row.get("orientation") or {}).get("home_side")
+            if home not in ("A", "B"):
+                problems.append("CFBD_HOME_SIDE_UNKNOWN")
+                continue
+            away = "B" if home == "A" else "A"
+            if (lit.get("homeId"), lit.get("awayId")) != (cfbd_ids[home], cfbd_ids[away]) or \
+                    not lit.get("homeTeam") or not lit.get("awayTeam"):
+                problems.append("CFBD_ROW_DOES_NOT_BIND_THE_PARENT_TEAMS")
+            views.add((home, lit.get("homeTeam"), lit.get("homeId"), lit.get("awayTeam"), lit.get("awayId")))
+            rows.append({"capture_id": row.get("capture_id"), "native_row_key": row.get("native_row_key"),
+                         "source_revision": row.get("source_revision"),
+                         "evidence_document": (row.get("event_clock") or {}).get("evidence_document"),
+                         "home_side": home, "home_team": lit.get("homeTeam"), "away_team": lit.get("awayTeam"),
+                         "neutral_site": lit.get("neutralSite")})
+    rows.sort(key=lambda r: (str(r["capture_id"]), str(r["native_row_key"])))
+    state = "CFBD_SOURCE_ABSENT" if not rows else (
+        "CFBD_SOURCE_CONTRADICTORY" if problems or len(views) != 1 else "PRESENT")
+    view = next(iter(views)) if state == "PRESENT" else None
+    sides = {}
+    for side in ("A", "B"):
+        role = school = None
+        if view:
+            role = "HOME" if view[0] == side else "AWAY"
+            school = view[1] if role == "HOME" else view[3]
+            note(side, school, "CFBD_SCHOOL_NAME")
+        letter = side.lower()
+        sides[letter] = {"parent_key": rec.get(f"{letter}_key"), "cfbd_team_id": rec.get(f"{letter}_cfbd_team_id"),
+                         "cfbd_school_name": school, "cfbd_role": role,
+                         "documented_names": [{"name": k, "sources": sorted(v)} for k, v in sorted(named[side].items())]}
+    return {"state": state, "problems": sorted(set(problems)), "cfbd_rows": rows, "sides": sides, "rule": rule}
+
+
+def map_teams(src: dict[str, Any], page: dict[str, dict[str, Any]], date_agrees: bool, rule: str) -> dict[str, Any]:
+    out: dict[str, Any] = {"state": None, "reason": None, "rule": rule, "a_side": None, "b_side": None,
+                           "sources": {"state": src["state"], "problems": src["problems"], "cfbd_rows": src["cfbd_rows"],
+                                       "sides": src["sides"]}, "sides": {}}
+
+    def no(reason: str) -> dict[str, Any]:
+        out["state"], out["reason"] = "UNRESOLVED", reason
+        return out
+    if src["state"] != "PRESENT":
+        return no(src["state"])
+    for side in ("HOME", "AWAY"):
+        p = page[side]
+        if p["ids_disagree"] or p["js"] in ("CONTRADICTORY", "DUPLICATED", "UNPARSEABLE") or \
+                p["href"] in ("CONTRADICTORY", "DUPLICATED", "UNPARSEABLE"):
+            return no(f"{side}_TEAM_ID_WITNESSES_NOT_SINGLE_AND_EQUAL")
+        if not p["ids_agree"]:
+            return no(f"{side}_TEAM_ID_NOT_WITNESSED")
+        if p["name_state"] != "OK":
+            return no(f"{side}_TEAM_NAME_{p['name_state']}")
+    pick = {}
+    for side in ("HOME", "AWAY"):
+        hits = [x for x in ("a", "b") if page[side]["name"] in {d["name"] for d in src["sides"][x]["documented_names"]}]
+        if not hits:
+            return no(f"{side}_TEAM_NAME_NOT_DOCUMENTED_FOR_EITHER_PARENT_TEAM")
+        if len(hits) == 2:
+            return no(f"{side}_TEAM_NAME_AMBIGUOUS_BETWEEN_PARENT_TEAMS")
+        pick[side] = hits[0]
+    if pick["HOME"] == pick["AWAY"]:
+        return no("BOTH_PAGE_TEAMS_MAP_TO_ONE_PARENT_TEAM")
+    for side in ("HOME", "AWAY"):
+        if src["sides"][pick[side]]["cfbd_role"] != side:
+            return no(f"{side}_TEAM_ROLE_CONTRADICTS_THE_CFBD_ROUTE_ROLE")
+    if not date_agrees:
+        return no("CONTEST_DATE_NOT_CORROBORATED_IN_THIS_VERSION")
+    for side in ("HOME", "AWAY"):
+        own = (src["sides"][pick[side]]["cfbd_team_id"] or {}).get("value")
+        opp = (src["sides"]["b" if pick[side] == "a" else "a"]["cfbd_team_id"] or {}).get("value")
+        if page[side]["id"] == opp and page[side]["id"] != own:
+            return no(f"{side}_ESPN_TEAM_ID_EQUALS_THE_OPPONENT_CFBD_ID")
+    for side in ("HOME", "AWAY"):
+        letter = pick[side]
+        info = src["sides"][letter]
+        doc = next(d for d in info["documented_names"] if d["name"] == page[side]["name"])
+        own = (info["cfbd_team_id"] or {}).get("value")
+        out["sides"][side.lower()] = {
+            "page_side": side, "parent_side": letter, "parent_key": info["parent_key"],
+            "espn_team_id": {"namespace": "ESPN_TEAM_ID", "value": page[side]["id"]},
+            "espn_location_name": page[side]["name"], "documented_name": doc["name"], "name_sources": doc["sources"],
+            "cfbd_team_id": info["cfbd_team_id"], "cfbd_role": info["cfbd_role"],
+            "id_relation": "ESPN_ID_LITERAL_EQUALS_CFBD_ID_LITERAL_NOT_AUTHORITY" if page[side]["id"] == own
+            else "ESPN_ID_DIFFERS_FROM_CFBD_ID"}
+        out[f"{letter}_side"] = side
+    out["state"] = "QUALIFIED"
+    return out
 
 
 # --------------------------------------------------------------------------------------------- reconstruction
@@ -355,11 +540,12 @@ class Expected:
                                       "evidence_pointer": f"/requests/{i}/ended_utc", "reason": None}})
         return out
 
-    def capture(self, key: str, spec: dict[str, Any], version: dict[str, Any]) -> tuple[dict, list[dict]]:
+    def capture(self, key: str, spec: dict[str, Any], version: dict[str, Any],
+                payload: bytes | None = None) -> tuple[dict, list[dict]]:
         game = spec["game_id_literal"]
         parent = self.ctx["parent"][key]
         rec, val = parent["record"], parent["values"]
-        payload = version["payload"]
+        payload = version["payload"] if payload is None else payload
         headers = version["headers"]
         problems: list[str] = []
         split = replay_split(version["url"])
@@ -397,11 +583,13 @@ class Expected:
         except UnicodeDecodeError:
             checks["body_utf8"] = False
             problems.append("BODY_NOT_UTF8")
-        scan = scan_page(payload) if checks["body_utf8"] else {"navs": [], "infos": [], "js": [], "witnesses": []}
+        scan = scan_page(payload) if checks["body_utf8"] else {"navs": [], "infos": [], "js": [], "witnesses": [],
+                                                                "problems": []}
+        problems += [p for p in scan["problems"] if p not in problems]
         found: dict[str, list[tuple[int, int, str, Any]]] = {}
-        for name, start, end in scan["witnesses"]:
+        for name, start, end, issue in scan["witnesses"]:
             literal = payload[start:end].decode("utf-8")
-            found.setdefault(name, []).append((start, end, literal, normalize(name, literal)))
+            found.setdefault(name, []).append((start, end, literal, None if issue else normalize(name, literal)))
         closed_navs = [n for n in scan["navs"] if n[1] is not None]
         if checks["body_utf8"]:
             if not closed_navs:
@@ -415,8 +603,9 @@ class Expected:
                 return None, "ABSENT"
             if any(i[3] is None for i in items):
                 return None, "UNPARSEABLE"
-            values = {json.dumps(i[3]) for i in items}
-            return (items[0][3], "OK") if len(values) == 1 else (None, "CONTRADICTORY")
+            if len({json.dumps(i[3], sort_keys=True) for i in items}) > 1:
+                return None, "CONTRADICTORY"
+            return (items[0][3], "OK") if len(items) == 1 else (None, "DUPLICATED")
         if "MAIN_GAME_ELEMENT_ABSENT" not in problems and "MAIN_GAME_ELEMENT_DUPLICATED" not in problems \
                 and checks["body_utf8"]:
             nav_value, nav_state = one("NAV_GAME_ID")
@@ -425,27 +614,19 @@ class Expected:
                 problems.append("WRONG_GAME_NODE")
             if js_state == "CONTRADICTORY":
                 problems.append("GAME_IDENTITY_CONTRADICTORY")
+            elif js_state == "DUPLICATED":
+                problems.append("GAME_IDENTITY_DUPLICATED")
             elif js_state != "OK" or js_value != game:
                 problems.append("GAME_IDENTITY_MISMATCH")
         status_js, s1 = one("JS_STATUS")
         detail, s2 = one("STATUS_DETAIL")
-        final_page = status_js == "post" and isinstance(detail, str) and bool(re.fullmatch(r"Final(/\d*OT)?", detail))
+        final_page = s1 == "OK" and s2 == "OK" and status_js == "post" and isinstance(detail, str) and \
+            bool(re.fullmatch(r"Final(/\d*OT)?", detail))
         if final_page and bound and bound < earliest_instant(rec["contest_date"]):
             problems.append("IMPOSSIBLE_CHRONOLOGY")
         ok_capture = not problems
-        sides = {}
-        for side in ("HOME", "AWAY"):
-            jv, js = one(f"JS_{side}_TEAM_ID")
-            hv, hs = one(f"{side}_TEAM_HREF")
-            sides[side] = {"id": jv, "js": js, "href": hs, "agree": js == "OK" and hs == "OK" and jv == hv}
-        a_id, b_id = rec["a_cfbd_team_id"]["value"], rec["b_cfbd_team_id"]["value"]
-        pair = sides["HOME"]["agree"] and sides["AWAY"]["agree"] and \
-            {sides["HOME"]["id"], sides["AWAY"]["id"]} == {a_id, b_id} and a_id != b_id
-        orient = {"a_side": None, "b_side": None, "rule": "page team block whose ESPN id equals the parent's a/b CFBD "
-                                                          "id literal; pair must match exactly"}
-        if pair:
-            orient["a_side"] = "HOME" if sides["HOME"]["id"] == a_id else "AWAY"
-            orient["b_side"] = "AWAY" if orient["a_side"] == "HOME" else "HOME"
+        bad_state = {"UNPARSEABLE": "WITNESS_LITERAL_UNPARSEABLE", "CONTRADICTORY": "CONTRADICTORY_WITHIN_VERSION",
+                     "DUPLICATED": "DUPLICATED_WITNESS"}
         states: dict[str, str] = {"season": "NOT_WITNESSED_IN_VERSION"}
         rows: list[dict[str, Any]] = []
 
@@ -453,46 +634,79 @@ class Expected:
             states[field] = state
             for name in sorted(names):
                 for start, end, literal, value in found.get(name) or []:
-                    if field in ("a_participant", "b_participant") and value is not None:
-                        value = {"namespace": "ESPN_TEAM_ID", "value": value}
+                    shown = value
+                    if value is not None and name in ("JS_HOME_TEAM_ID", "JS_AWAY_TEAM_ID", "HOME_TEAM_HREF",
+                                                      "AWAY_TEAM_HREF"):
+                        shown = {"namespace": "ESPN_TEAM_ID", "value": value}
+                    elif value is not None and name in ("HOME_TEAM_NAME", "AWAY_TEAM_NAME"):
+                        shown = {"namespace": "ESPN_TEAM_LOCATION_NAME", "value": value}
                     rows.append({"field": field, "witness": name, "witness_span": [start, end], "literal": literal,
-                                 "value": value, "parent_value": val[field], "parent_comparator": comparator,
+                                 "value": shown, "parent_value": val[field], "parent_comparator": comparator,
                                  "corroboration": "UNPARSEABLE" if value is None else corr, "field_state": state})
         dates = [n for n in ("JS_EVENT_TIMESTAMP", "INFO_EVENT_DATE") if found.get(n)]
+        date_agrees = False
         if not dates:
             states["contest_date"] = "NOT_WITNESSED_IN_VERSION"
         else:
             got = [one(n) for n in dates]
-            if any(s == "UNPARSEABLE" for _v, s in got):
-                st, corr = "WITNESS_LITERAL_UNPARSEABLE", "UNPARSEABLE"
-            elif any(s == "CONTRADICTORY" for _v, s in got) or len({v for v, _s in got}) != 1:
+            worst = [s for _v, s in got if s != "OK"]
+            if worst:
+                kind = "UNPARSEABLE" if "UNPARSEABLE" in worst else ("CONTRADICTORY" if "CONTRADICTORY" in worst
+                                                                     else "DUPLICATED")
+                st = bad_state[kind]
+                corr = "UNPARSEABLE" if kind == "UNPARSEABLE" else st
+            elif len({v for v, _s in got}) != 1:
                 st, corr = "CONTRADICTORY_WITHIN_VERSION", "CONTRADICTORY_WITHIN_VERSION"
             else:
                 agrees = rec["contest_date"] in us_dates(got[0][0])
                 corr = "AGREES_WITH_PARENT" if agrees else "CONFLICTS_WITH_PARENT"
                 st = (QUAL if agrees else "CONFLICTS_WITH_PARENT") if len(dates) == 2 else "INCOMPLETE_WITNESS_SET"
+                date_agrees = st == QUAL
             put("contest_date", dates, st if ok_capture else "CAPTURE_NOT_QUALIFIED", corr,
                 {"basis": "US_LOCAL_CANDIDATE_DATES_-4H_-10H", "value": rec["contest_date"]})
+        page = {}
+        for side in ("HOME", "AWAY"):
+            jv, jst = one(f"JS_{side}_TEAM_ID")
+            hv, hst = one(f"{side}_TEAM_HREF")
+            nv, nst = one(f"{side}_TEAM_NAME")
+            page[side] = {"id": jv if (jst == "OK" and hst == "OK" and jv == hv) else None, "js": jst, "href": hst,
+                          "name": nv if nst == "OK" else None, "name_state": nst,
+                          "ids_agree": jst == "OK" and hst == "OK" and jv == hv,
+                          "ids_disagree": jst == "OK" and hst == "OK" and jv != hv}
+        rule = self.contract["participant_mapping"]["rule"]
+        mapping = map_teams(parent["teams"], page, date_agrees, rule)
+        orient = {"a_side": mapping["a_side"], "b_side": mapping["b_side"], "rule": rule}
+        team_names = ("JS_HOME_TEAM_ID", "HOME_TEAM_HREF", "HOME_TEAM_NAME", "JS_AWAY_TEAM_ID", "AWAY_TEAM_HREF",
+                      "AWAY_TEAM_NAME")
         for field, letter in (("a_participant", "a"), ("b_participant", "b")):
-            if not any(found.get(n) for n in ("JS_HOME_TEAM_ID", "HOME_TEAM_HREF", "JS_AWAY_TEAM_ID", "AWAY_TEAM_HREF")):
+            if not any(found.get(n) for n in team_names):
                 states[field] = "NOT_WITNESSED_IN_VERSION"
                 continue
-            if not pair:
+            if mapping["state"] != "QUALIFIED":
+                split_ids = any(page[s][k] in ("CONTRADICTORY", "DUPLICATED") for s in ("HOME", "AWAY")
+                                for k in ("js", "href")) or any(page[s]["ids_disagree"] for s in ("HOME", "AWAY"))
                 states[field] = "CAPTURE_NOT_QUALIFIED" if not ok_capture else (
-                    "CONTRADICTORY_WITHIN_VERSION" if not (sides["HOME"]["agree"] and sides["AWAY"]["agree"])
-                    else "ORIENTATION_UNRESOLVED")
+                    "CONTRADICTORY_WITHIN_VERSION" if split_ids else "PARTICIPANT_MAPPING_UNRESOLVED")
                 continue
-            side = orient[f"{letter}_side"]
-            put(field, [f"JS_{side}_TEAM_ID", f"{side}_TEAM_HREF"], QUAL if ok_capture else "CAPTURE_NOT_QUALIFIED",
-                "AGREES_WITH_PARENT", rec[f"{letter}_cfbd_team_id"])
+            side = mapping[f"{letter}_side"]
+            info = mapping["sides"][side.lower()]
+            put(field, [f"JS_{side}_TEAM_ID", f"{side}_TEAM_HREF", f"{side}_TEAM_NAME"],
+                QUAL if ok_capture else "CAPTURE_NOT_QUALIFIED", "AGREES_WITH_PARENT",
+                {"rule": "DOCUMENTED_PARENT_NAME_CFBD_ROLE_AND_DATE", "parent_key": info["parent_key"],
+                 "documented_name": info["documented_name"], "name_sources": info["name_sources"],
+                 "cfbd_team_id": info["cfbd_team_id"], "cfbd_role": info["cfbd_role"]})
         status_names = [n for n in ("JS_STATUS", "STATUS_DETAIL") if found.get(n)]
         completed = False
         if not status_names:
             states["completion"] = "NOT_WITNESSED_IN_VERSION"
         else:
-            if len(status_names) < 2 or s1 != "OK" or s2 != "OK":
-                st, corr = ("INCOMPLETE_WITNESS_SET", "VERSION_PREDATES_OUTCOME") if len(status_names) < 2 else \
-                    ("CONTRADICTORY_WITHIN_VERSION", "CONTRADICTORY_WITHIN_VERSION")
+            if len(status_names) < 2:
+                st, corr = "INCOMPLETE_WITNESS_SET", "VERSION_PREDATES_OUTCOME"
+            elif s1 != "OK" or s2 != "OK":
+                kind = "UNPARSEABLE" if "UNPARSEABLE" in (s1, s2) else ("CONTRADICTORY" if "CONTRADICTORY" in (s1, s2)
+                                                                       else "DUPLICATED")
+                st = bad_state[kind]
+                corr = "UNPARSEABLE" if kind == "UNPARSEABLE" else st
             elif final_page:
                 completed = val["completion"] == "COMPLETED"
                 st = QUAL if completed else "CONFLICTS_WITH_PARENT"
@@ -500,24 +714,22 @@ class Expected:
             else:
                 st, corr = "NOT_SUPPORTED_BY_VERSION_STATUS", "VERSION_PREDATES_OUTCOME"
             put("completion", status_names, st if ok_capture else "CAPTURE_NOT_QUALIFIED", corr, None)
-        final_ok = final_page and len(status_names) == 2 and s1 == "OK" and s2 == "OK"
         for field, letter in (("a_points", "a"), ("b_points", "b")):
-            if not final_ok:
+            if not final_page:
                 states[field] = ("NOT_SUPPORTED_BY_VERSION_STATUS" if status_names else "NOT_WITNESSED_IN_VERSION") \
                     if ok_capture else "CAPTURE_NOT_QUALIFIED"
                 continue
-            if not pair:
+            if mapping["state"] != "QUALIFIED":
                 states[field] = "ORIENTATION_UNRESOLVED" if ok_capture else "CAPTURE_NOT_QUALIFIED"
                 continue
-            side = orient[f"{letter}_side"]
+            side = mapping[f"{letter}_side"]
             score, sst = one(f"{side}_SCORE")
             if sst == "ABSENT":
                 states[field] = "NOT_WITNESSED_IN_VERSION" if ok_capture else "CAPTURE_NOT_QUALIFIED"
                 continue
-            if sst == "UNPARSEABLE":
-                st, corr = "WITNESS_LITERAL_UNPARSEABLE", "UNPARSEABLE"
-            elif sst == "CONTRADICTORY":
-                st, corr = "CONTRADICTORY_WITHIN_VERSION", "CONTRADICTORY_WITHIN_VERSION"
+            if sst != "OK":
+                st = bad_state[sst]
+                corr = "UNPARSEABLE" if sst == "UNPARSEABLE" else st
             else:
                 agrees = score == val[field]
                 corr = "AGREES_WITH_PARENT" if agrees else "CONFLICTS_WITH_PARENT"
@@ -564,11 +776,12 @@ class Expected:
         scopes.sort(key=lambda s: (s["span"][0], s["kind"]))
         participants = {}
         for side in ("HOME", "AWAY"):
-            spans = sorted([n, [s, e]] for n in (f"JS_{side}_TEAM_ID", f"{side}_TEAM_HREF")
+            spans = sorted([n, [s, e]] for n in (f"JS_{side}_TEAM_ID", f"{side}_TEAM_HREF", f"{side}_TEAM_NAME")
                            for s, e, _l, _v in found.get(n) or [])
-            participants[side.lower()] = {"espn_team_id": sides[side]["id"] if sides[side]["agree"] else None,
-                                          "js_state": sides[side]["js"], "href_state": sides[side]["href"],
-                                          "witnesses_agree": sides[side]["agree"], "witness_spans": spans}
+            participants[side.lower()] = {"espn_team_id": page[side]["id"], "espn_location_name": page[side]["name"],
+                                          "js_state": page[side]["js"], "href_state": page[side]["href"],
+                                          "name_state": page[side]["name_state"],
+                                          "witnesses_agree": page[side]["ids_agree"], "witness_spans": spans}
         capture = {
             "record_type": "archive_capture", "capture_id": capture_id, "contest_key": key,
             "origin": version["origin"], "request_seq": version["seq"], "original_url": split[1] if split else None,
@@ -582,7 +795,8 @@ class Expected:
             "clocks": {"archive_capture": archive, "retrieval": version["retrieval"], "event": event},
             "main_element_spans": scopes,
             "page_status": {"js_status": status_js, "status_detail": detail, "final": final_page},
-            "page_participants": participants, "orientation": orient, "field_states": states}
+            "page_participants": participants, "orientation": orient, "participant_mapping": mapping,
+            "field_states": states}
         assertions = [{"record_type": "archive_assertion", "contest_key": key,
                        "original_url": split[1] if split else None, "capture_id": capture_id,
                        "payload_sha256": payload_sha, "source_revision": capture_id, "field_role":
@@ -717,16 +931,31 @@ def verify_inputs(contract: dict[str, Any], args: argparse.Namespace, report: Re
                control_receipt_sha=h_bytes(receipt_raw))
     conn = sqlite3.connect("file:" + str(db.resolve()).replace("\\", "/") + "?mode=ro", uri=True)
     parent = {}
+    single = True
+    rule = (contract.get("participant_mapping") or {}).get("rule", "")
     for key in keys:
-        rec_text, blob = conn.execute("SELECT record, assertions FROM contests WHERE contest_key = ?", (key,)).fetchone()
+        rec_text, blob, lineage_blob = conn.execute(
+            "SELECT record, assertions, lineage FROM contests WHERE contest_key = ?", (key,)).fetchone()
         rec = json.loads(rec_text)
+        seen: dict[str, set[str]] = {}
         values: dict[str, Any] = {}
         for line in zlib.decompress(blob).decode("utf-8").splitlines():
             item = json.loads(line)
             values.setdefault(item["field"], item["parent_value"])
-        parent[key] = {"record": rec, "values": {f: values.get(f) for f in FIELD_LIST}}
+            seen.setdefault(item["field"], set()).add(json.dumps(item["parent_value"], sort_keys=True))
+        single &= set(seen) == set(FIELD_LIST) and all(len(v) == 1 for v in seen.values())
+        lineage = [json.loads(x) for x in zlib.decompress(lineage_blob).decode("utf-8").splitlines()]
+        parent[key] = {"record": rec, "values": {f: values.get(f) for f in FIELD_LIST},
+                       "teams": team_sources(rec, lineage, rule)}
     conn.close()
     ctx["parent"] = parent
+    report.check("parent_values_single_per_field", single)
+    report.check("contract_is_the_v1_1_successor_without_numeric_identity",
+                 (contract.get("schema_version"), contract.get("contract_id")) == (
+                     "1.1.0", "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.1") and
+                 (contract.get("participant_mapping") or {}).get("numeric_identifier_equality") == "NEVER_AUTHORITY"
+                 and bool(rule))
+    ctx["participant_source_states"] = {k: p["teams"]["state"] for k, p in parent.items()}
     report.check("tranche_rows_equal_parent", all(
         (ctx["tranche"][k]["a_key"], ctx["tranche"][k]["b_key"], ctx["tranche"][k]["contest_date"],
          ctx["tranche"][k]["a_points"], ctx["tranche"][k]["b_points"]) ==
@@ -1046,6 +1275,60 @@ def tamper_cases(expected: Expected, delivered: dict[str, list[dict[str, Any]]])
     run("parent_value_copied_into_unwitnessed_field", lambda d: bool(d["assertions.jsonl"]) and
         d["assertions.jsonl"].append(dict(copy.deepcopy(d["assertions.jsonl"][0]), field="season",
                                           value=2019, field_state=QUAL)) is None)
+
+    def borrowed(d: dict[str, list[dict[str, Any]]]) -> bool:
+        """MF41A01-01 class: a pregame version promoted with 'post', 'Final' and score digits borrowed from
+        unrelated substrings of the same raw page."""
+        literals = (("completion", "JS_STATUS", "post"), ("completion", "STATUS_DETAIL", "Final"),
+                    ("a_points", "AWAY_SCORE", "2"), ("b_points", "HOME_SCORE", "3"))
+        for cap in d["captures.jsonl"]:
+            if cap["state"] != "QUALIFIED" or cap["page_status"]["js_status"] != "pre":
+                continue
+            raw = expected.raw(cap["payload_sha256"])
+            starts = [raw.find(literal.encode("utf-8")) for _f, _w, literal in literals]
+            if min(starts) < 0:
+                continue
+            template = next(a for a in d["assertions.jsonl"] if a["capture_id"] == cap["capture_id"])
+            for (field, witness, literal), start in zip(literals, starts):
+                d["assertions.jsonl"].append(dict(copy.deepcopy(template), field=field, witness=witness,
+                                                  literal=literal, witness_span=[start, start + len(literal)],
+                                                  field_state=QUAL, corroboration="AGREES_WITH_PARENT",
+                                                  field_role="OUTCOME"))
+                cap["field_states"][field] = QUAL
+            return True
+        return False
+    run("pregame_promoted_with_borrowed_substrings", borrowed)
+
+    def adjacent(d: dict[str, list[dict[str, Any]]]) -> bool:
+        """MF41A01-01 class: a score span moved to the same digits elsewhere inside the genuine main element."""
+        for a in d["assertions.jsonl"]:
+            if a["field"] not in ("a_points", "b_points") or a["field_state"] != QUAL:
+                continue
+            cap = next(c for c in d["captures.jsonl"] if c["capture_id"] == a["capture_id"])
+            raw = expected.raw(cap["payload_sha256"])
+            nav = next(s["span"] for s in cap["main_element_spans"] if s["kind"] == "NAV")
+            pos = raw.find(a["literal"].encode("utf-8"), nav[0])
+            while 0 <= pos < nav[1]:
+                if pos != a["witness_span"][0]:
+                    a["witness_span"] = [pos, pos + len(a["literal"])]
+                    return True
+                pos = raw.find(a["literal"].encode("utf-8"), pos + 1)
+        return False
+    run("score_span_moved_to_same_digits_in_the_main_element", adjacent)
+    run("participant_mapping_name_replaced", edit("captures.jsonl", lambda c: (c.get("participant_mapping") or {})
+                                                  .get("state") == "QUALIFIED", lambda c: c["participant_mapping"]
+                                                  ["sides"]["home"].update(espn_location_name="Unrelated College")))
+    run("participant_mapping_claimed_without_evidence", edit(
+        "captures.jsonl", lambda c: c["field_states"]["a_participant"] == QUAL,
+        lambda c: c.update(participant_mapping=dict(c["participant_mapping"], state="UNRESOLVED",
+                                                    reason="HOME_TEAM_NAME_NOT_DOCUMENTED_FOR_EITHER_PARENT_TEAM"))))
+    run("required_status_detail_row_omitted", lambda d: any(
+        d["assertions.jsonl"].remove(a) is None for a in [next((x for x in d["assertions.jsonl"]
+                                                               if x["witness"] == "STATUS_DETAIL"
+                                                               and x["field_state"] == QUAL), None)] if a))
+    run("team_name_witness_row_omitted", lambda d: any(
+        d["assertions.jsonl"].remove(a) is None for a in [next((x for x in d["assertions.jsonl"]
+                                                               if x["witness"].endswith("_TEAM_NAME")), None)] if a))
     return out
 
 
@@ -1081,15 +1364,116 @@ def challenges(expected: Expected, delivered: dict[str, list[dict[str, Any]]], c
     out.append({"challenge": "witness_literals_reread_from_raw", "as_expected": all(
         payload(by_id[a["capture_id"]])[a["witness_span"][0]:a["witness_span"][1]] == a["literal"].encode("utf-8")
         for a in asr)})
-    out.append({"challenge": "namespace_inequality_never_joined", "as_expected": all(
-        c["orientation"]["a_side"] is None for c in caps if {p["espn_team_id"] for p in c["page_participants"].values()}
-        != {ctx["parent"][c["contest_key"]]["record"]["a_cfbd_team_id"]["value"],
-            ctx["parent"][c["contest_key"]]["record"]["b_cfbd_team_id"]["value"]})})
+    def rests_on_names(c: dict[str, Any]) -> bool:
+        mapping = c["participant_mapping"]
+        teams = ctx["parent"][c["contest_key"]]["teams"]["sides"]
+        return all(side["espn_location_name"] in {d["name"] for d in teams[side["parent_side"]]["documented_names"]}
+                   and teams[side["parent_side"]]["cfbd_role"] == side["page_side"]
+                   for side in mapping["sides"].values()) and c["field_states"]["contest_date"] == QUAL
+    mapped = [c for c in caps if c["participant_mapping"]["state"] == "QUALIFIED"]
+    out.append({"challenge": "participant_maps_rest_on_documented_names_roles_and_dates_not_numbers",
+                "as_expected": all(rests_on_names(c) for c in mapped),
+                "detail": {"qualified_maps": len(mapped), "differing_id_sides": sum(
+                    1 for c in mapped for s in c["participant_mapping"]["sides"].values()
+                    if s["id_relation"] == "ESPN_ID_DIFFERS_FROM_CFBD_ID")}})
+    out.extend(page_challenges(expected, caps, payload))
     probes = {s["contest_key"]: s["probe_1_timestamp"] for s in expected.contract["scope"]["keys"]}
     out.append({"challenge": "probe_timestamps_never_used_as_bounds", "as_expected": all(
         c["wayback_timestamp"] != probes[c["contest_key"]] or c["memento_datetime_literal"] is not None for c in caps)})
     out.append({"challenge": "every_key_has_exactly_one_disposition", "as_expected": sorted(
         d["contest_key"] for d in delivered["dispositions.jsonl"]) == sorted(probes)})
+    return out
+
+
+def page_challenges(expected: Expected, caps: list[dict[str, Any]], payload) -> list[dict[str, Any]]:
+    """Self-challenges on in-memory copies of the retained pages: this tool's own reconstruction must refuse the
+    manager's failure classes (MF41A01-01 borrowed or same-element field literals, MF41A01-02 numeric identity)."""
+    out: list[dict[str, Any]] = []
+    specs = {s["contest_key"]: s for s in expected.contract["scope"]["keys"]}
+
+    def version_of(cap: dict[str, Any]) -> dict[str, Any]:
+        return next(v for v in expected.versions(cap["contest_key"], specs[cap["contest_key"]])
+                    if h_bytes(v["payload"]) == cap["payload_sha256"])
+    pre = [c for c in caps if c["state"] == "QUALIFIED" and c["page_status"]["js_status"] == "pre"]
+    bites = 0
+    ok = True
+    for c in pre:
+        scan = scan_page(payload(c))
+        status = [payload(c)[w[1]:w[2]] for w in scan["witnesses"] if w[0] == "JS_STATUS"]
+        details = [payload(c)[w[1]:w[2]] for w in scan["witnesses"] if w[0] == "STATUS_DETAIL"]
+        names = [w[0] for w in scan["witnesses"]]
+        ok &= status == [b"pre"] and not any(re.fullmatch(rb"Final(/\d*OT)?", d) for d in details) \
+            and "HOME_SCORE" not in names and "AWAY_SCORE" not in names
+        bites += int(b"post" in payload(c) and b"Final" in payload(c))
+    out.append({"challenge": "pregame_versions_yield_no_borrowed_status_or_scores", "as_expected": ok,
+                "detail": {"pregame_captures": len(pre), "pages_containing_post_and_Final_elsewhere": bites}})
+    final = [c for c in caps if c["state"] == "QUALIFIED" and c["page_status"]["final"]]
+    ok, extra = True, 0
+    for c in final:
+        scan = scan_page(payload(c))
+        nav = next(s["span"] for s in c["main_element_spans"] if s["kind"] == "NAV")
+        for side in ("HOME", "AWAY"):
+            hits = [w for w in scan["witnesses"] if w[0] == f"{side}_SCORE"]
+            ok &= len(hits) == 1
+            if hits:
+                literal = payload(c)[hits[0][1]:hits[0][2]]
+                extra += max(payload(c)[nav[0]:nav[1]].count(literal) - 1, 0)
+    out.append({"challenge": "each_score_is_exactly_one_score_element_not_any_equal_digits", "as_expected": ok,
+                "detail": {"final_captures": len(final), "other_equal_digit_runs_inside_the_main_element": extra}})
+    mapped = [c for c in caps if c["participant_mapping"]["state"] == "QUALIFIED" and c["state"] == "QUALIFIED"]
+    ok_unrelated, ok_swapped = True, True
+    for c in mapped:
+        data = payload(c)
+        unrelated = re.sub(rb'(<span class="long-name">)[^<]+', rb"\1Unrelated College", data)
+        capture, _rows = expected.capture(c["contest_key"], specs[c["contest_key"]], version_of(c), unrelated)
+        ok_unrelated &= capture["participant_mapping"]["state"] == "UNRESOLVED" and \
+            capture["field_states"]["a_participant"] == "PARTICIPANT_MAPPING_UNRESOLVED" and \
+            capture["field_states"]["a_points"] in ("ORIENTATION_UNRESOLVED", "NOT_SUPPORTED_BY_VERSION_STATUS",
+                                                    "NOT_WITNESSED_IN_VERSION")
+        home = c["page_participants"]["home"]["espn_location_name"]
+        away = c["page_participants"]["away"]["espn_location_name"]
+        marker = b"\x00SWAP\x00"
+        swapped = data.replace(b'class="long-name">' + home.encode("utf-8") + b"<", marker) \
+            .replace(b'class="long-name">' + away.encode("utf-8") + b"<",
+                     b'class="long-name">' + home.encode("utf-8") + b"<") \
+            .replace(marker, b'class="long-name">' + away.encode("utf-8") + b"<")
+        capture, _rows = expected.capture(c["contest_key"], specs[c["contest_key"]], version_of(c), swapped)
+        ok_swapped &= swapped != data and capture["participant_mapping"]["state"] == "UNRESOLVED" and \
+            capture["field_states"]["b_participant"] == "PARTICIPANT_MAPPING_UNRESOLVED"
+    out.append({"challenge": "unrelated_team_names_with_equal_numeric_ids_never_join", "as_expected": ok_unrelated,
+                "detail": {"captures": len(mapped)}})
+    out.append({"challenge": "swapped_team_names_never_join", "as_expected": ok_swapped,
+                "detail": {"captures": len(mapped)}})
+    ok_dup, tried = True, 0
+    for c in final:
+        data = payload(c)
+        line = re.search(rb'\n([ \t]*espn\.gamepackage\.status[ \t]*=[ \t]*"post"[ \t]*;)', data)
+        if not line:
+            continue
+        tried += 1
+        doubled = data[:line.end()] + b"\n" + line.group(1) + data[line.end():]
+        capture, _rows = expected.capture(c["contest_key"], specs[c["contest_key"]], version_of(c), doubled)
+        ok_dup &= capture["field_states"]["completion"] == "DUPLICATED_WITNESS" and \
+            capture["field_states"]["a_points"] != QUAL
+    out.append({"challenge": "duplicated_status_assignment_never_qualifies", "as_expected": ok_dup and tried > 0,
+                "detail": {"captures": tried}})
+    ok_attr, tried = True, 0
+    for c in mapped:
+        data = payload(c)
+        nav = next(s["span"] for s in c["main_element_spans"] if s["kind"] == "NAV")
+        pos = data.find(b'class="team-name"', nav[0], nav[1])
+        if pos < 0:
+            continue
+        tried += 1
+        hidden = data[:pos] + b"title=' href=\"/college-football/team/_/id/1\"' " + data[pos:]
+        scan = scan_page(hidden)
+        before = sorted(normalize(w[0], payload(c)[w[1]:w[2]].decode("utf-8"))
+                        for w in scan_page(payload(c))["witnesses"] if w[0].endswith("_TEAM_HREF"))
+        after = sorted(normalize(w[0], hidden[w[1]:w[2]].decode("utf-8"))
+                       for w in scan["witnesses"] if w[0].endswith("_TEAM_HREF"))
+        ok_attr &= before == after and "1" not in after
+    out.append({"challenge": "href_text_inside_another_attribute_is_not_a_witness", "as_expected": ok_attr and tried > 0,
+                "detail": {"captures": tried}})
     return out
 
 
@@ -1151,7 +1535,20 @@ def main(argv: list[str] | None = None) -> int:
                       "qualified_captures": sum(1 for c in delivered["records"]["captures.jsonl"]
                                                 if c["state"] == "QUALIFIED"),
                       "assertions": len(delivered["records"]["assertions.jsonl"]),
-                      "keys_with_field_support": fields, "strata": strata(delivered["records"])},
+                      "keys_with_field_support": fields, "strata": strata(delivered["records"]),
+                      "participant_maps": {
+                          "qualified": sum(1 for c in delivered["records"]["captures.jsonl"]
+                                           if c["participant_mapping"]["state"] == "QUALIFIED"),
+                          "unresolved": sorted({c["participant_mapping"]["reason"]
+                                                for c in delivered["records"]["captures.jsonl"]
+                                                if c["participant_mapping"]["state"] != "QUALIFIED"}),
+                          "name_sources": sorted({tuple(s["name_sources"])
+                                                  for c in delivered["records"]["captures.jsonl"]
+                                                  for s in c["participant_mapping"]["sides"].values()}),
+                          "differing_id_sides": sum(1 for c in delivered["records"]["captures.jsonl"]
+                                                    for s in c["participant_mapping"]["sides"].values()
+                                                    if s["id_relation"] == "ESPN_ID_DIFFERS_FROM_CFBD_ID"),
+                          "source_states": ctx.get("participant_source_states")}},
            "grant_conditions": ctx.get("grant_conditions"), "decisions": decisions, "tamper_cases": tampers,
            "oracle_challenges": oracle,
            "independence": "standard library only; no producer, query or project import; the consumer is exercised "

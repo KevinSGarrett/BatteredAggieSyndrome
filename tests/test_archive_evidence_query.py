@@ -38,8 +38,9 @@ def tearDownModule() -> None:  # noqa: N802 - unittest hook
     STATE["tmp"].cleanup()
 
 
-def run(*argv: str, sidecar: Path | None = None, archive: bool = True) -> tuple[int, dict | None, str]:
-    args = ["--database", str(STATE["world"]["st_db"]), *argv]
+def run(*argv: str, sidecar: Path | None = None, archive: bool = True,
+        database: Path | None = None) -> tuple[int, dict | None, str]:
+    args = ["--database", str(database or STATE["world"]["st_db"]), *argv]
     if archive:
         args += ["--archive-evidence", str(sidecar or STATE["sidecar"])]
     out, err = io.StringIO(), io.StringIO()
@@ -107,7 +108,9 @@ class CompositionTests(unittest.TestCase):
     def test_partial_and_missing_routes_stay_honest(self) -> None:
         partial = fields("ncaa:1004", "2026-10-02T00:00:00Z")
         self.assertEqual(partial["contest_date"]["archive"]["historically_published_by_cutoff"], "TRUE")
-        self.assertEqual(partial["a_participant"]["archive"]["historically_published_by_cutoff"],
+        # Echo's page id 99105 differs from its CFBD id 105: mapped by documented names, CFBD role and date.
+        self.assertEqual(partial["b_participant"]["archive"]["historically_published_by_cutoff"], "TRUE")
+        self.assertEqual(partial["a_points"]["archive"]["historically_published_by_cutoff"],
                          "NO_QUALIFIED_ARCHIVE_ASSERTION")
         missing = fields("ncaa:1005", "2026-10-02T00:00:00Z")
         self.assertTrue(all(v["archive"]["historically_published_by_cutoff"] == "NO_QUALIFIED_ARCHIVE_ASSERTION"
@@ -228,14 +231,16 @@ class ArchiveGrainTests(unittest.TestCase):
         self.assertEqual(refusal(err), "NEGATIVE_OFFSET")
 
 
-def rehouse(base: Path, mutate_rows=None, mutate_meta=None, mutate_raw=None) -> Path:
+def rehouse(base: Path, mutate_rows=None, mutate_meta=None, mutate_raw=None, mutate_document=None, world=None,
+            result=None) -> Path:
     """Copy the archive root, apply a tamper to the sidecar records/meta/raw store and recompute every outer hash so
-    that only semantic verification can catch it. Returns the new sidecar path."""
+    that only semantic verification can catch it. ``mutate_rows`` may return "DELETE". Returns the new sidecar path."""
+    world, result = world or STATE["world"], result or STATE["result"]
     root = base / "canonical" / "ap"
-    shutil.copytree(STATE["world"]["out"], root)
+    shutil.copytree(world["out"], root)
     (base / "manifests").mkdir(parents=True)
-    shutil.copytree(STATE["world"]["manifests"], base / "manifests" / "ap")
-    db_id = STATE["result"]["database_identity"]
+    shutil.copytree(world["manifests"], base / "manifests" / "ap")
+    db_id = result["database_identity"]
     source = root / "sha256" / db_id / "national_archived_publication.sqlite"
     work = base / "work.sqlite"
     shutil.copyfile(source, work)
@@ -245,19 +250,21 @@ def rehouse(base: Path, mutate_rows=None, mutate_meta=None, mutate_raw=None) -> 
             rows = [(o, json.loads(r)) for o, r in conn.execute(f"SELECT ord, record FROM {table} ORDER BY ord")]
             for ordinal, record in rows:
                 changed = mutate_rows(table, record)
-                if changed is not None:
+                if changed == "DELETE":
+                    conn.execute(f"DELETE FROM {table} WHERE ord = ?", (ordinal,))
+                elif changed is not None:
                     conn.execute(f"UPDATE {table} SET record = ? WHERE ord = ?",
                                  (json.dumps(changed, sort_keys=True, separators=(",", ":"), ensure_ascii=False),
                                   ordinal))
             extra = mutate_rows(table, None)
-            if extra is not None:
+            for item in ([extra] if isinstance(extra, dict) else extra or []):
                 columns = [c[1] for c in conn.execute(f"PRAGMA table_info({table})")]
                 last = conn.execute(f"SELECT * FROM {table} ORDER BY ord DESC LIMIT 1").fetchone()
                 values = dict(zip(columns, last))
-                values.update({c: extra[c] for c in columns if c in extra and c not in ("ord", "record")})
-                values.update(ord=values["ord"] + 1, record=json.dumps(extra, sort_keys=True, separators=(",", ":")))
+                values.update({c: item[c] for c in columns if c in item and c not in ("ord", "record")})
+                values.update(ord=values["ord"] + 1, record=json.dumps(item, sort_keys=True, separators=(",", ":")))
                 if "span_start" in values:
-                    values["span_start"] = -1
+                    values["span_start"] = item["witness_span"][0] if isinstance(extra, list) else -1
                 conn.execute(f"INSERT INTO {table} ({','.join(columns)}) VALUES ({','.join('?' * len(columns))})",
                              [values[c] for c in columns])
     if mutate_meta:
@@ -275,6 +282,8 @@ def rehouse(base: Path, mutate_rows=None, mutate_meta=None, mutate_raw=None) -> 
     document["outputs"]["national_archived_publication.sqlite"] = hashlib.sha256(work.read_bytes()).hexdigest()
     document["table_counts"] = counts
     document["record_counts"] = {name: counts[name.split(".")[0]] for name in document["record_counts"]}
+    if mutate_document:
+        mutate_document(document)
     identity = hashlib.sha256(json.dumps(document, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
                               .encode("utf-8")).hexdigest()
     target = root / "sha256" / identity / "national_archived_publication.sqlite"
@@ -299,7 +308,8 @@ class SidecarRefusalTests(unittest.TestCase):
         sidecar = rehouse(self.base)
         rc, doc, err = run("--grain", "archive-disposition", sidecar=sidecar)
         self.assertEqual(rc, 0, err)
-        self.assertEqual(doc["archive_evidence"]["verification"], "SIDECAR_RAW_RECEIPT_AND_SEMANTIC_REDERIVATION_PASSED")
+        self.assertEqual(doc["archive_evidence"]["verification"],
+                         "SIDECAR_RAW_RECEIPT_FIELD_GRAIN_AND_PARTICIPANT_MAPPING_REDERIVATION_PASSED")
 
     def test_rehashed_semantic_forgeries_refuse(self) -> None:
         def points(table, record):
@@ -416,6 +426,114 @@ class SidecarRefusalTests(unittest.TestCase):
         orphan.parent.mkdir(parents=True)
         shutil.copyfile(STATE["sidecar"], orphan)
         self.refuse("ARCHIVE_MANIFEST_MISSING", orphan)
+
+    def test_borrowed_and_same_element_witnesses_refuse(self) -> None:
+        """MF41A01-01: a stored span must be an exact occurrence of its own witness, never a borrowed substring."""
+        pre = next(c for c in fx.read_payload(STATE["result"], "captures.jsonl")
+                   if c["page_status"]["js_status"] == "pre")
+        raw = (STATE["world"]["out"] / "raw" / "sha256" / pre["payload_sha256"]).read_bytes()
+        template = next(a for a in fx.read_payload(STATE["result"], "assertions.jsonl")
+                        if a["capture_id"] == pre["capture_id"])
+
+        def borrowed(table, record):
+            if table == "assertions" and record is None:
+                start = raw.find(b"Final")
+                return [dict(copy.deepcopy(template), field="completion", witness="STATUS_DETAIL", literal="Final",
+                             value="Final", witness_span=[start, start + 5], field_role="OUTCOME",
+                             corroboration="AGREES_WITH_PARENT", field_state=QUAL, parent_comparator=None)]
+            if table == "captures" and record and record["capture_id"] == pre["capture_id"]:
+                return dict(record, field_states=dict(record["field_states"], completion=QUAL))
+            return None
+        self.refuse("ARCHIVE_WITNESS_MISMATCH", rehouse(self.base / "a", borrowed))
+        final = next(c for c in fx.read_payload(STATE["result"], "captures.jsonl")
+                     if c["contest_key"] == "ncaa:1001")
+        fraw = (STATE["world"]["out"] / "raw" / "sha256" / final["payload_sha256"]).read_bytes()
+        nav = next(s["span"] for s in final["main_element_spans"] if s["kind"] == "NAV")
+
+        def same_element(table, record):
+            if table == "assertions" and record and record["capture_id"] == final["capture_id"] \
+                    and record["field"] == "b_points":
+                pos = fraw.find(record["literal"].encode(), nav[0])
+                while pos == record["witness_span"][0]:
+                    pos = fraw.find(record["literal"].encode(), pos + 1)
+                self.assertTrue(nav[0] <= pos < nav[1])
+                return dict(record, witness_span=[pos, pos + len(record["literal"])])
+            return None
+        self.refuse("ARCHIVE_WITNESS_MISMATCH", rehouse(self.base / "b", same_element))
+
+    def test_omitted_required_witness_refuses(self) -> None:
+        def omit(table, record):
+            if table == "assertions" and record and record["contest_key"] == "ncaa:1001" \
+                    and record["witness"] == "STATUS_DETAIL":
+                return "DELETE"
+            return None
+        self.refuse("ARCHIVE_WITNESS_SET_MISMATCH", rehouse(self.base / "a", omit))
+
+    def test_participant_mapping_and_orientation_forgeries_refuse(self) -> None:
+        """MF41A01-02: the stored map, orientation and participant states must equal the evidenced re-derivation."""
+        def rename(table, record):
+            if table == "captures" and record and record["contest_key"] == "ncaa:1001":
+                mapping = copy.deepcopy(record["participant_mapping"])
+                mapping["sides"]["home"]["documented_name"] = "Unrelated College"
+                return dict(record, participant_mapping=mapping)
+            return None
+        self.refuse("ARCHIVE_PARTICIPANT_MAPPING_INVALID", rehouse(self.base / "a", rename))
+
+        def flip(table, record):
+            if table == "captures" and record and record["contest_key"] == "ncaa:1001":
+                o = record["orientation"]
+                return dict(record, orientation=dict(o, a_side=o["b_side"], b_side=o["a_side"]))
+            return None
+        self.refuse("ARCHIVE_PARTICIPANT_MAPPING_INVALID", rehouse(self.base / "b", flip))
+
+        def demote(table, record):
+            if table == "captures" and record and record["contest_key"] == "ncaa:1004":
+                return dict(record, field_states=dict(record["field_states"],
+                                                      b_participant="PARTICIPANT_MAPPING_UNRESOLVED"))
+            return None
+        self.refuse("ARCHIVE_PARTICIPANT_MAPPING_INVALID", rehouse(self.base / "c", demote))
+
+    def test_contradictory_maps_across_the_tranche_refuse(self) -> None:
+        from unittest import mock  # noqa: PLC0415
+
+        def alpha_renumbered(archive, row):
+            away = fx.side_ids(row["_record"])[1]
+            game = row["cfbd_game_id"]["value"]
+            archive.meta[(game, row["metadata_probe_timestamp"])] = "20190901041500"
+            archive.replay[("20190901041500", game)] = (
+                200, fx.replay_headers("20190901041500", fx.game_url(game)), fx.page_for(row, ids=("777", away)))
+        world = fx.build_world(self.base / "w", {"ncaa:1001": alpha_renumbered})
+        fx.run_capture(world)
+        build = fx.builder()
+        with mock.patch.object(build.af, "mapping_conflicts", return_value=[]):
+            code, result, err = fx.run_build(world)
+        self.assertEqual(code, 0, err)
+        rc, _doc, err = run("--grain", "archive-disposition", sidecar=fx.database_path(result), database=world["st_db"])
+        self.assertEqual((rc, refusal(err)), (2, "ARCHIVE_PARTICIPANT_MAPPING_CONTRADICTORY"), err[-300:])
+
+    def test_predecessor_v1_0_sidecar_is_checked_then_refused_as_superseded(self) -> None:
+        def legacy_rows(table, record):
+            if table == "assertions" and record and record["witness"].endswith("_TEAM_NAME"):
+                return "DELETE"
+            return None
+        legacy_meta = {"schema_version": "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-1",
+                       "contract_id": "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.0"}
+
+        def legacy_document(document):
+            document.update(schema="BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-1",
+                            db_schema_version="BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-1")
+        self.refuse("ARCHIVE_SCHEMA_SUPERSEDED", rehouse(self.base / "a", legacy_rows, mutate_meta=legacy_meta,
+                                                         mutate_document=legacy_document))
+        final = next(c for c in fx.read_payload(STATE["result"], "captures.jsonl")
+                     if c["contest_key"] == "ncaa:1001")
+
+        def legacy_borrowed(table, record):
+            if table == "assertions" and record and record["capture_id"] == final["capture_id"] \
+                    and record["witness"] == "STATUS_DETAIL":
+                return dict(record, witness_span=[0, 5], literal="<!DOC")
+            return legacy_rows(table, record)
+        self.refuse("ARCHIVE_WITNESS_MISMATCH", rehouse(self.base / "b", legacy_borrowed, mutate_meta=legacy_meta,
+                                                        mutate_document=legacy_document))
 
     def test_query_never_writes_the_sidecar(self) -> None:
         before = hashlib.sha256(STATE["sidecar"].read_bytes()).hexdigest()

@@ -159,6 +159,40 @@ class CompositionTests(unittest.TestCase):
         self.assertEqual(refusal(err), "ARCHIVE_EVIDENCE_REQUIRED")
 
 
+class ModuleFrontTests(unittest.TestCase):
+    """``python -m`` runs the query file as __main__; refusals raised by the archive module must still be refusals."""
+
+    def module(self, *argv: str) -> tuple[int, str, str]:
+        import os  # noqa: PLC0415
+        import subprocess  # noqa: PLC0415
+        env = dict(os.environ)
+        env["PYTHONPATH"] = os.pathsep.join([str(fx.ROOT / "src")] + ([env["PYTHONPATH"]] if env.get("PYTHONPATH")
+                                                                     else []))
+        proc = subprocess.run([sys.executable, "-B", "-m", "aggie_analytics.national_source_time.query", "--database",
+                               str(STATE["world"]["st_db"]), *argv], capture_output=True, text=True,
+                              encoding="utf-8", env=env, check=False)
+        return proc.returncode, proc.stdout, proc.stderr
+
+    def test_archive_and_cutoff_refusals_exit_two_at_the_module_front(self) -> None:
+        for argv, code in ((["--archive-evidence", str(STATE["sidecar"]), "--expect-archive-identity", "0" * 64,
+                             "--grain", "archive-disposition"], "STALE_ARCHIVE_IDENTITY"),
+                           (["--archive-evidence", str(STATE["sidecar"]), "--grain", "archive-assertion"],
+                            "CUTOFF_REQUIRED"),
+                           (["--grain", "archive-request"], "ARCHIVE_EVIDENCE_REQUIRED")):
+            rc, _out, err = self.module(*argv)
+            self.assertEqual((rc, refusal(err)), (2, code), err[-300:])
+            self.assertNotIn("Traceback", err)
+
+    def test_module_front_composes_and_keeps_default_output(self) -> None:
+        rc, out, err = self.module("--archive-evidence", str(STATE["sidecar"]), "--grain", "archive-disposition",
+                                   "--all")
+        self.assertEqual(rc, 0, err)
+        self.assertEqual(json.loads(out)["total"], len(fx.TRANCHE))
+        rc, out, err = self.module("--grain", "partition", "--all")
+        code, doc, _err = run("--grain", "partition", "--all", archive=False)
+        self.assertEqual((rc, json.loads(out)), (code, doc))
+
+
 class ArchiveGrainTests(unittest.TestCase):
     def test_dispositions_requests_captures_and_assertions_page_exactly(self) -> None:
         for grain, payload in (("archive-disposition", "dispositions.jsonl"), ("archive-request", "requests.jsonl"),

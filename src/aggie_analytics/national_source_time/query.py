@@ -699,4 +699,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    # ``python -m`` runs this file as __main__ while the explicitly imported archive module imports the package
+    # module; delegating keeps one identity for the shared refusal classes at the console and the module front.
+    from aggie_analytics.national_source_time import query as _package_query  # noqa: PLC0415
+
+    raise SystemExit(_package_query.main())

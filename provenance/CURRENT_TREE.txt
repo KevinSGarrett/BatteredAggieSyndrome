@@ -48,6 +48,7 @@ artifacts/data_lake/historical_known_at_authority_gate.json
 artifacts/data_lake/historical_known_at_authority_replay.json
 artifacts/data_lake/immutability_and_correction_test.json
 artifacts/data_lake/national_archived_publication_2019_gate.json
+artifacts/data_lake/national_archived_publication_2019_v1_1_gate.json
 artifacts/data_lake/national_di_population_2016_2025_gate.json
 artifacts/data_lake/national_foundation_reconciliation_gate.json
 artifacts/data_lake/national_foundation_status_successor_gate.json
@@ -863,6 +864,7 @@ configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
 configs/mounted_acceptance_contract.json
 configs/national_archived_publication_2019_contract.json
+configs/national_archived_publication_2019_contract_v1_1.json
 configs/national_chronological_development_matrix_contract.json
 configs/national_di_population_2016_2025_contract.json
 configs/national_entity_benchmark_targets.json
@@ -4158,6 +4160,7 @@ src/aggie_analytics/national_population/__init__.py
 src/aggie_analytics/national_population/query.py
 src/aggie_analytics/national_source_time/__init__.py
 src/aggie_analytics/national_source_time/archive.py
+src/aggie_analytics/national_source_time/archive_fields.py
 src/aggie_analytics/national_source_time/query.py
 src/aggie_analytics/openai_assist/__init__.py
 src/aggie_analytics/openai_assist/budget.py

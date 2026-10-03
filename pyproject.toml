@@ -49,7 +49,8 @@ experimentation = [
   "mlflow-skinny==3.15.1",
   "optuna==4.9.0",
 ]
-test = ["hypothesis==6.165.2"]
+# Unmounted source-time fixtures write real Parquet inputs.
+test = ["hypothesis==6.165.2", "polars==1.43.2"]
 # Windows has no system IANA database; contest-local dates require this data.
 kernel = ["numpy==2.2.6", "tzdata==2025.3"]
 

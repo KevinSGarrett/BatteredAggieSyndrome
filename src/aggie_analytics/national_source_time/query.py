@@ -20,6 +20,11 @@ instant; their decisions keep content corroboration, the time-evidence class, ``
 ``pit_admission`` separate. Nothing is ever admitted: ``--require-pit`` is refused (PIT_ADMISSION_AUTHORITY_ABSENT).
 A season outside 2016-2023 is NOT_YET_AUDITED with no evidence rows. Unknown or abbreviated flags, negative paging,
 malformed filters and naive cutoffs are refused.
+
+``--archive-evidence <archived-publication sidecar>`` (BAT-713) explicitly composes one verified sidecar through
+``aggie_analytics.national_source_time.archive``, which is imported only then; it adds archive evidence next to the
+unchanged decisions and serves the ``archive-*`` grains. Without it every output is exactly the behaviour above and
+the archive grains are refused (ARCHIVE_EVIDENCE_REQUIRED).
 """
 from __future__ import annotations
 
@@ -51,6 +56,8 @@ SOURCE_KINDS = ("NCAA_TEAM_SEASON_PAGE", "CFBD_ROUTE_RESPONSE", "REPOSITORY_VERS
 RELATION_TYPES = ("TARGET_CONTEST", "CONTRIBUTOR")
 JOIN_STATES = ("JOINED", "JOINED_OUTSIDE_UNIVERSE", "AMBIGUOUS_MULTIPLE_PARENT_CANDIDATES", "CONFLICTING", "UNJOINED")
 GRAINS = ("assertion", "contest", "contribution", "repository-row", "lineage-row", "capture", "partition")
+#: Grains served only with an explicitly named archive sidecar (``--archive-evidence``; BAT-713).
+ARCHIVE_GRAINS = ("archive-disposition", "archive-request", "archive-capture", "archive-assertion")
 DECISION_GRAINS = ("assertion", "contest", "contribution")
 APPLICABLE = {"assertion": {"season", "team", "contest", "field", "evidence_class", "source_kind"},
               "contest": {"season", "team", "contest"},
@@ -638,7 +645,7 @@ def build_parser() -> argparse.ArgumentParser:
                                      description="Read-only national 2016-2023 source-time evidence and explicit-cutoff "
                                                  "query (evidence only; nothing is PIT admitted).")
     parser.add_argument("--database", required=True, type=Path)
-    parser.add_argument("--grain", required=True, choices=list(GRAINS))
+    parser.add_argument("--grain", required=True, choices=list(GRAINS) + list(ARCHIVE_GRAINS))
     parser.add_argument("--cutoff", default=None, help="ISO-8601 instant with seconds and an explicit zone")
     parser.add_argument("--season", type=int, default=None)
     parser.add_argument("--team", default=None, help="organization key org:<digits> or bare digits")
@@ -655,6 +662,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--expect-contract", default=None)
     parser.add_argument("--require-pit", action="store_true",
                         help="refused: no separate PIT admission authority exists for any row")
+    parser.add_argument("--archive-evidence", type=Path, default=None,
+                        help="explicitly compose one verified archived-publication sidecar (never a default)")
+    parser.add_argument("--expect-archive-identity", default=None)
     return parser
 
 
@@ -664,13 +674,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.require_pit:
             raise SourceTimeQueryError("PIT_ADMISSION_AUTHORITY_ABSENT",
                                        "no row has separate PIT admission authority; evidence is not admission")
+        if args.archive_evidence is None and (args.grain in ARCHIVE_GRAINS or args.expect_archive_identity):
+            raise SourceTimeQueryError("ARCHIVE_EVIDENCE_REQUIRED",
+                                       "archive grains and identities need an explicit --archive-evidence sidecar")
         with SourceTimeDatabase(args.database, expect_identity=args.expect_identity,
                                 expect_contract=args.expect_contract) as db:
-            result = db.query(args.grain, cutoff=args.cutoff, season=args.season, team=args.team,
-                              contest=args.contest, field=args.field, evidence_class=args.evidence_class,
-                              source_kind=args.source_kind, relation_type=args.relation_type,
-                              join_state=args.join_state, limit=args.limit, offset=args.offset,
-                              all_rows=args.all_rows)
+            options = dict(cutoff=args.cutoff, season=args.season, team=args.team, contest=args.contest,
+                           field=args.field, evidence_class=args.evidence_class, source_kind=args.source_kind,
+                           relation_type=args.relation_type, join_state=args.join_state, limit=args.limit,
+                           offset=args.offset, all_rows=args.all_rows)
+            if args.archive_evidence is None:
+                result = db.query(args.grain, **options)
+            else:
+                from aggie_analytics.national_source_time import archive  # noqa: PLC0415 - explicit option only
+
+                with archive.ArchiveEvidence(args.archive_evidence, db,
+                                             expect_identity=args.expect_archive_identity) as evidence:
+                    result = evidence.query(args.grain, **options)
     except SourceTimeQueryError as exc:
         print(json.dumps({"refused": exc.code, "error": str(exc)}), file=sys.stderr)
         return 2

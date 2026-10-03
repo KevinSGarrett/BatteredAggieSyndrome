@@ -49,7 +49,8 @@ experimentation = [
   "mlflow-skinny==3.15.1",
   "optuna==4.9.0",
 ]
-test = ["hypothesis==6.165.2"]
+# Unmounted source-time fixtures write real Parquet inputs.
+test = ["hypothesis==6.165.2", "polars==1.43.2", "duckdb==1.5.5"]
 # Windows has no system IANA database; contest-local dates require this data.
 kernel = ["numpy==2.2.6", "tzdata==2025.3"]
 
@@ -57,6 +58,7 @@ kernel = ["numpy==2.2.6", "tzdata==2025.3"]
 bas-staff-query = "aggie_analytics.cycle33.query:main"
 bas-national-population-query = "aggie_analytics.national_population.query:main"
 bas-national-history-query = "aggie_analytics.national_history.query:main"
+bas-source-time-query = "aggie_analytics.national_source_time.query:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

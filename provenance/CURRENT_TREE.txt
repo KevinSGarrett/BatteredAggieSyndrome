@@ -47,6 +47,7 @@ artifacts/data_lake/historical_expansion_population_profile.json
 artifacts/data_lake/historical_known_at_authority_gate.json
 artifacts/data_lake/historical_known_at_authority_replay.json
 artifacts/data_lake/immutability_and_correction_test.json
+artifacts/data_lake/national_archived_publication_2019_gate.json
 artifacts/data_lake/national_di_population_2016_2025_gate.json
 artifacts/data_lake/national_foundation_reconciliation_gate.json
 artifacts/data_lake/national_foundation_status_successor_gate.json
@@ -861,6 +862,7 @@ configs/local_embedding_shadow_qualification.json
 configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
 configs/mounted_acceptance_contract.json
+configs/national_archived_publication_2019_contract.json
 configs/national_chronological_development_matrix_contract.json
 configs/national_di_population_2016_2025_contract.json
 configs/national_entity_benchmark_targets.json
@@ -4155,6 +4157,7 @@ src/aggie_analytics/national_history/query.py
 src/aggie_analytics/national_population/__init__.py
 src/aggie_analytics/national_population/query.py
 src/aggie_analytics/national_source_time/__init__.py
+src/aggie_analytics/national_source_time/archive.py
 src/aggie_analytics/national_source_time/query.py
 src/aggie_analytics/openai_assist/__init__.py
 src/aggie_analytics/openai_assist/budget.py
@@ -4283,6 +4286,7 @@ tests/fixtures/cycle35_season_probes/positive.html
 tests/fixtures/cycle35_season_probes/script_only.html
 tests/fixtures/protected_split_exposure_audit.v2.stale.json
 tests/fixtures/stale_placeholder_contract.json
+tests/national_archived_publication_fixture.py
 tests/national_history_fixture.py
 tests/national_source_time_fixture.py
 tests/test_acceptance_governance.py
@@ -4291,6 +4295,7 @@ tests/test_action_play_summary.py
 tests/test_advanced_challenger_full.py
 tests/test_all_cycle_scientific_inventory.py
 tests/test_architecture.py
+tests/test_archive_evidence_query.py
 tests/test_artifact_bindings.py
 tests/test_artifact_manifest.py
 tests/test_artifact_policy_full.py
@@ -4522,6 +4527,7 @@ tests/test_model_architecture_governance.py
 tests/test_model_tournament.py
 tests/test_model_tournament_full.py
 tests/test_mounted_data_acceptance.py
+tests/test_national_archived_publication.py
 tests/test_national_chronological_development_matrix.py
 tests/test_national_di_population_2016_2025.py
 tests/test_national_entity_identity_benchmark.py
@@ -4817,6 +4823,7 @@ tools/build_historical_team_membership_pit.py
 tools/build_historical_venue_assignment_pit.py
 tools/build_historical_weather_previous_runs_snapshot.py
 tools/build_jira_control_plane.py
+tools/build_national_archived_publication.py
 tools/build_national_chronological_development_matrix.py
 tools/build_national_di_population_2016_2025.py
 tools/build_national_entity_identity_benchmark.py
@@ -5353,6 +5360,7 @@ tools/validate_local_qwen_qualification.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
 tools/validate_mounted_acceptance_gate.py
+tools/validate_national_archived_publication.py
 tools/validate_national_chronological_development_matrix.py
 tools/validate_national_di_population_2016_2025.py
 tools/validate_national_entity_identity_benchmark.py

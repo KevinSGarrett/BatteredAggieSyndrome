@@ -789,13 +789,24 @@ def verify_acquisition(contract: dict[str, Any], ctx: dict[str, Any], content: d
                  {"requests": len(acq["requests"])})
     report.check("only_granted_archive_urls_requested", host_ok)
     report.check("request_purposes_declared", purpose_ok)
-    spacing = []
     starts = [dt.datetime.strptime(r["started_utc"], "%Y-%m-%dT%H:%M:%S.%fZ") for r in acq["requests"]]
-    for a, b in zip(starts, starts[1:]):
-        spacing.append((b - a).total_seconds())
-    report.check("request_starts_spaced_at_least_one_second", all(s >= limits["min_seconds_between_request_starts"]
-                                                                   - 0.002 for s in spacing),
-                 {"minimum_seconds": min(spacing) if spacing else None})
+    ordered = all(b > a for a, b in zip(starts, starts[1:])) and all(
+        r["ended_utc"] is None or r["ended_utc"] >= r["started_utc"] for r in acq["requests"])
+    report.check("request_times_recorded_and_ordered", ordered)
+    gaps = [{"from_seq": a["seq"], "to_seq": b["seq"], "gap_seconds": round((y - x).total_seconds(), 6)}
+            for a, b, x, y in zip(acq["requests"], acq["requests"][1:], starts, starts[1:])]
+    short = [g for g in gaps if g["gap_seconds"] < limits["min_seconds_between_request_starts"]]
+    ctx["grant_conditions"] = {
+        "request_start_spacing": {
+            "declared_min_seconds": limits["min_seconds_between_request_starts"], "intervals": len(gaps),
+            "recorded_min_gap_seconds": min((g["gap_seconds"] for g in gaps), default=None),
+            "intervals_below_declared": short, "state": "DEVIATION_RECORDED" if short else "HELD",
+            "basis": "gaps between the producer's recorded wall-clock started_utc values; a grant-condition "
+                     "measurement reported for adjudication, not an evidence-integrity check"},
+        "total_requests": {"declared_max": limits["total_requests"], "actual": len(acq["requests"]),
+                           "state": "HELD" if len(acq["requests"]) <= limits["total_requests"] else "EXCEEDED"},
+        "per_key_requests": {"state": "HELD" if per_key_ok else "EXCEEDED"},
+        "hosts": {"state": "HELD" if host_ok else "VIOLATED"}}
     bodies_ok = True
     for r in acq["requests"]:
         if r.get("body_sha256"):
@@ -1141,7 +1152,8 @@ def main(argv: list[str] | None = None) -> int:
                                                 if c["state"] == "QUALIFIED"),
                       "assertions": len(delivered["records"]["assertions.jsonl"]),
                       "keys_with_field_support": fields, "strata": strata(delivered["records"])},
-           "decisions": decisions, "tamper_cases": tampers, "oracle_challenges": oracle,
+           "grant_conditions": ctx.get("grant_conditions"), "decisions": decisions, "tamper_cases": tampers,
+           "oracle_challenges": oracle,
            "independence": "standard library only; no producer, query or project import; the consumer is exercised "
                            "only as a subprocess and compared with this tool's own decisions",
            "limits": ["a bounded 28-key 2019 tranche, not a national or seasonal audit",

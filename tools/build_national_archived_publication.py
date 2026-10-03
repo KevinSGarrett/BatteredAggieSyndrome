@@ -123,6 +123,10 @@ ZLIB_LEVEL = 9
 UTC = _dt.timezone.utc
 EMPTY_SHA256 = hashlib.sha256(b"").hexdigest()
 ALLOWED_HOSTS = ("archive.org", "web.archive.org")
+#: Request starts are spaced with the high-resolution performance counter plus this margin. Cycle #41 Attempt #1's
+#: capture at 30b1bdb0 spaced them with time.monotonic(), which on CPython 3.12/Windows is GetTickCount64 with a
+#: 15.625 ms tick; 9 of its 68 recorded start gaps were 0.4-8.5 ms short of one second (disclosed finding).
+SPACING_MARGIN_SECONDS = 0.05
 
 
 class BuildRefused(Exception):
@@ -748,7 +752,7 @@ def journal_history(lines: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], 
 
 def capture(contract: dict[str, Any], rows: list[dict[str, Any]], output_root: Path, control: dict[str, Any],
             *, transport: Callable[[str, dict[str, str], float], Response] | None = None,
-            sleep: Callable[[float], None] = time.sleep, monotonic: Callable[[], float] = time.monotonic,
+            sleep: Callable[[float], None] = time.sleep, monotonic: Callable[[], float] = time.perf_counter,
             now: Callable[[], str] = utc_now,
             audit: bool = True) -> dict[str, Any]:
     """Run (or resume) the bounded acquisition and finalize the acquisition document."""
@@ -815,7 +819,7 @@ def capture(contract: dict[str, Any], rows: list[dict[str, Any]], output_root: P
                 slept += previous["retry_after_seconds"]
                 sleep(previous["retry_after_seconds"])
             if last_start is not None:
-                wait = limits["min_seconds_between_request_starts"] - (monotonic() - last_start)
+                wait = limits["min_seconds_between_request_starts"] + SPACING_MARGIN_SECONDS -                     (monotonic() - last_start)
                 if wait > 0:
                     sleep(wait)
                     slept += wait

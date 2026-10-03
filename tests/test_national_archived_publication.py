@@ -155,6 +155,15 @@ class AcquisitionTests(unittest.TestCase):
         mine = [r for r in doc["requests"] if r["contest_key"] == unknown[0]["contest_key"]]
         self.assertLessEqual(sum(1 for r in mine if r["kind"] == unknown[0]["kind"]), 2)
 
+    def test_request_starts_use_the_high_resolution_counter_with_a_margin(self) -> None:
+        import inspect  # noqa: PLC0415
+        import time  # noqa: PLC0415
+        build = fx.builder()
+        self.assertIs(inspect.signature(build.capture).parameters["monotonic"].default, time.perf_counter)
+        self.assertGreaterEqual(build.SPACING_MARGIN_SECONDS, 0.05)
+        # the fixture's fake counter advances 0.25 s per reading: every wait is 1.0 + margin - 0.25 seconds
+        self.assertTrue(all(abs(s - (0.75 + build.SPACING_MARGIN_SECONDS)) < 1e-9 for s in STATE["capture"]["slept"]))
+
     def test_finalized_acquisition_makes_no_request(self) -> None:
         before = len(STATE["world"]["archive"].calls)
         again = fx.run_capture(STATE["world"])
@@ -458,6 +467,9 @@ class IndependentValidatorTests(unittest.TestCase):
         manifest = Path(STATE["result"]["content"]["manifest"])
         doc = self.validate(manifest, "genuine")
         self.assertEqual(doc["result"], "PASS", doc["failed_checks"])
+        spacing = doc["grant_conditions"]["request_start_spacing"]
+        self.assertEqual((spacing["state"], spacing["intervals_below_declared"]), ("HELD", []))
+        self.assertEqual(doc["grant_conditions"]["total_requests"]["state"], "HELD")
         self.assertTrue(all(t["rejected"] for t in doc["tamper_cases"] if t["applied"]))
         # Coordinated tamper: swap a/b points in the payload, recompute every outer hash and identity.
         root = Path(STATE["tmp"].name) / "tam"

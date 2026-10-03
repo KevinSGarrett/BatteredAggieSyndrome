@@ -11,31 +11,31 @@ requires-python = ">=3.11,<3.14"
 dependencies = []
 
 [project.optional-dependencies]
-product = ["fastapi==0.141.1", "uvicorn==0.52.1"]
-openai-assist = ["openai==2.53.0"]
+product = ["fastapi==0.142.1", "uvicorn==0.54.0"]
+openai-assist = ["openai==3.22.1"]
 data = [
-  "duckdb==1.5.5",
-  "polars==1.43.2",
-  "pandera[polars]==0.32.1",
+  "duckdb==1.5.6",
+  "polars==1.44.2",
+  "pandera[polars]==0.33.1",
 ]
 entity-resolution = [
-  "rapidfuzz==3.14.5",
-  "splink==4.0.16",
+  "rapidfuzz==3.14.6",
+  "splink==5.0.0",
 ]
 source-clients = [
-  "cfbd==5.23.0",
+  "cfbd==5.31.2",
   "openmeteo-requests==1.7.5",
 ]
 sportsdataverse = [
-  "sportsdataverse==0.0.75",
+  "sportsdataverse==0.1.4",
   "xgboost==3.2.0",
-  "scikit-learn==1.9.0",
-  "polars==1.43.2",
-  "rapidfuzz==3.14.5",
+  "scikit-learn==1.9.1",
+  "polars==1.44.2",
+  "rapidfuzz==3.14.6",
 ]
 modeling = [
-  "scikit-learn==1.9.0",
-  "statsmodels==0.14.6",
+  "scikit-learn==1.9.1",
+  "statsmodels==0.15.0",
   "xgboost==3.2.0",
   "ngboost==0.5.11",
   "interpret==0.7.8",
@@ -46,13 +46,13 @@ evaluation = [
   "shap==0.51.0",
 ]
 experimentation = [
-  "mlflow-skinny==3.15.1",
-  "optuna==4.9.0",
+  "mlflow-skinny==3.16.1",
+  "optuna==5.0.0",
 ]
 # Unmounted source-time fixtures write real Parquet inputs.
-test = ["hypothesis==6.165.2", "polars==1.43.2", "duckdb==1.5.5"]
+test = ["hypothesis==6.168.3", "polars==1.44.2", "duckdb==1.5.6"]
 # Windows has no system IANA database; contest-local dates require this data.
-kernel = ["numpy==2.2.6", "tzdata==2025.3"]
+kernel = ["numpy==2.4.6", "tzdata==2026.4"]
 
 [project.scripts]
 bas-staff-query = "aggie_analytics.cycle33.query:main"

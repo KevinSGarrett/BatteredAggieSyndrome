@@ -489,7 +489,7 @@ class SidecarRefusalTests(unittest.TestCase):
         def demote(table, record):
             if table == "captures" and record and record["contest_key"] == "ncaa:1004":
                 return dict(record, field_states=dict(record["field_states"],
-                                                      b_participant="PARTICIPANT_MAPPING_UNRESOLVED"))
+                                                      b_participant="CAPTURE_NOT_QUALIFIED"))
             return None
         self.refuse("ARCHIVE_PARTICIPANT_MAPPING_INVALID", rehouse(self.base / "c", demote))
 
@@ -510,6 +510,52 @@ class SidecarRefusalTests(unittest.TestCase):
         self.assertEqual(code, 0, err)
         rc, _doc, err = run("--grain", "archive-disposition", sidecar=fx.database_path(result), database=world["st_db"])
         self.assertEqual((rc, refusal(err)), (2, "ARCHIVE_PARTICIPANT_MAPPING_CONTRADICTORY"), err[-300:])
+
+    def test_unmapped_version_is_quarantined_whole_and_its_promotion_refuses(self) -> None:
+        """Contract V1.2 capture_quarantine: real numbers with unrelated main-element names serve no field."""
+        def unrelated(archive, row):
+            game = row["cfbd_game_id"]["value"]
+            archive.meta[(game, row["metadata_probe_timestamp"])] = "20190901041500"
+            archive.replay[("20190901041500", game)] = (
+                200, fx.replay_headers("20190901041500", fx.game_url(game)),
+                fx.page_for(row, home_name="Unrelated College", away_name="Unrelated College"))
+        world = fx.build_world(self.base / "w", {"ncaa:1001": unrelated})
+        fx.run_capture(world)
+        code, result, err = fx.run_build(world)
+        self.assertEqual(code, 0, err)
+        caps = [c for c in fx.read_payload(result, "captures.jsonl") if c["contest_key"] == "ncaa:1001"]
+        self.assertTrue(caps)
+        for cap in caps:
+            self.assertEqual((cap["state"], cap["quarantine_reasons"]), ("QUARANTINED", ["PARTICIPANT_MAPPING_UNRESOLVED"]))
+            self.assertEqual(cap["participant_mapping"]["reason"], "HOME_TEAM_NAME_NOT_DOCUMENTED_FOR_EITHER_PARENT_TEAM")
+            self.assertTrue(all(v in ("CAPTURE_NOT_QUALIFIED", "NOT_WITNESSED_IN_VERSION")
+                                for v in cap["field_states"].values()), cap["field_states"])
+        rc, doc, err = run("--grain", "archive-disposition", "--contest", "ncaa:1001", sidecar=fx.database_path(result),
+                           database=world["st_db"])
+        self.assertEqual(rc, 0, err)
+        self.assertEqual(doc["rows"][0]["disposition"], "ARCHIVED_VERSION_NOT_QUALIFIED")
+
+        def promote(table, record):
+            if table == "captures" and record and record["contest_key"] == "ncaa:1001":
+                return dict(record, state="QUALIFIED", quarantine_reasons=[],
+                            field_states=dict(record["field_states"], contest_date=QUAL, completion=QUAL))
+            return None
+        rc, _doc, err = run("--grain", "archive-disposition", database=world["st_db"],
+                            sidecar=rehouse(self.base / "p", promote, world=world, result=result))
+        self.assertEqual((rc, refusal(err)), (2, "ARCHIVE_SEMANTIC_FORGERY"), err[-400:])
+
+    def test_v1_1_sidecar_is_checked_then_refused_as_superseded(self) -> None:
+        v1_1 = {"contract_id": "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.1"}
+        self.refuse("ARCHIVE_SCHEMA_SUPERSEDED", rehouse(self.base / "a", mutate_meta=v1_1))
+        final = next(c for c in fx.read_payload(STATE["result"], "captures.jsonl")
+                     if c["contest_key"] == "ncaa:1001")
+
+        def borrowed(table, record):
+            if table == "assertions" and record and record["capture_id"] == final["capture_id"] \
+                    and record["witness"] == "STATUS_DETAIL":
+                return dict(record, witness_span=[0, 5], literal="<!DOC")
+            return None
+        self.refuse("ARCHIVE_WITNESS_MISMATCH", rehouse(self.base / "b", borrowed, mutate_meta=v1_1))
 
     def test_predecessor_v1_0_sidecar_is_checked_then_refused_as_superseded(self) -> None:
         def legacy_rows(table, record):

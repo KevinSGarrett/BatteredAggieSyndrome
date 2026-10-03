@@ -269,7 +269,11 @@ class QualificationTests(unittest.TestCase):
 
     def test_contradictory_date_witnesses_and_in_progress_status(self) -> None:
         result, _ = self.judge(fx.page_for(self.row, info_date="2019-09-07T23:30Z"))
-        self.assertEqual(result["states"]["contest_date"], "CONTRADICTORY_WITHIN_VERSION")
+        # an uncorroborated date leaves the participants unmapped, so V1.2 quarantines the whole version
+        self.assertEqual({a["corroboration"] for a in result["assertions"] if a["field"] == "contest_date"},
+                         {"CONTRADICTORY_WITHIN_VERSION"})
+        self.assertEqual(result["reasons"], ["PARTICIPANT_MAPPING_UNRESOLVED"])
+        self.assertNotIn(QUAL, result["states"].values())
         result, _ = self.judge(fx.page_for(self.row, status="in", detail="3rd Quarter"))
         self.assertEqual(result["states"]["completion"], "NOT_SUPPORTED_BY_VERSION_STATUS")
         self.assertEqual(result["states"]["a_points"], "NOT_SUPPORTED_BY_VERSION_STATUS")
@@ -317,13 +321,16 @@ class ParticipantMappingTests(unittest.TestCase):
         return self.build.qualify("ncaa:1001", parent or self.parent, self.game, page, derived["bound"], reasons)
 
     def unresolved(self, result, reason: str) -> None:
+        """Contract V1.2 capture_quarantine: an unmapped version is quarantined whole and serves no field."""
         self.assertEqual((result["participant_mapping"]["state"], result["participant_mapping"]["reason"]),
                          ("UNRESOLVED", reason))
-        self.assertEqual(result["states"]["a_participant"], "PARTICIPANT_MAPPING_UNRESOLVED")
-        self.assertEqual(result["states"]["b_participant"], "PARTICIPANT_MAPPING_UNRESOLVED")
-        self.assertEqual(result["states"]["a_points"], "ORIENTATION_UNRESOLVED")
+        self.assertFalse(result["qualified"])
+        self.assertEqual(result["reasons"], ["PARTICIPANT_MAPPING_UNRESOLVED"])
+        self.assertTrue(all(v in ("CAPTURE_NOT_QUALIFIED", "NOT_WITNESSED_IN_VERSION")
+                            for v in result["states"].values()), result["states"])
         self.assertEqual(result["orientation"]["a_side"], None)
         self.assertFalse([a for a in result["assertions"] if a["field"] in ("a_participant", "a_points")])
+        self.assertFalse([a for a in result["assertions"] if a["field_state"] == QUAL])
 
     def test_genuine_names_roles_and_date_map_both_teams(self) -> None:
         result = self.judge(fx.page_for(self.row))
@@ -411,7 +418,8 @@ class ParticipantMappingTests(unittest.TestCase):
     def test_a_rematch_on_another_date_cannot_borrow_the_map(self) -> None:
         page = fx.page_for(self.row, kickoff="2019-10-05T23:30Z")
         result = self.judge(page)
-        self.assertEqual(result["states"]["contest_date"], "CONFLICTS_WITH_PARENT")
+        self.assertEqual({a["corroboration"] for a in result["assertions"] if a["field"] == "contest_date"},
+                         {"CONFLICTS_WITH_PARENT"})
         self.unresolved(result, "CONTEST_DATE_NOT_CORROBORATED_IN_THIS_VERSION")
 
     def test_contradictory_maps_across_the_tranche_refuse_the_build(self) -> None:
@@ -522,8 +530,11 @@ class RefusalTests(unittest.TestCase):
         conn.close()
         self.assertEqual(self.refused(database=copy_dir / st.name), "PARENT_TAMPERED")
 
-    def test_predecessor_contract_and_an_altered_mapping_rule_refuse(self) -> None:
+    def test_predecessor_contracts_and_an_altered_mapping_rule_refuse(self) -> None:
         self.assertEqual(self.refused(contract=fx.PREDECESSOR_CONTRACT_PATH), "CONTRACT_SUPERSEDED")
+        self.assertEqual(self.refused(contract=fx.V1_1_CONTRACT_PATH), "CONTRACT_SUPERSEDED")
+        self.assertEqual(self.refused(mutate=lambda c: c["participant_mapping"].pop("capture_quarantine")),
+                         "CONTRACT_SCHEMA_UNKNOWN")
         self.assertEqual(self.refused(mutate=lambda c: c["participant_mapping"].update(
             numeric_identifier_equality="ALLOWED")), "CONTRACT_SCHEMA_UNKNOWN")
         self.assertEqual(self.refused(mutate=lambda c: c["participant_mapping"].update(rule="equal ids join")),
@@ -707,7 +718,8 @@ class IndependentValidatorTests(unittest.TestCase):
         self.assertIn("every_record_reconstructed_independently", doc["failed_checks"])
 
 
-GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_v1_1_gate.json"
+GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_v1_2_gate.json"
+V1_1_GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_v1_1_gate.json"
 PREDECESSOR_GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_gate.json"
 SIDECAR = "national_archived_publication.sqlite"
 
@@ -743,20 +755,26 @@ class DeliveredGateTests(unittest.TestCase):
         self.assertEqual((content["schema"], database["db_schema_version"]),
                          ("BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-2", "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-2"))
 
-    def test_predecessor_contract_and_gate_bytes_are_retained_and_superseded(self) -> None:
-        old_gate = json.loads(PREDECESSOR_GATE.read_text(encoding="utf-8"))
-        old_sha = hashlib.sha256(fx.PREDECESSOR_CONTRACT_PATH.read_bytes()).hexdigest()
-        successor = json.loads(fx.CONTRACT_PATH.read_text(encoding="utf-8"))
+    def test_predecessor_contracts_and_gate_bytes_are_retained_and_superseded(self) -> None:
+        """V1.0 -> V1.1 -> V1.2: every contract that materialized output keeps its bytes and its gate."""
         gate = json.loads(GATE.read_text(encoding="utf-8"))
-        self.assertEqual(old_gate["contract_sha256"], old_sha)
-        self.assertEqual(successor["predecessor"]["sha256"], old_sha)
-        self.assertEqual((successor["predecessor"]["predecessor_outputs"]["content_identity"],
-                          successor["predecessor"]["predecessor_outputs"]["database_identity"]),
-                         (old_gate["content_identity"], old_gate["database_identity"]))
-        self.assertEqual(gate["predecessor_gate"]["sha256"], hashlib.sha256(PREDECESSOR_GATE.read_bytes()).hexdigest())
-        self.assertEqual(gate["acquisition_identity"], old_gate["acquisition_identity"])
-        old_contract = json.loads(fx.PREDECESSOR_CONTRACT_PATH.read_text(encoding="utf-8"))
-        self.assertEqual(successor["acquisition"], old_contract["acquisition"])
+        successor = json.loads(fx.CONTRACT_PATH.read_text(encoding="utf-8"))
+        chain = [(successor["predecessor"], fx.V1_1_CONTRACT_PATH, V1_1_GATE),
+                 (successor["predecessor"]["predecessor"], fx.PREDECESSOR_CONTRACT_PATH, PREDECESSOR_GATE)]
+        for link, contract_path, gate_path in chain:
+            old_gate = json.loads(gate_path.read_text(encoding="utf-8"))
+            old_sha = hashlib.sha256(contract_path.read_bytes()).hexdigest()
+            self.assertEqual((link["sha256"], old_gate["contract_sha256"]), (old_sha, old_sha))
+            self.assertEqual((link["predecessor_outputs"]["content_identity"],
+                              link["predecessor_outputs"]["database_identity"]),
+                             (old_gate["content_identity"], old_gate["database_identity"]))
+            self.assertEqual(old_gate["acquisition_identity"], gate["acquisition_identity"])
+            self.assertEqual(json.loads(contract_path.read_text(encoding="utf-8"))["acquisition"],
+                             successor["acquisition"])
+        v1_1_gate = json.loads(V1_1_GATE.read_text(encoding="utf-8"))
+        self.assertEqual(gate["predecessor_gate"]["sha256"], hashlib.sha256(V1_1_GATE.read_bytes()).hexdigest())
+        self.assertEqual(v1_1_gate["predecessor_gate"]["sha256"],
+                         hashlib.sha256(PREDECESSOR_GATE.read_bytes()).hexdigest())
 
 
 def _delivered_root() -> Path | None:
@@ -804,18 +822,20 @@ class MountedDeliveredGateTests(unittest.TestCase):
         self.assertEqual(fields["a_points"]["observed_by_cutoff"], "UNKNOWN")
         self.assertEqual(control["rows"][0]["pit_admission"]["state"], "NOT_ADMITTED")
 
-    def test_the_predecessor_sidecar_is_refused_as_superseded(self) -> None:
-        old_gate = json.loads(PREDECESSOR_GATE.read_text(encoding="utf-8"))
+    def test_the_predecessor_sidecars_are_refused_as_superseded(self) -> None:
         root = _delivered_root()
-        db = root / "sha256" / old_gate["database_identity"] / SIDECAR
-        parent = old_gate["content_identity_document"]["parent"]["source_time"]
-        source = root.parent / "national_source_time_2016_2023" / "sha256" / parent["database_identity"] /             "national_source_time.sqlite"
         sys.path.insert(0, str(fx.ROOT / "src"))
         from aggie_analytics.national_source_time import archive, query  # noqa: PLC0415
-        with query.SourceTimeDatabase(source, expect_identity=parent["database_identity"]) as handle:
-            with self.assertRaises(archive.ArchiveEvidenceError) as caught:
-                archive.ArchiveEvidence(db, handle)
-        self.assertEqual(caught.exception.code, "ARCHIVE_SCHEMA_SUPERSEDED")
+        for gate_path in (PREDECESSOR_GATE, V1_1_GATE):
+            old_gate = json.loads(gate_path.read_text(encoding="utf-8"))
+            db = root / "sha256" / old_gate["database_identity"] / SIDECAR
+            parent = old_gate["content_identity_document"]["parent"]["source_time"]
+            source = root.parent / "national_source_time_2016_2023" / "sha256" / parent["database_identity"] / \
+                "national_source_time.sqlite"
+            with query.SourceTimeDatabase(source, expect_identity=parent["database_identity"]) as handle:
+                with self.assertRaises(archive.ArchiveEvidenceError) as caught:
+                    archive.ArchiveEvidence(db, handle)
+            self.assertEqual(caught.exception.code, "ARCHIVE_SCHEMA_SUPERSEDED", gate_path.name)
 
 
 if __name__ == "__main__":

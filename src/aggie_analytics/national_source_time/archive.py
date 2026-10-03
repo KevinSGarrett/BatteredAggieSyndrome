@@ -1,4 +1,4 @@
-r"""Explicit archived-publication evidence for the source-time query (BAT-713, Cycle #41 TP41-A01; contract V1.1).
+r"""Explicit archived-publication evidence for the source-time query (BAT-713, Cycle #41 TP41-A01; contract V1.2).
 
 ``bas-source-time-query --database <source-time sqlite> --archive-evidence
 <canonical\national_archived_publication_2019\sha256\<id>\national_archived_publication.sqlite> --grain contest
@@ -14,8 +14,9 @@ literal) must be exactly one of the occurrences this module's own field-grain ex
 and every capture and assertion record -- scopes, page facts, the evidenced participant mapping (documented parent
 names, CFBD route role and date; numeric ESPN/CFBD ids are never equated), field states, clocks and the complete
 witness rows -- is re-derived from the raw bytes, receipts and the parent's lineage and must equal the stored record.
-Qualified participant mappings must agree across the tranche. A predecessor V1.0 sidecar is checked for exact witness
-occurrences and then refused as superseded (it carries no evidenced participant mapping).
+Qualified participant mappings must agree across the tranche, and a version whose participants do not map is
+quarantined whole. A predecessor V1.0 or V1.1 sidecar is checked for exact witness occurrences and then refused as
+superseded (V1.0 carries no evidenced participant mapping; V1.1 did not quarantine an unmapped version).
 
 An archived version is only an upper bound for its exact witnessed field values: before the bound publication stays
 UNKNOWN (outcome fields FALSE before the contest date's earliest instant), nothing is ever PIT admitted, and the
@@ -40,8 +41,10 @@ ARCHIVE_DOCUMENT_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-2"
 LEGACY_DB_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-1"
 LEGACY_DOCUMENT_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-1"
 ACQUISITION_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-ACQUISITION-1"
-KNOWN_CONTRACT_IDS = ("BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.1",)
+KNOWN_CONTRACT_IDS = ("BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.2",)
 LEGACY_CONTRACT_IDS = ("BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.0",)
+#: Same schema as the current contract, superseded semantics (an unmapped version was not quarantined).
+SUPERSEDED_CONTRACT_IDS = ("BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.1",)
 ARCHIVE_GRAINS = base.ARCHIVE_GRAINS
 ARCHIVE_ROW_LABELS = {"evidence_authority": "ARCHIVED_PUBLICATION_EVIDENCE_ONLY",
                       "pit_admission": "NOT_ADMITTED_NO_SEPARATE_PIT_ADMISSION_AUTHORITY",
@@ -150,8 +153,10 @@ class ArchiveEvidence:
             conn.close()
         legacy = (meta.get("schema_version"), meta.get("contract_id")) in \
             ((LEGACY_DB_SCHEMA, c) for c in LEGACY_CONTRACT_IDS)
-        if not legacy and (meta.get("schema_version") != ARCHIVE_DB_SCHEMA or
-                           meta.get("contract_id") not in KNOWN_CONTRACT_IDS):
+        superseded = meta.get("schema_version") == ARCHIVE_DB_SCHEMA and meta.get("contract_id") in \
+            SUPERSEDED_CONTRACT_IDS
+        if not legacy and not superseded and (meta.get("schema_version") != ARCHIVE_DB_SCHEMA or
+                                              meta.get("contract_id") not in KNOWN_CONTRACT_IDS):
             raise _refuse("ARCHIVE_SCHEMA_UNSUPPORTED", f"schema {meta.get('schema_version')!r} contract "
                                                         f"{meta.get('contract_id')!r}")
         if legacy != (self.binding["db_schema_version"] == LEGACY_DB_SCHEMA):
@@ -178,6 +183,8 @@ class ArchiveEvidence:
         self._extractions: dict[str, dict[str, Any]] = {}
         if legacy:
             self._refuse_legacy()
+        if superseded:
+            self._refuse_superseded()
         self._verify()
         self.by_key = {d["contest_key"]: d for d in self.dispositions}
         self.captures_by_id = {c["capture_id"]: c for c in self.captures}
@@ -236,14 +243,25 @@ class ArchiveEvidence:
 
     def _refuse_legacy(self) -> None:
         """A V1.0 sidecar: check that every stored witness span is an exact occurrence, then refuse it as superseded
-        (it orients participants by equal numeric ids in two namespaces and cannot be served under V1.1)."""
+        (it orients participants by equal numeric ids in two namespaces and cannot be served under V1.2)."""
         payloads = {}
         for cap in self.captures:
             payloads[cap["capture_id"]] = self._raw(cap["payload_sha256"])
         self._check_assertion_structure(payloads, LEGACY_FIELD_WITNESSES)
         raise _refuse("ARCHIVE_SCHEMA_SUPERSEDED", "contract V1.0 sidecar: its witness spans are exact occurrences but "
                                                    "it carries no evidenced participant mapping (numeric ESPN/CFBD "
-                                                   "equality); use the V1.1 successor")
+                                                   "equality); use the V1.2 successor")
+
+    def _refuse_superseded(self) -> None:
+        """A V1.1 sidecar: check that every stored witness span is an exact occurrence, then refuse it as superseded
+        (V1.1 left a version with an unresolved participant mapping qualified for its date and completion)."""
+        payloads = {}
+        for cap in self.captures:
+            payloads[cap["capture_id"]] = self._raw(cap["payload_sha256"])
+        self._check_assertion_structure(payloads, FIELD_WITNESSES)
+        raise _refuse("ARCHIVE_SCHEMA_SUPERSEDED", "contract V1.1 sidecar: its witness spans are exact occurrences but "
+                                                   "it did not quarantine a version whose participants do not map; use "
+                                                   "the V1.2 successor")
 
     def _verify(self) -> None:
         acq_id = self.meta.get("acquisition_identity") or ""

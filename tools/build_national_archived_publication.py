@@ -1,6 +1,6 @@
 r"""Build the archived-publication evidence sidecar for the fixed 2019 tranche (BAT-713, Cycle #41 TP41-A01).
 
-``python -B tools/build_national_archived_publication.py --contract configs/national_archived_publication_2019_contract_v1_1.json
+``python -B tools/build_national_archived_publication.py --contract configs/national_archived_publication_2019_contract_v1_2.json
 --source-database <data>/canonical/national_source_time_2016_2023/sha256/<id>/national_source_time.sqlite
 --source-bindings <INPUT_BINDINGS.json> --tranche <ARCHIVE_TRANCHE.json>
 --output-root <data>/canonical/national_archived_publication_2019
@@ -21,8 +21,9 @@ Standard library only. Two stages:
   each archived page at its exact field grain (``aggie_analytics.national_source_time.archive_fields``: tokenized
   attributes, closed text-only elements, line-start JS assignments, every occurrence counted); maps the page teams to
   the parent's a/b teams only through documented parent names, the CFBD route role and a qualified date (contract
-  V1.1; numeric ESPN/CFBD identifiers are never equated); qualifies every field witness against the parent's accepted
-  values; refuses contradictory participant mappings across the tranche; and writes, create-only and content
+  V1.2; numeric ESPN/CFBD identifiers are never equated; a version whose participants do not map is quarantined
+  whole); qualifies every field witness against the parent's accepted values; refuses contradictory participant
+  mappings across the tranche; and writes, create-only and content
   addressed, ``dispositions.jsonl``, ``requests.jsonl``, ``captures.jsonl``, ``assertions.jsonl`` (gzip) and
   ``national_archived_publication.sqlite`` with their run manifests. The consumer re-derives every capture and
   assertion record with the same field-grain module and refuses any difference.
@@ -59,12 +60,15 @@ if __package__ in {None, ""}:
 
 from aggie_analytics.national_source_time import archive_fields as af  # noqa: E402
 
-PRODUCER = "national_archived_publication/1.1.0"
+PRODUCER = "national_archived_publication/1.2.0"
 POPULATION = "national_archived_publication_2019"
-CONTRACT_SCHEMA = "1.1.0"
+CONTRACT_SCHEMA = "1.2.0"
 CONTRACT_ID_PREFIX = "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-"
-CONTRACT_ID = CONTRACT_ID_PREFIX + "V1.1"
-SUPERSEDED_CONTRACTS = {("1.0.0", CONTRACT_ID_PREFIX + "V1.0")}
+CONTRACT_ID = CONTRACT_ID_PREFIX + "V1.2"
+SUPERSEDED_CONTRACTS = {("1.0.0", CONTRACT_ID_PREFIX + "V1.0"): "contract V1.0 equated ESPN and CFBD team identifiers "
+                        "and read witnesses by first match",
+                        ("1.1.0", CONTRACT_ID_PREFIX + "V1.1"): "contract V1.1 left a version with an unresolved "
+                        "participant mapping qualified for its date and completion"}
 PAYLOAD_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-2"
 CONTENT_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-2"
 DATABASE_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-2"
@@ -223,13 +227,13 @@ def load_contract(path: Path) -> tuple[dict[str, Any], str]:
         contract = json.loads(raw.decode("utf-8"))
     except (UnicodeDecodeError, ValueError) as exc:
         raise BuildRefused("CONTRACT_INVALID", str(exc)) from exc
-    if (contract.get("schema_version"), contract.get("contract_id")) in SUPERSEDED_CONTRACTS:
-        raise BuildRefused("CONTRACT_SUPERSEDED", "contract V1.0 equated ESPN and CFBD team identifiers and read "
-                                                  "witnesses by first match; build with its successor V1.1")
+    superseded = SUPERSEDED_CONTRACTS.get((contract.get("schema_version"), contract.get("contract_id")))
+    if superseded:
+        raise BuildRefused("CONTRACT_SUPERSEDED", f"{superseded}; build with the successor {CONTRACT_ID}")
     if contract.get("schema_version") != CONTRACT_SCHEMA or contract.get("contract_id") != CONTRACT_ID:
         raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", f"{contract.get('schema_version')} {contract.get('contract_id')}")
     mapping = contract.get("participant_mapping") or {}
-    if mapping.get("numeric_identifier_equality") != "NEVER_AUTHORITY" or mapping.get("rule") != af.MAPPING_RULE:
+    if mapping.get("numeric_identifier_equality") != "NEVER_AUTHORITY" or mapping.get("rule") != af.MAPPING_RULE             or mapping.get("capture_quarantine") != af.QUARANTINE_RULE:
         raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", "participant mapping rule")
     if contract.get("population_id") != POPULATION:
         raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", "population")
@@ -1256,7 +1260,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
                                      sort_keys=True),
                 "record_homes": json.dumps(RECORD_HOMES, sort_keys=True),
                 "origin_date_tolerance_seconds": str(ORIGIN_DATE_TOLERANCE_SECONDS),
-                "participant_mapping_rule": af.MAPPING_RULE,
+                "participant_mapping_rule": af.MAPPING_RULE, "capture_quarantine_rule": af.QUARANTINE_RULE,
                 "field_witnesses": json.dumps({f: sorted(w) for f, w in af.FIELD_WITNESSES.items()}, sort_keys=True)}
         db_counts = build_database(db_path, payloads, meta)
         if db_counts["record_counts"] != counts:

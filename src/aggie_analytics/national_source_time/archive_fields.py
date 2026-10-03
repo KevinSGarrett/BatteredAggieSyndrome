@@ -1,4 +1,4 @@
-r"""Field-grain evidence of one archived ESPN game page (BAT-713, contract V1.1; Cycle #41 Attempt #1 continuation).
+r"""Field-grain evidence of one archived ESPN game page (BAT-713, contract V1.2; Cycle #41 Attempt #1 continuation).
 
 Standard library only. The archived-publication producer (``tools/build_national_archived_publication.py``) builds every
 capture and assertion record with :func:`derive_capture`; the read-only consumer (``archive.py``) re-runs the same
@@ -16,6 +16,8 @@ Witnesses are read only at their exact structural grain (see the contract's ``ex
 Participants are mapped to the parent's a/b teams only through documented names (the parent's joined CFBD route row
 school names and NCAA names), the CFBD home/away role and a qualified contest date; equal numbers in two provider
 namespaces are never evidence, and differing ESPN/CFBD ids are allowed when the names, roles and date prove the map.
+A version whose participant mapping does not qualify is quarantined as a whole (contract V1.2 QUARANTINE_RULE): a
+page whose participant identity is not evidenced supports no field.
 """
 from __future__ import annotations
 
@@ -49,6 +51,12 @@ MAPPING_RULE = ("each page team block maps to the parent side whose documented n
                 "school name or an NCAA name of that team) equals the block's ESPN long-name, whose CFBD home/away role "
                 "equals the block's side, in a version whose contest date qualifies; ESPN and CFBD numeric identifiers "
                 "are recorded in their own namespaces and never equated")
+#: Contract V1.2: a version whose participant identity is not evidenced serves no field at all.
+QUARANTINE_REASON = "PARTICIPANT_MAPPING_UNRESOLVED"
+QUARANTINE_RULE = ("a version qualifies only when its participant mapping qualifies: a missing, unresolved, ambiguous, "
+                   "swapped, cross-assigned or contradictory mapping quarantines the whole capture (reason "
+                   "PARTICIPANT_MAPPING_UNRESOLVED; every field CAPTURE_NOT_QUALIFIED), so no field of a page whose "
+                   "participant identity is not evidenced is served")
 TS14_RE = re.compile(r"^[0-9]{14}$")
 DIGITS_RE = re.compile(r"^[0-9]{1,12}$")
 SCORE_RE = re.compile(r"^[0-9]{1,3}$")
@@ -678,17 +686,17 @@ def qualify(contest_key: str, parent: dict[str, Any], game_id: str, payload: byt
                                                              for w in by.get(n) or [])}
                          for s in SIDES}
     mapping = _map_participants(sources, page, date_agrees)
+    if qualified_capture and mapping["state"] != "QUALIFIED":
+        # QUARANTINE_RULE: requalify with the mapping reason; the mapping itself does not depend on the capture state.
+        return qualify(contest_key, parent, game_id, payload, bound, list(receipt_reasons) + [QUARANTINE_REASON])
     orientation = {"a_side": mapping.get("a_side"), "b_side": mapping.get("b_side"), "rule": MAPPING_RULE}
     witnessed = any(by.get(n) for n in PARTICIPANT_WITNESSES)
     for field, letter in (("a_participant", "a"), ("b_participant", "b")):
         if not witnessed:
             states[field] = "NOT_WITNESSED_IN_VERSION"
             continue
-        if mapping["state"] != "QUALIFIED":
-            contradictory = any(page[s][k] in ("CONTRADICTORY", "DUPLICATED") for s in SIDES for k in ("js", "href")) \
-                or any(page[s]["ids_disagree"] for s in SIDES)
-            states[field] = "CAPTURE_NOT_QUALIFIED" if not qualified_capture else (
-                "CONTRADICTORY_WITHIN_VERSION" if contradictory else "PARTICIPANT_MAPPING_UNRESOLVED")
+        if mapping["state"] != "QUALIFIED":  # only in a capture already quarantined (QUARANTINE_RULE)
+            states[field] = "CAPTURE_NOT_QUALIFIED"
             continue
         side = mapping[f"{letter}_side"]
         info = mapping["sides"][side.lower()]
@@ -725,8 +733,8 @@ def qualify(contest_key: str, parent: dict[str, Any], game_id: str, payload: byt
             states[field] = ("NOT_SUPPORTED_BY_VERSION_STATUS" if status_names else "NOT_WITNESSED_IN_VERSION") \
                 if qualified_capture else "CAPTURE_NOT_QUALIFIED"
             continue
-        if mapping["state"] != "QUALIFIED":
-            states[field] = "ORIENTATION_UNRESOLVED" if qualified_capture else "CAPTURE_NOT_QUALIFIED"
+        if mapping["state"] != "QUALIFIED":  # only in a capture already quarantined (QUARANTINE_RULE)
+            states[field] = "CAPTURE_NOT_QUALIFIED"
             continue
         side = mapping[f"{letter}_side"]
         score, score_state = single(f"{side}_SCORE")

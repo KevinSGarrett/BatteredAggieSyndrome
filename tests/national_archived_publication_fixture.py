@@ -30,8 +30,9 @@ sys.path.insert(0, str(HERE))
 
 import national_source_time_fixture as stfx  # noqa: E402
 
-CONTRACT_PATH = ROOT / "configs" / "national_archived_publication_2019_contract_v1_1.json"
+CONTRACT_PATH = ROOT / "configs" / "national_archived_publication_2019_contract_v1_2.json"
 PREDECESSOR_CONTRACT_PATH = ROOT / "configs" / "national_archived_publication_2019_contract.json"
+V1_1_CONTRACT_PATH = ROOT / "configs" / "national_archived_publication_2019_contract_v1_1.json"
 BUILDER_PATH = ROOT / "tools" / "build_national_archived_publication.py"
 VALIDATOR_PATH = ROOT / "tools" / "validate_national_archived_publication.py"
 #: synthetic tranche: (contest key, selection role, stratum); ncaa:1003 is the retained route control

@@ -1,18 +1,19 @@
 r"""Independent validator for the 2019 archived-publication evidence sidecar (BAT-713, Cycle #41 TP41-A01).
 
 ``python -B tools/validate_national_archived_publication.py --contract
-configs/national_archived_publication_2019_contract_v1_1.json --source-database <bound source-time sqlite>
+configs/national_archived_publication_2019_contract_v1_2.json --source-database <bound source-time sqlite>
 --source-bindings <INPUT_BINDINGS.json> --tranche <ARCHIVE_TRANCHE.json>
 --manifest <manifests/national_archived_publication_2019/sha256/<content id>/run_manifest.json> --report <new path>``
 
 Standard library only. It imports no producer, query or project code (in particular not the shared field-grain module
-the producer and consumer use). From the files themselves it re-verifies the contract (the V1.1 successor), the parent
+the producer and consumer use). From the files themselves it re-verifies the contract (the V1.2 successor), the parent
 source-time database (location, run manifest identity document, bytes), the manager's bindings, tranche and retained
 control; it re-reads the acquisition journal and document, every raw body and receipt; it scans every archived page
 with its own byte scanner (start-tag attribute tokenizing, div/span/a balance, complete text of child-free elements,
 line-start script assignments, every occurrence counted) and reads the parent's CFBD/NCAA lineage itself to rebuild
 every main-element span, witness, value, participant map (documented parent name, CFBD role and date; numeric ESPN
-and CFBD identifiers are never equated), orientation, field state, capture state, upper bound and disposition; it
+and CFBD identifiers are never equated; a version whose participants do not map is quarantined whole), orientation,
+field state, capture state, upper bound and disposition; it
 compares every delivered record field by field by natural key, recomputes both identity documents and every database
 row, and recomputes cutoff decisions that it compares with the delivered query consumer run as a subprocess.
 Coordinated semantic tampers of the delivered records (as if every outer hash were consistently recomputed) and oracle
@@ -645,9 +646,8 @@ class Expected:
                                  "corroboration": "UNPARSEABLE" if value is None else corr, "field_state": state})
         dates = [n for n in ("JS_EVENT_TIMESTAMP", "INFO_EVENT_DATE") if found.get(n)]
         date_agrees = False
-        if not dates:
-            states["contest_date"] = "NOT_WITNESSED_IN_VERSION"
-        else:
+        date_row = None
+        if dates:
             got = [one(n) for n in dates]
             worst = [s for _v, s in got if s != "OK"]
             if worst:
@@ -662,8 +662,7 @@ class Expected:
                 corr = "AGREES_WITH_PARENT" if agrees else "CONFLICTS_WITH_PARENT"
                 st = (QUAL if agrees else "CONFLICTS_WITH_PARENT") if len(dates) == 2 else "INCOMPLETE_WITNESS_SET"
                 date_agrees = st == QUAL
-            put("contest_date", dates, st if ok_capture else "CAPTURE_NOT_QUALIFIED", corr,
-                {"basis": "US_LOCAL_CANDIDATE_DATES_-4H_-10H", "value": rec["contest_date"]})
+            date_row = (st, corr)
         page = {}
         for side in ("HOME", "AWAY"):
             jv, jst = one(f"JS_{side}_TEAM_ID")
@@ -676,6 +675,15 @@ class Expected:
         rule = self.contract["participant_mapping"]["rule"]
         mapping = map_teams(parent["teams"], page, date_agrees, rule)
         orient = {"a_side": mapping["a_side"], "b_side": mapping["b_side"], "rule": rule}
+        # V1.2 capture_quarantine: a version whose participants do not map serves no field at all
+        if ok_capture and mapping["state"] != "QUALIFIED":
+            problems.append("PARTICIPANT_MAPPING_UNRESOLVED")
+            ok_capture = False
+        if date_row is None:
+            states["contest_date"] = "NOT_WITNESSED_IN_VERSION"
+        else:
+            put("contest_date", dates, date_row[0] if ok_capture else "CAPTURE_NOT_QUALIFIED", date_row[1],
+                {"basis": "US_LOCAL_CANDIDATE_DATES_-4H_-10H", "value": rec["contest_date"]})
         team_names = ("JS_HOME_TEAM_ID", "HOME_TEAM_HREF", "HOME_TEAM_NAME", "JS_AWAY_TEAM_ID", "AWAY_TEAM_HREF",
                       "AWAY_TEAM_NAME")
         for field, letter in (("a_participant", "a"), ("b_participant", "b")):
@@ -683,10 +691,7 @@ class Expected:
                 states[field] = "NOT_WITNESSED_IN_VERSION"
                 continue
             if mapping["state"] != "QUALIFIED":
-                split_ids = any(page[s][k] in ("CONTRADICTORY", "DUPLICATED") for s in ("HOME", "AWAY")
-                                for k in ("js", "href")) or any(page[s]["ids_disagree"] for s in ("HOME", "AWAY"))
-                states[field] = "CAPTURE_NOT_QUALIFIED" if not ok_capture else (
-                    "CONTRADICTORY_WITHIN_VERSION" if split_ids else "PARTICIPANT_MAPPING_UNRESOLVED")
+                states[field] = "CAPTURE_NOT_QUALIFIED"
                 continue
             side = mapping[f"{letter}_side"]
             info = mapping["sides"][side.lower()]
@@ -720,7 +725,7 @@ class Expected:
                     if ok_capture else "CAPTURE_NOT_QUALIFIED"
                 continue
             if mapping["state"] != "QUALIFIED":
-                states[field] = "ORIENTATION_UNRESOLVED" if ok_capture else "CAPTURE_NOT_QUALIFIED"
+                states[field] = "CAPTURE_NOT_QUALIFIED"
                 continue
             side = mapping[f"{letter}_side"]
             score, sst = one(f"{side}_SCORE")
@@ -950,11 +955,12 @@ def verify_inputs(contract: dict[str, Any], args: argparse.Namespace, report: Re
     conn.close()
     ctx["parent"] = parent
     report.check("parent_values_single_per_field", single)
-    report.check("contract_is_the_v1_1_successor_without_numeric_identity",
+    report.check("contract_is_the_v1_2_successor_without_numeric_identity_and_with_capture_quarantine",
                  (contract.get("schema_version"), contract.get("contract_id")) == (
-                     "1.1.0", "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.1") and
+                     "1.2.0", "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.2") and
                  (contract.get("participant_mapping") or {}).get("numeric_identifier_equality") == "NEVER_AUTHORITY"
-                 and bool(rule))
+                 and bool(rule) and "quarantines the whole capture" in str(
+                     (contract.get("participant_mapping") or {}).get("capture_quarantine")))
     ctx["participant_source_states"] = {k: p["teams"]["state"] for k, p in parent.items()}
     report.check("tranche_rows_equal_parent", all(
         (ctx["tranche"][k]["a_key"], ctx["tranche"][k]["b_key"], ctx["tranche"][k]["contest_date"],
@@ -1427,9 +1433,8 @@ def page_challenges(expected: Expected, caps: list[dict[str, Any]], payload) -> 
         unrelated = re.sub(rb'(<span class="long-name">)[^<]+', rb"\1Unrelated College", data)
         capture, _rows = expected.capture(c["contest_key"], specs[c["contest_key"]], version_of(c), unrelated)
         ok_unrelated &= capture["participant_mapping"]["state"] == "UNRESOLVED" and \
-            capture["field_states"]["a_participant"] == "PARTICIPANT_MAPPING_UNRESOLVED" and \
-            capture["field_states"]["a_points"] in ("ORIENTATION_UNRESOLVED", "NOT_SUPPORTED_BY_VERSION_STATUS",
-                                                    "NOT_WITNESSED_IN_VERSION")
+            capture["state"] != "QUALIFIED" and "PARTICIPANT_MAPPING_UNRESOLVED" in capture["quarantine_reasons"] and \
+            all(v in ("CAPTURE_NOT_QUALIFIED", "NOT_WITNESSED_IN_VERSION") for v in capture["field_states"].values())
         home = c["page_participants"]["home"]["espn_location_name"]
         away = c["page_participants"]["away"]["espn_location_name"]
         marker = b"\x00SWAP\x00"
@@ -1439,7 +1444,8 @@ def page_challenges(expected: Expected, caps: list[dict[str, Any]], payload) -> 
             .replace(marker, b'class="long-name">' + away.encode("utf-8") + b"<")
         capture, _rows = expected.capture(c["contest_key"], specs[c["contest_key"]], version_of(c), swapped)
         ok_swapped &= swapped != data and capture["participant_mapping"]["state"] == "UNRESOLVED" and \
-            capture["field_states"]["b_participant"] == "PARTICIPANT_MAPPING_UNRESOLVED"
+            capture["state"] != "QUALIFIED" and capture["field_states"]["b_participant"] == "CAPTURE_NOT_QUALIFIED" and \
+            capture["field_states"]["completion"] in ("CAPTURE_NOT_QUALIFIED", "NOT_WITNESSED_IN_VERSION")
     out.append({"challenge": "unrelated_team_names_with_equal_numeric_ids_never_join", "as_expected": ok_unrelated,
                 "detail": {"captures": len(mapped)}})
     out.append({"challenge": "swapped_team_names_never_join", "as_expected": ok_swapped,

@@ -309,7 +309,6 @@ class ConsumerTests(unittest.TestCase):
         self.assertEqual([r["contest_key"] for r in doc["rows"]], STATE["world"]["union"])
         self.assertEqual(doc["scope"], arch.EXPANSION_ROW_LABELS["scope"])
         self.assertEqual(doc["archive_evidence"]["union_keys"], len(STATE["world"]["union"]))
-        self.assertIsNone(arch.ISSUED_EXPANSION, "nothing is packaged before the real acquisition is issued")
         code, doc, err = query("--grain", "contest", "--contest", "ncaa:1004", "--cutoff", "2019-09-13T09:59:59Z")
         self.assertEqual(code, 0, err)
         fields = doc["rows"][0]["fields"]
@@ -431,6 +430,42 @@ class PackagingTests(unittest.TestCase):
         self.assertEqual(contract["contract_id"], arch.EXPANSION_CONTRACT_IDS[0])
         self.assertEqual(contract["scope"]["union_count"], 97)
         self.assertEqual(len(contract["scope"]["keys"]), 97)
+
+    def test_packaged_expansion_authority_equals_the_committed_contract_and_gate(self) -> None:
+        """Unmounted: the issued authority is exactly the committed contract, the packaged tranche/cohort bytes and the
+        gate of the materialized successor; the V1.2 default authority is untouched."""
+        import hashlib  # noqa: PLC0415
+        gate_path = xfx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_expansion_gate.json"
+        gate = json.loads(gate_path.read_text(encoding="utf-8"))
+        contract = json.loads(xfx.EXPANSION_CONTRACT_PATH.read_text(encoding="utf-8"))
+        issued = arch.ISSUED_EXPANSION
+        self.assertEqual((issued["contract_id"], issued["contract_sha256"]),
+                         (contract["contract_id"], hashlib.sha256(xfx.EXPANSION_CONTRACT_PATH.read_bytes()).hexdigest()))
+        self.assertEqual(gate["contract_sha256"], issued["contract_sha256"])
+        self.assertEqual((issued["tranche_sha256"], issued["cohort_sha256"]),
+                         (contract["scope"]["tranche_sha256"], contract["scope"]["cohort_sha256"]))
+        self.assertEqual(issued["acquisition_identity"], gate["acquisition_identity"])
+        retained = contract["parent_binding"]["retained_acquisition"]
+        self.assertEqual((issued["retained_acquisition_identity"], issued["retained_policy_id"]),
+                         (retained["identity"], retained["policy_id"]))
+        self.assertEqual(gate["acquisitions"][0]["acquisition_identity"], retained["identity"])
+        self.assertEqual(issued["parent"], gate["content_identity_document"]["parent"])
+        route = contract["parent_binding"]["route_control"]
+        self.assertEqual(issued["control"], {"contest_key": route["contest_key"],
+                                             "payload_sha256": route["raw_payload_sha256"],
+                                             "raw_receipt_sha256": route["raw_receipt_sha256"],
+                                             "route_qualification_sha256": route["sha256"]})
+        authority = arch.packaged_expansion_authority()
+        self.assertEqual(authority.keys, [k["contest_key"] for k in contract["scope"]["keys"]])
+        for spec in contract["scope"]["keys"]:
+            row = authority.rows[spec["contest_key"]]
+            self.assertEqual((row["selection_sources"], row["selection_role"], row["stratum"],
+                              authority.candidate_urls[spec["contest_key"]]),
+                             (spec["selection_sources"], spec["selection_role"], spec["stratum"], spec["candidate_url"]))
+        self.assertEqual(arch.packaged_authority().keys, [k for k in authority.tranche_keys])
+        with self.assertRaises(arch.ArchiveEvidenceError) as caught:
+            arch.issued_authority(issued["contract_sha256"], arch.ISSUED_V1_2["acquisition_identity"])
+        self.assertEqual(caught.exception.code, "ARCHIVE_ACQUISITION_NOT_ISSUED")
 
 
 class DuplicateRuleTests(unittest.TestCase):

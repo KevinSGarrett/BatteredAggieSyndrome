@@ -99,9 +99,27 @@ RETAINED_ORIGIN = "RETAINED_V1_2_ACQUISITION_ZERO_NEW_REQUESTS"
 EXPANSION_ORIGIN = "EXPANSION_ACQUISITION_COHORT_70"
 #: The exact issued cohort bytes (ARCHIVE_COHORT.json, preparation-20261005), packaged next to the tranche.
 ISSUED_COHORT_FILE = "national_archived_publication_2019_expansion_cohort.json"
-#: The issued expansion authority (contract, cohort, both acquisitions); None until its acquisition is finalized and
-#: committed, in which case the packaged consumer serves the V1.2 sidecar only.
-ISSUED_EXPANSION: dict[str, Any] | None = None
+#: The issued expansion authority: configs/national_archived_publication_2019_expansion_contract.json (sha256), its
+#: tranche and cohort, the retained V1.2 acquisition and the finalized expansion acquisition, its parent and route
+#: control (artifacts/data_lake/national_archived_publication_2019_expansion_gate.json). Served only when a sidecar
+#: names it explicitly through --archive-evidence; the packaged V1.2 default is unchanged.
+ISSUED_EXPANSION: dict[str, Any] | None = {
+    "contract_id": "BAT-715-NATIONAL-ARCHIVED-PUBLICATION-2019-EXPANSION-V1.0",
+    "contract_sha256": "8d8edea336dc6691a134d31aa450aa9fe7491b9d2e665cd45b10bc6d878feffc",
+    "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79",
+    "cohort_sha256": "9240e5637bf80133d094745baf95898ddd2ef6ed8900fe0d1cf0cd20f397b937",
+    "acquisition_identity": "a0fd2d4f662cfbd5149ac74ae3799f2abbf9f20fe1baa207754a591899ef24df",
+    "retained_acquisition_identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+    "retained_policy_id": "a5bdc947f6930172d6deca1b47198b14e20fe421dba9dfd9b7b7f82a9ef67f3b",
+    "parent": {"source_time": {
+        "content_identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+        "contract_sha256": "21ed32b8fac0f5fa2c3f4dd55f29abef80437d339c3db2f1bf75206a1fcaf1bd",
+        "database_identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+        "sqlite_sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7"}},
+    "control": {"contest_key": "ncaa:1735109",
+                "payload_sha256": "5c32e0df631e48aadbee2af25566ce803ebd340a7619355afca5d1690ddaab19",
+                "raw_receipt_sha256": "dea6a227afe16c26eaaf287270f6ec70626728f41b10fc59ef7fd75de3192692",
+                "route_qualification_sha256": "75ea9fed326048c850a90fd114bfcfaf646bfd95b1f5035340d8b5ec1c31d14a"}}
 TABLES = ("meta", "dispositions", "requests", "captures", "assertions")
 PAYLOADS = {"dispositions.jsonl": "dispositions", "requests.jsonl": "requests", "captures.jsonl": "captures",
             "assertions.jsonl": "assertions"}

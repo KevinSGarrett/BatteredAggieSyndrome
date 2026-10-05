@@ -268,6 +268,25 @@ class CaptureAndBuildTests(unittest.TestCase):
         code, _got, err = xfx.run_build(world, bindings=world["bindings"], out=base / "z", manifests=base / "zm")
         self.assertEqual((code, apfx.refusal(err)), (2, "SOURCE_BINDINGS_MISMATCH"))
 
+    def test_real_transport_capture_installs_the_network_audit(self) -> None:
+        """F43A01-03: without an injected transport, capture_expansion installs the producer's audit hook itself (the
+        finalized acquisition makes the call request-free)."""
+        world = STATE["world"]
+        build = xfx.builder()
+        contract, _ = build.load_expansion_contract(world["x_contract"])
+        control = build.verify_control(contract, world["route"])
+        calls = []
+        original = build.install_network_audit
+        build.install_network_audit = lambda path: calls.append(Path(path))
+        try:
+            result = build.capture_expansion(contract, world["x_out"], control, world["retained_doc"])
+        finally:
+            build.install_network_audit = original
+        self.assertEqual((result["state"], result["new_requests"]), ("ALREADY_FINALIZED", 0))
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(calls[0].name, "network_audit.jsonl")
+        self.assertEqual(calls[0].parent.name, build.policy_id(build.acquisition_view(contract)))
+
     def test_altered_retained_acquisition_refuses_before_any_request(self) -> None:
         world = STATE["world"]
         base = Path(tempfile.mkdtemp(dir=STATE["tmp"].name))
@@ -358,6 +377,43 @@ class ConsumerTests(unittest.TestCase):
             path = root / "raw" / "sha256" / body
             path.write_bytes(path.read_bytes() + b" ")
         self.refuse("ARCHIVE_RAW_ALTERED", self.rehoused(mutate_raw=alter_raw))
+
+
+class IndependentValidatorTests(unittest.TestCase):
+    """The standard-library oracle (tools/validate_national_archived_publication.py) on the expansion world."""
+
+    def validate(self, base: Path, *, retained_root: Path | None = None) -> tuple[int, dict]:
+        world, result = STATE["world"], STATE["result"]
+        report = base / "ORACLE.json"
+        argv = ["--contract", str(world["x_contract"]), "--source-database", str(world["st_db"]),
+                "--source-bindings", str(world["x_bindings"]), "--tranche", str(world["tranche"]),
+                "--cohort", str(world["cohort"]), "--manifest", str(result["content"]["manifest"]),
+                "--report", str(report), "--retained-root", str(retained_root or world["out"]),
+                "--retained-contract", str(world["contract"]), "--skip-consumer"]
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            code = apfx.validator().main(argv)
+        return code, json.loads(report.read_text(encoding="utf-8"))
+
+    def test_genuine_expansion_reconstructs_and_every_union_tamper_is_rejected(self) -> None:
+        code, doc = self.validate(Path(tempfile.mkdtemp(dir=STATE["tmp"].name)))
+        self.assertEqual((code, doc["result"]), (0, "PASS"), doc["failed_checks"])
+        union_cases = [t for t in doc["tamper_cases"] if t["case"].startswith("union_")]
+        self.assertEqual(len(union_cases), 7)
+        self.assertTrue(all(t["applied"] and t["rejected"] for t in union_cases), union_cases)
+        self.assertEqual(doc["counts"]["requests"], len(STATE["world"]["retained_doc"]["requests"]) + 9)
+        self.assertEqual(doc["retained_acquisition_identity"], STATE["world"]["retained"]["acquisition_identity"])
+
+    def test_a_retained_copy_that_differs_from_the_v1_2_root_fails(self) -> None:
+        base = Path(tempfile.mkdtemp(dir=STATE["tmp"].name))
+        other = base / "v12"
+        shutil.copytree(STATE["world"]["out"], other)
+        body = next(r["body_sha256"] for r in STATE["world"]["retained_doc"]["requests"] if r["body_sha256"])
+        target = other / "raw" / "sha256" / body
+        target.write_bytes(target.read_bytes() + b" ")
+        code, doc = self.validate(base, retained_root=other)
+        self.assertEqual(code, 1)
+        self.assertIn("retained_copy_byte_identical_with_the_v1_2_root", doc["failed_checks"])
 
 
 class PackagingTests(unittest.TestCase):

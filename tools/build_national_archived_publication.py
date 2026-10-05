@@ -1596,6 +1596,13 @@ def capture_expansion(contract: dict[str, Any], output_root: Path, control: dict
     def outcome_of(key: dict[str, Any], history: list[dict[str, Any]], exhausted: bool) -> str:
         return expansion_outcome(key, history, exhausted, read_body, retained.get(key["contest_key"], frozenset()))
     if kwargs.get("transport") is None:
+        # capture() installs the network audit only for its own default transport; the body-limited real transport
+        # is passed explicitly, so the audit hook is installed here (finding F43A01-03: the first real capture ran
+        # without it; its journal shows archive.org requests only).
+        if kwargs.get("audit", True):
+            journal_dir = root / "acquisition" / "journal" / policy_id(view)
+            journal_dir.mkdir(parents=True, exist_ok=True)
+            install_network_audit(journal_dir / "network_audit.jsonl")
         kwargs["transport"] = lambda url, headers, timeout: urllib_transport(url, headers, timeout, max_bytes=limit)
     rows = [{"contest_key": k["contest_key"]} for k in view["scope"]["keys"]]
     return capture(view, rows, root, control, planner=planner, outcome_of=outcome_of, **kwargs)

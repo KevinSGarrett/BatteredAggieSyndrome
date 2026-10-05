@@ -458,6 +458,13 @@
         "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
         "classification": "[material]",
         "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed tools/cycle37/build_worker_packet.py, a material path, so its [process] subject was incorrect, and it followed the [process] commit 89820440, exceeding the one-process-commit limit (W37R-27). SHA-scoped only."
+      },
+      {
+        "commit_sha": "f50181aab9c40812cbfb91bef867dc960a04f167",
+        "pull_request": 696,
+        "head_sha": "f50181aab9c40812cbfb91bef867dc960a04f167",
+        "classification": "[material]",
+        "reason": "Dependabot PR #696 changed the product, data, model, numeric and retired-assistive dependency declarations in pyproject.toml, a runtime behavior change, but its generated subject omitted the required material marker. The manager narrowed the runtime change in a forward commit. Preserve this original commit and classify its actual dependency change; this exact-SHA correction grants no dependency acceptance or scientific admission."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

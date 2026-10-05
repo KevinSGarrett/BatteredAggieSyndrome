@@ -34,7 +34,7 @@ class _Distribution:
 class ProductSupplyChainTests(unittest.TestCase):
     def test_repository_lock_is_exact_hash_pinned(self) -> None:
         entries = parse_lock(ROOT / "requirements" / "product.lock")
-        self.assertEqual(14, len(entries))
+        self.assertEqual(15, len(entries))
         self.assertEqual(len(entries), len({entry.normalized_name for entry in entries}))
         self.assertTrue(all(entry.hashes for entry in entries))
         self.assertTrue(
@@ -60,7 +60,7 @@ class ProductSupplyChainTests(unittest.TestCase):
     def test_direct_product_pins_match_lock(self) -> None:
         direct_count, lock_count, failures = dependency_policy_errors(ROOT)
         self.assertEqual(2, direct_count)
-        self.assertEqual(14, lock_count)
+        self.assertEqual(15, lock_count)
         self.assertEqual([], failures)
 
     def test_installed_inventory_is_sorted_and_requires_license_evidence(self) -> None:

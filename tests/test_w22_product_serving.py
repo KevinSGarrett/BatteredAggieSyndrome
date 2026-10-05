@@ -1,11 +1,16 @@
 from __future__ import annotations
 
 import ast
+import asyncio
 import json
+import os
+import socket
 import tempfile
 import unittest
+from contextlib import ExitStack
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from unittest.mock import patch
 
 from aggie_analytics.api import create_app
 from aggie_analytics.orchestration import ImmutableForecastPublisher
@@ -193,6 +198,70 @@ class W22ProductServingTests(unittest.TestCase):
         self.assertIn('fastapi', pyproject)
         self.assertIn('uvicorn', pyproject)
         self.assertIn('dependencies = []', pyproject)
+
+    def test_fastapi_lifespan_ignores_ambient_telemetry(self):
+        try:
+            import fastapi  # noqa: F401 - optional product environment
+        except ImportError:
+            self.skipTest("FastAPI product extra is not installed")
+
+        async def exercise():
+            clean = {key: value for key, value in os.environ.items() if not key.startswith("OTEL_")}
+            for settings in ({}, {"OTEL_EXPORTER_OTLP_ENDPOINT": "https://telemetry.invalid:4318"},
+                             {"OTEL_EXPORTER_OTLP_ENDPOINT": "https://telemetry.invalid:4318",
+                              "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc"}):
+                with self.subTest(settings=settings), tempfile.TemporaryDirectory() as td, \
+                        patch.dict(os.environ, {**clean, **settings}, clear=True), \
+                        patch.object(socket.socket, "connect", side_effect=AssertionError("unexpected network")), \
+                        patch.object(socket, "getaddrinfo", side_effect=AssertionError("unexpected DNS")):
+                    app = create_app(snapshot_root=Path(td))
+                    messages = []
+                    events = iter([{"type": "lifespan.startup"}, {"type": "lifespan.shutdown"}])
+
+                    async def receive():
+                        return next(events)
+
+                    async def send(message):
+                        messages.append(message["type"])
+
+                    await asyncio.wait_for(app({"type": "lifespan", "asgi": {"version": "3.0"},
+                                                "state": {}}, receive, send), 5)
+                    self.assertEqual(["lifespan.startup.complete", "lifespan.shutdown.complete"], messages)
+
+        asyncio.run(exercise())
+
+    def test_fastapi_requests_do_not_use_global_telemetry_providers(self):
+        try:
+            import fastapi  # noqa: F401 - optional product environment
+            from opentelemetry import trace, metrics, _logs
+        except ImportError:
+            self.skipTest("FastAPI product telemetry API is not installed")
+
+        async def exercise():
+            with tempfile.TemporaryDirectory() as td, ExitStack() as stack:
+                for module, getter in ((trace, "get_tracer_provider"), (metrics, "get_meter_provider"),
+                                       (_logs, "get_logger_provider")):
+                    stack.enter_context(patch.object(module, getter, side_effect=AssertionError("ambient provider used")))
+                stack.enter_context(patch.object(socket.socket, "connect", side_effect=AssertionError("unexpected network")))
+                app = create_app(snapshot_root=Path(td))
+                for path, query, expected in (("/health", b"", 200),
+                                              ("/api/v1/games/unknown/forecast", b"as_of=invalid", 400)):
+                    messages = []
+
+                    async def receive():
+                        return {"type": "http.request", "body": b"", "more_body": False}
+
+                    async def send(message):
+                        messages.append(message)
+
+                    scope = {"type": "http", "asgi": {"version": "3.0", "spec_version": "2.3"},
+                             "http_version": "1.1", "method": "GET", "scheme": "http", "path": path,
+                             "raw_path": path.encode(), "query_string": query, "root_path": "", "headers": [],
+                             "client": ("127.0.0.1", 1234), "server": ("127.0.0.1", 80)}
+                    await asyncio.wait_for(app(scope, receive, send), 5)
+                    self.assertEqual(expected, next(m["status"] for m in messages if m["type"] == "http.response.start"))
+
+        asyncio.run(exercise())
 
     def test_w21_publisher_signature_remains_compatible_and_v2_extensions_are_immutable(self):
         with tempfile.TemporaryDirectory() as td:

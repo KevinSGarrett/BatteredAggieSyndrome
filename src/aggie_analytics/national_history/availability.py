@@ -104,8 +104,25 @@ EXPANSION_CONTRACT_ID = "BAT-715-NATIONAL-HISTORY-AVAILABILITY-2019-EXPANSION-V1
 EXPANSION_ARCHIVE_PARENT = "national_archived_publication_2019_expansion"
 EXPANSION_PARENT_KEYS = {**PARENT_KEYS, "archive": PARENT_KEYS["archive"] + ("cohort_sha256",
                                                                              "retained_acquisition_identity")}
-#: The issued expansion authority ({contract_id, contract_sha256, parent}); None until its contract is committed.
-ISSUED_EXPANSION: dict[str, Any] | None = None
+#: The issued expansion authority: the committed successor contract and the exact parents its materialized projection
+#: binds (configs/national_history_availability_2019_expansion_contract.json; artifacts/data_lake/
+#: national_history_availability_2019_expansion_gate.json). Served only for a projection naming exactly this contract.
+ISSUED_EXPANSION: dict[str, Any] | None = {
+    "contract_id": EXPANSION_CONTRACT_ID,
+    "contract_sha256": "1a169c79a67d36a97990cdf76ef0d9c0ca968fe316ce5beee361439431bd9b8c",
+    "parent": {
+        "population": ISSUED["parent"]["population"], "history": ISSUED["parent"]["history"],
+        "source_time": ISSUED["parent"]["source_time"],
+        "archive": {"database_identity": "a8c7abcbd8a764eebefaafafc56ebb07bd40342e00bcd3431cb29a3ef58c4a36",
+                    "sqlite_sha256": "fe9d4ea97e81139ef5669d5b80349cae2db6665badfe2749613ec3de78b08c56",
+                    "content_identity": "4b4e681a1d81c328ebd06b4f7c905cb5dd5d7f61dc870813e87ac7a8aab650fa",
+                    "contract_sha256": "8d8edea336dc6691a134d31aa450aa9fe7491b9d2e665cd45b10bc6d878feffc",
+                    "contract_id": "BAT-715-NATIONAL-ARCHIVED-PUBLICATION-2019-EXPANSION-V1.0",
+                    "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79",
+                    "acquisition_identity": "a0fd2d4f662cfbd5149ac74ae3799f2abbf9f20fe1baa207754a591899ef24df",
+                    "cohort_sha256": "9240e5637bf80133d094745baf95898ddd2ef6ed8900fe0d1cf0cd20f397b937",
+                    "retained_acquisition_identity":
+                        "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0"}}}
 PROFILES = {CONTRACT_ID: {"population": POPULATION, "archive_parent": ARCHIVE_PARENT, "parent_keys": PARENT_KEYS},
             EXPANSION_CONTRACT_ID: {"population": EXPANSION_POPULATION, "archive_parent": EXPANSION_ARCHIVE_PARENT,
                                     "parent_keys": EXPANSION_PARENT_KEYS}}

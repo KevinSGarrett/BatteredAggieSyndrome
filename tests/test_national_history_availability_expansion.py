@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 import sys
 import tempfile
 import unittest
@@ -336,6 +337,50 @@ class ValidatorTests(unittest.TestCase):
             fx.validator().main(["--contract", str(contract), "--input-bindings", str(world["bindings"]),
                                  "--manifest", str(result["content"]["manifest"]),
                                  "--report", str(contract.parent / "report.json"), "--skip-consumer"])
+
+
+GATE = fx.ROOT / "artifacts" / "data_lake" / "national_history_availability_2019_expansion_gate.json"
+V10_GATE = fx.ROOT / "artifacts" / "data_lake" / "national_history_availability_2019_gate.json"
+MOUNTED = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT") or "")
+
+
+class PackagingTests(unittest.TestCase):
+    def test_issued_expansion_equals_the_committed_contract_and_gate_and_v10_is_untouched(self) -> None:
+        """Unmounted: the packaged successor authority is exactly the committed contract and the gate's parents; the
+        V1.0 authority still names the accepted contract and the accepted gate's parents."""
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        issued = core.ISSUED_EXPANSION
+        self.assertEqual((issued["contract_id"], issued["contract_sha256"]),
+                         (core.EXPANSION_CONTRACT_ID, fx.sha(EXPANSION_CONTRACT_PATH.read_bytes())))
+        self.assertEqual(gate["contract_sha256"], issued["contract_sha256"])
+        self.assertEqual(issued["parent"], gate["content_identity_document"]["parent"])
+        self.assertEqual(gate["content_identity_document"]["population"], core.EXPANSION_POPULATION)
+        self.assertEqual(set(issued["parent"]["archive"]), set(core.EXPANSION_PARENT_KEYS["archive"]))
+        contract = json.loads(EXPANSION_CONTRACT_PATH.read_text(encoding="utf-8"))
+        self.assertEqual({k: contract["parent_binding"]["archive"][k] for k in core.EXPANSION_PARENT_KEYS["archive"]},
+                         issued["parent"]["archive"])
+        v10 = json.loads(V10_GATE.read_text(encoding="utf-8"))
+        self.assertEqual(core.ISSUED["contract_sha256"], fx.sha(fx.CONTRACT_PATH.read_bytes()))
+        self.assertEqual(core.ISSUED["parent"], v10["content_identity_document"]["parent"])
+        self.assertEqual({n: issued["parent"][n] for n in ("population", "history", "source_time")},
+                         {n: core.ISSUED["parent"][n] for n in ("population", "history", "source_time")})
+
+
+@unittest.skipUnless(GATE.is_file() and os.environ.get("AGGIE_ANALYTICS_DATA_ROOT") and
+                     (MOUNTED / "canonical" / core.EXPANSION_POPULATION).is_dir(), "the delivered successor is not mounted")
+class MountedDeliveredSuccessorTests(unittest.TestCase):
+    def test_delivered_successor_matches_the_gate_and_opens_through_the_packaged_authority(self) -> None:
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        db = MOUNTED / "canonical" / core.EXPANSION_POPULATION / "sha256" / gate["database_identity"] / core.DB_FILE
+        content_manifest = MOUNTED / "manifests" / core.EXPANSION_POPULATION / "sha256" / gate["content_identity"] / \
+            "run_manifest.json"
+        document = json.loads(content_manifest.read_text(encoding="utf-8"))["identity_document"]
+        self.assertEqual(document, gate["content_identity_document"])
+        self.assertEqual(fx.sha(core.canonical_json_bytes(document)), gate["content_identity"])
+        with aq.HistoryAvailabilityDatabase(db, expect_identity=gate["database_identity"]) as handle:
+            result = handle.query("target", cutoff=LATE, limit=1)
+        self.assertEqual(result["total"], gate["row_counts"]["targets.jsonl"])
+        self.assertEqual(result["binding"]["contract_sha256"], gate["contract_sha256"])
 
 
 if __name__ == "__main__":

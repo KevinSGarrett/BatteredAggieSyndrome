@@ -1,0 +1,842 @@
+"""BAT-713 archived-publication evidence producer and independent validator (Cycle #41 TP41-A01).
+
+Everything runs offline on the synthetic world of ``national_archived_publication_fixture`` (fictional records only):
+the capture stage is driven by a fake archive transport, so its request plan, limits, retries, redirect refusals and
+journal are exercised without any network access.
+"""
+from __future__ import annotations
+
+import ast
+import contextlib
+import copy
+import gzip
+import hashlib
+import io
+import json
+import os
+import shutil
+import sqlite3
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import national_archived_publication_fixture as fx  # noqa: E402
+
+STATE: dict = {}
+QUAL = "QUALIFIED_AGREES_WITH_PARENT"
+
+
+def setUpModule() -> None:  # noqa: N802 - unittest hook
+    STATE["tmp"] = tempfile.TemporaryDirectory()
+    world = fx.build_world(Path(STATE["tmp"].name) / "g")
+    STATE["capture"] = fx.run_capture(world)
+    code, result, err = fx.run_build(world)
+    assert code == 0, err
+    STATE["world"], STATE["result"] = world, result
+
+
+def tearDownModule() -> None:  # noqa: N802 - unittest hook
+    STATE["tmp"].cleanup()
+
+
+def payload(name: str) -> list[dict]:
+    return fx.read_payload(STATE["result"], name)
+
+
+def disposition(key: str) -> dict:
+    return next(d for d in payload("dispositions.jsonl") if d["contest_key"] == key)
+
+
+def fresh_world(name: str, scenarios=None) -> dict:
+    return fx.build_world(Path(STATE["tmp"].name) / name, scenarios)
+
+
+class AcquisitionTests(unittest.TestCase):
+    def test_every_key_has_one_explicit_outcome_and_the_control_costs_nothing(self) -> None:
+        outcomes = STATE["capture"]["outcomes"]
+        self.assertEqual(sorted(outcomes), sorted(k for k, _r, _s in fx.TRANCHE))
+        self.assertEqual(outcomes["ncaa:1003"], "CONTROL_REUSED")
+        self.assertEqual(outcomes["ncaa:1005"], "NO_ARCHIVE_CAPTURE_REPORTED")
+        self.assertEqual(outcomes["ncaa:1007"], "REDIRECT_REFUSED")
+        requests = payload("requests.jsonl")
+        self.assertFalse([r for r in requests if r["contest_key"] == "ncaa:1003"])
+        self.assertEqual([r["seq"] for r in requests], list(range(1, len(requests) + 1)))
+        self.assertEqual(len(requests), STATE["capture"]["totals"]["requests"])
+        self.assertEqual(sorted(d["contest_key"] for d in payload("dispositions.jsonl")), sorted(outcomes))
+
+    def test_per_key_limits_hold_and_only_archive_hosts_are_requested(self) -> None:
+        for key, _role, _stratum in fx.TRANCHE:
+            mine = [r for r in payload("requests.jsonl") if r["contest_key"] == key]
+            self.assertLessEqual(sum(1 for r in mine if r["kind"] == "METADATA"), 2)
+            self.assertLessEqual(sum(1 for r in mine if r["kind"] == "REPLAY"), 2)
+        for url in STATE["world"]["archive"].calls:
+            self.assertRegex(url, r"^https://(archive\.org/wayback/available\?|web\.archive\.org/web/\d{14}id_/)")
+
+    def test_retry_once_then_redirect_to_live_host_is_refused_and_counted(self) -> None:
+        mine = [r for r in payload("requests.jsonl") if r["contest_key"] == "ncaa:1007"]
+        self.assertEqual([(r["kind"], r["purpose"], r["http_status"]) for r in mine],
+                         [("METADATA", "PROBE_1", 503), ("METADATA", "RETRY", 200), ("REPLAY", "CAPTURE_1", 302)])
+        self.assertTrue(mine[-1]["location"].startswith("https://www.espn.com/"))
+        self.assertEqual(disposition("ncaa:1007")["disposition"], "REDIRECT_REFUSED")
+        self.assertFalse(any("www.espn.com/college" in u and "web.archive.org" not in u
+                             for u in STATE["world"]["archive"].calls))
+
+    def test_pregame_version_prompts_one_post_event_probe(self) -> None:
+        mine = [(r["kind"], r["purpose"]) for r in payload("requests.jsonl") if r["contest_key"] == "ncaa:1002"]
+        self.assertEqual(mine, [("METADATA", "PROBE_1"), ("REPLAY", "CAPTURE_1"), ("METADATA", "PROBE_2"),
+                                ("REPLAY", "CAPTURE_2")])
+        support = disposition("ncaa:1002")["field_support"]
+        self.assertEqual(support["a_participant"], "2019-08-31T12:00:00.999999Z")
+        self.assertEqual(support["a_points"], "2019-09-02T10:00:00.999999Z")
+
+    def test_total_limit_stops_requests_and_records_unattempted_keys(self) -> None:
+        world = fresh_world("lim")
+        contract = copy.deepcopy(world["contract_doc"])
+        contract["acquisition"]["limits"]["total_requests"] = 3
+        result = fx.run_capture(world, contract=contract)
+        self.assertEqual(result["totals"]["requests"], 3)
+        self.assertEqual(result["outcomes"]["ncaa:1004"], "NOT_ATTEMPTED_TOTAL_BUDGET_EXHAUSTED")
+        self.assertEqual(len(world["archive"].calls), 3)
+
+    def test_retry_after_is_honoured_once_then_failure_is_explicit(self) -> None:
+        def busy(archive, row):
+            archive.meta[(row["cfbd_game_id"]["value"], row["metadata_probe_timestamp"])] = 429
+        world = fresh_world("ra", {"ncaa:1001": busy})
+        result = fx.run_capture(world)
+        self.assertEqual(result["outcomes"]["ncaa:1001"], "METADATA_REQUEST_FAILED")
+        self.assertIn(2, result["slept"])
+        doc = json.loads(Path(result["path"]).read_text(encoding="utf-8"))
+        mine = [r for r in doc["requests"] if r["contest_key"] == "ncaa:1001"]
+        self.assertEqual([(r["purpose"], r["http_status"], r["retry_after_seconds"]) for r in mine],
+                         [("PROBE_1", 429, 2), ("RETRY", 429, 2)])
+
+    def test_in_host_redirect_is_followed_once(self) -> None:
+        def hop(archive, row):
+            game = row["cfbd_game_id"]["value"]
+            archive.meta[(game, row["metadata_probe_timestamp"])] = ("20190901041500", "302")
+            target = f"https://web.archive.org/web/20190901041501id_/{fx.game_url(game, 'http')}"
+            archive.replay[("20190901041500", game)] = (302, [["Location", target]], b"")
+            archive.replay[("20190901041501", game)] = (
+                200, fx.replay_headers("20190901041501", fx.game_url(game, "http")), fx.page_for(row))
+        world = fresh_world("hop", {"ncaa:1001": hop})
+        result = fx.run_capture(world)
+        self.assertEqual(result["outcomes"]["ncaa:1001"], "CAPTURED")
+        doc = json.loads(Path(result["path"]).read_text(encoding="utf-8"))
+        purposes = [r["purpose"] for r in doc["requests"] if r["contest_key"] == "ncaa:1001"]
+        self.assertEqual(purposes, ["PROBE_1", "CAPTURE_1", "REDIRECT_HOP"])
+
+    def test_metadata_answer_for_another_url_is_not_used(self) -> None:
+        build = fx.builder()
+        body = json.dumps({"archived_snapshots": {"closest": {
+            "available": True, "status": "200", "timestamp": "20190901041500",
+            "url": "http://web.archive.org/web/20190901041500/https://www.espn.com/college-football/game/_/gameId/1"}}})
+        self.assertEqual(build.metadata_answer(body.encode(), "2")["reason"], "CLOSEST_FOR_ANOTHER_URL")
+        self.assertEqual(build.metadata_answer(b"not json", "2")["reason"], "METADATA_ANSWER_NOT_JSON")
+
+    def test_interrupted_capture_counts_the_unknown_request_on_resume(self) -> None:
+        world = fresh_world("int")
+        real = world["archive"]
+        calls = {"n": 0}
+
+        def crashing(url, headers, timeout):
+            calls["n"] += 1
+            if calls["n"] == 2:
+                raise KeyboardInterrupt("simulated interruption")
+            return real(url, headers, timeout)
+        with self.assertRaises(KeyboardInterrupt):
+            fx.run_capture(world, transport=crashing)
+        result = fx.run_capture(world)
+        doc = json.loads(Path(result["path"]).read_text(encoding="utf-8"))
+        unknown = [r for r in doc["requests"] if r["outcome"] == "INTERRUPTED_UNKNOWN"]
+        self.assertEqual(len(unknown), 1)
+        self.assertEqual(unknown[0]["seq"], 2)
+        mine = [r for r in doc["requests"] if r["contest_key"] == unknown[0]["contest_key"]]
+        self.assertLessEqual(sum(1 for r in mine if r["kind"] == unknown[0]["kind"]), 2)
+
+    def test_request_starts_use_the_high_resolution_counter_with_a_margin(self) -> None:
+        import inspect  # noqa: PLC0415
+        import time  # noqa: PLC0415
+        build = fx.builder()
+        self.assertIs(inspect.signature(build.capture).parameters["monotonic"].default, time.perf_counter)
+        self.assertGreaterEqual(build.SPACING_MARGIN_SECONDS, 0.05)
+        # the fixture's fake counter advances 0.25 s per reading: every wait is 1.0 + margin - 0.25 seconds
+        self.assertTrue(all(abs(s - (0.75 + build.SPACING_MARGIN_SECONDS)) < 1e-9 for s in STATE["capture"]["slept"]))
+
+    def test_finalized_acquisition_makes_no_request(self) -> None:
+        before = len(STATE["world"]["archive"].calls)
+        again = fx.run_capture(STATE["world"])
+        self.assertEqual((again["state"], again["new_requests"]), ("ALREADY_FINALIZED", 0))
+        self.assertEqual(len(STATE["world"]["archive"].calls), before)
+
+    def test_stale_journal_refuses(self) -> None:
+        world = fresh_world("sj")
+        build = fx.builder()
+        contract = copy.deepcopy(world["contract_doc"])
+        pid = build.policy_id(contract)
+        journal = world["out"] / "acquisition" / "journal" / pid / "journal.jsonl"
+        fx.write(journal, b'{"header": {"policy_id": "other"}, "type": "HEADER"}\n')
+        with self.assertRaises(build.BuildRefused) as caught:
+            fx.run_capture(world)
+        self.assertEqual(caught.exception.code, "REFUSED_STALE_JOURNAL")
+
+
+class QualificationTests(unittest.TestCase):
+    """Receipt and page rules applied to single archived versions of the synthetic ncaa:1001 contest."""
+
+    def setUp(self) -> None:
+        self.build = fx.builder()
+        self.row = STATE["world"]["by_key"]["ncaa:1001"]
+        self.game = self.row["cfbd_game_id"]["value"]
+        control = self.build.verify_control(STATE["world"]["contract_doc"], STATE["world"]["route"])
+        self.parent = self.build.read_parent(STATE["world"]["st_db"], [
+            {k: v for k, v in self.row.items() if not k.startswith("_")}])["ncaa:1001"]
+        self.assertTrue(control)
+
+    def judge(self, page: bytes, *, ts: str = "20190901041500", headers=None, status: int = 200):
+        url = f"https://web.archive.org/web/{ts}id_/{fx.game_url(self.game)}"
+        headers = headers if headers is not None else fx.replay_headers(ts, fx.game_url(self.game))
+        checks, reasons, derived = self.build.receipt_checks(url, status, headers, page, self.game)
+        result = self.build.qualify("ncaa:1001", self.parent, self.game, page, derived["bound"], reasons)
+        return result, derived
+
+    def test_genuine_version_qualifies_every_witnessable_field_with_end_of_second_bound(self) -> None:
+        result, derived = self.judge(fx.page_for(self.row))
+        self.assertEqual(result["reasons"], [])
+        self.assertEqual(derived["bound"], "2019-09-01T04:15:00.999999Z")
+        self.assertEqual({f: s for f, s in result["states"].items() if s != QUAL}, {"season": "NOT_WITNESSED_IN_VERSION"})
+
+    def test_wrong_game_node_and_matching_scoreboard_are_quarantined(self) -> None:
+        page = fx.page_for(self.row, nav_game="990001", js_game="990001")
+        result, _ = self.judge(page)
+        self.assertIn("WRONG_GAME_NODE", result["reasons"])
+        self.assertIn("GAME_IDENTITY_MISMATCH", result["reasons"])
+        self.assertNotIn(QUAL, result["states"].values())
+        board = page.find(b"global-scoreboard")
+        self.assertTrue(all(a["witness_span"][0] > page.find(b'id="custom-nav"') for a in result["assertions"]
+                            if a["witness"].endswith("SCORE")))
+        self.assertGreater(board, 0)
+
+    def test_error_pages_and_json_bodies_are_never_qualified(self) -> None:
+        result, _ = self.judge(b"<html><body><h1>Page not found</h1></body></html>")
+        self.assertIn("MAIN_GAME_ELEMENT_ABSENT", result["reasons"])
+        headers = fx.replay_headers("20190901041500", fx.game_url(self.game), content_type="application/json")
+        result, _ = self.judge(b'{"error": "not found"}', headers=headers)
+        self.assertIn("NOT_AN_ARCHIVED_HTML_200", result["reasons"])
+
+    def test_malformed_absent_and_contradictory_timestamps_quarantine(self) -> None:
+        original = fx.game_url(self.game)
+        cases = {"MEMENTO_DATETIME_MALFORMED": fx.replay_headers("20190901041500", original,
+                                                                 memento="2019-09-01 04:15:00"),
+                 "MEMENTO_DATETIME_ABSENT": fx.replay_headers("20190901041500", original, memento=None),
+                 "ARCHIVE_TIMESTAMPS_CONTRADICTORY": fx.replay_headers("20190901041500", original,
+                                                                       memento=fx.http_date("20190901041501")),
+                 "ORIGIN_DATE_CONTRADICTORY": fx.replay_headers("20190901041500", original,
+                                                                origin_date=fx.http_date("20190901041500", 301))}
+        for code, headers in cases.items():
+            result, _ = self.judge(fx.page_for(self.row), headers=headers)
+            self.assertIn(code, result["reasons"], code)
+            self.assertNotIn(QUAL, result["states"].values(), code)
+
+    def test_later_origin_date_within_tolerance_moves_the_bound_later(self) -> None:
+        headers = fx.replay_headers("20190901041500", fx.game_url(self.game),
+                                    origin_date=fx.http_date("20190901041500", 7))
+        _result, derived = self.judge(fx.page_for(self.row), headers=headers)
+        self.assertEqual(derived["bound"], "2019-09-01T04:15:07.999999Z")
+
+    def test_memento_for_another_url_is_quarantined(self) -> None:
+        headers = fx.replay_headers("20190901041500", fx.game_url(self.game),
+                                    link_original=fx.game_url("990001"))
+        result, _ = self.judge(fx.page_for(self.row), headers=headers)
+        self.assertIn("MEMENTO_FOR_ANOTHER_URL", result["reasons"])
+
+    def test_orientation_comes_from_the_evidenced_map_and_swapped_scores_conflict(self) -> None:
+        result, _ = self.judge(fx.page_for(self.row, swap_scores=True))
+        self.assertEqual(result["states"]["a_points"], "CONFLICTS_WITH_PARENT")
+        self.assertEqual(result["states"]["a_participant"], QUAL)
+        self.assertEqual(result["participant_mapping"]["state"], "QUALIFIED")
+
+    def test_absent_score_is_never_filled_from_the_parent(self) -> None:
+        record = self.row["_record"]
+        home, away = fx.side_ids(record)
+        names = fx.side_names(record)
+        page = fx.espn_page(self.game, home, away, None, None, kickoff="2019-08-31T23:30Z", home_name=names[0],
+                            away_name=names[1])
+        result, _ = self.judge(page)
+        self.assertEqual(result["states"]["a_points"], "NOT_WITNESSED_IN_VERSION")
+        self.assertFalse([a for a in result["assertions"] if a["field"] in ("a_points", "b_points")])
+
+    def test_contradictory_date_witnesses_and_in_progress_status(self) -> None:
+        result, _ = self.judge(fx.page_for(self.row, info_date="2019-09-07T23:30Z"))
+        # an uncorroborated date leaves the participants unmapped, so V1.2 quarantines the whole version
+        self.assertEqual({a["corroboration"] for a in result["assertions"] if a["field"] == "contest_date"},
+                         {"CONTRADICTORY_WITHIN_VERSION"})
+        self.assertEqual(result["reasons"], ["PARTICIPANT_MAPPING_UNRESOLVED"])
+        self.assertNotIn(QUAL, result["states"].values())
+        result, _ = self.judge(fx.page_for(self.row, status="in", detail="3rd Quarter"))
+        self.assertEqual(result["states"]["completion"], "NOT_SUPPORTED_BY_VERSION_STATUS")
+        self.assertEqual(result["states"]["a_points"], "NOT_SUPPORTED_BY_VERSION_STATUS")
+
+    def test_final_status_before_the_event_date_is_impossible(self) -> None:
+        result, _ = self.judge(fx.page_for(self.row), ts="20190820000000")
+        self.assertIn("IMPOSSIBLE_CHRONOLOGY", result["reasons"])
+
+    def test_witness_spans_reread_exactly_from_raw(self) -> None:
+        page = fx.page_for(self.row)
+        result, _ = self.judge(page)
+        for item in result["assertions"]:
+            start, end = item["witness_span"]
+            self.assertEqual(page[start:end].decode("utf-8"), item["literal"])
+
+
+def _lineage(key: str) -> tuple[dict, list[dict]]:
+    import zlib  # noqa: PLC0415
+    conn = sqlite3.connect(Path(STATE["world"]["st_db"]).resolve().as_uri() + "?mode=ro", uri=True)
+    try:
+        record, blob = conn.execute("SELECT record, lineage FROM contests WHERE contest_key = ?", (key,)).fetchone()
+    finally:
+        conn.close()
+    return json.loads(record), [json.loads(x) for x in zlib.decompress(blob).decode("utf-8").splitlines()]
+
+
+class ParticipantMappingTests(unittest.TestCase):
+    """MF41A01-02: participants join only through documented parent names, the CFBD route role and the version's
+    date; equal numbers in the ESPN and CFBD namespaces are never evidence."""
+
+    def setUp(self) -> None:
+        self.build = fx.builder()
+        self.row = STATE["world"]["by_key"]["ncaa:1001"]
+        self.game = self.row["cfbd_game_id"]["value"]
+        self.parent = self.build.read_parent(STATE["world"]["st_db"], [
+            {k: v for k, v in self.row.items() if not k.startswith("_")}])["ncaa:1001"]
+        self.home, self.away = fx.side_ids(self.row["_record"])
+        self.names = fx.side_names(self.row["_record"])
+
+    def judge(self, page: bytes, parent=None):
+        ts = "20190901041500"
+        url = f"https://web.archive.org/web/{ts}id_/{fx.game_url(self.game)}"
+        _c, reasons, derived = self.build.receipt_checks(url, 200, fx.replay_headers(ts, fx.game_url(self.game)), page,
+                                                         self.game)
+        return self.build.qualify("ncaa:1001", parent or self.parent, self.game, page, derived["bound"], reasons)
+
+    def unresolved(self, result, reason: str) -> None:
+        """Contract V1.2 capture_quarantine: an unmapped version is quarantined whole and serves no field."""
+        self.assertEqual((result["participant_mapping"]["state"], result["participant_mapping"]["reason"]),
+                         ("UNRESOLVED", reason))
+        self.assertFalse(result["qualified"])
+        self.assertEqual(result["reasons"], ["PARTICIPANT_MAPPING_UNRESOLVED"])
+        self.assertTrue(all(v in ("CAPTURE_NOT_QUALIFIED", "NOT_WITNESSED_IN_VERSION")
+                            for v in result["states"].values()), result["states"])
+        self.assertEqual(result["orientation"]["a_side"], None)
+        self.assertFalse([a for a in result["assertions"] if a["field"] in ("a_participant", "a_points")])
+        self.assertFalse([a for a in result["assertions"] if a["field_state"] == QUAL])
+
+    def test_genuine_names_roles_and_date_map_both_teams(self) -> None:
+        result = self.judge(fx.page_for(self.row))
+        mapping = result["participant_mapping"]
+        self.assertEqual(mapping["state"], "QUALIFIED")
+        self.assertEqual({s["documented_name"] for s in mapping["sides"].values()}, set(self.names))
+        self.assertTrue(all("CFBD_SCHOOL_NAME" in s["name_sources"] for s in mapping["sides"].values()))
+        rows = [a for a in result["assertions"] if a["field"] == "a_participant"]
+        self.assertEqual(sorted(a["witness"] for a in rows), ["HOME_TEAM_HREF", "HOME_TEAM_NAME", "JS_HOME_TEAM_ID"])
+        self.assertEqual(rows[0]["parent_comparator"]["rule"], "DOCUMENTED_PARENT_NAME_CFBD_ROLE_AND_DATE")
+
+    def test_equal_numeric_ids_with_unrelated_names_never_join(self) -> None:
+        """The manager's synthetic conflict: real numbers, unrelated main-element names."""
+        result = self.judge(fx.page_for(self.row, home_name="Unrelated College", away_name="Unrelated College"))
+        self.unresolved(result, "HOME_TEAM_NAME_NOT_DOCUMENTED_FOR_EITHER_PARENT_TEAM")
+
+    def test_swapped_roles_never_join(self) -> None:
+        swapped = fx.espn_page(self.game, self.away, self.home, self.row["b_points"], self.row["a_points"],
+                               kickoff="2019-08-31T23:30Z", home_name=self.names[1], away_name=self.names[0])
+        self.unresolved(self.judge(swapped), "HOME_TEAM_ROLE_CONTRADICTS_THE_CFBD_ROUTE_ROLE")
+        names_only = fx.page_for(self.row, home_name=self.names[1], away_name=self.names[0])
+        self.unresolved(self.judge(names_only), "HOME_TEAM_ROLE_CONTRADICTS_THE_CFBD_ROUTE_ROLE")
+
+    def test_cross_assigned_espn_id_never_joins(self) -> None:
+        cfbd = {k: self.row["_record"][f"{k}_cfbd_team_id"]["value"] for k in ("a", "b")}
+        page = fx.page_for(self.row, ids=(cfbd["b"], self.away))
+        self.unresolved(self.judge(page), "HOME_ESPN_TEAM_ID_EQUALS_THE_OPPONENT_CFBD_ID")
+
+    def test_absent_duplicate_and_contradictory_names_never_join(self) -> None:
+        self.unresolved(self.judge(fx.page_for(self.row).replace(b'<span class="long-name">', b'<span class="x">', 1)),
+                        "AWAY_TEAM_NAME_ABSENT")
+        page = fx.page_for(self.row)
+        doubled = page.replace(b'<span class="short-name">Fixture</span>',
+                               b'<span class="long-name">' + self.names[1].encode() + b'</span>', 1)
+        self.unresolved(self.judge(doubled), "AWAY_TEAM_NAME_DUPLICATED")
+        other = page.replace(b'<span class="short-name">Fixture</span>', b'<span class="long-name">Bravo</span>', 1)
+        self.unresolved(self.judge(other), "AWAY_TEAM_NAME_CONTRADICTORY")
+
+    def test_ambiguous_documented_name_never_joins(self) -> None:
+        parent = copy.deepcopy(self.parent)
+        for letter in ("a", "b"):
+            parent["participants"]["sides"][letter]["documented_names"].append(
+                {"name": "Shared Name", "sources": ["NCAA_TEAM_NAME"]})
+        result = self.judge(fx.page_for(self.row, home_name="Shared Name"), parent)
+        self.unresolved(result, "HOME_TEAM_NAME_AMBIGUOUS_BETWEEN_PARENT_TEAMS")
+
+    def test_missing_or_contradictory_cfbd_route_source_never_joins(self) -> None:
+        record, lineage = _lineage("ncaa:1001")
+        without = [r for r in lineage if r["source_kind"] != "CFBD_ROUTE_RESPONSE"]
+        parent = dict(self.parent, participants=self.build.participant_sources(record, without))
+        self.unresolved(self.judge(fx.page_for(self.row), parent), "CFBD_SOURCE_ABSENT")
+        cfbd = next(r for r in lineage if r["source_kind"] == "CFBD_ROUTE_RESPONSE")
+        flipped = copy.deepcopy(cfbd)
+        flipped["orientation"]["home_side"] = "B" if cfbd["orientation"]["home_side"] == "A" else "A"
+        flipped["literals"].update(homeTeam=cfbd["literals"]["awayTeam"], awayTeam=cfbd["literals"]["homeTeam"],
+                                   homeId=cfbd["literals"]["awayId"], awayId=cfbd["literals"]["homeId"])
+        flipped["native_row_key"] = "contradictory"
+        parent = dict(self.parent, participants=self.build.participant_sources(record, lineage + [flipped]))
+        self.unresolved(self.judge(fx.page_for(self.row), parent), "CFBD_SOURCE_CONTRADICTORY")
+        unbound = copy.deepcopy(cfbd)
+        unbound["literals"]["homeId"] = "424242"
+        parent = dict(self.parent, participants=self.build.participant_sources(record, [unbound]))
+        self.unresolved(self.judge(fx.page_for(self.row), parent), "CFBD_SOURCE_CONTRADICTORY")
+
+    def test_documented_ncaa_alias_and_differing_provider_ids_map(self) -> None:
+        record, lineage = _lineage("ncaa:1001")
+        ncaa = copy.deepcopy(next(r for r in lineage if r["source_kind"] == "NCAA_TEAM_SEASON_PAGE"))
+        side = ncaa["orientation"]["page_team_side"]
+        ncaa["literals"]["page_team_name"] = "Alpha University" if side == "A" else ncaa["literals"]["page_team_name"]
+        ncaa["literals"]["opponent_name"] = "Alpha University" if side == "B" else ncaa["literals"]["opponent_name"]
+        parent = dict(self.parent, participants=self.build.participant_sources(record, lineage + [ncaa]))
+        page = fx.page_for(self.row, home_name="Alpha University", ids=("501", self.away))
+        result = self.judge(page, parent)
+        self.assertEqual(result["participant_mapping"]["state"], "QUALIFIED")
+        home = result["participant_mapping"]["sides"]["home"]
+        self.assertEqual((home["documented_name"], home["name_sources"], home["id_relation"]),
+                         ("Alpha University", ["NCAA_TEAM_NAME"], "ESPN_ID_DIFFERS_FROM_CFBD_ID"))
+        self.assertEqual(result["states"]["a_participant"], QUAL)
+        caps = [c for c in payload("captures.jsonl") if c["contest_key"] == "ncaa:1004"]
+        echo = next(s for s in caps[0]["participant_mapping"]["sides"].values() if s["parent_key"] == "org:5")
+        self.assertEqual((echo["espn_team_id"]["value"], echo["cfbd_team_id"]["value"], echo["id_relation"]),
+                         ("99105", "105", "ESPN_ID_DIFFERS_FROM_CFBD_ID"))
+        self.assertEqual(disposition("ncaa:1004")["disposition"], "ARCHIVED_VERSION_QUALIFIED_PARTIAL_FIELDS")
+
+    def test_a_rematch_on_another_date_cannot_borrow_the_map(self) -> None:
+        page = fx.page_for(self.row, kickoff="2019-10-05T23:30Z")
+        result = self.judge(page)
+        self.assertEqual({a["corroboration"] for a in result["assertions"] if a["field"] == "contest_date"},
+                         {"CONFLICTS_WITH_PARENT"})
+        self.unresolved(result, "CONTEST_DATE_NOT_CORROBORATED_IN_THIS_VERSION")
+
+    def test_contradictory_maps_across_the_tranche_refuse_the_build(self) -> None:
+        def alpha_renumbered(archive, row):
+            record = row["_record"]
+            home, away = fx.side_ids(record)
+            page = fx.page_for(row, ids=("777", away))
+            game = row["cfbd_game_id"]["value"]
+            archive.meta[(game, row["metadata_probe_timestamp"])] = "20190901041500"
+            archive.replay[("20190901041500", game)] = (200, fx.replay_headers("20190901041500", fx.game_url(game)),
+                                                         page)
+        world = fresh_world("mc", {"ncaa:1001": alpha_renumbered})
+        fx.run_capture(world)
+        code, _result, err = fx.run_build(world)
+        self.assertEqual((code, fx.refusal(err)), (2, "PARTICIPANT_MAPPING_CONTRADICTORY"))
+        self.assertIn("org:1", err)
+
+
+class FieldGrainTests(unittest.TestCase):
+    """MF41A01-01: a witness is only an exact occurrence of its own element, attribute or line-start assignment."""
+
+    def setUp(self) -> None:
+        self.case = ParticipantMappingTests("test_genuine_names_roles_and_date_map_both_teams")
+        self.case.setUp()
+        self.row = self.case.row
+
+    def test_pregame_page_borrowed_substrings_are_not_witnesses(self) -> None:
+        bait = ('posterImages = {"href": "x"}; var h = "Final Game Highlight"; var bet365 = 35;\n'
+                '  var s = \'espn.gamepackage.status = "post";\';\n')
+        page = fx.page_for(self.row, status="pre", detail="7:30 PM ET", extra_script=bait)
+        result = self.case.judge(page)
+        names = [w["witness"] for w in self.case.build.extract(page)["witnesses"]]
+        self.assertEqual(names.count("JS_STATUS"), 1)
+        self.assertNotIn("HOME_SCORE", names)
+        self.assertEqual(result["page_status"]["js_status"], "pre")
+        self.assertEqual(result["states"]["completion"], "NOT_SUPPORTED_BY_VERSION_STATUS")
+        self.assertEqual(result["states"]["a_points"], "NOT_SUPPORTED_BY_VERSION_STATUS")
+
+    def test_score_digits_in_team_identity_are_not_score_occurrences(self) -> None:
+        page = fx.page_for(self.row)
+        extraction = self.case.build.extract(page)
+        scores = [w for w in extraction["witnesses"] if w["witness"].endswith("_SCORE")]
+        self.assertEqual(len(scores), 2)
+        for w in scores:
+            self.assertEqual(page[w["span"][0] - len(b'icon-font-after">'):w["span"][0]], b'icon-font-after">')
+
+    def test_duplicate_and_contradictory_status_witnesses(self) -> None:
+        dup = fx.page_for(self.row, extra_script='espn.gamepackage.status = "post";\n')
+        result = self.case.judge(dup)
+        self.assertEqual(result["states"]["completion"], "DUPLICATED_WITNESS")
+        self.assertNotEqual(result["states"]["a_points"], QUAL)
+        con = fx.page_for(self.row, extra_script='espn.gamepackage.status = "in";\n')
+        self.assertEqual(self.case.judge(con)["states"]["completion"], "CONTRADICTORY_WITHIN_VERSION")
+        game = fx.page_for(self.row, extra_script=f'espn.gamepackage.gameId = "{self.case.game}";\n')
+        self.assertIn("GAME_IDENTITY_DUPLICATED", self.case.judge(game)["reasons"])
+
+    def test_js_assignment_must_begin_a_line(self) -> None:
+        page = fx.page_for(self.row, extra_script='var x = 1; espn.gamepackage.status = "in";\n')
+        result = self.case.judge(page)
+        self.assertEqual(result["states"]["completion"], QUAL)
+
+    def test_child_markup_in_a_text_witness_is_unparseable(self) -> None:
+        result = self.case.judge(fx.page_for(self.row, detail="<b>Final</b>"))
+        self.assertEqual(result["states"]["completion"], "WITNESS_LITERAL_UNPARSEABLE")
+
+    def test_attribute_boundaries_are_exact(self) -> None:
+        page = fx.page_for(self.row)
+        hidden = page.replace(b'class="team-name"', b"title=' href=\"/college-football/team/_/id/999\"' "
+                                                    b'class="team-name"', 1)
+        result = self.case.judge(hidden)
+        self.assertEqual(result["participant_mapping"]["state"], "QUALIFIED")
+        self.assertNotIn("999", [w["literal"] for w in self.case.build.extract(hidden)["witnesses"]])
+        repeated = page.replace(b'class="team-name"', b'href="/college-football/team/_/id/999" class="team-name"', 1)
+        self.assertEqual(self.case.judge(repeated)["participant_mapping"]["reason"],
+                         "AWAY_TEAM_ID_WITNESSES_NOT_SINGLE_AND_EQUAL")
+
+
+class RefusalTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.dir = Path(tempfile.mkdtemp(dir=STATE["tmp"].name))
+
+    def refused(self, *, mutate=None, **kwargs) -> str | None:
+        world = STATE["world"]
+        if mutate is not None:
+            kwargs["contract"] = fx.patched_contract(world, self.dir / "c.json", mutate)
+        code, _result, err = fx.run_build(world, out=self.dir / "o" / "canonical" / "ap",
+                                          manifests=self.dir / "o" / "manifests" / "ap", **kwargs)
+        self.assertNotEqual(code, 0)
+        return fx.refusal(err)
+
+    def test_materialization_before_any_finalized_acquisition_refuses(self) -> None:
+        self.assertEqual(self.refused(), "ACQUISITION_MISSING")
+
+    def test_wrong_or_tampered_parent_refuses(self) -> None:
+        self.assertEqual(self.refused(mutate=lambda c: c["parent_binding"]["source_time"].update(
+            database_identity="0" * 64)), "WRONG_PARENT")
+        st = STATE["world"]["st_db"]
+        copy_dir = self.dir / "st" / "canonical" / "st" / "sha256" / st.parent.name
+        copy_dir.mkdir(parents=True)
+        shutil.copyfile(st, copy_dir / st.name)
+        manifest = STATE["world"]["st_result"]["database"]["manifest"]
+        target = self.dir / "st" / "manifests" / "st" / "sha256" / st.parent.name / "run_manifest.json"
+        target.parent.mkdir(parents=True)
+        shutil.copyfile(manifest, target)
+        conn = sqlite3.connect(copy_dir / st.name)
+        conn.execute("UPDATE meta SET value = value || ' ' WHERE key = 'contract_id'")
+        conn.commit()
+        conn.close()
+        self.assertEqual(self.refused(database=copy_dir / st.name), "PARENT_TAMPERED")
+
+    def test_predecessor_contracts_and_an_altered_mapping_rule_refuse(self) -> None:
+        self.assertEqual(self.refused(contract=fx.PREDECESSOR_CONTRACT_PATH), "CONTRACT_SUPERSEDED")
+        self.assertEqual(self.refused(contract=fx.V1_1_CONTRACT_PATH), "CONTRACT_SUPERSEDED")
+        self.assertEqual(self.refused(mutate=lambda c: c["participant_mapping"].pop("capture_quarantine")),
+                         "CONTRACT_SCHEMA_UNKNOWN")
+        self.assertEqual(self.refused(mutate=lambda c: c["participant_mapping"].update(
+            numeric_identifier_equality="ALLOWED")), "CONTRACT_SCHEMA_UNKNOWN")
+        self.assertEqual(self.refused(mutate=lambda c: c["participant_mapping"].update(rule="equal ids join")),
+                         "CONTRACT_SCHEMA_UNKNOWN")
+
+    def test_unknown_schema_and_forged_authority_refuse(self) -> None:
+        self.assertEqual(self.refused(mutate=lambda c: c.update(schema_version="9.9.9")), "CONTRACT_SCHEMA_UNKNOWN")
+        self.assertEqual(self.refused(mutate=lambda c: c["authority"].update(pit_admission="ADMITTED")),
+                         "FORGED_PIT_AUTHORITY")
+        self.assertEqual(self.refused(mutate=lambda c: c["acquisition"]["limits"].update(
+            replay_requests_per_key=5)), "ACQUISITION_POLICY_INVALID")
+
+    def test_duplicate_omitted_or_out_of_tranche_keys_refuse(self) -> None:
+        tranche = json.loads(STATE["world"]["tranche"].read_text(encoding="utf-8"))
+        tranche["selected"][1] = copy.deepcopy(tranche["selected"][0])
+        path = fx.write(self.dir / "t.json", json.dumps(tranche).encode())
+        self.assertEqual(self.refused(tranche=path, mutate=lambda c: c["scope"].update(
+            tranche_sha256=fx.sha(path.read_bytes()))), "TRANCHE_KEYS_INVALID")
+        self.assertEqual(self.refused(mutate=lambda c: c["scope"].update(tranche_count=7)), "TRANCHE_KEYS_INVALID")
+
+    def test_tranche_row_disagreeing_with_the_parent_refuses(self) -> None:
+        tranche = json.loads(STATE["world"]["tranche"].read_text(encoding="utf-8"))
+        tranche["selected"][0]["a_points"] = 99
+        path = fx.write(self.dir / "t2.json", json.dumps(tranche).encode())
+        bindings = json.loads(STATE["world"]["bindings"].read_text(encoding="utf-8"))
+        bindings["tranche"].update(path=str(path), sha256=fx.sha(path.read_bytes()))
+        bpath = fx.write(self.dir / "b.json", json.dumps(bindings).encode())
+
+        def mutate(c):
+            c["scope"]["tranche_sha256"] = fx.sha(path.read_bytes())
+            c["parent_binding"]["source_bindings"]["sha256"] = fx.sha(bpath.read_bytes())
+        self.assertEqual(self.refused(tranche=path, bindings=bpath, mutate=mutate), "TRANCHE_PARENT_MISMATCH")
+
+    def test_bindings_naming_another_database_refuse(self) -> None:
+        bindings = json.loads(STATE["world"]["bindings"].read_text(encoding="utf-8"))
+        bindings["source_time_database"]["identity"] = "f" * 64
+        bpath = fx.write(self.dir / "b2.json", json.dumps(bindings).encode())
+        self.assertEqual(self.refused(bindings=bpath, mutate=lambda c: c["parent_binding"]["source_bindings"].update(
+            sha256=fx.sha(bpath.read_bytes()))), "SOURCE_BINDINGS_MISMATCH")
+
+    def test_changed_raw_bytes_under_the_same_receipt_refuse(self) -> None:
+        world = fresh_world("raw")
+        fx.run_capture(world)
+        doc = json.loads(Path(next((world["out"] / "acquisition" / "sha256").glob("*/acquisition.json")))
+                         .read_text(encoding="utf-8"))
+        body = next(r["body_sha256"] for r in doc["requests"] if r["kind"] == "REPLAY" and r["http_status"] == 200)
+        raw = world["out"] / "raw" / "sha256" / body
+        raw.write_bytes(raw.read_bytes().replace(b"Final", b"Fina1", 1))
+        code, _result, err = fx.run_build(world)
+        self.assertEqual((code, fx.refusal(err)), (2, "RAW_ALTERED"))
+
+    def test_out_of_tranche_request_in_the_acquisition_refuses(self) -> None:
+        world = fresh_world("oot")
+        fx.run_capture(world)
+        acq_path = next((world["out"] / "acquisition" / "sha256").glob("*/acquisition.json"))
+        doc = json.loads(acq_path.read_text(encoding="utf-8"))
+        forged = copy.deepcopy(doc)
+        forged["requests"][0]["url"] = "https://www.espn.com/college-football/game/_/gameId/1"
+        data = json.dumps(forged, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+        target = world["out"] / "acquisition" / "sha256" / fx.sha(data) / "acquisition.json"
+        fx.write(target, data)
+        code, _result, err = fx.run_build(world, "--acquisition", str(target))
+        self.assertEqual((code, fx.refusal(err)), (2, "ACQUISITION_HOST_REFUSED"))
+
+
+class DeterminismAndResumeTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.dir = Path(tempfile.mkdtemp(dir=STATE["tmp"].name))
+
+    def build(self, name: str, *extra: str):
+        return fx.run_build(STATE["world"], "--evidence-root", str(STATE["world"]["out"]), *extra,
+                            out=self.dir / name / "canonical" / "ap", manifests=self.dir / name / "manifests" / "ap")
+
+    def test_input_order_and_chunking_reproduce_the_identities(self) -> None:
+        reference = STATE["result"]
+        for name, extra in (("r", ["--input-order", "reverse"]), ("s", ["--input-order", "shuffle:17"]),
+                            ("c1", ["--chunk-size", "1", "--checkpoint-dir", str(self.dir / "k1")]),
+                            ("c17", ["--chunk-size", "17", "--checkpoint-dir", str(self.dir / "k17")])):
+            code, result, err = self.build(name, "--acquisition", str(self.acquisition()), *extra)
+            self.assertEqual(code, 0, err)
+            self.assertEqual((result["content_identity"], result["database_identity"], result["database_sha256"]),
+                             (reference["content_identity"], reference["database_identity"],
+                              reference["database_sha256"]), name)
+
+    def acquisition(self) -> Path:
+        return next((STATE["world"]["out"] / "acquisition" / "sha256").glob("*/acquisition.json"))
+
+    def test_interrupted_then_resumed_build_is_identical(self) -> None:
+        ck = str(self.dir / "ir")
+        code, result, _err = self.build("i", "--acquisition", str(self.acquisition()), "--chunk-size", "1",
+                                        "--checkpoint-dir", ck, "--stop-after-chunks", "2")
+        self.assertEqual((code, result["state"], result["completed_chunks"]), (3, "INTERRUPTED_AT_CHECKPOINT", 2))
+        code, result, err = self.build("i", "--acquisition", str(self.acquisition()), "--chunk-size", "1",
+                                       "--checkpoint-dir", ck, "--resume")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(result["content_identity"], STATE["result"]["content_identity"])
+
+    def test_stale_altered_and_existing_checkpoints_refuse(self) -> None:
+        ck = self.dir / "st"
+        acq = str(self.acquisition())
+        self.build("a", "--acquisition", acq, "--chunk-size", "1", "--checkpoint-dir", str(ck), "--stop-after-chunks",
+                   "2")
+        code, _r, err = self.build("a", "--acquisition", acq, "--chunk-size", "2", "--checkpoint-dir", str(ck),
+                                   "--resume")
+        self.assertEqual(fx.refusal(err), "REFUSED_STALE_CHECKPOINT")
+        code, _r, err = self.build("a", "--acquisition", acq, "--chunk-size", "1", "--checkpoint-dir", str(ck))
+        self.assertEqual(fx.refusal(err), "CHECKPOINT_EXISTS")
+        chunk = ck / "chunks" / "chunk_000001.jsonl.gz"
+        chunk.write_bytes(gzip.compress(gzip.decompress(chunk.read_bytes()).replace(b"ncaa", b"ncab", 1), mtime=0))
+        code, _r, err = self.build("a", "--acquisition", acq, "--chunk-size", "1", "--checkpoint-dir", str(ck),
+                                   "--resume")
+        self.assertEqual(fx.refusal(err), "REFUSED_ALTERED_PREFIX")
+
+    def test_rebuild_is_already_present_and_collision_refuses(self) -> None:
+        code, result, err = self.build("p", "--acquisition", str(self.acquisition()))
+        self.assertEqual(code, 0, err)
+        code, again, err = self.build("p", "--acquisition", str(self.acquisition()))
+        self.assertEqual((code, again["state"]), (0, "ALREADY_PRESENT_IDENTICAL"))
+        db = Path(result["database"]["data_dir"]) / "national_archived_publication.sqlite"
+        os.chmod(db, 0o666)
+        with db.open("ab") as handle:
+            handle.write(b"x")
+        code, _again, err = self.build("p", "--acquisition", str(self.acquisition()))
+        self.assertEqual(fx.refusal(err), "REFUSED_IMMUTABLE_COLLISION")
+
+
+class IndependentValidatorTests(unittest.TestCase):
+    def test_validator_imports_no_producer_query_or_project_code(self) -> None:
+        tree = ast.parse(fx.VALIDATOR_PATH.read_text(encoding="utf-8"))
+        names = {a.name.split(".")[0] for node in ast.walk(tree) if isinstance(node, ast.Import) for a in node.names}
+        names |= {node.module.split(".")[0] for node in ast.walk(tree) if isinstance(node, ast.ImportFrom)
+                  and node.module}
+        self.assertFalse(names & {"aggie_analytics", "build_national_archived_publication", "tools", "polars",
+                                  "duckdb"}, names)
+        self.assertLessEqual(names, set(sys.stdlib_module_names) | {"__future__"})
+
+    def validate(self, manifest: Path, name: str) -> dict:
+        report = Path(STATE["tmp"].name) / f"{name}.json"
+        world = STATE["world"]
+        with contextlib.redirect_stdout(io.StringIO()):
+            fx.validator().main(["--contract", str(world["contract"]), "--source-database", str(world["st_db"]),
+                                 "--source-bindings", str(world["bindings"]), "--tranche", str(world["tranche"]),
+                                 "--manifest", str(manifest), "--report", str(report), "--skip-consumer"])
+        return json.loads(report.read_text(encoding="utf-8"))
+
+    def test_validator_passes_the_genuine_delivery_and_rejects_rehashed_semantic_tamper(self) -> None:
+        manifest = Path(STATE["result"]["content"]["manifest"])
+        doc = self.validate(manifest, "genuine")
+        self.assertEqual(doc["result"], "PASS", doc["failed_checks"])
+        spacing = doc["grant_conditions"]["request_start_spacing"]
+        self.assertEqual((spacing["state"], spacing["intervals_below_declared"]), ("HELD", []))
+        self.assertEqual(doc["grant_conditions"]["total_requests"]["state"], "HELD")
+        self.assertTrue(all(t["rejected"] for t in doc["tamper_cases"] if t["applied"]))
+        # Coordinated tamper: swap a/b points in the payload, recompute every outer hash and identity.
+        root = Path(STATE["tmp"].name) / "tam"
+        shutil.copytree(STATE["world"]["out"].parent.parent, root)
+        content = json.loads(manifest.read_text(encoding="utf-8"))
+        old_dir = root / "canonical" / "ap" / "sha256" / STATE["result"]["content_identity"]
+        lines = gzip.decompress((old_dir / "assertions.jsonl.gz").read_bytes()).decode("utf-8").splitlines()
+        rows = [json.loads(x) for x in lines]
+        for row in rows:
+            if row["field"] == "a_points":
+                row["value"] += 1
+                break
+        raw = "".join(json.dumps(r, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n"
+                      for r in rows).encode("utf-8")
+        ident = content["identity_document"]
+        ident["semantic_outputs"]["assertions.jsonl"] = hashlib.sha256(raw).hexdigest()
+        packed = gzip.compress(raw, compresslevel=9, mtime=0)
+        ident["outputs"]["assertions.jsonl.gz"] = hashlib.sha256(packed).hexdigest()
+        new_id = hashlib.sha256(json.dumps(ident, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+                                .encode("utf-8")).hexdigest()
+        new_dir = old_dir.parent / new_id
+        shutil.copytree(old_dir, new_dir)
+        (new_dir / "assertions.jsonl.gz").write_bytes(packed)
+        new_manifest = root / "manifests" / "ap" / "sha256" / new_id / "run_manifest.json"
+        fx.write(new_manifest, json.dumps({"identity": new_id, "identity_document": ident,
+                                           "provenance": content["provenance"]}).encode("utf-8"))
+        doc = self.validate(new_manifest, "tampered")
+        self.assertEqual(doc["result"], "FAIL")
+        self.assertIn("every_record_reconstructed_independently", doc["failed_checks"])
+
+
+GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_v1_2_gate.json"
+V1_1_GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_v1_1_gate.json"
+PREDECESSOR_GATE = fx.ROOT / "artifacts" / "data_lake" / "national_archived_publication_2019_gate.json"
+SIDECAR = "national_archived_publication.sqlite"
+
+
+def _canonical_hash(document: dict) -> str:
+    return hashlib.sha256(json.dumps(document, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+                          .encode("utf-8")).hexdigest()
+
+
+class DeliveredGateTests(unittest.TestCase):
+    """Unmounted: the committed delivery gate binds the current contract and recomputes its own identities."""
+
+    def test_gate_binds_the_current_contract_and_its_identities_recompute(self) -> None:
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        contract = json.loads(fx.CONTRACT_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(gate["contract_sha256"], hashlib.sha256(fx.CONTRACT_PATH.read_bytes()).hexdigest())
+        content, database = gate["content_identity_document"], gate["database_identity_document"]
+        self.assertEqual(_canonical_hash(content), gate["content_identity"])
+        self.assertEqual(_canonical_hash(database), gate["database_identity"])
+        self.assertEqual(database["content_identity"], gate["content_identity"])
+        self.assertEqual((content["contract_sha256"], database["contract_sha256"]),
+                         (gate["contract_sha256"], gate["contract_sha256"]))
+        parent = contract["parent_binding"]["source_time"]
+        self.assertEqual(content["parent"]["source_time"], {k: parent[k] for k in (
+            "database_identity", "sqlite_sha256", "content_identity", "contract_sha256")})
+        self.assertEqual((content["tranche_sha256"], gate["tranche_sha256"]), (contract["scope"]["tranche_sha256"],) * 2)
+        self.assertEqual(content["row_counts"]["dispositions.jsonl"], contract["scope"]["tranche_count"])
+        self.assertEqual(sum(gate["dispositions"].values()), contract["scope"]["tranche_count"])
+        self.assertEqual(content["acquisition_identity"], gate["acquisition_identity"])
+        self.assertLessEqual(gate["acquisition_totals"]["requests"], contract["acquisition"]["limits"]["total_requests"])
+        self.assertEqual(gate["row_labels"], contract["row_labels"])
+        self.assertEqual(gate["state"], "MATERIALIZED_ARCHIVED_PUBLICATION_EVIDENCE_ONLY")
+        self.assertEqual((content["schema"], database["db_schema_version"]),
+                         ("BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-2", "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-2"))
+
+    def test_predecessor_contracts_and_gate_bytes_are_retained_and_superseded(self) -> None:
+        """V1.0 -> V1.1 -> V1.2: every contract that materialized output keeps its bytes and its gate."""
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        successor = json.loads(fx.CONTRACT_PATH.read_text(encoding="utf-8"))
+        chain = [(successor["predecessor"], fx.V1_1_CONTRACT_PATH, V1_1_GATE),
+                 (successor["predecessor"]["predecessor"], fx.PREDECESSOR_CONTRACT_PATH, PREDECESSOR_GATE)]
+        for link, contract_path, gate_path in chain:
+            old_gate = json.loads(gate_path.read_text(encoding="utf-8"))
+            old_sha = hashlib.sha256(contract_path.read_bytes()).hexdigest()
+            self.assertEqual((link["sha256"], old_gate["contract_sha256"]), (old_sha, old_sha))
+            self.assertEqual((link["predecessor_outputs"]["content_identity"],
+                              link["predecessor_outputs"]["database_identity"]),
+                             (old_gate["content_identity"], old_gate["database_identity"]))
+            self.assertEqual(old_gate["acquisition_identity"], gate["acquisition_identity"])
+            self.assertEqual(json.loads(contract_path.read_text(encoding="utf-8"))["acquisition"],
+                             successor["acquisition"])
+        v1_1_gate = json.loads(V1_1_GATE.read_text(encoding="utf-8"))
+        self.assertEqual(gate["predecessor_gate"]["sha256"], hashlib.sha256(V1_1_GATE.read_bytes()).hexdigest())
+        self.assertEqual(v1_1_gate["predecessor_gate"]["sha256"],
+                         hashlib.sha256(PREDECESSOR_GATE.read_bytes()).hexdigest())
+
+
+def _delivered_root() -> Path | None:
+    root = os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")
+    if not root or not Path(root).is_dir() or not GATE.is_file():
+        return None
+    gate = json.loads(GATE.read_text(encoding="utf-8"))
+    path = Path(root) / "canonical" / "national_archived_publication_2019"
+    return path if (path / "sha256" / gate["database_identity"] / SIDECAR).is_file() else None
+
+
+@unittest.skipUnless(_delivered_root(), "mounted: needs the delivered archive sidecar under AGGIE_ANALYTICS_DATA_ROOT")
+class MountedDeliveredGateTests(unittest.TestCase):
+    """Read-only: the lake bytes and manifests equal the committed gate; the query composes the delivered sidecar."""
+
+    def test_lake_payloads_sidecar_acquisition_and_manifests_match_the_gate(self) -> None:
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        root = _delivered_root()
+        manifests = root.parent.parent / "manifests" / "national_archived_publication_2019" / "sha256"
+        content = gate["content_identity_document"]
+        for name, sha in content["outputs"].items():
+            data = (root / "sha256" / gate["content_identity"] / name).read_bytes()
+            self.assertEqual(hashlib.sha256(data).hexdigest(), sha)
+            self.assertEqual(hashlib.sha256(gzip.decompress(data)).hexdigest(), content["semantic_outputs"][name[:-3]])
+        db = root / "sha256" / gate["database_identity"] / SIDECAR
+        self.assertEqual(hashlib.sha256(db.read_bytes()).hexdigest(),
+                         gate["database_identity_document"]["outputs"][SIDECAR])
+        acquisition = root / "acquisition" / "sha256" / gate["acquisition_identity"] / "acquisition.json"
+        self.assertEqual(hashlib.sha256(acquisition.read_bytes()).hexdigest(), gate["acquisition_identity"])
+        for key, doc in (("content_identity", "content_identity_document"),
+                         ("database_identity", "database_identity_document")):
+            manifest = json.loads((manifests / gate[key] / "run_manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual((manifest["identity"], manifest["identity_document"]), (gate[key], gate[doc]))
+        parent = content["parent"]["source_time"]
+        source = root.parent / "national_source_time_2016_2023" / "sha256" / parent["database_identity"] /             "national_source_time.sqlite"
+        sys.path.insert(0, str(fx.ROOT / "src"))
+        from aggie_analytics.national_source_time import archive, query  # noqa: PLC0415
+        with query.SourceTimeDatabase(source, expect_identity=parent["database_identity"]) as handle:
+            with archive.ArchiveEvidence(db, handle, expect_identity=gate["database_identity"]) as evidence:
+                dispositions = evidence.query("archive-disposition", all_rows=True)
+                control = evidence.query("contest", contest="ncaa:1735109", cutoff="2019-09-02T01:00:50.999999Z")
+        self.assertEqual(dispositions["total"], 28)
+        fields = control["rows"][0]["fields"]
+        self.assertEqual(fields["a_points"]["archive"]["historically_published_by_cutoff"], "TRUE")
+        self.assertEqual(fields["a_points"]["observed_by_cutoff"], "UNKNOWN")
+        self.assertEqual(control["rows"][0]["pit_admission"]["state"], "NOT_ADMITTED")
+
+    def test_the_predecessor_sidecars_are_refused_as_superseded(self) -> None:
+        root = _delivered_root()
+        sys.path.insert(0, str(fx.ROOT / "src"))
+        from aggie_analytics.national_source_time import archive, query  # noqa: PLC0415
+        for gate_path in (PREDECESSOR_GATE, V1_1_GATE):
+            old_gate = json.loads(gate_path.read_text(encoding="utf-8"))
+            db = root / "sha256" / old_gate["database_identity"] / SIDECAR
+            parent = old_gate["content_identity_document"]["parent"]["source_time"]
+            source = root.parent / "national_source_time_2016_2023" / "sha256" / parent["database_identity"] / \
+                "national_source_time.sqlite"
+            with query.SourceTimeDatabase(source, expect_identity=parent["database_identity"]) as handle:
+                with self.assertRaises(archive.ArchiveEvidenceError) as caught:
+                    archive.ArchiveEvidence(db, handle)
+            self.assertEqual(caught.exception.code, "ARCHIVE_SCHEMA_SUPERSEDED", gate_path.name)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -884,7 +884,7 @@
       ],
       "version": "1.0.0",
       "canonical_topic": "machine-policy:execution_focus",
-      "sha256": "48ddc5c5c1c35f2c4ad392f6312b1d494364360ac424466b3f4cecac0389b317"
+      "sha256": "fe508d2ccc49f28ef504e9cd681118a42b0c6212cd6aaf1bd8b77b5c9e1e777a"
     },
     {
       "path": "instructions/policies/git_policy.json",

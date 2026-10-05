@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import datetime as _dt
 import email.utils
+import hashlib
 import html
 import json
 import re
@@ -1029,3 +1030,72 @@ def disposition_summary(outcome: str, captures: list[dict[str, Any]]) -> dict[st
     return {"disposition": disposition, "reasons": sorted(set(reasons)), "field_support": support,
             "capture_ids": [c["capture_id"] for c in captures],
             "qualified_capture_ids": [c["capture_id"] for c in captures if c["state"] == "QUALIFIED"]}
+
+
+# --------------------------------------------------------------------------------------------- expansion (BAT-715)
+# Contract BAT-715 expansion (Cycle #43 TP43-A01): the union of the retained 28-key tranche and the 70-key missing-prior
+# cohort, materialized from an ordered list of immutable acquisitions -- the retained V1.2 acquisition first, then the
+# expansion acquisition. Nothing above changes: a V1.2 sidecar is built and verified exactly as before.
+
+COHORT_ROLE = "COHORT_MISSING_PRIOR"
+COHORT_STRATUM = "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR"
+SELECTION_SOURCES = ("TRANCHE_28", "COHORT_70")
+#: Each expansion archive_disposition field by the authority it is derived from (V1.2 groups plus the union fields).
+EXPANSION_DISPOSITION_AUTHORITY = {
+    "parent": DISPOSITION_AUTHORITY["parent"],
+    "tranche": DISPOSITION_AUTHORITY["tranche"] + ("selection_sources",),
+    "receipts": DISPOSITION_AUTHORITY["receipts"] + ("acquisition_outcomes", "duplicate_versions"),
+    "captures": DISPOSITION_AUTHORITY["captures"]}
+DUPLICATE_RULE = ("a replayed version whose capture identity (wayback timestamp and payload sha256) equals a version "
+                  "already established earlier in acquisition order is the same archived version: it is listed under "
+                  "the disposition's duplicate_versions with its receipt, its request stays in the request collection, "
+                  "and it is not a second capture record")
+
+
+def expansion_request_record(acquisition_id: str, request: dict[str, Any], game_id: str,
+                             read_body: Callable[[str], bytes]) -> dict[str, Any]:
+    """The delivered expansion archive_request record: the V1.2 record plus the acquisition it is a receipt of (request
+    sequence numbers are unique only within one acquisition)."""
+    return {**request_record(request, game_id, read_body), "acquisition_identity": acquisition_id}
+
+
+def expansion_versions(key: str, control: dict[str, Any] | None,
+                       acquisitions: list[tuple[str, dict[str, Any]]],
+                       read_body: Callable[[str], bytes]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Every archived version of one union key in acquisition order -- the retained control first, then each receipted
+    replayed version (``capture_request``) of each acquisition in request order -- with the duplicate rule applied.
+    Returns (entries, duplicates); each entry carries the version, payload, payload sha256 and capture identity."""
+    raw: list[dict[str, Any]] = []
+    if control is not None:
+        raw.append(control)
+    for acquisition_id, document in acquisitions:
+        for index, request in enumerate(document["requests"]):
+            if request["contest_key"] == key and capture_request(request):
+                raw.append(worker_version(acquisition_id, index, request, read_body(request["body_sha256"])))
+    entries: list[dict[str, Any]] = []
+    duplicates: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for version in raw:
+        payload_sha = hashlib.sha256(version["payload"]).hexdigest()
+        capture_id, timestamp = capture_identity(version["final_url"], payload_sha)
+        if capture_id in seen:
+            duplicates.append({"capture_id": capture_id, "receipt_document_sha256": version["receipt_document_sha256"],
+                               "receipt_pointer": version["receipt_pointer"], "request_seq": version["request_seq"]})
+            continue
+        seen.add(capture_id)
+        entries.append({"contest_key": key, "version": version, "payload": version["payload"],
+                        "payload_sha256": payload_sha, "capture_id": capture_id, "wayback_timestamp": timestamp})
+    return entries, duplicates
+
+
+def expansion_disposition_record(index: int, key: str, row: dict[str, Any], candidate_url: str, game_id: str,
+                                 outcomes: list[dict[str, str]], requests: list[dict[str, Any]],
+                                 captures: list[dict[str, Any]], duplicates: list[dict[str, Any]],
+                                 parent_values: dict[str, Any]) -> dict[str, Any]:
+    """The delivered expansion archive_disposition record: the V1.2 record (its acquisition_outcome is the outcome under
+    the last acquisition that selected the key) plus the union fields."""
+    record = disposition_record(index, key, row, candidate_url, game_id, outcomes[-1]["acquisition_outcome"], requests,
+                                captures, parent_values)
+    record.update(selection_sources=list(row["selection_sources"]), acquisition_outcomes=outcomes,
+                  duplicate_versions=duplicates)
+    return record

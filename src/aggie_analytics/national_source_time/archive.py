@@ -87,6 +87,21 @@ ARCHIVE_ROW_LABELS = {"evidence_authority": "ARCHIVED_PUBLICATION_EVIDENCE_ONLY"
                       "publication_inference": "ARCHIVE_CAPTURE_UPPER_BOUND_FOR_EXACT_WITNESSED_VERSION_ONLY_NOT_"
                                                "FIRST_PUBLICATION",
                       "scope": "BOUNDED_2019_TRANCHE_28_CONTESTS_NOT_NATIONAL_COVERAGE"}
+#: BAT-715 expansion successor (Cycle #43 TP43-A01): the 97-key union of the issued tranche and the issued missing-prior
+#: cohort, from the retained V1.2 acquisition plus the expansion acquisition. It is served only when a sidecar names it
+#: explicitly; the packaged V1.2 authority above is unchanged.
+EXPANSION_DB_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-3"
+EXPANSION_DOCUMENT_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-3"
+EXPANSION_CONTRACT_IDS = ("BAT-715-NATIONAL-ARCHIVED-PUBLICATION-2019-EXPANSION-V1.0",)
+EXPANSION_ROW_LABELS = {**ARCHIVE_ROW_LABELS, "scope": "BOUNDED_2019_UNION_97_CONTESTS_RETAINED_TRANCHE_28_PLUS_"
+                                                       "MISSING_PRIOR_COHORT_70_NOT_NATIONAL_COVERAGE"}
+RETAINED_ORIGIN = "RETAINED_V1_2_ACQUISITION_ZERO_NEW_REQUESTS"
+EXPANSION_ORIGIN = "EXPANSION_ACQUISITION_COHORT_70"
+#: The exact issued cohort bytes (ARCHIVE_COHORT.json, preparation-20261005), packaged next to the tranche.
+ISSUED_COHORT_FILE = "national_archived_publication_2019_expansion_cohort.json"
+#: The issued expansion authority (contract, cohort, both acquisitions); None until its acquisition is finalized and
+#: committed, in which case the packaged consumer serves the V1.2 sidecar only.
+ISSUED_EXPANSION: dict[str, Any] | None = None
 TABLES = ("meta", "dispositions", "requests", "captures", "assertions")
 PAYLOADS = {"dispositions.jsonl": "dispositions", "requests.jsonl": "requests", "captures.jsonl": "captures",
             "assertions.jsonl": "assertions"}
@@ -183,6 +198,64 @@ class IssuedAuthority:
                 "tranche_sha256": self.tranche_sha256, "acquisition_identity": self.acquisition_identity}
 
 
+class ExpansionAuthority(IssuedAuthority):
+    """The BAT-715 expansion's authority: the issued tranche bytes and the issued cohort bytes define the 97-key union
+    (tranche order, then the cohort's new keys in cohort order), its rows and locators; the retained V1.2 acquisition
+    and the expansion acquisition are the two receipt documents, in that order."""
+
+    expansion = True
+
+    def __init__(self, *, contract_id: str, contract_sha256: str, tranche_bytes: bytes, tranche_sha256: str,
+                 cohort_bytes: bytes, cohort_sha256: str, acquisition_identity: str, retained_acquisition_identity: str,
+                 retained_policy_id: str, parent: dict[str, Any], control: dict[str, Any]) -> None:
+        super().__init__(contract_id=contract_id, contract_sha256=contract_sha256, tranche_bytes=tranche_bytes,
+                         tranche_sha256=tranche_sha256, acquisition_identity=acquisition_identity, parent=parent,
+                         control=control)
+        if _sha_bytes(cohort_bytes) != cohort_sha256:
+            raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", "the issued cohort bytes do not hash to the contract's cohort "
+                                                           "sha256")
+        try:
+            doc = json.loads(cohort_bytes.decode("utf-8"))
+            crows = list(doc["selected"])
+            ckeys = [str(r["contest_key"]) for r in crows]
+        except (UnicodeDecodeError, ValueError, KeyError, TypeError) as exc:
+            raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", f"issued cohort unreadable: {exc}") from exc
+        if len(set(ckeys)) != len(ckeys) or not ckeys or (doc.get("counts") or {}).get("new_query_keys") != len(ckeys):
+            raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", "issued cohort keys are not unique and counted")
+        tranche_keys = list(self.keys)
+        rows = {k: {**r, "selection_sources": ["TRANCHE_28"]} for k, r in self.rows.items()}
+        for row in crows:
+            key = row["contest_key"]
+            url = str(row.get("candidate_espn_url") or "")
+            game = urllib.parse.urlsplit(url).path.rsplit("/", 1)[-1]
+            if not af.equivalent_original(url, game):
+                raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", f"{key} candidate locator")
+            if key in rows:
+                old = rows[key]
+                if (old["candidate_espn_url"], old["contest_date"], old["a_key"], old["b_key"], old["cfbd_game_id"]) != (
+                        url, row["contest_date"], row["a_key"], row["b_key"], row["cfbd_game_id"]) or \
+                        not row.get("already_in_original_tranche"):
+                    raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", f"{key}: tranche and cohort rows disagree")
+                old["selection_sources"] = ["TRANCHE_28", "COHORT_70"]
+                continue
+            if row.get("already_in_original_tranche"):
+                raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", f"{key}: cohort says tranche, tranche disagrees")
+            rows[key] = {"contest_key": key, "season": None, "contest_date": row["contest_date"],
+                         "a_key": row["a_key"], "b_key": row["b_key"], "cfbd_game_id": row["cfbd_game_id"],
+                         "classification_pair": None, "stratum": af.COHORT_STRATUM, "selection_role": af.COHORT_ROLE,
+                         "candidate_espn_url": url, "selection_sources": ["COHORT_70"]}
+            self.candidate_urls[key], self.game_ids[key] = url, game
+        self.tranche_keys, self.cohort_keys = tranche_keys, ckeys
+        self.keys = tranche_keys + [k for k in ckeys if k not in set(tranche_keys)]
+        self.rows = rows
+        self.cohort_sha256 = cohort_sha256
+        self.retained_acquisition_identity, self.retained_policy_id = retained_acquisition_identity, retained_policy_id
+
+    def binding(self) -> dict[str, Any]:
+        return {**super().binding(), "cohort_sha256": self.cohort_sha256,
+                "retained_acquisition_identity": self.retained_acquisition_identity}
+
+
 _REGISTERED: list[IssuedAuthority] = []
 
 
@@ -192,6 +265,17 @@ def packaged_authority() -> IssuedAuthority:
     if not path.is_file():
         raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", f"the packaged issued tranche {path.name} is missing")
     return IssuedAuthority(tranche_bytes=path.read_bytes(), **ISSUED_V1_2)
+
+
+def packaged_expansion_authority() -> ExpansionAuthority | None:
+    """The issued BAT-715 expansion authority (packaged tranche and cohort bytes), once it is issued."""
+    if ISSUED_EXPANSION is None:
+        return None
+    tranche = Path(__file__).with_name(ISSUED_TRANCHE_FILE)
+    cohort = Path(__file__).with_name(ISSUED_COHORT_FILE)
+    if not tranche.is_file() or not cohort.is_file():
+        raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", "the packaged issued tranche or cohort is missing")
+    return ExpansionAuthority(tranche_bytes=tranche.read_bytes(), cohort_bytes=cohort.read_bytes(), **ISSUED_EXPANSION)
 
 
 @contextlib.contextmanager
@@ -207,7 +291,10 @@ def registered_authority(authority: IssuedAuthority) -> Iterator[IssuedAuthority
 
 
 def issued_authority(contract_sha256: Any, acquisition_identity: Any) -> IssuedAuthority:
-    candidates = [a for a in [packaged_authority(), *_REGISTERED] if a.contract_sha256 == contract_sha256]
+    packaged = [packaged_authority()]
+    if ISSUED_EXPANSION is not None and ISSUED_EXPANSION.get("contract_sha256") == contract_sha256:
+        packaged.append(packaged_expansion_authority())
+    candidates = [a for a in [*packaged, *_REGISTERED] if a.contract_sha256 == contract_sha256]
     if not candidates:
         raise _refuse("ARCHIVE_CONTRACT_NOT_ISSUED", f"contract sha256 {contract_sha256!r} is not an issued contract "
                                                      "this consumer serves")
@@ -243,7 +330,8 @@ def verify_archive_database(database: Path, *, expect_identity: str | None = Non
                                                    f"{identity}")
     schemas = (identity_document.get("stage"), identity_document.get("schema"), identity_document.get("db_schema_version"))
     if schemas not in (("archived-publication-database", ARCHIVE_DOCUMENT_SCHEMA, ARCHIVE_DB_SCHEMA),
-                       ("archived-publication-database", LEGACY_DOCUMENT_SCHEMA, LEGACY_DB_SCHEMA)):
+                       ("archived-publication-database", LEGACY_DOCUMENT_SCHEMA, LEGACY_DB_SCHEMA),
+                       ("archived-publication-database", EXPANSION_DOCUMENT_SCHEMA, EXPANSION_DB_SCHEMA)):
         raise _refuse("ARCHIVE_SCHEMA_UNSUPPORTED", "the manifest is not a known archived-publication sidecar")
     expected = (identity_document.get("outputs") or {}).get(ARCHIVE_DB_FILE)
     actual = base._sha256_file(db)
@@ -280,12 +368,17 @@ class ArchiveEvidence:
             ((LEGACY_DB_SCHEMA, c) for c in LEGACY_CONTRACT_IDS)
         superseded = meta.get("schema_version") == ARCHIVE_DB_SCHEMA and meta.get("contract_id") in \
             SUPERSEDED_CONTRACT_IDS
-        if not legacy and not superseded and (meta.get("schema_version") != ARCHIVE_DB_SCHEMA or
-                                              meta.get("contract_id") not in KNOWN_CONTRACT_IDS):
+        expansion = meta.get("schema_version") == EXPANSION_DB_SCHEMA and meta.get("contract_id") in \
+            EXPANSION_CONTRACT_IDS
+        if not legacy and not superseded and not expansion and (meta.get("schema_version") != ARCHIVE_DB_SCHEMA or
+                                                                meta.get("contract_id") not in KNOWN_CONTRACT_IDS):
             raise _refuse("ARCHIVE_SCHEMA_UNSUPPORTED", f"schema {meta.get('schema_version')!r} contract "
                                                         f"{meta.get('contract_id')!r}")
-        if legacy != (self.binding["db_schema_version"] == LEGACY_DB_SCHEMA):
+        if legacy != (self.binding["db_schema_version"] == LEGACY_DB_SCHEMA) or \
+                expansion != (self.binding["db_schema_version"] == EXPANSION_DB_SCHEMA):
             raise _refuse("ARCHIVE_SCHEMA_UNSUPPORTED", "sidecar meta and manifest schemas differ")
+        self.expansion = expansion
+        self.row_labels = EXPANSION_ROW_LABELS if expansion else ARCHIVE_ROW_LABELS
         if meta.get("content_identity") != self.binding["content_identity"] or \
                 meta.get("contract_sha256") != self.binding["contract_sha256"] or \
                 json.loads(meta.get("parent") or "null") != self.binding["parent"]:
@@ -293,7 +386,7 @@ class ArchiveEvidence:
         records = {name: counts[table] for name, table in PAYLOADS.items()}
         if counts != self.binding["table_counts"] or records != self.binding["record_counts"]:
             raise _refuse("ARCHIVE_COUNT_MISMATCH", f"counts {counts} differ from the manifest")
-        if json.loads(meta.get("row_labels") or "null") != ARCHIVE_ROW_LABELS:
+        if json.loads(meta.get("row_labels") or "null") != self.row_labels:
             raise _refuse("ARCHIVE_SCHEMA_UNSUPPORTED", "row labels differ from the archive evidence-only labels")
         parent = (self.binding["parent"] or {}).get("source_time") or {}
         if (parent.get("database_identity"), parent.get("sqlite_sha256"), parent.get("content_identity"),
@@ -311,8 +404,13 @@ class ArchiveEvidence:
         if superseded:
             self._refuse_superseded()
         self.authority = issued_authority(self.binding["contract_sha256"], meta.get("acquisition_identity"))
+        if bool(getattr(self.authority, "expansion", False)) != expansion:
+            raise _refuse("ARCHIVE_CONTRACT_NOT_ISSUED", "the sidecar schema and the issued authority's kind differ")
         self._check_authority()
-        self._verify()
+        if expansion:
+            self._verify_expansion()
+        else:
+            self._verify()
         self.by_key = {d["contest_key"]: d for d in self.dispositions}
         self.captures_by_id = {c["capture_id"]: c for c in self.captures}
 
@@ -403,6 +501,162 @@ class ArchiveEvidence:
             raise _refuse("ARCHIVE_PARENT_MISMATCH", "the sidecar's parent is not the issued contract's parent")
         if json.loads(self.meta.get("control") or "null") != auth.control:
             raise _refuse("ARCHIVE_RECEIPT_ALTERED", "control binding differs from the issued route control")
+        if self.expansion:
+            if self.meta.get("cohort_sha256") != auth.cohort_sha256:
+                raise _refuse("ARCHIVE_TRANCHE_NOT_ISSUED", "the sidecar names another cohort than the issued one")
+            expected = [{"acquisition_identity": auth.retained_acquisition_identity,
+                         "policy_id": auth.retained_policy_id, "origin": RETAINED_ORIGIN},
+                        {"acquisition_identity": auth.acquisition_identity,
+                         "policy_id": self.meta.get("acquisition_policy_id"), "origin": EXPANSION_ORIGIN}]
+            if json.loads(self.meta.get("acquisitions") or "null") != expected:
+                raise _refuse("ARCHIVE_ACQUISITION_NOT_ISSUED", "the sidecar's acquisitions are not the issued retained "
+                                                                "and expansion acquisitions in order")
+
+    def _acquisition(self, ident: str) -> dict[str, Any]:
+        path = self.root / "acquisition" / "sha256" / ident / "acquisition.json"
+        if not path.is_file():
+            raise _refuse("ARCHIVE_RAW_MISSING", f"acquisition document {ident} is missing")
+        data = path.read_bytes()
+        if _sha_bytes(data) != ident:
+            raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"acquisition document {ident} bytes changed")
+        doc = json.loads(data.decode("utf-8"))
+        if doc.get("schema") != ACQUISITION_SCHEMA:
+            raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"acquisition document {ident} schema")
+        return doc
+
+    def _verify_expansion(self) -> None:
+        """The BAT-715 union: both receipt documents, every request of both, the complete expected capture collection
+        (duplicate rule applied), every capture/assertion re-derived and every disposition reconstructed."""
+        auth = self.authority
+        retained = self._acquisition(auth.retained_acquisition_identity)
+        current = self._acquisition(auth.acquisition_identity)
+        if (retained.get("policy_id"), retained.get("tranche_sha256"), retained.get("keys")) != (
+                auth.retained_policy_id, auth.tranche_sha256, auth.tranche_keys):
+            raise _refuse("ARCHIVE_RECEIPT_ALTERED", "retained acquisition binding")
+        if (current.get("policy_id"), current.get("tranche_sha256"), current.get("keys")) != (
+                self.meta.get("acquisition_policy_id"), auth.cohort_sha256, auth.cohort_keys):
+            raise _refuse("ARCHIVE_RECEIPT_ALTERED", "expansion acquisition binding")
+        control = auth.control
+        receipt_raw = self._raw(control.get("raw_receipt_sha256"))
+        receipt = json.loads(receipt_raw.decode("utf-8"))
+        self._raw(control.get("route_qualification_sha256"))
+        for doc in (retained, current):
+            if doc.get("control") != {**control, "requests": 0}:
+                raise _refuse("ARCHIVE_RECEIPT_ALTERED", "control binding differs from an acquisition document")
+        acquisitions = [(auth.retained_acquisition_identity, retained), (auth.acquisition_identity, current)]
+        stored_keys = [d.get("contest_key") for d in self.dispositions]
+        if stored_keys != auth.keys:
+            if collections.Counter(stored_keys) == collections.Counter(auth.keys):
+                raise _refuse("ARCHIVE_RECORD_ORDER_MISMATCH", "dispositions are not in the issued union order")
+            raise _refuse("ARCHIVE_DISPOSITION_COLLECTION_MISMATCH", f"dispositions are not exactly one per issued union "
+                                                                     f"key: {_multiset_difference(auth.keys, stored_keys)}")
+        # ---- requests: both acquisitions' receipts in payload order, each with its acquisition identity
+        ordered = [(ident, r) for key in auth.keys for ident, doc in acquisitions for r in doc["requests"]
+                   if r.get("contest_key") == key]
+        if len(ordered) != sum(len(doc["requests"]) for _, doc in acquisitions) or len(self.requests) != len(ordered):
+            raise _refuse("ARCHIVE_RECEIPT_ALTERED", "request accounting differs from the acquisition documents")
+        stored_ids = [(r.get("acquisition_identity"), r.get("seq")) for r in self.requests]
+        expected_ids = [(ident, r["seq"]) for ident, r in ordered]
+        if stored_ids != expected_ids:
+            if collections.Counter(stored_ids) == collections.Counter(expected_ids):
+                raise _refuse("ARCHIVE_RECORD_ORDER_MISMATCH", "requests are not in the payload order")
+            raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"request accounting differs from the acquisition documents: "
+                                                     f"{_multiset_difference(expected_ids, stored_ids)}")
+        for mine, (ident, theirs) in zip(self.requests, ordered):
+            expected = af.expansion_request_record(ident, theirs, auth.game_ids[theirs["contest_key"]], self._raw)
+            receipt_mine = {k: v for k, v in mine.items() if k not in af.REQUEST_DERIVED}
+            receipt_expected = {k: v for k, v in expected.items() if k not in af.REQUEST_DERIVED}
+            if _cjson(receipt_mine) != _cjson(receipt_expected):
+                raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"request {ident[:12]}/{mine.get('seq')} differs from its "
+                                                         f"receipt")
+            host = (urllib.parse.urlsplit(str(mine["url"])).hostname or "").lower()
+            if host not in ("archive.org", "web.archive.org") or (mine["kind"] == "METADATA") != (host == "archive.org"):
+                raise _refuse("ARCHIVE_SOURCE_INVALID", f"request {mine['seq']} host {host}")
+            derived = [k for k in af.REQUEST_DERIVED if k not in mine or _cjson(mine[k]) != _cjson(expected[k])]
+            if derived:
+                raise _refuse("ARCHIVE_REQUEST_DERIVATION_MISMATCH",
+                              f"request {mine['seq']} {derived} differ from the derivation from its raw receipt and "
+                              f"retained body")
+            if mine.get("body_sha256"):
+                self._raw(mine["body_sha256"])
+        # ---- captures: the complete expected collection (duplicate rule applied) before any per-capture check
+        control_sha = _sha_bytes(receipt_raw)
+        versions: list[dict[str, Any]] = []
+        duplicates: dict[str, list[dict[str, Any]]] = {}
+        for key in auth.keys:
+            control_version = None
+            if auth.rows[key].get("selection_role") == af.CONTROL_ROLE:
+                control_version = af.control_version(control_sha, receipt, self._raw(control["payload_sha256"]))
+            entries, dups = af.expansion_versions(key, control_version, acquisitions, self._raw)
+            duplicates[key] = dups
+            versions += af.order_captures(entries)
+        for cap in self.captures:
+            if cap.get("contest_key") not in auth.rows:
+                raise _refuse("ARCHIVE_SOURCE_INVALID", f"capture for out-of-union key {cap.get('contest_key')}")
+        expected_caps = [v["capture_id"] for v in versions]
+        stored_caps = [c.get("capture_id") for c in self.captures]
+        if stored_caps != expected_caps:
+            if collections.Counter(stored_caps) == collections.Counter(expected_caps):
+                raise _refuse("ARCHIVE_RECORD_ORDER_MISMATCH", "captures are not in the payload order")
+            raise _refuse("ARCHIVE_CAPTURE_COLLECTION_MISMATCH",
+                          f"stored captures differ from the expected collection (the retained control plus every "
+                          f"distinct receipted replayed version of both acquisitions, quarantined versions included): "
+                          f"{_multiset_difference(expected_caps, stored_caps)}")
+        payloads: dict[str, bytes] = {}
+        for version, cap in zip(versions, self.captures):
+            payload = version["payload"]
+            payloads[cap["capture_id"]] = payload
+            if cap.get("payload_path") != af.raw_rel(version["payload_sha256"]) or cap.get("payload_bytes") != len(payload):
+                raise _refuse("ARCHIVE_PATH_INVALID", f"capture {cap['capture_id']} payload path")
+        self._check_assertion_structure(payloads, FIELD_WITNESSES)
+        parents: dict[str, dict[str, Any]] = {}
+        stored_rows: dict[str, list[dict[str, Any]]] = {}
+        for item in self.assertions:
+            stored_rows.setdefault(item["capture_id"], []).append(item)
+        derived_caps: dict[str, list[dict[str, Any]]] = {}
+        expected_assertions: list[dict[str, Any]] = []
+        for version, cap in zip(versions, self.captures):
+            key = version["contest_key"]
+            if key not in parents:
+                parents[key] = self._parent(key)
+            expected, rows = af.derive_capture(key, parents[key], auth.game_ids[key], version["version"],
+                                               version["payload_sha256"])
+            self._compare_capture(cap, expected)
+            self._compare_rows(cap["capture_id"], stored_rows.get(cap["capture_id"], []), rows)
+            derived_caps.setdefault(key, []).append(expected)
+            expected_assertions += rows
+        if [_cjson(a) for a in self.assertions] != [_cjson(a) for a in expected_assertions]:
+            raise _refuse("ARCHIVE_RECORD_ORDER_MISMATCH", "assertion rows are not in the payload order")
+        conflicts = af.mapping_conflicts(self.captures)
+        if conflicts:
+            raise _refuse("ARCHIVE_PARTICIPANT_MAPPING_CONTRADICTORY", f"qualified participant mappings disagree: "
+                                                                        f"{conflicts[:3]}")
+        # ---- dispositions: every record reconstructed from the scope rows, the parent, both receipts and captures
+        for index, (key, stored) in enumerate(zip(auth.keys, self.dispositions)):
+            if key not in parents:
+                parents[key] = self._parent(key)
+            parent = parents[key]
+            row, record = dict(auth.rows[key]), parent["record"]
+            tranche_row = "TRANCHE_28" in row["selection_sources"]
+            if row["season"] is None:
+                row["season"] = record["season"]
+            if (row.get("season"), row.get("contest_date"), row.get("a_key"), row.get("b_key"),
+                    (row.get("cfbd_game_id") or {}).get("value")) != (
+                    record["season"], record["contest_date"], record["a_key"], record["b_key"],
+                    (record.get("cfbd_game_id") or {}).get("value")) or (tranche_row and (
+                    row.get("a_points"), row.get("b_points")) != (parent["values"]["a_points"],
+                                                                  parent["values"]["b_points"])):
+                raise _refuse("ARCHIVE_PARENT_MISMATCH", f"{key}: the issued scope row differs from the opened parent "
+                                                         f"contest")
+            mine = [r for _, doc in acquisitions for r in doc["requests"] if r["contest_key"] == key]
+            outcomes = [{"acquisition_identity": ident, "acquisition_outcome": (doc.get("outcomes") or {}).get(key)}
+                        for ident, doc in acquisitions if key in (doc.get("outcomes") or {})]
+            if not outcomes:
+                raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"{key} has no acquisition outcome")
+            expected = af.expansion_disposition_record(index, key, row, auth.candidate_urls[key], auth.game_ids[key],
+                                                       outcomes, mine, derived_caps.get(key, []), duplicates[key],
+                                                       parent["values"])
+            self._compare_disposition(key, stored, expected, af.EXPANSION_DISPOSITION_AUTHORITY)
 
     def _verify(self) -> None:
         auth = self.authority
@@ -599,12 +853,13 @@ class ArchiveEvidence:
                                                   f"or state than the re-derived version")
 
     @staticmethod
-    def _compare_disposition(key: str, stored: dict[str, Any], expected: dict[str, Any]) -> None:
+    def _compare_disposition(key: str, stored: dict[str, Any], expected: dict[str, Any],
+                             authorities: dict[str, tuple[str, ...]] | None = None) -> None:
         if set(stored) != set(expected):
             raise _refuse("ARCHIVE_SEMANTIC_FORGERY", f"{key} disposition fields {sorted(set(stored) ^ set(expected))}")
         differs = [k for k in expected if _cjson(stored[k]) != _cjson(expected[k])]
         for authority, code, label in DISPOSITION_REFUSALS:
-            hit = [k for k in differs if k in af.DISPOSITION_AUTHORITY[authority]]
+            hit = [k for k in differs if k in (authorities or af.DISPOSITION_AUTHORITY)[authority]]
             if hit:
                 raise _refuse(code, f"{key} disposition {hit} differ from the record reconstructed from the {label}")
         if differs:
@@ -676,13 +931,18 @@ class ArchiveEvidence:
 
     # ------------------------------------------------------------------ query
     def binding_block(self) -> dict[str, Any]:
-        return {"archive_identity": self.binding["archive_identity"],
-                "archive_content_identity": self.binding["content_identity"],
-                "archive_contract_id": self.meta["contract_id"], "archive_contract_sha256": self.binding["contract_sha256"],
-                "acquisition_identity": self.meta["acquisition_identity"],
-                "tranche_sha256": self.meta["tranche_sha256"], "tranche_keys": len(self.dispositions),
-                "parent_source_time_identity": self.source.binding["database_identity"],
-                "verification": VERIFICATION, **ARCHIVE_ROW_LABELS}
+        block = {"archive_identity": self.binding["archive_identity"],
+                 "archive_content_identity": self.binding["content_identity"],
+                 "archive_contract_id": self.meta["contract_id"], "archive_contract_sha256": self.binding["contract_sha256"],
+                 "acquisition_identity": self.meta["acquisition_identity"],
+                 "tranche_sha256": self.meta["tranche_sha256"], "tranche_keys": len(self.dispositions),
+                 "parent_source_time_identity": self.source.binding["database_identity"],
+                 "verification": VERIFICATION, **self.row_labels}
+        if self.expansion:
+            block.update(cohort_sha256=self.meta["cohort_sha256"],
+                         retained_acquisition_identity=self.authority.retained_acquisition_identity,
+                         union_keys=len(self.dispositions))
+        return block
 
     def query(self, grain: str, **kwargs: Any) -> dict[str, Any]:
         if grain in ARCHIVE_GRAINS:
@@ -757,4 +1017,4 @@ class ArchiveEvidence:
                 "cutoff": None if when is None else {"literal": cutoff, "utc": base._fmt(when)},
                 "offset": offset, "limit": None if all_rows else limit, "total": total, "returned": len(rows),
                 "rows": rows, "next_offset": offset + len(rows) if offset + len(rows) < total else None,
-                "archive_evidence": self.binding_block(), **ARCHIVE_ROW_LABELS}
+                "archive_evidence": self.binding_block(), **self.row_labels}

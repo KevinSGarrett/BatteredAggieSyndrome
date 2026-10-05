@@ -824,8 +824,12 @@ class IssuedAuthorityPackagingTests(unittest.TestCase):
             self.assertEqual((row["selection_role"], row["stratum"], authority.candidate_urls[key],
                               authority.game_ids[key]),
                              (spec["selection_role"], spec["stratum"], spec["candidate_url"], spec["game_id_literal"]))
-        self.assertIn('"aggie_analytics.national_source_time" = ["national_archived_publication_2019_tranche.json"]',
-                      (fx.ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+        # The issued tranche file is declared package data (BAT-715 adds the expansion cohort file to the same list, so
+        # the parsed list is checked rather than the literal one-element line).
+        import tomllib  # noqa: PLC0415
+        package_data = tomllib.loads((fx.ROOT / "pyproject.toml").read_text(encoding="utf-8"))["tool"]["setuptools"][
+            "package-data"]["aggie_analytics.national_source_time"]
+        self.assertIn(arch.ISSUED_TRANCHE_FILE, package_data)
 
     def test_an_unissued_authority_is_refused_before_any_record_is_read(self) -> None:
         with self.assertRaises(arch.ArchiveEvidenceError) as caught:

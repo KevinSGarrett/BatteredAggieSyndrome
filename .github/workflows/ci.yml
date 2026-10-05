@@ -86,13 +86,13 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           COVERAGE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: codecov-cli --disable-telem do-upload --legacy --fail-on-error --disable-search --sha "$COVERAGE_SHA" --file coverage-core.xml --flag core
+        run: codecov-cli --disable-telem --url https://codecov.io upload-process --fail-on-error --disable-search --sha "$COVERAGE_SHA" --file coverage-core.xml --flag core
       - name: Upload independent scientific-reference coverage to Codecov
         if: hashFiles('coverage-independent-scientific-reference.xml') != ''
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           COVERAGE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: codecov-cli --disable-telem do-upload --legacy --fail-on-error --disable-search --sha "$COVERAGE_SHA" --file coverage-independent-scientific-reference.xml --flag independent_scientific_reference
+        run: codecov-cli --disable-telem --url https://codecov.io upload-process --fail-on-error --disable-search --sha "$COVERAGE_SHA" --file coverage-independent-scientific-reference.xml --flag independent_scientific_reference
 
   product-adapter:
     strategy:

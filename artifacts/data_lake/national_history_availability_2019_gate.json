@@ -1,0 +1,205 @@
+{
+  "schema_version": "BAS-NATIONAL-HISTORY-AVAILABILITY-GATE-1",
+  "jira_key": "BAT-714",
+  "cycle_number": 42,
+  "attempt_number": 1,
+  "contract_id": "BAT-714-NATIONAL-HISTORY-AVAILABILITY-2019-V1.0",
+  "contract_sha256": "50a7ccd84675b54a53f65dbb16bc8764a3baf69a9e7f529915dfa6b6c355943c",
+  "population_id": "national_history_availability_2019",
+  "historical_audit_unit": "HT42-HISTORY-AVAILABILITY-2019",
+  "state": "MATERIALIZED_ARCHIVE_SUPPORTED_HISTORY_EVIDENCE_ONLY",
+  "row_labels": {
+    "evidence_authority": "ARCHIVE_SUPPORTED_HISTORY_EVIDENCE_ONLY",
+    "pit_admission": "NOT_ADMITTED",
+    "training_eligibility": "NOT_ELIGIBLE_NOT_ADMITTED",
+    "temporal_basis": "EXPLICIT_CUTOFF_AGAINST_ARCHIVE_UPPER_BOUNDS_NOT_FIRST_PUBLICATION",
+    "scope": "2019_FBS_TARGETS_ARCHIVE_TRANCHE_IS_NUMERATOR_EVIDENCE_NOT_DENOMINATOR"
+  },
+  "parent": {
+    "archive": {
+      "acquisition_identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+      "content_identity": "e8fe56813c13575cd0ce8f8c56ae1f4763e6c171f109f61c0f08b7fadddd7d81",
+      "contract_id": "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.2",
+      "contract_sha256": "3be9f08f32d4d40dd805a31b3f402ca171add3afeeeab45256710ed1bbf8fe66",
+      "database_identity": "768c7c4c8daf5949de3e9cfff5f63ef954ea8d8719678543eef083701361b1da",
+      "sqlite_sha256": "442d908a3fd28f4dde3e52f3e091bb8442cdcd49ccb5321e3ded7a0b8727797e",
+      "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79"
+    },
+    "history": {
+      "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+      "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+      "database_identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b",
+      "sqlite_sha256": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060"
+    },
+    "population": {
+      "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+      "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+      "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+      "query_db_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+      "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172"
+    },
+    "source_time": {
+      "content_identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+      "contract_sha256": "21ed32b8fac0f5fa2c3f4dd55f29abef80437d339c3db2f1bf75206a1fcaf1bd",
+      "database_identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+      "sqlite_sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7"
+    }
+  },
+  "row_counts": {
+    "evidence.jsonl": 844,
+    "relationships.jsonl": 9530,
+    "targets.jsonl": 769,
+    "views.jsonl": 1538,
+    "witnesses.jsonl": 304
+  },
+  "table_counts": {
+    "evidence": 844,
+    "meta": 13,
+    "relationships": 9530,
+    "targets": 769,
+    "views": 1538,
+    "witnesses": 304
+  },
+  "tallies": {
+    "evidence_classes": {
+      "ARCHIVE_COHERENT_VERSION": 20,
+      "ARCHIVE_NO_CAPTURE": 2,
+      "ARCHIVE_PARTIAL_FIELDS_NO_COHERENT_VERSION": 5,
+      "NOT_IN_ARCHIVE_TRANCHE": 817
+    },
+    "relationship_classes": {
+      "HISTORY_POOL_PRIOR": 9484,
+      "PARENT_EXCLUDED_PRIOR": 46
+    }
+  },
+  "content_identity": "3c79d91e92efeb8efb4e076682f0a37aaeca7369490fc626e04531733ba3e9c8",
+  "content_identity_document": {
+    "contract_id": "BAT-714-NATIONAL-HISTORY-AVAILABILITY-2019-V1.0",
+    "contract_sha256": "50a7ccd84675b54a53f65dbb16bc8764a3baf69a9e7f529915dfa6b6c355943c",
+    "outputs": {
+      "evidence.jsonl.gz": "ae63221a828597050101797c16f8c5b28cf27c85bda907f13ad40cbe9c5f7b1f",
+      "relationships.jsonl.gz": "6e847ef80837ca3e22ce1f3339fef95236ce6817beeac8a46ebe5d413f454197",
+      "targets.jsonl.gz": "8f05f6791473e1d8e26bb873b0c950d7d3572277aee45242a6adf62abf73eeee",
+      "views.jsonl.gz": "007f1d2d5b686978c1671c4a6b3c645a3f95a68e26b578d651ed179e48e6de0b",
+      "witnesses.jsonl.gz": "ce4c86206ebdfb6e32ef6295fdd4f702c45e0cc7893731adeb39404cb3315649"
+    },
+    "parent": {
+      "archive": {
+        "acquisition_identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+        "content_identity": "e8fe56813c13575cd0ce8f8c56ae1f4763e6c171f109f61c0f08b7fadddd7d81",
+        "contract_id": "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.2",
+        "contract_sha256": "3be9f08f32d4d40dd805a31b3f402ca171add3afeeeab45256710ed1bbf8fe66",
+        "database_identity": "768c7c4c8daf5949de3e9cfff5f63ef954ea8d8719678543eef083701361b1da",
+        "sqlite_sha256": "442d908a3fd28f4dde3e52f3e091bb8442cdcd49ccb5321e3ded7a0b8727797e",
+        "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79"
+      },
+      "history": {
+        "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+        "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+        "database_identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b",
+        "sqlite_sha256": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060"
+      },
+      "population": {
+        "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+        "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+        "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+        "query_db_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+        "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172"
+      },
+      "source_time": {
+        "content_identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+        "contract_sha256": "21ed32b8fac0f5fa2c3f4dd55f29abef80437d339c3db2f1bf75206a1fcaf1bd",
+        "database_identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+        "sqlite_sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7"
+      }
+    },
+    "payload_encoding": "GZIP_MTIME_0_OF_CANONICAL_JSONL",
+    "payload_schema": "BAS-NATIONAL-HISTORY-AVAILABILITY-PAYLOAD-1",
+    "population": "national_history_availability_2019",
+    "row_counts": {
+      "evidence.jsonl": 844,
+      "relationships.jsonl": 9530,
+      "targets.jsonl": 769,
+      "views.jsonl": 1538,
+      "witnesses.jsonl": 304
+    },
+    "schema": "BAS-NATIONAL-HISTORY-AVAILABILITY-CONTENT-1",
+    "semantic_outputs": {
+      "evidence.jsonl": "c7dd9ade57f2c95fd2e261cb1dbe1dc7f41669a6bb13c5e91bf69bb2c4e62293",
+      "relationships.jsonl": "bb62f0c66e3bd3f4bc6a5e6f17254ba6e3be43b0e054787cae27882736800f5d",
+      "targets.jsonl": "9b27210d6281cb36cf7054495d22d0d06557c8f74c500c00d50bbc0fdac10de5",
+      "views.jsonl": "9e9082991c2448e18128e91b073df0365e79ac79f7fb1de96c46fea95cf3e50c",
+      "witnesses.jsonl": "cde224b83dba8a838e8a0bf33beeefb1301d1c33729f87fa756bd00793e41565"
+    },
+    "stage": "history-availability-content"
+  },
+  "database_identity": "11097efb16e6eed53d2058cfc6ef57329e47fe5a7ac0a7d8ee78a24d4cce9bfe",
+  "database_identity_document": {
+    "content_identity": "3c79d91e92efeb8efb4e076682f0a37aaeca7369490fc626e04531733ba3e9c8",
+    "contract_sha256": "50a7ccd84675b54a53f65dbb16bc8764a3baf69a9e7f529915dfa6b6c355943c",
+    "db_schema_version": "BAS-NATIONAL-HISTORY-AVAILABILITY-DB-1",
+    "outputs": {
+      "national_history_availability.sqlite": "46c2d718dc8e710bdab6e97bfaebf254c8de4a5e5059bbc4e7b84a3f05de6fd3"
+    },
+    "parent": {
+      "archive": {
+        "acquisition_identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+        "content_identity": "e8fe56813c13575cd0ce8f8c56ae1f4763e6c171f109f61c0f08b7fadddd7d81",
+        "contract_id": "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.2",
+        "contract_sha256": "3be9f08f32d4d40dd805a31b3f402ca171add3afeeeab45256710ed1bbf8fe66",
+        "database_identity": "768c7c4c8daf5949de3e9cfff5f63ef954ea8d8719678543eef083701361b1da",
+        "sqlite_sha256": "442d908a3fd28f4dde3e52f3e091bb8442cdcd49ccb5321e3ded7a0b8727797e",
+        "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79"
+      },
+      "history": {
+        "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+        "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+        "database_identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b",
+        "sqlite_sha256": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060"
+      },
+      "population": {
+        "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+        "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+        "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+        "query_db_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+        "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172"
+      },
+      "source_time": {
+        "content_identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+        "contract_sha256": "21ed32b8fac0f5fa2c3f4dd55f29abef80437d339c3db2f1bf75206a1fcaf1bd",
+        "database_identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+        "sqlite_sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7"
+      }
+    },
+    "population": "national_history_availability_2019",
+    "schema": "BAS-NATIONAL-HISTORY-AVAILABILITY-DATABASE-1",
+    "stage": "history-availability-database",
+    "table_counts": {
+      "evidence": 844,
+      "meta": 13,
+      "relationships": 9530,
+      "targets": 769,
+      "views": 1538,
+      "witnesses": 304
+    }
+  },
+  "canonical_root": "canonical/national_history_availability_2019/sha256/<identity>/",
+  "manifest_root": "manifests/national_history_availability_2019/sha256/<identity>/run_manifest.json",
+  "first_materialization": {
+    "lane": "BUILD_HISTORY_AVAILABILITY",
+    "run": "20261005T051056227678Z",
+    "head": "f0800a8d3975612a9167dbae3f2b74f58eea7973",
+    "state": "MATERIALIZED"
+  },
+  "non_claims": [
+    "no PIT, known-at, first-publication or pregame authority; archive upper bounds only",
+    "no model fit, training admission, feature adoption or predictive skill (NOT_ESTABLISHED)",
+    "no new source acquisition; the 28-contest archive tranche is not national coverage",
+    "no strength comparability or FCS translation",
+    "no season other than 2019; no 2024-2025 or 2026 rows",
+    "no default activation, scientific trust or hold release",
+    "no Jira acceptance",
+    "no champion, A&M lift or Aggie Excess effect"
+  ],
+  "consumer": "bas-history-availability-query (aggie_analytics.national_history.availability_query); explicit cutoff required; require-PIT refused; no default activation"
+}

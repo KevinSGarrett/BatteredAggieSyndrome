@@ -53,6 +53,7 @@ artifacts/data_lake/national_archived_publication_2019_v1_2_gate.json
 artifacts/data_lake/national_di_population_2016_2025_gate.json
 artifacts/data_lake/national_foundation_reconciliation_gate.json
 artifacts/data_lake/national_foundation_status_successor_gate.json
+artifacts/data_lake/national_history_availability_2019_gate.json
 artifacts/data_lake/national_history_prefix_2016_2023_gate.json
 artifacts/data_lake/national_lake_readiness.json
 artifacts/data_lake/national_pit_domain_admission_matrix_gate.json
@@ -873,6 +874,7 @@ configs/national_entity_benchmark_targets.json
 configs/national_entity_identity_benchmark_contract.json
 configs/national_expectation_baselines_and_peers_contract.json
 configs/national_foundation_reconciliation_contract.json
+configs/national_history_availability_2019_contract.json
 configs/national_history_prefix_2016_2023_contract.json
 configs/national_multi_year_walk_forward_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
@@ -4157,6 +4159,8 @@ src/aggie_analytics/modeling/week_zero_live_shadow_execution.py
 src/aggie_analytics/modeling/week_zero_official_final_scoring.py
 src/aggie_analytics/modeling/wmt_tamu_shadow.py
 src/aggie_analytics/national_history/__init__.py
+src/aggie_analytics/national_history/availability.py
+src/aggie_analytics/national_history/availability_query.py
 src/aggie_analytics/national_history/query.py
 src/aggie_analytics/national_population/__init__.py
 src/aggie_analytics/national_population/query.py
@@ -4293,6 +4297,7 @@ tests/fixtures/cycle35_season_probes/script_only.html
 tests/fixtures/protected_split_exposure_audit.v2.stale.json
 tests/fixtures/stale_placeholder_contract.json
 tests/national_archived_publication_fixture.py
+tests/national_history_availability_fixture.py
 tests/national_history_fixture.py
 tests/national_source_time_fixture.py
 tests/test_acceptance_governance.py
@@ -4511,6 +4516,7 @@ tests/test_historical_team_box_snapshot.py
 tests/test_historical_team_membership_pit.py
 tests/test_historical_venue_assignment_pit.py
 tests/test_historical_weather_previous_runs_snapshot.py
+tests/test_history_availability_query.py
 tests/test_hpo_engine_full.py
 tests/test_hpo_governance.py
 tests/test_hypothesis_queue.py
@@ -4540,6 +4546,7 @@ tests/test_national_entity_identity_benchmark.py
 tests/test_national_expectation_baselines.py
 tests/test_national_foundation_reconciliation.py
 tests/test_national_foundation_status_successor.py
+tests/test_national_history_availability.py
 tests/test_national_history_prefix.py
 tests/test_national_history_query.py
 tests/test_national_multi_year_walk_forward.py
@@ -4836,6 +4843,7 @@ tools/build_national_entity_identity_benchmark.py
 tools/build_national_expectation_baselines.py
 tools/build_national_foundation_reconciliation.py
 tools/build_national_foundation_status_successor.py
+tools/build_national_history_availability.py
 tools/build_national_history_prefix.py
 tools/build_national_multi_year_walk_forward.py
 tools/build_national_pit_domain_admission_matrix.py
@@ -5373,6 +5381,7 @@ tools/validate_national_entity_identity_benchmark.py
 tools/validate_national_expectation_baselines.py
 tools/validate_national_foundation_reconciliation.py
 tools/validate_national_foundation_status_successor.py
+tools/validate_national_history_availability.py
 tools/validate_national_history_prefix.py
 tools/validate_national_multi_year_walk_forward.py
 tools/validate_national_pit_domain_admission_matrix.py

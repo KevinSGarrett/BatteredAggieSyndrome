@@ -408,3 +408,43 @@ def read_payload(result: dict[str, Any], name: str) -> list[dict[str, Any]]:
 
 def database_path(result: dict[str, Any]) -> Path:
     return Path(result["database"]["data_dir"]) / "national_archived_publication.sqlite"
+
+
+def issued_authority(world: dict[str, Any]) -> Any:
+    """The synthetic world's issued authority (its patched contract, exact tranche bytes, its one finalized
+    acquisition, parent binding and route control) for in-process registration with
+    ``archive.registered_authority``; the console and module fronts serve only the packaged V1.2 authority."""
+    from aggie_analytics.national_source_time import archive  # noqa: PLC0415
+
+    contract = world["contract_doc"]
+    found = sorted(Path(world["out"]).glob("acquisition/sha256/*/acquisition.json"))
+    assert len(found) == 1, found
+    route = contract["parent_binding"]["route_control"]
+    parent = contract["parent_binding"]["source_time"]
+    return archive.IssuedAuthority(
+        contract_id=contract["contract_id"], contract_sha256=sha(Path(world["contract"]).read_bytes()),
+        tranche_bytes=Path(world["tranche"]).read_bytes(), tranche_sha256=contract["scope"]["tranche_sha256"],
+        acquisition_identity=found[0].parent.name,
+        parent={"source_time": {k: parent[k] for k in ("content_identity", "contract_sha256", "database_identity",
+                                                        "sqlite_sha256")}},
+        control={"contest_key": route["contest_key"], "payload_sha256": route["raw_payload_sha256"],
+                 "raw_receipt_sha256": route["raw_receipt_sha256"], "route_qualification_sha256": route["sha256"]})
+
+
+#: ``python -c BOOTSTRAP <authority json> <query argv...>``: registers one synthetic authority in-process, then runs the
+#: query module as ``__main__`` exactly as ``python -m`` does (the module-front delegation path).
+BOOTSTRAP = ("import json, runpy, sys\n"
+             "from aggie_analytics.national_source_time import archive\n"
+             "spec = json.loads(sys.argv.pop(1))\n"
+             "data = open(spec.pop('tranche_path'), 'rb').read()\n"
+             "with archive.registered_authority(archive.IssuedAuthority(tranche_bytes=data, **spec)):\n"
+             "    sys.argv[0] = 'aggie_analytics.national_source_time.query'\n"
+             "    runpy.run_module('aggie_analytics.national_source_time.query', run_name='__main__', alter_sys=True)\n")
+
+
+def authority_spec(world: dict[str, Any]) -> str:
+    authority = issued_authority(world)
+    return json.dumps({"contract_id": authority.contract_id, "contract_sha256": authority.contract_sha256,
+                       "tranche_path": str(world["tranche"]), "tranche_sha256": authority.tranche_sha256,
+                       "acquisition_identity": authority.acquisition_identity, "parent": authority.parent,
+                       "control": authority.control})

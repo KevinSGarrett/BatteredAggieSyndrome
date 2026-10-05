@@ -7,16 +7,31 @@ r"""Explicit archived-publication evidence for the source-time query (BAT-713, C
 Standard library only (plus the shared field-grain module), imported only when ``--archive-evidence`` is given;
 without it the source-time consumer is unchanged. Opening a sidecar verifies its location, run manifest identity
 document, SQLite bytes, schema, labels, counts and natural keys, and that its parent is exactly the opened source-time
-database. It then trusts no stored label: every raw payload is rehashed; every request and capture receipt is bound to
-the content-addressed acquisition document or the retained control receipt; every stored witness (witness, byte span,
-literal) must be exactly one of the occurrences this module's own field-grain extraction finds in the raw page
-(attributes tokenized from the start tag, complete text of closed text-only elements, line-start JS assignments);
-and every capture and assertion record -- scopes, page facts, the evidenced participant mapping (documented parent
-names, CFBD route role and date; numeric ESPN/CFBD ids are never equated), field states, clocks and the complete
-witness rows -- is re-derived from the raw bytes, receipts and the parent's lineage and must equal the stored record.
-Qualified participant mappings must agree across the tranche, and a version whose participants do not map is
-quarantined whole. A predecessor V1.0 or V1.1 sidecar is checked for exact witness occurrences and then refused as
-superseded (V1.0 carries no evidenced participant mapping; V1.1 did not quarantine an unmapped version).
+database. It then trusts no stored label or stored record:
+
+* The sidecar must name an issued authority: the committed contract (sha256), its retained acquisition document, its
+  parent source-time binding and its route control. The exact issued tranche bytes are packaged with this module
+  (``national_archived_publication_2019_tranche.json``, sha256 bound by contract scope.tranche_sha256), so the
+  tranche keys, classification pairs, strata, selection roles and candidate locators come from the issued tranche, not
+  from the sidecar (MF41A01-06, second same-attempt continuation).
+* Every raw payload is rehashed; the acquisition document and the control receipts are rehashed.
+* Every request record must equal the acquisition receipt plus its re-derived raw-store path and availability answer
+  (re-read from the retained body); requests, dispositions, captures and assertions must be in the payload order.
+* The complete expected capture collection -- the retained control plus every receipted replayed version, quarantined
+  versions included -- is enumerated from the receipts and compared, by identity and multiplicity, with the stored
+  captures before any per-capture check: a missing, extra, duplicated or reordered version refuses.
+* Every stored witness (witness, byte span, literal) must be exactly one of the occurrences this module's own
+  field-grain extraction finds in the raw page (attributes tokenized from the start tag, complete text of closed
+  text-only elements, line-start JS assignments); every capture and assertion record -- scopes, page facts, the
+  evidenced participant mapping (documented parent names, CFBD route role and date; numeric ESPN/CFBD ids are never
+  equated), field states, clocks and the complete witness rows -- is re-derived from the raw bytes, receipts and the
+  parent's lineage and must equal the stored record. Qualified participant mappings must agree across the tranche, and
+  a version whose participants do not map is quarantined whole.
+* Every disposition record must equal the one reconstructed from the issued tranche row, the parent contest record,
+  the acquisition receipts and the key's complete expected capture collection.
+
+A predecessor V1.0 or V1.1 sidecar is checked for exact witness occurrences and then refused as superseded (V1.0
+carries no evidenced participant mapping; V1.1 did not quarantine an unmapped version).
 
 An archived version is only an upper bound for its exact witnessed field values: before the bound publication stays
 UNKNOWN (outcome fields FALSE before the contest date's earliest instant), nothing is ever PIT admitted, and the
@@ -24,13 +39,15 @@ original source-time assertions, clocks and decisions are returned unchanged nex
 """
 from __future__ import annotations
 
+import collections
+import contextlib
 import datetime as _dt
 import hashlib
 import json
 import sqlite3
 import urllib.parse
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
 from aggie_analytics.national_source_time import archive_fields as af
 from aggie_analytics.national_source_time import query as base
@@ -45,6 +62,25 @@ KNOWN_CONTRACT_IDS = ("BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.2",)
 LEGACY_CONTRACT_IDS = ("BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.0",)
 #: Same schema as the current contract, superseded semantics (an unmapped version was not quarantined).
 SUPERSEDED_CONTRACT_IDS = ("BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.1",)
+#: The issued authority of contract V1.2: configs/national_archived_publication_2019_contract_v1_2.json (sha256),
+#: its scope.tranche_sha256, its parent_binding.source_time and route_control, and the retained acquisition it reuses
+#: (contract predecessor outputs; artifacts/data_lake/national_archived_publication_2019_v1_2_gate.json). The exact
+#: issued tranche bytes are the packaged ISSUED_TRANCHE_FILE.
+ISSUED_TRANCHE_FILE = "national_archived_publication_2019_tranche.json"
+ISSUED_V1_2 = {
+    "contract_id": "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.2",
+    "contract_sha256": "3be9f08f32d4d40dd805a31b3f402ca171add3afeeeab45256710ed1bbf8fe66",
+    "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79",
+    "acquisition_identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+    "parent": {"source_time": {
+        "content_identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+        "contract_sha256": "21ed32b8fac0f5fa2c3f4dd55f29abef80437d339c3db2f1bf75206a1fcaf1bd",
+        "database_identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+        "sqlite_sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7"}},
+    "control": {"contest_key": "ncaa:1735109",
+                "payload_sha256": "5c32e0df631e48aadbee2af25566ce803ebd340a7619355afca5d1690ddaab19",
+                "raw_receipt_sha256": "dea6a227afe16c26eaaf287270f6ec70626728f41b10fc59ef7fd75de3192692",
+                "route_qualification_sha256": "75ea9fed326048c850a90fd114bfcfaf646bfd95b1f5035340d8b5ec1c31d14a"}}
 ARCHIVE_GRAINS = base.ARCHIVE_GRAINS
 ARCHIVE_ROW_LABELS = {"evidence_authority": "ARCHIVED_PUBLICATION_EVIDENCE_ONLY",
                       "pit_admission": "NOT_ADMITTED_NO_SEPARATE_PIT_ADMISSION_AUTHORITY",
@@ -75,6 +111,12 @@ RECEIPT_FIELDS = ("origin", "request_seq", "final_url", "http_status", "content_
                   "origin_date_literal", "link_original", "archive_src", "payload_sha256", "payload_bytes",
                   "payload_path", "receipt_document", "receipt_document_sha256", "receipt_pointer")
 PARTICIPANT_FIELDS = ("participant_mapping", "orientation", "page_participants")
+#: A disposition field that differs from its reconstruction refuses with the code of the authority it derives from.
+DISPOSITION_REFUSALS = (("parent", "ARCHIVE_DISPOSITION_PARENT_MISMATCH", "parent contest record and issued tranche"),
+                        ("tranche", "ARCHIVE_DISPOSITION_TRANCHE_MISMATCH",
+                         "issued tranche row (classification, stratum, selection role, locator, payload position)"),
+                        ("receipts", "ARCHIVE_RECEIPT_ALTERED", "acquisition receipts"),
+                        ("captures", "ARCHIVE_SEMANTIC_FORGERY", "key's complete expected capture collection"))
 
 
 class ArchiveEvidenceError(base.SourceTimeQueryError):
@@ -91,6 +133,89 @@ def _sha_bytes(data: bytes) -> str:
 
 def _cjson(value: Any) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
+
+def _multiset_difference(expected: list[Any], stored: list[Any]) -> dict[str, list[Any]]:
+    want, have = collections.Counter(expected), collections.Counter(stored)
+    return {"missing": sorted((want - have).elements(), key=str), "extra": sorted((have - want).elements(), key=str),
+            "duplicated": sorted((k for k, n in have.items() if n > 1), key=str)}
+
+
+# --------------------------------------------------------------------------------------------- issued authority
+
+class IssuedAuthority:
+    """One issued contract's authority: contract identity, the exact issued tranche bytes (rows, order, locators),
+    the retained acquisition the contract binds, its parent source-time binding and its route control."""
+
+    def __init__(self, *, contract_id: str, contract_sha256: str, tranche_bytes: bytes, tranche_sha256: str,
+                 acquisition_identity: str, parent: dict[str, Any], control: dict[str, Any]) -> None:
+        if _sha_bytes(tranche_bytes) != tranche_sha256:
+            raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", "the issued tranche bytes do not hash to the contract's "
+                                                           "tranche sha256")
+        try:
+            doc = json.loads(tranche_bytes.decode("utf-8"))
+            rows = list(doc["selected"])
+            keys = [str(r["contest_key"]) for r in rows]
+        except (UnicodeDecodeError, ValueError, KeyError, TypeError) as exc:
+            raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", f"issued tranche unreadable: {exc}") from exc
+        if len(set(keys)) != len(keys) or doc.get("count") != len(keys) or not keys:
+            raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", "issued tranche keys are not unique and counted")
+        locators: dict[str, tuple[str, str]] = {}
+        for row in rows:
+            url = str(row.get("candidate_espn_url") or "")
+            game = urllib.parse.urlsplit(url).path.rsplit("/", 1)[-1]
+            if not af.equivalent_original(url, game):
+                raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", f"{row['contest_key']} candidate locator")
+            locators[row["contest_key"]] = (url, game)
+        controls = [r["contest_key"] for r in rows if r.get("selection_role") == af.CONTROL_ROLE]
+        if controls != [control.get("contest_key")]:
+            raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", "issued tranche and route control name different keys")
+        self.contract_id, self.contract_sha256 = contract_id, contract_sha256
+        self.tranche_sha256, self.acquisition_identity = tranche_sha256, acquisition_identity
+        self.parent, self.control = parent, control
+        self.keys = keys
+        self.rows = {r["contest_key"]: r for r in rows}
+        self.candidate_urls = {k: v[0] for k, v in locators.items()}
+        self.game_ids = {k: v[1] for k, v in locators.items()}
+
+    def binding(self) -> dict[str, Any]:
+        return {"contract_id": self.contract_id, "contract_sha256": self.contract_sha256,
+                "tranche_sha256": self.tranche_sha256, "acquisition_identity": self.acquisition_identity}
+
+
+_REGISTERED: list[IssuedAuthority] = []
+
+
+def packaged_authority() -> IssuedAuthority:
+    """The issued authority this package serves: contract V1.2 and its packaged exact tranche bytes."""
+    path = Path(__file__).with_name(ISSUED_TRANCHE_FILE)
+    if not path.is_file():
+        raise _refuse("ARCHIVE_AUTHORITY_UNAVAILABLE", f"the packaged issued tranche {path.name} is missing")
+    return IssuedAuthority(tranche_bytes=path.read_bytes(), **ISSUED_V1_2)
+
+
+@contextlib.contextmanager
+def registered_authority(authority: IssuedAuthority) -> Iterator[IssuedAuthority]:
+    """In-process development and test hook: accept one further issued authority (for example a synthetic fixture
+    world's contract, tranche and acquisition) for the duration of the block. The console and module entry points
+    never register anything; they serve only the packaged issued authority."""
+    _REGISTERED.append(authority)
+    try:
+        yield authority
+    finally:
+        _REGISTERED.remove(authority)
+
+
+def issued_authority(contract_sha256: Any, acquisition_identity: Any) -> IssuedAuthority:
+    candidates = [a for a in [packaged_authority(), *_REGISTERED] if a.contract_sha256 == contract_sha256]
+    if not candidates:
+        raise _refuse("ARCHIVE_CONTRACT_NOT_ISSUED", f"contract sha256 {contract_sha256!r} is not an issued contract "
+                                                     "this consumer serves")
+    for authority in reversed(candidates):
+        if authority.acquisition_identity == acquisition_identity:
+            return authority
+    raise _refuse("ARCHIVE_ACQUISITION_NOT_ISSUED", f"acquisition {acquisition_identity!r} is not the retained "
+                                                    "acquisition the issued contract binds")
 
 
 # --------------------------------------------------------------------------------------------- sidecar verification
@@ -185,6 +310,8 @@ class ArchiveEvidence:
             self._refuse_legacy()
         if superseded:
             self._refuse_superseded()
+        self.authority = issued_authority(self.binding["contract_sha256"], meta.get("acquisition_identity"))
+        self._check_authority()
         self._verify()
         self.by_key = {d["contest_key"]: d for d in self.dispositions}
         self.captures_by_id = {c["capture_id"]: c for c in self.captures}
@@ -229,7 +356,7 @@ class ArchiveEvidence:
             cap = captures.get(item["capture_id"])
             if cap is None or cap["contest_key"] != item["contest_key"] or cap["payload_sha256"] != item[
                     "payload_sha256"] or item["source_revision"] != cap["capture_id"] or \
-                    item["original_url"] != cap["original_url"]:
+                    item["original_url"] != cap["original_url"] or cap["capture_id"] not in payloads:
                 raise _refuse("ARCHIVE_SOURCE_INVALID", "assertion does not belong to its capture")
             if item["field"] not in FIELDS or item["witness"] not in field_witnesses[item["field"]] or \
                     item.get("field_role") != base.ROLES[item["field"]]:
@@ -263,10 +390,23 @@ class ArchiveEvidence:
                                                    "it did not quarantine a version whose participants do not map; use "
                                                    "the V1.2 successor")
 
+    def _check_authority(self) -> None:
+        """The sidecar names exactly the issued contract, tranche, parent and route control (the acquisition identity
+        was matched when the authority was resolved)."""
+        auth = self.authority
+        if self.meta.get("contract_id") != auth.contract_id:
+            raise _refuse("ARCHIVE_CONTRACT_NOT_ISSUED", f"contract id {self.meta.get('contract_id')!r} is not the issued "
+                                                         f"{auth.contract_id}")
+        if self.meta.get("tranche_sha256") != auth.tranche_sha256:
+            raise _refuse("ARCHIVE_TRANCHE_NOT_ISSUED", "the sidecar names another tranche than the issued one")
+        if self.binding["parent"] != auth.parent:
+            raise _refuse("ARCHIVE_PARENT_MISMATCH", "the sidecar's parent is not the issued contract's parent")
+        if json.loads(self.meta.get("control") or "null") != auth.control:
+            raise _refuse("ARCHIVE_RECEIPT_ALTERED", "control binding differs from the issued route control")
+
     def _verify(self) -> None:
-        acq_id = self.meta.get("acquisition_identity") or ""
-        if not base.IDENTITY_RE.match(acq_id):
-            raise _refuse("ARCHIVE_PATH_INVALID", "acquisition identity")
+        auth = self.authority
+        acq_id = auth.acquisition_identity
         acq_path = self.root / "acquisition" / "sha256" / acq_id / "acquisition.json"
         if not acq_path.is_file():
             raise _refuse("ARCHIVE_RAW_MISSING", "acquisition document is missing")
@@ -276,80 +416,137 @@ class ArchiveEvidence:
         acquisition = json.loads(acq_bytes.decode("utf-8"))
         if acquisition.get("schema") != ACQUISITION_SCHEMA or \
                 acquisition.get("policy_id") != self.meta.get("acquisition_policy_id") or \
-                acquisition.get("tranche_sha256") != self.meta.get("tranche_sha256"):
+                acquisition.get("tranche_sha256") != auth.tranche_sha256:
             raise _refuse("ARCHIVE_RECEIPT_ALTERED", "acquisition document binding")
-        control = json.loads(self.meta.get("control") or "null") or {}
+        control = auth.control
         receipt_raw = self._raw(control.get("raw_receipt_sha256"))
         receipt = json.loads(receipt_raw.decode("utf-8"))
         self._raw(control.get("route_qualification_sha256"))
         if acquisition.get("control") != {**control, "requests": 0}:
             raise _refuse("ARCHIVE_RECEIPT_ALTERED", "control binding differs from the acquisition document")
-        keys = [d["contest_key"] for d in self.dispositions]
-        if keys != acquisition.get("keys") or len(set(keys)) != len(keys):
-            raise _refuse("ARCHIVE_DUPLICATE_ASSERTION", "dispositions are not exactly one per tranche key")
-        acq_requests = acquisition.get("requests") or []
-        if len(acq_requests) != len(self.requests):
-            raise _refuse("ARCHIVE_RECEIPT_ALTERED", "request accounting differs from the acquisition document")
-        by_seq = {}
-        for index, (mine, theirs) in enumerate(zip(self.requests, acq_requests)):
-            stripped = {k: v for k, v in mine.items() if k not in ("record_type", "body_path", "metadata_answer")}
-            if stripped != theirs:
-                raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"request {mine.get('seq')} differs from its receipt")
-            host = (urllib.parse.urlsplit(str(mine["url"])).hostname or "").lower()
-            if host not in ("archive.org", "web.archive.org") or (mine["kind"] == "METADATA") != (host == "archive.org"):
-                raise _refuse("ARCHIVE_SOURCE_INVALID", f"request {mine['seq']} host {host}")
-            by_seq[mine["seq"]] = (mine, index)
-        for item in self.requests:
-            if item.get("body_sha256"):
-                self._raw(item["body_sha256"])
-        payloads: dict[str, bytes] = {}
-        versions: dict[str, dict[str, Any]] = {}
-        games = {d["contest_key"]: d["game_id_literal"] for d in self.dispositions}
+        if acquisition.get("keys") != auth.keys:
+            raise _refuse("ARCHIVE_TRANCHE_NOT_ISSUED", "the acquisition document's keys are not the issued tranche")
+        # ---- dispositions: exactly one per issued tranche key, in tranche order
+        stored_keys = [d.get("contest_key") for d in self.dispositions]
+        if stored_keys != auth.keys:
+            if collections.Counter(stored_keys) == collections.Counter(auth.keys):
+                raise _refuse("ARCHIVE_RECORD_ORDER_MISMATCH", "dispositions are not in the issued tranche order")
+            raise _refuse("ARCHIVE_DISPOSITION_COLLECTION_MISMATCH", f"dispositions are not exactly one per issued "
+                                                                     f"tranche key: "
+                                                                     f"{_multiset_difference(auth.keys, stored_keys)}")
+        # ---- requests: the acquisition receipts in payload order plus their re-derived path and answer
+        self._verify_requests(acquisition["requests"])
+        # ---- captures: the complete expected collection before any per-capture check
+        versions = self._expected_versions(acquisition, acq_id, receipt, _sha_bytes(receipt_raw))
         for cap in self.captures:
-            if cap["contest_key"] not in games:
-                raise _refuse("ARCHIVE_SOURCE_INVALID", f"capture for out-of-tranche key {cap['contest_key']}")
-            payload = payloads[cap["capture_id"]] = self._raw(cap["payload_sha256"])
-            if cap["payload_path"] != af.raw_rel(cap["payload_sha256"]) or len(payload) != cap["payload_bytes"]:
+            if cap.get("contest_key") not in auth.rows:
+                raise _refuse("ARCHIVE_SOURCE_INVALID", f"capture for out-of-tranche key {cap.get('contest_key')}")
+        expected_ids = [v["capture_id"] for v in versions]
+        stored_ids = [c.get("capture_id") for c in self.captures]
+        if stored_ids != expected_ids:
+            if collections.Counter(stored_ids) == collections.Counter(expected_ids):
+                raise _refuse("ARCHIVE_RECORD_ORDER_MISMATCH", "captures are not in the payload order")
+            raise _refuse("ARCHIVE_CAPTURE_COLLECTION_MISMATCH",
+                          f"stored captures differ from the expected collection (the retained control plus every "
+                          f"receipted replayed version, quarantined versions included): "
+                          f"{_multiset_difference(expected_ids, stored_ids)}")
+        payloads: dict[str, bytes] = {}
+        for version, cap in zip(versions, self.captures):
+            payload = version["payload"]
+            payloads[cap["capture_id"]] = payload
+            if cap.get("payload_path") != af.raw_rel(version["payload_sha256"]) or cap.get("payload_bytes") != len(payload):
                 raise _refuse("ARCHIVE_PATH_INVALID", f"capture {cap['capture_id']} payload path")
-            versions[cap["capture_id"]] = self._version(cap, payload, by_seq, acq_id, control, receipt,
-                                                        _sha_bytes(receipt_raw))
         self._check_assertion_structure(payloads, FIELD_WITNESSES)
         parents: dict[str, dict[str, Any]] = {}
         stored_rows: dict[str, list[dict[str, Any]]] = {}
         for item in self.assertions:
             stored_rows.setdefault(item["capture_id"], []).append(item)
-        for cap in self.captures:
-            key = cap["contest_key"]
+        derived: dict[str, list[dict[str, Any]]] = {}
+        expected_assertions: list[dict[str, Any]] = []
+        for version, cap in zip(versions, self.captures):
+            key = version["contest_key"]
             if key not in parents:
                 parents[key] = self._parent(key)
-            expected, rows = af.derive_capture(key, parents[key], games[key], versions[cap["capture_id"]],
-                                               cap["payload_sha256"])
+            expected, rows = af.derive_capture(key, parents[key], auth.game_ids[key], version["version"],
+                                               version["payload_sha256"])
             self._compare_capture(cap, expected)
             self._compare_rows(cap["capture_id"], stored_rows.get(cap["capture_id"], []), rows)
+            derived.setdefault(key, []).append(expected)
+            expected_assertions += rows
+        if [_cjson(a) for a in self.assertions] != [_cjson(a) for a in expected_assertions]:
+            raise _refuse("ARCHIVE_RECORD_ORDER_MISMATCH", "assertion rows are not in the payload order")
         conflicts = af.mapping_conflicts(self.captures)
         if conflicts:
             raise _refuse("ARCHIVE_PARTICIPANT_MAPPING_CONTRADICTORY", f"qualified participant mappings disagree: "
                                                                         f"{conflicts[:3]}")
-        for disposition in self.dispositions:
-            self._verify_disposition(disposition, acquisition)
+        # ---- dispositions: every record reconstructed from its authorities
+        for index, (key, stored) in enumerate(zip(auth.keys, self.dispositions)):
+            if key not in parents:
+                parents[key] = self._parent(key)
+            parent = parents[key]
+            row, record = auth.rows[key], parent["record"]
+            if (row.get("season"), row.get("contest_date"), row.get("a_key"), row.get("b_key"),
+                    (row.get("cfbd_game_id") or {}).get("value"), row.get("a_points"), row.get("b_points")) != (
+                    record["season"], record["contest_date"], record["a_key"], record["b_key"],
+                    (record.get("cfbd_game_id") or {}).get("value"), parent["values"]["a_points"],
+                    parent["values"]["b_points"]):
+                raise _refuse("ARCHIVE_PARENT_MISMATCH", f"{key}: the issued tranche row differs from the opened parent "
+                                                         f"contest")
+            mine = [r for r in acquisition["requests"] if r["contest_key"] == key]
+            expected = af.disposition_record(index, key, row, auth.candidate_urls[key], auth.game_ids[key],
+                                             (acquisition.get("outcomes") or {}).get(key), mine, derived.get(key, []),
+                                             parent["values"])
+            self._compare_disposition(key, stored, expected)
 
-    def _version(self, cap: dict[str, Any], payload: bytes, by_seq: dict[int, Any], acq_id: str,
-                 control: dict[str, Any], receipt: dict[str, Any], receipt_sha: str) -> dict[str, Any]:
-        """The archived version exactly as its verified receipt describes it (never from the capture's own labels)."""
-        if cap["origin"] == "WORKER_ARCHIVE_REPLAY":
-            if cap["request_seq"] not in by_seq:
-                raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"{cap['capture_id']} names no request")
-            request, index = by_seq[cap["request_seq"]]
-            if request["kind"] != "REPLAY" or request["contest_key"] != cap["contest_key"] or \
-                    request["http_status"] != 200 or request["body_sha256"] != cap["payload_sha256"]:
-                raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"{cap['capture_id']} receipt binding")
-            return af.worker_version(acq_id, index, request, payload)
-        if cap["origin"] == "MANAGER_RETAINED_CONTROL_REPLAY":
-            if cap["payload_sha256"] != control.get("payload_sha256") or cap["contest_key"] != control.get(
-                    "contest_key") or cap["request_seq"] is not None:
-                raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"{cap['capture_id']} control binding")
-            return af.control_version(receipt_sha, receipt, payload)
-        raise _refuse("ARCHIVE_SOURCE_INVALID", f"capture origin {cap['origin']!r}")
+    def _verify_requests(self, acquisition_requests: list[dict[str, Any]]) -> None:
+        auth = self.authority
+        ordered = [r for key in auth.keys for r in acquisition_requests if r.get("contest_key") == key]
+        if len(ordered) != len(acquisition_requests) or len(self.requests) != len(ordered):
+            raise _refuse("ARCHIVE_RECEIPT_ALTERED", "request accounting differs from the acquisition document")
+        stored_seqs, expected_seqs = [r.get("seq") for r in self.requests], [r["seq"] for r in ordered]
+        if stored_seqs != expected_seqs:
+            if collections.Counter(stored_seqs) == collections.Counter(expected_seqs):
+                raise _refuse("ARCHIVE_RECORD_ORDER_MISMATCH", "requests are not in the payload order")
+            raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"request accounting differs from the acquisition document: "
+                                                     f"{_multiset_difference(expected_seqs, stored_seqs)}")
+        for mine, theirs in zip(self.requests, ordered):
+            expected = af.request_record(theirs, auth.game_ids[theirs["contest_key"]], self._raw)
+            receipt_mine = {k: v for k, v in mine.items() if k not in af.REQUEST_DERIVED}
+            receipt_expected = {k: v for k, v in expected.items() if k not in af.REQUEST_DERIVED}
+            if _cjson(receipt_mine) != _cjson(receipt_expected):
+                raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"request {mine.get('seq')} differs from its receipt")
+            host = (urllib.parse.urlsplit(str(mine["url"])).hostname or "").lower()
+            if host not in ("archive.org", "web.archive.org") or (mine["kind"] == "METADATA") != (host == "archive.org"):
+                raise _refuse("ARCHIVE_SOURCE_INVALID", f"request {mine['seq']} host {host}")
+            derived = [k for k in af.REQUEST_DERIVED if k not in mine or _cjson(mine[k]) != _cjson(expected[k])]
+            if derived:
+                raise _refuse("ARCHIVE_REQUEST_DERIVATION_MISMATCH",
+                              f"request {mine['seq']} {derived} differ from the derivation from its raw receipt and "
+                              f"retained body")
+            if mine.get("body_sha256"):
+                self._raw(mine["body_sha256"])
+
+    def _expected_versions(self, acquisition: dict[str, Any], acq_id: str, receipt: dict[str, Any],
+                           receipt_sha: str) -> list[dict[str, Any]]:
+        """Every archived version the receipts establish, in payload order: per issued tranche key, the retained
+        control and each receipted replayed version (af.capture_request), ordered by capture timestamp and payload."""
+        auth = self.authority
+        out: list[dict[str, Any]] = []
+        for key in auth.keys:
+            versions = []
+            if auth.rows[key].get("selection_role") == af.CONTROL_ROLE:
+                versions.append(af.control_version(receipt_sha, receipt, self._raw(auth.control["payload_sha256"])))
+            for index, request in enumerate(acquisition["requests"]):
+                if request["contest_key"] == key and af.capture_request(request):
+                    versions.append(af.worker_version(acq_id, index, request, self._raw(request["body_sha256"])))
+            entries = []
+            for version in versions:
+                payload_sha = _sha_bytes(version["payload"])
+                capture_id, timestamp = af.capture_identity(version["final_url"], payload_sha)
+                entries.append({"contest_key": key, "version": version, "payload": version["payload"],
+                                "payload_sha256": payload_sha, "capture_id": capture_id, "wayback_timestamp": timestamp})
+            out += af.order_captures(entries)
+        return out
 
     def _parent(self, key: str) -> dict[str, Any]:
         contest = self.source.contest(key)
@@ -401,29 +598,17 @@ class ArchiveEvidence:
         raise _refuse("ARCHIVE_SEMANTIC_FORGERY", f"{capture_id} witness rows carry another field, value, comparator "
                                                   f"or state than the re-derived version")
 
-    def _verify_disposition(self, disposition: dict[str, Any], acquisition: dict[str, Any]) -> None:
-        key = disposition["contest_key"]
-        contest = self.source.contest(key)
-        if contest is None:
-            raise _refuse("ARCHIVE_PARENT_MISMATCH", f"{key} is not a source-time contest")
-        parent = {a["field"]: a["parent_value"] for a in contest["assertions"]}
-        record = contest["record"]
-        if disposition["parent_values"] != {f: parent.get(f) for f in FIELDS} or \
-                (disposition["a_key"], disposition["b_key"], disposition["season"]) != (
-                record["a_key"], record["b_key"], record["season"]):
-            raise _refuse("ARCHIVE_PARENT_MISMATCH", f"{key} parent values differ from the source-time parent")
-        requests = [r for r in self.requests if r["contest_key"] == key]
-        if (disposition["request_count"], disposition["metadata_requests"], disposition["replay_requests"]) != (
-                len(requests), sum(1 for r in requests if r["kind"] == "METADATA"),
-                sum(1 for r in requests if r["kind"] == "REPLAY")):
-            raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"{key} request accounting")
-        outcome = (acquisition.get("outcomes") or {}).get(key)
-        if disposition["acquisition_outcome"] != outcome:
-            raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"{key} acquisition outcome")
-        mine = [c for c in self.captures if c["contest_key"] == key]
-        summary = af.disposition_summary(outcome, mine)
-        if any(_cjson(disposition[k]) != _cjson(v) for k, v in summary.items()):
-            raise _refuse("ARCHIVE_SEMANTIC_FORGERY", f"{key} disposition, support or capture accounting")
+    @staticmethod
+    def _compare_disposition(key: str, stored: dict[str, Any], expected: dict[str, Any]) -> None:
+        if set(stored) != set(expected):
+            raise _refuse("ARCHIVE_SEMANTIC_FORGERY", f"{key} disposition fields {sorted(set(stored) ^ set(expected))}")
+        differs = [k for k in expected if _cjson(stored[k]) != _cjson(expected[k])]
+        for authority, code, label in DISPOSITION_REFUSALS:
+            hit = [k for k in differs if k in af.DISPOSITION_AUTHORITY[authority]]
+            if hit:
+                raise _refuse(code, f"{key} disposition {hit} differ from the record reconstructed from the {label}")
+        if differs:
+            raise _refuse("ARCHIVE_SEMANTIC_FORGERY", f"{key} disposition {differs} differ from its reconstruction")
 
     # ------------------------------------------------------------------ decisions
     def decide(self, assertion: dict[str, Any], cutoff: _dt.datetime) -> dict[str, Any]:

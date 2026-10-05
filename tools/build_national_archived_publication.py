@@ -115,9 +115,9 @@ RECORD_FIELDS: dict[str, tuple[str, ...]] = {
 CLOCK_KINDS = ("archive_capture", "retrieval", "event")
 INPUT_ORDER = re.compile(r"^(natural|reverse|shuffle:[0-9]{1,9})$")
 TS14_RE = af.TS14_RE
-CLOSEST_URL_RE = re.compile(r"^https?://web\.archive\.org/web/([0-9]{14})(?:[a-z]{2}_)?/(.+)$")
+CLOSEST_URL_RE = af.CLOSEST_URL_RE
 ORIGIN_DATE_TOLERANCE_SECONDS = af.ORIGIN_DATE_TOLERANCE_SECONDS
-USABLE_CLOSEST_STATUS = ("200", "301", "302", "307", "308")
+USABLE_CLOSEST_STATUS = af.USABLE_CLOSEST_STATUS
 REDIRECT_STATUS = (301, 302, 303, 307, 308)
 RETRYABLE_STATUS = (429, 500, 502, 503, 504)
 INTERRUPTED_EXIT = 3
@@ -493,25 +493,8 @@ def retry_after(headers: list[list[Any]]) -> int | None:
         return None
 
 
-def metadata_answer(body: bytes, game_id: str) -> dict[str, Any]:
-    """The availability answer: closest {timestamp, status, original} when usable, else a reason."""
-    try:
-        doc = json.loads(body.decode("utf-8"))
-        closest = ((doc.get("archived_snapshots") or {}).get("closest")) or None
-    except (UnicodeDecodeError, ValueError, AttributeError):
-        return {"usable": False, "reason": "METADATA_ANSWER_NOT_JSON"}
-    if not closest:
-        return {"usable": False, "reason": "NO_CAPTURE_REPORTED"}
-    ts, status = str(closest.get("timestamp") or ""), str(closest.get("status") or "")
-    match = CLOSEST_URL_RE.match(str(closest.get("url") or ""))
-    if closest.get("available") is not True or not TS14_RE.match(ts) or not match or match.group(1) != ts:
-        return {"usable": False, "reason": "CLOSEST_MALFORMED", "timestamp": ts or None, "status": status or None}
-    original = match.group(2)
-    if not equivalent_original(original, game_id):
-        return {"usable": False, "reason": "CLOSEST_FOR_ANOTHER_URL", "timestamp": ts, "status": status}
-    if status not in USABLE_CLOSEST_STATUS:
-        return {"usable": False, "reason": f"CLOSEST_STATUS_{status or 'ABSENT'}", "timestamp": ts, "status": status}
-    return {"usable": True, "timestamp": ts, "status": status, "original": original}
+# The availability answer read from a retained metadata body is the shared module's (the consumer re-derives it).
+metadata_answer = af.metadata_answer
 
 
 def transient(record: dict[str, Any]) -> bool:
@@ -843,11 +826,11 @@ class Model:
         game = spec["game_id_literal"]
         parent = self.parent[key]
         versions = []
-        if spec["selection_role"] == "SEPARATE_PREQUALIFIED_ROUTE_CONTROL":
+        if spec["selection_role"] == af.CONTROL_ROLE:
             versions.append(af.control_version(sha256_bytes(self.control["receipt_raw"]), self.control["receipt"],
                                                self.control["payload"]))
         for index, request in enumerate(self.acquisition["requests"]):
-            if request["contest_key"] != key or request["kind"] != "REPLAY" or request["http_status"] != 200:
+            if request["contest_key"] != key or not af.capture_request(request):
                 continue
             versions.append(af.worker_version(self.acquisition_id, index, request,
                                               read_raw(self.root, request["body_sha256"])))
@@ -856,38 +839,19 @@ class Model:
             capture, rows = af.derive_capture(key, parent, game, version, sha256_bytes(version["payload"]))
             captures.append(capture)
             assertions += rows
-        captures.sort(key=lambda c: (c["wayback_timestamp"] or "", c["payload_sha256"]))
-        rank = {c["capture_id"]: i for i, c in enumerate(captures)}
-        assertions.sort(key=lambda a: (rank[a["capture_id"]], FIELDS.index(a["field"]), a["witness"],
-                                       a["witness_span"][0]))
-        return captures, assertions
+        captures = af.order_captures(captures)
+        return captures, af.order_assertions(captures, assertions)
 
     def bundle(self, key: str) -> bytes:
         row, spec, parent = self.rows[key], self.keys[key], self.parent[key]
         requests = self.requests(key)
         captures, assertions = self.capture_records(key)
         outcome = self.acquisition["outcomes"][key]
-        summary = af.disposition_summary(outcome, captures)
-        lines = [record_line({
-            "record_type": "archive_disposition", "ord": self.order.index(key), "contest_key": key,
-            "season": row["season"], "contest_date": row["contest_date"], "a_key": row["a_key"], "b_key": row["b_key"],
-            "classification_pair": row["classification_pair"], "stratum": row["stratum"],
-            "selection_role": row["selection_role"], "candidate_url": spec["candidate_url"],
-            "game_id_literal": spec["game_id_literal"], "acquisition_outcome": outcome,
-            "disposition": summary["disposition"], "reasons": summary["reasons"], "request_count": len(requests),
-            "metadata_requests": sum(1 for r in requests if r["kind"] == "METADATA"),
-            "replay_requests": sum(1 for r in requests if r["kind"] == "REPLAY"),
-            "capture_ids": summary["capture_ids"], "qualified_capture_ids": summary["qualified_capture_ids"],
-            "field_support": summary["field_support"], "parent_values": parent["values"]})]
-        for request in requests:
-            answer = None
-            if request["kind"] == "METADATA" and request["http_status"] == 200:
-                answer = metadata_answer(read_raw(self.root, request["body_sha256"]), spec["game_id_literal"])
-            lines.append(record_line({"record_type": "archive_request", **{k: request[k] for k in (
-                "seq", "contest_key", "kind", "purpose", "url", "started_utc", "ended_utc", "outcome", "http_status",
-                "reason", "headers", "location", "body_sha256", "body_bytes", "retry_after_seconds", "slept_seconds",
-                "error")}, "body_path": raw_rel(request["body_sha256"]) if request["body_sha256"] else None,
-                "metadata_answer": answer}))
+        lines = [record_line(af.disposition_record(self.order.index(key), key, row, spec["candidate_url"],
+                                                   spec["game_id_literal"], outcome, requests, captures,
+                                                   parent["values"]))]
+        lines += [record_line(af.request_record(request, spec["game_id_literal"], lambda sha: read_raw(self.root, sha)))
+                  for request in requests]
         lines += [record_line(c) for c in captures]
         lines += [record_line(a) for a in assertions]
         return b"".join(lines)

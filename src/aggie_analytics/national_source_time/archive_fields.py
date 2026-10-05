@@ -18,6 +18,14 @@ school names and NCAA names), the CFBD home/away role and a qualified contest da
 namespaces are never evidence, and differing ESPN/CFBD ids are allowed when the names, roles and date prove the map.
 A version whose participant mapping does not qualify is quarantined as a whole (contract V1.2 QUARANTINE_RULE): a
 page whose participant identity is not evidenced supports no field.
+
+The acquisition-derived records are built here too (MF41A01-06 repair, second same-attempt continuation): which
+requests are archived versions (:func:`capture_request`), each version's capture identity and the payload order
+(:func:`capture_identity`, :func:`order_captures`, :func:`order_assertions`), each delivered request record with its
+raw-store path and the availability answer re-read from its retained body (:func:`request_record`,
+:func:`metadata_answer`) and each disposition record from the issued tranche row, the receipts, the key's complete
+capture collection and the parent values (:func:`disposition_record`). The producer writes these records and the
+consumer reconstructs them from the issued authority instead of trusting the stored rows.
 """
 from __future__ import annotations
 
@@ -58,6 +66,22 @@ QUARANTINE_RULE = ("a version qualifies only when its participant mapping qualif
                    "PARTICIPANT_MAPPING_UNRESOLVED; every field CAPTURE_NOT_QUALIFIED), so no field of a page whose "
                    "participant identity is not evidenced is served")
 TS14_RE = re.compile(r"^[0-9]{14}$")
+CLOSEST_URL_RE = re.compile(r"^https?://web\.archive\.org/web/([0-9]{14})(?:[a-z]{2}_)?/(.+)$")
+USABLE_CLOSEST_STATUS = ("200", "301", "302", "307", "308")
+#: Acquisition request fields copied verbatim into each delivered archive_request record; the record adds only
+#: record_type, body_path and metadata_answer, all derived from these fields and the retained raw body.
+REQUEST_FIELDS = ("seq", "contest_key", "kind", "purpose", "url", "started_utc", "ended_utc", "outcome", "http_status",
+                  "reason", "headers", "location", "body_sha256", "body_bytes", "retry_after_seconds", "slept_seconds",
+                  "error")
+REQUEST_DERIVED = ("record_type", "body_path", "metadata_answer")
+#: Each archive_disposition field by the authority it is derived from (contract V1.2 dispositions/payloads).
+DISPOSITION_AUTHORITY = {
+    "parent": ("season", "contest_date", "a_key", "b_key", "parent_values"),
+    "tranche": ("record_type", "ord", "contest_key", "classification_pair", "stratum", "selection_role",
+                "candidate_url", "game_id_literal"),
+    "receipts": ("acquisition_outcome", "request_count", "metadata_requests", "replay_requests"),
+    "captures": ("disposition", "reasons", "capture_ids", "qualified_capture_ids", "field_support")}
+CONTROL_ROLE = "SEPARATE_PREQUALIFIED_ROUTE_CONTROL"
 DIGITS_RE = re.compile(r"^[0-9]{1,12}$")
 SCORE_RE = re.compile(r"^[0-9]{1,3}$")
 FINAL_RE = re.compile(r"^Final(/[0-9]*OT)?$")
@@ -195,6 +219,28 @@ def header(headers: Any, name: str) -> str | None:
     if not values:
         return None
     return values[0] if isinstance(values[0], str) else None
+
+
+def metadata_answer(body: bytes, game_id: str) -> dict[str, Any]:
+    """The availability answer of one retained metadata response body: closest {timestamp, status, original} when
+    usable, else a reason (the contract's per-key plan; producer and consumer derive the same answer)."""
+    try:
+        doc = json.loads(body.decode("utf-8"))
+        closest = ((doc.get("archived_snapshots") or {}).get("closest")) or None
+    except (UnicodeDecodeError, ValueError, AttributeError):
+        return {"usable": False, "reason": "METADATA_ANSWER_NOT_JSON"}
+    if not closest:
+        return {"usable": False, "reason": "NO_CAPTURE_REPORTED"}
+    ts, status = str(closest.get("timestamp") or ""), str(closest.get("status") or "")
+    match = CLOSEST_URL_RE.match(str(closest.get("url") or ""))
+    if closest.get("available") is not True or not TS14_RE.match(ts) or not match or match.group(1) != ts:
+        return {"usable": False, "reason": "CLOSEST_MALFORMED", "timestamp": ts or None, "status": status or None}
+    original = match.group(2)
+    if not equivalent_original(original, game_id):
+        return {"usable": False, "reason": "CLOSEST_FOR_ANOTHER_URL", "timestamp": ts, "status": status}
+    if status not in USABLE_CLOSEST_STATUS:
+        return {"usable": False, "reason": f"CLOSEST_STATUS_{status or 'ABSENT'}", "timestamp": ts, "status": status}
+    return {"usable": True, "timestamp": ts, "status": status, "original": original}
 
 
 def receipt_checks(final_url: str, status: int | None, headers: Any, payload: bytes,
@@ -825,6 +871,60 @@ def raw_rel(sha: str) -> str:
     return f"raw/sha256/{sha}"
 
 
+def capture_request(request: dict[str, Any]) -> bool:
+    """A replayed archived version: a REPLAY request answered HTTP 200, whose retained body is that version (contract
+    V1.2 captures grain: every replayed version plus the control, quarantined versions included)."""
+    return request.get("kind") == "REPLAY" and request.get("http_status") == 200
+
+
+def capture_identity(final_url: Any, payload_sha256: str) -> tuple[str, str | None]:
+    """(capture id, wayback timestamp) of a version from its final replay URL and payload hash."""
+    parts = replay_parts(final_url)
+    timestamp = parts[0] if parts else None
+    return f"wayback:{timestamp or '00000000000000'}:{payload_sha256}", timestamp
+
+
+def order_captures(captures: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Within one tranche key: capture timestamp, then payload sha256 (contract V1.2 payload order)."""
+    return sorted(captures, key=lambda c: (c["wayback_timestamp"] or "", c["payload_sha256"]))
+
+
+def order_assertions(captures: list[dict[str, Any]], assertions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Within one tranche key: capture order, field order, witness name, span start."""
+    rank = {c["capture_id"]: i for i, c in enumerate(captures)}
+    return sorted(assertions, key=lambda a: (rank[a["capture_id"]], FIELDS.index(a["field"]), a["witness"],
+                                             a["witness_span"][0]))
+
+
+def request_record(request: dict[str, Any], game_id: str, read_body: Callable[[str], bytes]) -> dict[str, Any]:
+    """The delivered archive_request record of one acquisition request: the receipt fields verbatim plus the raw-store
+    path of its body and, for an answered metadata request, the availability answer re-read from that body."""
+    answer = None
+    if request["kind"] == "METADATA" and request["http_status"] == 200:
+        answer = metadata_answer(read_body(request["body_sha256"]), game_id)
+    return {"record_type": "archive_request", **{k: request[k] for k in REQUEST_FIELDS},
+            "body_path": raw_rel(request["body_sha256"]) if request["body_sha256"] else None,
+            "metadata_answer": answer}
+
+
+def disposition_record(index: int, key: str, row: dict[str, Any], candidate_url: str, game_id: str, outcome: str,
+                       requests: list[dict[str, Any]], captures: list[dict[str, Any]],
+                       parent_values: dict[str, Any]) -> dict[str, Any]:
+    """The delivered archive_disposition record of one tranche key from the issued tranche row (season, date, teams,
+    classification, stratum, selection role), the candidate locator, the acquisition outcome and request accounting,
+    the key's complete expected capture collection and the parent's accepted values."""
+    summary = disposition_summary(outcome, captures)
+    return {"record_type": "archive_disposition", "ord": index, "contest_key": key, "season": row["season"],
+            "contest_date": row["contest_date"], "a_key": row["a_key"], "b_key": row["b_key"],
+            "classification_pair": row["classification_pair"], "stratum": row["stratum"],
+            "selection_role": row["selection_role"], "candidate_url": candidate_url, "game_id_literal": game_id,
+            "acquisition_outcome": outcome, "disposition": summary["disposition"], "reasons": summary["reasons"],
+            "request_count": len(requests), "metadata_requests": sum(1 for r in requests if r["kind"] == "METADATA"),
+            "replay_requests": sum(1 for r in requests if r["kind"] == "REPLAY"),
+            "capture_ids": summary["capture_ids"], "qualified_capture_ids": summary["qualified_capture_ids"],
+            "field_support": summary["field_support"], "parent_values": parent_values}
+
+
 def worker_version(acquisition_id: str, index: int, request: dict[str, Any], payload: bytes) -> dict[str, Any]:
     """One replayed archived version from the content-addressed acquisition document."""
     document = f"acquisition/sha256/{acquisition_id}/acquisition.json"
@@ -857,7 +957,7 @@ def derive_capture(contest_key: str, parent: dict[str, Any], game_id: str, versi
     checks, receipt_reasons, derived = receipt_checks(version["final_url"], version["status"], version["headers"],
                                                       payload, game_id)
     result = qualify(contest_key, parent, game_id, payload, derived["bound"], receipt_reasons)
-    capture_id = f"wayback:{derived['wayback_timestamp'] or '00000000000000'}:{payload_sha256}"
+    capture_id, _timestamp = capture_identity(version["final_url"], payload_sha256)
     bound = derived["bound"]
     if bound:
         archive_clock = clock("PRESENT", role="ARCHIVE_CAPTURE_UPPER_BOUND", literal=derived["memento"], zone="GMT",

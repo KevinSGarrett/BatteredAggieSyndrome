@@ -20,6 +20,13 @@ Coordinated semantic tampers of the delivered records (as if every outer hash we
 self-challenges on in-memory page copies (borrowed status/score substrings, same-element digits, unrelated or swapped
 team names with equal numbers, duplicated witnesses) are reported with their limits. The report is a new file written
 once. Exit 0 only when every check passes.
+
+MF41A01-06 (second same-attempt continuation): the expected capture collection -- the retained control plus every
+replayed version the acquisition receipts establish -- is compared by identity, multiplicity and order with the
+delivered one as its own check, and the tamper cases include the record/collection class: a disposition's date,
+classification, stratum, selection role, locator or participants changed; a fabricated metadata answer or redirected
+body path; a receipted, control or quarantined version omitted with its summary adjusted; a duplicated version; and
+reordered versions, requests or dispositions.
 """
 from __future__ import annotations
 
@@ -1335,6 +1342,58 @@ def tamper_cases(expected: Expected, delivered: dict[str, list[dict[str, Any]]])
     run("team_name_witness_row_omitted", lambda d: any(
         d["assertions.jsonl"].remove(a) is None for a in [next((x for x in d["assertions.jsonl"]
                                                                if x["witness"].endswith("_TEAM_NAME")), None)] if a))
+    # MF41A01-06: decision-bearing and displayed disposition/request fields and the complete capture collection.
+    run("disposition_date_moved_to_another_season", edit("dispositions.jsonl", lambda x: True, lambda x: x.update(
+        contest_date="2025" + x["contest_date"][4:])))
+    run("disposition_classification_relabelled", edit("dispositions.jsonl", lambda x: True, lambda x: x.update(
+        classification_pair="FCS-FCS" if x["classification_pair"] != "FCS-FCS" else "FBS-FBS")))
+    run("disposition_stratum_relabelled", edit("dispositions.jsonl", lambda x: True, lambda x: x.update(
+        stratum="FBS-FBS-LATE" if x["stratum"] != "FBS-FBS-LATE" else "FBS-FCS-EARLY")))
+    run("disposition_selection_role_relabelled", edit("dispositions.jsonl", lambda x: x["selection_role"] ==
+                                                      "STRATIFIED_COHORT", lambda x: x.update(
+        selection_role="SEPARATE_PREQUALIFIED_ROUTE_CONTROL")))
+    run("disposition_locator_substituted", edit("dispositions.jsonl", lambda x: True, lambda x: x.update(
+        candidate_url="https://www.espn.com/college-football/game/_/gameId/1", game_id_literal="1")))
+    run("disposition_participants_swapped", edit("dispositions.jsonl", lambda x: True, lambda x: x.update(
+        a_key=x["b_key"], b_key=x["a_key"])))
+    run("metadata_answer_fabricated", edit("requests.jsonl", lambda r: r["metadata_answer"] is not None,
+                                           lambda r: r.update(metadata_answer={"usable": True,
+                                                                               "timestamp": "19000101000000"})))
+    run("request_body_path_redirected", edit("requests.jsonl", lambda r: r["body_path"] is not None,
+                                             lambda r: r.update(body_path="raw/sha256/" + "0" * 64)))
+
+    def omit_capture(predicate):
+        def mutate(d: dict[str, list[dict[str, Any]]]) -> bool:
+            cap = next((c for c in d["captures.jsonl"] if predicate(c)), None)
+            if cap is None:
+                return False
+            d["captures.jsonl"].remove(cap)
+            d["assertions.jsonl"] = [a for a in d["assertions.jsonl"] if a["capture_id"] != cap["capture_id"]]
+            for disp in d["dispositions.jsonl"]:
+                if disp["contest_key"] == cap["contest_key"]:
+                    disp["capture_ids"] = [x for x in disp["capture_ids"] if x != cap["capture_id"]]
+                    disp["qualified_capture_ids"] = [x for x in disp["qualified_capture_ids"] if x != cap["capture_id"]]
+            return True
+        return mutate
+    run("receipted_capture_omitted_with_summary_adjusted", omit_capture(lambda c: c["origin"] == "WORKER_ARCHIVE_REPLAY"))
+    run("control_capture_omitted_with_summary_adjusted",
+        omit_capture(lambda c: c["origin"] == "MANAGER_RETAINED_CONTROL_REPLAY"))
+    run("quarantined_capture_omitted_with_summary_adjusted", omit_capture(lambda c: c["state"] == "QUARANTINED"))
+    run("capture_duplicated", lambda d: bool(d["captures.jsonl"]) and d["captures.jsonl"].append(
+        copy.deepcopy(d["captures.jsonl"][0])) is None)
+
+    def reorder(name: str, same_key: bool):
+        def mutate(d: dict[str, list[dict[str, Any]]]) -> bool:
+            rows = d[name]
+            for i in range(len(rows) - 1):
+                if not same_key or rows[i]["contest_key"] == rows[i + 1]["contest_key"]:
+                    rows[i], rows[i + 1] = rows[i + 1], rows[i]
+                    return True
+            return False
+        return mutate
+    run("versions_of_one_key_reordered", reorder("captures.jsonl", True))
+    run("requests_of_one_key_reordered", reorder("requests.jsonl", True))
+    run("dispositions_reordered", reorder("dispositions.jsonl", False))
     return out
 
 
@@ -1514,6 +1573,13 @@ def main(argv: list[str] | None = None) -> int:
     expected.build()
     result = compare(expected, delivered["records"])
     report.check("every_record_reconstructed_independently", clean(result), result)
+    # MF41A01-06: the delivered capture collection is exactly the retained control plus every replayed version the
+    # acquisition receipts establish (identity, multiplicity and order), independently of the delivered rows.
+    want = [c["capture_id"] for c in expected.records["captures.jsonl"]]
+    have = [c["capture_id"] for c in delivered["records"]["captures.jsonl"]]
+    report.check("capture_collection_equals_control_plus_receipted_replays", want == have and len(set(have)) == len(have),
+                 {"expected": len(want), "delivered": len(have), "missing": sorted(set(want) - set(have))[:5],
+                  "extra": sorted(set(have) - set(want))[:5]})
     report.check("reconstructed_payloads_hash_to_delivered_semantics", all(
         h_bytes(lines_of(expected.records[n])) == delivered["content"]["semantic_outputs"][n] for n in PAYLOAD_NAMES))
     decisions = {"skipped": True} if args.skip_consumer else decision_checks(args, delivered, expected, report)

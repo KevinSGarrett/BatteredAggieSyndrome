@@ -86,6 +86,7 @@ jobs:
           files: coverage-core.xml
           flags: core
           fail_ci_if_error: true
+          use_legacy_upload_endpoint: true
           use_pypi: true
           version: "11.3.1"
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -97,6 +98,7 @@ jobs:
           files: coverage-independent-scientific-reference.xml
           flags: independent_scientific_reference
           fail_ci_if_error: true
+          use_legacy_upload_endpoint: true
           use_pypi: true
           version: "11.3.1"
           token: ${{ secrets.CODECOV_TOKEN }}

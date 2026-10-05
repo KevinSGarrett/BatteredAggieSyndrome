@@ -25,6 +25,10 @@ def create_app(*, snapshot_root: Path, freshness_seconds: float | None = None, s
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
         redoc_url=None,
+        # Serving published snapshots must not activate exporters from the host
+        # environment or send request data to an unrelated global provider.
+        telemetry={"auto_configure": False, "tracing": False, "metrics": False,
+                   "logs": False, "operation_spans": False},
     )
     app.state.forecast_service = service
     app.mount("/static", StaticFiles(directory=str(static_root)), name="static")

@@ -1,0 +1,739 @@
+{
+  "cycle_number": 41,
+  "attempt_number": 1,
+  "state": "PREPARATION_NOT_ISSUED",
+  "selection_revision": "2026-10-03.1",
+  "parent_source_time_content": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+  "parent_source_time_database": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+  "population_database_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172",
+  "expected_universe_2019": 883,
+  "selection": "For each FBS-FBS/FBS-FCS x early/middle/late season stratum, take up to five smallest SHA256(C41-ARCHIVE-2019-v1|contest_key); selection completed before archive availability queries for these27keys. Separate prequalified route control is labeled and not a random sample.",
+  "strata": {
+    "FBS-FBS-EARLY": 237,
+    "FBS-FCS-EARLY": 101,
+    "FBS-FBS-MIDDLE": 218,
+    "FBS-FCS-MIDDLE": 2,
+    "FBS-FBS-LATE": 314,
+    "FBS-FCS-LATE": 11
+  },
+  "selected": [
+    {
+      "contest_key": "ncaa:1735532",
+      "season": 2019,
+      "contest_date": "2019-09-07",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:428",
+      "b_key": "org:96",
+      "a_team": "Minnesota",
+      "b_team": "Fresno St.",
+      "a_points": 38,
+      "b_points": 35,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112230"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-EARLY",
+      "rank": "009b133d701f34622f8359abadec0852821eab19907ec8a508501cf4ecfcdaee",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112230",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190907235959"
+    },
+    {
+      "contest_key": "ncaa:1735911",
+      "season": 2019,
+      "contest_date": "2019-09-21",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:128",
+      "b_key": "org:545",
+      "a_team": "UCF",
+      "b_team": "Pittsburgh",
+      "a_points": 34,
+      "b_points": 35,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112461"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-EARLY",
+      "rank": "02fb685e950eb0db221b2277d3dccd75b03755403164104d19f88e0ae618a169",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112461",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190921235959"
+    },
+    {
+      "contest_key": "ncaa:1736172",
+      "season": 2019,
+      "contest_date": "2019-09-26",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:404",
+      "b_key": "org:726",
+      "a_team": "Memphis",
+      "b_team": "Navy",
+      "a_points": 35,
+      "b_points": 23,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117871"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-EARLY",
+      "rank": "03c1413a87617c92d17892435d4e9c11ade7dcde3b60c2758c38e1632ec8bf2f",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117871",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190926235959"
+    },
+    {
+      "contest_key": "ncaa:1735845",
+      "season": 2019,
+      "contest_date": "2019-09-14",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:29",
+      "b_key": "org:700",
+      "a_team": "Arizona",
+      "b_team": "Texas Tech",
+      "a_points": 28,
+      "b_points": 14,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112141"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-EARLY",
+      "rank": "05760e78c85e742ff76b5332d51d4da039c837bb8485510b330ec563064a761a",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112141",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190914235959"
+    },
+    {
+      "contest_key": "ncaa:1735212",
+      "season": 2019,
+      "contest_date": "2019-08-31",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:257",
+      "b_key": "org:736",
+      "a_team": "Georgia",
+      "b_team": "Vanderbilt",
+      "a_points": 30,
+      "b_points": 6,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110732"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-EARLY",
+      "rank": "0696f6e50f8c671f65af1f290b7990d23cd12ef8bfe4ca0a7bbbbc057ab4e854",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110732",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190831235959"
+    },
+    {
+      "contest_key": "ncaa:1738412",
+      "season": 2019,
+      "contest_date": "2019-11-16",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:306",
+      "b_key": "org:539",
+      "a_team": "Indiana",
+      "b_team": "Penn St.",
+      "a_points": 27,
+      "b_points": 34,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112166"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-LATE",
+      "rank": "01090fd9a8dfffc55b0f407fc7cc6e501695878ef36ae6111f5c2c5043149431",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112166",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191116235959"
+    },
+    {
+      "contest_key": "ncaa:1738745",
+      "season": 2019,
+      "contest_date": "2019-11-23",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:355",
+      "b_key": "org:746",
+      "a_team": "Liberty",
+      "b_team": "Virginia",
+      "a_points": 27,
+      "b_points": 55,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112520"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-LATE",
+      "rank": "0118c59888256add177883b023530759bb0a6dfae1c2c67703b9edb88c192e98",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112520",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191123235959"
+    },
+    {
+      "contest_key": "ncaa:1818301",
+      "season": 2019,
+      "contest_date": "2019-12-30",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:235",
+      "b_key": "org:746",
+      "a_team": "Florida",
+      "b_team": "Virginia",
+      "a_points": 36,
+      "b_points": 28,
+      "roles": [
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401135282"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-LATE",
+      "rank": "013ab03b9ac81a9db1f7b638d81771b33908a66309820b12cff44a2808938944",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401135282",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191230235959"
+    },
+    {
+      "contest_key": "ncaa:1738382",
+      "season": 2019,
+      "contest_date": "2019-11-13",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:414",
+      "b_key": "org:71",
+      "a_team": "Miami (OH)",
+      "b_team": "Bowling Green",
+      "a_points": 44,
+      "b_points": 3,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401119301"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-LATE",
+      "rank": "026ca52979dfc318d2ac6212563f2ea9c0d2703a96afde71cecb334b4e6c6e5b",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401119301",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191113235959"
+    },
+    {
+      "contest_key": "ncaa:1738387",
+      "season": 2019,
+      "contest_date": "2019-11-15",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:626",
+      "b_key": "org:96",
+      "a_team": "San Diego St.",
+      "b_team": "Fresno St.",
+      "a_points": 17,
+      "b_points": 7,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117547"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-LATE",
+      "rank": "02bcf36fb0dfb6f2bbeb2f58eb87cf585a02aa71c56877d01d19c73f2084d5ba",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117547",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191115235959"
+    },
+    {
+      "contest_key": "ncaa:1737450",
+      "season": 2019,
+      "contest_date": "2019-10-26",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:648",
+      "b_key": "org:694",
+      "a_team": "South Carolina",
+      "b_team": "Tennessee",
+      "a_points": 21,
+      "b_points": 41,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110834"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-MIDDLE",
+      "rank": "0051840058005676ebb472a17cbc61ed9ae436f5dd7787ec01d1610b5b198c65",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110834",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191026235959"
+    },
+    {
+      "contest_key": "ncaa:1737093",
+      "season": 2019,
+      "contest_date": "2019-10-18",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:545",
+      "b_key": "org:688",
+      "a_team": "Pittsburgh",
+      "b_team": "Syracuse",
+      "a_points": 27,
+      "b_points": 20,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112483"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-MIDDLE",
+      "rank": "0177d002a94f97db2b5d9e5f89dcdab9193033e5d3bdc9eae9f2ae37d22d1e27",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112483",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191018235959"
+    },
+    {
+      "contest_key": "ncaa:1737155",
+      "season": 2019,
+      "contest_date": "2019-10-19",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:301",
+      "b_key": "org:796",
+      "a_team": "Illinois",
+      "b_team": "Wisconsin",
+      "a_points": 24,
+      "b_points": 23,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112151"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-MIDDLE",
+      "rank": "020efedfac7e3e4b7435eef02bdba8c47ac5cf3176949bc380ed317e081c3820",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112151",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191019235959"
+    },
+    {
+      "contest_key": "ncaa:1737115",
+      "season": 2019,
+      "contest_date": "2019-10-19",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:66",
+      "b_key": "org:77",
+      "a_team": "Boise St.",
+      "b_team": "BYU",
+      "a_points": 25,
+      "b_points": 28,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117215"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-MIDDLE",
+      "rank": "02dd6b9d54e5983a7e17f6b1fe9d65d30ad9e0a3ed08e89369ab39cacc678bb5",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117215",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191019235959"
+    },
+    {
+      "contest_key": "ncaa:1737010",
+      "season": 2019,
+      "contest_date": "2019-10-12",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:204",
+      "b_key": "org:47",
+      "a_team": "Eastern Mich.",
+      "b_team": "Ball St.",
+      "a_points": 23,
+      "b_points": 29,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401119276"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FBS-MIDDLE",
+      "rank": "02eecd1a16fc8122769c6bcffea7a9cac2fbc7115ba1544795a3e9abac12c3a6",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401119276",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191012235959"
+    },
+    {
+      "contest_key": "ncaa:1736209",
+      "season": 2019,
+      "contest_date": "2019-09-28",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:235",
+      "b_key": "org:711",
+      "a_team": "Florida",
+      "b_team": "Towson",
+      "a_points": 38,
+      "b_points": 0,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110809"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-EARLY",
+      "rank": "0100d21aa6ac90efab4f9785db86d0836749f5419d937397d11968d96e54bdec",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110809",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190928235959"
+    },
+    {
+      "contest_key": "ncaa:1736120",
+      "season": 2019,
+      "contest_date": "2019-09-21",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:30",
+      "b_key": "org:659",
+      "a_team": "Arkansas St.",
+      "b_team": "Southern Ill.",
+      "a_points": 41,
+      "b_points": 28,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401121941"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-EARLY",
+      "rank": "0dd008f8f6f6579e19d56eb048aa24fb9ae24b77e7e6579735dd003ec525aeb3",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401121941",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190921235959"
+    },
+    {
+      "contest_key": "ncaa:1735173",
+      "season": 2019,
+      "contest_date": "2019-08-31",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:440",
+      "b_key": "org:700",
+      "a_team": "Montana St.",
+      "b_team": "Texas Tech",
+      "a_points": 10,
+      "b_points": 45,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112139"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-EARLY",
+      "rank": "0e64aa7c7acf8581dd36c1728e0df9b07a01fa952be4180363907ccddb3fb59e",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112139",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190831235959"
+    },
+    {
+      "contest_key": "ncaa:1735492",
+      "season": 2019,
+      "contest_date": "2019-09-07",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:314",
+      "b_key": "org:646",
+      "a_team": "Jackson St.",
+      "b_team": "South Alabama",
+      "a_points": 14,
+      "b_points": 37,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401121938"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-EARLY",
+      "rank": "0e7bfc43bbfebada5bdaa7a3a96dec89157ea49210b765d3c2ec60ba720d78e2",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401121938",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190907235959"
+    },
+    {
+      "contest_key": "ncaa:1735537",
+      "season": 2019,
+      "contest_date": "2019-09-07",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:235",
+      "b_key": "org:695",
+      "a_team": "Florida",
+      "b_team": "UT Martin",
+      "a_points": 45,
+      "b_points": 0,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110775"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-EARLY",
+      "rank": "10c4efd7ec3e64291d3fd9a908bf607283ded44884473e94740a69a2b2047786",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110775",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190907235959"
+    },
+    {
+      "contest_key": "ncaa:1738725",
+      "season": 2019,
+      "contest_date": "2019-11-23",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:2",
+      "b_key": "org:430",
+      "a_team": "Abilene Christian",
+      "b_team": "Mississippi St.",
+      "a_points": 7,
+      "b_points": 45,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110860"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-LATE",
+      "rank": "125cbccb123c7d91cad7a2f1e50126da0abde329a9558315e502442782da7ea2",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110860",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191123235959"
+    },
+    {
+      "contest_key": "ncaa:1738741",
+      "season": 2019,
+      "contest_date": "2019-11-23",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:769",
+      "b_key": "org:8",
+      "a_team": "Western Caro.",
+      "b_team": "Alabama",
+      "a_points": 3,
+      "b_points": 66,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110855"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-LATE",
+      "rank": "17f819873d7fbafe04630704674e4562c8d0a02a1411ee416b9fcfcaadf62d0f",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110855",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191123235959"
+    },
+    {
+      "contest_key": "ncaa:1738723",
+      "season": 2019,
+      "contest_date": "2019-11-23",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:37",
+      "b_key": "org:625",
+      "a_team": "Auburn",
+      "b_team": "Samford",
+      "a_points": 52,
+      "b_points": 0,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110856"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-LATE",
+      "rank": "30065574a72ecb5b4ea55c585d1c62a0a082c48d934024d1f2db0306418c47bb",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110856",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191123235959"
+    },
+    {
+      "contest_key": "ncaa:1738730",
+      "season": 2019,
+      "contest_date": "2019-11-23",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:334",
+      "b_key": "org:695",
+      "a_team": "Kentucky",
+      "b_team": "UT Martin",
+      "a_points": 50,
+      "b_points": 7,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110858"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-LATE",
+      "rank": "3baa5693d1af873d15c47fe0c99c6d5ac7f88429902563d9da1a6c53b5b812c1",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110858",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191123235959"
+    },
+    {
+      "contest_key": "ncaa:1737787",
+      "season": 2019,
+      "contest_date": "2019-11-02",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:147",
+      "b_key": "org:2915",
+      "a_team": "Clemson",
+      "b_team": "Wofford",
+      "a_points": 59,
+      "b_points": 14,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112496"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-LATE",
+      "rank": "46140e144f52f79e3838b24a165e1a34325793903ba16c0a79baec75279ce789",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112496",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191102235959"
+    },
+    {
+      "contest_key": "ncaa:1737398",
+      "season": 2019,
+      "contest_date": "2019-10-19",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:355",
+      "b_key": "org:380",
+      "a_team": "Liberty",
+      "b_team": "Maine",
+      "a_points": 59,
+      "b_points": 44,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114351"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-MIDDLE",
+      "rank": "0091ba49197fca92682326eda58b90192e268232b27150c43e5e17356184fb1a",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114351",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191019235959"
+    },
+    {
+      "contest_key": "ncaa:1736822",
+      "season": 2019,
+      "contest_date": "2019-10-12",
+      "classification_pair": "FBS-FCS",
+      "a_key": "org:572",
+      "b_key": "org:742",
+      "a_team": "Rhode Island",
+      "b_team": "Virginia Tech",
+      "a_points": 17,
+      "b_points": 34,
+      "roles": [
+        "CONTRIBUTOR"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112482"
+      },
+      "selection_role": "STRATIFIED_COHORT",
+      "stratum": "FBS-FCS-MIDDLE",
+      "rank": "8bdecd3c697512db026ba482291d07174bc3ba578d02ee0b05d6fcf9a1718de3",
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112482",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20191012235959"
+    },
+    {
+      "contest_key": "ncaa:1735109",
+      "season": 2019,
+      "contest_date": "2019-08-24",
+      "classification_pair": "FBS-FBS",
+      "a_key": "org:235",
+      "b_key": "org:415",
+      "a_team": "Florida",
+      "b_team": "Miami (FL)",
+      "a_points": 24,
+      "b_points": 20,
+      "roles": [
+        "CONTRIBUTOR",
+        "TARGET"
+      ],
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110723"
+      },
+      "selection_role": "SEPARATE_PREQUALIFIED_ROUTE_CONTROL",
+      "stratum": "POSITIVE_CONTROL",
+      "rank": null,
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110723",
+      "namespace_limit": "Candidate locator only: CFBD numeric identity is NOT assumed ESPN identity; qualify payload game ID, both participants, date and orientation against parents before joining.",
+      "metadata_probe_timestamp": "20190824235959"
+    }
+  ],
+  "count": 28,
+  "selection_not_national_completeness": true,
+  "unselected_remain": "Retain full2016-2023expected universe, all source-time gaps, pre2016/current national scope. No population-level historical PIT coverage inferred from tranche."
+}

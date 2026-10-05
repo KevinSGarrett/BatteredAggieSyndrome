@@ -65,6 +65,8 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "aggie_analytics.cycle30" = ["schemas/*.json"]
+# BAT-713: the exact issued 2019 archive tranche bytes the archive-evidence consumer binds (contract V1.2 scope).
+"aggie_analytics.national_source_time" = ["national_archived_publication_2019_tranche.json"]
 
 [tool.unittest]
 # Tests intentionally use the Python standard library during early waves.

@@ -391,7 +391,7 @@ class IndependentValidatorTests(unittest.TestCase):
                 "--retained-contract", str(world["contract"]), "--skip-consumer"]
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            code = apfx.validator().main(argv)
+            code = xfx.expansion_validator().main(argv)
         return code, json.loads(report.read_text(encoding="utf-8"))
 
     def test_genuine_expansion_reconstructs_and_every_union_tamper_is_rejected(self) -> None:

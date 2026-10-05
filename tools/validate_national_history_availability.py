@@ -22,6 +22,13 @@ probe cutoffs (including each target date's conservative boundary) and compares 
 consumer run as a subprocess; and runs coordinated
 semantic tamper cases (as if every outer hash were recomputed) and oracle self-challenges, reporting each case's
 detected class. The report is a new file written once. Exit 0 only when every check passes.
+
+BAT-715 expansion (Cycle #43 TP43-A01): for the explicit expansion contract
+(``configs/national_history_availability_2019_expansion_contract.json``) the same checks run over the 97-key archive
+expansion sidecar. Its archive binding adds the cohort and the retained acquisition; the bindings document must also
+name the cohort, the archive's own source bindings, the retained V1.2 contract and root; and the archive truth comes
+from the expansion oracle the contract binds by sha256 (``tools/validate_national_archived_publication_expansion.py``,
+which itself loads the accepted C41 oracle only after its bytes hash to the accepted value). The V1.0 path is unchanged.
 """
 from __future__ import annotations
 
@@ -68,6 +75,10 @@ PARENT_IDENTITY_FIELDS = {
     "source_time": ("database_identity", "sqlite_sha256", "content_identity", "contract_sha256"),
     "archive": ("database_identity", "sqlite_sha256", "content_identity", "contract_sha256", "contract_id",
                 "tranche_sha256", "acquisition_identity")}
+#: BAT-715 expansion: its own contract and population over the 97-key archive expansion sidecar.
+EXPANSION_CONTRACT_ID = "BAT-715-NATIONAL-HISTORY-AVAILABILITY-2019-EXPANSION-V1.0"
+EXPANSION_POPULATION = "national_history_availability_2019_expansion"
+EXPANSION_ARCHIVE_FIELDS = PARENT_IDENTITY_FIELDS["archive"] + ("cohort_sha256", "retained_acquisition_identity")
 #: ``python -c CONSUMER_BOOTSTRAP <spec json> <query argv...>``: registers a synthetic world's availability and archive
 #: authorities inside the consumer process only (this tool never imports the consumer) and runs the query module as
 #: ``__main__``. Used only by synthetic tests through --consumer-authority; real runs use ``python -m``.
@@ -80,7 +91,12 @@ CONSUMER_BOOTSTRAP = ("import contextlib, json, runpy, sys\n"
                       "    if spec.get('archive'):\n"
                       "        arch = dict(spec['archive'])\n"
                       "        data = open(arch.pop('tranche_path'), 'rb').read()\n"
-                      "        stack.enter_context(a.registered_authority(a.IssuedAuthority(tranche_bytes=data, **arch)))\n"
+                      "        if 'cohort_path' in arch:\n"
+                      "            cohort = open(arch.pop('cohort_path'), 'rb').read()\n"
+                      "            auth = a.ExpansionAuthority(tranche_bytes=data, cohort_bytes=cohort, **arch)\n"
+                      "        else:\n"
+                      "            auth = a.IssuedAuthority(tranche_bytes=data, **arch)\n"
+                      "        stack.enter_context(a.registered_authority(auth))\n"
                       "    sys.argv[0] = 'aggie_analytics.national_history.availability_query'\n"
                       "    runpy.run_module('aggie_analytics.national_history.availability_query', run_name='__main__',"
                       " alter_sys=True)\n")
@@ -164,6 +180,17 @@ def cutoff_of(text: str) -> dt.datetime:
 
 # --------------------------------------------------------------------------------------------- bindings
 
+def is_expansion(contract: dict[str, Any]) -> bool:
+    return contract.get("contract_id") == EXPANSION_CONTRACT_ID
+
+
+def identity_fields(contract: dict[str, Any]) -> dict[str, tuple[str, ...]]:
+    """The parent identity fields the content document restates (the expansion's archive binding adds two)."""
+    if is_expansion(contract):
+        return {**PARENT_IDENTITY_FIELDS, "archive": EXPANSION_ARCHIVE_FIELDS}
+    return PARENT_IDENTITY_FIELDS
+
+
 def manifest_for(db: Path) -> Path:
     root = Path(db).resolve().parent.parent.parent
     return root.parent.parent / "manifests" / root.name / "sha256" / Path(db).resolve().parent.name / "run_manifest.json"
@@ -207,10 +234,26 @@ def verify_bindings(contract: dict[str, Any], path: Path, report: Report) -> dic
         Path(doc["archive_contract"]["path"]))
     ok &= doc["archive_tranche"]["sha256"] == pb["archive"]["tranche_sha256"] == h_file(
         Path(doc["archive_tranche"]["path"]))
+    extra: dict[str, Any] = {}
+    if is_expansion(contract):
+        archive_contract = json.loads(Path(doc["archive_contract"]["path"]).read_text(encoding="utf-8"))
+        apb = archive_contract["parent_binding"]
+        ok &= doc["archive_cohort"]["sha256"] == pb["archive"]["cohort_sha256"] == h_file(
+            Path(doc["archive_cohort"]["path"])) == archive_contract["scope"]["cohort_sha256"]
+        ok &= doc["archive_source_bindings"]["sha256"] == apb["source_bindings"]["sha256"] == h_file(
+            Path(doc["archive_source_bindings"]["path"]))
+        ok &= doc["archive_retained_contract"]["sha256"] == apb["retained_acquisition"]["contract_sha256"] == h_file(
+            Path(doc["archive_retained_contract"]["path"]))
+        ok &= apb["retained_acquisition"]["identity"] == pb["archive"]["retained_acquisition_identity"] and \
+            Path(doc["archive_retained_root"]["path"]).is_dir()
+        extra = {"cohort": Path(doc["archive_cohort"]["path"]),
+                 "archive_source_bindings": Path(doc["archive_source_bindings"]["path"]),
+                 "retained_contract": Path(doc["archive_retained_contract"]["path"]),
+                 "retained_root": Path(doc["archive_retained_root"]["path"])}
     report.check("bindings_document_bound_to_contract", ok, {"sha256": h_bytes(raw)})
     return {"paths": paths, "archive_contract": Path(doc["archive_contract"]["path"]),
             "tranche": Path(doc["archive_tranche"]["path"]), "control": Path(doc["control"]["path"]),
-            "document": doc}
+            "document": doc, "expansion": is_expansion(contract), **extra}
 
 
 # --------------------------------------------------------------------------------------------- own population graph
@@ -350,9 +393,16 @@ def archive_truth(oracle: Any, bound: dict[str, Any], report: Report) -> dict[st
     delivered archive sidecar (zero new archive coverage)."""
     contract41 = json.loads(bound["archive_contract"].read_text(encoding="utf-8"))
     archive_db = bound["paths"]["archive"]
-    c41_bindings = bound["control"].parent / "INPUT_BINDINGS.json"
-    args41 = argparse.Namespace(source_database=bound["paths"]["source_time"], source_bindings=c41_bindings,
-                                tranche=bound["tranche"])
+    if bound.get("expansion"):
+        # BAT-715: the expansion oracle re-verifies both acquisitions, the 97-key union and the retained copy.
+        args41 = argparse.Namespace(source_database=bound["paths"]["source_time"],
+                                    source_bindings=bound["archive_source_bindings"], tranche=bound["tranche"],
+                                    cohort=bound["cohort"], retained_root=bound["retained_root"],
+                                    retained_contract=bound["retained_contract"])
+    else:
+        c41_bindings = bound["control"].parent / "INPUT_BINDINGS.json"
+        args41 = argparse.Namespace(source_database=bound["paths"]["source_time"], source_bindings=c41_bindings,
+                                    tranche=bound["tranche"])
     r41 = oracle.Report()
     ctx = oracle.verify_inputs(contract41, args41, r41)
     db_manifest = json.loads(manifest_for(archive_db).read_text(encoding="utf-8"))
@@ -367,7 +417,9 @@ def archive_truth(oracle: Any, bound: dict[str, Any], report: Report) -> dict[st
     result = oracle.compare(expected, delivered41["records"])
     r41.check("every_record_reconstructed_independently", oracle.clean(result), result)
     failed = r41.failed()
-    report.check("archive_parent_independently_reconstructed_by_the_c41_oracle", not failed and
+    report.check("archive_expansion_parent_independently_reconstructed_by_the_bound_expansion_oracle"
+                 if bound.get("expansion") else "archive_parent_independently_reconstructed_by_the_c41_oracle",
+                 not failed and
                  delivered41["database_identity"] == archive_db.resolve().parent.name,
                  {"oracle_checks": len(r41.checks), "failed": failed,
                   "captures": len(expected.records["captures.jsonl"]),
@@ -572,7 +624,7 @@ def expected_content(contract: dict[str, Any], contract_sha: str, expected: dict
     document = {"schema": CONTENT_SCHEMA, "stage": CONTENT_STAGE, "population": contract["population_id"],
                 "contract_id": contract["contract_id"], "contract_sha256": contract_sha,
                 "parent": {n: {k: contract["parent_binding"][n][k] for k in keys}
-                           for n, keys in PARENT_IDENTITY_FIELDS.items()},
+                           for n, keys in identity_fields(contract).items()},
                 "payload_schema": contract["payloads"]["schema_version"], "payload_encoding": PAYLOAD_ENCODING,
                 "semantic_outputs": {n: h_bytes(lines[n]) for n in NAMES},
                 "outputs": {f"{n}.gz": h_bytes(gzip_mtime0(lines[n])) for n in NAMES},
@@ -1022,7 +1074,8 @@ def main(argv: list[str] | None = None) -> int:
     contract_sha = h_bytes(raw)
     oracle_spec = contract["validator"]["archive_oracle"]
     oracle_path = Path(__file__).resolve().parents[1] / oracle_spec["module"]
-    report.check("contract_closed_schema_and_labels", contract["contract_id"].startswith("BAT-714-") and
+    report.check("contract_closed_schema_and_labels", (contract["contract_id"].startswith("BAT-714-") or (
+        is_expansion(contract) and contract["population_id"] == EXPANSION_POPULATION)) and
                  set(contract["row_labels"].values()) >= {"NOT_ADMITTED", "NOT_ELIGIBLE_NOT_ADMITTED"} and
                  contract["evidence"]["fields"] == SIX and contract["scope"]["season"] == 2019)
     bound = verify_bindings(contract, args.input_bindings, report)
@@ -1099,14 +1152,20 @@ def main(argv: list[str] | None = None) -> int:
                       "non_fbs_opponent_relationships": sum(r["prior_opponent_division_label"] != "FBS" for r in rels),
                       "distinct_prior_contests": len(expected["evidence.jsonl"]), "evidence_classes": tally,
                       "witness_rows": len(expected["witnesses.jsonl"]),
-                      "relationships_referencing_tranche": sum(r["prior_contest_key"] in tranche for r in rels)},
+                      "relationships_referencing_tranche": sum(r["prior_contest_key"] in tranche for r in rels),
+                      "archive_keys": len(truth["dispositions"])},
            "comparison": result, "decisions": decisions, "tamper_cases": tampers,
            "oracle_challenges": oracle_challenges,
            "independence": "standard library only; no producer, query, core or project import; archive truth from the "
                            "accepted C41 independent oracle loaded by bound sha256; the consumer runs only as a "
                            "subprocess and is compared with this tool's own decisions",
-           "limits": ["2019 FBS targets only; the archive tranche is 28 contests and is not national coverage",
+           "limits": [("2019 FBS targets only; the archive evidence is the 97-contest expansion union (28-key "
+                       "tranche plus the 70-key missing-prior cohort) and is not national coverage")
+                      if bound.get("expansion") else
+                      "2019 FBS targets only; the archive tranche is 28 contests and is not national coverage",
                       "archive captures are upper bounds for the exact witnessed versions, never first publication",
+                      ("the archive truth comes from the bound expansion oracle over the accepted C41 oracle; archive "
+                       "coverage is exactly the expansion sidecar's") if bound.get("expansion") else
                       "the archive truth reuses the accepted C41 oracle: zero new archive coverage is claimed",
                       "a coordinated forgery that rewrites parents and every hash is detectable only against the "
                       "committed contract/parent identities"],

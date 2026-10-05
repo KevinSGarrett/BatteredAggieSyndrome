@@ -189,6 +189,13 @@ def builder() -> Any:
     return apfx.builder()
 
 
+EXPANSION_VALIDATOR_PATH = ROOT / "tools" / "validate_national_archived_publication_expansion.py"
+
+
+def expansion_validator() -> Any:
+    return apfx.stfx.load_tool(EXPANSION_VALIDATOR_PATH, "bas_archived_publication_expansion_validator")
+
+
 def run_capture(world: dict[str, Any], *, transport: Any = None) -> dict[str, Any]:
     """The expansion capture stage offline: retained import, then the cohort acquisition through the fake archive."""
     build = builder()

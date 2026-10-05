@@ -4163,6 +4163,7 @@ src/aggie_analytics/national_population/query.py
 src/aggie_analytics/national_source_time/__init__.py
 src/aggie_analytics/national_source_time/archive.py
 src/aggie_analytics/national_source_time/archive_fields.py
+src/aggie_analytics/national_source_time/national_archived_publication_2019_tranche.json
 src/aggie_analytics/national_source_time/query.py
 src/aggie_analytics/openai_assist/__init__.py
 src/aggie_analytics/openai_assist/budget.py

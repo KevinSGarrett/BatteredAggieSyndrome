@@ -50,32 +50,63 @@ a manager-qualified binding.
   bytes. A legacy (`JOURNAL-1`) journal for the same policy id refuses `CAPTURE_MODE_CONFLICT`; a different header
   refuses `CAPTURE_POLICY_CHANGED`; a broken chain refuses `CAPTURE_JOURNAL_PREFIX_CHANGED`; a torn last line refuses
   `JOURNAL_TORN`. The legacy mode likewise refuses a service journal (`REFUSED_STALE_JOURNAL`).
-* Request authority anchor `acquisition/journal/<policy id>/AUTHORITY.json`: the number of INTENT lines and the
-  sha256 of the last INTENT line, replaced atomically after every INTENT and before dispatch. It must equal the
-  journal's INTENT count (or trail it by one after a crash before the update) with the matching line hash. A missing
-  anchor beside recorded intents, an anchor ahead of the journal (a truncated journal), an anchor behind by more
-  than one, a journal missing beside an anchor, or raw bodies that no acquisition, journal or control explains in a
-  root whose journal is new, refuse `CAPTURE_COUNTER_RESET`. A mismatched line hash refuses
-  `CAPTURE_JOURNAL_PREFIX_CHANGED`. Every recorded body is re-verified (`RAW_MISSING`, `RAW_ALTERED`).
+* Request authority anchor `acquisition/journal/<policy id>/AUTHORITY.json`, schema
+  `BAS-NATIONAL-ARCHIVED-PUBLICATION-REQUEST-AUTHORITY-2`: the anchored line count, the number of INTENT lines among
+  them, the sha256 of the last anchored line (`head_sha256`) and `pending_sha256`. Every journal write is three steps,
+  each replacing the anchor atomically: announce the sha256 of the exact next line (`pending_sha256`), append that
+  line (fsync), then advance the anchor to it (`pending_sha256` null). A crash therefore leaves at most one line after
+  the anchored head, and that line is authority only when it is exactly the announced line; any other line there (an
+  edited, replaced or appended line, however correctly chained) refuses `CAPTURE_JOURNAL_TAIL_NOT_ANNOUNCED`. An
+  announced line that is absent was never appended (an announced INTENT was never dispatched). A missing anchor beside
+  recorded lines, an anchor ahead of the journal (a truncated journal), an anchor behind by more than one, a journal
+  missing beside an anchor, or raw bodies that no acquisition, journal or control explains in a root whose journal is
+  new, refuse `CAPTURE_COUNTER_RESET`. A mismatched head refuses `CAPTURE_JOURNAL_PREFIX_CHANGED`. Every recorded body
+  is re-verified (`RAW_MISSING`, `RAW_ALTERED`).
+* Derived lines: before any decision the whole journal is replayed and every decision-bearing line is recomputed from
+  the recorded observations (each RESULT's status, headers, receipt clock and verified raw body), the contract's
+  per-key plan and limits, the bound key order and the policy. Each INTENT must be the plan's next request for the
+  next pending key within the limits, inside an owner invocation that was eligible; each RESULT must answer its INTENT
+  and its derived fields (outcome, `location`, `retry_after_seconds`, `body_bytes`) must match its own observation;
+  each PAUSE must directly follow its RESULT and equal the pause that RESULT imposes under the bound fallback, with
+  the request count and key partition of that moment; each OWNER_START must be at or after the latest journal instant
+  and, while paused, the effective eligible instant, and a RESUME directly follows it; each KEY_DONE must be the next
+  pending key, with no planned request left within its limits, and carry the contract's outcome of its own recorded
+  history; FINALIZED must name the identity of the document of the recorded observations. The first line that is not
+  its own derivation refuses `CAPTURE_JOURNAL_LINE_NOT_DERIVED` with zero requests: an edited or appended line can
+  neither shorten a pause, invent a completion, renew a budget nor trigger an extra dispatch, even when the anchor
+  was rewritten to match it.
 
 Every attempted request counts against the per-key and total limits: failures, HTTP 429, redirect hops and any
 INTENT whose result is unknown. The contract's per-key plan and limits are unchanged.
 
 ## One request
 
-1. `INTENT` line (fsync), then the anchor update, then the single dispatch through the existing transport.
+1. `INTENT` line (announced, appended, anchored), then the single dispatch through the same urllib request as the
+   default mode (no proxies, redirects, cookies or credentials; the contract's body limit).
 2. The response body goes create-only into the raw store; the `RESULT` line keeps the request record shape of the
    default mode (its `retry_after_seconds` is computed against the response receipt clock).
 3. If the status is a service-pause status (HTTP 429, at metadata, replay or a redirect hop), a `PAUSE` line is
    written before anything else and the invocation stops: no further dispatch, no retry, no next key. The paused
    key stays pending; nothing is turned into "no capture", completion or coverage.
 
+A received status line and headers are never discarded. When a 429 body is longer than the contract's
+`max_body_bytes` or cannot be read completely after the status arrived, the record keeps HTTP 429, its headers and
+`Retry-After`, retains the bounded bytes actually read (at most the limit; nothing beyond limit + 1 bytes is read)
+and names the truncation or read failure in `error` (`BODY_LIMIT_EXCEEDED: ...` or `BODY_READ_FAILED: ...`); the
+pause follows at that request. Any other status with an incomplete body stays the default mode's fail-closed
+network error (status, headers and body not kept; `error` names the received status): a truncated page is never
+evidence of an answer or a capture. A failure before any status is a network error, as in the default mode. The
+body limit is not raised and the default mode's transport and records are unchanged.
+
 Crash boundaries: after an INTENT without a RESULT the next invocation returns `RECONCILIATION_REQUIRED` (exit 5)
 with zero requests, naming the sequence, key, URL, start time and whether the anchor had advanced (per the write
 order the request was not dispatched when it had not). Only `--acknowledge-unknown-intent <seq>` records an
 `ACKNOWLEDGED` line; the request stays counted as `INTERRUPTED_UNKNOWN` and the per-key plan decides any retry.
 After a 429 RESULT without its PAUSE line the next invocation derives the same pause from the recorded RESULT
-and writes it (`recovered: true`) before any decision.
+and writes it (`recovered: true`) before any decision. A crash after any line's append and before the anchor
+advanced leaves that announced line as the only line after the head; the next invocation verifies it like every
+other line and continues from it (a genuine PAUSE keeps its raw cooldown). If that announced line is lost, it was
+never authority: a lost RESULT leaves its request counted under reconciliation, never an invented response.
 
 ## Retry-After and eligibility
 
@@ -109,7 +140,7 @@ The minimum spacing between request starts also applies across invocations.
 | `PAUSED_SERVICE_429` | 4 | this invocation stopped at a 429; resume after `eligible_utc` |
 | `DEFERRED` | 4 | not eligible yet (or clock behind the journal); zero requests |
 | `RECONCILIATION_REQUIRED` | 5 | an INTENT without a RESULT needs explicit acknowledgement |
-| refused | 2 | a binding, identity, counter, owner or argument refusal |
+| refused | 2 | a binding, identity, counter, unannounced tail, underived line, owner or argument refusal |
 
 Every non-refused result reports `requests_used`, `requests_limit`, `requests_remaining`, `new_requests`, the
 effective `eligible_utc`, every recorded pause and an exact key partition: `completed` (key -> outcome; outcomes are
@@ -120,7 +151,9 @@ unchanged.
 
 ## Limits
 
-The lock, chain and anchor protect one acquisition root against restarts, concurrent callers, mode switches and
-naive resets; they are not tamper-proof against a writer who rewrites the journal, anchor and raw store together
-or deletes the whole acquisition. Offline tests use fixture policies and fake transports in owned roots; they are
-not acquisition evidence. Live archive recovery is not claimed.
+The lock, chain, announced anchor and derived-line replay protect one acquisition root against restarts, concurrent
+callers, mode switches, naive resets and forged or promoted decision lines. Recorded observations themselves (a
+RESULT's status, headers and receipt clock with a matching raw body) cannot be re-derived: a writer who rewrites the
+journal, anchor and raw store together, or deletes the whole acquisition, is outside this protection. Offline tests
+use fixture policies and fake transports in owned roots; they are not acquisition evidence. Live archive recovery is
+not claimed.

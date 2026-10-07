@@ -46,6 +46,7 @@ import argparse
 import datetime as _dt
 import gzip
 import hashlib
+import http.client
 import json
 import os
 import platform
@@ -441,8 +442,11 @@ def read_raw(output_root: Path, sha: str) -> bytes:
 
 class Response:
     def __init__(self, status: int | None, reason: str | None, headers: list[list[str]], body: bytes,
-                 error: str | None = None) -> None:
+                 error: str | None = None, incomplete: str | None = None) -> None:
         self.status, self.reason, self.headers, self.body, self.error = status, reason, headers, body, error
+        #: Only ``urllib_transport_observed`` (BAT-716 service mode) sets this: BODY_LIMIT_EXCEEDED or BODY_READ_FAILED
+        #: when the status line and headers were received but ``body`` is not the complete body.
+        self.incomplete = incomplete
 
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -474,6 +478,49 @@ def urllib_transport(url: str, headers: dict[str, str], timeout: float, max_byte
             return Response(None, None, [], b"", f"BODY_LIMIT_EXCEEDED: more than {max_bytes} bytes")
         return Response(error.code, str(error.reason), [[k, v] for k, v in (error.headers or {}).items()], body)
     except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as error:
+        return Response(None, None, [], b"", f"{type(error).__name__}: {error}")
+
+
+def urllib_transport_observed(url: str, headers: dict[str, str], timeout: float,
+                              max_bytes: int | None = None) -> Response:
+    """BAT-716 service-aware capture only: the same single GET as ``urllib_transport`` (no proxies, redirects, cookies
+    or credentials), except that a received status line and headers are never discarded. When the body exceeds
+    ``max_bytes`` (BODY_LIMIT_EXCEEDED) or reading it fails after the status (BODY_READ_FAILED), ``body`` is the bounded
+    prefix actually read (at most ``max_bytes``; nothing beyond ``max_bytes + 1`` bytes is read) and ``incomplete``
+    names the case. The caller decides what such a response may evidence; ``urllib_transport`` is unchanged."""
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirect())
+    request = urllib.request.Request(url, headers=headers, method="GET")
+
+    def bounded(stream: Any) -> tuple[bytes, str | None, str | None]:
+        chunks: list[bytes] = []
+        total = 0
+        limit = None if max_bytes is None else max_bytes + 1
+        try:
+            while limit is None or total < limit:
+                chunk = stream.read(65536 if limit is None else min(65536, limit - total))
+                if not chunk:
+                    break
+                chunks.append(chunk)
+                total += len(chunk)
+        except (OSError, http.client.HTTPException, ValueError) as exc:
+            partial = getattr(exc, "partial", b"")
+            data = b"".join(chunks) + (partial if isinstance(partial, bytes) else b"")
+            data = data if max_bytes is None else data[:max_bytes]
+            return data, "BODY_READ_FAILED", f"BODY_READ_FAILED: {type(exc).__name__}: {exc}"
+        data = b"".join(chunks)
+        if max_bytes is not None and len(data) > max_bytes:
+            return data[:max_bytes], "BODY_LIMIT_EXCEEDED", f"BODY_LIMIT_EXCEEDED: more than {max_bytes} bytes"
+        return data, None, None
+    try:
+        with opener.open(request, timeout=timeout) as response:
+            received = [[k, v] for k, v in response.headers.items()]
+            body, incomplete, error = bounded(response)
+            return Response(response.status, response.reason, received, body, error, incomplete)
+    except urllib.error.HTTPError as error:
+        received = [[k, v] for k, v in (error.headers or {}).items()]
+        body, incomplete, note = bounded(error) if error.fp is not None else (b"", None, None)
+        return Response(error.code, str(error.reason), received, body, note, incomplete)
+    except (urllib.error.URLError, TimeoutError, ConnectionError, OSError, http.client.HTTPException) as error:
         return Response(None, None, [], b"", f"{type(error).__name__}: {error}")
 
 
@@ -1981,7 +2028,13 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
 
 CAPTURE_POLICY_SCHEMA = "BAS-ARCHIVE-CAPTURE-POLICY-1"
 SERVICE_JOURNAL_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-JOURNAL-2"
-AUTHORITY_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-REQUEST-AUTHORITY-1"
+#: Version 2 announces the exact next line before it is appended (C44-CONT-01, MF44A01-01): a journal line after the
+#: anchored head is authority only when it is that announced line.
+AUTHORITY_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-REQUEST-AUTHORITY-2"
+#: A line after the anchored head that the anchor did not announce (an unauthenticated tail).
+TAIL_REFUSAL = "CAPTURE_JOURNAL_TAIL_NOT_ANNOUNCED"
+#: A decision-bearing line that is not its own derivation from the recorded observations, raw bodies and policy.
+DERIVATION_REFUSAL = "CAPTURE_JOURNAL_LINE_NOT_DERIVED"
 #: Every rule this implementation performs; a policy naming any other value refuses (the fallback is configurable).
 SERVICE_RULES: dict[str, Any] = {
     "mode": "SERVICE_AWARE_PAUSE_RESUME",
@@ -1996,7 +2049,9 @@ SERVICE_RULES: dict[str, Any] = {
     "paused_request_planning": "THE_SERVICE_PAUSE_HONOURS_RETRY_AFTER_THE_CONTRACT_PER_KEY_PLAN_AND_LIMITS_ARE_UNCHANGED",
     "unknown_intent": "RECONCILIATION_REQUIRED_EXPLICIT_ACKNOWLEDGEMENT_STAYS_COUNTED",
     "owner": "EXCLUSIVE_OS_FILE_LOCK_PER_ACQUISITION_JOURNAL",
-    "journal": "BAS-NATIONAL-ARCHIVED-PUBLICATION-JOURNAL-2_HASH_CHAINED_WITH_REQUEST_AUTHORITY_ANCHOR",
+    "journal": "BAS-NATIONAL-ARCHIVED-PUBLICATION-JOURNAL-2_HASH_CHAINED_WITH_ANNOUNCED_TAIL_REQUEST_AUTHORITY_ANCHOR",
+    "derived_lines": "INTENT_RESULT_PAUSE_RESUME_KEY_DONE_AND_FINALIZED_RECOMPUTED_FROM_RECORDED_OBSERVATIONS_BEFORE_USE",
+    "incomplete_body": "A_SERVICE_PAUSE_STATUS_KEEPS_STATUS_HEADERS_AND_BOUNDED_BODY_OTHER_STATUSES_FAIL_CLOSED",
     "binding": "OUTPUT_ROOT_CONTRACT_ACQUISITION_POLICY_ORDERED_KEYS_TOTAL_REQUESTS"}
 BINDING_FIELDS = ("contract_id", "contract_sha256", "acquisition_policy_id", "ordered_keys", "total_requests",
                   "output_root")
@@ -2215,7 +2270,8 @@ class OwnerLock:
 
 class ServiceJournal:
     """The service-aware journal: a HEADER line, then lines each carrying ``prev`` (sha256 of the previous line's exact
-    bytes), plus the request-authority anchor (line count, intent count and the last anchored line's sha256)."""
+    bytes), plus the request-authority anchor (line count, intent count, the last anchored line's sha256 and the sha256
+    of the one line being appended, announced before it is written)."""
 
     def __init__(self, directory: Path, header_doc: dict[str, Any]) -> None:
         self.dir = Path(directory)
@@ -2271,26 +2327,35 @@ class ServiceJournal:
         self.rows.append(row)
         self.shas.append(sha256_bytes(line))
 
-    def anchor_document(self, binding_identity: str) -> dict[str, Any]:
+    def anchor_document(self, binding_identity: str, pending: str | None = None) -> dict[str, Any]:
         return {"schema": AUTHORITY_SCHEMA, "policy_id": self.header["policy_id"],
                 "binding_identity": binding_identity, "lines": len(self.rows),
-                "intents": sum(1 for r in self.rows if r.get("type") == "INTENT"), "head_sha256": self.shas[-1]}
+                "intents": sum(1 for r in self.rows if r.get("type") == "INTENT"), "head_sha256": self.shas[-1],
+                "pending_sha256": pending}
 
     def verify_anchor(self, binding_identity: str) -> dict[str, Any]:
         """Line count L and head of the anchor: the journal holds L or L + 1 lines, line L hashes to the head and the
-        anchor's intent count equals the intents among the first L lines."""
+        anchor's intent count equals the intents among the first L lines. A line L + 1 (a crash after its append and
+        before the anchor advanced) is authority only when it is exactly the line the anchor announced; any other
+        line after the anchored head refuses CAPTURE_JOURNAL_TAIL_NOT_ANNOUNCED. An announced line that is absent (a
+        crash before its append) was never written; for an INTENT that means it was never dispatched."""
         if not self.anchor_path.exists():
             if len(self.rows) > 1:
                 raise BuildRefused("CAPTURE_COUNTER_RESET", "the request-authority anchor is missing beside recorded "
                                                             "journal lines")
-            return {"lines": 1, "lagging_lines": len(self.rows) - 1}
+            return {"lines": 1, "lagging_lines": len(self.rows) - 1, "announced_tail": False}
         try:
             doc = json.loads(self.anchor_path.read_bytes().decode("utf-8"))
         except (UnicodeDecodeError, ValueError) as exc:
             raise BuildRefused("CAPTURE_COUNTER_RESET", f"unreadable request-authority anchor: {exc}") from exc
-        if doc.get("schema") != AUTHORITY_SCHEMA or doc.get("policy_id") != self.header["policy_id"] or \
-                doc.get("binding_identity") != binding_identity:
+        if doc.get("schema") != AUTHORITY_SCHEMA:
+            raise BuildRefused("CAPTURE_POLICY_CHANGED", f"the request-authority anchor schema {doc.get('schema')!r} "
+                                                         f"is not {AUTHORITY_SCHEMA}")
+        if doc.get("policy_id") != self.header["policy_id"] or doc.get("binding_identity") != binding_identity:
             raise BuildRefused("CAPTURE_POLICY_CHANGED", "the request-authority anchor binds another acquisition")
+        pending = doc.get("pending_sha256")
+        if pending is not None and not (isinstance(pending, str) and _HEX64.fullmatch(pending)):
+            raise BuildRefused("CAPTURE_COUNTER_RESET", "the request-authority anchor announces an invalid line")
         lines = doc.get("lines")
         if type(lines) is not int or lines < 1 or not (lines <= len(self.rows) <= lines + 1):
             raise BuildRefused("CAPTURE_COUNTER_RESET", f"the anchor records {lines} lines; the journal holds "
@@ -2299,12 +2364,16 @@ class ServiceJournal:
             raise BuildRefused("CAPTURE_JOURNAL_PREFIX_CHANGED", "the journal no longer hashes to its anchored head")
         if doc.get("intents") != sum(1 for r in self.rows[:lines] if r.get("type") == "INTENT"):
             raise BuildRefused("CAPTURE_COUNTER_RESET", "the anchored intent count differs from the journal")
-        return {"lines": lines, "lagging_lines": len(self.rows) - lines}
+        if len(self.rows) == lines + 1 and self.shas[lines] != pending:
+            raise BuildRefused(TAIL_REFUSAL, f"journal line {lines + 1} follows the anchored head but is not the line "
+                                             f"the request-authority anchor announced")
+        return {"lines": lines, "lagging_lines": len(self.rows) - lines, "announced_tail": len(self.rows) == lines + 1}
 
 
-def _write_authority(journal: ServiceJournal, binding_identity: str, clock: str) -> None:
-    """Replace the request-authority anchor atomically (create-only temporary file, fsync, replace)."""
-    doc = dict(journal.anchor_document(binding_identity), updated_utc=clock)
+def _write_authority(journal: ServiceJournal, binding_identity: str, clock: str, pending: str | None = None) -> None:
+    """Replace the request-authority anchor atomically (create-only temporary file, fsync, replace); ``pending`` is the
+    sha256 of the exact line about to be appended."""
+    doc = dict(journal.anchor_document(binding_identity, pending), updated_utc=clock)
     temporary = journal.dir / f".AUTHORITY.tmp-{os.getpid()}-{time.time_ns()}"
     with temporary.open("xb") as handle:
         handle.write(canonical_json_bytes(doc) + b"\n")
@@ -2314,7 +2383,10 @@ def _write_authority(journal: ServiceJournal, binding_identity: str, clock: str)
 
 
 def _service_append(journal: ServiceJournal, row: dict[str, Any], binding_identity: str, clock: str) -> None:
-    """Every service journal write: append the line, then advance the request-authority anchor."""
+    """Every service journal write: announce the exact next line in the request-authority anchor, append it, then
+    advance the anchor to it. A crash leaves at most that one announced line after the anchored head."""
+    line = journal._line(dict(row, prev=journal.shas[-1]))
+    _write_authority(journal, binding_identity, clock, sha256_bytes(line))
     journal.append(row)
     _write_authority(journal, binding_identity, clock)
 
@@ -2419,13 +2491,8 @@ def service_state(journal: ServiceJournal, pause_statuses: tuple[int, ...]) -> d
         if seq in results:
             records.append(results[seq])
         else:
-            intent = intents[seq]
             unknown.append(seq)
-            records.append({"seq": seq, "contest_key": intent["contest_key"], "kind": intent["kind"],
-                            "purpose": intent["purpose"], "url": intent["url"], "started_utc": intent["started_utc"],
-                            "ended_utc": None, "outcome": "INTERRUPTED_UNKNOWN", "http_status": None, "reason": None,
-                            "headers": [], "location": None, "body_sha256": None, "body_bytes": None,
-                            "retry_after_seconds": None, "slept_seconds": "0.000", "error": "INTENT_WITHOUT_RESULT"})
+            records.append(_unknown_record(intents[seq]))
     last = max(results) if results else None
     unpaused = last if last is not None and results[last]["http_status"] in pause_statuses and \
         not any(p["seq"] == last for p in pauses) else None
@@ -2435,6 +2502,182 @@ def service_state(journal: ServiceJournal, pause_statuses: tuple[int, ...]) -> d
             "latest_utc": max(instants) if instants else None, "paused_unresumed": paused_unresumed,
             "stopped_owners": stopped,
             "last_intent_started": intents[max(intents)]["started_utc"] if intents else None}
+
+
+def _service_planning(history: list[dict[str, Any]], pause_statuses: tuple[int, ...]) -> list[dict[str, Any]]:
+    """The history the per-key plan sees in the service mode: the service pause, not an in-run sleep, honoured a
+    paused response's Retry-After, so its retry is not refused by the contract's in-run cap."""
+    return [dict(r, retry_after_seconds=None) if r["http_status"] in pause_statuses else r for r in history]
+
+
+def _unknown_record(intent: dict[str, Any]) -> dict[str, Any]:
+    return {"seq": intent["seq"], "contest_key": intent["contest_key"], "kind": intent["kind"],
+            "purpose": intent["purpose"], "url": intent["url"], "started_utc": intent["started_utc"],
+            "ended_utc": None, "outcome": "INTERRUPTED_UNKNOWN", "http_status": None, "reason": None, "headers": [],
+            "location": None, "body_sha256": None, "body_bytes": None, "retry_after_seconds": None,
+            "slept_seconds": "0.000", "error": "INTENT_WITHOUT_RESULT"}
+
+
+def verify_service_lines(journal: ServiceJournal, contract: dict[str, Any], keys_order: list[str],
+                         service: dict[str, Any], control: dict[str, Any], pid: str,
+                         plan_next_key: Callable[..., Any], key_outcome: Callable[..., str],
+                         read_body: Callable[[dict[str, Any]], bytes], pause_statuses: tuple[int, ...]) -> dict[str, Any]:
+    """Replay the whole journal and recompute every decision-bearing line before any of it is used: each INTENT is the
+    contract plan's next request for the next pending key within the limits, inside an eligible owner invocation; each
+    RESULT answers its INTENT and its derived fields (outcome, location, Retry-After seconds, body size) match its own
+    observation and verified raw body; each PAUSE directly follows its RESULT and equals ``service_pause`` of that
+    record under the bound fallback, with the request count and key partition of that moment; each OWNER_START and
+    RESUME is at or after the latest journal instant and the effective eligible instant; each KEY_DONE is the next
+    pending key in the bound order, the plan has no request left within the limits and its outcome is the contract's
+    outcome of its recorded history; FINALIZED names the identity of the document of the recorded observations. The
+    first line that is not its own derivation refuses CAPTURE_JOURNAL_LINE_NOT_DERIVED (C44-CONT-01, MF44A01-01):
+    an edited, appended or promoted line can neither shorten a pause, invent a completion nor renew a budget."""
+    limits = contract["acquisition"]["limits"]
+    total = limits["total_requests"]
+    specs = {spec["contest_key"]: spec for spec in contract["scope"]["keys"]}
+    fallback = service["fallback"]
+    records: list[dict[str, Any]] = []
+    position: dict[int, int] = {}
+    intents: dict[int, dict[str, Any]] = {}
+    result_line: dict[int, int] = {}
+    outcomes: dict[str, str] = {}
+    pauses: list[dict[str, Any]] = []
+    owners: dict[str, bool] = {}
+    instants: list[str] = []
+    in_owner = exhausted = paused = False
+
+    def per_key_limit(kind: str) -> int:
+        return limits["metadata_requests_per_key" if kind == "METADATA" else "replay_requests_per_key"]
+    for index in range(1, len(journal.rows)):
+        row = journal.rows[index]
+        kind = row.get("type")
+
+        def refuse(reason: str) -> None:
+            raise BuildRefused(DERIVATION_REFUSAL, f"journal line {index + 1} ({kind}): {reason}")
+        if kind == "OWNER_START":
+            if instants and parse_utc(row["at"]) < parse_utc(max(instants)):
+                refuse("the owner started before the latest recorded journal instant")
+            if paused and parse_utc(row["at"]) < parse_utc(max(p["eligible_utc"] for p in pauses)):
+                refuse("the owner started before the paused acquisition's eligible instant")
+            if row.get("previous_owner_unreleased") != [o for o, open_ in owners.items() if open_]:
+                refuse("previous_owner_unreleased is not the set of owners that never ended")
+            owners[row["owner"]] = True
+            in_owner, exhausted = True, False
+            instants.append(row["at"])
+        elif kind == "OWNER_END":
+            owners[row["owner"]] = False
+            in_owner = False
+            instants.append(row["at"])
+        elif kind == "ACKNOWLEDGED":
+            in_owner = False
+            instants.append(row["at"])
+        elif kind == "RESUME":
+            before = journal.rows[index - 1]
+            if before.get("type") != "OWNER_START" or before.get("at") != row.get("at"):
+                refuse("a resume directly follows its owner's start, at the same instant")
+            if not pauses or row.get("after_pause_seq") != pauses[-1]["seq"] or \
+                    row.get("eligible_utc") != max(p["eligible_utc"] for p in pauses):
+                refuse("the resume does not name the latest pause and the effective eligible instant")
+            paused = False
+            instants.append(row["at"])
+        elif kind == "INTENT":
+            if not in_owner or paused:
+                refuse("a request outside an eligible owner invocation")
+            pending = [k for k in keys_order if k not in outcomes]
+            key = row.get("contest_key")
+            if not pending or key != pending[0]:
+                refuse(f"the request is for {key}, not the next pending key in the bound order")
+            spec = specs[key]
+            history = [r for r in records if r["contest_key"] == key]
+            step = None if spec["selection_role"] == af.CONTROL_ROLE else \
+                plan_next_key(spec, _service_planning(history, pause_statuses), contract, read_body)
+            if step is None or (row.get("kind"), row.get("purpose"), row.get("url")) != tuple(step):
+                refuse(f"the request {(row.get('kind'), row.get('purpose'))} is not the contract plan's next "
+                       f"request {tuple(step[:2]) if step else None}")
+            if sum(1 for r in history if r["kind"] == row["kind"]) >= per_key_limit(row["kind"]) or \
+                    len(records) >= total:
+                refuse("the request exceeds the per-key or total limit")
+            intents[row["seq"]] = row
+            position[row["seq"]] = len(records)
+            records.append(_unknown_record(row))
+            instants.append(row["started_utc"])
+        elif kind == "RESULT":
+            seq, record = row["seq"], row["request"]
+            intent = intents[seq]
+            observed = record.get("http_status") is not None
+            if any(record.get(f) != intent.get(f) for f in ("seq", "contest_key", "kind", "purpose", "url",
+                                                             "started_utc")):
+                refuse("the result does not answer its intent")
+            if record.get("outcome") != ("RESPONSE" if observed else "NETWORK_ERROR") or \
+                    (record.get("body_sha256") is not None) != observed or \
+                    record.get("location") != header(record.get("headers") or [], "Location") or \
+                    record.get("retry_after_seconds") != _receipt_retry_after(record.get("headers") or [],
+                                                                              record["ended_utc"]) or \
+                    (observed and record.get("body_bytes") != len(read_body(record))):
+                refuse("the result's derived fields do not match its own observation")
+            records[position[seq]] = record
+            result_line[seq] = index
+            instants.append(record["ended_utc"])
+        elif kind == "PAUSE":
+            seq = row["seq"]
+            record = records[position[seq]]
+            if result_line.get(seq) != index - 1:
+                refuse("a pause directly follows the result it derives from")
+            if type(row.get("recovered")) is not bool or (row["recovered"] is False and not in_owner):
+                refuse("an in-run pause outside its owner invocation")
+            expected = {"seq": seq, "contest_key": record["contest_key"], "kind": record["kind"],
+                        "purpose": record["purpose"], "url": record["url"], "http_status": record["http_status"],
+                        **service_pause(record, fallback), "requests_used": len(records), "requests_limit": total,
+                        "keys": key_partition(keys_order, records, outcomes)}
+            for field, value in expected.items():
+                if row.get(field) != value:
+                    refuse(f"{field} {row.get(field)!r} is not its derivation {value!r} from the recorded result "
+                           f"and the bound policy")
+            extra = sorted(set(row) - set(expected) - {"type", "prev", "recovered", "recorded_utc"})
+            if extra:
+                refuse(f"unexpected fields {extra}")
+            pauses.append(row)
+            paused = True
+            in_owner = in_owner and not row["recovered"]
+            instants.append(row["recorded_utc"])
+        elif kind == "KEY_DONE":
+            if not in_owner or paused:
+                refuse("a key completion outside an eligible owner invocation")
+            pending = [k for k in keys_order if k not in outcomes]
+            key = row.get("contest_key")
+            if not pending or key != pending[0]:
+                refuse(f"{key} is not the next pending key in the bound order")
+            spec = specs[key]
+            history = [r for r in records if r["contest_key"] == key]
+            if spec["selection_role"] == af.CONTROL_ROLE:
+                expected_outcome = "CONTROL_REUSED" if not history else None
+            else:
+                step = plan_next_key(spec, _service_planning(history, pause_statuses), contract, read_body)
+                if step is not None:
+                    if sum(1 for r in history if r["kind"] == step[0]) >= per_key_limit(step[0]):
+                        pass
+                    elif len(records) >= total:
+                        exhausted = True
+                    else:
+                        refuse(f"the contract plan still has its next request {tuple(step[:2])} for {key} within "
+                               f"its limits")
+                if step is not None and exhausted:
+                    expected_outcome = key_outcome(spec, history, True) if history else \
+                        "NOT_ATTEMPTED_TOTAL_BUDGET_EXHAUSTED"
+                else:
+                    expected_outcome = key_outcome(spec, history, False)
+            if row.get("acquisition_outcome") != expected_outcome:
+                refuse(f"outcome {row.get('acquisition_outcome')!r} is not {expected_outcome!r}, the outcome of "
+                       f"{key}'s recorded observations")
+            outcomes[key] = expected_outcome
+        elif kind == "FINALIZED":
+            if not in_owner or paused or [k for k in keys_order if k not in outcomes]:
+                refuse("finalization before every key is done inside an eligible owner invocation")
+            identity = sha256_bytes(canonical_json_bytes(_acquisition_document(contract, control, pid, records,
+                                                                               outcomes)))
+            if row.get("acquisition_identity") != identity:
+                refuse("the finalized identity is not the document of the recorded observations")
+    return {"lines": len(journal.rows), "records": len(records), "outcomes": len(outcomes), "pauses": len(pauses)}
 
 
 def key_partition(keys: list[str], records: list[dict[str, Any]], outcomes: dict[str, str]) -> dict[str, Any]:
@@ -2540,6 +2783,8 @@ def capture_service(contract: dict[str, Any], rows: list[dict[str, Any]], output
         state = service_state(journal, pause_statuses)
         for sha in [r["body_sha256"] for r in state["records"] if r.get("body_sha256")]:
             read_raw(output_root, sha)
+        verify_service_lines(journal, contract, keys_order, service, control, pid, plan_next_key, key_outcome,
+                             read_body, pause_statuses)
         if state["final"]:
             # another owner finalized between the unlocked check above and this lock
             final_path = output_root / "acquisition" / "sha256" / state["final"] / "acquisition.json"
@@ -2632,8 +2877,8 @@ def _service_dispatch(contract: dict[str, Any], rows: list[dict[str, Any]], outp
     if transport is None:
         if audit:
             install_network_audit(journal.dir / "network_audit.jsonl")
-        transport = (lambda url, headers, timeout: urllib_transport(url, headers, timeout, max_bytes=max_body_bytes)) \
-            if max_body_bytes is not None else urllib_transport
+        transport = lambda url, headers, timeout: urllib_transport_observed(  # noqa: E731
+            url, headers, timeout, max_bytes=max_body_bytes)
     keys = {spec["contest_key"]: spec for spec in contract["scope"]["keys"]}
     headers = dict(acquisition["request_headers"])
     spacing = limits["min_seconds_between_request_starts"] + SPACING_MARGIN_SECONDS
@@ -2643,8 +2888,7 @@ def _service_dispatch(contract: dict[str, Any], rows: list[dict[str, Any]], outp
     exhausted = False
 
     def planning(history: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        # the service pause, not an in-run sleep, honoured the paused response's Retry-After
-        return [dict(r, retry_after_seconds=None) if r["http_status"] in pause_statuses else r for r in history]
+        return _service_planning(history, pause_statuses)
     for row in rows:
         key = keys[row["contest_key"]]
         if key["contest_key"] in outcomes:
@@ -2694,6 +2938,18 @@ def _service_dispatch(contract: dict[str, Any], rows: list[dict[str, Any]], outp
             response = transport(url, headers, float(limits["timeout_seconds"]))
             ended = now()
             new_requests += 1
+            incomplete = getattr(response, "incomplete", None)
+            if incomplete and response.status in pause_statuses:
+                # MF44A01-02: an observed service-pause status stays observed (status, headers, Retry-After and the
+                # bounded body actually read) although its body is incomplete; the record says so
+                response = Response(response.status, response.reason, response.headers, response.body,
+                                    f"{response.error}; HTTP {response.status} status and headers kept; the first "
+                                    f"{len(response.body)} body bytes retained")
+            elif incomplete:
+                # any other status with an incomplete body stays the default mode's fail-closed network error: a
+                # truncated body is never evidence of an answer or a capture
+                response = Response(None, None, [], b"", f"{response.error}; HTTP {response.status} received; body not "
+                                                         f"retained (not a service-pause status)")
             body_sha = store_raw(output_root, response.body) if response.status is not None else None
             response_headers = redact(response.headers, acquisition["redacted_response_headers"])
             record = {"seq": seq, "contest_key": key["contest_key"], "kind": kind, "purpose": purpose, "url": url,

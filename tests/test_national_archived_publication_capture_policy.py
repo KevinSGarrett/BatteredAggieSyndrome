@@ -1,13 +1,19 @@
 """BAT-716 service-aware archive capture (Cycle #44 TP44-A01): the explicit --capture-policy mode stops the whole
 acquisition at the first HTTP 429, resumes only on a later explicit eligible invocation and keeps one bound journal,
-request ceiling and owner. Every case runs the actual CLI (``main``) through the real ``urllib_transport`` with a fake
+request ceiling and owner. Every case runs the actual CLI (``main``) through the real urllib transport with a fake
 opener at the ``urllib.request.build_opener`` boundary and a controlled clock. Synthetic worlds and fixture policies in
-owned temporary roots only; they never authorize a real request and are not acquisition evidence."""
+owned temporary roots only; they never authorize a real request and are not acquisition evidence.
+
+JournalTailTests and BodyLimitTests (C44-CONT-01, findings MF44A01-01 and MF44A01-02): a line after the anchored head
+is authority only when the anchor announced exactly that line, every decision-bearing line must be its own derivation
+from the recorded observations, and an observed 429 stays a 429 when its bounded body is oversized or unreadable."""
 from __future__ import annotations
 
 import contextlib
 import datetime as dt
 import email.message
+import hashlib
+import http.client
 import io
 import json
 import sys
@@ -53,16 +59,36 @@ def utc(text: str) -> dt.datetime:
 
 
 class Reply:
-    """One scripted HTTP answer: status, header pairs and body; ``crash`` interrupts the process instead."""
+    """One scripted HTTP answer: status, header pairs and body; ``crash`` interrupts the process instead;
+    ``fail_after``/``fail_with`` lose the connection after that many body bytes (the status and headers were already
+    received); ``network_error`` fails before any status."""
 
     def __init__(self, status: int = 429, headers: list[list[str]] | None = None, body: bytes = BUSY_BODY,
-                 crash: bool = False) -> None:
+                 crash: bool = False, fail_after: int | None = None, fail_with: BaseException | None = None,
+                 network_error: bool = False) -> None:
         self.status, self.headers, self.body, self.crash = status, headers or [], body, crash
+        self.fail_after, self.fail_with, self.network_error = fail_after, fail_with, network_error
 
 
-class FakeResponse(io.BytesIO):
-    def __init__(self, status: int, reason: str, headers: list[list[str]], body: bytes) -> None:
+class FailingBody(io.BytesIO):
+    """A response body whose connection is lost at byte ``after`` (``after`` None: never): like a buffered socket read,
+    a read that would cross that point raises ``error`` and returns nothing of its own partial data (an
+    ``http.client.IncompleteRead`` may carry what it got in ``partial``)."""
+
+    def __init__(self, body: bytes, after: int | None = None, error: BaseException | None = None) -> None:
         super().__init__(body)
+        self.after, self.error = after, error
+
+    def read(self, size: int | None = -1) -> bytes:
+        if self.after is not None and (size is None or size < 0 or self.tell() + size > self.after):
+            raise self.error or ConnectionResetError("fixture: connection lost mid-body")
+        return super().read(size)
+
+
+class FakeResponse(FailingBody):
+    def __init__(self, status: int, reason: str, headers: list[list[str]], body: bytes, after: int | None = None,
+                 error: BaseException | None = None) -> None:
+        super().__init__(body, after, error)
         self.status, self.reason = status, reason
         message = email.message.Message()
         for key, value in headers:
@@ -177,12 +203,16 @@ class Harness:
                 found = harness.answer(request.full_url)
                 if found.crash:
                     raise SimulatedCrash(request.full_url)
+                if getattr(found, "network_error", False):
+                    raise urllib.error.URLError("fixture: connection refused before any status")
+                after, error = getattr(found, "fail_after", None), getattr(found, "fail_with", None)
                 if found.status < 300:
-                    return FakeResponse(found.status, "OK", found.headers, found.body)
+                    return FakeResponse(found.status, "OK", found.headers, found.body, after, error)
                 message = email.message.Message()
                 for key, value in found.headers:
                     message[key] = value
-                raise urllib.error.HTTPError(request.full_url, found.status, "fixture", message, io.BytesIO(found.body))
+                raise urllib.error.HTTPError(request.full_url, found.status, "fixture", message,
+                                             FailingBody(found.body, after, error))
         return Opener()
 
     # ---- the actual CLI ---------------------------------------------------------------------------------------
@@ -761,6 +791,429 @@ class V12ContractTests(unittest.TestCase):
         self.assertEqual((code, result["capture"]["state"]), (0, "FINALIZED"), err)
         self.assertEqual(result["capture"]["outcomes"][h.world["contract_doc"]["scope"]["control_contest_key"]],
                          "CONTROL_REUSED")
+
+
+# --------------------------------------------------------------------------------------------- C44-CONT-01 helpers
+
+TAIL = "CAPTURE_JOURNAL_TAIL_NOT_ANNOUNCED"
+DERIVED = "CAPTURE_JOURNAL_LINE_NOT_DERIVED"
+LIMIT = 65536
+
+
+def sha(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def line_of(row: dict[str, Any]) -> bytes:
+    return json.dumps(row, sort_keys=True, ensure_ascii=False).encode("utf-8") + b"\n"
+
+
+def raw_lines(h: Harness) -> list[bytes]:
+    return (h.jdir / "journal.jsonl").read_bytes().splitlines(keepends=True)
+
+
+def replace_tail(h: Harness, row: dict[str, Any]) -> None:
+    """Replace only the last journal line (its ``prev`` kept): the anchored prefix and the anchor stay untouched."""
+    (h.jdir / "journal.jsonl").write_bytes(b"".join(raw_lines(h)[:-1]) + line_of(row))
+
+
+def append_chained(h: Harness, row: dict[str, Any]) -> None:
+    """Append one correctly chained line without touching the anchor."""
+    with (h.jdir / "journal.jsonl").open("ab") as handle:
+        handle.write(line_of(dict(row, prev=sha(raw_lines(h)[-1]))))
+
+
+def write_rechained(h: Harness, rows: list[dict[str, Any]]) -> None:
+    """Rewrite the whole journal with every ``prev`` re-chained (a coordinated edit)."""
+    lines: list[bytes] = []
+    for index, row in enumerate(rows):
+        if index:
+            row["prev"] = sha(lines[-1])
+        lines.append(line_of(row))
+    (h.jdir / "journal.jsonl").write_bytes(b"".join(lines))
+
+
+def reanchor(h: Harness, lines: int | None = None) -> None:
+    """An adversary who also rewrites the request-authority anchor consistently with the journal bytes: line count
+    (every line unless ``lines``), intent count, head and an announcement of any one following line."""
+    data = raw_lines(h)
+    count = len(data) if lines is None else lines
+    rows = [json.loads(x) for x in data]
+    doc = json.loads((h.jdir / "AUTHORITY.json").read_text(encoding="utf-8"))
+    doc.update(lines=count, intents=sum(1 for r in rows[:count] if r["type"] == "INTENT"),
+               head_sha256=sha(data[count - 1]), pending_sha256=sha(data[count]) if count < len(data) else None)
+    (h.jdir / "AUTHORITY.json").write_bytes(h.b.canonical_json_bytes(doc) + b"\n")
+
+
+def crash_after(h: Harness, kind: str, nth: int = 1) -> Any:
+    """Interrupt the process right after the ``nth`` journal line of ``kind`` was appended and fsynced and before the
+    request-authority anchor advanced to it (an announcement of that line, if the producer makes one, is kept)."""
+    real = h.b._write_authority
+    seen: list[int] = []
+
+    def crash(journal: Any, *args: Any) -> None:
+        advancing = len(args) < 3 or args[2] is None
+        if advancing and journal.rows[-1].get("type") == kind:
+            seen.append(1)
+            if len(seen) == nth:
+                raise SimulatedCrash(f"after {kind} #{nth}, before the anchor advanced")
+        real(journal, *args)
+    return mock.patch.object(h.b, "_write_authority", crash)
+
+
+def paused_harness(retry_after: str = "600", **kwargs: Any) -> Harness:
+    h = Harness(**kwargs)
+    h.reply(meta_fragment(h, first_key(h)), Reply(headers=[["Retry-After", retry_after]]))
+    return h
+
+
+def limited() -> Harness:
+    return Harness(contract_patch=lambda c: c["acquisition"]["limits"].update(max_body_bytes=LIMIT))
+
+
+def busy_at(h: Harness, location: str, reply: Reply) -> int:
+    """Script ``reply`` at the metadata, replay or redirect-hop request; returns that request's number."""
+    if location == "metadata":
+        h.reply(meta_fragment(h, first_key(h)), reply)
+        return 1
+    if location == "replay":
+        h.reply("20190910020000id_/", reply)
+        return 3
+    game = h.world["cby"]["ncaa:1004"]["cfbd_game_id"]["value"]
+    h.reply("20190910020000id_/", Reply(302, [["Location", "https://web.archive.org/web/20190910030000id_/"
+                                                            + apfx.game_url(game)]], b""))
+    h.reply("20190910030000id_/", reply)
+    return 4
+
+
+class JournalTailTests(unittest.TestCase):
+    """MF44A01-01: the one-line append/anchor crash window and the decision-bearing lines."""
+
+    def refused(self, h: Harness, code: str, contains: str = "") -> None:
+        before = {k: v for k, v in h.snapshot().items() if not k.endswith("OWNER.lock")}
+        calls = len(h.calls)
+        got = h.run()
+        self.assertEqual((got[0], h.refusal(got[2])), (2, code), got[2])
+        self.assertIn(contains, got[2])
+        self.assertEqual(len(h.calls), calls, f"{code}: the refusal sent no request")
+        self.assertEqual({k: v for k, v in h.snapshot().items() if not k.endswith("OWNER.lock")}, before,
+                         f"{code}: the refusal wrote nothing")
+
+    def test_a_genuine_crash_after_each_decision_line_resumes_from_its_announced_tail(self) -> None:
+        h = paused_harness()
+        with self.assertRaises(SimulatedCrash):
+            h.run(extra_patches=[crash_after(h, "PAUSE")])
+        self.assertEqual(h.types()[-1], "PAUSE")
+        record = next(x["request"] for x in h.lines() if x["type"] == "RESULT")
+        h.t += 10
+        code, result, err = h.run()
+        cap = result["capture"]
+        self.assertEqual((code, cap["state"], cap["new_requests"], len(h.calls)), (4, "DEFERRED", 0, 1), err)
+        self.assertEqual(utc(cap["eligible_utc"]), utc(record["ended_utc"]) + dt.timedelta(seconds=600),
+                         "the raw 600 s cooldown is kept")
+        h.set_now(cap["eligible_utc"])
+        code, result, err = h.run()
+        self.assertEqual((code, result["capture"]["state"], result["capture"]["totals"]["requests"]),
+                         (0, "FINALIZED", 10), err)
+        h = paused_harness()
+        with self.assertRaises(SimulatedCrash):
+            h.run(extra_patches=[crash_after(h, "RESULT")])
+        self.assertEqual(h.types()[-1], "RESULT")
+        h.t += 10
+        code, result, err = h.run()
+        cap = result["capture"]
+        self.assertEqual((code, cap["state"], cap["new_requests"], len(h.calls)), (4, "DEFERRED", 0, 1), err)
+        self.assertTrue(cap["pauses"][0]["recovered"], "the announced 429 result is adopted and its pause derived")
+        for kind, nth in (("KEY_DONE", 1), ("KEY_DONE", 4), ("OWNER_START", 1), ("FINALIZED", 1)):
+            with self.subTest(kind=kind, nth=nth):
+                h = Harness()
+                with self.assertRaises(SimulatedCrash):
+                    h.run(extra_patches=[crash_after(h, kind, nth)])
+                done = list(h.calls)
+                code, result, err = h.run()
+                self.assertEqual(code, 0, err)
+                self.assertEqual(result["capture"]["state"], "ALREADY_FINALIZED" if kind == "FINALIZED" else
+                                 "FINALIZED")
+                self.assertEqual(h.calls[:len(done)], done)
+                self.assertEqual(len(h.calls), 9, "no completed request is repeated")
+        h = paused_harness()
+        self.assertEqual(h.run()[0], 4)
+        h.set_now([x for x in h.lines() if x["type"] == "PAUSE"][0]["eligible_utc"])
+        with self.assertRaises(SimulatedCrash):
+            h.run(extra_patches=[crash_after(h, "RESUME")])
+        self.assertEqual(h.types()[-1], "RESUME")
+        code, result, err = h.run()
+        self.assertEqual((code, result["capture"]["state"], result["capture"]["totals"]["requests"]),
+                         (0, "FINALIZED", 10), err)
+
+    def test_a_forged_unanchored_pause_cannot_shorten_the_cooldown(self) -> None:
+        h = paused_harness()
+        with self.assertRaises(SimulatedCrash):
+            h.run(extra_patches=[crash_after(h, "PAUSE")])
+        rows = h.lines()
+        genuine = rows[-1]["eligible_utc"]
+        record = next(x["request"] for x in rows if x["type"] == "RESULT")
+        replace_tail(h, dict(rows[-1], eligible_utc=record["ended_utc"], delay_seconds="0.000000"))
+        h.t += 10
+        self.refused(h, TAIL)
+        h.set_now(genuine)
+        self.refused(h, TAIL, "is not the line the request-authority anchor announced")
+
+    def test_a_forged_unanchored_key_done_cannot_invent_a_capture(self) -> None:
+        h = paused_harness()
+        with self.assertRaises(SimulatedCrash):
+            h.run(extra_patches=[crash_after(h, "PAUSE")])
+        rows = h.lines()
+        genuine = rows[-1]["eligible_utc"]
+        replace_tail(h, {"type": "KEY_DONE", "contest_key": first_key(h), "acquisition_outcome": "CAPTURED",
+                         "prev": rows[-1]["prev"]})
+        h.t += 10
+        self.refused(h, TAIL)
+        h.set_now(genuine)
+        self.refused(h, TAIL)
+
+    def test_an_appended_chained_key_done_after_a_closed_pause_refuses(self) -> None:
+        h = paused_harness()
+        code, paused, err = h.run()
+        self.assertEqual(code, 4, err)
+        append_chained(h, {"type": "KEY_DONE", "contest_key": first_key(h), "acquisition_outcome": "CAPTURED"})
+        h.t += 10
+        self.refused(h, TAIL)
+        h.set_now(paused["capture"]["eligible_utc"])
+        self.refused(h, TAIL)
+
+    def test_a_forged_tail_with_a_rewritten_announcement_refuses_by_derivation(self) -> None:
+        h = paused_harness()
+        with self.assertRaises(SimulatedCrash):
+            h.run(extra_patches=[crash_after(h, "PAUSE")])
+        rows = h.lines()
+        record = next(x["request"] for x in rows if x["type"] == "RESULT")
+        replace_tail(h, dict(rows[-1], eligible_utc=record["ended_utc"], delay_seconds="0.000000"))
+        reanchor(h, lines=len(rows) - 1)
+        h.t += 10
+        self.refused(h, DERIVED, "(PAUSE): delay_seconds")
+
+    def test_forged_tail_observations_acknowledgements_and_transitions_refuse(self) -> None:
+        h = paused_harness()
+        with self.assertRaises(SimulatedCrash):
+            h.run(extra_patches=[crash_after(h, "RESULT")])
+        tail = h.lines()[-1]
+        replace_tail(h, dict(tail, request=dict(tail["request"], http_status=200)))
+        h.t += 10
+        self.refused(h, TAIL)
+        h = Harness()
+        keys = h.binding["ordered_keys"]
+        h.reply(meta_fragment(h, keys[1]), Reply(crash=True))
+        with self.assertRaises(SimulatedCrash):
+            h.run()
+        seq = h.lines()[-1]["seq"]
+        append_chained(h, {"type": "ACKNOWLEDGED", "seq": seq, "at": h.now(), "decision": "COUNTED_RESULT_UNKNOWN",
+                           "anchor_had_advanced": True})
+        self.refused(h, TAIL, "is not the line the request-authority anchor announced")
+        for name, line in (("RESUME", lambda p: {"type": "RESUME", "after_pause_seq": 1,
+                                                 "eligible_utc": p["eligible_utc"], "at": p["eligible_utc"]}),
+                           ("FINALIZED", lambda p: {"type": "FINALIZED", "acquisition_identity": "0" * 64}),
+                           ("INTENT", lambda p: {"type": "INTENT", "seq": 2, "contest_key": p["contest_key"],
+                                                 "kind": "METADATA", "purpose": "RETRY", "url": p["url"],
+                                                 "started_utc": p["recorded_utc"]})):
+            with self.subTest(line=name):
+                h = paused_harness()
+                self.assertEqual(h.run()[0], 4)
+                append_chained(h, line(next(x for x in h.lines() if x["type"] == "PAUSE")))
+                h.t += 10
+                self.refused(h, TAIL)
+
+    def test_coordinated_rewrites_of_derived_lines_refuse_by_derivation(self) -> None:
+        def closed_pause() -> tuple[Harness, list[dict[str, Any]]]:
+            h = paused_harness()
+            self.assertEqual(h.run()[0], 4)
+            return h, h.lines()
+
+        def index_of(rows: list[dict[str, Any]], kind: str) -> int:
+            return [r["type"] for r in rows].index(kind)
+        h, rows = closed_pause()
+        record = rows[index_of(rows, "RESULT")]["request"]
+        rows[index_of(rows, "PAUSE")].update(eligible_utc=record["ended_utc"], delay_seconds="0.000000")
+        write_rechained(h, rows)
+        reanchor(h)
+        h.t += 10
+        self.refused(h, DERIVED, "(PAUSE): delay_seconds")
+        h, rows = closed_pause()
+        append_chained(h, {"type": "KEY_DONE", "contest_key": first_key(h), "acquisition_outcome": "CAPTURED"})
+        reanchor(h)
+        h.t += 10
+        self.refused(h, DERIVED, "(KEY_DONE): a key completion outside an eligible owner invocation")
+        h, rows = closed_pause()
+        pause = rows[index_of(rows, "PAUSE")]
+        h.t += 10
+        append_chained(h, {"type": "OWNER_START", "owner": "f" * 32, "pid": 1, "at": h.now(),
+                           "previous_owner_unreleased": []})
+        append_chained(h, {"type": "RESUME", "after_pause_seq": pause["seq"], "eligible_utc": pause["eligible_utc"],
+                           "at": h.now()})
+        reanchor(h)
+        self.refused(h, DERIVED, "(OWNER_START): the owner started before the paused acquisition's eligible instant")
+        h, rows = closed_pause()
+        rows[index_of(rows, "RESULT")]["request"]["body_bytes"] += 1
+        write_rechained(h, rows)
+        reanchor(h)
+        h.t += 10
+        self.refused(h, DERIVED, "(RESULT): the result's derived fields do not match its own observation")
+        h, rows = closed_pause()
+        intent, result = rows[index_of(rows, "INTENT")], rows[index_of(rows, "RESULT")]["request"]
+        moved = intent["url"].replace("timestamp=", "timestamp=1")
+        intent["url"] = result["url"] = rows[index_of(rows, "PAUSE")]["url"] = moved
+        write_rechained(h, rows)
+        reanchor(h)
+        h.t += 10
+        self.refused(h, DERIVED, "(INTENT): the request")
+        h = Harness()
+        h.reply("id_/https://www.espn.com", Reply(headers=[["Retry-After", "30"]]))
+        self.assertEqual(h.run()[0], 4)
+        rows = h.lines()
+        done = next(r for r in rows if r["type"] == "KEY_DONE")
+        self.assertEqual(done["acquisition_outcome"], "RETAINED_VERSION_REUSED")
+        done["acquisition_outcome"] = "CAPTURED"
+        write_rechained(h, rows)
+        reanchor(h)
+        h.t += 3600
+        self.refused(h, DERIVED, "(KEY_DONE): outcome 'CAPTURED' is not 'RETAINED_VERSION_REUSED'")
+        h = Harness()
+        with self.assertRaises(SimulatedCrash):
+            h.run(extra_patches=[crash_after(h, "KEY_DONE", 4)])
+        append_chained(h, {"type": "FINALIZED", "acquisition_identity": "0" * 64})
+        reanchor(h)
+        self.refused(h, DERIVED, "(FINALIZED): the finalized identity is not the document of the recorded observations")
+
+    def test_a_lost_announced_result_stays_counted_under_explicit_reconciliation(self) -> None:
+        h = paused_harness()
+        with self.assertRaises(SimulatedCrash):
+            h.run(extra_patches=[crash_after(h, "RESULT")])
+        (h.jdir / "journal.jsonl").write_bytes(b"".join(raw_lines(h)[:-1]))
+        h.t += 10
+        code, result, err = h.run()
+        cap = result["capture"]
+        self.assertEqual((code, result["state"], cap["new_requests"], cap["requests_used"], len(h.calls)),
+                         (5, "CAPTURE_RECONCILIATION_REQUIRED", 0, 1, 1), err)
+        (unknown,) = cap["unknown_intents"]
+        self.assertTrue(unknown["anchor_had_advanced"], "the request may have been sent; it is not invented")
+
+
+class BodyLimitTests(unittest.TestCase):
+    """MF44A01-02: an observed 429 whose bounded body is oversized or unreadable still pauses at that request."""
+
+    def test_a_429_body_at_the_cap_pauses_with_its_whole_body(self) -> None:
+        for location in ("metadata", "replay", "redirect"):
+            with self.subTest(location=location):
+                h = limited()
+                body = b"y" * LIMIT
+                at = busy_at(h, location, Reply(429, [["Retry-After", "600"]], body))
+                code, result, err = h.run()
+                cap = result["capture"]
+                self.assertEqual((code, cap["state"], len(h.calls), cap["requests_used"]),
+                                 (4, "PAUSED_SERVICE_429", at, at), err)
+                record = [x for x in h.lines() if x["type"] == "RESULT"][-1]["request"]
+                self.assertEqual((record["http_status"], record["body_bytes"], record["error"]), (429, LIMIT, None))
+                self.assertEqual((h.out / "raw" / "sha256" / record["body_sha256"]).read_bytes(), body)
+
+    def test_an_oversized_429_body_keeps_status_and_headers_and_pauses_at_the_first_429(self) -> None:
+        for location in ("metadata", "replay", "redirect"):
+            with self.subTest(location=location):
+                h = limited()
+                body = bytes(range(256)) * (LIMIT // 256) + b"z"
+                at = busy_at(h, location, Reply(429, [["Retry-After", "600"]], body))
+                code, result, err = h.run()
+                cap = result["capture"]
+                self.assertEqual((code, cap["state"], len(h.calls), cap["new_requests"], cap["requests_used"]),
+                                 (4, "PAUSED_SERVICE_429", at, at, at), err)
+                pause = cap["pause"]
+                self.assertEqual((pause["seq"], pause["http_status"], pause["retry_after_raw"],
+                                  pause["retry_after_rule"]), (at, 429, ["600"], "DELTA_SECONDS"))
+                self.assertEqual(utc(cap["eligible_utc"]) - utc(pause["response_clock_utc"]),
+                                 dt.timedelta(seconds=600))
+                record = [x for x in h.lines() if x["type"] == "RESULT"][-1]["request"]
+                self.assertEqual((record["outcome"], record["http_status"], record["body_bytes"]),
+                                 ("RESPONSE", 429, LIMIT))
+                self.assertTrue(record["error"].startswith(f"BODY_LIMIT_EXCEEDED: more than {LIMIT} bytes"))
+                self.assertEqual((h.out / "raw" / "sha256" / record["body_sha256"]).read_bytes(), body[:LIMIT])
+                self.assertEqual(cap["keys"]["attempted_failed_pending"], [record["contest_key"]])
+                h.t += 10
+                code, result, err = h.run()
+                self.assertEqual((code, result["capture"]["state"], len(h.calls)), (4, "DEFERRED", at), err)
+
+    def test_a_429_body_read_failure_after_the_status_pauses_at_the_first_429(self) -> None:
+        for location, error, kept in (("metadata", ConnectionResetError("fixture: reset mid-body"), b""),
+                                      ("replay", TimeoutError("fixture: body read timed out"), b""),
+                                      ("redirect", http.client.IncompleteRead(b"x" * 1000), b"x" * 1000)):
+            with self.subTest(location=location):
+                h = limited()
+                at = busy_at(h, location, Reply(429, [["Retry-After", "600"]], b"x" * 5000, fail_after=1000,
+                                                fail_with=error))
+                code, result, err = h.run()
+                cap = result["capture"]
+                self.assertEqual((code, cap["state"], len(h.calls), cap["requests_used"]),
+                                 (4, "PAUSED_SERVICE_429", at, at), err)
+                self.assertEqual((cap["pause"]["retry_after_raw"], cap["pause"]["retry_after_rule"]),
+                                 (["600"], "DELTA_SECONDS"))
+                record = [x for x in h.lines() if x["type"] == "RESULT"][-1]["request"]
+                self.assertEqual((record["http_status"], record["body_bytes"]), (429, len(kept)))
+                self.assertEqual((h.out / "raw" / "sha256" / record["body_sha256"]).read_bytes(), kept,
+                                 "the bounded evidence actually read is retained, nothing invented")
+                self.assertTrue(record["error"].startswith(f"BODY_READ_FAILED: {type(error).__name__}"))
+
+    def test_non_429_incomplete_bodies_and_network_errors_stay_failures_not_pauses(self) -> None:
+        big = b"{" + b" " * LIMIT + b"}"
+
+        def script(h: Harness) -> None:
+            keys = h.binding["ordered_keys"]
+            h.reply(meta_fragment(h, keys[0]), *(Reply(200, [["Content-Type", "application/json"]], big)
+                                                 for _ in range(2)))
+            h.reply(meta_fragment(h, keys[1]), Reply(network_error=True))
+            h.reply(meta_fragment(h, keys[2]), *(Reply(404, [["Content-Type", "text/html"]], b"n" * (LIMIT + 1))
+                                                 for _ in range(2)))
+            h.reply(meta_fragment(h, keys[3]), Reply(200, [["Content-Type", "application/json"]], big[:5000],
+                                                     fail_after=100))
+        h = limited()
+        script(h)
+        code, result, err = h.run()
+        self.assertEqual(code, 0, err)
+        cap = result["capture"]
+        self.assertEqual((cap["state"], cap["pauses"]), ("FINALIZED", []))
+        doc = json.loads(Path(cap["path"]).read_text(encoding="utf-8"))
+        failed = [r for r in doc["requests"] if r["outcome"] != "RESPONSE"]
+        self.assertEqual(len(failed), 6)
+        for r in failed:
+            self.assertEqual((r["http_status"], r["body_sha256"], r["headers"]), (None, None, []))
+        self.assertEqual(sorted(r["error"].split(":")[0] for r in failed),
+                         ["BODY_LIMIT_EXCEEDED"] * 4 + ["BODY_READ_FAILED", "URLError"])
+        self.assertTrue(all("received; body not retained" in r["error"] for r in failed if "BODY" in r["error"]))
+        legacy = limited()
+        script(legacy)
+        contract, _ = legacy.b.load_expansion_contract(legacy.contract_path)
+        control = legacy.b.verify_control(contract, legacy.world["route"])
+        retained = legacy.b.import_retained(contract, legacy.world["out"], legacy.out)
+        with legacy.patches():
+            default = legacy.b.capture_expansion(contract, legacy.out, control, retained["document"],
+                                                 sleep=legacy.sleep, monotonic=legacy.perf, now=legacy.now,
+                                                 audit=False)
+        legacy_doc = json.loads(Path(default["path"]).read_text(encoding="utf-8"))
+        shape = [(r["contest_key"], r["kind"], r["purpose"], r["url"], r["outcome"], r["http_status"],
+                  r["body_sha256"]) for r in doc["requests"]]
+        self.assertEqual(shape, [(r["contest_key"], r["kind"], r["purpose"], r["url"], r["outcome"],
+                                  r["http_status"], r["body_sha256"]) for r in legacy_doc["requests"]],
+                         "the service mode plans exactly the default mode's requests and failures")
+        self.assertEqual(doc["outcomes"], legacy_doc["outcomes"])
+
+    def test_the_default_mode_keeps_its_frozen_body_limit_network_error_for_a_429(self) -> None:
+        h = Harness(contract_patch=lambda c: c["acquisition"]["limits"].update(max_body_bytes=LIMIT,
+                                                                               total_requests=2))
+        h.reply(meta_fragment(h, first_key(h)), *(Reply(429, [["Retry-After", "1"]], b"q" * (LIMIT + 1))
+                                                  for _ in range(2)))
+        code, result, err = h.run(policy=False)
+        self.assertEqual(code, 0, err)
+        doc = json.loads(Path(result["capture"]["path"]).read_text(encoding="utf-8"))
+        self.assertEqual([(r["purpose"], r["outcome"], r["http_status"], r["error"]) for r in doc["requests"]],
+                         [(p, "NETWORK_ERROR", None, f"BODY_LIMIT_EXCEEDED: more than {LIMIT} bytes")
+                          for p in ("PROBE_1", "RETRY")], "the default mode's frozen behaviour is unchanged")
 
 
 if __name__ == "__main__":

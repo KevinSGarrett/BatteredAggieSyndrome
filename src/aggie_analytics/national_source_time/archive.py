@@ -29,6 +29,14 @@ database. It then trusts no stored label or stored record:
   a version whose participants do not map is quarantined whole.
 * Every disposition record must equal the one reconstructed from the issued tranche row, the parent contest record,
   the acquisition receipts and the key's complete expected capture collection.
+* The archive content identity it displays is never a claim copied from the sidecar (BAT-715 MF43A01-01): the defined
+  content identity document (contract identity_scheme.content_identity: issued contract, parent, tranche, cohort and
+  acquisitions, route control, payload schema and encoding, and the semantic and stored gzip-mtime-0 hashes and row
+  counts of the canonical payloads of the verified records) is recomputed, and the identity that the meta and the
+  manifest both claim must equal its SHA-256 (ARCHIVE_CONTENT_IDENTITY_MISSING / ARCHIVE_CONTENT_IDENTITY_MISMATCH).
+  Every restated declaration of that document -- the meta's payload schema, semantic hashes, row counts, contract,
+  parent, tranche, cohort, acquisitions and control, and the manifest's population -- must equal it
+  (ARCHIVE_CONTENT_DECLARATION_MISMATCH).
 
 A predecessor V1.0 or V1.1 sidecar is checked for exact witness occurrences and then refused as superseded (V1.0
 carries no evidenced participant mapping; V1.1 did not quarantine an unmapped version).
@@ -42,6 +50,7 @@ from __future__ import annotations
 import collections
 import contextlib
 import datetime as _dt
+import gzip
 import hashlib
 import json
 import sqlite3
@@ -123,6 +132,26 @@ ISSUED_EXPANSION: dict[str, Any] | None = {
 TABLES = ("meta", "dispositions", "requests", "captures", "assertions")
 PAYLOADS = {"dispositions.jsonl": "dispositions", "requests.jsonl": "requests", "captures.jsonl": "captures",
             "assertions.jsonl": "assertions"}
+#: The defined content identity document of each served profile (contract identity_scheme.content_identity of
+#: configs/national_archived_publication_2019_contract_v1_2.json and of the BAT-715 expansion contract), keyed by the
+#: sidecar's database schema: its population, content schema and payload schema.
+CONTENT_STAGE = "archived-publication-content"
+PAYLOAD_ENCODING = "gzip(level 9, mtime 0) of the canonical JSONL; semantic sha256 over the uncompressed bytes"
+GZIP_LEVEL = 9
+CONTENT_PROFILES = {
+    ARCHIVE_DB_SCHEMA: {"population": "national_archived_publication_2019",
+                        "content_schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-2",
+                        "payload_schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-2"},
+    EXPANSION_DB_SCHEMA: {"population": "national_archived_publication_2019_expansion",
+                          "content_schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-3",
+                          "payload_schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-3"}}
+#: Meta keys that restate a content-document field (meta key -> document key); the JSON-valued ones are compared parsed.
+META_DECLARATIONS = {"contract_id": "contract_id", "contract_sha256": "contract_sha256", "parent": "parent",
+                     "tranche_sha256": "tranche_sha256", "cohort_sha256": "cohort_sha256",
+                     "acquisition_identity": "acquisition_identity", "acquisition_policy_id": "acquisition_policy_id",
+                     "acquisitions": "acquisitions", "control": "control", "payload_schema": "payload_schema",
+                     "semantic_sha256": "semantic_outputs", "row_counts": "row_counts"}
+JSON_META_DECLARATIONS = ("parent", "acquisitions", "control", "semantic_sha256", "row_counts")
 FIELDS = base.FIELDS
 WITNESSABLE = af.WITNESSABLE
 QUALIFIED = af.QUAL
@@ -172,6 +201,14 @@ def _multiset_difference(expected: list[Any], stored: list[Any]) -> dict[str, li
     want, have = collections.Counter(expected), collections.Counter(stored)
     return {"missing": sorted((want - have).elements(), key=str), "extra": sorted((have - want).elements(), key=str),
             "duplicated": sorted((k for k, n in have.items() if n > 1), key=str)}
+
+
+def _meta_json(value: Any) -> Any:
+    """A JSON meta value, or the raw value when it is not JSON (so it can never equal a defined document field)."""
+    try:
+        return json.loads(value) if isinstance(value, str) else value
+    except ValueError:
+        return value
 
 
 # --------------------------------------------------------------------------------------------- issued authority
@@ -323,6 +360,32 @@ def issued_authority(contract_sha256: Any, acquisition_identity: Any) -> IssuedA
                                                     "acquisition the issued contract binds")
 
 
+def content_document(authority: IssuedAuthority, db_schema: str, policy_id: str,
+                     records: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+    """The defined content identity document (contract identity_scheme.content_identity) of the canonical payloads of
+    already verified records, built from the issued authority and the verified acquisition policy only."""
+    profile = CONTENT_PROFILES[db_schema]
+    payloads = {name: b"".join(_cjson(r).encode("utf-8") + b"\n" for r in records[table])
+                for name, table in PAYLOADS.items()}
+    document: dict[str, Any] = {
+        "schema": profile["content_schema"], "stage": CONTENT_STAGE, "population": profile["population"],
+        "contract_id": authority.contract_id, "contract_sha256": authority.contract_sha256, "parent": authority.parent,
+        "tranche_sha256": authority.tranche_sha256, "acquisition_identity": authority.acquisition_identity,
+        "acquisition_policy_id": policy_id, "control": authority.control, "payload_schema": profile["payload_schema"],
+        "payload_encoding": PAYLOAD_ENCODING,
+        "semantic_outputs": {name: _sha_bytes(data) for name, data in payloads.items()},
+        "outputs": {f"{name}.gz": _sha_bytes(gzip.compress(data, compresslevel=GZIP_LEVEL, mtime=0))
+                    for name, data in payloads.items()},
+        "row_counts": {name: len(records[table]) for name, table in PAYLOADS.items()}}
+    if getattr(authority, "expansion", False):
+        document["cohort_sha256"] = authority.cohort_sha256
+        document["acquisitions"] = [{"acquisition_identity": authority.retained_acquisition_identity,
+                                     "policy_id": authority.retained_policy_id, "origin": RETAINED_ORIGIN},
+                                    {"acquisition_identity": authority.acquisition_identity, "policy_id": policy_id,
+                                     "origin": EXPANSION_ORIGIN}]
+    return document
+
+
 # --------------------------------------------------------------------------------------------- sidecar verification
 
 def verify_archive_database(database: Path, *, expect_identity: str | None = None) -> dict[str, Any]:
@@ -362,7 +425,8 @@ def verify_archive_database(database: Path, *, expect_identity: str | None = Non
             "contract_sha256": identity_document.get("contract_sha256"), "parent": identity_document.get("parent"),
             "table_counts": identity_document.get("table_counts"),
             "record_counts": identity_document.get("record_counts"),
-            "db_schema_version": identity_document.get("db_schema_version")}
+            "db_schema_version": identity_document.get("db_schema_version"),
+            "population": identity_document.get("population")}
 
 
 class ArchiveEvidence:
@@ -404,6 +468,10 @@ class ArchiveEvidence:
         records = {name: counts[table] for name, table in PAYLOADS.items()}
         if counts != self.binding["table_counts"] or records != self.binding["record_counts"]:
             raise _refuse("ARCHIVE_COUNT_MISMATCH", f"counts {counts} differ from the manifest")
+        claims = {"manifest": self.binding["content_identity"], "meta": meta.get("content_identity")}
+        absent = sorted(k for k, v in claims.items() if not isinstance(v, str) or not v)
+        if absent:
+            raise _refuse("ARCHIVE_CONTENT_IDENTITY_MISSING", f"no content identity claim in the {' and '.join(absent)}")
         if json.loads(meta.get("row_labels") or "null") != self.row_labels:
             raise _refuse("ARCHIVE_SCHEMA_UNSUPPORTED", "row labels differ from the archive evidence-only labels")
         parent = (self.binding["parent"] or {}).get("source_time") or {}
@@ -425,10 +493,16 @@ class ArchiveEvidence:
         if bool(getattr(self.authority, "expansion", False)) != expansion:
             raise _refuse("ARCHIVE_CONTRACT_NOT_ISSUED", "the sidecar schema and the issued authority's kind differ")
         self._check_authority()
-        if expansion:
-            self._verify_expansion()
-        else:
-            self._verify()
+        policy_id = self._verify_expansion() if expansion else self._verify()
+        # The displayed content identity is the identity of the defined content document of the verified records; the
+        # sidecar's meta and manifest claims (outer hashes recomputable by anyone) must equal it, never replace it.
+        self.content_document = content_document(self.authority, meta["schema_version"], policy_id, tables)
+        self.content_identity = _sha_bytes(base.canonical_json_bytes(self.content_document))
+        if self.binding["content_identity"] != self.content_identity:
+            raise _refuse("ARCHIVE_CONTENT_IDENTITY_MISMATCH", f"the sidecar meta and manifest claim content identity "
+                                                               f"{self.binding['content_identity']}; its verified "
+                                                               f"records define {self.content_identity}")
+        self._check_declarations()
         self.by_key = {d["contest_key"]: d for d in self.dispositions}
         self.captures_by_id = {c["capture_id"]: c for c in self.captures}
 
@@ -530,6 +604,20 @@ class ArchiveEvidence:
                 raise _refuse("ARCHIVE_ACQUISITION_NOT_ISSUED", "the sidecar's acquisitions are not the issued retained "
                                                                 "and expansion acquisitions in order")
 
+    def _check_declarations(self) -> None:
+        """Every restatement of the defined content document -- the meta's declarations of its fields and the manifest's
+        population -- equals the document re-derived from the verified records (two agreeing claims are no authority)."""
+        document = self.content_document
+        declared = {"population": (self.binding["population"], document["population"])}
+        for key, field in META_DECLARATIONS.items():
+            if field in document:
+                stated = self.meta.get(key)
+                declared[key] = (_meta_json(stated) if key in JSON_META_DECLARATIONS else stated, document[field])
+        differing = sorted(k for k, (stated, defined) in declared.items() if _cjson(stated) != _cjson(defined))
+        if differing:
+            raise _refuse("ARCHIVE_CONTENT_DECLARATION_MISMATCH", f"the sidecar's {differing} differ from the content "
+                                                                  f"document of its verified records")
+
     def _acquisition(self, ident: str) -> dict[str, Any]:
         path = self.root / "acquisition" / "sha256" / ident / "acquisition.json"
         if not path.is_file():
@@ -542,9 +630,10 @@ class ArchiveEvidence:
             raise _refuse("ARCHIVE_RECEIPT_ALTERED", f"acquisition document {ident} schema")
         return doc
 
-    def _verify_expansion(self) -> None:
+    def _verify_expansion(self) -> str:
         """The BAT-715 union: both receipt documents, every request of both, the complete expected capture collection
-        (duplicate rule applied), every capture/assertion re-derived and every disposition reconstructed."""
+        (duplicate rule applied), every capture/assertion re-derived and every disposition reconstructed. Returns the
+        verified expansion acquisition document's policy id."""
         auth = self.authority
         retained = self._acquisition(auth.retained_acquisition_identity)
         current = self._acquisition(auth.acquisition_identity)
@@ -675,8 +764,11 @@ class ArchiveEvidence:
                                                        outcomes, mine, derived_caps.get(key, []), duplicates[key],
                                                        parent["values"])
             self._compare_disposition(key, stored, expected, af.EXPANSION_DISPOSITION_AUTHORITY)
+        return current["policy_id"]
 
-    def _verify(self) -> None:
+    def _verify(self) -> str:
+        """The V1.2 tranche: the acquisition document, every request, the complete expected capture collection, every
+        capture/assertion re-derived and every disposition reconstructed. Returns the verified acquisition policy id."""
         auth = self.authority
         acq_id = auth.acquisition_identity
         acq_path = self.root / "acquisition" / "sha256" / acq_id / "acquisition.json"
@@ -769,6 +861,7 @@ class ArchiveEvidence:
                                              (acquisition.get("outcomes") or {}).get(key), mine, derived.get(key, []),
                                              parent["values"])
             self._compare_disposition(key, stored, expected)
+        return acquisition["policy_id"]
 
     def _verify_requests(self, acquisition_requests: list[dict[str, Any]]) -> None:
         auth = self.authority
@@ -950,7 +1043,7 @@ class ArchiveEvidence:
     # ------------------------------------------------------------------ query
     def binding_block(self) -> dict[str, Any]:
         block = {"archive_identity": self.binding["archive_identity"],
-                 "archive_content_identity": self.binding["content_identity"],
+                 "archive_content_identity": self.content_identity,
                  "archive_contract_id": self.meta["contract_id"], "archive_contract_sha256": self.binding["contract_sha256"],
                  "acquisition_identity": self.meta["acquisition_identity"],
                  "tranche_sha256": self.meta["tranche_sha256"], "tranche_keys": len(self.dispositions),

@@ -363,6 +363,64 @@ class ConsumerTests(unittest.TestCase):
         acqs = json.dumps([{"acquisition_identity": expansion_id, "policy_id": "x", "origin": "EXPANSION"}])
         self.refuse("ARCHIVE_ACQUISITION_NOT_ISSUED", self.rehoused(mutate_meta={"acquisitions": acqs}))
 
+    def test_every_served_binding_shows_the_identity_of_the_defined_content_document(self) -> None:
+        """MF43A01-01: the displayed content identity is the identity of the union's defined content document,
+        re-derived from the verified records, at every archive grain and every composed source-time grain."""
+        import hashlib  # noqa: PLC0415
+        defined = json.loads(Path(STATE["result"]["content"]["manifest"]).read_text(encoding="utf-8"))[
+            "identity_document"]
+        expected = hashlib.sha256(json.dumps(defined, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+                                  .encode("utf-8")).hexdigest()
+        self.assertEqual(expected, STATE["result"]["content_identity"])
+        with q.SourceTimeDatabase(STATE["world"]["st_db"]) as db:
+            evidence = arch.ArchiveEvidence(STATE["sidecar"], db)
+            self.assertEqual(evidence.content_document, defined, "re-derived document equals the delivered one")
+        for argv in (("--grain", "archive-disposition", "--all"), ("--grain", "archive-request"),
+                     ("--grain", "archive-capture"), ("--grain", "archive-assertion", "--cutoff", "2026-10-02T00:00:00Z"),
+                     ("--grain", "contest", "--contest", "ncaa:1004", "--cutoff", "2019-09-13T09:59:59Z"),
+                     ("--grain", "partition")):
+            code, doc, err = query(*argv)
+            self.assertEqual(code, 0, err)
+            self.assertEqual(doc["archive_evidence"]["archive_content_identity"], expected, argv)
+
+    def test_rehashed_content_identity_and_declaration_forgeries_reach_their_rule(self) -> None:
+        """Coordinated meta/manifest claims with every outer hash and count recomputed: an invented, empty, absent or
+        borrowed identity, and a false restated payload schema, semantic hash, row count or population."""
+        def claim(value):
+            def meta(conn) -> None:
+                if value is None:
+                    conn.execute("DELETE FROM meta WHERE key = 'content_identity'")
+                else:
+                    conn.execute("UPDATE meta SET value = ? WHERE key = 'content_identity'", (value,))
+            return self.rehoused(mutate_conn=meta, mutate_document=lambda d: d.update(content_identity=value))
+        conn = sqlite3.connect(STATE["sidecar"])
+        meta = dict(conn.execute("SELECT key, value FROM meta"))
+        conn.close()
+        parent = json.loads(meta["parent"])["source_time"]["content_identity"]
+        for name, value, code in (("invented", "f" * 64, "ARCHIVE_CONTENT_IDENTITY_MISMATCH"),
+                                  ("empty", "", "ARCHIVE_CONTENT_IDENTITY_MISSING"),
+                                  ("absent", None, "ARCHIVE_CONTENT_IDENTITY_MISSING"),
+                                  ("own_database_identity", STATE["result"]["database_identity"],
+                                   "ARCHIVE_CONTENT_IDENTITY_MISMATCH"),
+                                  ("parent_content_identity", parent, "ARCHIVE_CONTENT_IDENTITY_MISMATCH")):
+            with self.subTest(name):
+                self.refuse(code, claim(value))
+        semantic, counts = json.loads(meta["semantic_sha256"]), json.loads(meta["row_counts"])
+        declarations = {
+            "semantic_empty": {"semantic_sha256": "{}"},
+            "semantic_one_hash": {"semantic_sha256": json.dumps(dict(semantic, **{"requests.jsonl": "0" * 64}),
+                                                                sort_keys=True)},
+            "counts_empty": {"row_counts": "{}"},
+            "counts_plus_one": {"row_counts": json.dumps(dict(counts, **{"dispositions.jsonl": counts[
+                "dispositions.jsonl"] + 1}), sort_keys=True)},
+            "payload_schema_forged": {"payload_schema": "FORGED"},
+            "payload_schema_of_v1_2": {"payload_schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-2"}}
+        for name, values in declarations.items():
+            with self.subTest(name):
+                self.refuse("ARCHIVE_CONTENT_DECLARATION_MISMATCH", self.rehoused(mutate_meta=values))
+        self.refuse("ARCHIVE_CONTENT_DECLARATION_MISMATCH", self.rehoused(mutate_document=lambda d: d.update(
+            population="national_archived_publication_2019")))
+
     def test_altered_retained_copy_and_raw_refuse(self) -> None:
         retained_id = STATE["world"]["retained"]["acquisition_identity"]
 

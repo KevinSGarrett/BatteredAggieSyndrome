@@ -616,6 +616,82 @@ class SidecarRefusalTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(STATE["sidecar"].read_bytes()).hexdigest(), before)
 
 
+def content_claim(base: Path, value: str | None, rehoused=None) -> Path:
+    """A rehoused sidecar whose meta and manifest are coordinated on one content identity claim (None removes the meta
+    row and the manifest claim), every outer hash and count recomputed."""
+    def meta(conn: sqlite3.Connection) -> None:
+        if value is None:
+            conn.execute("DELETE FROM meta WHERE key = 'content_identity'")
+        else:
+            conn.execute("UPDATE meta SET value = ? WHERE key = 'content_identity'", (value,))
+    return (rehoused or rehouse)(base, mutate_conn=meta, mutate_document=lambda d: d.update(content_identity=value))
+
+
+class ContentIdentityTests(unittest.TestCase):
+    """BAT-715 MF43A01-01: the displayed archive content identity is the identity of the defined content document of
+    the verified records; coordinated false, empty, absent or borrowed claims and false restated declarations of that
+    document refuse for that cause, whatever the sidecar's meta and manifest agree on."""
+
+    def setUp(self) -> None:
+        self.base = Path(tempfile.mkdtemp(dir=STATE["tmp"].name))
+
+    def refuse(self, code: str, sidecar: Path) -> None:
+        rc, _doc, err = run("--grain", "archive-disposition", sidecar=sidecar)
+        self.assertEqual((rc, refusal(err)), (2, code), err[-400:])
+        self.assertNotIn("Traceback", err)
+
+    def test_every_served_binding_shows_the_identity_of_the_defined_content_document(self) -> None:
+        manifest = json.loads(Path(STATE["result"]["content"]["manifest"]).read_text(encoding="utf-8"))
+        defined = manifest["identity_document"]
+        expected = hashlib.sha256(json.dumps(defined, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+                                  .encode("utf-8")).hexdigest()
+        self.assertEqual(expected, STATE["result"]["content_identity"])
+        with q.SourceTimeDatabase(STATE["world"]["st_db"]) as db:
+            evidence = arch.ArchiveEvidence(STATE["sidecar"], db)
+            self.assertEqual(evidence.content_document, defined, "re-derived document equals the delivered one")
+            self.assertEqual(evidence.content_identity, expected)
+        for argv in (("--grain", "archive-disposition"), ("--grain", "archive-request"), ("--grain", "archive-capture"),
+                     ("--grain", "archive-assertion", "--cutoff", "2026-10-02T00:00:00Z"),
+                     ("--grain", "contest", "--contest", "ncaa:1001", "--cutoff", "2026-10-02T00:00:00Z"),
+                     ("--grain", "partition")):
+            code, doc, err = run(*argv)
+            self.assertEqual(code, 0, err)
+            self.assertEqual(doc["archive_evidence"]["archive_content_identity"], expected, argv)
+
+    def test_rehashed_false_content_identity_claims_refuse(self) -> None:
+        parent = json.loads(sqlite3.connect(STATE["sidecar"]).execute(
+            "SELECT value FROM meta WHERE key = 'parent'").fetchone()[0])
+        cases = (("invented", "f" * 64, "ARCHIVE_CONTENT_IDENTITY_MISMATCH"),
+                 ("empty", "", "ARCHIVE_CONTENT_IDENTITY_MISSING"),
+                 ("absent", None, "ARCHIVE_CONTENT_IDENTITY_MISSING"),
+                 ("own_database_identity", STATE["result"]["database_identity"], "ARCHIVE_CONTENT_IDENTITY_MISMATCH"),
+                 ("parent_content_identity", parent["source_time"]["content_identity"],
+                  "ARCHIVE_CONTENT_IDENTITY_MISMATCH"))
+        for name, value, code in cases:
+            with self.subTest(name):
+                self.refuse(code, content_claim(self.base / name, value))
+
+    def test_false_declarations_of_the_content_document_refuse(self) -> None:
+        conn = sqlite3.connect(STATE["sidecar"])
+        meta = dict(conn.execute("SELECT key, value FROM meta"))
+        conn.close()
+        semantic, counts = json.loads(meta["semantic_sha256"]), json.loads(meta["row_counts"])
+        cases = {"semantic_empty": {"semantic_sha256": "{}"},
+                 "semantic_one_hash": {"semantic_sha256": json.dumps(dict(semantic, **{"captures.jsonl": "0" * 64}),
+                                                                     sort_keys=True)},
+                 "counts_empty": {"row_counts": "{}"},
+                 "counts_plus_one": {"row_counts": json.dumps(dict(counts, **{"assertions.jsonl": counts[
+                     "assertions.jsonl"] + 1}), sort_keys=True)},
+                 "payload_schema_forged": {"payload_schema": "FORGED"},
+                 "payload_schema_of_the_expansion": {"payload_schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-3"}}
+        for name, values in cases.items():
+            with self.subTest(name):
+                self.refuse("ARCHIVE_CONTENT_DECLARATION_MISMATCH", rehouse(self.base / name, mutate_meta=values))
+        relabelled = rehouse(self.base / "population", mutate_document=lambda d: d.update(
+            population="national_archived_publication_2019_expansion"))
+        self.refuse("ARCHIVE_CONTENT_DECLARATION_MISMATCH", relabelled)
+
+
 def _swap_ords(conn: sqlite3.Connection, table: str, first: int, second: int) -> None:
     conn.execute(f"UPDATE {table} SET ord = -1 WHERE ord = ?", (first,))
     conn.execute(f"UPDATE {table} SET ord = ? WHERE ord = ?", (first, second))

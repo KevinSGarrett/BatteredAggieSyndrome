@@ -180,14 +180,14 @@ class FakeArchive:
         return build.Response(status, "fixture", headers, body)
 
 
-def tranche_rows(st_db: Path) -> list[dict[str, Any]]:
+def tranche_rows(st_db: Path, tranche: list[tuple[str, str, str]] | None = None) -> list[dict[str, Any]]:
     import sqlite3  # noqa: PLC0415
     import zlib  # noqa: PLC0415
 
     conn = sqlite3.connect(Path(st_db).resolve().as_uri() + "?mode=ro", uri=True)
     rows = []
     try:
-        for key, role, stratum in TRANCHE:
+        for key, role, stratum in tranche or TRANCHE:
             record_text, blob = conn.execute("SELECT record, assertions FROM contests WHERE contest_key = ?",
                                              (key,)).fetchone()
             record = json.loads(record_text)
@@ -245,15 +245,16 @@ def page_for(row: dict[str, Any], *, status: str = "post", detail: str = "Final"
     return espn_page(game, home, away, home_score, away_score, status=status, detail=detail, decoy=decoy, **kw)
 
 
-def build_world(base: Path, scenarios: dict[str, Callable[[FakeArchive, dict[str, Any]], None]] | None = None
-                ) -> dict[str, Any]:
-    """Source-time parent, synthetic tranche/bindings/control and a fake archive for the six tranche keys."""
+def build_world(base: Path, scenarios: dict[str, Callable[[FakeArchive, dict[str, Any]], None]] | None = None,
+                tranche: list[tuple[str, str, str]] | None = None) -> dict[str, Any]:
+    """Source-time parent, synthetic tranche/bindings/control and a fake archive for the six tranche keys (or the
+    given subset ``tranche``, as the BAT-715 expansion fixture uses; default scenarios cover only its keys)."""
     base = Path(base)
     st_world = stfx.build_world(base / "w")
     code, st_result, err = stfx.run_build(st_world, base / "o")
     assert code == 0, err
     st_db = stfx.database_path(st_result)
-    rows = tranche_rows(st_db)
+    rows = tranche_rows(st_db, tranche)
     prep = base / "p"
     public = [{k: v for k, v in r.items() if not k.startswith("_")} for r in rows]
     tranche = {"cycle_number": 41, "attempt_number": 1, "state": "FIXTURE", "selection_revision": "fixture",
@@ -323,6 +324,9 @@ def default_scenarios(archive: FakeArchive, by_key: dict[str, dict[str, Any]]) -
         game = row["cfbd_game_id"]["value"]
         archive.meta[(game, probe)] = ts
         archive.replay[(ts, game)] = (200, replay_headers(ts, game_url(game)), page)
+    if set(by_key) != {key for key, _role, _stratum in TRANCHE}:
+        subset_scenarios(archive, by_key, set_capture)
+        return
     r1 = by_key["ncaa:1001"]
     set_capture(r1, r1["metadata_probe_timestamp"], "20190901041500", page_for(r1))
     r2 = by_key["ncaa:1002"]
@@ -341,6 +345,25 @@ def default_scenarios(archive: FakeArchive, by_key: dict[str, dict[str, Any]]) -
     archive.meta[(game7, r7["metadata_probe_timestamp"])] = lambda url: next(answers)
     archive.replay[("20190922050000", game7)] = (
         302, [["Location", game_url(game7)], ["Content-Type", "text/html"]], b"")
+
+
+def subset_scenarios(archive: FakeArchive, by_key: dict[str, dict[str, Any]], set_capture: Callable) -> None:
+    """The default answers of the keys present in a tranche subset (BAT-715 expansion fixture): 1001 qualifies; 1002
+    is archived before kickoff, then after the game at probe 2; 1005 has no capture."""
+    if "ncaa:1001" in by_key:
+        r1 = by_key["ncaa:1001"]
+        set_capture(r1, r1["metadata_probe_timestamp"], "20190901041500", page_for(r1))
+    if "ncaa:1002" in by_key:
+        r2 = by_key["ncaa:1002"]
+        game2 = r2["cfbd_game_id"]["value"]
+        set_capture(r2, r2["metadata_probe_timestamp"], "20190831120000",
+                    page_for(r2, status="pre", detail="7:30 PM ET"))
+        probe2 = (dt.date.fromisoformat(r2["contest_date"]) + dt.timedelta(days=3)).strftime("%Y%m%d") + "235959"
+        archive.meta[(game2, probe2)] = "20190902100000"
+        archive.replay[("20190902100000", game2)] = (200, replay_headers("20190902100000", game_url(game2)),
+                                                     page_for(r2))
+    if "ncaa:1005" in by_key:
+        archive.meta[(by_key["ncaa:1005"]["cfbd_game_id"]["value"], "*")] = None
 
 
 def run_capture(world: dict[str, Any], *, transport: Any = None, contract: dict[str, Any] | None = None,

@@ -97,6 +97,36 @@ PARENT_KEYS = {"population": ("query_db_identity", "sqlite_sha256", "contract_sh
                "source_time": ("database_identity", "sqlite_sha256", "content_identity", "contract_sha256"),
                "archive": ("database_identity", "sqlite_sha256", "content_identity", "contract_sha256", "contract_id",
                            "tranche_sha256", "acquisition_identity")}
+#: BAT-715 expansion successor (Cycle #43 TP43-A01): the same projection, record schemas and labels over the explicitly
+#: selected 97-key archive expansion sidecar, as its own population and contract. Nothing above changes.
+EXPANSION_POPULATION = "national_history_availability_2019_expansion"
+EXPANSION_CONTRACT_ID = "BAT-715-NATIONAL-HISTORY-AVAILABILITY-2019-EXPANSION-V1.0"
+EXPANSION_ARCHIVE_PARENT = "national_archived_publication_2019_expansion"
+EXPANSION_PARENT_KEYS = {**PARENT_KEYS, "archive": PARENT_KEYS["archive"] + ("cohort_sha256",
+                                                                             "retained_acquisition_identity")}
+#: The issued expansion authority: the committed successor contract and the exact parents its materialized projection
+#: binds (configs/national_history_availability_2019_expansion_contract.json; artifacts/data_lake/
+#: national_history_availability_2019_expansion_gate.json). Served only for a projection naming exactly this contract.
+ISSUED_EXPANSION: dict[str, Any] | None = {
+    "contract_id": EXPANSION_CONTRACT_ID,
+    "contract_sha256": "1a169c79a67d36a97990cdf76ef0d9c0ca968fe316ce5beee361439431bd9b8c",
+    "parent": {
+        "population": ISSUED["parent"]["population"], "history": ISSUED["parent"]["history"],
+        "source_time": ISSUED["parent"]["source_time"],
+        "archive": {"database_identity": "a8c7abcbd8a764eebefaafafc56ebb07bd40342e00bcd3431cb29a3ef58c4a36",
+                    "sqlite_sha256": "fe9d4ea97e81139ef5669d5b80349cae2db6665badfe2749613ec3de78b08c56",
+                    "content_identity": "4b4e681a1d81c328ebd06b4f7c905cb5dd5d7f61dc870813e87ac7a8aab650fa",
+                    "contract_sha256": "8d8edea336dc6691a134d31aa450aa9fe7491b9d2e665cd45b10bc6d878feffc",
+                    "contract_id": "BAT-715-NATIONAL-ARCHIVED-PUBLICATION-2019-EXPANSION-V1.0",
+                    "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79",
+                    "acquisition_identity": "a0fd2d4f662cfbd5149ac74ae3799f2abbf9f20fe1baa207754a591899ef24df",
+                    "cohort_sha256": "9240e5637bf80133d094745baf95898ddd2ef6ed8900fe0d1cf0cd20f397b937",
+                    "retained_acquisition_identity":
+                        "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0"}}}
+PROFILES = {CONTRACT_ID: {"population": POPULATION, "archive_parent": ARCHIVE_PARENT, "parent_keys": PARENT_KEYS},
+            EXPANSION_CONTRACT_ID: {"population": EXPANSION_POPULATION, "archive_parent": EXPANSION_ARCHIVE_PARENT,
+                                    "parent_keys": EXPANSION_PARENT_KEYS}}
+POPULATION_CONTRACTS = {profile["population"]: cid for cid, profile in PROFILES.items()}
 EVIDENCE_CLASSES = ("NOT_IN_ARCHIVE_TRANCHE", "ARCHIVE_NO_CAPTURE", "ARCHIVE_ALL_VERSIONS_QUARANTINED",
                     "ARCHIVE_VERSION_CONTRADICTS_PARENT", "ARCHIVE_PARTIAL_FIELDS_NO_COHERENT_VERSION",
                     "ARCHIVE_COHERENT_VERSION")
@@ -625,10 +655,25 @@ def read_history(conn: Any) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]
     return targets, views
 
 
+def profile(contract_id: Any) -> dict[str, Any]:
+    """The population, archive parent and parent keys of an issued projection contract (V1.0 or the BAT-715
+    expansion)."""
+    if contract_id not in PROFILES:
+        raise AvailabilityError("CONTRACT_SCHEMA_UNKNOWN", f"contract id {contract_id!r}")
+    return PROFILES[contract_id]
+
+
+def parent_files(contract_id: Any) -> dict[str, tuple[str, str]]:
+    """PARENT_FILES with the archive parent population of the contract's profile."""
+    return {**PARENT_FILES, "archive": (profile(contract_id)["archive_parent"], PARENT_FILES["archive"][1])}
+
+
 def _check(name: str, observed: dict[str, Any], expected: dict[str, Any]) -> dict[str, Any]:
-    """The bound identity fields of one verified parent must equal the expected binding exactly."""
-    wanted = {k: expected.get(k) for k in PARENT_KEYS[name]}
-    got = {k: observed.get(k) for k in PARENT_KEYS[name]}
+    """The bound identity fields of one verified parent must equal the expected binding exactly (an archive binding
+    that names a cohort is the BAT-715 expansion's and binds its cohort and retained acquisition too)."""
+    keys = EXPANSION_PARENT_KEYS[name] if name == "archive" and "cohort_sha256" in expected else PARENT_KEYS[name]
+    wanted = {k: expected.get(k) for k in keys}
+    got = {k: observed.get(k) for k in keys}
     if got != wanted:
         differing = sorted(k for k in wanted if got[k] != wanted[k])
         raise AvailabilityError("PARENT_BINDING_MISMATCH", f"{name} parent {differing} differ from the binding")
@@ -691,7 +736,10 @@ def open_parents(paths: dict[str, Any], expected: dict[str, dict[str, Any]]) -> 
                 "content_identity": evidence.binding["content_identity"],
                 "contract_sha256": evidence.binding["contract_sha256"],
                 "contract_id": evidence.meta.get("contract_id"), "tranche_sha256": evidence.meta.get("tranche_sha256"),
-                "acquisition_identity": evidence.meta.get("acquisition_identity")}, exp)
+                "acquisition_identity": evidence.meta.get("acquisition_identity"),
+                "cohort_sha256": evidence.meta.get("cohort_sha256"),
+                "retained_acquisition_identity": getattr(evidence.authority, "retained_acquisition_identity", None)},
+                exp)
             view = ArchiveView.from_evidence(evidence)
         finally:
             source.close()

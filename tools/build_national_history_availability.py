@@ -75,9 +75,11 @@ def load_contract(path: Path) -> tuple[dict[str, Any], str]:
         contract = json.loads(raw.decode("utf-8"))
     except (UnicodeDecodeError, ValueError) as exc:
         raise BuildRefused("CONTRACT_INVALID", str(exc)) from exc
-    if contract.get("schema_version") != core.CONTRACT_SCHEMA or contract.get("contract_id") != core.CONTRACT_ID:
+    if contract.get("schema_version") != core.CONTRACT_SCHEMA or contract.get("contract_id") not in core.PROFILES:
         raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN",
                            f"schema {contract.get('schema_version')!r} id {contract.get('contract_id')!r}")
+    if contract.get("population_id") != core.profile(contract["contract_id"])["population"]:
+        raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", f"population {contract.get('population_id')!r}")
     if contract.get("row_labels") != core.ROW_LABELS:
         raise BuildRefused("FORGED_AUTHORITY_LABEL", f"row_labels {contract.get('row_labels')!r}")
     authority = contract.get("authority") or {}
@@ -98,7 +100,7 @@ def load_contract(path: Path) -> tuple[dict[str, Any], str]:
     if (contract.get("evidence") or {}).get("fields") != list(core.FIELDS):
         raise BuildRefused("CONTRACT_INVALID", "evidence.fields differ from the six witnessable fields")
     binding = contract.get("parent_binding") or {}
-    for name, keys in core.PARENT_KEYS.items():
+    for name, keys in core.profile(contract["contract_id"])["parent_keys"].items():
         for key in keys:
             if not isinstance((binding.get(name) or {}).get(key), str) or not binding[name][key]:
                 raise BuildRefused("CONTRACT_INVALID", f"parent_binding.{name}.{key} missing")
@@ -140,6 +142,12 @@ def load_bindings(path: Path, contract: dict[str, Any]) -> dict[str, Path]:
             not Path(str(tranche.get("path") or "")).is_file() or \
             sha256_file(Path(tranche["path"])) != pb["archive"]["tranche_sha256"]:
         raise BuildRefused("PARENT_BINDING_MISMATCH", "archive tranche binding differs")
+    if "cohort_sha256" in pb["archive"]:
+        cohort = bindings.get("archive_cohort") or {}
+        if cohort.get("sha256") != pb["archive"]["cohort_sha256"] or \
+                not Path(str(cohort.get("path") or "")).is_file() or \
+                sha256_file(Path(cohort["path"])) != pb["archive"]["cohort_sha256"]:
+            raise BuildRefused("PARENT_BINDING_MISMATCH", "archive cohort binding differs")
     return paths
 
 
@@ -356,7 +364,8 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
     if args.checkpoint_dir and args.chunk_size < 1:
         raise BuildRefused("ARGUMENT_INVALID", "--checkpoint-dir needs --chunk-size >= 1")
     paths = load_bindings(args.input_bindings, contract)
-    expected = {name: {k: contract["parent_binding"][name][k] for k in keys} for name, keys in core.PARENT_KEYS.items()}
+    expected = {name: {k: contract["parent_binding"][name][k] for k in keys}
+                for name, keys in core.profile(contract["contract_id"])["parent_keys"].items()}
     opened = core.open_parents(paths, expected)
     projection = core.Projection(opened["population_rows"], opened["subset"], opened["history_targets"],
                                  opened["history_views"], opened["archive"], input_order=args.input_order)
@@ -383,8 +392,9 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
         raise BuildRefused("CENSUS_INCOMPLETE", "views do not number two per target")
     packed = {f"{name}.gz": gzip_bytes(payloads[name]) for name in core.PAYLOAD_FILES}
     content_document = {"schema": core.CONTENT_SCHEMA, "stage": "history-availability-content",
-                        "population": core.POPULATION, "contract_id": contract["contract_id"],
-                        "contract_sha256": contract_sha, "parent": parent, "payload_schema": core.PAYLOAD_SCHEMA,
+                        "population": core.profile(contract["contract_id"])["population"],
+                        "contract_id": contract["contract_id"], "contract_sha256": contract_sha, "parent": parent,
+                        "payload_schema": core.PAYLOAD_SCHEMA,
                         "payload_encoding": core.PAYLOAD_ENCODING,
                         "semantic_outputs": {name: core.sha256_bytes(payloads[name]) for name in core.PAYLOAD_FILES},
                         "outputs": {name: core.sha256_bytes(data) for name, data in packed.items()},
@@ -408,8 +418,9 @@ def _finish(args: argparse.Namespace, contract: dict[str, Any], contract_sha: st
             "cross_version_rule": core.CROSS_VERSION_RULE}
     table_counts = build_database(db_path, payloads, meta)
     database_document = {"schema": core.DATABASE_SCHEMA, "stage": "history-availability-database",
-                         "population": core.POPULATION, "contract_sha256": contract_sha,
-                         "content_identity": content_identity, "parent": parent, "db_schema_version": core.DB_SCHEMA,
+                         "population": core.profile(contract["contract_id"])["population"],
+                         "contract_sha256": contract_sha, "content_identity": content_identity, "parent": parent,
+                         "db_schema_version": core.DB_SCHEMA,
                          "outputs": {core.DB_FILE: sha256_file(db_path)}, "table_counts": table_counts}
     database_identity = core.sha256_bytes(core.canonical_json_bytes(database_document))
     provenance = {"producer": PRODUCER, "producer_path": str(Path(__file__).resolve()),

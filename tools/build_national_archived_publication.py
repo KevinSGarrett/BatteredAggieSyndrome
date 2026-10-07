@@ -158,8 +158,8 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _check_fields(kind: str, value: dict[str, Any]) -> None:
-    expected = RECORD_FIELDS[kind]
+def _check_fields(kind: str, value: dict[str, Any], fields: dict[str, tuple[str, ...]] | None = None) -> None:
+    expected = (fields or RECORD_FIELDS)[kind]
     if not isinstance(value, dict) or set(value) != set(expected):
         raise BuildRefused("UNKNOWN_FIELD", f"{kind} fields {sorted(set(value or {}) ^ set(expected))}")
 
@@ -175,9 +175,9 @@ def _assert_no_float(value: Any) -> None:
             _assert_no_float(item)
 
 
-def record_line(record: dict[str, Any]) -> bytes:
+def record_line(record: dict[str, Any], fields: dict[str, tuple[str, ...]] | None = None) -> bytes:
     kind = record["record_type"]
-    _check_fields(kind, record)
+    _check_fields(kind, record, fields)
     if kind == "archive_capture":
         if set(record["clocks"]) != set(CLOCK_KINDS):
             raise BuildRefused("UNKNOWN_FIELD", f"capture clocks {sorted(record['clocks'])}")
@@ -443,16 +443,28 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
         return None
 
 
-def urllib_transport(url: str, headers: dict[str, str], timeout: float) -> Response:
-    """One HTTP GET without proxies, redirects, cookies or credentials. A 3xx/4xx/5xx is a response, not an error."""
+def urllib_transport(url: str, headers: dict[str, str], timeout: float, max_bytes: int | None = None) -> Response:
+    """One HTTP GET without proxies, redirects, cookies or credentials. A 3xx/4xx/5xx is a response, not an error.
+    With ``max_bytes`` (BAT-715 expansion) a body longer than the limit is not kept: the request fails closed as a
+    network error naming BODY_LIMIT_EXCEEDED (it still counts against every request limit)."""
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirect())
     request = urllib.request.Request(url, headers=headers, method="GET")
+
+    def read(stream: Any) -> bytes | None:
+        if max_bytes is None:
+            return stream.read()
+        data = stream.read(max_bytes + 1)
+        return None if len(data) > max_bytes else data
     try:
         with opener.open(request, timeout=timeout) as response:
-            return Response(response.status, response.reason, [[k, v] for k, v in response.headers.items()],
-                            response.read())
+            body = read(response)
+            if body is None:
+                return Response(None, None, [], b"", f"BODY_LIMIT_EXCEEDED: more than {max_bytes} bytes")
+            return Response(response.status, response.reason, [[k, v] for k, v in response.headers.items()], body)
     except urllib.error.HTTPError as error:
-        body = error.read() if error.fp is not None else b""
+        body = read(error) if error.fp is not None else b""
+        if body is None:
+            return Response(None, None, [], b"", f"BODY_LIMIT_EXCEEDED: more than {max_bytes} bytes")
         return Response(error.code, str(error.reason), [[k, v] for k, v in (error.headers or {}).items()], body)
     except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as error:
         return Response(None, None, [], b"", f"{type(error).__name__}: {error}")
@@ -649,8 +661,12 @@ def capture(contract: dict[str, Any], rows: list[dict[str, Any]], output_root: P
             *, transport: Callable[[str, dict[str, str], float], Response] | None = None,
             sleep: Callable[[float], None] = time.sleep, monotonic: Callable[[], float] = time.perf_counter,
             now: Callable[[], str] = utc_now,
-            audit: bool = True) -> dict[str, Any]:
-    """Run (or resume) the bounded acquisition and finalize the acquisition document."""
+            audit: bool = True, planner: Callable[..., tuple[str, str, str] | None] | None = None,
+            outcome_of: Callable[[dict[str, Any], list[dict[str, Any]], bool], str] | None = None) -> dict[str, Any]:
+    """Run (or resume) the bounded acquisition and finalize the acquisition document. ``planner`` and ``outcome_of``
+    default to the V1.2 per-key plan and outcome; the BAT-715 expansion passes its own (same journal and limits)."""
+    plan_next_key = planner or plan_next
+    key_outcome = outcome_of or acquisition_outcome
     output_root = Path(output_root)
 
     def read_body(record: dict[str, Any]) -> bytes:
@@ -695,7 +711,7 @@ def capture(contract: dict[str, Any], rows: list[dict[str, Any]], output_root: P
             continue
         while True:
             history = [r for r in records if r["contest_key"] == key["contest_key"]]
-            step = plan_next(key, history, contract, read_body)
+            step = plan_next_key(key, history, contract, read_body)
             if step is None:
                 break
             kind, purpose, url = step
@@ -739,10 +755,10 @@ def capture(contract: dict[str, Any], rows: list[dict[str, Any]], output_root: P
             journal.append({"type": "RESULT", "seq": seq, "request": record})
             records.append(record)
         history = [r for r in records if r["contest_key"] == key["contest_key"]]
-        if exhausted and plan_next(key, history, contract, read_body) is not None:
-            outcome = "NOT_ATTEMPTED_TOTAL_BUDGET_EXHAUSTED" if not history else acquisition_outcome(key, history, True)
+        if exhausted and plan_next_key(key, history, contract, read_body) is not None:
+            outcome = "NOT_ATTEMPTED_TOTAL_BUDGET_EXHAUSTED" if not history else key_outcome(key, history, True)
         else:
-            outcome = acquisition_outcome(key, history, False)
+            outcome = key_outcome(key, history, False)
         journal.append({"type": "KEY_DONE", "contest_key": key["contest_key"], "acquisition_outcome": outcome})
         outcomes[key["contest_key"]] = outcome
     document = {"schema": ACQUISITION_SCHEMA, "policy_id": pid, "contract_id": contract["contract_id"],
@@ -1009,19 +1025,25 @@ def _lines(payload: bytes) -> list[str]:
     return payload.decode("utf-8").splitlines(keepends=True)
 
 
-def build_database(path: Path, payloads: dict[str, bytes], meta: dict[str, str]) -> dict[str, Any]:
+def build_database(path: Path, payloads: dict[str, bytes], meta: dict[str, str], *, table_sql: str = TABLE_SQL,
+                   per_acquisition_requests: bool = False) -> dict[str, Any]:
     conn = sqlite3.connect(path)
     try:
         conn.execute("PRAGMA page_size = 4096")
         conn.execute("PRAGMA journal_mode = OFF")
-        conn.executescript(TABLE_SQL)
+        conn.executescript(table_sql)
         conn.executemany("INSERT INTO meta VALUES (?, ?)", sorted(meta.items()))
         rows = [(i, r["contest_key"], r["season"], r["a_key"], r["b_key"], r["disposition"], line.rstrip("\n"))
                 for i, (r, line) in enumerate((json.loads(x), x) for x in _lines(payloads["dispositions.jsonl"]))]
         conn.executemany("INSERT INTO dispositions VALUES (?, ?, ?, ?, ?, ?, ?)", rows)
-        rows = [(i, r["seq"], r["contest_key"], r["kind"], line.rstrip("\n"))
-                for i, (r, line) in enumerate((json.loads(x), x) for x in _lines(payloads["requests.jsonl"]))]
-        conn.executemany("INSERT INTO requests VALUES (?, ?, ?, ?, ?)", rows)
+        if per_acquisition_requests:
+            rows = [(i, r["acquisition_identity"], r["seq"], r["contest_key"], r["kind"], line.rstrip("\n"))
+                    for i, (r, line) in enumerate((json.loads(x), x) for x in _lines(payloads["requests.jsonl"]))]
+            conn.executemany("INSERT INTO requests VALUES (?, ?, ?, ?, ?, ?)", rows)
+        else:
+            rows = [(i, r["seq"], r["contest_key"], r["kind"], line.rstrip("\n"))
+                    for i, (r, line) in enumerate((json.loads(x), x) for x in _lines(payloads["requests.jsonl"]))]
+            conn.executemany("INSERT INTO requests VALUES (?, ?, ?, ?, ?)", rows)
         rows = [(i, r["capture_id"], r["contest_key"], r["state"], line.rstrip("\n"))
                 for i, (r, line) in enumerate((json.loads(x), x) for x in _lines(payloads["captures.jsonl"]))]
         conn.executemany("INSERT INTO captures VALUES (?, ?, ?, ?, ?)", rows)
@@ -1140,7 +1162,666 @@ def verify_acquisition(contract: dict[str, Any], doc: dict[str, Any], output_roo
         read_raw(output_root, sha)
 
 
+# --------------------------------------------------------------------------------------------- expansion (BAT-715)
+# Contract BAT-715 EXPANSION V1.0 (Cycle #43 TP43-A01): the 97-key union of the retained 28-key tranche and the 70-key
+# missing-prior cohort. The retained V1.2 acquisition (zero new requests), its journal and every raw body it names are
+# copied byte-identically into the expansion root; the expansion acquisition covers the 70 cohort keys only, under its
+# own policy, journal and 320-request ceiling. Materialization reads both acquisitions in that order. Every V1.2
+# function above keeps its exact behaviour; a V1.2 contract never reaches this section.
+
+EXPANSION_PRODUCER = "national_archived_publication_expansion/1.0.0"
+EXPANSION_POPULATION = "national_archived_publication_2019_expansion"
+EXPANSION_CONTRACT_SCHEMA = "1.0.0"
+EXPANSION_CONTRACT_ID_PREFIX = "BAT-715-NATIONAL-ARCHIVED-PUBLICATION-2019-EXPANSION-"
+EXPANSION_CONTRACT_ID = EXPANSION_CONTRACT_ID_PREFIX + "V1.0"
+EXPANSION_PAYLOAD_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-3"
+EXPANSION_CONTENT_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-3"
+EXPANSION_DATABASE_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-3"
+EXPANSION_DB_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-3"
+EXPANSION_CHECKPOINT_SCHEMA = "BAS-NATIONAL-ARCHIVED-PUBLICATION-CHECKPOINT-2"
+EXPANSION_AUTHORITY = {**AUTHORITY, "scope": "BOUNDED_2019_UNION_97_CONTESTS_RETAINED_TRANCHE_28_PLUS_MISSING_PRIOR_"
+                                             "COHORT_70_NOT_NATIONAL_COVERAGE"}
+EXPANSION_MAX_TOTAL_REQUESTS = 320
+EXPANSION_MIN_SPACING_SECONDS = 1.05
+EXPANSION_RECORD_FIELDS: dict[str, tuple[str, ...]] = {
+    **RECORD_FIELDS,
+    "archive_request": RECORD_FIELDS["archive_request"] + ("acquisition_identity",),
+    "archive_disposition": RECORD_FIELDS["archive_disposition"] + ("selection_sources", "acquisition_outcomes",
+                                                                   "duplicate_versions")}
+EXPANSION_TABLE_SQL = TABLE_SQL.replace(
+    "CREATE TABLE requests (ord INTEGER PRIMARY KEY, seq INTEGER NOT NULL UNIQUE, contest_key TEXT NOT NULL,"
+    " kind TEXT NOT NULL, record TEXT NOT NULL);",
+    "CREATE TABLE requests (ord INTEGER PRIMARY KEY, acquisition_identity TEXT NOT NULL, seq INTEGER NOT NULL,"
+    " contest_key TEXT NOT NULL, kind TEXT NOT NULL, record TEXT NOT NULL, UNIQUE (acquisition_identity, seq));")
+assert EXPANSION_TABLE_SQL != TABLE_SQL
+RETAINED_ORIGIN = "RETAINED_V1_2_ACQUISITION_ZERO_NEW_REQUESTS"
+EXPANSION_ORIGIN = "EXPANSION_ACQUISITION_COHORT_70"
+
+
+def contract_id_of(path: Path) -> str | None:
+    try:
+        return json.loads(Path(path).read_bytes().decode("utf-8")).get("contract_id")
+    except (OSError, UnicodeDecodeError, ValueError, AttributeError):
+        return None
+
+
+def load_expansion_contract(path: Path) -> tuple[dict[str, Any], str]:
+    raw = Path(path).read_bytes()
+    try:
+        contract = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, ValueError) as exc:
+        raise BuildRefused("CONTRACT_INVALID", str(exc)) from exc
+    if contract.get("schema_version") != EXPANSION_CONTRACT_SCHEMA or contract.get("contract_id") != EXPANSION_CONTRACT_ID:
+        raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", f"{contract.get('schema_version')} {contract.get('contract_id')}")
+    mapping = contract.get("participant_mapping") or {}
+    if mapping.get("numeric_identifier_equality") != "NEVER_AUTHORITY" or mapping.get("rule") != af.MAPPING_RULE \
+            or mapping.get("capture_quarantine") != af.QUARANTINE_RULE:
+        raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", "participant mapping rule")
+    if contract.get("population_id") != EXPANSION_POPULATION:
+        raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", "population")
+    if contract.get("row_labels") != EXPANSION_AUTHORITY:
+        raise BuildRefused("AUTHORITY_LABELS_INVALID", "row labels differ from the evidence-only expansion labels")
+    if contract.get("authority", {}).get("pit_admission") != AUTHORITY["pit_admission"]:
+        raise BuildRefused("FORGED_PIT_AUTHORITY", "the contract claims a PIT admission authority")
+    if tuple(contract.get("extraction", {}).get("fields", {}).get("order") or ()) != FIELDS:
+        raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", "field order")
+    if contract.get("duplicate_versions", {}).get("rule") != af.DUPLICATE_RULE:
+        raise BuildRefused("CONTRACT_SCHEMA_UNKNOWN", "duplicate version rule")
+    limits = contract["acquisition"]["limits"]
+    if (limits["metadata_requests_per_key"], limits["replay_requests_per_key"], limits["max_concurrency"]) != (2, 2, 1) \
+            or limits["total_requests"] > EXPANSION_MAX_TOTAL_REQUESTS \
+            or limits["min_seconds_between_request_starts"] < EXPANSION_MIN_SPACING_SECONDS \
+            or not isinstance(limits.get("max_body_bytes"), int) or limits["max_body_bytes"] < 1:
+        raise BuildRefused("ACQUISITION_POLICY_INVALID", "limits exceed the TP43-A01 grant")
+    hosts = contract["acquisition"]["hosts"]
+    if (hosts["metadata"]["host"], hosts["replay"]["host"]) != ALLOWED_HOSTS:
+        raise BuildRefused("ACQUISITION_POLICY_INVALID", "hosts differ from the granted archive hosts")
+    retained = contract.get("parent_binding", {}).get("retained_acquisition") or {}
+    if not all(isinstance(retained.get(k), str) for k in ("identity", "policy_id", "contract_id", "contract_sha256")):
+        raise BuildRefused("CONTRACT_INVALID", "parent_binding.retained_acquisition")
+    return contract, sha256_bytes(raw)
+
+
+def _game_literal(url: str) -> str:
+    return urllib.parse.urlsplit(url).path.rsplit("/", 1)[-1]
+
+
+def verify_expansion_scope(contract: dict[str, Any], tranche_path: Path, cohort_path: Path) -> list[dict[str, Any]]:
+    """The 97-key union from the exact issued tranche and cohort bytes: every declared key spec must equal the row it
+    comes from; the union order is the tranche order, then the cohort's new keys in cohort order. Returns one row per
+    union key (tranche-derived fields for tranche keys; parent fields are filled from the parent database later)."""
+    scope = contract["scope"]
+    traw, craw = Path(tranche_path).read_bytes(), Path(cohort_path).read_bytes()
+    if sha256_bytes(traw) != scope["tranche_sha256"]:
+        raise BuildRefused("TRANCHE_MISMATCH", "tranche bytes differ from the contract binding")
+    if sha256_bytes(craw) != scope["cohort_sha256"]:
+        raise BuildRefused("COHORT_MISMATCH", "cohort bytes differ from the contract binding")
+    tranche, cohort = json.loads(traw.decode("utf-8")), json.loads(craw.decode("utf-8"))
+    trows, crows = tranche.get("selected") or [], cohort.get("selected") or []
+    tkeys, ckeys = [r.get("contest_key") for r in trows], [r.get("contest_key") for r in crows]
+    if len(trows) != scope["tranche_count"] or tranche.get("count") != scope["tranche_count"] or \
+            len(set(tkeys)) != len(tkeys):
+        raise BuildRefused("TRANCHE_KEYS_INVALID", "duplicate, missing or extra tranche keys")
+    if len(crows) != scope["cohort_count"] or (cohort.get("counts") or {}).get("new_query_keys") != len(crows) or \
+            len(set(ckeys)) != len(ckeys) or ckeys != scope["cohort_keys"]:
+        raise BuildRefused("COHORT_KEYS_INVALID", "duplicate, missing, extra or reordered cohort keys")
+    tset = set(tkeys)
+    union = tkeys + [k for k in ckeys if k not in tset]
+    overlap = [k for k in ckeys if k in tset]
+    if len(union) != scope["union_count"] or overlap != scope["overlap_keys"] or \
+            [k.get("contest_key") for k in scope["keys"]] != union:
+        raise BuildRefused("SCOPE_KEYS_INVALID", "the declared union keys differ from tranche + cohort")
+    tby, cby = dict(zip(tkeys, trows)), dict(zip(ckeys, crows))
+    rows = []
+    for spec in scope["keys"]:
+        key = spec["contest_key"]
+        t, c = tby.get(key), cby.get(key)
+        sources = [name for name, row in zip(af.SELECTION_SOURCES, (t, c)) if row is not None]
+        url = spec["candidate_url"]
+        game = _game_literal(url)
+        problems = []
+        if spec.get("selection_sources") != sources:
+            problems.append("selection_sources")
+        if game != spec["game_id_literal"] or not equivalent_original(url, game):
+            problems.append("candidate locator")
+        if t is not None:
+            if (spec["selection_role"], spec["stratum"], spec["retained_probe_1_timestamp"], url) != (
+                    t["selection_role"], t["stratum"], t["metadata_probe_timestamp"], t["candidate_espn_url"]):
+                problems.append("tranche row")
+            if t["season"] != scope["season"]:
+                raise BuildRefused("OUT_OF_TRANCHE_SEASON", key)
+        elif (spec["selection_role"], spec["stratum"], spec["retained_probe_1_timestamp"]) != (
+                af.COHORT_ROLE, af.COHORT_STRATUM, None):
+            problems.append("cohort-only role/stratum")
+        if c is not None:
+            probes = c.get("metadata_probe_timestamps")
+            if spec["expansion_probe_timestamps"] != probes or c["candidate_espn_url"] != url or \
+                    bool(c.get("already_in_original_tranche")) != (t is not None) or \
+                    not (isinstance(probes, list) and len(probes) == 2 and all(TS14_RE.match(str(p)) for p in probes)
+                         and probes[1] <= probes[0]):
+                problems.append("cohort row")
+            if str(c["contest_date"])[:4] != str(scope["season"]):
+                raise BuildRefused("OUT_OF_COHORT_SEASON", key)
+        elif spec["expansion_probe_timestamps"] is not None:
+            problems.append("tranche-only key with expansion probes")
+        if t is not None and c is not None and (t["contest_date"], t["a_key"], t["b_key"], t["cfbd_game_id"]) != (
+                c["contest_date"], c["a_key"], c["b_key"], c["cfbd_game_id"]):
+            problems.append("tranche and cohort rows disagree")
+        if problems:
+            raise BuildRefused("SCOPE_KEYS_INVALID", f"{key}: {problems}")
+        base = t if t is not None else c
+        rows.append({"contest_key": key, "selection_sources": sources, "selection_role": spec["selection_role"],
+                     "stratum": spec["stratum"], "classification_pair": t["classification_pair"] if t else None,
+                     "season": t["season"] if t else None, "contest_date": base["contest_date"],
+                     "a_key": base["a_key"], "b_key": base["b_key"], "cfbd_game_id": base["cfbd_game_id"],
+                     "a_points": t["a_points"] if t else None, "b_points": t["b_points"] if t else None})
+    controls = [r["contest_key"] for r in rows if r["selection_role"] == af.CONTROL_ROLE]
+    if controls != [scope["control_contest_key"]]:
+        raise BuildRefused("SCOPE_KEYS_INVALID", "control key")
+    return rows
+
+
+def verify_expansion_bindings(contract: dict[str, Any], path: Path, parent: dict[str, Any], tranche_path: Path,
+                              cohort_path: Path, database: Path) -> dict[str, Any]:
+    raw = Path(path).read_bytes()
+    if sha256_bytes(raw) != contract["parent_binding"]["source_bindings"]["sha256"]:
+        raise BuildRefused("SOURCE_BINDINGS_MISMATCH", "binding document bytes differ from the contract")
+    doc = json.loads(raw.decode("utf-8"))
+    st = doc.get("source_time_database") or {}
+    if (st.get("sha256"), st.get("identity")) != (parent["sqlite_sha256"], parent["database_identity"]) or \
+            Path(st.get("path", "")).resolve() != Path(database).resolve():
+        raise BuildRefused("SOURCE_BINDINGS_MISMATCH", "bindings name another source-time database")
+    tr, co = doc.get("tranche") or {}, doc.get("expansion_cohort") or {}
+    scope = contract["scope"]
+    if (tr.get("sha256"), tr.get("count")) != (scope["tranche_sha256"], scope["tranche_count"]) or \
+            Path(tr.get("path", "")).resolve() != Path(tranche_path).resolve():
+        raise BuildRefused("SOURCE_BINDINGS_MISMATCH", "bindings name another tranche")
+    if (co.get("sha256"), co.get("missing_prior_contests")) != (scope["cohort_sha256"], scope["cohort_count"]) or \
+            co.get("union_archive_contests") != scope["union_count"] or \
+            Path(co.get("path", "")).resolve() != Path(cohort_path).resolve():
+        raise BuildRefused("SOURCE_BINDINGS_MISMATCH", "bindings name another expansion cohort")
+    if (doc.get("control") or {}).get("sha256") != contract["parent_binding"]["route_control"]["sha256"]:
+        raise BuildRefused("SOURCE_BINDINGS_MISMATCH", "bindings name another route control")
+    if doc.get("prior_archive_acquisition_identity") != contract["parent_binding"]["retained_acquisition"]["identity"]:
+        raise BuildRefused("SOURCE_BINDINGS_MISMATCH", "bindings name another retained acquisition")
+    return {"path": str(path), "sha256": sha256_bytes(raw), "control_path": doc["control"]["path"]}
+
+
+def read_parent_union(database: Path, rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """Accepted parent values and participant sources for every union key (as ``read_parent``). A tranche row must
+    also equal the parent's points; a cohort-only row carries no outcome (its selection never looked at results), so
+    its season comes from the parent record."""
+    conn = sqlite3.connect(Path(database).resolve().as_uri() + "?mode=ro", uri=True)
+    out: dict[str, dict[str, Any]] = {}
+    try:
+        for row in rows:
+            found = conn.execute("SELECT record, assertions, lineage FROM contests WHERE contest_key = ?",
+                                 (row["contest_key"],)).fetchone()
+            if found is None:
+                raise BuildRefused("SCOPE_PARENT_MISMATCH", f"{row['contest_key']} is not a source-time contest")
+            record = json.loads(found[0])
+            values: dict[str, set] = {}
+            for line in zlib.decompress(found[1]).decode("utf-8").splitlines():
+                item = json.loads(line)
+                values.setdefault(item["field"], set()).add(json.dumps(item["parent_value"], sort_keys=True))
+            if any(len(v) != 1 for v in values.values()) or set(values) != set(FIELDS):
+                raise BuildRefused("SCOPE_PARENT_MISMATCH", f"{row['contest_key']} parent values are not single")
+            parent_values = {f: json.loads(next(iter(values[f]))) for f in FIELDS}
+            if row["season"] is None:
+                row["season"] = record["season"]
+            expected = (row["season"], row["contest_date"], row["a_key"], row["b_key"], row["cfbd_game_id"]["value"])
+            observed = (record["season"], record["contest_date"], record["a_key"], record["b_key"],
+                        record["cfbd_game_id"]["value"])
+            if expected != observed or ("TRANCHE_28" in row["selection_sources"] and (
+                    parent_values["a_points"], parent_values["b_points"]) != (row["a_points"], row["b_points"])):
+                raise BuildRefused("SCOPE_PARENT_MISMATCH", f"{row['contest_key']} differs from the parent")
+            if record["a_cfbd_team_id"].get("namespace") != "CFBD_TEAM_ID" or \
+                    record["b_cfbd_team_id"].get("namespace") != "CFBD_TEAM_ID":
+                raise BuildRefused("SCOPE_PARENT_MISMATCH", f"{row['contest_key']} team id namespace")
+            lineage = [json.loads(line) for line in zlib.decompress(found[2]).decode("utf-8").splitlines()]
+            out[row["contest_key"]] = {"record": record, "values": parent_values,
+                                       "participants": af.participant_sources(record, lineage)}
+    finally:
+        conn.close()
+    return out
+
+
+def _copy_create_only(target: Path, data: bytes) -> str:
+    """Create ``target`` with exactly ``data``; an existing file must already hold identical bytes."""
+    target = Path(target)
+    if target.exists():
+        if target.read_bytes() != data:
+            raise BuildRefused("REFUSED_IMMUTABLE_COLLISION", str(target))
+        return "PRESENT_IDENTICAL"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_name(f".tmp-{sha256_bytes(data)[:16]}-{os.getpid()}-{time.time_ns()}")
+    with temporary.open("xb") as handle:
+        handle.write(data)
+    os.replace(temporary, target)
+    return "COPIED"
+
+
+def _retained_requirements(contract: dict[str, Any], doc: dict[str, Any], scope_keys: list[str]) -> None:
+    spec = contract["parent_binding"]["retained_acquisition"]
+    if doc.get("schema") != ACQUISITION_SCHEMA or doc.get("policy_id") != spec["policy_id"] or \
+            doc.get("contract_id") != spec["contract_id"] or \
+            doc.get("tranche_sha256") != contract["scope"]["tranche_sha256"] or doc.get("keys") != scope_keys or \
+            len(doc.get("requests") or []) != spec["requests"]:
+        raise BuildRefused("RETAINED_ACQUISITION_INVALID", "the retained acquisition is not the bound V1.2 acquisition")
+
+
+def import_retained(contract: dict[str, Any], retained_root: Path, output_root: Path) -> dict[str, Any]:
+    """Copy the bound retained V1.2 acquisition document, its journal files and every raw body it names (plus the
+    route-control raw bytes) create-only and byte-identically into the expansion root. Zero requests."""
+    spec = contract["parent_binding"]["retained_acquisition"]
+    ident = spec["identity"]
+    source = Path(retained_root)
+    data = (source / "acquisition" / "sha256" / ident / "acquisition.json").read_bytes()
+    if sha256_bytes(data) != ident:
+        raise BuildRefused("RETAINED_ACQUISITION_ALTERED", "the retained acquisition does not hash to its identity")
+    doc = json.loads(data.decode("utf-8"))
+    tranche_keys = [k["contest_key"] for k in contract["scope"]["keys"] if "TRANCHE_28" in k["selection_sources"]]
+    _retained_requirements(contract, doc, tranche_keys)
+    states: dict[str, int] = {}
+    total = 0
+    files: list[tuple[str, bytes]] = [(f"acquisition/sha256/{ident}/acquisition.json", data)]
+    for name, sha in sorted(spec["journal_files"].items()):
+        rel = f"acquisition/journal/{spec['policy_id']}/{name}"
+        blob = (source / Path(*rel.split("/"))).read_bytes()
+        if sha256_bytes(blob) != sha:
+            raise BuildRefused("RETAINED_ACQUISITION_ALTERED", rel)
+        files.append((rel, blob))
+    bodies = sorted({r["body_sha256"] for r in doc["requests"] if r.get("body_sha256")} |
+                    {doc["control"][k] for k in ("payload_sha256", "raw_receipt_sha256", "route_qualification_sha256")})
+    for sha in bodies:
+        files.append((raw_rel(sha), read_raw(source, sha)))
+    for rel, blob in files:
+        state = _copy_create_only(Path(output_root) / Path(*rel.split("/")), blob)
+        states[state] = states.get(state, 0) + 1
+        total += len(blob)
+    return {"identity": ident, "document": doc, "files": len(files), "states": states, "bytes": total,
+            "new_requests": 0}
+
+
+def load_retained(contract: dict[str, Any], root: Path) -> tuple[str, dict[str, Any]]:
+    ident = contract["parent_binding"]["retained_acquisition"]["identity"]
+    path = Path(root) / "acquisition" / "sha256" / ident / "acquisition.json"
+    if not path.is_file():
+        raise BuildRefused("RETAINED_ACQUISITION_MISSING", str(path))
+    doc = load_acquisition(path, root)
+    tranche_keys = [k["contest_key"] for k in contract["scope"]["keys"] if "TRANCHE_28" in k["selection_sources"]]
+    _retained_requirements(contract, doc, tranche_keys)
+    for request in doc["requests"]:
+        if request.get("body_sha256"):
+            read_raw(root, request["body_sha256"])
+    return ident, doc
+
+
+def acquisition_view(contract: dict[str, Any]) -> dict[str, Any]:
+    """The expansion acquisition's own contract view: its acquisition section and the 70 cohort keys in cohort order.
+    Its policy id is sha256 of {acquisition section, cohort sha256}; the journal and the document bind it."""
+    scope = contract["scope"]
+    specs = {k["contest_key"]: k for k in scope["keys"]}
+    keys = [{"contest_key": key, "selection_role": af.COHORT_ROLE, "candidate_url": specs[key]["candidate_url"],
+             "game_id_literal": specs[key]["game_id_literal"],
+             "expansion_probe_timestamps": specs[key]["expansion_probe_timestamps"]} for key in scope["cohort_keys"]]
+    return {"contract_id": contract["contract_id"], "acquisition": contract["acquisition"],
+            "scope": {"tranche_sha256": scope["cohort_sha256"], "keys": keys,
+                      "control_contest_key": scope["control_contest_key"]}}
+
+
+def retained_versions(doc: dict[str, Any]) -> dict[str, frozenset[str]]:
+    """Per key, the wayback timestamps of the versions the retained acquisition already replayed (HTTP 200)."""
+    out: dict[str, set[str]] = {}
+    for request in doc["requests"]:
+        if af.capture_request(request):
+            parts = replay_parts(request["url"])
+            if parts:
+                out.setdefault(request["contest_key"], set()).add(parts[0])
+    return {k: frozenset(v) for k, v in out.items()}
+
+
+def _replay_chain(chain: list[dict[str, Any]], target: tuple[str, str], purpose: str, budget: int, cap: int,
+                  game: str, retained: frozenset[str]) -> tuple[tuple[str, str, str] | None, int]:
+    """One replay chain: the target replay and at most one follow-up (RETRY of a transient failure or one
+    REDIRECT_HOP to an equivalent original). Returns (next step or None when the chain is done, replays consumed)."""
+    if budget <= 0:
+        return None, 0
+    if not chain:
+        return ("REPLAY", purpose, replay_url(target[0], target[1])), 0
+    first = chain[0]
+    if transient(first):
+        if len(chain) == 1:
+            if budget >= 2 and retry_allowed(first, cap):
+                return ("REPLAY", "RETRY", first["url"]), 1
+            return None, 1
+        return None, 2
+    if first["http_status"] in REDIRECT_STATUS:
+        if len(chain) == 1:
+            location = first["location"] or ""
+            hop = replay_parts(urllib.parse.urljoin(first["url"], location)) if location else None
+            if budget >= 2 and hop and equivalent_original(hop[1], game) and hop[0] not in retained:
+                return ("REPLAY", "REDIRECT_HOP", replay_url(hop[0], hop[1])), 1
+            return None, 1
+        return None, 2
+    return None, 1
+
+
+def _answer(record: dict[str, Any] | None, read_body: Callable[[dict[str, Any]], bytes],
+            game: str) -> dict[str, Any] | None:
+    if record is None or record["http_status"] != 200:
+        return None
+    answer = metadata_answer(read_body(record), game)
+    return answer if answer["usable"] else None
+
+
+def plan_next_expansion(key: dict[str, Any], history: list[dict[str, Any]], contract: dict[str, Any],
+                        read_body: Callable[[dict[str, Any]], bytes],
+                        retained: frozenset[str] = frozenset()) -> tuple[str, str, str] | None:
+    """The next expansion request for one cohort key (pure and deterministic): (kind, purpose, url).
+
+    PROBE_1 asks for the version nearest one second before the earliest dependent target's conservative boundary
+    (a transient failure is retried once at the same timestamp, which closes PROBE_2). The answered version is replayed
+    (CAPTURE_1) unless the retained acquisition already replayed that exact timestamp. PROBE_2, at the cohort's second
+    timestamp, is asked only when it differs from the first and the first answer gave no usable version, a version
+    later than the first timestamp or earlier than the second, or a replay that did not answer HTTP 200. Its version is
+    replayed (CAPTURE_2) only when it is a different timestamp, not retained, and replay capacity remains."""
+    cap = contract["acquisition"]["limits"]["retry_after_cap_seconds"]
+    budget = contract["acquisition"]["limits"]["replay_requests_per_key"]
+    game, candidate = key["game_id_literal"], key["candidate_url"]
+    probe1, probe2 = key["expansion_probe_timestamps"]
+    metas = [r for r in history if r["kind"] == "METADATA"]
+    replays = [r for r in history if r["kind"] == "REPLAY"]
+    if not metas:
+        return "METADATA", "PROBE_1", metadata_url(candidate, probe1)
+    if transient(metas[0]):
+        if len(metas) < 2:
+            return ("METADATA", "RETRY", metadata_url(candidate, probe1)) if retry_allowed(metas[0], cap) else None
+        first, probe2_open = metas[1], False
+    else:
+        first, probe2_open = metas[0], probe2 != probe1
+    answer1 = _answer(first, read_body, game)
+    t1 = (answer1["timestamp"], answer1["original"]) if answer1 else None
+    used = 0
+    replayed_ok = False
+    if t1 is not None and t1[0] not in retained:
+        step, used = _replay_chain(replays, t1, "CAPTURE_1", budget, cap, game, retained)
+        if step is not None:
+            return step
+        replayed_ok = any(r["http_status"] == 200 for r in replays[:used])
+    in_window = t1 is not None and probe2 <= t1[0] <= probe1
+    first_version_ok = t1 is not None and (t1[0] in retained or replayed_ok)
+    if not probe2_open or (in_window and first_version_ok):
+        return None
+    if len(metas) < 2:
+        return "METADATA", "PROBE_2", metadata_url(candidate, probe2)
+    answer2 = _answer(metas[1], read_body, game)
+    if answer2 is None:
+        return None
+    t2 = (answer2["timestamp"], answer2["original"])
+    if (t1 is not None and t2[0] == t1[0]) or t2[0] in retained:
+        return None
+    step, _ = _replay_chain(replays[used:], t2, "CAPTURE_2", budget - used, cap, game, retained)
+    return step
+
+
+def expansion_outcome(key: dict[str, Any], history: list[dict[str, Any]], exhausted: bool,
+                      read_body: Callable[[dict[str, Any]], bytes], retained: frozenset[str]) -> str:
+    """The V1.2 outcome, except that a key whose usable answers named only versions the retained acquisition had
+    already replayed (and which got no new HTTP 200 replay) is RETAINED_VERSION_REUSED."""
+    outcome = acquisition_outcome(key, history, exhausted)
+    if outcome == "CAPTURED" or not retained:
+        return outcome
+    named = {a["timestamp"] for a in (_answer(r, read_body, key["game_id_literal"]) for r in history
+                                      if r["kind"] == "METADATA") if a}
+    return "RETAINED_VERSION_REUSED" if named and named <= retained else outcome
+
+
+def capture_expansion(contract: dict[str, Any], output_root: Path, control: dict[str, Any],
+                      retained_doc: dict[str, Any], **kwargs: Any) -> dict[str, Any]:
+    """The expansion acquisition (the only networked step): the 70 cohort keys in cohort order through ``capture``
+    with the expansion planner, outcome and body limit, under the expansion policy and journal."""
+    view = acquisition_view(contract)
+    retained = retained_versions(retained_doc)
+    root = Path(output_root)
+    limit = contract["acquisition"]["limits"]["max_body_bytes"]
+
+    def read_body(record: dict[str, Any]) -> bytes:
+        return read_raw(root, record["body_sha256"])
+
+    def planner(key: dict[str, Any], history: list[dict[str, Any]], _contract: dict[str, Any],
+                reader: Callable[[dict[str, Any]], bytes]) -> tuple[str, str, str] | None:
+        return plan_next_expansion(key, history, view, reader, retained.get(key["contest_key"], frozenset()))
+
+    def outcome_of(key: dict[str, Any], history: list[dict[str, Any]], exhausted: bool) -> str:
+        return expansion_outcome(key, history, exhausted, read_body, retained.get(key["contest_key"], frozenset()))
+    if kwargs.get("transport") is None:
+        # capture() installs the network audit only for its own default transport; the body-limited real transport
+        # is passed explicitly, so the audit hook is installed here (finding F43A01-03: the first real capture ran
+        # without it; its journal shows archive.org requests only).
+        if kwargs.get("audit", True):
+            journal_dir = root / "acquisition" / "journal" / policy_id(view)
+            journal_dir.mkdir(parents=True, exist_ok=True)
+            install_network_audit(journal_dir / "network_audit.jsonl")
+        kwargs["transport"] = lambda url, headers, timeout: urllib_transport(url, headers, timeout, max_bytes=limit)
+    rows = [{"contest_key": k["contest_key"]} for k in view["scope"]["keys"]]
+    return capture(view, rows, root, control, planner=planner, outcome_of=outcome_of, **kwargs)
+
+
+def verify_expansion_acquisition(view: dict[str, Any], doc: dict[str, Any], output_root: Path,
+                                 control: dict[str, Any]) -> None:
+    """``verify_acquisition`` over the expansion view (cohort keys, cohort sha256, 320-request ceiling)."""
+    verify_acquisition(view, doc, output_root, control)
+    if doc.get("contract_id") != view["contract_id"]:
+        raise BuildRefused("ACQUISITION_KEYS_INVALID", "acquisition contract id")
+
+
+class ExpansionModel:
+    """Bundles of the 97 union keys from the ordered acquisitions (retained V1.2 first, then the expansion)."""
+
+    def __init__(self, contract: dict[str, Any], rows: list[dict[str, Any]], parent: dict[str, dict[str, Any]],
+                 acquisitions: list[tuple[str, dict[str, Any]]], output_root: Path, control: dict[str, Any]) -> None:
+        self.contract = contract
+        self.rows = {r["contest_key"]: r for r in rows}
+        self.order = [k["contest_key"] for k in contract["scope"]["keys"]]
+        self.keys = {k["contest_key"]: k for k in contract["scope"]["keys"]}
+        self.parent = parent
+        self.acquisitions = acquisitions
+        self.root = Path(output_root)
+        self.control = control
+
+    def read(self, sha: str) -> bytes:
+        return read_raw(self.root, sha)
+
+    def outcomes(self, key: str) -> list[dict[str, str]]:
+        return [{"acquisition_identity": ident, "acquisition_outcome": doc["outcomes"][key]}
+                for ident, doc in self.acquisitions if key in doc["outcomes"]]
+
+    def requests(self, key: str) -> list[tuple[str, dict[str, Any]]]:
+        return [(ident, r) for ident, doc in self.acquisitions for r in doc["requests"] if r["contest_key"] == key]
+
+    def capture_records(self, key: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+        spec = self.keys[key]
+        game = spec["game_id_literal"]
+        parent = self.parent[key]
+        control = None
+        if spec["selection_role"] == af.CONTROL_ROLE:
+            control = af.control_version(sha256_bytes(self.control["receipt_raw"]), self.control["receipt"],
+                                         self.control["payload"])
+        entries, duplicates = af.expansion_versions(key, control, self.acquisitions, self.read)
+        captures, assertions = [], []
+        for entry in entries:
+            capture_record, rows = af.derive_capture(key, parent, game, entry["version"], entry["payload_sha256"])
+            captures.append(capture_record)
+            assertions += rows
+        captures = af.order_captures(captures)
+        return captures, af.order_assertions(captures, assertions), duplicates
+
+    def bundle(self, key: str) -> bytes:
+        row, spec, parent = self.rows[key], self.keys[key], self.parent[key]
+        requests = self.requests(key)
+        captures, assertions, duplicates = self.capture_records(key)
+        record = af.expansion_disposition_record(self.order.index(key), key, row, spec["candidate_url"],
+                                                 spec["game_id_literal"], self.outcomes(key),
+                                                 [r for _, r in requests], captures, duplicates, parent["values"])
+        lines = [record_line(record, EXPANSION_RECORD_FIELDS)]
+        lines += [record_line(af.expansion_request_record(ident, r, spec["game_id_literal"], self.read),
+                              EXPANSION_RECORD_FIELDS) for ident, r in requests]
+        lines += [record_line(c, EXPANSION_RECORD_FIELDS) for c in captures]
+        lines += [record_line(a, EXPANSION_RECORD_FIELDS) for a in assertions]
+        return b"".join(lines)
+
+
+def build_expansion(args: argparse.Namespace) -> dict[str, Any]:
+    started = time.time()
+    contract, contract_sha = load_expansion_contract(args.contract)
+    if args.chunk_size < 0 or (args.stop_after_chunks is not None and args.stop_after_chunks < 1):
+        raise BuildRefused("ARGUMENT_INVALID", "chunk size and stop-after must be positive")
+    if (args.resume or args.stop_after_chunks is not None) and not args.checkpoint_dir:
+        raise BuildRefused("ARGUMENT_INVALID", "--resume and --stop-after-chunks need --checkpoint-dir")
+    if args.checkpoint_dir and args.chunk_size < 1:
+        raise BuildRefused("ARGUMENT_INVALID", "--checkpoint-dir needs --chunk-size >= 1")
+    if not INPUT_ORDER.match(args.input_order):
+        raise BuildRefused("INPUT_ORDER_INVALID", args.input_order)
+    if args.cohort is None:
+        raise BuildRefused("ARGUMENT_INVALID", "the expansion contract needs --cohort")
+    parent = verify_source_database(contract, args.source_database)
+    rows = verify_expansion_scope(contract, args.tranche, args.cohort)
+    bindings = verify_expansion_bindings(contract, args.source_bindings, parent, args.tranche, args.cohort,
+                                         args.source_database)
+    control = verify_control(contract, Path(bindings["control_path"]))
+    parent_values = read_parent_union(args.source_database, rows)
+    output_root = Path(args.output_root)
+    evidence_root = Path(args.evidence_root) if args.evidence_root else output_root
+    view = acquisition_view(contract)
+    pid = policy_id(view)
+    capture_result = retained_result = None
+    if args.stage in ("capture", "all"):
+        if evidence_root.resolve() != output_root.resolve():
+            raise BuildRefused("ARGUMENT_INVALID", "capture writes its evidence into the output root only")
+        if args.retained_root is None:
+            raise BuildRefused("ARGUMENT_INVALID", "the expansion capture needs --retained-root")
+        retained_result = import_retained(contract, args.retained_root, output_root)
+        capture_result = capture_expansion(contract, output_root, control, retained_result["document"],
+                                           audit=not args.no_network_audit)
+        retained_summary = {k: v for k, v in retained_result.items() if k != "document"}
+        if args.stage == "capture":
+            return {"state": "CAPTURE_" + capture_result["state"], "capture": capture_result,
+                    "retained": retained_summary, "policy_id": pid, "contract_sha256": contract_sha,
+                    "seconds": round(time.time() - started, 3)}
+    retained_id, retained_doc = load_retained(contract, evidence_root)
+    acquisition_path, acquisition = find_acquisition(evidence_root, pid, args.acquisition)
+    acquisition_id = acquisition_path.parent.name
+    verify_expansion_acquisition(view, acquisition, evidence_root, control)
+    retained_pid = contract["parent_binding"]["retained_acquisition"]["policy_id"]
+    model = ExpansionModel(contract, rows, parent_values, [(retained_id, retained_doc), (acquisition_id, acquisition)],
+                           evidence_root, control)
+    keys = permute([k["contest_key"] for k in contract["scope"]["keys"]], args.input_order)
+    parent_doc = {"source_time": parent}
+    control_doc = {"contest_key": contract["scope"]["control_contest_key"],
+                   "route_qualification_sha256": sha256_bytes(control["route_raw"]),
+                   "raw_receipt_sha256": sha256_bytes(control["receipt_raw"]),
+                   "payload_sha256": sha256_bytes(control["payload"])}
+    acquisitions_doc = [{"acquisition_identity": retained_id, "policy_id": retained_pid, "origin": RETAINED_ORIGIN},
+                        {"acquisition_identity": acquisition_id, "policy_id": pid, "origin": EXPANSION_ORIGIN}]
+    checkpoint = None
+    if args.checkpoint_dir:
+        header_doc = {"schema": EXPANSION_CHECKPOINT_SCHEMA, "contract_sha256": contract_sha, "parent": parent_doc,
+                      "tranche_sha256": contract["scope"]["tranche_sha256"],
+                      "cohort_sha256": contract["scope"]["cohort_sha256"], "acquisitions": acquisitions_doc,
+                      "payload_schema": EXPANSION_PAYLOAD_SCHEMA, "chunk_size": args.chunk_size,
+                      "unit_key_list_sha256": _keys_sha(keys), "unit_count": len(keys),
+                      "producer_sha256": sha256_file(Path(__file__))}
+        checkpoint = Checkpoint(Path(args.checkpoint_dir), header_doc, args.chunk_size, args.resume)
+    blobs = build_bundles(model, keys, chunk_size=args.chunk_size, checkpoint=checkpoint,
+                          stop_after=args.stop_after_chunks)
+    if blobs is None:
+        return {"state": "INTERRUPTED_AT_CHECKPOINT", "checkpoint_dir": str(args.checkpoint_dir),
+                "completed_chunks": len(checkpoint.completed(keys)) if checkpoint else 0, "unit_count": len(keys)}
+    ordered = b"".join(blobs[k] for k in model.order)
+    payloads = split_bundles(ordered)
+    conflicts = af.mapping_conflicts([json.loads(line) for line in payloads["captures.jsonl"].splitlines()])
+    if conflicts:
+        raise BuildRefused("PARTICIPANT_MAPPING_CONTRADICTORY", f"qualified participant mappings disagree across the "
+                                                                f"union: {conflicts[:5]}")
+    counts = {name: payloads[name].count(b"\n") for name in PAYLOAD_FILES}
+    if counts["dispositions.jsonl"] != contract["scope"]["union_count"] or \
+            counts["requests.jsonl"] != len(retained_doc["requests"]) + len(acquisition["requests"]):
+        raise BuildRefused("CENSUS_INCOMPLETE", "dispositions or requests do not cover the union/acquisitions")
+    semantic = {name: sha256_bytes(payloads[name]) for name in PAYLOAD_FILES}
+    packed = {f"{name}.gz": gzip.compress(payloads[name], compresslevel=GZIP_LEVEL, mtime=0) for name in PAYLOAD_FILES}
+    content_document = {"schema": EXPANSION_CONTENT_SCHEMA, "stage": "archived-publication-content",
+                        "population": EXPANSION_POPULATION, "contract_id": contract["contract_id"],
+                        "contract_sha256": contract_sha, "parent": parent_doc,
+                        "tranche_sha256": contract["scope"]["tranche_sha256"],
+                        "cohort_sha256": contract["scope"]["cohort_sha256"], "acquisition_identity": acquisition_id,
+                        "acquisition_policy_id": pid, "acquisitions": acquisitions_doc, "control": control_doc,
+                        "payload_schema": EXPANSION_PAYLOAD_SCHEMA,
+                        "payload_encoding": "gzip(level 9, mtime 0) of the canonical JSONL; semantic sha256 over the "
+                                            "uncompressed bytes",
+                        "semantic_outputs": semantic, "outputs": {n: sha256_bytes(d) for n, d in packed.items()},
+                        "row_counts": counts}
+    content_identity = sha256_bytes(canonical_json_bytes(content_document))
+    with tempfile.TemporaryDirectory(prefix="nape-") as work:
+        db_path = Path(work) / DB_FILE
+        meta = {"schema_version": EXPANSION_DB_SCHEMA, "contract_id": contract["contract_id"],
+                "contract_sha256": contract_sha, "content_identity": content_identity,
+                "payload_schema": EXPANSION_PAYLOAD_SCHEMA, "semantic_sha256": json.dumps(semantic, sort_keys=True),
+                "row_counts": json.dumps(counts, sort_keys=True), "parent": json.dumps(parent_doc, sort_keys=True),
+                "tranche_sha256": contract["scope"]["tranche_sha256"],
+                "cohort_sha256": contract["scope"]["cohort_sha256"], "acquisition_identity": acquisition_id,
+                "acquisition_policy_id": pid, "acquisitions": json.dumps(acquisitions_doc, sort_keys=True),
+                "control": json.dumps(control_doc, sort_keys=True),
+                "row_labels": json.dumps(EXPANSION_AUTHORITY, sort_keys=True),
+                "fields": json.dumps({"order": list(FIELDS), "roles": ROLES, "witnessable": list(WITNESSABLE)},
+                                     sort_keys=True),
+                "record_homes": json.dumps(RECORD_HOMES, sort_keys=True),
+                "origin_date_tolerance_seconds": str(ORIGIN_DATE_TOLERANCE_SECONDS),
+                "participant_mapping_rule": af.MAPPING_RULE, "capture_quarantine_rule": af.QUARANTINE_RULE,
+                "duplicate_version_rule": af.DUPLICATE_RULE,
+                "field_witnesses": json.dumps({f: sorted(w) for f, w in af.FIELD_WITNESSES.items()}, sort_keys=True)}
+        db_counts = build_database(db_path, payloads, meta, table_sql=EXPANSION_TABLE_SQL,
+                                   per_acquisition_requests=True)
+        if db_counts["record_counts"] != counts:
+            raise BuildRefused("CENSUS_INCOMPLETE", f"database records {db_counts['record_counts']} != {counts}")
+        database_document = {"schema": EXPANSION_DATABASE_SCHEMA, "stage": "archived-publication-database",
+                             "population": EXPANSION_POPULATION, "contract_sha256": contract_sha,
+                             "content_identity": content_identity, "parent": parent_doc,
+                             "db_schema_version": EXPANSION_DB_SCHEMA, "outputs": {DB_FILE: sha256_file(db_path)},
+                             "table_counts": db_counts["table_counts"], "record_counts": db_counts["record_counts"]}
+        database_identity = sha256_bytes(canonical_json_bytes(database_document))
+        provenance = {"producer": EXPANSION_PRODUCER, "producer_path": str(Path(__file__).resolve()),
+                      "producer_sha256": sha256_file(Path(__file__)), "argv": list(args.argv),
+                      "issued_at_utc": _dt.datetime.now(UTC).replace(microsecond=0).isoformat(),
+                      "processing_clock": "nonsemantic run provenance only", "runtime": runtime(),
+                      "variant": args.variant, "input_order": args.input_order, "chunk_size": args.chunk_size,
+                      "resumed": bool(args.resume), "jira_key": contract.get("jira_key"),
+                      "cycle_number": contract.get("cycle_number"), "attempt_number": contract.get("attempt_number"),
+                      "source_bindings": bindings, "acquisition": str(acquisition_path),
+                      "retained_acquisition": retained_id, "database_identity": database_identity,
+                      "database_manifest": f"sha256/{database_identity}/run_manifest.json"}
+        content = materialize_identity(args.output_root, args.manifest_root, content_document, packed, provenance)
+        database = materialize_identity(args.output_root, args.manifest_root, database_document, {DB_FILE: db_path},
+                                        {**provenance, "content_identity": content_identity})
+    dispositions = [json.loads(line) for line in payloads["dispositions.jsonl"].decode("utf-8").splitlines()]
+    tally: dict[str, int] = {}
+    for item in dispositions:
+        tally[item["disposition"]] = tally.get(item["disposition"], 0) + 1
+    return {"state": content["state"], "content_identity": content_identity, "database_identity": database_identity,
+            "content": content, "database": database, "row_counts": counts, "table_counts": db_counts["table_counts"],
+            "semantic_sha256": semantic, "payload_sha256": content_document["outputs"],
+            "database_sha256": database_document["outputs"][DB_FILE], "database_state": database["state"],
+            "contract_sha256": contract_sha, "parent": parent_doc, "acquisition_identity": acquisition_id,
+            "acquisition_policy_id": pid, "acquisitions": acquisitions_doc,
+            "acquisition_totals": acquisition["totals"], "retained_totals": retained_doc["totals"],
+            "capture": capture_result, "dispositions": tally, "input_order": args.input_order,
+            "chunk_size": args.chunk_size, "variant": args.variant, "runtime": runtime(),
+            "seconds": round(time.time() - started, 3)}
+
+
 def build(args: argparse.Namespace) -> dict[str, Any]:
+    if (contract_id_of(args.contract) or "").startswith(EXPANSION_CONTRACT_ID_PREFIX):
+        return build_expansion(args)
     started = time.time()
     contract, contract_sha = load_contract(args.contract)
     if args.chunk_size < 0 or (args.stop_after_chunks is not None and args.stop_after_chunks < 1):
@@ -1282,6 +1963,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--variant", default="CANONICAL")
     parser.add_argument("--receipt", type=Path, default=None)
+    parser.add_argument("--cohort", type=Path, default=None,
+                        help="BAT-715 expansion contract only: the issued missing-prior cohort (ARCHIVE_COHORT.json)")
+    parser.add_argument("--retained-root", type=Path, default=None,
+                        help="BAT-715 expansion capture only: the read-only V1.2 canonical root whose retained "
+                             "acquisition and raw bodies are copied create-only into the output root")
     parser.add_argument("--no-network-audit", action="store_true", help=argparse.SUPPRESS)
     return parser
 

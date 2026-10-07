@@ -1,0 +1,2028 @@
+{
+ "schema_version": "1.0.0",
+ "contract_id": "BAT-715-NATIONAL-ARCHIVED-PUBLICATION-2019-EXPANSION-V1.0",
+ "jira_key": "BAT-715",
+ "cycle_number": 43,
+ "attempt_number": 1,
+ "governing_plan": "TP43-A01 revision 2026-10-05.3 sections 1-8 (Cycle #43 Attempt #1, BAT-715): expand the accepted archive evidence for the exact 70 missing prior contests of the 46 early-September 2019 targets; explicit successor, defaults unchanged",
+ "predecessor": {
+  "contract_id": "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.2",
+  "schema_version": "1.2.0",
+  "path": "configs/national_archived_publication_2019_contract_v1_2.json",
+  "sha256": "3be9f08f32d4d40dd805a31b3f402ca171add3afeeeab45256710ed1bbf8fe66",
+  "state": "ACCEPTED_RETAINED_UNCHANGED_DEFAULT_V1_2_ROUTE_PRESERVED",
+  "predecessor_outputs": {
+   "content_identity": "e8fe56813c13575cd0ce8f8c56ae1f4763e6c171f109f61c0f08b7fadddd7d81",
+   "database_identity": "768c7c4c8daf5949de3e9cfff5f63ef954ea8d8719678543eef083701361b1da",
+   "acquisition_identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+   "state": "ACCEPTED_IMMUTABLE; still served unchanged by the packaged V1.2 authority; this successor is a separate population"
+  },
+  "unchanged_sections": [
+   "identifier_namespaces",
+   "receipts",
+   "extraction",
+   "clocks",
+   "decisions",
+   "natural_keys",
+   "participant_mapping"
+  ],
+  "relation": "a separate, explicitly selected successor population over the same parent; the V1.2 sidecar, its acquisition, raw bytes, defaults and consumers stay unchanged"
+ },
+ "classification": "ARCHIVED_PUBLICATION_EVIDENCE_SIDECAR_NOT_PIT_NOT_TRAINING_MATRIX",
+ "population_id": "national_archived_publication_2019_expansion",
+ "historical_audit_unit": "HT43-ARCHIVED-PUBLICATION-2019-EXPANSION-UNION97",
+ "question": "For the 97-key union of the retained 28-contest 2019 tranche and the 70 missing prior contests of the 46 non-cold-start FBS targets dated 2019-09-05..08, which exact source field of which exact archived version was publicly served by which conservative archive-capture upper bound, and which keys have no qualified version?",
+ "authority": {
+  "evidence_authority": "ARCHIVED_PUBLICATION_EVIDENCE_ONLY",
+  "pit_admission": "NOT_ADMITTED_NO_SEPARATE_PIT_ADMISSION_AUTHORITY",
+  "publication_inference": "ARCHIVE_CAPTURE_UPPER_BOUND_FOR_EXACT_WITNESSED_VERSION_ONLY_NOT_FIRST_PUBLICATION",
+  "scope": "BOUNDED_2019_UNION_97_CONTESTS_RETAINED_TRANCHE_28_PLUS_MISSING_PRIOR_COHORT_70_NOT_NATIONAL_COVERAGE",
+  "require_pit": "REFUSED_PIT_ADMISSION_AUTHORITY_ABSENT",
+  "default_activation": "NONE: the source-time and history-availability consumers compose this successor only when it is named explicitly (--archive-evidence / --archive-database); the packaged V1.2 default is unchanged",
+  "parent_assertions": "the accepted source-time assertions, captures and 2026 retrieval clocks are never mutated or relabelled; archive evidence is a separately identified sidecar",
+  "user_supplied_clock_labels": "never authority: every archive bound is re-derived from retained receipt literals and every witness from retained raw bytes before use",
+  "stored_records": "never authority: the consumer re-derives every capture and assertion record (witness occurrences, scopes, page facts, participant mapping, field states, clocks) from the retained raw bytes, receipts and parent lineage and refuses any difference"
+ },
+ "row_labels": {
+  "evidence_authority": "ARCHIVED_PUBLICATION_EVIDENCE_ONLY",
+  "pit_admission": "NOT_ADMITTED_NO_SEPARATE_PIT_ADMISSION_AUTHORITY",
+  "publication_inference": "ARCHIVE_CAPTURE_UPPER_BOUND_FOR_EXACT_WITNESSED_VERSION_ONLY_NOT_FIRST_PUBLICATION",
+  "scope": "BOUNDED_2019_UNION_97_CONTESTS_RETAINED_TRANCHE_28_PLUS_MISSING_PRIOR_COHORT_70_NOT_NATIONAL_COVERAGE"
+ },
+ "scope": {
+  "season": 2019,
+  "tranche_document": "ARCHIVE_TRANCHE.json (manager preparation-20261003, retained)",
+  "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79",
+  "tranche_count": 28,
+  "cohort_document": "ARCHIVE_COHORT.json (manager preparation-20261005, Cycle 43)",
+  "cohort_sha256": "9240e5637bf80133d094745baf95898ddd2ef6ed8900fe0d1cf0cd20f397b937",
+  "cohort_count": 70,
+  "cohort_keys": [
+   "ncaa:1735108",
+   "ncaa:1735114",
+   "ncaa:1735118",
+   "ncaa:1735119",
+   "ncaa:1735120",
+   "ncaa:1735121",
+   "ncaa:1735124",
+   "ncaa:1735125",
+   "ncaa:1735131",
+   "ncaa:1735132",
+   "ncaa:1735134",
+   "ncaa:1735135",
+   "ncaa:1735136",
+   "ncaa:1735137",
+   "ncaa:1735138",
+   "ncaa:1735139",
+   "ncaa:1735141",
+   "ncaa:1735142",
+   "ncaa:1735143",
+   "ncaa:1735144",
+   "ncaa:1735145",
+   "ncaa:1735146",
+   "ncaa:1735147",
+   "ncaa:1735148",
+   "ncaa:1735149",
+   "ncaa:1735150",
+   "ncaa:1735151",
+   "ncaa:1735153",
+   "ncaa:1735156",
+   "ncaa:1735157",
+   "ncaa:1735158",
+   "ncaa:1735162",
+   "ncaa:1735167",
+   "ncaa:1735168",
+   "ncaa:1735169",
+   "ncaa:1735171",
+   "ncaa:1735173",
+   "ncaa:1735175",
+   "ncaa:1735176",
+   "ncaa:1735177",
+   "ncaa:1735178",
+   "ncaa:1735179",
+   "ncaa:1735180",
+   "ncaa:1735183",
+   "ncaa:1735185",
+   "ncaa:1735187",
+   "ncaa:1735188",
+   "ncaa:1735191",
+   "ncaa:1735193",
+   "ncaa:1735194",
+   "ncaa:1735195",
+   "ncaa:1735196",
+   "ncaa:1735201",
+   "ncaa:1735203",
+   "ncaa:1735207",
+   "ncaa:1735210",
+   "ncaa:1735211",
+   "ncaa:1735213",
+   "ncaa:1735214",
+   "ncaa:1735215",
+   "ncaa:1735216",
+   "ncaa:1735217",
+   "ncaa:1735218",
+   "ncaa:1735220",
+   "ncaa:1735222",
+   "ncaa:1735223",
+   "ncaa:1735224",
+   "ncaa:1735225",
+   "ncaa:1735226",
+   "ncaa:1775063"
+  ],
+  "cohort_targets": 46,
+  "cohort_relationships": 90,
+  "union_count": 97,
+  "overlap_keys": [
+   "ncaa:1735173"
+  ],
+  "control_contest_key": "ncaa:1735109",
+  "union_order": "the tranche keys in tranche order, then the cohort keys not in the tranche in cohort order",
+  "keys": [
+   {
+    "contest_key": "ncaa:1735532",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112230",
+    "game_id_literal": "401112230",
+    "retained_probe_1_timestamp": "20190907235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1735911",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112461",
+    "game_id_literal": "401112461",
+    "retained_probe_1_timestamp": "20190921235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1736172",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117871",
+    "game_id_literal": "401117871",
+    "retained_probe_1_timestamp": "20190926235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1735845",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112141",
+    "game_id_literal": "401112141",
+    "retained_probe_1_timestamp": "20190914235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1735212",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110732",
+    "game_id_literal": "401110732",
+    "retained_probe_1_timestamp": "20190831235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1738412",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112166",
+    "game_id_literal": "401112166",
+    "retained_probe_1_timestamp": "20191116235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1738745",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112520",
+    "game_id_literal": "401112520",
+    "retained_probe_1_timestamp": "20191123235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1818301",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401135282",
+    "game_id_literal": "401135282",
+    "retained_probe_1_timestamp": "20191230235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1738382",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401119301",
+    "game_id_literal": "401119301",
+    "retained_probe_1_timestamp": "20191113235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1738387",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117547",
+    "game_id_literal": "401117547",
+    "retained_probe_1_timestamp": "20191115235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1737450",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-MIDDLE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110834",
+    "game_id_literal": "401110834",
+    "retained_probe_1_timestamp": "20191026235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1737093",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-MIDDLE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112483",
+    "game_id_literal": "401112483",
+    "retained_probe_1_timestamp": "20191018235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1737155",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-MIDDLE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112151",
+    "game_id_literal": "401112151",
+    "retained_probe_1_timestamp": "20191019235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1737115",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-MIDDLE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117215",
+    "game_id_literal": "401117215",
+    "retained_probe_1_timestamp": "20191019235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1737010",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FBS-MIDDLE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401119276",
+    "game_id_literal": "401119276",
+    "retained_probe_1_timestamp": "20191012235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1736209",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110809",
+    "game_id_literal": "401110809",
+    "retained_probe_1_timestamp": "20190928235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1736120",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401121941",
+    "game_id_literal": "401121941",
+    "retained_probe_1_timestamp": "20190921235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1735173",
+    "selection_sources": [
+     "TRANCHE_28",
+     "COHORT_70"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112139",
+    "game_id_literal": "401112139",
+    "retained_probe_1_timestamp": "20190831235959",
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735492",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401121938",
+    "game_id_literal": "401121938",
+    "retained_probe_1_timestamp": "20190907235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1735537",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-EARLY",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110775",
+    "game_id_literal": "401110775",
+    "retained_probe_1_timestamp": "20190907235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1738725",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110860",
+    "game_id_literal": "401110860",
+    "retained_probe_1_timestamp": "20191123235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1738741",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110855",
+    "game_id_literal": "401110855",
+    "retained_probe_1_timestamp": "20191123235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1738723",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110856",
+    "game_id_literal": "401110856",
+    "retained_probe_1_timestamp": "20191123235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1738730",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110858",
+    "game_id_literal": "401110858",
+    "retained_probe_1_timestamp": "20191123235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1737787",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-LATE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112496",
+    "game_id_literal": "401112496",
+    "retained_probe_1_timestamp": "20191102235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1737398",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-MIDDLE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114351",
+    "game_id_literal": "401114351",
+    "retained_probe_1_timestamp": "20191019235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1736822",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "STRATIFIED_COHORT",
+    "stratum": "FBS-FCS-MIDDLE",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112482",
+    "game_id_literal": "401112482",
+    "retained_probe_1_timestamp": "20191012235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1735109",
+    "selection_sources": [
+     "TRANCHE_28"
+    ],
+    "selection_role": "SEPARATE_PREQUALIFIED_ROUTE_CONTROL",
+    "stratum": "POSITIVE_CONTROL",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110723",
+    "game_id_literal": "401110723",
+    "retained_probe_1_timestamp": "20190824235959",
+    "expansion_probe_timestamps": null
+   },
+   {
+    "contest_key": "ncaa:1735108",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114164",
+    "game_id_literal": "401114164",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190826000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735114",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114246",
+    "game_id_literal": "401114246",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735118",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114236",
+    "game_id_literal": "401114236",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735119",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117493",
+    "game_id_literal": "401117493",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735120",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117855",
+    "game_id_literal": "401117855",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735121",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117854",
+    "game_id_literal": "401117854",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735124",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401119253",
+    "game_id_literal": "401119253",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735125",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114237",
+    "game_id_literal": "401114237",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735131",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401119254",
+    "game_id_literal": "401119254",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735132",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401119255",
+    "game_id_literal": "401119255",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735134",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117853",
+    "game_id_literal": "401117853",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735135",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110731",
+    "game_id_literal": "401110731",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735136",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401135910",
+    "game_id_literal": "401135910",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735137",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112229",
+    "game_id_literal": "401112229",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735138",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401111653",
+    "game_id_literal": "401111653",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735139",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114223",
+    "game_id_literal": "401114223",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190831000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735141",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114238",
+    "game_id_literal": "401114238",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190905095959",
+     "20190901000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735142",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112262",
+    "game_id_literal": "401112262",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190901000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735143",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112212",
+    "game_id_literal": "401112212",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190901000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735144",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117856",
+    "game_id_literal": "401117856",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190901000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735145",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112264",
+    "game_id_literal": "401112264",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190901000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735146",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112122",
+    "game_id_literal": "401112122",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190901000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735147",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112430",
+    "game_id_literal": "401112430",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190905095959",
+     "20190901000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735148",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114184",
+    "game_id_literal": "401114184",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190901000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735149",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110726",
+    "game_id_literal": "401110726",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735150",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112145",
+    "game_id_literal": "401112145",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735151",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112238",
+    "game_id_literal": "401112238",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735153",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112096",
+    "game_id_literal": "401112096",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735156",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112251",
+    "game_id_literal": "401112251",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735157",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112201",
+    "game_id_literal": "401112201",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735158",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110724",
+    "game_id_literal": "401110724",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735162",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112245",
+    "game_id_literal": "401112245",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735167",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401119259",
+    "game_id_literal": "401119259",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735168",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112143",
+    "game_id_literal": "401112143",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735169",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110720",
+    "game_id_literal": "401110720",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735171",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110721",
+    "game_id_literal": "401110721",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735175",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112257",
+    "game_id_literal": "401112257",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735176",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110730",
+    "game_id_literal": "401110730",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735177",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401121934",
+    "game_id_literal": "401121934",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735178",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114174",
+    "game_id_literal": "401114174",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735179",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401119256",
+    "game_id_literal": "401119256",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735180",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110729",
+    "game_id_literal": "401110729",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735183",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112435",
+    "game_id_literal": "401112435",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735185",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114245",
+    "game_id_literal": "401114245",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735187",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112431",
+    "game_id_literal": "401112431",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190905095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735188",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110728",
+    "game_id_literal": "401110728",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735191",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117496",
+    "game_id_literal": "401117496",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735193",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112434",
+    "game_id_literal": "401112434",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735194",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114244",
+    "game_id_literal": "401114244",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735195",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114243",
+    "game_id_literal": "401114243",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735196",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112073",
+    "game_id_literal": "401112073",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735201",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117858",
+    "game_id_literal": "401117858",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735203",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401119257",
+    "game_id_literal": "401119257",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735207",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112106",
+    "game_id_literal": "401112106",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735210",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112191",
+    "game_id_literal": "401112191",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735211",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110725",
+    "game_id_literal": "401110725",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735213",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114240",
+    "game_id_literal": "401114240",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190905095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735214",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114241",
+    "game_id_literal": "401114241",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735215",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401110722",
+    "game_id_literal": "401110722",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735216",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401117497",
+    "game_id_literal": "401117497",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735217",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114228",
+    "game_id_literal": "401114228",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735218",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114242",
+    "game_id_literal": "401114242",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735220",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401128468",
+    "game_id_literal": "401128468",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735222",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401119258",
+    "game_id_literal": "401119258",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735223",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112135",
+    "game_id_literal": "401112135",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735224",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112222",
+    "game_id_literal": "401112222",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735225",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114218",
+    "game_id_literal": "401114218",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1735226",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401112433",
+    "game_id_literal": "401112433",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   },
+   {
+    "contest_key": "ncaa:1775063",
+    "selection_sources": [
+     "COHORT_70"
+    ],
+    "selection_role": "COHORT_MISSING_PRIOR",
+    "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+    "candidate_url": "https://www.espn.com/college-football/game/_/gameId/401114233",
+    "game_id_literal": "401114233",
+    "retained_probe_1_timestamp": null,
+    "expansion_probe_timestamps": [
+     "20190906095959",
+     "20190902000000"
+    ]
+   }
+  ],
+  "cohort_only_fields": {
+   "selection_role": "COHORT_MISSING_PRIOR",
+   "stratum": "COHORT_2019_09_05_TO_08_TARGET_MISSING_PRIOR",
+   "classification_pair": "null: the cohort is selected from the parent history graph without a classification stratum; no other parent is read",
+   "season": "the parent source-time record's season"
+  },
+  "selection_caveat": "the cohort is the complete both-team missing-prior graph of the 46 targets, selected without looking at archive availability or outcomes; it is a bounded measurement, not national coverage"
+ },
+ "parent_binding": {
+  "source_time": {
+   "contract_id": "BAT-712-NATIONAL-SOURCE-TIME-2016-2023-V1.0",
+   "contract_sha256": "21ed32b8fac0f5fa2c3f4dd55f29abef80437d339c3db2f1bf75206a1fcaf1bd",
+   "content_identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+   "database_identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+   "sqlite_sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7",
+   "db_schema_version": "BAS-NATIONAL-SOURCE-TIME-DB-1",
+   "gate": "artifacts/data_lake/national_source_time_2016_2023_gate.json"
+  },
+  "source_bindings": {
+   "document": "INPUT_BINDINGS.json (manager preparation-20261005, Cycle 43)",
+   "sha256": "452446fae0f10353a854101972633776e5292ee686f736d4112c0ab673049120",
+   "rule": "the bindings must name the same source-time database path/sha256/identity, the tranche sha256 and count 28, the expansion cohort sha256 with 70 missing priors and 97 union keys, the route-control sha256 and the retained acquisition identity below"
+  },
+  "route_control": {
+   "document": "ARCHIVE_ROUTE_QUALIFICATION.json (manager preparation-20261003)",
+   "sha256": "75ea9fed326048c850a90fd114bfcfaf646bfd95b1f5035340d8b5ec1c31d14a",
+   "raw_receipt_document": "preflight/ARCHIVE_POSITIVE_RAW.json",
+   "raw_receipt_sha256": "dea6a227afe16c26eaaf287270f6ec70626728f41b10fc59ef7fd75de3192692",
+   "raw_payload": "preflight/archive-positive-20190902010050.html",
+   "raw_payload_sha256": "5c32e0df631e48aadbee2af25566ce803ebd340a7619355afca5d1690ddaab19",
+   "raw_payload_bytes": 513177,
+   "contest_key": "ncaa:1735109",
+   "archive_capture_utc": "2019-09-02T01:00:50Z",
+   "conservative_upper_bound": "2019-09-02T01:00:50.999999Z",
+   "reuse": "REUSED_RETAINED_CONTROL: zero new requests; the exact retained bytes and both retained receipt documents are copied byte-identically into the content-addressed raw store"
+  },
+  "retained_acquisition": {
+   "identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+   "policy_id": "a5bdc947f6930172d6deca1b47198b14e20fe421dba9dfd9b7b7f82a9ef67f3b",
+   "contract_id": "BAT-713-NATIONAL-ARCHIVED-PUBLICATION-2019-V1.0",
+   "contract_sha256": "3be9f08f32d4d40dd805a31b3f402ca171add3afeeeab45256710ed1bbf8fe66",
+   "contract_relation": "the document was finalized under the acquiring contract_id above (V1.0); V1.1 and the accepted V1.2 (contract_sha256) reuse it byte-for-byte because their acquisition sections are unchanged, so the policy id is the same",
+   "requests": 69,
+   "keys": 28,
+   "journal_files": {
+    "journal.jsonl": "adccc02322f25c3ced3baed79d0c67d1425d2dea29608f1010aa138edb1fd875",
+    "network_audit.jsonl": "27a43440e74d3f4ee5b5d3521e4b83dbf29dbf73f38cf6da294ab83ba7b7bb08"
+   },
+   "source_root": "canonical/national_archived_publication_2019 (read-only)",
+   "reuse": "copied create-only and byte-identically (document, journal files, every raw body it names and the route-control raw bytes) into the expansion root; zero new requests; its request records keep their own sequence numbers and receipts"
+  },
+  "parent_values": "each tranche key's accepted values come from the parent source-time database: the contest record (contest_key, season, contest_date, a_key/b_key, a_cfbd_team_id/b_cfbd_team_id [namespace CFBD_TEAM_ID], cfbd_game_id, parent_site) and the single parent_value carried by every assertion of each field; a tranche row that disagrees with the parent refuses (TRANCHE_PARENT_MISMATCH)"
+ },
+ "identifier_namespaces": {
+  "NCAA_CONTEST_ID": "parent contest_key ncaa:<id>",
+  "NCAA_ORG_ID": "parent a_key/b_key org:<id>",
+  "CFBD_GAME_ID": "parent cfbd_game_id; used only to build the candidate ESPN locator",
+  "CFBD_TEAM_ID": "parent a_cfbd_team_id/b_cfbd_team_id",
+  "ESPN_GAME_ID": "the game identifier inside the archived page's main game element",
+  "ESPN_TEAM_ID": "the team identifiers inside the archived page's main game element",
+  "WAYBACK_CAPTURE": "wayback:<14-digit capture timestamp>:<payload sha256>",
+  "rule": "Namespaces are never equated. A CFBD numeric value is only a locator candidate, and an ESPN team id that happens to equal a CFBD team id is recorded in its own namespace and is never evidence. A capture joins a tranche key only when the page's own ESPN game identifier equals the requested locator (exactly one main element and one JS gameId) and each of its two team blocks maps to a different parent team through the participant_mapping rule (documented parent name, CFBD route role and a corroborating contest date in the same version). Orientation (a/b) comes from that evidenced map, never from position or from numeric equality.",
+  "PARENT_DOCUMENTED_TEAM_NAME": "a team name the accepted parent itself documents for one of its a/b teams: the homeTeam/awayTeam school name of the parent's joined CFBD route row(s) and the NCAA team names of the contest record and its NCAA lineage rows",
+  "ESPN_TEAM_LOCATION_NAME": "the text of span.long-name inside a.team-name of one team block of the main element"
+ },
+ "acquisition": {
+  "grant": "BOUNDED_FREE_ARCHIVE_ACQUISITION (TP43-A01 sections 3 and 7)",
+  "hosts": {
+   "metadata": {
+    "scheme": "https",
+    "host": "archive.org",
+    "path": "/wayback/available",
+    "query": "url=<urlencoded candidate_url>&timestamp=<14 digits>, exactly these two parameters"
+   },
+   "replay": {
+    "scheme": "https",
+    "host": "web.archive.org",
+    "path": "/web/<14-digit timestamp>id_/<original URL equivalent to the candidate>"
+   }
+  },
+  "original_url_equivalence": "scheme http or https; host www.espn.com (case-insensitive); port absent, 80 or 443; path exactly /college-football/game/_/gameId/<game_id_literal>; no query and no fragment",
+  "forbidden": [
+   "any live ESPN or other non-archive host request",
+   "proxies (the opener ignores proxy environment variables)",
+   "credentials, cookies or authorization headers",
+   "bulk crawling, CDX or timemap enumeration",
+   "following a redirect to another host or a non-equivalent URL"
+  ],
+  "request_headers": {
+   "User-Agent": "BAS-Cycle43-Attempt1-archive-evidence/1.0",
+   "Accept-Encoding": "identity"
+  },
+  "limits": {
+   "total_requests": 320,
+   "metadata_requests_per_key": 2,
+   "replay_requests_per_key": 2,
+   "max_concurrency": 1,
+   "min_seconds_between_request_starts": 1.05,
+   "timeout_seconds": 60,
+   "retry_after_cap_seconds": 120,
+   "retryable": "HTTP 429, 500, 502, 503, 504 and network errors",
+   "counting": "every attempted request, including retries, redirect hops, failures and requests whose outcome is unknown after an interruption, counts against the per-key and total limits; the retained control costs zero",
+   "max_body_bytes": 16777216,
+   "body_limit": "a body longer than max_body_bytes is not kept: the request is a network error naming BODY_LIMIT_EXCEEDED and counts against every limit",
+   "spacing_timer": "time.perf_counter (high resolution) plus a 0.05 s margin"
+  },
+  "probes": {
+   "probe_1": "the cohort's first metadata_probe_timestamp: one second before the earliest dependent target's conservative date boundary",
+   "probe_2": "the cohort's second metadata_probe_timestamp: two days after the prior calendar date, capped at probe_1",
+   "rule": "A probe timestamp only steers the archive's nearest-capture lookup. The returned capture may be earlier or later; only the replay response's own capture timestamp is ever used."
+  },
+  "per_key_plan": [
+   "M1: metadata at probe_1. A transient failure is retried once at probe_1 (M2, RETRY, honouring Retry-After within the cap); that retry closes PROBE_2.",
+   "A usable closest capture has available=true, a 14-digit timestamp and status 200, 301, 302, 307 or 308; anything else is not usable.",
+   "R1 (CAPTURE_1): replay of the usable probe_1 version, unless the retained acquisition already replayed that exact wayback timestamp (then no request: RETAINED version reused). A transient failure is retried once (R2, RETRY); a 3xx to an equivalent original on web.archive.org whose timestamp is not retained is followed once (R2, REDIRECT_HOP); any other redirect is refused, retained and counted.",
+   "M2 (PROBE_2) at probe_2 only when probe_2 differs from probe_1 and the probe_1 answer gave no usable version, a version later than probe_1, a version earlier than probe_2, or a version whose replay did not answer 200.",
+   "R (CAPTURE_2): replay of the PROBE_2 version only when its timestamp differs from the probe_1 version's, is not retained, and replay capacity remains; its chain may use the remaining replay for one RETRY or REDIRECT_HOP.",
+   "No other request: never more than two metadata and two replay requests per key, never above the total."
+  ],
+  "recorded_per_request": [
+   "seq",
+   "contest_key",
+   "kind (METADATA or REPLAY)",
+   "purpose (metadata: PROBE_1, PROBE_2, RETRY; replay: CAPTURE_1, CAPTURE_2, RETRY, REDIRECT_HOP)",
+   "url",
+   "started_utc and ended_utc (microseconds, this system's clock)",
+   "outcome (RESPONSE, NETWORK_ERROR, INTERRUPTED_UNKNOWN)",
+   "http_status",
+   "reason",
+   "response headers in received order (redacted names below)",
+   "location",
+   "body_sha256 and body_bytes (body kept in the raw store)",
+   "retry_after_seconds",
+   "slept_seconds",
+   "error"
+  ],
+  "redacted_response_headers": [
+   "set-cookie",
+   "x-archive-orig-set-cookie",
+   "authorization",
+   "proxy-authorization",
+   "cookie",
+   "x-api-key"
+  ],
+  "redaction": "the value becomes {\"redacted\": true, \"sha256\": <sha256 of the original value>}",
+  "storage": {
+   "raw": "canonical/national_archived_publication_2019_expansion/raw/sha256/<sha256 of the exact body bytes> (create-only; an existing file must hold identical bytes)",
+   "journal": "canonical/national_archived_publication_2019_expansion/acquisition/journal/<policy id>/journal.jsonl (append-only: INTENT before every request, RESULT after it)",
+   "document": "canonical/national_archived_publication_2019_expansion/acquisition/sha256/<acquisition id>/acquisition.json (canonical JSON; content addressed)",
+   "policy_id": "sha256 of the canonical JSON {acquisition section of this contract, cohort sha256}",
+   "retained": "the retained V1.2 acquisition keeps its own policy id, journal and document under the same relative paths"
+  },
+  "resumption": "A rerun with a finalized acquisition for the same policy id makes zero requests. A rerun with an unfinalized journal verifies every recorded body, counts every INTENT (completed or not) against the limits and continues; it never repeats a request whose INTENT exists without counting it.",
+  "network_audit": "the capture stage installs an audit hook that refuses name resolution for any host other than archive.org and web.archive.org and logs every resolution and connection event into the journal directory",
+  "scope": "the 70 cohort keys only, in cohort order, as their own acquisition (policy id = sha256 of {this acquisition section, cohort sha256}); the 27 tranche-only keys and the control make zero new requests"
+ },
+ "receipts": {
+  "capture_id": "wayback:<14-digit timestamp of the final replay URL>:<payload sha256>",
+  "rules": [
+   "R1 the final replay URL lies on web.archive.org, has the form /web/<14 digits>id_/<original> and its original is equivalent to the candidate URL (else QUARANTINED REPLAY_URL_INVALID)",
+   "R2 Memento-Datetime is present, is an RFC 1123 GMT instant and equals the final URL timestamp to the second (else QUARANTINED ARCHIVE_TIMESTAMPS_CONTRADICTORY or MEMENTO_DATETIME_ABSENT)",
+   "R3 the Link header's rel=\"original\" URL is equivalent to the candidate URL (else QUARANTINED MEMENTO_FOR_ANOTHER_URL)",
+   "R4 HTTP status 200 and Content-Type text/html (else QUARANTINED NOT_AN_ARCHIVED_HTML_200)",
+   "R5 x-archive-orig-date, when present, parses as RFC 1123 GMT and is not later than Memento-Datetime by more than 300 seconds (else QUARANTINED ORIGIN_DATE_CONTRADICTORY)",
+   "R6 the body is valid UTF-8 (else QUARANTINED BODY_NOT_UTF8)"
+  ],
+  "upper_bound": "end of second of max(Memento-Datetime, x-archive-orig-date when it is later and within 300 seconds): capture 2019-09-02T01:00:50Z gives 2019-09-02T01:00:50.999999Z",
+  "control": "the retained control's receipt literals come from ARCHIVE_POSITIVE_RAW.json (status, final_url, headers) and must reproduce ARCHIVE_ROUTE_QUALIFICATION.json archive_capture_utc and conservative_upper_bound exactly"
+ },
+ "extraction": {
+  "scope": "Only the raw main game element counts: (1) the <div id=\"custom-nav\" data-id=\"gamepackage-<id>\"> subtree (header, competitors, team blocks, scores, status); (2) the top-level espn.gamepackage.<name> = \"<value>\"; assignments; (3) the <div id=\"gamepackage-game-information\"> subtree. The global scoreboard, advertisements, news, related or other games and any other embedded data are never read.",
+  "main_element_rules": [
+   "exactly one custom-nav element; its data-id game identifier must equal the requested game id (else QUARANTINED WRONG_GAME_NODE, MAIN_GAME_ELEMENT_DUPLICATED, or MAIN_GAME_ELEMENT_ABSENT for error pages without it)",
+   "exactly one espn.gamepackage.gameId assignment and it equals the requested game id (else QUARANTINED GAME_IDENTITY_MISMATCH, GAME_IDENTITY_CONTRADICTORY or GAME_IDENTITY_DUPLICATED)",
+   "a final status claimed by a version whose upper bound precedes the contest date's earliest possible instant (UTC+14 midnight) quarantines it (IMPOSSIBLE_CHRONOLOGY)"
+  ],
+  "witnesses": {
+   "JS_GAME_ID": "espn.gamepackage.gameId = \"<digits>\"",
+   "NAV_GAME_ID": "custom-nav data-id gamepackage-<digits>",
+   "JS_STATUS": "espn.gamepackage.status = \"<pre|in|post>\"",
+   "STATUS_DETAIL": "complete text of span.status-detail inside custom-nav",
+   "JS_HOME_TEAM_ID": "espn.gamepackage.homeTeamId = \"<digits>\"",
+   "JS_AWAY_TEAM_ID": "espn.gamepackage.awayTeamId = \"<digits>\"",
+   "HOME_TEAM_HREF": "href of a.team-name inside the div whose classes include team and home within custom-nav (every such anchor counted); id from /college-football/team/_/id/<digits>",
+   "AWAY_TEAM_HREF": "same for the div whose classes include team and away",
+   "HOME_SCORE": "complete text of div.score inside the home team block",
+   "AWAY_SCORE": "complete text of div.score inside the away team block",
+   "JS_EVENT_TIMESTAMP": "espn.gamepackage.timestamp = \"<ISO instant>\"",
+   "INFO_EVENT_DATE": "data-date of the span with data-behavior=date_time inside div.game-date-time of div#gamepackage-game-information",
+   "span": "witness_span is the [start, end) byte range of the literal in the raw payload; raw[start:end] decoded as UTF-8 equals the literal; the consumer accepts a stored span only when it is exactly one of the occurrences its own extraction finds for that witness",
+   "HOME_TEAM_NAME": "text of span.long-name inside that home a.team-name (the ESPN location name)",
+   "AWAY_TEAM_NAME": "same inside the away a.team-name"
+  },
+  "fields": {
+   "order": [
+    "season",
+    "contest_date",
+    "a_participant",
+    "b_participant",
+    "completion",
+    "a_points",
+    "b_points"
+   ],
+   "roles": {
+    "season": "IDENTITY",
+    "contest_date": "IDENTITY",
+    "a_participant": "IDENTITY",
+    "b_participant": "IDENTITY",
+    "completion": "OUTCOME",
+    "a_points": "OUTCOME",
+    "b_points": "OUTCOME"
+   },
+   "season": "never witnessed: the archived game page carries no season literal (NOT_WITNESSED_IN_VERSION)",
+   "contest_date": "JS_EVENT_TIMESTAMP and INFO_EVENT_DATE must both be present, parse and agree (one alone is INCOMPLETE_WITNESS_SET); the instant agrees with the parent when the parent date is one of the US-local candidate dates of the instant's interval shifted by -4 h and -10 h (the accepted BAT-710 date basis); zone and precision are kept",
+   "a_participant/b_participant": "witnesses JS_<side>_TEAM_ID, <side>_TEAM_HREF and <side>_TEAM_NAME of the page side mapped to a/b by the participant_mapping rule; values {namespace: ESPN_TEAM_ID, value} and {namespace: ESPN_TEAM_LOCATION_NAME, value}; the comparator records the parent key, the documented name and its sources, the CFBD team id and role; an unresolved map leaves the fields PARTICIPANT_MAPPING_UNRESOLVED (or CONTRADICTORY_WITHIN_VERSION when the team id witnesses disagree) and the scores ORIENTATION_UNRESOLVED",
+   "completion": "JS_STATUS and STATUS_DETAIL must both be present; qualified when the JS status is post, the detail matches ^Final(/[0-9]*OT)?$ and the parent completion is COMPLETED; a pre or in-progress version is NOT_SUPPORTED_BY_VERSION_STATUS (VERSION_PREDATES_OUTCOME, never a conflict and never evidence of the outcome)",
+   "a_points/b_points": "only in a final version whose completion qualifies: exactly one score text of the team block mapped to a/b; integer; agrees when equal to the parent value",
+   "assertion_values": "each assertion row carries its own witness occurrence's normalized value (team ids as {namespace: ESPN_TEAM_ID, value}, team names as {namespace: ESPN_TEAM_LOCATION_NAME, value}, scores as integers, other literals as text); the field state is shared by every witness row of the field in that version"
+  },
+  "field_states": [
+   "QUALIFIED_AGREES_WITH_PARENT",
+   "CONFLICTS_WITH_PARENT",
+   "CONTRADICTORY_WITHIN_VERSION",
+   "WITNESS_LITERAL_UNPARSEABLE",
+   "DUPLICATED_WITNESS",
+   "INCOMPLETE_WITNESS_SET",
+   "NOT_WITNESSED_IN_VERSION",
+   "NOT_SUPPORTED_BY_VERSION_STATUS",
+   "CAPTURE_NOT_QUALIFIED"
+  ],
+  "corroboration": [
+   "AGREES_WITH_PARENT",
+   "CONFLICTS_WITH_PARENT",
+   "CONTRADICTORY_WITHIN_VERSION",
+   "VERSION_PREDATES_OUTCOME",
+   "UNPARSEABLE",
+   "DUPLICATED_WITNESS"
+  ],
+  "independence": "the producer and the consumer derive every record with the shared field-grain module aggie_analytics.national_source_time.archive_fields (the consumer re-derives and compares); the independent validator reconstructs every element, witness, span and participant map with its own byte scanner and shares no code",
+  "exact_grain": {
+   "attributes": "attribute values are tokenized from the raw start tag; the witness span is exactly the value between its quotes; an attribute name repeated in one tag makes that witness unparseable; text inside another attribute's value is never an attribute",
+   "element_text": "STATUS_DETAIL, HOME_/AWAY_SCORE and HOME_/AWAY_TEAM_NAME are the complete content of an explicitly closed element that contains no child markup, trimmed of surrounding whitespace; an empty element is no occurrence; child markup or an unclosed element is unparseable",
+   "javascript": "JS witnesses are statements espn.gamepackage.<name> = \"<value>\"; that begin a line (after spaces or tabs) inside a script element's raw text; the literal is the quoted value; the JS scope is the statement",
+   "multiplicity": "every occurrence of every witness is recorded; a field needs exactly one occurrence of each required witness: two equal occurrences are DUPLICATED_WITNESS, two different values CONTRADICTORY_WITHIN_VERSION, an unparseable one WITNESS_LITERAL_UNPARSEABLE",
+   "roles": "a witness belongs to its own element role: HOME_* only inside the div whose classes include team and home, AWAY_* only inside team and away, HOME_/AWAY_SCORE only in div.score of that block, *_TEAM_HREF only the href of a.team-name of that block, *_TEAM_NAME only span.long-name inside that a.team-name"
+  }
+ },
+ "dispositions": {
+  "one_per_key": true,
+  "states": [
+   "CONTROL_REUSED_QUALIFIED",
+   "ARCHIVED_VERSION_QUALIFIED_ALL_WITNESSABLE_FIELDS",
+   "ARCHIVED_VERSION_QUALIFIED_PARTIAL_FIELDS",
+   "ARCHIVED_VERSION_NOT_QUALIFIED",
+   "NO_ARCHIVE_CAPTURE_REPORTED",
+   "METADATA_REQUEST_FAILED",
+   "REPLAY_REQUEST_FAILED",
+   "REDIRECT_REFUSED",
+   "NOT_ATTEMPTED_TOTAL_BUDGET_EXHAUSTED",
+   "RETAINED_VERSION_REUSED"
+  ],
+  "witnessable_fields": [
+   "contest_date",
+   "a_participant",
+   "b_participant",
+   "completion",
+   "a_points",
+   "b_points"
+  ],
+  "rule": "a disposition is never invented: missing, error, refused and quarantined outcomes stay explicit, with the reasons, request counts and every capture id",
+  "union_fields": {
+   "selection_sources": "TRANCHE_28 and/or COHORT_70 (scope authority)",
+   "acquisition_outcomes": "one {acquisition_identity, acquisition_outcome} per acquisition that selected the key, in acquisition order (receipt authority); acquisition_outcome is the last one",
+   "duplicate_versions": "the duplicate replays under the duplicate rule (receipt authority)"
+  }
+ },
+ "duplicate_versions": {
+  "rule": "a replayed version whose capture identity (wayback timestamp and payload sha256) equals a version already established earlier in acquisition order is the same archived version: it is listed under the disposition's duplicate_versions with its receipt, its request stays in the request collection, and it is not a second capture record",
+  "order": "control, then retained acquisition requests, then expansion acquisition requests"
+ },
+ "clocks": {
+  "archive_capture": "role ARCHIVE_CAPTURE_UPPER_BOUND: literal Memento-Datetime, zone GMT, precision second, latest_utc the upper bound, earliest_utc null (the first publication instant is never claimed)",
+  "retrieval": "this system's own replay request: role EXACT_REQUEST_INTERVAL from started_utc to ended_utc (2026); the retained control uses role RECORDED_POSSESSION_UPPER_BOUND at the manager receipt's observed_at",
+  "event": "the page's displayed event instant literal (source assertion; not a publication clock)",
+  "processing": "nonsemantic run provenance only",
+  "time_evidence_class": "ARCHIVE_CAPTURE_UPPER_BOUND"
+ },
+ "decisions": {
+  "historically_published_by_cutoff": {
+   "qualified_assertion": "TRUE when cutoff >= upper bound (ARCHIVED_VERSION_CAPTURED_AT_OR_BEFORE_CUTOFF); otherwise FALSE for an outcome field when cutoff is earlier than the contest date's earliest possible instant (OUTCOME_CANNOT_EXIST_BEFORE_EVENT_DATE); otherwise UNKNOWN (BEFORE_ARCHIVE_UPPER_BOUND_EARLIER_PUBLICATION_NOT_EXCLUDED)",
+   "other_assertion": "UNKNOWN with ARCHIVED_ASSERTION_NOT_QUALIFIED:<field state>"
+  },
+  "observed_by_cutoff": "this system's replay retrieval clock, exactly as the source-time policy decides EXACT_REQUEST_INTERVAL and RECORDED_POSSESSION_UPPER_BOUND roles",
+  "field_with_archive": "per contest field: archive state = TRUE if any qualified assertion decides TRUE; FALSE if every qualified assertion decides FALSE; NO_QUALIFIED_ARCHIVE_ASSERTION if none is qualified; else UNKNOWN. Composed: TRUE if the original or the archive state is TRUE; else FALSE if the original is FALSE and the archive state is FALSE or has no qualified assertion; else NO_CORROBORATING_ASSERTION if neither has evidence; else UNKNOWN",
+  "pit_admission": "always NOT_ADMITTED (NO_SEPARATE_PIT_ADMISSION_AUTHORITY); --require-pit refused",
+  "cutoff": "the source-time cutoff argument rules apply unchanged: an ISO-8601 instant with seconds and an explicit zone; equality counts as at-or-before; zone-equivalent instants decide identically",
+  "corrections": "each archived version stands alone: a value is supported only from the bound of a version that witnesses it; a later version never backdates a correction into an earlier one"
+ },
+ "natural_keys": {
+  "assertion": [
+   "contest_key",
+   "original_url",
+   "capture_id",
+   "payload_sha256",
+   "field",
+   "witness",
+   "source_revision"
+  ],
+  "capture": [
+   "capture_id"
+  ],
+  "request": [
+   "acquisition_identity",
+   "seq"
+  ],
+  "disposition": [
+   "contest_key"
+  ]
+ },
+ "payloads": {
+  "schema_version": "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-3",
+  "encoding": "UTF-8 canonical JSON lines (sort_keys, separators , and :, no floats) compressed with gzip level 9 and mtime 0; semantic sha256 over the uncompressed bytes",
+  "files": {
+   "dispositions.jsonl": {
+    "grain": "union key (97)",
+    "order": "union order"
+   },
+   "requests.jsonl": {
+    "grain": "every attempted HTTP request of both acquisitions, with its acquisition identity",
+    "order": "union order, then acquisition order, then seq"
+   },
+   "captures.jsonl": {
+    "grain": "every distinct archived version replayed with a body plus the control",
+    "order": "union order, then capture timestamp, then payload sha256"
+   },
+   "assertions.jsonl": {
+    "grain": "(contest, original URL, capture, payload, field, witness, revision)",
+    "order": "tranche order, capture order, field order, witness name"
+   }
+  }
+ },
+ "identity_scheme": {
+  "canonical_root": "canonical/national_archived_publication_2019_expansion/sha256/<id>/",
+  "manifest_root": "manifests/national_archived_publication_2019_expansion/sha256/<id>/run_manifest.json",
+  "content_identity": "sha256 of the canonical JSON content identity document {schema, stage, population, contract_id, contract_sha256, parent, tranche_sha256, cohort_sha256, acquisition_identity, acquisition_policy_id, acquisitions, control, payload_schema, payload_encoding, semantic_outputs, outputs, row_counts}",
+  "database_identity": "sha256 of the canonical JSON database identity document {schema, stage: archived-publication-database, population, contract_sha256, content_identity, parent, db_schema_version, outputs {national_archived_publication.sqlite: sha256}, table_counts, record_counts}",
+  "immutability": "create-only; an existing identity directory must hold exactly the declared bytes (REFUSED_IMMUTABLE_COLLISION otherwise); nothing is overwritten or deleted"
+ },
+ "database": {
+  "file": "national_archived_publication.sqlite",
+  "schema_version": "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-3",
+  "document_schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-3",
+  "tables": [
+   "meta",
+   "dispositions",
+   "requests",
+   "captures",
+   "assertions"
+  ],
+  "build": "page_size 4096, journal_mode OFF, rows inserted in payload order, indexes after rows, no VACUUM, no deletes; the exact canonical payload line is each row's record",
+  "content_schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-3",
+  "requests_table": "UNIQUE (acquisition_identity, seq)"
+ },
+ "build": {
+  "producer": "tools/build_national_archived_publication.py expansion 1.0.0 (standard library plus the shared field-grain module; the V1.2 route is unchanged)",
+  "canonical_command": "tools/build_national_archived_publication.py --contract configs/national_archived_publication_2019_expansion_contract.json --source-database <bound source-time sqlite> --source-bindings <C43 INPUT_BINDINGS.json> --tranche <ARCHIVE_TRANCHE.json> --cohort <ARCHIVE_COHORT.json> --output-root <data>/canonical/national_archived_publication_2019_expansion --manifest-root <data>/manifests/national_archived_publication_2019_expansion [--stage capture|materialize|all] [--retained-root <data>/canonical/national_archived_publication_2019 (capture)] [--acquisition <acquisition.json>] [--evidence-root <root>]",
+  "stages": {
+   "capture": "copies the retained acquisition (zero requests), then the only networked step under the acquisition section above",
+   "materialize": "offline: verifies every binding, receipt and raw body, extracts, qualifies and writes the content-addressed payloads, database and manifests",
+   "all": "capture then materialize"
+  },
+  "variants": [
+   {
+    "id": "REVERSE",
+    "args": [
+     "--input-order",
+     "reverse"
+    ]
+   },
+   {
+    "id": "SHUFFLE_17",
+    "args": [
+     "--input-order",
+     "shuffle:17"
+    ]
+   },
+   {
+    "id": "CHUNK_1",
+    "args": [
+     "--chunk-size",
+     "1",
+     "--checkpoint-dir",
+     "<scratch>/c1"
+    ]
+   },
+   {
+    "id": "CHUNK_17",
+    "args": [
+     "--chunk-size",
+     "17",
+     "--checkpoint-dir",
+     "<scratch>/c17"
+    ]
+   },
+   {
+    "id": "INTERRUPT_RESUME_1",
+    "args": [
+     "--chunk-size",
+     "1",
+     "--checkpoint-dir",
+     "<scratch>/ir",
+     "--stop-after-chunks",
+     "10"
+    ],
+    "then": [
+     "--chunk-size",
+     "1",
+     "--checkpoint-dir",
+     "<scratch>/ir",
+     "--resume"
+    ]
+   }
+  ],
+  "variant_roots": "every variant materializes offline into owned scratch with --evidence-root naming the canonical output root (raw store and acquisition) and --acquisition naming the finalized document; capture always writes into its own output root",
+  "checkpoint": "hash-chained per-key bundles; --resume verifies the header (contract, parent, tranche, acquisition, producer, chunk size, key list) and every prior chunk and refuses a stale, altered, forked or existing checkpoint",
+  "determinism": "every variant reproduces the canonical content identity and the same physical database bytes",
+  "participant_mapping": "a contradiction across the tranche refuses the build (PARTICIPANT_MAPPING_CONTRADICTORY)",
+  "predecessor_contract": "a V1.x contract builds the V1.2 route unchanged; it never reads cohort data"
+ },
+ "validator": {
+  "tool": "tools/validate_national_archived_publication.py (standard library only; imports no producer, query or project helper)",
+  "method": "re-verifies every binding from the files themselves; re-reads the acquisition journal and document and every raw body; reconstructs every disposition, request, capture, receipt check, main element, witness occurrence (every occurrence, exact element, attribute and line-start JS boundaries), participant map (its own reading of the parent's CFBD/NCAA lineage names and CFBD roles; numeric equality never used), field state and upper bound with its own byte scanner; compares every delivered record field by field; recomputes identities and database records; recomputes cutoff decisions and compares them with the delivered consumer run as a subprocess; rejects coordinated semantic tampers of rehashed payloads; reports its limits; for this successor it also re-derives the union from the tranche and cohort bytes, re-reads both acquisitions in order, applies the duplicate rule itself and checks the retained copy byte-identical to the V1.2 root",
+  "report": "a new file written once (ARCHIVE_EVIDENCE_ORACLE.json in the lane); exit 0 only when every check passes"
+ },
+ "query_contract": {
+  "console_script": "bas-source-time-query (unchanged entry point)",
+  "module": "aggie_analytics.national_source_time.query with aggie_analytics.national_source_time.archive (standard library only), imported only when --archive-evidence is given",
+  "option": "--archive-evidence <canonical/national_archived_publication_2019_expansion/sha256/<id>/national_archived_publication.sqlite> [--expect-archive-identity <id>]",
+  "default_behaviour": "without --archive-evidence every grain, filter, page, total, decision and output byte is exactly the accepted source-time consumer's; the packaged V1.2 authority keeps serving the V1.2 sidecar unchanged",
+  "with_option": {
+   "contest": "each field keeps every original key and gains archive {in_archive_tranche, disposition, qualified/other assertion counts, capture ids, earliest qualified upper bound, archive publication state and reason} and historically_published_by_cutoff_with_archive; the row gains archive_disposition",
+   "contribution": "each required field decision gains archive_published_by_cutoff and published_by_cutoff_with_archive; the row gains inputs_published_by_cutoff_with_archive",
+   "other source-time grains": "rows unchanged",
+   "archive-disposition": "one row per tranche key (filters season, team, contest)",
+   "archive-request": "every attempted request (filters season, team, contest)",
+   "archive-capture": "every archived version with its receipt checks and clocks (filters season, team, contest)",
+   "archive-assertion": "witness-grain archive assertions with decisions; requires --cutoff (filters season, team, contest, field)",
+   "envelope": "every result gains archive_evidence {sidecar identities, contract, parent, tranche, labels}"
+  },
+  "archive_grains_without_option": "refused ARCHIVE_EVIDENCE_REQUIRED",
+  "sidecar_open": "location <archive root>/sha256/<id>/national_archived_publication.sqlite with its run manifest; identity document hash, database bytes, meta, labels, counts; parent equal to the opened source-time database (ARCHIVE_PARENT_MISMATCH); known contract/schema (a V1.0 or V1.1 sidecar is checked for exact witness occurrences, then refused ARCHIVE_SCHEMA_SUPERSEDED); every raw payload rehashed; acquisition document and control receipts rehashed; every stored witness (witness, span, literal) must be exactly one of the occurrences the consumer's own extraction finds (ARCHIVE_WITNESS_MISMATCH); every capture and assertion record is re-derived from the raw bytes, receipts and parent lineage with the shared field-grain module and must equal the stored record (ARCHIVE_WITNESS_OUT_OF_SCOPE scopes, ARCHIVE_PARTICIPANT_MAPPING_INVALID mapping/orientation/participant states, ARCHIVE_CLOCK_FORGED clocks, ARCHIVE_WITNESS_SET_MISMATCH omitted or extra witness rows, ARCHIVE_SEMANTIC_FORGERY any other difference); qualified mappings must agree across the tranche (ARCHIVE_PARTICIPANT_MAPPING_CONTRADICTORY); duplicate natural keys refused",
+  "refusals": [
+   "ARCHIVE_EVIDENCE_REQUIRED",
+   "ARCHIVE_DATABASE_MISSING",
+   "ARCHIVE_LOCATION_INVALID",
+   "ARCHIVE_MANIFEST_MISSING",
+   "ARCHIVE_MANIFEST_MALFORMED",
+   "ARCHIVE_IDENTITY_MISMATCH",
+   "ARCHIVE_SCHEMA_UNSUPPORTED",
+   "ARCHIVE_DATABASE_TAMPERED",
+   "STALE_ARCHIVE_IDENTITY",
+   "ARCHIVE_PARENT_MISMATCH",
+   "ARCHIVE_COUNT_MISMATCH",
+   "ARCHIVE_RAW_MISSING",
+   "ARCHIVE_RAW_ALTERED",
+   "ARCHIVE_RECEIPT_ALTERED",
+   "ARCHIVE_WITNESS_MISMATCH",
+   "ARCHIVE_WITNESS_OUT_OF_SCOPE",
+   "ARCHIVE_SEMANTIC_FORGERY",
+   "ARCHIVE_CLOCK_FORGED",
+   "ARCHIVE_DUPLICATE_ASSERTION",
+   "ARCHIVE_SOURCE_INVALID",
+   "ARCHIVE_PATH_INVALID",
+   "ARCHIVE_SCHEMA_SUPERSEDED",
+   "ARCHIVE_WITNESS_SET_MISMATCH",
+   "ARCHIVE_PARTICIPANT_MAPPING_INVALID",
+   "ARCHIVE_PARTICIPANT_MAPPING_CONTRADICTORY",
+   "PIT_ADMISSION_AUTHORITY_ABSENT"
+  ]
+ },
+ "non_claims": [
+  "no first-publication instant: an archive capture is only an upper bound for its exact witnessed version",
+  "no national, seasonal or population-level historical availability coverage; 97 keys only",
+  "no PIT admission, training matrix, model fit, feature adoption, A&M lift or predictive skill (NOT_ESTABLISHED)",
+  "no change to the accepted source-time assertions, clocks, defaults, gates or holds",
+  "no namespace equivalence between CFBD and ESPN identifiers: an equal literal is recorded, never evidence",
+  "no promised number of supported games: a no-capture, late, partial or quarantined key is a valid explicit disposition"
+ ],
+ "participant_mapping": {
+  "rule": "each page team block maps to the parent side whose documented name (the parent's joined CFBD route school name or an NCAA name of that team) equals the block's ESPN long-name, whose CFBD home/away role equals the block's side, in a version whose contest date qualifies; ESPN and CFBD numeric identifiers are recorded in their own namespaces and never equated",
+  "numeric_identifier_equality": "NEVER_AUTHORITY",
+  "sources": {
+   "cfbd_route": "the parent's joined lineage rows with source_kind CFBD_ROUTE_RESPONSE: orientation.home_side names the parent side (A/B) of homeTeam; homeId/awayId must equal the parent's own a/b CFBD team ids (same namespace) and every row must agree (else CFBD_SOURCE_CONTRADICTORY); no row is CFBD_SOURCE_ABSENT",
+   "ncaa_names": "the contest record's a/b team names and the page_team_name/opponent_name of its NCAA team-season lineage rows (orientation.page_team_side)",
+   "retained_bytes": "these rows are part of the bound accepted BAT-712 parent database (9594e2bf...), whose lineage cites the retained CFBD and NCAA raw responses"
+  },
+  "predicates": [
+   "both team blocks witness exactly one JS team id and one team-name href id that agree (else the participant fields are CONTRADICTORY_WITHIN_VERSION or unresolved)",
+   "both team blocks witness exactly one ESPN long-name",
+   "each long-name equals a documented name of exactly one parent team (none: NOT_DOCUMENTED; both: AMBIGUOUS)",
+   "the two blocks map to different parent teams",
+   "the CFBD route role of each mapped parent team equals the block's page side (a swapped role refuses)",
+   "the version's contest date witnesses agree with the parent date (rematches cannot borrow a map)",
+   "an ESPN id equal to the opponent's CFBD id (and not its own) is a cross-assignment and refuses"
+  ],
+  "differing_ids": "an ESPN team id that differs from the CFBD id of its mapped team is allowed and recorded (ESPN_ID_DIFFERS_FROM_CFBD_ID) because the names, roles and date prove the map; an equal literal is recorded as ESPN_ID_LITERAL_EQUALS_CFBD_ID_LITERAL_NOT_AUTHORITY",
+  "aliases": "a page name matching an NCAA name rather than the CFBD school name maps with name_sources [NCAA_TEAM_NAME]; no alias outside the parent's documented names is accepted",
+  "tranche_consistency": "across all captures, one ESPN team id may map to only one parent team and one parent team to only one ESPN team id; a contradiction refuses the build (PARTICIPANT_MAPPING_CONTRADICTORY) and the sidecar (ARCHIVE_PARTICIPANT_MAPPING_CONTRADICTORY)",
+  "unresolved": "an unresolved map quarantines the capture (capture_quarantine): reason PARTICIPANT_MAPPING_UNRESOLVED, every field CAPTURE_NOT_QUALIFIED; the capture record keeps the page facts and the first unmet predicate",
+  "capture_quarantine": "a version qualifies only when its participant mapping qualifies: a missing, unresolved, ambiguous, swapped, cross-assigned or contradictory mapping quarantines the whole capture (reason PARTICIPANT_MAPPING_UNRESOLVED; every field CAPTURE_NOT_QUALIFIED), so no field of a page whose participant identity is not evidenced is served"
+ }
+}

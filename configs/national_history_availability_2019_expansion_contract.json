@@ -1,0 +1,312 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-715-NATIONAL-HISTORY-AVAILABILITY-2019-EXPANSION-V1.0",
+  "jira_key": "BAT-715",
+  "cycle_number": 43,
+  "attempt_number": 1,
+  "governing_plan": "TP43-A01 (Cycle #43 Attempt #1, BAT-715); TECHNICAL_PLAN_TP43_A01.md sha256 aea307c10c990c62492489cf4d3bda78ea4fa41c7cb70db88e78bc920aa87988",
+  "classification": "ARCHIVE_SUPPORTED_RETROSPECTIVE_HISTORY_EVIDENCE_PROJECTION_NOT_PIT_NOT_TRAINING_MATRIX",
+  "population_id": "national_history_availability_2019_expansion",
+  "historical_audit_unit": "HT43-HISTORY-AVAILABILITY-2019-EXPANSION",
+  "question": "For every accepted 2019 FBS target and both orientations, which strictly earlier same-season prior results have complete matching archived field evidence (contest date, both participants, completion, both scores) from one coherent archived version by an explicit cutoff, against the 97-key archive expansion sidecar; what are the exact supported-subset totals; and which expected prior relationships are unsupported, and why?",
+  "row_labels": {
+    "evidence_authority": "ARCHIVE_SUPPORTED_HISTORY_EVIDENCE_ONLY",
+    "pit_admission": "NOT_ADMITTED",
+    "training_eligibility": "NOT_ELIGIBLE_NOT_ADMITTED",
+    "temporal_basis": "EXPLICIT_CUTOFF_AGAINST_ARCHIVE_UPPER_BOUNDS_NOT_FIRST_PUBLICATION",
+    "scope": "2019_FBS_TARGETS_ARCHIVE_TRANCHE_IS_NUMERATOR_EVIDENCE_NOT_DENOMINATOR"
+  },
+  "authority": {
+    "rule": "Every payload record carries the five row labels above; a record, meta row or contract declaring any other value refuses (FORGED_AUTHORITY_LABEL / CONTRACT_INVALID). An explicit-cutoff answer is a historical evidence projection, never a pregame forecast, a known-at proof, a training row or a PIT admission.",
+    "require_pit": "REFUSED_NOT_ADMITTED",
+    "model_admission": "REFUSED_NOT_ADMITTED",
+    "first_publication": "An archive upper bound is not first publication; before it, publication stays UNKNOWN (outcome fields FALSE before the prior contest date's earliest instant). Modern acquisition time never becomes historical availability.",
+    "default_behaviour": "No default history, population, source-time or archive query behaviour changes; nothing is activated as a canonical default.",
+    "holds": "No scientific-trust, protected-lane or other hold is released."
+  },
+  "scope": {
+    "season": 2019,
+    "target_subset": "FBS_ESTIMAND_SUBSET",
+    "target_rule": "a 2019 parent contest in the population's FBS_ESTIMAND_SUBSET membership that passes every Cycle 39 history predicate below; subset membership must equal (a_division_label = 'FBS' AND b_division_label = 'FBS') for every 2019 row (SUBSET_FIELD_INCONSISTENT otherwise)",
+    "expected_population": "derived from the bound population at build time with this contract's predicates and reconciled in both directions with the bound history database's 2019 targets and views; no count is fixed here (the manager planning census observed 769 targets and 1,538 views; recomputed, never a quota)",
+    "out_of_scope": "any other season answers NOT_YET_AUDITED with no rows and no total; it is not an empty national population",
+    "rows_read": "only 2019 population rows, 2019 history rows, the archive sidecar and its source-time parent; protected 2024/2025 and prospective 2026 rows are never read",
+    "archive_role": "the 97-contest archive expansion union (the 28-contest tranche plus the 70-contest missing-prior cohort, overlap ncaa:1735173) is numerator evidence only; it never defines a target, a relationship or a denominator"
+  },
+  "parent_binding": {
+    "input_bindings": {
+      "document": "HISTORY_EXPANSION_INPUT_BINDINGS.json (worker evidence, Cycle 43 attempt01 evidence/inputs)",
+      "sha256": "fd7226692ec359212ec2578c1370d9763d20bab7d2ca0d13560cb44a9a820036",
+      "rule": "the bindings must name exactly the population, history, source-time and archive expansion databases (path, sha256, identity), the archive expansion contract, tranche and cohort, the archive's own source bindings, the retained V1.2 contract and root, and the route control bound below"
+    },
+    "population": {
+      "location": "<data>/canonical/national_di_population_2016_2025/sha256/<query_db_identity>/national_population.sqlite",
+      "query_db_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+      "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172",
+      "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+      "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+      "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+      "schema_version": "BAS-NATIONAL-DI-POPULATION-DB-1"
+    },
+    "history": {
+      "location": "<data>/canonical/national_history_prefix_2016_2023/sha256/<database_identity>/national_history.sqlite",
+      "database_identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b",
+      "sqlite_sha256": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060",
+      "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+      "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+      "contract_id": "BAT-711-NATIONAL-HISTORY-PREFIX-2016-2023-V1.0",
+      "schema_version": "BAS-NATIONAL-HISTORY-PREFIX-DB-1"
+    },
+    "source_time": {
+      "location": "<data>/canonical/national_source_time_2016_2023/sha256/<database_identity>/national_source_time.sqlite",
+      "database_identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+      "sqlite_sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7",
+      "content_identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+      "contract_sha256": "21ed32b8fac0f5fa2c3f4dd55f29abef80437d339c3db2f1bf75206a1fcaf1bd",
+      "role": "the archive sidecar's verified parent; opened only to verify the sidecar"
+    },
+    "archive": {
+      "location": "<data>/canonical/national_archived_publication_2019_expansion/sha256/<database_identity>/national_archived_publication.sqlite",
+      "database_identity": "a8c7abcbd8a764eebefaafafc56ebb07bd40342e00bcd3431cb29a3ef58c4a36",
+      "sqlite_sha256": "fe9d4ea97e81139ef5669d5b80349cae2db6665badfe2749613ec3de78b08c56",
+      "content_identity": "4b4e681a1d81c328ebd06b4f7c905cb5dd5d7f61dc870813e87ac7a8aab650fa",
+      "contract_sha256": "8d8edea336dc6691a134d31aa450aa9fe7491b9d2e665cd45b10bc6d878feffc",
+      "contract_id": "BAT-715-NATIONAL-ARCHIVED-PUBLICATION-2019-EXPANSION-V1.0",
+      "contract_path": "configs/national_archived_publication_2019_expansion_contract.json",
+      "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79",
+      "acquisition_identity": "a0fd2d4f662cfbd5149ac74ae3799f2abbf9f20fe1baa207754a591899ef24df",
+      "cohort_sha256": "9240e5637bf80133d094745baf95898ddd2ef6ed8900fe0d1cf0cd20f397b937",
+      "retained_acquisition_identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+      "verification": "opened only through the national_source_time.archive.ArchiveEvidence reader under the issued BAT-715 expansion authority over the verified source-time parent, which re-derives every capture, witness, mapping and disposition of both acquisitions from the raw bytes and receipts before any value is used"
+    },
+    "verification": "Before any row is read the producer and the consumer verify every parent's location, run manifest identity document, SQLite bytes, schema and expected identity with the accepted readers; any difference refuses (PARENT_BINDING_MISMATCH / STALE_PARENT_IDENTITY / the reader's own code). Parents are never inferred from the newest directory; every parent is opened read-only."
+  },
+  "predicates": {
+    "source": "the Cycle 39 history contract predicates (configs/national_history_prefix_2016_2023_contract.json predicates), applied unchanged",
+    "order": ["DISPOSITION", "RECONCILIATION", "STATUS", "COMPETITIVE", "DATE", "ORG_KEYS", "SCORES"],
+    "reasons": ["DISPOSITION_NOT_VERIFIED_PRESENT", "RECONCILIATION_NOT_RECONCILED_2016_2023", "STATUS_NOT_COMPLETED", "NOT_COMPETITIVE", "DATE_INVALID", "DATE_NOT_SINGLE", "ORG_KEY_NOT_STABLE", "ORG_KEYS_NOT_DISTINCT", "SCORE_MISSING", "SCORE_NOT_NONNEGATIVE_INTEGER"],
+    "history_pool": "a 2019 parent contest passing every predicate, whatever the division of either participant (FBS, FCS or outside division)"
+  },
+  "relationships": {
+    "views": "each target yields exactly two views: A (team = parent a side) and B (team = parent b side); the current opponent is the other participant of the same target contest, never a historical row's opponent",
+    "expected_prior": "every 2019 parent contest of the team's organization key, other than the target, whose contest_date is a valid ISO date strictly earlier than the target date; matched by organization key only (aliases and renames inherit the parent's stable keys)",
+    "classes": {
+      "HISTORY_POOL_PRIOR": "the prior contest passes every predicate; its parent result (points_for, points_against, W/L/T from the team's own side) is carried",
+      "PARENT_EXCLUDED_PRIOR": "the prior contest fails a predicate; it stays in the expected denominator with its exact reasons, carries no result and is never counted"
+    },
+    "exclusions": "same-date contests (other than the target) are listed per view with SAME_DATE_NOT_STRICTLY_EARLIER, undated contests with their reasons, and later contests are counted; none is a relationship, whatever the cutoff",
+    "target_outcomes": "the target's own result is never read into any relationship, aggregate or record",
+    "orientation": "prior_side is the team's side in the prior contest; points_for/points_against follow it; the archive's a/b fields are the prior contest's own parent a/b",
+    "history_reconciliation": "for every view, the history-pool relationships equal the Cycle 39 team_history contributing contests (key, date, side, opponent, opponent division, points, result) and the parent-excluded, same-date and undated sets equal its excluded_inputs with reasons; the other view's opponent_history must agree the same way (HISTORY_PARENT_MISMATCH otherwise)",
+    "coverage_limit": "a view covers the team's own complete same-season graph in the population; an opponent's history is that opponent's own view; outside-division opponents keep their parent division labels and no strength translation is made"
+  },
+  "evidence": {
+    "fields": ["contest_date", "a_participant", "b_participant", "completion", "a_points", "b_points"],
+    "grain": "one prior_evidence record per distinct prior contest referenced by any relationship; one field_witness row per archived assertion of each archived version of such a contest",
+    "version": "an archived version is one archive capture with its own state (QUALIFIED or QUARANTINED with reasons), upper bound (archive_capture.latest_utc) and per-field states, exactly as the verified sidecar holds it; every version, quarantined ones included, is retained",
+    "classes": {
+      "NOT_IN_ARCHIVE_TRANCHE": "the prior contest is outside the 97-key archive expansion union (the V1.0 class name and reason are kept)",
+      "ARCHIVE_NO_CAPTURE": "in the tranche with no archived version (the archive disposition is retained)",
+      "ARCHIVE_ALL_VERSIONS_QUARANTINED": "every archived version is quarantined",
+      "ARCHIVE_VERSION_CONTRADICTS_PARENT": "a qualified version states CONFLICTS_WITH_PARENT or CONTRADICTORY_WITHIN_VERSION for one of the six fields",
+      "ARCHIVE_PARTIAL_FIELDS_NO_COHERENT_VERSION": "qualified versions exist but no single version qualifies all six fields",
+      "ARCHIVE_COHERENT_VERSION": "at least one qualified version qualifies all six fields as agreeing with the parent"
+    },
+    "precedence": ["NOT_IN_ARCHIVE_TRANCHE", "ARCHIVE_NO_CAPTURE", "ARCHIVE_ALL_VERSIONS_QUARANTINED", "ARCHIVE_VERSION_CONTRADICTS_PARENT", "ARCHIVE_COHERENT_VERSION", "ARCHIVE_PARTIAL_FIELDS_NO_COHERENT_VERSION"],
+    "reason_formats": {
+      "NOT_IN_ARCHIVE_TRANCHE": "CONTEST_OUTSIDE_THE_ARCHIVE_TRANCHE",
+      "ARCHIVE_NO_CAPTURE": "ARCHIVE_DISPOSITION:<the archive disposition>",
+      "ARCHIVE_ALL_VERSIONS_QUARANTINED": "QUARANTINED:<the sorted distinct quarantine reasons of every version joined by ','>",
+      "ARCHIVE_VERSION_CONTRADICTS_PARENT": "CONTRADICTING_VERSIONS:<for each contradicting qualified version in archive order: capture_id[contradicting fields in field order joined by '/'], joined by ','>",
+      "ARCHIVE_COHERENT_VERSION": "ONE_VERSION_QUALIFIES_ALL_SIX_FIELDS",
+      "ARCHIVE_PARTIAL_FIELDS_NO_COHERENT_VERSION": "FIELDS_NEVER_QUALIFIED_IN_ANY_VERSION:<fields in field order joined by '/'>, or EVERY_FIELD_QUALIFIED_ONLY_IN_DIFFERENT_VERSIONS_NOT_COMBINED"
+    },
+    "record_rules": "archive.versions lists every version in archive order with its state, quarantine reasons, upper bound (null unless the archive capture clock is PRESENT) and the six field states; coherent_capture_ids and coherent_upper_bound_utc are filled only for ARCHIVE_COHERENT_VERSION; contradicting_capture_ids lists contradicting qualified versions; field_earliest_qualified_upper_bound_utc is the earliest bound of a qualified version qualifying that field; parent_values_agree is true for a history-pool prior in the tranche (a disagreement refuses) and null otherwise; earliest_event_instant_utc is the prior date 00:00 UTC minus 14 hours; parent_values is null for a parent-excluded prior",
+    "coherent_upper_bound": "the earliest upper bound among the coherent versions; each coherent version is listed",
+    "cross_version_rule": "NOT_USED: fields are never combined across archived versions; per-field earliest qualified bounds are reported for transparency only",
+    "parent_values": "for a history-pool prior in the tranche, the archive disposition's parent values must equal the population row (date, a/b organization keys, completion, both scores, season 2019); a difference refuses (ARCHIVE_PARENT_VALUE_CONTRADICTION)"
+  },
+  "cutoff": {
+    "format": "the accepted source-time grammar: YYYY-MM-DDTHH:MM:SS[.ffffff](Z|+HH:MM|-HH:MM); naive or date-only values refuse (CUTOFF_TIMEZONE_REQUIRED), anything else refuses (CUTOFF_INVALID), absence refuses (CUTOFF_REQUIRED); compared as a UTC instant with microsecond precision",
+    "decision": {
+      "SUPPORTED": "history-pool prior with a coherent version whose upper bound <= cutoff (equality supports; one microsecond earlier does not)",
+      "UNSUPPORTED": "any other history-pool prior, with its reason class: the evidence class, OUTCOME_CANNOT_EXIST_BEFORE_PRIOR_EVENT_DATE (coherent, cutoff before the prior date's earliest instant: result published FALSE) or ARCHIVE_UPPER_BOUND_AFTER_CUTOFF (coherent, otherwise: UNKNOWN)",
+      "EXCLUDED_FROM_HISTORY_POOL": "a parent-excluded prior; never supported and never counted"
+    },
+    "published_states": "TRUE only for SUPPORTED; FALSE before the prior event; UNKNOWN for a too-late or contradicted version; NO_QUALIFIED_ARCHIVE_ASSERTION otherwise; none supports",
+    "decision_fields": ["support_state", "result_published_by_cutoff", "reason_class", "reason", "supporting_capture_ids"],
+    "decision_reasons": {
+      "SUPPORTED": ["ARCHIVE_COHERENT_VERSION_AT_OR_BEFORE_CUTOFF", "ARCHIVED_COHERENT_VERSION_CAPTURED_AT_OR_BEFORE_CUTOFF", "TRUE"],
+      "OUTCOME_CANNOT_EXIST_BEFORE_PRIOR_EVENT_DATE": ["OUTCOME_CANNOT_EXIST_BEFORE_PRIOR_EVENT_DATE", "CUTOFF_BEFORE_THE_PRIOR_CONTEST_DATE_EARLIEST_INSTANT", "FALSE"],
+      "ARCHIVE_UPPER_BOUND_AFTER_CUTOFF": ["ARCHIVE_UPPER_BOUND_AFTER_CUTOFF", "BEFORE_ARCHIVE_UPPER_BOUND_EARLIER_PUBLICATION_NOT_EXCLUDED", "UNKNOWN"],
+      "EXCLUDED_FROM_HISTORY_POOL": ["PARENT_EXCLUDED_PRIOR", "PARENT_EXCLUDED:<parent exclusion reasons joined by ','>", null],
+      "OTHER_UNSUPPORTED": ["<the evidence class>", "<the evidence reason>", "UNKNOWN for ARCHIVE_VERSION_CONTRADICTS_PARENT, NO_QUALIFIED_ARCHIVE_ASSERTION otherwise"]
+    },
+    "supporting_capture_ids": "the coherent versions whose upper bound is at or before the cutoff, in archive order; empty otherwise",
+    "position_fields": ["conservative_date_boundary_utc", "position", "boundary_basis", "use", "pregame_claim", "pit_admission"],
+    "boundary_basis": "TARGET_CALENDAR_DATE_00_00_UTC_MINUS_14_HOURS_CONSERVATIVE_DATE_BOUNDARY_NOT_OBSERVED_KICKOFF",
+    "positions": ["BEFORE_CONSERVATIVE_TARGET_DATE_BOUNDARY", "AT_OR_AFTER_CONSERVATIVE_TARGET_DATE_BOUNDARY"],
+    "use": "HISTORICAL_EVIDENCE_ONLY_NO_PREGAME_OR_PIT_CLAIM",
+    "boundary": "each target reports whether the cutoff is before its conservative date boundary (target date 00:00 UTC minus 14 hours, the earliest instant compatible with the calendar date anywhere), labelled TARGET_CALENDAR_DATE_00_00_UTC_MINUS_14_HOURS_CONSERVATIVE_DATE_BOUNDARY_NOT_OBSERVED_KICKOFF; a later cutoff is answered as historical evidence only; pregame_claim is always false and no fixed synthetic timestamp is called a kickoff"
+  },
+  "aggregates": {
+    "per_team_at_cutoff": ["expected_prior_relationships", "history_pool_priors", "parent_excluded_priors", "supported_priors", "unsupported_priors", "unsupported_by_reason_class", "completeness_state", "supported_subset_is_complete_history", "supported_subset"],
+    "supported_subset": ["games", "wins", "losses", "ties", "points_for_total", "points_against_total", "margin_total", "win_rate", "points_for_mean", "points_against_mean", "margin_mean", "contributing_contest_keys", "rate_scope", "imputation"],
+    "result_rule": "W when points_for > points_against, L when less, T when equal (the parent result of a supported prior)",
+    "rates": "{numerator, denominator} integers, unreduced, denominator = supported games; null when no prior is supported (never zero); rate_scope SUPPORTED_SUBSET_ONLY_NOT_FULL_HISTORY; imputation NONE",
+    "completeness_states": ["COLD_START_NO_EXPECTED_PRIORS", "ALL_EXPECTED_PRIORS_SUPPORTED", "PARTIAL_SUPPORTED_SUBSET", "NO_SUPPORTED_PRIORS"],
+    "completeness_rule": "COLD_START_NO_EXPECTED_PRIORS when no prior is expected; ALL_EXPECTED_PRIORS_SUPPORTED when every expected prior is supported; NO_SUPPORTED_PRIORS when none is; PARTIAL_SUPPORTED_SUBSET otherwise; supported_subset_is_complete_history is (supported = expected)",
+    "unsupported_reason_classes": ["NOT_IN_ARCHIVE_TRANCHE", "ARCHIVE_NO_CAPTURE", "ARCHIVE_ALL_VERSIONS_QUARANTINED", "ARCHIVE_VERSION_CONTRADICTS_PARENT", "ARCHIVE_PARTIAL_FIELDS_NO_COHERENT_VERSION", "OUTCOME_CANNOT_EXIST_BEFORE_PRIOR_EVENT_DATE", "ARCHIVE_UPPER_BOUND_AFTER_CUTOFF"],
+    "unsupported_rule": "unsupported_by_reason_class counts each UNSUPPORTED history-pool prior once under its reason class; every class is reported, zero included; parent-excluded priors are counted only in parent_excluded_priors",
+    "contributing_contest_keys": "the supported priors in relationship order",
+    "denominators": "expected (complete), history pool, parent-excluded, supported and unsupported counts are reported separately; an incomplete subset carries no full-season label, full-history rate, training eligibility or imputed value",
+    "pair_coherence": "a view's opponent block is computed from the other view's own relationships at the same cutoff, so view A's opponent equals view B's team"
+  },
+  "payloads": {
+    "schema_version": "BAS-NATIONAL-HISTORY-AVAILABILITY-PAYLOAD-1",
+    "encoding": "each payload is canonical JSONL (json.dumps(record, sort_keys=True, separators=(',', ':'), ensure_ascii=False), UTF-8, one record per LF-terminated line) stored as gzip with mtime 0 and no file name; identities bind both the stored and the semantic bytes",
+    "files": {
+      "targets.jsonl": {
+        "grain": "target contest",
+        "order": "contest_date, contest_key"
+      },
+      "views.jsonl": {
+        "grain": "target x view (A, B)",
+        "order": "target_date, target_contest_key, view"
+      },
+      "relationships.jsonl": {
+        "grain": "target x view x prior contest",
+        "order": "target_date, target_contest_key, view, prior_contest_date, prior_contest_key"
+      },
+      "evidence.jsonl": {
+        "grain": "distinct referenced prior contest",
+        "order": "contest_date, contest_key"
+      },
+      "witnesses.jsonl": {
+        "grain": "archived version x field x witness occurrence",
+        "order": "evidence order, then the archive's capture and assertion order"
+      }
+    },
+    "numbers": "integers only; booleans only for flags; null for absent values; any float refuses",
+    "closed_schema": "records carry exactly the fields below; any other field refuses (UNKNOWN_FIELD)",
+    "record_fields": {
+      "target": ["record_type", "contest_key", "ncaa_contest_id", "season", "term", "contest_date", "a_key", "b_key", "a_org_id", "b_org_id", "a_team_name", "b_team_name", "a_division_label", "b_division_label", "classification_pair", "parent_site", "neutral_site_text", "conservative_date_boundary_utc", "views", "evidence_authority", "pit_admission", "training_eligibility", "temporal_basis", "scope"],
+      "view": ["record_type", "target_contest_key", "view", "season", "target_date", "prior_rule", "team_key", "team_org_id", "team_name", "team_division_label", "opponent_key", "opponent_org_id", "opponent_name", "opponent_division_label", "expected_prior_relationships", "history_pool_priors", "parent_excluded_priors", "relationship_contest_keys", "same_date_excluded", "undated_excluded", "later_contests_excluded", "history_state", "evidence_authority", "pit_admission", "training_eligibility", "temporal_basis", "scope"],
+      "relationship": ["record_type", "target_contest_key", "view", "season", "target_date", "team_key", "current_opponent_key", "prior_contest_key", "prior_contest_date", "prior_side", "prior_opponent_key", "prior_opponent_division_label", "prior_classification_pair", "relationship_class", "parent_exclusion_reasons", "parent_result", "evidence_authority", "pit_admission", "training_eligibility", "temporal_basis", "scope"],
+      "prior_evidence": ["record_type", "contest_key", "season", "contest_date", "a_key", "b_key", "classification_pair", "history_pool_member", "parent_exclusion_reasons", "parent_values", "earliest_event_instant_utc", "archive", "evidence_authority", "pit_admission", "training_eligibility", "temporal_basis", "scope"],
+      "field_witness": ["record_type", "contest_key", "capture_id", "capture_state", "upper_bound_utc", "field", "witness", "witness_span", "literal", "value", "corroboration", "field_state", "evidence_authority", "pit_admission", "training_eligibility", "temporal_basis", "scope"],
+      "excluded": ["contest_key", "contest_date", "opponent_key", "reasons"],
+      "parent_result": ["points_for", "points_against", "result"],
+      "parent_values": ["contest_date", "a_participant", "b_participant", "completion", "a_points", "b_points"],
+      "archive": ["in_tranche", "archive_disposition", "acquisition_outcome", "parent_values_agree", "versions", "coherent_capture_ids", "coherent_upper_bound_utc", "contradicting_capture_ids", "field_earliest_qualified_upper_bound_utc", "evidence_class", "evidence_reason"],
+      "version": ["capture_id", "state", "quarantine_reasons", "upper_bound_utc", "field_states"]
+    }
+  },
+  "identity_scheme": {
+    "canonical_root": "canonical/national_history_availability_2019_expansion/sha256/<id>/",
+    "manifest_root": "manifests/national_history_availability_2019_expansion/sha256/<id>/run_manifest.json",
+    "content_identity": "sha256 of the canonical JSON content identity document {schema BAS-NATIONAL-HISTORY-AVAILABILITY-CONTENT-1, stage history-availability-content, population, contract_id, contract_sha256, parent, payload_schema, payload_encoding, semantic_outputs, outputs, row_counts}",
+    "database_identity": "sha256 of the canonical JSON database identity document {schema BAS-NATIONAL-HISTORY-AVAILABILITY-DATABASE-1, stage history-availability-database, population, contract_sha256, content_identity, parent, db_schema_version, outputs {national_history_availability.sqlite: sha256}, table_counts}",
+    "nonsemantic_provenance": "issued time, argv, tool paths and hashes, runtime versions, build variant, input order, chunking and timings live only in the run manifest's provenance object",
+    "physical_sqlite": "the database identity binds the exact SQLite bytes; the predeclared deterministic writer gives one physical identity for every build variant in one runtime; different bytes would be a different identity in its own directory, never called identical",
+    "create_only": "an existing identity directory whose files equal the new bytes is reported ALREADY_PRESENT_IDENTICAL and not rewritten; any difference refuses (REFUSED_IMMUTABLE_COLLISION); nothing is overwritten or deleted",
+    "contract_change": "a different contract sha256 yields new identities in new directories"
+  },
+  "database": {
+    "file": "national_history_availability.sqlite",
+    "schema_version": "BAS-NATIONAL-HISTORY-AVAILABILITY-DB-1",
+    "tables": {
+      "meta": "key/value: schema_version, contract_id, contract_sha256, content_identity, payload_schema, payload_sha256 (semantic), row_counts, parent, row_labels, season, prior_rule, support_rule, cross_version_rule",
+      "targets": "one row per targets.jsonl record (the exact payload line)",
+      "views": "one row per views.jsonl record",
+      "relationships": "one row per relationships.jsonl record",
+      "evidence": "one row per evidence.jsonl record",
+      "witnesses": "one row per witnesses.jsonl record"
+    },
+    "determinism": "page_size 4096, journal_mode OFF, rows and then indexes inserted in payload order into a fresh file with no deletes; no VACUUM"
+  },
+  "build": {
+    "producer": "tools/build_national_history_availability.py (standard library plus the shared core aggie_analytics.national_history.availability and the accepted parent readers)",
+    "canonical_command": "tools/build_national_history_availability.py --contract configs/national_history_availability_2019_expansion_contract.json --input-bindings <HISTORY_EXPANSION_INPUT_BINDINGS.json> --output-root <data>/canonical/national_history_availability_2019_expansion --manifest-root <data>/manifests/national_history_availability_2019_expansion",
+    "offline": "no network; every input is a bound local file",
+    "variants": [
+      {
+        "id": "REVERSE_INPUT",
+        "args": ["--input-order", "reverse"]
+      },
+      {
+        "id": "SHUFFLE_INPUT_SEED_17",
+        "args": ["--input-order", "shuffle:17"]
+      },
+      {
+        "id": "CHUNK_1",
+        "args": ["--chunk-size", "1", "--checkpoint-dir", "<scratch>/c1"]
+      },
+      {
+        "id": "CHUNK_17",
+        "args": ["--chunk-size", "17", "--checkpoint-dir", "<scratch>/c17"]
+      },
+      {
+        "id": "CHUNK_257",
+        "args": ["--chunk-size", "257", "--checkpoint-dir", "<scratch>/c257"]
+      },
+      {
+        "id": "INTERRUPT_RESUME_17",
+        "args": ["--chunk-size", "17", "--checkpoint-dir", "<scratch>/ir", "--stop-after-chunks", "10"],
+        "then": ["--chunk-size", "17", "--checkpoint-dir", "<scratch>/ir", "--resume"]
+      }
+    ],
+    "variant_outputs": "variants write to owned scratch output/manifest roots; every variant must reproduce the canonical content identity byte for byte and the canonical physical database identity",
+    "checkpoint": {
+      "header": "checkpoint.json binds schema, contract_sha256, every parent identity and sqlite sha256, payload schema, chunk size, target key list sha256 and count, census (evidence and witness payload) sha256 and the producer and core sha256",
+      "ledger": "checkpoint.ledger.jsonl appends one line per completed chunk {index, count, first_key, last_key, keys_sha256, chunk_sha256, prefix_sha256 = sha256(previous prefix_sha256 + chunk_sha256)}",
+      "resume": "--resume verifies the header, every ledger line, every chunk file hash, the expected key slice and the chained prefix; any difference refuses (REFUSED_STALE_CHECKPOINT, REFUSED_ALTERED_PREFIX, REFUSED_FORKED_CHECKPOINT); an existing checkpoint directory without --resume refuses (CHECKPOINT_EXISTS)",
+      "interruption": "--stop-after-chunks K stops after K completed chunks with exit code 3 (INTERRUPTED_AT_CHECKPOINT) and writes no output root"
+    },
+    "refusals": "wrong bindings document, parent, schema, identity, contract, record, checkpoint or an existing different identity refuse with exit 2; nothing is overwritten"
+  },
+  "validator": {
+    "tool": "tools/validate_national_history_availability.py (standard library only; imports no producer, query, core or project helper)",
+    "archive_oracle": {
+      "module": "tools/validate_national_archived_publication_expansion.py",
+      "sha256": "1f06a57e67c799a03ccdd1fd776fa61b6841a25dfa03c5836f6c9891bfc4e002",
+      "accepted_base_oracle": {
+        "module": "tools/validate_national_archived_publication.py",
+        "sha256": "091a6a90c1bcf417c4ec0ca57477ed610917dee1872e5adb2711f422865f5ec3"
+      },
+      "use": "the BAT-715 expansion oracle, loaded by path only after its bytes equal this sha256; it loads the accepted Cycle 41 independent oracle only after that file's bytes equal accepted_base_oracle.sha256 and reconstructs every union disposition, request, archived version, field state and upper bound of both acquisitions from the raw bytes and receipts; archive coverage is exactly the expansion sidecar's"
+    },
+    "probe_cutoffs": ["2019-08-01T00:00:00Z", "2019-09-02T01:00:50.999998Z", "2019-09-02T01:00:50.999999Z", "2019-09-01T21:00:50.999999-04:00", "2019-11-01T12:00:00Z", "2020-02-01T00:00:00Z", "2026-10-05T00:00:00Z"],
+    "relationship_probe_cutoffs": ["2019-09-02T01:00:50.999998Z", "2019-09-02T01:00:50.999999Z", "2026-10-05T00:00:00Z"],
+    "per_target_date_boundaries": "every distinct target date's conservative boundary is also probed, each compared for that date's targets",
+    "method": "re-verifies the contract and every parent binding; enumerates the 2019 targets and every expected prior relationship from the population with its own SQL and predicates; checks them against the history parent; reconstructs per-version support from the oracle's records with its own coherent-version rule; compares every delivered record field by field by natural key with the payloads and the database rows; recomputes both identity documents; recomputes every view's aggregates at probe cutoffs and compares them with the query consumer run as a subprocess; runs coordinated semantic tamper cases as if every outer hash were recomputed and oracle self-challenges",
+    "report": "create-only JSON report; exit 0 only when every check passes"
+  },
+  "query_contract": {
+    "console_script": "bas-history-availability-query = aggie_analytics.national_history.availability_query:main",
+    "module": "python -m aggie_analytics.national_history.availability_query (delegates to the package module)",
+    "database_open": "file:...?mode=ro; location, identity document, SQLite bytes, meta, labels and counts verified; the issued contract and parent identities required (PROJECTION_CONTRACT_NOT_ISSUED / PARENT_NOT_ISSUED otherwise); every parent opened and verified with the accepted readers at its recorded identity (default <data>/canonical/<parent>/sha256/<identity>/<file>, explicit --population-database/--history-database/--source-time-database/--archive-database allowed but verified the same way); the whole projection is re-derived from the verified parents and every stored record compared, refusing with the first semantic class reached (FORGED_AUTHORITY_LABEL, RELATIONSHIP_TEMPORAL_ORDER_VIOLATION, *_COLLECTION_MISMATCH, RECORD_ORDER_MISMATCH, RELATIONSHIP_ORIENTATION_MISMATCH, RELATIONSHIP_CLASS_MISMATCH, VIEW_ORIENTATION_MISMATCH, VIEW_COUNT_MISMATCH, EVIDENCE_VERSION_COLLECTION_MISMATCH, EVIDENCE_SUPPORT_FORGERY, EVIDENCE_PARENT_VALUE_MISMATCH, WITNESS_MISMATCH, *_RECORD_MISMATCH)",
+    "grains": ["target", "history", "relationship", "prior-evidence"],
+    "filters": {
+      "season": "integer; 2019 is served, any other season answers NOT_YET_AUDITED",
+      "contest": "target contest key (prior contest key for prior-evidence)",
+      "team": "organization key org:<digits> or bare digits (a or b for targets, the view's team otherwise)",
+      "view": "A or B (history and relationship grains)",
+      "support_state": "SUPPORTED, UNSUPPORTED or EXCLUDED_FROM_HISTORY_POOL (relationship grain)"
+    },
+    "cutoff": "--cutoff is required for every grain",
+    "paging": "--limit/--offset or --all with exact totals, returned counts and next_offset in payload order; negative values, unknown or abbreviated flags, inapplicable filters and malformed keys refuse with exit 2",
+    "require_pit": "--require-pit always refuses with PIT_ADMISSION_NOT_ESTABLISHED (exit 2)",
+    "stale_identity": "--expect-identity that differs refuses (STALE_DATABASE_IDENTITY)",
+    "read_only": "no output path exists; the database and every parent are opened read-only"
+  },
+  "non_claims": ["no PIT, known-at, first-publication or pregame authority; archive upper bounds only", "no model fit, training admission, feature adoption or predictive skill (NOT_ESTABLISHED)", "no source acquisition by this projection; the 97-contest archive expansion union is not national coverage", "no strength comparability or FCS translation", "no season other than 2019; no 2024-2025 or 2026 rows", "no default activation, scientific trust or hold release", "no Jira acceptance", "no champion, A&M lift or Aggie Excess effect", "no support is claimed where the archive expansion recorded no qualified coherent version (an HTTP 429 refusal is not evidence of absence)", "the V1.0 projection and its consumer are unchanged; no default activation of this successor"],
+  "predecessor": {
+    "contract_id": "BAT-714-NATIONAL-HISTORY-AVAILABILITY-2019-V1.0",
+    "contract_sha256": "50a7ccd84675b54a53f65dbb16bc8764a3baf69a9e7f529915dfa6b6c355943c",
+    "population": "national_history_availability_2019",
+    "database_identity": "11097efb16e6eed53d2058cfc6ef57329e47fe5a7ac0a7d8ee78a24d4cce9bfe",
+    "content_identity": "3c79d91e92efeb8efb4e076682f0a37aaeca7369490fc626e04531733ba3e9c8",
+    "relation": "unchanged and still served by its own issued authority; this successor is a separate contract and population over the BAT-715 archive expansion parent; no default pointer or old caller changes"
+  }
+}

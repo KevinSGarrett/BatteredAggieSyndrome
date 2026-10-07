@@ -1,0 +1,2582 @@
+{
+  "reviewed_cycle_number": 42,
+  "reviewed_attempt_number": 1,
+  "proposed_cycle_number": 43,
+  "proposed_attempt_number": 1,
+  "cycle_number": 43,
+  "attempt_number": 1,
+  "state": "PROPOSED_EXACT_ACQUISITION_COHORT",
+  "selection": "Completeboth-teampriorgraph for noncold2019FBS targets dated2019-09-05through2019-09-08; select every missingprior at earliestdependentconservativeUTCdateboundary, withoutlookingat archiveavailabilityor outcomes.",
+  "targets": [
+    {
+      "target": "ncaa:1735280",
+      "date": "2019-09-06",
+      "cutoff_exclusive": "2019-09-05T10:00:00.000000Z",
+      "teams": [
+        "org:388",
+        "org:66"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735187",
+        "ncaa:1735213"
+      ],
+      "missing_priors": [
+        "ncaa:1735187",
+        "ncaa:1735213"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735283",
+      "date": "2019-09-06",
+      "cutoff_exclusive": "2019-09-05T10:00:00.000000Z",
+      "teams": [
+        "org:574",
+        "org:749"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735141",
+        "ncaa:1735147"
+      ],
+      "missing_priors": [
+        "ncaa:1735141",
+        "ncaa:1735147"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735294",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:503",
+        "org:732"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735139",
+        "ncaa:1735203"
+      ],
+      "missing_priors": [
+        "ncaa:1735139",
+        "ncaa:1735203"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735295",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:312",
+        "org:587"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735145",
+        "ncaa:1735210"
+      ],
+      "missing_priors": [
+        "ncaa:1735145",
+        "ncaa:1735210"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735296",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:434",
+        "org:768"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735168",
+        "ncaa:1735188"
+      ],
+      "missing_priors": [
+        "ncaa:1735168",
+        "ncaa:1735188"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735297",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:327",
+        "org:71"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735131",
+        "ncaa:1735207"
+      ],
+      "missing_priors": [
+        "ncaa:1735131",
+        "ncaa:1735207"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735298",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:519",
+        "org:545"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735167",
+        "ncaa:1735226"
+      ],
+      "missing_priors": [
+        "ncaa:1735167",
+        "ncaa:1735226"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735310",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:559",
+        "org:736"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735142",
+        "ncaa:1735212"
+      ],
+      "missing_priors": [
+        "ncaa:1735142"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735311",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:418",
+        "org:725"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735141",
+        "ncaa:1735224"
+      ],
+      "missing_priors": [
+        "ncaa:1735141",
+        "ncaa:1735224"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735313",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:140",
+        "org:518"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735121",
+        "ncaa:1735156"
+      ],
+      "missing_priors": [
+        "ncaa:1735121",
+        "ncaa:1735156"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735314",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:392",
+        "org:688"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735157",
+        "ncaa:1735193"
+      ],
+      "missing_priors": [
+        "ncaa:1735157",
+        "ncaa:1735193"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735321",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:523",
+        "org:742"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735183",
+        "ncaa:1735218"
+      ],
+      "missing_priors": [
+        "ncaa:1735183",
+        "ncaa:1735218"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735327",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:5",
+        "org:9"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735125",
+        "ncaa:1735150"
+      ],
+      "missing_priors": [
+        "ncaa:1735125",
+        "ncaa:1735150"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735399",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:110",
+        "org:626"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735121",
+        "ncaa:1735191"
+      ],
+      "missing_priors": [
+        "ncaa:1735121",
+        "ncaa:1735191"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735403",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:157",
+        "org:463"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735148",
+        "ncaa:1735151"
+      ],
+      "missing_priors": [
+        "ncaa:1735148",
+        "ncaa:1735151"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735421",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:430",
+        "org:664"
+      ],
+      "relationship_count": 1,
+      "required_priors": [
+        "ncaa:1735195"
+      ],
+      "missing_priors": [
+        "ncaa:1735195"
+      ],
+      "exclusions": 1
+    },
+    {
+      "target": "ncaa:1735423",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:129",
+        "org:796"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735124",
+        "ncaa:1735144"
+      ],
+      "missing_priors": [
+        "ncaa:1735124",
+        "ncaa:1735144"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735424",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:472",
+        "org:8"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735169",
+        "ncaa:1735217"
+      ],
+      "missing_priors": [
+        "ncaa:1735169",
+        "ncaa:1735217"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735425",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:51",
+        "org:706"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735185",
+        "ncaa:1735196"
+      ],
+      "missing_priors": [
+        "ncaa:1735185",
+        "ncaa:1735196"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735426",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:164",
+        "org:301"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735120",
+        "ncaa:1735150"
+      ],
+      "missing_priors": [
+        "ncaa:1735120",
+        "ncaa:1735150"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735428",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:147",
+        "org:697"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735135",
+        "ncaa:1735138"
+      ],
+      "missing_priors": [
+        "ncaa:1735135",
+        "ncaa:1735138"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735429",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:27",
+        "org:458"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735136",
+        "ncaa:1735177"
+      ],
+      "missing_priors": [
+        "ncaa:1735136",
+        "ncaa:1735177"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735435",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:466",
+        "org:529"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735142",
+        "ncaa:1735215"
+      ],
+      "missing_priors": [
+        "ncaa:1735142",
+        "ncaa:1735215"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735437",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:234",
+        "org:498"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735187",
+        "ncaa:1735220"
+      ],
+      "missing_priors": [
+        "ncaa:1735187",
+        "ncaa:1735220"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735454",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:497",
+        "org:663"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735201",
+        "ncaa:1735214"
+      ],
+      "missing_priors": [
+        "ncaa:1735201",
+        "ncaa:1735214"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735471",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:630",
+        "org:719"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735119",
+        "ncaa:1735143"
+      ],
+      "missing_priors": [
+        "ncaa:1735119",
+        "ncaa:1735143"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735473",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:277",
+        "org:528"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735108",
+        "ncaa:1735146"
+      ],
+      "missing_priors": [
+        "ncaa:1735108",
+        "ncaa:1735146"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735491",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:670",
+        "org:811"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735135",
+        "ncaa:1735188"
+      ],
+      "missing_priors": [
+        "ncaa:1735135",
+        "ncaa:1735188"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735500",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:31",
+        "org:433"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735149",
+        "ncaa:1735171"
+      ],
+      "missing_priors": [
+        "ncaa:1735149",
+        "ncaa:1735171"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735501",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:37",
+        "org:718"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735118",
+        "ncaa:1735215"
+      ],
+      "missing_priors": [
+        "ncaa:1735118",
+        "ncaa:1735215"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735503",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:355",
+        "org:671"
+      ],
+      "relationship_count": 1,
+      "required_priors": [
+        "ncaa:1735193"
+      ],
+      "missing_priors": [
+        "ncaa:1735193"
+      ],
+      "exclusions": 1
+    },
+    {
+      "target": "ncaa:1735504",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:365",
+        "org:703"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735211",
+        "ncaa:1735223"
+      ],
+      "missing_priors": [
+        "ncaa:1735211",
+        "ncaa:1735223"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735516",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:30",
+        "org:465"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735201",
+        "ncaa:1735216"
+      ],
+      "missing_priors": [
+        "ncaa:1735201",
+        "ncaa:1735216"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735519",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:128",
+        "org:229"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735134",
+        "ncaa:1735156"
+      ],
+      "missing_priors": [
+        "ncaa:1735134",
+        "ncaa:1735156"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735520",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:231",
+        "org:772"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735114",
+        "ncaa:1735118"
+      ],
+      "missing_priors": [
+        "ncaa:1735114",
+        "ncaa:1735118"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735528",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:700",
+        "org:704"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735173",
+        "ncaa:1735194"
+      ],
+      "missing_priors": [
+        "ncaa:1735173",
+        "ncaa:1735194"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735532",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:428",
+        "org:96"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735137",
+        "ncaa:1735225"
+      ],
+      "missing_priors": [
+        "ncaa:1735137",
+        "ncaa:1735225"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735533",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:107",
+        "org:756"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735178",
+        "ncaa:1775063"
+      ],
+      "missing_priors": [
+        "ncaa:1735178",
+        "ncaa:1775063"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735534",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:657",
+        "org:674"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735162",
+        "ncaa:1735225"
+      ],
+      "missing_priors": [
+        "ncaa:1735162",
+        "ncaa:1735225"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735535",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:416",
+        "org:774"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735143",
+        "ncaa:1735222"
+      ],
+      "missing_priors": [
+        "ncaa:1735143",
+        "ncaa:1735222"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735536",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:539",
+        "org:86"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735132",
+        "ncaa:1735175"
+      ],
+      "missing_priors": [
+        "ncaa:1735132",
+        "ncaa:1735175"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735538",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:204",
+        "org:334"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735158",
+        "ncaa:1735179"
+      ],
+      "missing_priors": [
+        "ncaa:1735158",
+        "ncaa:1735179"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735541",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:415",
+        "org:457"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735109",
+        "ncaa:1735180"
+      ],
+      "missing_priors": [
+        "ncaa:1735180"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1735542",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:694",
+        "org:77"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735139",
+        "ncaa:1735176"
+      ],
+      "missing_priors": [
+        "ncaa:1735139",
+        "ncaa:1735176"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1775433",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:255",
+        "org:651"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735138",
+        "ncaa:1735144"
+      ],
+      "missing_priors": [
+        "ncaa:1735138",
+        "ncaa:1735144"
+      ],
+      "exclusions": 0
+    },
+    {
+      "target": "ncaa:1775441",
+      "date": "2019-09-07",
+      "cutoff_exclusive": "2019-09-06T10:00:00.000000Z",
+      "teams": [
+        "org:149",
+        "org:328"
+      ],
+      "relationship_count": 2,
+      "required_priors": [
+        "ncaa:1735153",
+        "ncaa:1735179"
+      ],
+      "missing_priors": [
+        "ncaa:1735153",
+        "ncaa:1735179"
+      ],
+      "exclusions": 0
+    }
+  ],
+  "selected": [
+    {
+      "contest_key": "ncaa:1735108",
+      "contest_date": "2019-08-24",
+      "a_key": "org:277",
+      "b_key": "org:29",
+      "a_team_name": "Hawaii",
+      "b_team_name": "Arizona",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114164"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114164",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190826000000"
+      ],
+      "target_keys": [
+        "ncaa:1735473"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735114",
+      "contest_date": "2019-08-29",
+      "a_key": "org:1004",
+      "b_key": "org:772",
+      "a_team_name": "Central Ark.",
+      "b_team_name": "Western Ky.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114246"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114246",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735520"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735118",
+      "contest_date": "2019-08-29",
+      "a_key": "org:231",
+      "b_key": "org:718",
+      "a_team_name": "FIU",
+      "b_team_name": "Tulane",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114236"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114236",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735501",
+        "ncaa:1735520"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735119",
+      "contest_date": "2019-08-29",
+      "a_key": "org:502",
+      "b_key": "org:630",
+      "a_team_name": "Northern Colo.",
+      "b_team_name": "San Jose St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117493"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117493",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735471"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735120",
+      "contest_date": "2019-08-29",
+      "a_key": "org:164",
+      "b_key": "org:748",
+      "a_team_name": "UConn",
+      "b_team_name": "Wagner",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117855"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117855",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735426"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735121",
+      "contest_date": "2019-08-29",
+      "a_key": "org:110",
+      "b_key": "org:140",
+      "a_team_name": "UCLA",
+      "b_team_name": "Cincinnati",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117854"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117854",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735313",
+        "ncaa:1735399"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735124",
+      "contest_date": "2019-08-29",
+      "a_key": "org:129",
+      "b_key": "org:14",
+      "a_team_name": "Central Mich.",
+      "b_team_name": "UAlbany",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401119253"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401119253",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735423"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735125",
+      "contest_date": "2019-08-29",
+      "a_key": "org:7",
+      "b_key": "org:9",
+      "a_team_name": "Alabama St.",
+      "b_team_name": "UAB",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114237"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114237",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735327"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735131",
+      "contest_date": "2019-08-29",
+      "a_key": "org:446",
+      "b_key": "org:71",
+      "a_team_name": "Morgan St.",
+      "b_team_name": "Bowling Green",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401119254"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401119254",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735297"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735132",
+      "contest_date": "2019-08-29",
+      "a_key": "org:579",
+      "b_key": "org:86",
+      "a_team_name": "Robert Morris",
+      "b_team_name": "Buffalo",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401119255"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401119255",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735536"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735134",
+      "contest_date": "2019-08-29",
+      "a_key": "org:128",
+      "b_key": "org:228",
+      "a_team_name": "UCF",
+      "b_team_name": "Florida A&M",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117853"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117853",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735519"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735135",
+      "contest_date": "2019-08-29",
+      "a_key": "org:670",
+      "b_key": "org:697",
+      "a_team_name": "Texas St.",
+      "b_team_name": "Texas A&M",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110731"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110731",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735428",
+        "ncaa:1735491"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735136",
+      "contest_date": "2019-08-29",
+      "a_key": "org:1092",
+      "b_key": "org:458",
+      "a_team_name": "Gardner-Webb",
+      "b_team_name": "Charlotte",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401135910"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401135910",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735429"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735137",
+      "contest_date": "2019-08-29",
+      "a_key": "org:428",
+      "b_key": "org:649",
+      "a_team_name": "Minnesota",
+      "b_team_name": "South Dakota St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112229"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112229",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735532"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735138",
+      "contest_date": "2019-08-29",
+      "a_key": "org:147",
+      "b_key": "org:255",
+      "a_team_name": "Clemson",
+      "b_team_name": "Georgia Tech",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401111653"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401111653",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735428",
+        "ncaa:1775433"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735139",
+      "contest_date": "2019-08-29",
+      "a_key": "org:732",
+      "b_key": "org:77",
+      "a_team_name": "Utah",
+      "b_team_name": "BYU",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114223"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114223",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190831000000"
+      ],
+      "target_keys": [
+        "ncaa:1735294",
+        "ncaa:1735542"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735141",
+      "contest_date": "2019-08-30",
+      "a_key": "org:574",
+      "b_key": "org:725",
+      "a_team_name": "Rice",
+      "b_team_name": "Army West Point",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114238"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114238",
+      "metadata_probe_timestamps": [
+        "20190905095959",
+        "20190901000000"
+      ],
+      "target_keys": [
+        "ncaa:1735283",
+        "ncaa:1735311"
+      ],
+      "earliest_target_date_boundary": "2019-09-05T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735142",
+      "contest_date": "2019-08-30",
+      "a_key": "org:466",
+      "b_key": "org:559",
+      "a_team_name": "Nevada",
+      "b_team_name": "Purdue",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112262"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112262",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190901000000"
+      ],
+      "target_keys": [
+        "ncaa:1735310",
+        "ncaa:1735435"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735143",
+      "contest_date": "2019-08-30",
+      "a_key": "org:416",
+      "b_key": "org:719",
+      "a_team_name": "Michigan St.",
+      "b_team_name": "Tulsa",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112212"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112212",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190901000000"
+      ],
+      "target_keys": [
+        "ncaa:1735471",
+        "ncaa:1735535"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735144",
+      "contest_date": "2019-08-30",
+      "a_key": "org:651",
+      "b_key": "org:796",
+      "a_team_name": "South Fla.",
+      "b_team_name": "Wisconsin",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117856"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117856",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190901000000"
+      ],
+      "target_keys": [
+        "ncaa:1735423",
+        "ncaa:1775433"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735145",
+      "contest_date": "2019-08-30",
+      "a_key": "org:400",
+      "b_key": "org:587",
+      "a_team_name": "Massachusetts",
+      "b_team_name": "Rutgers",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112264"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112264",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190901000000"
+      ],
+      "target_keys": [
+        "ncaa:1735295"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735146",
+      "contest_date": "2019-08-30",
+      "a_key": "org:521",
+      "b_key": "org:528",
+      "a_team_name": "Oklahoma St.",
+      "b_team_name": "Oregon St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112122"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112122",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190901000000"
+      ],
+      "target_keys": [
+        "ncaa:1735473"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735147",
+      "contest_date": "2019-08-30",
+      "a_key": "org:731",
+      "b_key": "org:749",
+      "a_team_name": "Utah St.",
+      "b_team_name": "Wake Forest",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112430"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112430",
+      "metadata_probe_timestamps": [
+        "20190905095959",
+        "20190901000000"
+      ],
+      "target_keys": [
+        "ncaa:1735283"
+      ],
+      "earliest_target_date_boundary": "2019-09-05T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735148",
+      "contest_date": "2019-08-30",
+      "a_key": "org:156",
+      "b_key": "org:157",
+      "a_team_name": "Colorado St.",
+      "b_team_name": "Colorado",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114184"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114184",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190901000000"
+      ],
+      "target_keys": [
+        "ncaa:1735403"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735149",
+      "contest_date": "2019-08-31",
+      "a_key": "org:404",
+      "b_key": "org:433",
+      "a_team_name": "Memphis",
+      "b_team_name": "Ole Miss",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110726"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110726",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735500"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735150",
+      "contest_date": "2019-08-31",
+      "a_key": "org:301",
+      "b_key": "org:5",
+      "a_team_name": "Illinois",
+      "b_team_name": "Akron",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112145"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112145",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735327",
+        "ncaa:1735426"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735151",
+      "contest_date": "2019-08-31",
+      "a_key": "org:463",
+      "b_key": "org:646",
+      "a_team_name": "Nebraska",
+      "b_team_name": "South Alabama",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112238"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112238",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735403"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735153",
+      "contest_date": "2019-08-31",
+      "a_key": "org:305",
+      "b_key": "org:328",
+      "a_team_name": "Indiana St.",
+      "b_team_name": "Kansas",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112096"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112096",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1775441"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735156",
+      "contest_date": "2019-08-31",
+      "a_key": "org:229",
+      "b_key": "org:518",
+      "a_team_name": "Fla. Atlantic",
+      "b_team_name": "Ohio St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112251"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112251",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735313",
+        "ncaa:1735519"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735157",
+      "contest_date": "2019-08-31",
+      "a_key": "org:290",
+      "b_key": "org:392",
+      "a_team_name": "Howard",
+      "b_team_name": "Maryland",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112201"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112201",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735314"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735158",
+      "contest_date": "2019-08-31",
+      "a_key": "org:334",
+      "b_key": "org:709",
+      "a_team_name": "Kentucky",
+      "b_team_name": "Toledo",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110724"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110724",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735538"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735162",
+      "contest_date": "2019-08-31",
+      "a_key": "org:509",
+      "b_key": "org:674",
+      "a_team_name": "Northwestern",
+      "b_team_name": "Stanford",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112245"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112245",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735534"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735167",
+      "contest_date": "2019-08-31",
+      "a_key": "org:519",
+      "b_key": "org:572",
+      "a_team_name": "Ohio",
+      "b_team_name": "Rhode Island",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401119259"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401119259",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735298"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735168",
+      "contest_date": "2019-08-31",
+      "a_key": "org:317",
+      "b_key": "org:768",
+      "a_team_name": "James Madison",
+      "b_team_name": "West Virginia",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112143"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112143",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735296"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735169",
+      "contest_date": "2019-08-31",
+      "a_key": "org:193",
+      "b_key": "org:8",
+      "a_team_name": "Duke",
+      "b_team_name": "Alabama",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110720"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110720",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735424"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735171",
+      "contest_date": "2019-08-31",
+      "a_key": "org:31",
+      "b_key": "org:550",
+      "a_team_name": "Arkansas",
+      "b_team_name": "Portland St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110721"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110721",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735500"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735173",
+      "contest_date": "2019-08-31",
+      "a_key": "org:440",
+      "b_key": "org:700",
+      "a_team_name": "Montana St.",
+      "b_team_name": "Texas Tech",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112139"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112139",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735528"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": true,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735175",
+      "contest_date": "2019-08-31",
+      "a_key": "org:295",
+      "b_key": "org:539",
+      "a_team_name": "Idaho",
+      "b_team_name": "Penn St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112257"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112257",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735536"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735176",
+      "contest_date": "2019-08-31",
+      "a_key": "org:254",
+      "b_key": "org:694",
+      "a_team_name": "Georgia St.",
+      "b_team_name": "Tennessee",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110730"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110730",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735542"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735177",
+      "contest_date": "2019-08-31",
+      "a_key": "org:198",
+      "b_key": "org:27",
+      "a_team_name": "ETSU",
+      "b_team_name": "App State",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401121934"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401121934",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735429"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735178",
+      "contest_date": "2019-08-31",
+      "a_key": "org:107",
+      "b_key": "org:108",
+      "a_team_name": "California",
+      "b_team_name": "UC Davis",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114174"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114174",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735533"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735179",
+      "contest_date": "2019-08-31",
+      "a_key": "org:149",
+      "b_key": "org:204",
+      "a_team_name": "Coastal Carolina",
+      "b_team_name": "Eastern Mich.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401119256"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401119256",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735538",
+        "ncaa:1775441"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735180",
+      "contest_date": "2019-08-31",
+      "a_key": "org:457",
+      "b_key": "org:648",
+      "a_team_name": "North Carolina",
+      "b_team_name": "South Carolina",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110729"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110729",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735541"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735183",
+      "contest_date": "2019-08-31",
+      "a_key": "org:67",
+      "b_key": "org:742",
+      "a_team_name": "Boston College",
+      "b_team_name": "Virginia Tech",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112435"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112435",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735321"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735185",
+      "contest_date": "2019-08-31",
+      "a_key": "org:2743",
+      "b_key": "org:706",
+      "a_team_name": "UIW",
+      "b_team_name": "UTSA",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114245"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114245",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735425"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735187",
+      "contest_date": "2019-08-31",
+      "a_key": "org:234",
+      "b_key": "org:66",
+      "a_team_name": "Florida St.",
+      "b_team_name": "Boise St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112431"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112431",
+      "metadata_probe_timestamps": [
+        "20190905095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735280",
+        "ncaa:1735437"
+      ],
+      "earliest_target_date_boundary": "2019-09-05T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735188",
+      "contest_date": "2019-08-31",
+      "a_key": "org:434",
+      "b_key": "org:811",
+      "a_team_name": "Missouri",
+      "b_team_name": "Wyoming",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110728"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110728",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735296",
+        "ncaa:1735491"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735191",
+      "contest_date": "2019-08-31",
+      "a_key": "org:626",
+      "b_key": "org:758",
+      "a_team_name": "San Diego St.",
+      "b_team_name": "Weber St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117496"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117496",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735399"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735193",
+      "contest_date": "2019-08-31",
+      "a_key": "org:355",
+      "b_key": "org:688",
+      "a_team_name": "Liberty",
+      "b_team_name": "Syracuse",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112434"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112434",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735314",
+        "ncaa:1735503"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735194",
+      "contest_date": "2019-08-31",
+      "a_key": "org:287",
+      "b_key": "org:704",
+      "a_team_name": "Houston Christian",
+      "b_team_name": "UTEP",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114244"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114244",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735528"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735195",
+      "contest_date": "2019-08-31",
+      "a_key": "org:17",
+      "b_key": "org:664",
+      "a_team_name": "Alcorn",
+      "b_team_name": "Southern Miss.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114243"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114243",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735421"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735196",
+      "contest_date": "2019-08-31",
+      "a_key": "org:51",
+      "b_key": "org:676",
+      "a_team_name": "Baylor",
+      "b_team_name": "SFA",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112073"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112073",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735425"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735201",
+      "contest_date": "2019-08-31",
+      "a_key": "org:30",
+      "b_key": "org:663",
+      "a_team_name": "Arkansas St.",
+      "b_team_name": "SMU",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117858"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117858",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735454",
+        "ncaa:1735516"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735203",
+      "contest_date": "2019-08-31",
+      "a_key": "org:299",
+      "b_key": "org:503",
+      "a_team_name": "Illinois St.",
+      "b_team_name": "NIU",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401119257"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401119257",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735294"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735207",
+      "contest_date": "2019-08-31",
+      "a_key": "org:327",
+      "b_key": "org:483",
+      "a_team_name": "Kansas St.",
+      "b_team_name": "Nicholls",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112106"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112106",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735297"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735210",
+      "contest_date": "2019-08-31",
+      "a_key": "org:312",
+      "b_key": "org:414",
+      "a_team_name": "Iowa",
+      "b_team_name": "Miami (OH)",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112191"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112191",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735295"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735211",
+      "contest_date": "2019-08-31",
+      "a_key": "org:253",
+      "b_key": "org:365",
+      "a_team_name": "Ga. Southern",
+      "b_team_name": "LSU",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110725"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110725",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735504"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735213",
+      "contest_date": "2019-08-31",
+      "a_key": "org:388",
+      "b_key": "org:741",
+      "a_team_name": "Marshall",
+      "b_team_name": "VMI",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114240"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114240",
+      "metadata_probe_timestamps": [
+        "20190905095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735280"
+      ],
+      "earliest_target_date_boundary": "2019-09-05T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735214",
+      "contest_date": "2019-08-31",
+      "a_key": "org:2",
+      "b_key": "org:497",
+      "a_team_name": "Abilene Christian",
+      "b_team_name": "North Texas",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114241"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114241",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735454"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735215",
+      "contest_date": "2019-08-31",
+      "a_key": "org:37",
+      "b_key": "org:529",
+      "a_team_name": "Auburn",
+      "b_team_name": "Oregon",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401110722"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401110722",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735435",
+        "ncaa:1735501"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735216",
+      "contest_date": "2019-08-31",
+      "a_key": "org:465",
+      "b_key": "org:667",
+      "a_team_name": "UNLV",
+      "b_team_name": "Southern Utah",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401117497"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401117497",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735516"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735217",
+      "contest_date": "2019-08-31",
+      "a_key": "org:472",
+      "b_key": "org:754",
+      "a_team_name": "New Mexico St.",
+      "b_team_name": "Washington St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114228"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114228",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735424"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735218",
+      "contest_date": "2019-08-31",
+      "a_key": "org:485",
+      "b_key": "org:523",
+      "a_team_name": "Norfolk St.",
+      "b_team_name": "Old Dominion",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114242"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114242",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735321"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735220",
+      "contest_date": "2019-08-31",
+      "a_key": "org:261",
+      "b_key": "org:498",
+      "a_team_name": "Grambling",
+      "b_team_name": "ULM",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401128468"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401128468",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735437"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735222",
+      "contest_date": "2019-08-31",
+      "a_key": "org:439",
+      "b_key": "org:774",
+      "a_team_name": "Monmouth",
+      "b_team_name": "Western Mich.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401119258"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401119258",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735535"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735223",
+      "contest_date": "2019-08-31",
+      "a_key": "org:366",
+      "b_key": "org:703",
+      "a_team_name": "Louisiana Tech",
+      "b_team_name": "Texas",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112135"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112135",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735504"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735224",
+      "contest_date": "2019-08-31",
+      "a_key": "org:418",
+      "b_key": "org:419",
+      "a_team_name": "Michigan",
+      "b_team_name": "Middle Tenn.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112222"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112222",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735311"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735225",
+      "contest_date": "2019-08-31",
+      "a_key": "org:657",
+      "b_key": "org:96",
+      "a_team_name": "Southern California",
+      "b_team_name": "Fresno St.",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114218"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114218",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735532",
+        "ncaa:1735534"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1735226",
+      "contest_date": "2019-08-31",
+      "a_key": "org:545",
+      "b_key": "org:746",
+      "a_team_name": "Pittsburgh",
+      "b_team_name": "Virginia",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401112433"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401112433",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735298"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    },
+    {
+      "contest_key": "ncaa:1775063",
+      "contest_date": "2019-08-31",
+      "a_key": "org:207",
+      "b_key": "org:756",
+      "a_team_name": "Eastern Wash.",
+      "b_team_name": "Washington",
+      "cfbd_game_id": {
+        "namespace": "CFBD_GAME_ID",
+        "value": "401114233"
+      },
+      "candidate_espn_url": "https://www.espn.com/college-football/game/_/gameId/401114233",
+      "metadata_probe_timestamps": [
+        "20190906095959",
+        "20190902000000"
+      ],
+      "target_keys": [
+        "ncaa:1735533"
+      ],
+      "earliest_target_date_boundary": "2019-09-06T10:00:00.000000Z",
+      "already_in_original_tranche": false,
+      "namespace_limit": "CFBD identifier is a search locator only, not proof of ESPN identity. Qualify source game/participants/names/roles/date and each field independently."
+    }
+  ],
+  "counts": {
+    "targets": 46,
+    "required_relationships": 90,
+    "required_unique_priors": 72,
+    "new_query_keys": 70,
+    "keys_already_in_28_tranche": 1,
+    "union_old_and_new": 97,
+    "with_candidate_url": 70
+  },
+  "parent_bindings": {
+    "cycle_number": 42,
+    "attempt_number": 1,
+    "source_time_database": {
+      "path": "C:\\BatteredAggieSyndrome.data\\canonical\\national_source_time_2016_2023\\sha256\\9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef\\national_source_time.sqlite",
+      "sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7",
+      "identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef"
+    },
+    "source_time_content": {
+      "path": "C:\\BatteredAggieSyndrome.data\\canonical\\national_source_time_2016_2023\\sha256\\4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+      "identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85"
+    },
+    "source_time_gate": {
+      "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle41-a01\\artifacts\\data_lake\\national_source_time_2016_2023_gate.json",
+      "sha256": "c78969fdb3f15ad37f9b5c58792be726599080c7e535ef4c41829f515f155a3d"
+    },
+    "population_database": {
+      "path": "C:\\BatteredAggieSyndrome.data\\canonical\\national_di_population_2016_2025\\sha256\\3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27\\national_population.sqlite",
+      "sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172",
+      "identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27"
+    },
+    "history_database": {
+      "path": "C:\\BatteredAggieSyndrome.data\\canonical\\national_history_prefix_2016_2023\\sha256\\aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b\\national_history.sqlite",
+      "sha256": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060",
+      "identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b"
+    },
+    "worker_delivery": {
+      "path": "C:\\BatteredAggieSyndrome.data\\ops\\cycle40\\attempt01\\DATA_DELIVERY_MANIFEST.json",
+      "sha256": "c4e729db883999b3938e54a38d8a6b965791a3961c3df7c8c4648e89a8df50c9"
+    },
+    "landed_consumer": {
+      "path": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle40\\attempt01\\review-20261003T010739Z\\POST_MERGE_RESULT.json",
+      "sha256": "a67101da958d31406a1955eb4b97eda1bfa47b51f1e1c71912b72772a61922d6"
+    },
+    "tranche": {
+      "path": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle41\\attempt01\\preparation-20261003\\ARCHIVE_TRANCHE.json",
+      "sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79",
+      "count": 28
+    },
+    "control": {
+      "path": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle41\\attempt01\\preparation-20261003\\ARCHIVE_ROUTE_QUALIFICATION.json",
+      "sha256": "75ea9fed326048c850a90fd114bfcfaf646bfd95b1f5035340d8b5ec1c31d14a"
+    },
+    "archive_database": {
+      "path": "C:\\BatteredAggieSyndrome.data\\canonical\\national_archived_publication_2019\\sha256\\768c7c4c8daf5949de3e9cfff5f63ef954ea8d8719678543eef083701361b1da\\national_archived_publication.sqlite",
+      "sha256": "442d908a3fd28f4dde3e52f3e091bb8442cdcd49ccb5321e3ded7a0b8727797e",
+      "identity": "768c7c4c8daf5949de3e9cfff5f63ef954ea8d8719678543eef083701361b1da"
+    },
+    "archive_contract": {
+      "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle42-a01\\configs\\national_archived_publication_2019_contract_v1_2.json",
+      "sha256": "3be9f08f32d4d40dd805a31b3f402ca171add3afeeeab45256710ed1bbf8fe66"
+    },
+    "archive_tranche": {
+      "path": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle41\\attempt01\\preparation-20261003\\ARCHIVE_TRANCHE.json",
+      "sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79"
+    },
+    "accepted_base_consumer": {
+      "path": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle42\\attempt01\\preparation-20261005\\QUALIFIED_BASE_BINDING.json",
+      "sha256": "d30ee29a09ca2302c5b288307839ba07cf842e8af33ea94488306b654ee7588d"
+    },
+    "parent_limits": "C39 retrospective calendar history; C41 exact archive-version field bounds. Neither is PIT admission. All parent bytes read-only."
+  },
+  "limitations": "Complete observed-history subset does not prove full independent FCS/outsideopponentgraph or targetparticipant/scheduleknownat. Allscientificholds remain."
+}

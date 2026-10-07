@@ -1,0 +1,173 @@
+{
+  "schema_version": "BAS-NATIONAL-ARCHIVED-PUBLICATION-GATE-2",
+  "jira_key": "BAT-715",
+  "cycle_number": 43,
+  "attempt_number": 1,
+  "contract_id": "BAT-715-NATIONAL-ARCHIVED-PUBLICATION-2019-EXPANSION-V1.0",
+  "contract_sha256": "8d8edea336dc6691a134d31aa450aa9fe7491b9d2e665cd45b10bc6d878feffc",
+  "population_id": "national_archived_publication_2019_expansion",
+  "historical_audit_unit": "HT43-ARCHIVED-PUBLICATION-2019-EXPANSION-UNION97",
+  "state": "MATERIALIZED_ARCHIVED_PUBLICATION_EVIDENCE_ONLY_EXPLICIT_SUCCESSOR",
+  "row_labels": {
+    "evidence_authority": "ARCHIVED_PUBLICATION_EVIDENCE_ONLY",
+    "pit_admission": "NOT_ADMITTED_NO_SEPARATE_PIT_ADMISSION_AUTHORITY",
+    "publication_inference": "ARCHIVE_CAPTURE_UPPER_BOUND_FOR_EXACT_WITNESSED_VERSION_ONLY_NOT_FIRST_PUBLICATION",
+    "scope": "BOUNDED_2019_UNION_97_CONTESTS_RETAINED_TRANCHE_28_PLUS_MISSING_PRIOR_COHORT_70_NOT_NATIONAL_COVERAGE"
+  },
+  "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79",
+  "cohort_sha256": "9240e5637bf80133d094745baf95898ddd2ef6ed8900fe0d1cf0cd20f397b937",
+  "acquisition_identity": "a0fd2d4f662cfbd5149ac74ae3799f2abbf9f20fe1baa207754a591899ef24df",
+  "acquisition_policy_id": "7ba6e609be011a3a49840ae5b7d49ea4459b08679621a25d03dbfda06ef9bca0",
+  "acquisitions": [
+    {
+      "acquisition_identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+      "origin": "RETAINED_V1_2_ACQUISITION_ZERO_NEW_REQUESTS",
+      "policy_id": "a5bdc947f6930172d6deca1b47198b14e20fe421dba9dfd9b7b7f82a9ef67f3b"
+    },
+    {
+      "acquisition_identity": "a0fd2d4f662cfbd5149ac74ae3799f2abbf9f20fe1baa207754a591899ef24df",
+      "origin": "EXPANSION_ACQUISITION_COHORT_70",
+      "policy_id": "7ba6e609be011a3a49840ae5b7d49ea4459b08679621a25d03dbfda06ef9bca0"
+    }
+  ],
+  "acquisition_totals": {
+    "limit": 320,
+    "metadata": 140,
+    "network_errors": 0,
+    "redirect_hops": 0,
+    "replay": 0,
+    "requests": 140,
+    "retries": 70
+  },
+  "retained_totals": {
+    "limit": 128,
+    "metadata": 42,
+    "network_errors": 0,
+    "redirect_hops": 0,
+    "replay": 27,
+    "requests": 69,
+    "retries": 0
+  },
+  "dispositions": {
+    "ARCHIVED_VERSION_QUALIFIED_ALL_WITNESSABLE_FIELDS": 19,
+    "ARCHIVED_VERSION_QUALIFIED_PARTIAL_FIELDS": 6,
+    "CONTROL_REUSED_QUALIFIED": 1,
+    "METADATA_REQUEST_FAILED": 69,
+    "NO_ARCHIVE_CAPTURE_REPORTED": 2
+  },
+  "content_identity": "4b4e681a1d81c328ebd06b4f7c905cb5dd5d7f61dc870813e87ac7a8aab650fa",
+  "content_identity_document": {
+    "acquisition_identity": "a0fd2d4f662cfbd5149ac74ae3799f2abbf9f20fe1baa207754a591899ef24df",
+    "acquisition_policy_id": "7ba6e609be011a3a49840ae5b7d49ea4459b08679621a25d03dbfda06ef9bca0",
+    "acquisitions": [
+      {
+        "acquisition_identity": "c2c0d41c269175cc35f2633ab303868bacd383764a34f2c8c70b17e17b69ccb0",
+        "origin": "RETAINED_V1_2_ACQUISITION_ZERO_NEW_REQUESTS",
+        "policy_id": "a5bdc947f6930172d6deca1b47198b14e20fe421dba9dfd9b7b7f82a9ef67f3b"
+      },
+      {
+        "acquisition_identity": "a0fd2d4f662cfbd5149ac74ae3799f2abbf9f20fe1baa207754a591899ef24df",
+        "origin": "EXPANSION_ACQUISITION_COHORT_70",
+        "policy_id": "7ba6e609be011a3a49840ae5b7d49ea4459b08679621a25d03dbfda06ef9bca0"
+      }
+    ],
+    "cohort_sha256": "9240e5637bf80133d094745baf95898ddd2ef6ed8900fe0d1cf0cd20f397b937",
+    "contract_id": "BAT-715-NATIONAL-ARCHIVED-PUBLICATION-2019-EXPANSION-V1.0",
+    "contract_sha256": "8d8edea336dc6691a134d31aa450aa9fe7491b9d2e665cd45b10bc6d878feffc",
+    "control": {
+      "contest_key": "ncaa:1735109",
+      "payload_sha256": "5c32e0df631e48aadbee2af25566ce803ebd340a7619355afca5d1690ddaab19",
+      "raw_receipt_sha256": "dea6a227afe16c26eaaf287270f6ec70626728f41b10fc59ef7fd75de3192692",
+      "route_qualification_sha256": "75ea9fed326048c850a90fd114bfcfaf646bfd95b1f5035340d8b5ec1c31d14a"
+    },
+    "outputs": {
+      "assertions.jsonl.gz": "95791328f1b5ae9a5d67f58c4c0ac7d220b7a9e3a1fc0e4f3583a9d943d4faf5",
+      "captures.jsonl.gz": "ba91611074e3454110ba0ddebae2500f4bab791d592d15d72a9d88093f545ea7",
+      "dispositions.jsonl.gz": "ee01cff7b3bde353aaf43c628d37fcc90f7bbb56f78b9a7e683b60467b7e23f0",
+      "requests.jsonl.gz": "2232d2e04ab04448b10364e211cc957e2f7ae1f627f3ffa45af497aff3aa3fc4"
+    },
+    "parent": {
+      "source_time": {
+        "content_identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+        "contract_sha256": "21ed32b8fac0f5fa2c3f4dd55f29abef80437d339c3db2f1bf75206a1fcaf1bd",
+        "database_identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+        "sqlite_sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7"
+      }
+    },
+    "payload_encoding": "gzip(level 9, mtime 0) of the canonical JSONL; semantic sha256 over the uncompressed bytes",
+    "payload_schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-PAYLOAD-3",
+    "population": "national_archived_publication_2019_expansion",
+    "row_counts": {
+      "assertions.jsonl": 313,
+      "captures.jsonl": 28,
+      "dispositions.jsonl": 97,
+      "requests.jsonl": 209
+    },
+    "schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-CONTENT-3",
+    "semantic_outputs": {
+      "assertions.jsonl": "c672b447fc94192722b077619511481d9e86f6bf460ff903aed0a7fe3015f4ae",
+      "captures.jsonl": "f749f644ebed1d870226d3c03e1cedfa14b665749ba88b8ef8d2c1bca4b80db6",
+      "dispositions.jsonl": "a8fb5bfd9a3d0314b9db75de73703648ae0295d24bcf28e63a7f7c77f054dcce",
+      "requests.jsonl": "10bf0a2f9ce0de2a80da32eb7e029c3a75d354ba8e17219b96b68139c12ca5ad"
+    },
+    "stage": "archived-publication-content",
+    "tranche_sha256": "42b96f4238ccb46a2d516332e81ab35efffe22e1fdc717e340749256992e4e79"
+  },
+  "database_identity": "a8c7abcbd8a764eebefaafafc56ebb07bd40342e00bcd3431cb29a3ef58c4a36",
+  "database_identity_document": {
+    "content_identity": "4b4e681a1d81c328ebd06b4f7c905cb5dd5d7f61dc870813e87ac7a8aab650fa",
+    "contract_sha256": "8d8edea336dc6691a134d31aa450aa9fe7491b9d2e665cd45b10bc6d878feffc",
+    "db_schema_version": "BAS-NATIONAL-ARCHIVED-PUBLICATION-DB-3",
+    "outputs": {
+      "national_archived_publication.sqlite": "fe9d4ea97e81139ef5669d5b80349cae2db6665badfe2749613ec3de78b08c56"
+    },
+    "parent": {
+      "source_time": {
+        "content_identity": "4e1fe127a0799f5a5b6410fe6cdaaf0a876063e3e76fd2aec1fdb2188d85fa85",
+        "contract_sha256": "21ed32b8fac0f5fa2c3f4dd55f29abef80437d339c3db2f1bf75206a1fcaf1bd",
+        "database_identity": "9594e2bf8bba9c697a9bf0f923db77c56a9e680a9fba7daf2085dc1ec7a273ef",
+        "sqlite_sha256": "5259ee091712cf46ce530e815e357ff79d7316097d7d82fe2a938afc4b9d6cb7"
+      }
+    },
+    "population": "national_archived_publication_2019_expansion",
+    "record_counts": {
+      "assertions.jsonl": 313,
+      "captures.jsonl": 28,
+      "dispositions.jsonl": 97,
+      "requests.jsonl": 209
+    },
+    "schema": "BAS-NATIONAL-ARCHIVED-PUBLICATION-DATABASE-3",
+    "stage": "archived-publication-database",
+    "table_counts": {
+      "assertions": 313,
+      "captures": 28,
+      "dispositions": 97,
+      "meta": 22,
+      "requests": 209
+    }
+  },
+  "canonical_root": "canonical/national_archived_publication_2019_expansion/sha256/<identity>/",
+  "raw_root": "canonical/national_archived_publication_2019_expansion/raw/sha256/<sha256>",
+  "acquisition_root": "canonical/national_archived_publication_2019_expansion/acquisition/sha256/<identity>/acquisition.json",
+  "manifest_root": "manifests/national_archived_publication_2019_expansion/sha256/<identity>/run_manifest.json",
+  "first_materialization": {
+    "lane": "BUILD_ARCHIVE_EVIDENCE",
+    "run": "20261005T214811640931Z",
+    "head": "04becd7d40ba2abe6a1a745482b611fd723b4900",
+    "state": "MATERIALIZED"
+  },
+  "predecessor_gate": {
+    "path": "artifacts/data_lake/national_archived_publication_2019_v1_2_gate.json",
+    "sha256": "90b9e8a25e1ab82b87d17f0d0c6646547bab0369797dbc3428dfb6f5e941ee3d",
+    "state": "ACCEPTED_V1_2_DEFAULT_UNCHANGED; rebuilt offline to its exact identities in the same BUILD run"
+  },
+  "non_claims": [
+    "no first-publication instant: an archive capture is only an upper bound for its exact witnessed version",
+    "no national, seasonal or population-level historical availability coverage; 97 keys only",
+    "no PIT admission, training matrix, model fit, feature adoption, A&M lift or predictive skill (NOT_ESTABLISHED)",
+    "no change to the accepted source-time assertions, clocks, defaults, gates or holds",
+    "no namespace equivalence between CFBD and ESPN identifiers: an equal literal is recorded, never evidence",
+    "no promised number of supported games: a no-capture, late, partial or quarantined key is a valid explicit disposition"
+  ],
+  "consumer": "bas-source-time-query --archive-evidence (aggie_analytics.national_source_time.archive ExpansionAuthority); explicit option only; the packaged V1.2 default is unchanged; require-PIT refused"
+}

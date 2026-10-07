@@ -27,6 +27,12 @@ supported only by one archived version qualifying all six fields with an upper b
 supported-subset totals and exact unreduced rates are reported beside the complete expected denominator and every
 unsupported reason class. Nothing is PIT admitted; ``--require-pit`` refuses; seasons other than 2019 are
 NOT_YET_AUDITED.
+
+BAT-715 (Cycle #43 TP43-A01): a projection under the issued expansion contract
+(``national_history_availability_2019_expansion``) is served the same way; its database names that population, and
+its default archive parent is the expansion sidecar (``national_archived_publication_2019_expansion``) verified under
+the issued expansion authority. A V1.0 projection keeps its V1.0 parents and authority; nothing defaults to the
+successor.
 """
 from __future__ import annotations
 
@@ -119,7 +125,8 @@ def registered_authority(authority: dict[str, Any]) -> Iterator[dict[str, Any]]:
 
 
 def issued_authority(contract_sha256: Any, parent: Any) -> dict[str, Any]:
-    candidates = [a for a in [core.ISSUED, *_REGISTERED] if a["contract_sha256"] == contract_sha256]
+    packaged = [core.ISSUED] + ([core.ISSUED_EXPANSION] if core.ISSUED_EXPANSION is not None else [])
+    candidates = [a for a in [*packaged, *_REGISTERED] if a["contract_sha256"] == contract_sha256]
     if not candidates:
         raise Error("PROJECTION_CONTRACT_NOT_ISSUED", f"contract sha256 {contract_sha256!r} is not an issued contract "
                                                       "this consumer serves")
@@ -142,7 +149,8 @@ def gzip_mtime0(data: bytes) -> bytes:
 def content_document(contract_id: str, contract_sha256: str, parent: dict[str, Any],
                      payloads: dict[str, bytes]) -> dict[str, Any]:
     """The defined content identity document (contract identity_scheme.content_identity) of verified payload bytes."""
-    return {"schema": core.CONTENT_SCHEMA, "stage": "history-availability-content", "population": core.POPULATION,
+    return {"schema": core.CONTENT_SCHEMA, "stage": "history-availability-content",
+            "population": core.profile(contract_id)["population"],
             "contract_id": contract_id, "contract_sha256": contract_sha256, "parent": parent,
             "payload_schema": core.PAYLOAD_SCHEMA, "payload_encoding": core.PAYLOAD_ENCODING,
             "semantic_outputs": {name: core.sha256_bytes(payloads[name]) for name in core.PAYLOAD_FILES},
@@ -179,9 +187,10 @@ def verify_database(database: Path, *, expect_identity: str | None = None) -> di
     if computed != identity or document.get("identity") != identity:
         raise Error("DATABASE_IDENTITY_MISMATCH", f"manifest identity document hashes to {computed}, directory is "
                                                   f"{identity}")
-    if (identity_document.get("stage"), identity_document.get("schema"), identity_document.get("db_schema_version"),
-            identity_document.get("population")) != ("history-availability-database", core.DATABASE_SCHEMA,
-                                                     core.DB_SCHEMA, core.POPULATION):
+    labels = (identity_document.get("stage"), identity_document.get("schema"),
+              identity_document.get("db_schema_version"))
+    if labels != ("history-availability-database", core.DATABASE_SCHEMA, core.DB_SCHEMA) or \
+            identity_document.get("population") not in core.POPULATION_CONTRACTS:
         raise Error("DATABASE_SCHEMA_UNSUPPORTED", "the manifest is not a known history-availability database manifest")
     expected = (identity_document.get("outputs") or {}).get(core.DB_FILE)
     actual = _sha256_file(db)
@@ -192,14 +201,16 @@ def verify_database(database: Path, *, expect_identity: str | None = None) -> di
     return {"database_identity": identity, "database_sha256": actual, "manifest": str(manifest_path),
             "content_identity": identity_document.get("content_identity"),
             "contract_sha256": identity_document.get("contract_sha256"), "parent": identity_document.get("parent"),
-            "table_counts": identity_document.get("table_counts")}
+            "table_counts": identity_document.get("table_counts"), "population": identity_document.get("population")}
 
 
-def default_parent_paths(database: Path, parent: dict[str, Any]) -> dict[str, Path]:
-    """``<data>/canonical/<parent population>/sha256/<recorded identity>/<file>`` beside the projection's own root."""
+def default_parent_paths(database: Path, parent: dict[str, Any],
+                         contract_id: str = core.CONTRACT_ID) -> dict[str, Path]:
+    """``<data>/canonical/<parent population>/sha256/<recorded identity>/<file>`` beside the projection's own root
+    (the archive parent population is the contract profile's: the V1.2 sidecar or the BAT-715 expansion)."""
     canonical = Path(database).resolve().parents[3]
     out = {}
-    for name, (population, filename) in core.PARENT_FILES.items():
+    for name, (population, filename) in core.parent_files(contract_id).items():
         ident = (parent.get(name) or {}).get("query_db_identity" if name == "population" else "database_identity")
         if not isinstance(ident, str) or not IDENTITY_RE.match(ident):
             raise Error("PARENT_NOT_ISSUED", f"{name} parent identity {ident!r}")
@@ -247,7 +258,10 @@ class HistoryAvailabilityDatabase:
         authority = issued_authority(meta.get("contract_sha256"), parent)
         if meta.get("contract_id") != authority["contract_id"]:
             raise Error("PROJECTION_CONTRACT_NOT_ISSUED", f"contract id {meta.get('contract_id')!r}")
-        paths = default_parent_paths(database, parent)
+        if core.POPULATION_CONTRACTS.get(self.binding["population"]) != authority["contract_id"]:
+            raise Error("PROJECTION_CONTRACT_NOT_ISSUED",
+                        f"population {self.binding['population']!r} is not the issued contract's population")
+        paths = default_parent_paths(database, parent, authority["contract_id"])
         for name, path in (parent_paths or {}).items():
             if path is not None:
                 paths[name] = Path(path)

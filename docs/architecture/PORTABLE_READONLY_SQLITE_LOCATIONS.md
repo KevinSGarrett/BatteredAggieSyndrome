@@ -6,6 +6,12 @@ Every installed BAS query family — `bas-national-population-query`, `bas-natio
 opens every database, parent and attachment through one narrow helper, `aggie_analytics.readonly_sqlite`.
 Import and write APIs (for example `cycle33.query.connect_for_import`) are separate and unchanged.
 
+The population and history query modules are standard-library only by their accepted contract (BAT-710, BAT-711,
+pinned by their `test_query_module_uses_the_standard_library_only` tests). They therefore do not import the helper;
+each carries a byte-identical copy of the helper's marked literal-location core
+(`# ---- BEGIN/END BAT-717 LITERAL-LOCATION CORE`). `tests/test_readonly_sqlite_location.py` requires the three
+copies to stay identical and to answer every spelling exactly as the helper does.
+
 ## Contract
 
 A database argument is a filesystem path that names one literal local file. It is never a SQLite URI: the helper

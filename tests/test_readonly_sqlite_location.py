@@ -5,7 +5,9 @@ Every BAS read-only query consumer opens its database, its parents and the caree
 literal file name, never a SQLite URI; reserved characters stay in the name; the connection is read-only, never
 creates a file and is confirmed to be the file the caller named -- and, on Windows, the native extended-length
 spelling of a long location, the refusal of a verbatim spelling that SQLite would open as another file, and the
-lexical refusal (no filesystem access at all) of network and device locations.
+lexical refusal (no filesystem access at all) of network and device locations. The national population and history
+query modules are standard-library only by their accepted contract, so they carry the helper's literal-location core
+verbatim; these tests require the copies to stay identical and to answer exactly as the helper does.
 """
 
 from __future__ import annotations
@@ -26,11 +28,17 @@ if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics import readonly_sqlite as ro  # noqa: E402
+from aggie_analytics.national_history import query as history_query  # noqa: E402
+from aggie_analytics.national_population import query as population_query  # noqa: E402
 
 WINDOWS = os.name == "nt"
 EXT = "\\\\?\\"
 #: Legal in a file name on Windows and POSIX alike; each is reserved somewhere in a URI.
 PUNCTUATION = "a #%'\u00e9 &x=1 %3Fmode=rw;q+b"
+CORE_BEGIN = "# ---- BEGIN BAT-717 LITERAL-LOCATION CORE"
+CORE_END = "# ---- END BAT-717 LITERAL-LOCATION CORE ----"
+#: Standard-library-only query modules (BAT-710, BAT-711) that carry the core instead of importing the helper.
+STANDALONE = {"national_population": population_query, "national_history": history_query}
 
 
 def verbatim(path: str) -> str:
@@ -64,6 +72,12 @@ def sha(path: str) -> str:
 
 def query_part(uri: str) -> str:
     return uri.partition("?")[2]
+
+
+def core_block(path: str) -> str:
+    text = Path(path).read_text(encoding="utf-8")
+    start, stop = text.find(CORE_BEGIN), text.find(CORE_END)
+    return text[start:stop + len(CORE_END)] if 0 <= start < stop else ""
 
 
 class TempRoot(unittest.TestCase):
@@ -258,6 +272,45 @@ class WindowsLocationTests(TempRoot):
         with self.assertRaises(sqlite3.OperationalError):
             ro.connect_readonly(path)
         self.assertFalse(os.path.exists(path))
+
+
+class CoreCopyTests(TempRoot):
+    def test_the_standard_library_only_query_modules_carry_the_identical_core(self) -> None:
+        helper = core_block(ro.__file__)
+        self.assertGreater(len(helper), 2000)
+        for name, module in STANDALONE.items():
+            self.assertEqual(core_block(module.__file__), helper, name)
+
+    def test_every_copy_answers_exactly_as_the_helper(self) -> None:
+        spellings = [os.path.join(self.root, "db.sqlite"), os.path.join("rel", "db.sqlite"),
+                     os.path.join(self.root, PUNCTUATION, "db #.sqlite"), "", "db\x00.sqlite"]
+        if WINDOWS:
+            plain = os.path.join(self.root, "x", "db.sqlite")
+            spellings += [EXT + plain, EXT + os.path.join(self.root, "x.", "db.sqlite"),
+                          EXT + os.path.join(self.root, "x", "..", "db.sqlite"), EXT + plain.replace("\\", "/"),
+                          "\\\\.\\" + plain, "\\\\server\\share\\db.sqlite", "//server/share/db.sqlite",
+                          "\\\\?\\UNC\\server\\share\\db.sqlite", "\\\\.\\pipe\\db.sqlite",
+                          "\\\\?\\Volume{00000000-0000-0000-0000-000000000000}\\db.sqlite"]
+
+        def outcome(literal, uri, value):
+            try:
+                location = literal(value)
+            except ValueError as exc:
+                return ("refused", getattr(exc, "code", None))
+            return ("literal", location, uri(location, False), uri(location, True))
+        for value in spellings:
+            expected = outcome(ro.literal_path, ro._location_uri, value)
+            for name, module in STANDALONE.items():
+                self.assertEqual(outcome(module._literal_path, module._location_uri, value), expected, (name, value))
+
+    def test_every_copy_refuses_through_its_own_query_error(self) -> None:
+        if not WINDOWS:
+            self.skipTest("the refused spelling is a Windows network share")
+        for error, module in ((population_query.NationalQueryError, population_query),
+                              (history_query.HistoryQueryError, history_query)):
+            with self.assertRaises(error) as caught:
+                module.connect_readonly(Path("\\\\server\\share\\db.sqlite"))
+            self.assertEqual(caught.exception.code, ro.LOCATION_UNSUPPORTED)
 
 
 if __name__ == "__main__":

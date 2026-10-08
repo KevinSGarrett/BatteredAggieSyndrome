@@ -28,6 +28,7 @@ import sqlite3
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from aggie_analytics import readonly_sqlite
 from aggie_analytics.cycle35 import query as cycle35_query
 
 SCHEMA_SQL = """
@@ -83,10 +84,19 @@ def connect_for_import(database: Path) -> sqlite3.Connection:
 
 
 def connect_readonly(database: Path) -> sqlite3.Connection:
+    """Read-only, never creating: exactly the literal local file named (``aggie_analytics.readonly_sqlite``); a
+    network, device or non-literal location is refused before any file is touched."""
     path = Path(database)
+    try:
+        readonly_sqlite.literal_path(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise StaffQueryError(str(exc)) from exc
     if not path.is_file():
         raise StaffQueryError("query database does not exist; import is separate")
-    conn = sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True)
+    try:
+        conn = readonly_sqlite.connect_readonly(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise StaffQueryError(str(exc)) from exc
     conn.row_factory = sqlite3.Row
     return conn
 

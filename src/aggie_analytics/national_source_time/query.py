@@ -9,7 +9,9 @@ verified: the file sits at ``<canonical root>/sha256/<id>/national_source_time.s
 canonical database identity document, which names the database file's own SHA-256, the content identity, contract,
 parents, table counts and record counts; the database bytes must hash to that value; the meta table must carry the
 known schema, the same identities and the evidence-only row labels; ``--expect-identity`` / ``--expect-contract``
-that differ are refused as stale; the connection is a ``file:...?mode=ro`` URI.
+that differ are refused as stale; the connection is opened read-only through :mod:`aggie_analytics.readonly_sqlite`
+(exactly the literal local file named, long and extended-length Windows locations included; a network, device or
+non-literal location is refused before any file is touched).
 
 Grains: ``assertion`` (field-grain source assertions), ``contest`` (per-field summary of a universe contest),
 ``contribution`` (target-contest and contributor relations of every history view), ``repository-row`` (every
@@ -38,6 +40,8 @@ import sys
 import zlib
 from pathlib import Path
 from typing import Any, Iterable, Iterator, Sequence
+
+from aggie_analytics import readonly_sqlite
 
 DB_FILE_NAME = "national_source_time.sqlite"
 DB_SCHEMA_VERSION = "BAS-NATIONAL-SOURCE-TIME-DB-1"
@@ -276,6 +280,7 @@ def aggregate_all(states: list[str]) -> str:
 
 def verify_database(database: Path, *, expect_identity: str | None = None,
                     expect_contract: str | None = None) -> dict[str, Any]:
+    literal_location(database)
     db = Path(database)
     if not db.is_file():
         raise SourceTimeQueryError("DATABASE_MISSING", f"no database file at {db}")
@@ -316,8 +321,19 @@ def verify_database(database: Path, *, expect_identity: str | None = None,
             "record_counts": identity_document.get("record_counts")}
 
 
+def literal_location(database: Path) -> str:
+    """The literal local file ``database`` names; a network, device or non-literal location is refused lexically."""
+    try:
+        return readonly_sqlite.literal_path(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise SourceTimeQueryError(exc.code, exc.detail) from exc
+
+
 def connect_readonly(database: Path) -> sqlite3.Connection:
-    conn = sqlite3.connect(Path(database).resolve().as_uri() + "?mode=ro", uri=True)
+    try:
+        conn = readonly_sqlite.connect_readonly(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise SourceTimeQueryError(exc.code, exc.detail) from exc
     conn.row_factory = sqlite3.Row
     return conn
 

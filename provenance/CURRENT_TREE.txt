@@ -1185,6 +1185,7 @@ docs/architecture/MODEL_LAYERS.md
 docs/architecture/NATIONAL_TAMU_INTERFACE.md
 docs/architecture/OPENAI_ASSISTIVE_PLANE.md
 docs/architecture/OPENROUTER_ASSISTIVE_PLANE.md
+docs/architecture/PORTABLE_READONLY_SQLITE_LOCATIONS.md
 docs/architecture/PREDICTION_PIPELINE.md
 docs/architecture/RESEARCH_AND_LLM_PLANE.md
 docs/architecture/SYSTEM_BOUNDARIES.md
@@ -4225,6 +4226,7 @@ src/aggie_analytics/product/static/index.html
 src/aggie_analytics/product/static/styles.css
 src/aggie_analytics/readiness/__init__.py
 src/aggie_analytics/readiness/e2e.py
+src/aggie_analytics/readonly_sqlite.py
 src/aggie_analytics/scientific_reference/.cursor/BUGBOT.md
 src/aggie_analytics/scientific_reference/__init__.py
 src/aggie_analytics/scientific_reference/binding.py
@@ -4593,6 +4595,7 @@ tests/test_peer_and_tamu_residual_stability.py
 tests/test_people_registry.py
 tests/test_pit_replay_readiness.py
 tests/test_player_intelligence_governance.py
+tests/test_portable_query_locations.py
 tests/test_postgame_collapse_taxonomy.py
 tests/test_pr_review_defense_infrastructure.py
 tests/test_preliminary_elo_challengers.py
@@ -4618,6 +4621,7 @@ tests/test_protected_replay_dry_run.py
 tests/test_protected_split_exposure.py
 tests/test_queue_cpu_worker_manifest_work.py
 tests/test_queue_openai_gamebook_candidate_work.py
+tests/test_readonly_sqlite_location.py
 tests/test_replay_adoption.py
 tests/test_replay_engine_full.py
 tests/test_repo_integrity_tools.py

@@ -58,6 +58,7 @@ import urllib.parse
 from pathlib import Path
 from typing import Any, Iterator
 
+from aggie_analytics import readonly_sqlite
 from aggie_analytics.national_source_time import archive_fields as af
 from aggie_analytics.national_source_time import query as base
 
@@ -389,6 +390,10 @@ def content_document(authority: IssuedAuthority, db_schema: str, policy_id: str,
 # --------------------------------------------------------------------------------------------- sidecar verification
 
 def verify_archive_database(database: Path, *, expect_identity: str | None = None) -> dict[str, Any]:
+    try:
+        readonly_sqlite.literal_path(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise _refuse(exc.code, exc.detail) from exc
     db = Path(database)
     if not db.is_file():
         raise _refuse("ARCHIVE_DATABASE_MISSING", f"no archive sidecar at {db}")

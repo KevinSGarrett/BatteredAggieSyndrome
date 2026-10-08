@@ -42,13 +42,13 @@ import gzip
 import hashlib
 import io
 import json
-import os
 import re
 import sqlite3
 import sys
 from pathlib import Path
 from typing import Any, Iterator, Sequence
 
+from aggie_analytics import readonly_sqlite
 from aggie_analytics.national_history import availability as core
 
 GRAINS = ("target", "history", "relationship", "prior-evidence")
@@ -75,13 +75,30 @@ def _sha256_file(path: Path) -> str:
 
 
 def readonly_uri(database: Path) -> str:
-    """A read-only ``file:`` URI naming the database as given (made absolute, not resolved): on Windows
-    ``Path.resolve()`` returns an extended-length (EXTENDED_PREFIX) path for a long location, whose URI SQLite
-    rejects."""
-    text = os.path.abspath(os.fspath(database))
-    if text.startswith(EXTENDED_PREFIX):
-        text = text[len(EXTENDED_PREFIX):]
-    return Path(text).as_uri() + "?mode=ro"
+    """A read-only ``file:`` URI naming exactly the literal file ``database`` names
+    (:func:`aggie_analytics.readonly_sqlite.readonly_uri`). An extended-length (EXTENDED_PREFIX) spelling keeps its
+    prefix (BAT-717): it is the only spelling of a location beyond the ordinary 260-character limit, and the earlier
+    stripped form both failed to open there and could name a different file than the verbatim one."""
+    try:
+        return readonly_sqlite.readonly_uri(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise Error(exc.code, exc.detail) from exc
+
+
+def literal_location(database: Path) -> str:
+    """The literal local file ``database`` names; a network, device or non-literal location is refused lexically."""
+    try:
+        return readonly_sqlite.literal_path(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise Error(exc.code, exc.detail) from exc
+
+
+def connect_readonly(database: Path) -> sqlite3.Connection:
+    """A read-only connection to exactly the literal file ``database`` names (``aggie_analytics.readonly_sqlite``)."""
+    try:
+        return readonly_sqlite.connect_readonly(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise Error(exc.code, exc.detail) from exc
 
 
 def manifest_path_for(database: Path) -> Path:
@@ -167,6 +184,7 @@ def _meta_json(value: Any) -> Any:
 
 
 def verify_database(database: Path, *, expect_identity: str | None = None) -> dict[str, Any]:
+    literal_location(database)
     db = Path(database)
     if not db.is_file():
         raise Error("DATABASE_MISSING", f"no database file at {db}")
@@ -224,7 +242,7 @@ class HistoryAvailabilityDatabase:
     def __init__(self, database: Path, *, expect_identity: str | None = None,
                  parent_paths: dict[str, Path | None] | None = None) -> None:
         self.binding = verify_database(database, expect_identity=expect_identity)
-        conn = sqlite3.connect(readonly_uri(database), uri=True)
+        conn = connect_readonly(database)
         try:
             meta = {k: v for k, v in conn.execute("SELECT key, value FROM meta")}
             counts = {t: conn.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0] for t in core.TABLES}

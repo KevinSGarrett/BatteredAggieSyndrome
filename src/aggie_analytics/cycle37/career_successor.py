@@ -205,6 +205,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
 
+from aggie_analytics import readonly_sqlite
 from aggie_analytics.cycle37 import career_interval, career_witness
 
 # ---- Attempt 4 format (retained; the Attempt 4 builder and file still use these names) ----
@@ -317,6 +318,9 @@ REFUSED_RESTRUCTURE = "REFUSED_CAREER_SUCCESSOR_RESTRUCTURE_CLAIM_MISMATCH"
 REFUSED_A04_ANCHOR = "REFUSED_CAREER_SUCCESSOR_A04_ANCHOR_MISMATCH"
 REFUSED_CROSS_VERSION = "REFUSED_CAREER_SUCCESSOR_CROSS_VERSION_LINEAGE_MISMATCH"
 REFUSED_A04_FILE_ABSENT = "REFUSED_CAREER_SUCCESSOR_A04_FILE_ABSENT"
+# BAT-717: a successor or Attempt 4 file named by a network, device or non-literal location (the shared read-only
+# helper's DATABASE_LOCATION_* code is in the detail); refused before any file is touched.
+REFUSED_LOCATION = "REFUSED_CAREER_SUCCESSOR_LOCATION_NOT_SUPPORTED"
 # v37.8 (MF37A07-01): a recorded span must be the source unit its row's identity names, not a span that reaches it.
 REFUSED_SOURCE_FIELD = "REFUSED_CAREER_SUCCESSOR_SOURCE_FIELD_WITNESS_MISMATCH"
 # v37.10 (MF37A09-01): what a row states about its interval must be the interval its identity names in its source.
@@ -1267,6 +1271,10 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
     if not path:
         raise CareerSuccessorError(REFUSED_A04_FILE_ABSENT, (
             "the Attempt 5 successor declares no Attempt 4 file, so its Attempt 4 relation cannot be proved"))
+    try:
+        readonly_sqlite.literal_path(path)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise CareerSuccessorError(REFUSED_LOCATION, f"the declared Attempt 4 file: {exc}") from exc
     if not Path(path).is_file():
         raise CareerSuccessorError(REFUSED_A04_FILE_ABSENT, (
             f"the declared Attempt 4 file {path} is absent, so the Attempt 4 relation cannot be proved"))
@@ -1275,7 +1283,13 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
         if sha256_file(a04) != declared.get("a04_successor_sha256"):
             problems.append(f"the declared Attempt 4 file {a04} no longer has its declared SHA-256")
         else:
-            other = sqlite3.connect(f"file:{a04.resolve().as_posix()}?mode=ro&immutable=1", uri=True)
+            # Exactly the declared file, read-only and immutable as before; every reserved character of its name is
+            # escaped (BAT-717: a '#', '%' or '?' in the name, or a long or extended-length location, selected another
+            # file or none through the earlier unescaped URI).
+            try:
+                other = readonly_sqlite.connect_readonly(a04, immutable=True)
+            except readonly_sqlite.DatabaseLocationError as exc:
+                raise CareerSuccessorError(REFUSED_LOCATION, f"the declared Attempt 4 file: {exc}") from exc
             columns = ", ".join(f'"{column}"' for column in EPISODE_COLUMNS)
             a04_locators: dict[str, tuple[str, str]] = {}
             a04_digests: dict[str, str] = {}
@@ -1370,16 +1384,23 @@ def attach_successor(conn: sqlite3.Connection, successor: Path | str, *, databas
     """
 
     path = Path(successor)
+    try:
+        readonly_sqlite.literal_path(successor)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise CareerSuccessorError(REFUSED_LOCATION, f"the career successor file: {exc}") from exc
     if not path.is_file():
         raise CareerSuccessorError(REFUSED_ABSENT, f"no career successor file at {path}")
     file_sha256 = sha256_file(path)
     if expected_sha256 is not None and file_sha256 != expected_sha256.lower():
         raise CareerSuccessorError(REFUSED_FILE_DIGEST,
                                    f"the successor file hashes to {file_sha256}, not the pinned {expected_sha256}")
-    # A literal read-only URI, not a bound parameter: a canonical write guard can verify a literal ATTACH
-    # target as read-only, and it refuses one it cannot see.
-    uri = (path.resolve().as_uri() + "?mode=ro&immutable=1").replace("'", "''")
-    conn.execute(f"ATTACH DATABASE '{uri}' AS {ATTACHED_SCHEMA}")
+    # A literal read-only immutable URI naming exactly this file (every reserved character escaped), not a bound
+    # parameter: a canonical write guard can verify a literal ATTACH target as read-only, and it refuses one it
+    # cannot see. The attachment is confirmed to be this file before any successor row is read.
+    try:
+        readonly_sqlite.attach_readonly(conn, successor, ATTACHED_SCHEMA, immutable=True)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise CareerSuccessorError(REFUSED_LOCATION, f"the career successor file: {exc}") from exc
     try:
         present = _tables(conn, ATTACHED_SCHEMA)
         if IDENTITY_TABLE not in present:

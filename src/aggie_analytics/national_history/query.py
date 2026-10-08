@@ -3,7 +3,8 @@ r"""Read-only query over the national 2016-2023 FBS retrospective history prefix
 ``bas-national-history-query --database <canonical\...\sha256\<id>\national_history.sqlite> --grain history
 --season 2019 --team org:697 --limit 50 --offset 0``
 
-Standard library only (argparse, hashlib, json, re, sqlite3). Before any row is read the database is verified:
+Standard library only (argparse, hashlib, json, os, re, sqlite3, urllib.parse). Before any row is read the database
+is verified:
 
 * the file sits at ``<canonical root>/sha256/<id>/national_history.sqlite`` and its run manifest at
   ``<data root>/manifests/<population>/sha256/<id>/run_manifest.json``;
@@ -13,7 +14,10 @@ Standard library only (argparse, hashlib, json, re, sqlite3). Before any row is 
   no longer matches the directory);
 * the database meta table must carry the known schema version and the same content identity and contract hash;
 * an ``--expect-identity`` that differs is refused as a stale identity;
-* the connection is opened through a ``file:...?mode=ro`` URI, so no statement can write.
+* the connection is opened read-only through the BAT-717 literal-location core -- a byte-identical copy of the block in
+  :mod:`aggie_analytics.readonly_sqlite`, carried here because this module is standard-library only -- so no statement
+  can write and SQLite opens exactly the literal local file named (long and extended-length Windows locations
+  included); a network, device or non-literal location is refused before any file is touched.
 
 Grains: ``targets`` (target contests), ``history`` (two team/current-opponent views per target) and ``exclusions``
 (every other 2016-2023 parent contest with exact reasons). Each returns exact totals with ``--limit``/``--offset``
@@ -27,9 +31,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import sqlite3
 import sys
+import urllib.parse
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -102,6 +108,7 @@ def normalize_contest(value: str) -> str:
 
 def verify_database(database: Path, *, expect_identity: str | None = None) -> dict[str, Any]:
     """Verify location, manifest identity, database bytes and expected identity; return the bound identity."""
+    literal_location(database)
     db = Path(database)
     if not db.is_file():
         raise HistoryQueryError("DATABASE_MISSING", f"no database file at {db}")
@@ -138,8 +145,118 @@ def verify_database(database: Path, *, expect_identity: str | None = None) -> di
             "table_counts": identity_document.get("table_counts")}
 
 
+# ---- BEGIN BAT-717 LITERAL-LOCATION CORE (byte-identical in aggie_analytics.readonly_sqlite,
+# ---- aggie_analytics.national_population.query and aggie_analytics.national_history.query) ----
+_LOCATION_UNSUPPORTED = "DATABASE_LOCATION_UNSUPPORTED"
+_LOCATION_NOT_LITERAL = "DATABASE_LOCATION_NOT_LITERAL"
+_EXTENDED_PREFIX = "\\\\?\\"
+_DEVICE_PREFIX = "\\\\.\\"
+_VERBATIM_DRIVE = re.compile(r"\\\\\?\\[A-Za-z]:\\")
+_DEVICE_DRIVE = re.compile(r"\\\\\.\\[A-Za-z]:\\")
+_DRIVE_ABSOLUTE = re.compile(r"[A-Za-z]:\\")
+
+
+class _LocationError(ValueError):
+    """A database location that cannot be opened as exactly the literal local file it names."""
+
+    def __init__(self, code: str, detail: str) -> None:
+        super().__init__(f"{code}: {detail}")
+        self.code = code
+        self.detail = detail
+
+
+def _literal_path(database: str | os.PathLike[str]) -> str:
+    """The absolute path naming exactly the local file ``database`` names, in the form SQLite will open.
+
+    Purely lexical on Windows: an unsupported location is refused before any filesystem access."""
+
+    try:
+        text = os.fsdecode(os.fspath(database))
+    except TypeError as exc:
+        raise _LocationError(_LOCATION_UNSUPPORTED, f"not a filesystem path: {database!r}") from exc
+    if not text or "\x00" in text:
+        raise _LocationError(_LOCATION_UNSUPPORTED, f"an empty path or one holding a NUL character: {text!r}")
+    if os.name != "nt":
+        return os.path.realpath(text)
+    if text[:1] in "\\/" and text[1:2] in ("\\", "/"):
+        if _VERBATIM_DRIVE.match(text):
+            normal = os.path.abspath(text)
+            if normal != text:
+                raise _LocationError(_LOCATION_NOT_LITERAL, (
+                    f"SQLite would open {normal!r}, not the verbatim {text!r} (a trailing dot, a '.' or '..' "
+                    "component or a forward slash in an extended-length path names a different file than SQLite "
+                    "opens)"))
+            return text
+        normal = os.path.abspath(text)
+        if _DEVICE_DRIVE.match(normal):
+            # \\.\X:\... is the local drive device: Win32 normalizes it like an ordinary path and it names the same
+            # file as X:\... -- the spelling SQLite is given.
+            return normal[len(_DEVICE_PREFIX):]
+        raise _LocationError(_LOCATION_UNSUPPORTED, (
+            f"{text!r} is a network share or a device or namespace path; only a local drive path, its native "
+            "extended-length form \\\\?\\X:\\... or its local device form \\\\.\\X:\\... is supported"))
+    location = os.path.abspath(text)
+    if not _DRIVE_ABSOLUTE.match(location):
+        raise _LocationError(_LOCATION_UNSUPPORTED, f"{text!r} resolves to {location!r}, not a local drive path")
+    return location
+
+
+def _location_uri(location: str, immutable: bool) -> str:
+    """The read-only ``file:`` URI of a literal path, every reserved character escaped."""
+
+    if os.name == "nt" and location.startswith(_EXTENDED_PREFIX):
+        body = "file:" + urllib.parse.quote(location, safe="")
+    else:
+        body = Path(location).as_uri()
+    return body + ("?mode=ro&immutable=1" if immutable else "?mode=ro")
+
+
+def _same_object(opened: str, location: str) -> bool:
+    try:
+        first, second = os.stat(opened), os.stat(location)
+    except (OSError, ValueError):
+        return os.path.normcase(opened) == os.path.normcase(location)
+    if first.st_ino and second.st_ino:
+        return (first.st_dev, first.st_ino) == (second.st_dev, second.st_ino)
+    return os.path.normcase(opened) == os.path.normcase(location)
+
+
+def _verify_opened(conn: sqlite3.Connection, schema: str, location: str) -> str:
+    """Confirm that the database SQLite opened as ``schema`` is the file at ``location``; return SQLite's name."""
+
+    opened = {str(row[1]): str(row[2] or "") for row in conn.execute("PRAGMA database_list")}.get(schema)
+    if not opened or not _same_object(opened, location):
+        raise _LocationError(_LOCATION_NOT_LITERAL, f"SQLite opened {opened!r} as {schema}, not {location!r}")
+    return opened
+
+
+def _connect_literal(database: str | os.PathLike[str], immutable: bool) -> sqlite3.Connection:
+    """A read-only connection to exactly the literal file ``database`` names (never created, never writable)."""
+
+    location = _literal_path(database)
+    conn = sqlite3.connect(_location_uri(location, immutable), uri=True)
+    try:
+        _verify_opened(conn, "main", location)
+    except BaseException:
+        conn.close()
+        raise
+    return conn
+# ---- END BAT-717 LITERAL-LOCATION CORE ----
+
+
+def literal_location(database: Path) -> str:
+    """The literal local file ``database`` names; a network, device or non-literal location is refused lexically."""
+    try:
+        return _literal_path(database)
+    except _LocationError as exc:
+        raise HistoryQueryError(exc.code, exc.detail) from exc
+
+
 def connect_readonly(database: Path) -> sqlite3.Connection:
-    conn = sqlite3.connect(Path(database).resolve().as_uri() + "?mode=ro", uri=True)
+    try:
+        conn = _connect_literal(database, False)
+    except _LocationError as exc:
+        raise HistoryQueryError(exc.code, exc.detail) from exc
     conn.row_factory = sqlite3.Row
     return conn
 

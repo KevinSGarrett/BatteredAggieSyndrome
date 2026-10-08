@@ -62,7 +62,12 @@ def copy_tree(source: Path, target: str) -> None:
 
 
 def long_root(base: str) -> str:
-    return os.path.join(base, "long " + "x" * 120, "deeper # % é ' " + "y" * 120)
+    """A directory whose files lie beyond 300 characters from any local temporary root.
+
+    Below a bare drive root the extended spelling of ``db #.sqlite`` has 326 characters (longest component 135). With
+    only the first two components the hosted Windows runners' 22-character temporary root gave exactly 300, and the
+    consumer test's own length check failed before any consumer ran (MF45A01-01)."""
+    return os.path.join(base, "long " + "x" * 120, "deeper # % é ' " + "y" * 120, "tail " + "z" * 40)
 
 
 def tiny_database(path: str, value: str) -> str:
@@ -229,6 +234,22 @@ class ConsumerConnectionTests(TempRoot):
         for name, connect in CONNECTORS.items():
             self.assertEqual(self.read(connect, short), "short", name)
             self.assertEqual(self.read(connect, far), "long", name)
+
+
+class LongRootFixtureTests(unittest.TestCase):
+    """MF45A01-01: the long-location fixture from roots this host's own temporary directory never shows."""
+
+    @unittest.skipUnless(WINDOWS, "Windows native extended-length spelling")
+    def test_the_long_location_exceeds_300_characters_from_any_local_root(self) -> None:
+        roots = {"minimal drive root": "C:\\",
+                 "hosted runner root": "D:\\a\\_temp\\tmpabcdefgh",  # exactly 300 before MF45A01-01
+                 "long temporary root": "C:\\" + "t" * 97}
+        roots.update({f"root of {n} characters": "C:\\" + "b" * (n - 3) for n in range(4, 101)})
+        for name, root in roots.items():
+            with self.subTest(root=name):
+                far = native(os.path.join(long_root(root), "db #.sqlite"))
+                self.assertGreater(len(far), 300)
+                self.assertLessEqual(max(len(part) for part in far[len(EXT):].split("\\")), 255)
 
 
 class StaffImportApiTests(TempRoot):

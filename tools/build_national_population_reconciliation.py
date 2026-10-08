@@ -90,7 +90,8 @@ def load_contract(path: Path) -> tuple[dict[str, Any], str, dict[str, Any]]:
         if resolution["token_expansions"] != query.RECONCILIATION_TOKEN_EXPANSIONS or \
                 accepted["parameters"]["cfbd_local_offset_hours"] != list(query.RECONCILIATION_LOCAL_OFFSET_HOURS):
             problems.append("parent_contract_rules")
-    anchors = {"contract_sha256": contract_sha, "parent": contract.get("parent"), "inputs": contract.get("inputs")}
+    anchors = {"contract_sha256": contract_sha, "contract_id": contract.get("contract_id"),
+               "parent": contract.get("parent"), "inputs": contract.get("inputs")}
     if not problems and contract.get("content_scope") != query.reconciliation_scope(anchors):
         problems.append("content_scope")
     if problems:
@@ -337,11 +338,8 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
     with tempfile.TemporaryDirectory(prefix="npr-") as work:
         db_path = Path(work) / query.RECONCILIATION_DB_FILE
         table_counts = build_database(db_path, derived, meta)
-        database_document = {"schema": query.RECONCILIATION_DATABASE_SCHEMA, "stage": "reconciliation-database",
-                             "population": query.RECONCILIATION_POPULATION, "contract_sha256": contract_sha,
-                             "content_identity": content_identity, "db_schema_version": query.RECONCILIATION_DB_SCHEMA,
-                             "outputs": {query.RECONCILIATION_DB_FILE: sha256_file(db_path)},
-                             "table_counts": table_counts}
+        database_document = query.reconciliation_database_document(contract_sha, content_identity,
+                                                                    sha256_file(db_path), table_counts)
         database_identity = sha256_bytes(query.canonical_json_bytes(database_document))
         provenance = {"producer": PRODUCER, "producer_path": str(Path(__file__).resolve()),
                       "producer_sha256": sha256_file(Path(__file__)), "reader_path": str(Path(query.__file__).resolve()),

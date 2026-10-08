@@ -9,6 +9,13 @@ must be refused by its own semantic rule, never by a stale outer hash.
 
 Two tests use only accepted behaviour and pass on the unfixed base (BEFORE_REPRODUCTION): the default grains keep
 their exact key sets, and the long-location helper clears 300 characters from every local root length.
+
+C46-CONT-01 (manager findings MF46A01-01 and MF46A01-02): the reader pins the committed contract id; a forged, empty
+or missing contract id and an identity document with an extra output, an extra member or a malformed outputs member
+refuse even when every outer hash is recomputed, while omitted or wrong members keep their earlier codes; a parent or
+provider team name selects on both grains exactly what the organization or provider-team id selects, through a bound
+crosswalk and the other source's names of the same season only. The five tests named in MF_TESTS of the attempt's
+lane runner fail on the unfixed subject; the adjacent controls pass on it.
 """
 from __future__ import annotations
 
@@ -230,9 +237,10 @@ def sha(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def build_inputs(base: Path, parents: list[dict] | None = None) -> dict:
+def build_inputs(base: Path, parents: list[dict] | None = None, provider: dict | None = None) -> dict:
     """Materialize the fixture parent and every cached input under ``base``; return the contract bindings."""
     rows = parents if parents is not None else PARENTS
+    provider_games = provider if provider is not None else PROVIDER
     cells = []
     for org, (name, labels, _p, _n, _c, _r) in sorted(TEAMS.items()):
         for season, label in labels.items():
@@ -257,7 +265,7 @@ def build_inputs(base: Path, parents: list[dict] | None = None) -> dict:
     write_gzip_jsonl(base / "canonical" / "p" / "sha256" / M1 / "identity_bindings.jsonl.gz", bindings)
     write_registry(base / "canonical" / "reg" / "canonical_core_registry.csv")
     captures = []
-    for season, games in PROVIDER.items():
+    for season, games in provider_games.items():
         raw = json.dumps(games).encode("utf-8")
         digest = hashlib.sha256(raw).hexdigest()
         rel = f"raw/SRC-002/games/sha256_{digest}.json"
@@ -302,7 +310,8 @@ def write_contract(path: Path, fixture: dict) -> dict:
     contract["inputs"] = fixture["inputs"]
     contract["content_scope"] = query.reconciliation_scope(fixture)
     path.write_text(json.dumps(contract, indent=1), encoding="utf-8")
-    return {"contract_sha256": sha(path), "parent": fixture["parent"], "inputs": fixture["inputs"]}
+    return {"contract_sha256": sha(path), "contract_id": contract["contract_id"], "parent": fixture["parent"],
+            "inputs": fixture["inputs"]}
 
 
 def build_sidecar(builder, contract: Path, parent_db: Path, out: Path, *extra: str) -> tuple[int, dict, str]:
@@ -318,13 +327,15 @@ def build_sidecar(builder, contract: Path, parent_db: Path, out: Path, *extra: s
 class Fixture(unittest.TestCase):
     """One fixture per class: parent, inputs, contract and a canonical sidecar build (read only for the tests)."""
 
+    PROVIDER_ROWS: dict | None = None
+
     @classmethod
     def setUpClass(cls) -> None:
         cls._tmp = tempfile.TemporaryDirectory()
         cls.setup_error = None
         try:
             cls.base = Path(cls._tmp.name) / "d"
-            cls.fixture = build_inputs(cls.base)
+            cls.fixture = build_inputs(cls.base, provider=cls.PROVIDER_ROWS)
             cls.parent_db = cls.fixture["parent_db"]
             cls.contract = Path(cls._tmp.name) / "contract.json"
             cls.anchors = write_contract(cls.contract, cls.fixture)
@@ -369,6 +380,43 @@ class Fixture(unittest.TestCase):
                 code = exc.code
         text = out.getvalue()
         return code, (json.loads(text) if text.strip() else None), err.getvalue()
+
+    def keys(self, *argv: str) -> list[str]:
+        """The record keys a reconciliation query of the fixture sidecar returns, in served order."""
+        code, result, err = self.run_main("--reconciliation", str(self.sidecar), *argv)
+        self.assertEqual(code, 0, err)
+        field = "contest_key" if "parent-reconciliation" in argv else "provider_row_key"
+        return [r[field] for r in result["rows"]]
+
+
+def provider_rows_of(team_id: int, provider: dict | None = None) -> list[str]:
+    """Provider record keys of every fixture capture row with ``team_id`` on either side (from the inputs)."""
+    return sorted(f"src002:{season}:{i:04d}" for season, games in (provider or PROVIDER).items()
+                  for i, g in enumerate(games) if team_id in (g["homeId"], g["awayId"]))
+
+
+def parent_keys_of(org: str, seasons: tuple[int, ...] = (2024, 2025)) -> list[str]:
+    """Parent contest keys of the fixture with organization ``org`` on either side (from the inputs)."""
+    return sorted(c["contest_key"] for c in PARENTS if c["season"] in seasons and org in (c["a_org_id"], c["b_org_id"]))
+
+
+class ContractPinTests(unittest.TestCase):
+    """MF46A01-01: the reader binds the committed contract by SHA-256 and contract id, never by the sidecar's claim."""
+
+    def test_the_reader_pins_the_committed_contract_identity(self) -> None:
+        raw = CONTRACT.read_bytes()
+        contract = json.loads(raw.decode("utf-8"))
+        anchors = query.RECONCILIATION_ANCHORS
+        self.assertEqual(anchors["contract_sha256"], hashlib.sha256(raw).hexdigest())
+        self.assertEqual(anchors["contract_id"], contract["contract_id"])
+        self.assertEqual((anchors["parent"], anchors["inputs"]), (contract["parent"], contract["inputs"]))
+        members = ("schema", "stage", "population", "contract_sha256", "content_identity", "db_schema_version",
+                   "outputs", "table_counts")
+        specification = contract["output_identity_scheme"]["database_identity"]
+        self.assertTrue(all(member in specification for member in members))
+        document = query.reconciliation_database_document("c" * 64, "d" * 64, "e" * 64, {"meta": 1})
+        self.assertEqual(sorted(document), sorted(members))
+        self.assertEqual(document["outputs"], {DB_NAME: "e" * 64})
 
 
 class AcceptedDefaultTests(unittest.TestCase):
@@ -632,6 +680,60 @@ class ConsumerTests(Fixture):
         self.assertEqual((code, result["season_scope_state"], result["rows"]),
                          (0, "OUTSIDE_RECONCILIATION_SIDECAR_SCOPE", []))
 
+    def test_team_names_reach_records_through_either_source(self) -> None:
+        """MF46A01-02: a parent or provider team name selects on both grains exactly what the organization id or the
+        bound provider-team id selects (parent "Alpha St.", provider "Alpha State", org 100, provider team 9001)."""
+        for grain, expected in (("parent-reconciliation", parent_keys_of("100")),
+                                ("provider-reconciliation", provider_rows_of(9001))):
+            by_org = self.keys("--grain", grain, "--team", "org:100", "--all")
+            self.assertEqual(sorted(by_org), expected)
+            for team in ("Alpha St.", "Alpha State", "alpha state", "ALPHA ST.", "100", "cfbdteam:9001"):
+                with self.subTest(grain=grain, team=team):
+                    self.assertEqual(self.keys("--grain", grain, "--team", team, "--all"), by_org)
+        # an unpromoted relation found through the other source's name keeps its disposition
+        code, result, err = self.run_main("--reconciliation", str(self.sidecar), "--grain", "parent-reconciliation",
+                                          "--team", "USC", "--all")
+        self.assertEqual(code, 0, err)
+        self.assertEqual([(r["contest_key"], r["disposition"]) for r in result["rows"]],
+                         [("ncaa:1010", "CANDIDATE_PARTICIPANT_EVIDENCE_INCOMPLETE")])
+        self.assertEqual(self.keys("--grain", "provider-reconciliation", "--team", "Southern California", "--all"),
+                         provider_rows_of(9004))
+        self.assertEqual(self.keys("--grain", "parent-reconciliation", "--team", "Miami", "--all"),
+                         self.keys("--grain", "parent-reconciliation", "--team", "Miami (FL)", "--all"))
+        # season intersection and exact paging of a name that reaches the parent grain only through the provider
+        self.assertEqual(self.keys("--grain", "parent-reconciliation", "--team", "Alpha State", "--season", "2025",
+                                   "--all"), ["ncaa:2001"])
+        everything = self.keys("--grain", "parent-reconciliation", "--team", "Alpha State", "--all")
+        seen, offset = [], 0
+        while True:
+            code, page, err = self.run_main("--reconciliation", str(self.sidecar), "--grain", "parent-reconciliation",
+                                            "--team", "Alpha State", "--limit", "5", "--offset", str(offset))
+            self.assertEqual((code, page["total"]), (0, len(everything)), err)
+            seen.extend(r["contest_key"] for r in page["rows"])
+            if page["next_offset"] is None:
+                break
+            offset = page["next_offset"]
+        self.assertEqual(seen, everything)
+
+    def test_team_names_never_cross_an_unbound_team_or_another_namespace(self) -> None:
+        """Adjacent controls (they pass before and after MF46A01-02): no unbound team, unrelated name or equal number
+        crosses sources, and an unknown name selects nothing."""
+        self.assertEqual(self.keys("--grain", "parent-reconciliation", "--team", "Zeta Provider", "--all"), [])
+        self.assertEqual(self.keys("--grain", "parent-reconciliation", "--team", "cfbdteam:30", "--all"), [])
+        self.assertEqual(sorted(self.keys("--grain", "parent-reconciliation", "--team", "org:30", "--all")),
+                         parent_keys_of("30"))
+        self.assertEqual(sorted(self.keys("--grain", "provider-reconciliation", "--team", "Epsilon", "--all")),
+                         provider_rows_of(9007))
+        self.assertEqual(self.keys("--grain", "provider-reconciliation", "--team", "cfbdteam:30", "--all"),
+                         provider_rows_of(30))
+        self.assertEqual(self.keys("--grain", "provider-reconciliation", "--team", "Xi", "--all"), [])
+        self.assertEqual(self.keys("--grain", "parent-reconciliation", "--team", "Ex School", "--all"), ["ncaa:1019"])
+        self.assertEqual(self.keys("--grain", "provider-reconciliation", "--team", "Ex School", "--all"), [])
+        for grain in query.RECONCILIATION_GRAINS:
+            code, result, err = self.run_main("--reconciliation", str(self.sidecar), "--grain", grain, "--team", "Omega",
+                                              "--all")
+            self.assertEqual((code, result["total"], result["rows"]), (0, 0, []), err)
+
     def test_selection_and_filter_refusals(self) -> None:
         cases = [
             (("--grain", "parent-reconciliation"), "RECONCILIATION_NOT_SELECTED"),
@@ -706,7 +808,8 @@ class ForgeryTests(Fixture):
     def tearDown(self) -> None:
         self._work.cleanup()
 
-    def forge(self, statements: list[tuple[str, tuple]], document: dict | None = None) -> Path:
+    def forge(self, statements: list[tuple[str, tuple]], document: dict | None = None,
+              drop: tuple[str, ...] = ()) -> Path:
         copy_path = self.work / "copy.sqlite"
         shutil.copyfile(self.sidecar, copy_path)
         conn = sqlite3.connect(copy_path)
@@ -723,6 +826,8 @@ class ForgeryTests(Fixture):
         doc["outputs"] = {DB_NAME: sha(copy_path)}
         doc["table_counts"] = counts
         doc.update(document or {})
+        for member in drop:
+            del doc[member]
         identity = hashlib.sha256(query.canonical_json_bytes(doc)).hexdigest()
         self.assertNotEqual(identity, self.sidecar.parent.name)
         target = self.work / "canonical" / POPULATION / "sha256" / identity / DB_NAME
@@ -828,6 +933,54 @@ class ForgeryTests(Fixture):
         self.refused("RECONCILIATION_SCHEMA_UNSUPPORTED", self.forge([("CREATE TABLE extra (x TEXT)", ())]))
         self.refused("RECONCILIATION_META_MISMATCH", self.forge([("INSERT INTO meta VALUES ('summary', 'x')", ())]))
 
+    def forged_content_identity(self, contract_id: str) -> str:
+        """The content identity a forger recomputes after replacing only the contract id of the content document."""
+        manifest = json.loads((self.base / "manifests" / POPULATION / "sha256" / self.built["content_identity"] /
+                               "run_manifest.json").read_text(encoding="utf-8"))
+        return hashlib.sha256(query.canonical_json_bytes(dict(manifest["identity_document"],
+                                                              contract_id=contract_id))).hexdigest()
+
+    def test_contract_id_must_be_the_bound_contract_id(self) -> None:
+        """MF46A01-01: a forged or empty contract id refuses even with the content identity, meta, table counts,
+        identity document, directory and manifest all recomputed; so do a missing id and a reader binding none."""
+        for forged in ("BAT-718-NATIONAL-POPULATION-RECONCILIATION-2024-2025-V2", ""):
+            with self.subTest(contract_id=forged):
+                content = self.forged_content_identity(forged)
+                self.refused("RECONCILIATION_CONTRACT_MISMATCH", self.forge(
+                    [self.meta_update("contract_id", forged), self.meta_update("content_identity", content)],
+                    {"content_identity": content}))
+        self.refused("RECONCILIATION_CONTRACT_MISMATCH",
+                     self.forge([("DELETE FROM meta WHERE key = 'contract_id'", ())]))
+        self.refused("RECONCILIATION_CONTRACT_MISMATCH",
+                     anchors={k: v for k, v in self.anchors.items() if k != "contract_id"})
+
+    def test_identity_document_must_be_exactly_the_contract_document(self) -> None:
+        """MF46A01-01: an extra declared output, an extra member or a malformed outputs member refuses although the
+        directory, manifest and every hash agree."""
+        genuine = sha(self.sidecar)
+        for document in ({"outputs": {DB_NAME: genuine, "fabricated_evidence.json": "f" * 64}},
+                         {"pit_eligibility": "PIT_ELIGIBLE"}, {"outputs": [genuine]}):
+            with self.subTest(document=document):
+                self.refused("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH", self.forge([], document))
+
+    def test_omitted_or_wrong_identity_document_members_keep_their_codes(self) -> None:
+        """Adjacent controls (they pass before and after MF46A01-01): each omitted or wrong member keeps its own code,
+        and the genuine sidecar still serves."""
+        genuine = sha(self.sidecar)
+        cases = (("RECONCILIATION_CONTRACT_MISMATCH", None, ("contract_sha256",)),
+                 ("RECONCILIATION_CONTRACT_MISMATCH", {"contract_sha256": "f" * 64}, ()),
+                 ("RECONCILIATION_SCHEMA_UNSUPPORTED", None, ("population",)),
+                 ("RECONCILIATION_CONTENT_IDENTITY_MISMATCH", None, ("content_identity",)),
+                 ("RECONCILIATION_DATABASE_TAMPERED", None, ("outputs",)),
+                 ("RECONCILIATION_DATABASE_TAMPERED", {"outputs": {"other.sqlite": genuine}}, ()),
+                 ("RECONCILIATION_COUNT_MISMATCH", {"table_counts": {"meta": 13, "parent_reconciliation": 23,
+                                                                     "provider_reconciliation": 23, "extra": 0}}, ()))
+        for code, document, drop in cases:
+            with self.subTest(code=code, document=document, drop=drop):
+                self.refused(code, self.forge([], document, drop))
+        with self.open() as handle:
+            self.assertEqual(handle.content_identity, self.built["content_identity"])
+
     def test_outer_identity_refusals(self) -> None:
         tampered = self.work / "t" / "canonical" / POPULATION / "sha256" / self.sidecar.parent.name / DB_NAME
         tampered.parent.mkdir(parents=True)
@@ -875,6 +1028,34 @@ class ForgeryTests(Fixture):
         self.refused("RECONCILIATION_INPUT_MISSING", parent_db=parent_db)
         other = build_inputs(self.work / "o", PARENTS[:-1])
         self.refused("RECONCILIATION_PARENT_MISMATCH", parent_db=other["parent_db"])
+
+
+#: Labeled synthetic variant (the genuine 2024/2025 captures contain no such case): unbound provider team 30 is named
+#: "Beta" like bound team 9002, and bound team 9001 carries a different provider name in 2025 than in 2024.
+PROVIDER_COLLISION = copy.deepcopy(PROVIDER)
+PROVIDER_COLLISION[2024][16]["awayTeam"] = "Beta"
+PROVIDER_COLLISION[2025][0]["homeTeam"] = "Alpha State Univ"
+
+
+class NameCollisionTests(Fixture):
+    PROVIDER_ROWS = PROVIDER_COLLISION
+
+    def test_season_scoped_names_and_shared_name_collisions(self) -> None:
+        """MF46A01-02: a provider name reaches the parent grain only for the season and bound team that carry it, and
+        a name shared by a bound and an unbound provider team never bridges the unbound one."""
+        self.assertEqual(PROVIDER_COLLISION[2024][16]["awayId"], 30)
+        self.assertEqual(self.keys("--grain", "parent-reconciliation", "--team", "Alpha State Univ", "--all"),
+                         ["ncaa:2001"])
+        self.assertEqual(sorted(self.keys("--grain", "parent-reconciliation", "--team", "Alpha State", "--all")),
+                         parent_keys_of("100", (2024,)))
+        self.assertEqual(sorted(self.keys("--grain", "parent-reconciliation", "--team", "Alpha St.", "--all")),
+                         parent_keys_of("100"))
+        self.assertEqual(sorted(self.keys("--grain", "provider-reconciliation", "--team", "Beta", "--all")),
+                         sorted(provider_rows_of(9002, PROVIDER_COLLISION) + ["src002:2024:0016"]))
+        self.assertEqual(sorted(self.keys("--grain", "provider-reconciliation", "--team", "cfbdteam:9002", "--all")),
+                         provider_rows_of(9002, PROVIDER_COLLISION))
+        self.assertEqual(self.keys("--grain", "parent-reconciliation", "--team", "Beta", "--all"),
+                         self.keys("--grain", "parent-reconciliation", "--team", "org:200", "--all"))
 
 
 if __name__ == "__main__":

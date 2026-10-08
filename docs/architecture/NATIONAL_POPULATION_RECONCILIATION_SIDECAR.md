@@ -77,6 +77,15 @@ scope, computed only from the records.
   the database bytes, the content identity and the table counts.
 * Each manifest lives at `manifests/national_population_reconciliation_2024_2025/sha256/<identity>/run_manifest.json`.
   Writes are create-only. Input order, chunking and an interrupted, resumed build cannot change a byte.
+* Identity authority (C46-CONT-01, MF46A01-01). The reader pins the committed contract by SHA-256 and contract id
+  (`RECONCILIATION_ANCHORS`). It re-derives the content document with that contract id (the sidecar's own meta
+  `contract_id` must equal it, otherwise `RECONCILIATION_CONTRACT_MISMATCH`), and it requires the manifest's identity
+  document to be exactly the contract-defined database document: `schema`, `stage`, `population`,
+  `contract_sha256`, `content_identity`, `db_schema_version`, `outputs` naming only the database file with its
+  SHA-256, and `table_counts`, all rebuilt from the pinned contract, the re-derived content identity, the database
+  bytes and their actual table counts. A self-consistent, rehashed envelope is not authority: an extra output, an
+  extra member or a malformed `outputs` refuses `RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH`, and an omitted or wrong
+  member refuses with its own earlier code. Manifest `provenance` lies outside the identity and is not compared.
 
 ## Reading it
 
@@ -98,6 +107,17 @@ its own code, for example `RECONCILIATION_PARENT_ROW_MISSING`, `RECONCILIATION_R
 `RECONCILIATION_FIELD_MISMATCH`, `RECONCILIATION_SUMMARY_MISMATCH`, `RECONCILIATION_CONTENT_IDENTITY_MISMATCH`,
 `RECONCILIATION_SCOPE_CLAIM_INVALID`, `RECONCILIATION_PIT_CLAIM_INVALID` or `RECONCILIATION_SOURCE_BYTES_MISMATCH`.
 `--require-pit` is always refused. Without `--reconciliation`, every existing grain answers exactly as before.
+
+`--team` (C46-CONT-01, MF46A01-02) takes `org:<id>` or bare digits for an NCAA organization, `cfbdteam:<id>` for a
+provider team, or a team name. A name is compared case-insensitively and exactly (no alias, normalization or fuzzy
+rule) with the record's own source names, and with the other source's names of the same season for a participant
+whose crosswalk binding is `BOUND`: on `parent-reconciliation` the provider names that bound provider team carries in
+that season's capture, on `provider-reconciliation` the parent names of the bound organization in that parent season.
+A parent name, the provider name of its bound team, `org:<id>` and `cfbdteam:<id>` therefore select the same records
+on both grains wherever both sources name the team in that season. A name is season evidence: a provider name observed
+only in one season's capture (a team with a single FBS-route game) selects only that season's parent records, while
+`org:<id>` and `cfbdteam:<id>` select every season. An unbound or not one-to-one participant never borrows a name, a
+filter never changes a record or its disposition, and a name shared by two teams selects the records of both.
 
 Labels on every answer: `CACHED_SOURCE_RECONCILIATION_ONLY`, `NOT_ESTABLISHED_PROVIDER_MAY_SHARE_UPSTREAM_EVIDENCE`,
 `PIT_ELIGIBILITY_NOT_ESTABLISHED`, `EXPOSED_NOT_PROTECTED`, `RETAIN_PROTECTED_LANE_BLOCKED`, predictive skill

@@ -401,10 +401,11 @@ RECONCILIATION_PARAMETERS = {
     "parent_dispositions": list(PARENT_DISPOSITIONS),
     "provider_dispositions": list(PROVIDER_DISPOSITIONS),
 }
-#: The production trust anchors: the committed contract and every bound input it names (INPUT_BINDINGS of TP46-A01).
-#: The command line always uses these; tests construct their own for tiny fixtures.
+#: The production trust anchors: the committed contract (its SHA-256 and contract id) and every bound input it names
+#: (INPUT_BINDINGS of TP46-A01). The command line always uses these; tests construct their own for tiny fixtures.
 RECONCILIATION_ANCHORS: dict[str, Any] = {
     "contract_sha256": "2f6300bc0ee2364f0c8059a5622b6d3377869ab19a681c625fb57015cb857ee0",
+    "contract_id": "BAT-718-NATIONAL-POPULATION-RECONCILIATION-2024-2025-V1",
     "parent": {"query_db_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
                "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172",
                "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
@@ -1096,6 +1097,16 @@ def reconciliation_meta(content_document: dict[str, Any], content_identity: str,
             "summary": dumps(summary)}
 
 
+def reconciliation_database_document(contract_sha256: str, content_identity: str, database_sha256: str,
+                                     table_counts: dict[str, int]) -> dict[str, Any]:
+    """The complete contract-defined database identity document (output_identity_scheme.database_identity): exactly
+    these members, and outputs naming only the database file."""
+    return {"schema": RECONCILIATION_DATABASE_SCHEMA, "stage": "reconciliation-database",
+            "population": RECONCILIATION_POPULATION, "contract_sha256": contract_sha256,
+            "content_identity": content_identity, "db_schema_version": RECONCILIATION_DB_SCHEMA,
+            "outputs": {RECONCILIATION_DB_FILE: database_sha256}, "table_counts": dict(table_counts)}
+
+
 #: The exact sidecar schema (every sqlite_master entry carries its statement; no automatic index exists).
 RECONCILIATION_DDL = (
     ("table", "meta", "CREATE TABLE meta (key TEXT NOT NULL, value TEXT NOT NULL)"),
@@ -1152,7 +1163,11 @@ class ReconciliationSidecar:
 
     Construction refuses (NationalQueryError with a stable code) unless the sidecar location, manifest identity,
     database bytes, schema, meta claims, the accepted parent and every bound cached input verify, and every record,
-    the summary and the content identity equal what is re-derived from those inputs."""
+    the summary and the content identity equal what is re-derived from those inputs. Both contract-defined identity
+    documents come from trusted authority, never from the sidecar's own claims: the content document is re-derived
+    with the reader's pinned contract id and SHA-256, and the manifest's identity document must be exactly the
+    contract-defined database document of the re-derived content identity, the database bytes and its table counts
+    (a self-consistent, rehashed envelope is not authority)."""
 
     def __init__(self, database: Path, *, parent: NationalPopulationDatabase, parent_database: Path,
                  manifest: Path | None = None, expect_identity: str | None = None,
@@ -1211,7 +1226,11 @@ class ReconciliationSidecar:
                 ("reconciliation-database", RECONCILIATION_DATABASE_SCHEMA, RECONCILIATION_DB_SCHEMA,
                  RECONCILIATION_POPULATION):
             raise NationalQueryError("RECONCILIATION_SCHEMA_UNSUPPORTED", "not a reconciliation-database manifest")
-        expected_sha = (identity_document.get("outputs") or {}).get(RECONCILIATION_DB_FILE)
+        outputs = identity_document.get("outputs")
+        if outputs is not None and not isinstance(outputs, dict):
+            raise NationalQueryError("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH",
+                                     "the manifest identity document's outputs member is not an object")
+        expected_sha = (outputs or {}).get(RECONCILIATION_DB_FILE)
         actual_sha = _sha256_file(_io_path(db))
         if expected_sha != actual_sha:
             raise NationalQueryError("RECONCILIATION_DATABASE_TAMPERED",
@@ -1239,6 +1258,14 @@ class ReconciliationSidecar:
             raise NationalQueryError("RECONCILIATION_SCHEMA_UNSUPPORTED", f"schema {meta.get('schema_version')!r}")
         if meta.get("contract_sha256") != a["contract_sha256"]:
             raise NationalQueryError("RECONCILIATION_CONTRACT_MISMATCH", "the sidecar meta names another contract")
+        # MF46A01-01: the contract id is the reader's pinned one, never the sidecar's own claim
+        bound_id = a.get("contract_id")
+        if not isinstance(bound_id, str) or not bound_id:
+            raise NationalQueryError("RECONCILIATION_CONTRACT_MISMATCH", "the reader binds no contract id")
+        if meta.get("contract_id") != bound_id:
+            raise NationalQueryError("RECONCILIATION_CONTRACT_MISMATCH",
+                                     f"the sidecar meta names contract id {meta.get('contract_id')!r}, the reader "
+                                     f"binds {bound_id!r}")
         claims = {name: _json_or_none(meta.get(name)) for name in ("parent", "inputs", "labels", "scope")}
         if claims["parent"] != a["parent"]:
             raise NationalQueryError("RECONCILIATION_PARENT_MISMATCH", "the sidecar was built for another parent")
@@ -1269,8 +1296,7 @@ class ReconciliationSidecar:
         self._compare_table("parent_reconciliation", expected_rows["parent_reconciliation"], 1, "PARENT")
         self._compare_table("provider_reconciliation", expected_rows["provider_reconciliation"], 1, "PROVIDER")
         payloads = reconciliation_payloads(derived)
-        content_document = reconciliation_content_document(meta.get("contract_id") or "", a["contract_sha256"], a,
-                                                           payloads)
+        content_document = reconciliation_content_document(bound_id, a["contract_sha256"], a, payloads)
         content_identity = hashlib.sha256(canonical_json_bytes(content_document)).hexdigest()
         if _json_or_none(meta.get("summary")) != derived["summary"]:
             raise NationalQueryError("RECONCILIATION_SUMMARY_MISMATCH", "the sidecar summary differs from its records")
@@ -1282,11 +1308,23 @@ class ReconciliationSidecar:
         if meta != expected_meta:
             raise NationalQueryError("RECONCILIATION_META_MISMATCH",
                                      f"meta differs on {sorted(k for k in set(meta) | set(expected_meta) if meta.get(k) != expected_meta.get(k))}")
+        # MF46A01-01: the whole manifest identity document must be the contract-defined one (checked last, so every
+        # earlier refusal keeps its own code)
+        document = self.binding["identity_document"]
+        expected_document = reconciliation_database_document(a["contract_sha256"], content_identity,
+                                                             self.binding["sha256"], counts)
+        if document != expected_document:
+            differing = sorted(k for k in set(document) | set(expected_document)
+                               if document.get(k) != expected_document.get(k))
+            raise NationalQueryError("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH",
+                                     f"the manifest identity document is not the contract-defined database document "
+                                     f"(differs on {differing})")
         self.meta = meta
         self.content_identity = content_identity
         self.summary = derived["summary"]
         self.records = {"parent-reconciliation": derived["parent_records"],
                         "provider-reconciliation": derived["provider_records"]}
+        self.team_names = reconciliation_team_names(self.records)
         self.parent_identity = parent.binding["database_identity"]
 
     def _compare_table(self, table: str, expected: list[tuple[Any, ...]], key_index: int, label: str) -> None:
@@ -1371,7 +1409,7 @@ class ReconciliationSidecar:
                           next_offset=None, filtered_by_disposition={},
                           note="season outside the 2024-2025 reconciliation sidecar; no rows are fabricated")
             return result
-        rows = [r for r in self.records[grain] if _reconciliation_match(grain, r, filters)]
+        rows = [r for r in self.records[grain] if _reconciliation_match(grain, r, filters, self.team_names)]
         total = len(rows)
         page = rows[offset:] if all_rows else rows[offset:offset + (limit or 0)]
         result.update(season_scope_state="RECONCILIATION_2024_2025", total=total, returned=len(page), rows=page,
@@ -1390,14 +1428,42 @@ def _json_or_none(text: Any) -> Any:
         return None
 
 
-def _reconciliation_match(grain: str, record: dict[str, Any], filters: dict[str, Any]) -> bool:
+def reconciliation_team_names(records: dict[str, list[dict[str, Any]]]
+                              ) -> dict[str, dict[tuple[int, str], frozenset[str]]]:
+    """Each source's own team names (casefolded) by season and source-native team id, from the verified records: the
+    parent names of each organization in each parent season and the provider names of each provider team in each
+    capture season (contract consumer.filters: a parent or provider team name)."""
+    parent: dict[tuple[int, str], set[str]] = {}
+    for record in records["parent-reconciliation"]:
+        for side in (record["participants"]["a"], record["participants"]["b"]):
+            if side["org_id"] is not None and side["team_name"]:
+                parent.setdefault((record["season"], side["org_id"]), set()).add(str(side["team_name"]).casefold())
+    provider: dict[tuple[int, str], set[str]] = {}
+    for record in records["provider-reconciliation"]:
+        for side in record["participants"].values():
+            if side["provider_team_id"] and isinstance(side["provider_team_name"], str):
+                provider.setdefault((record["capture_season"], side["provider_team_id"]), set()).add(
+                    side["provider_team_name"].casefold())
+    return {"parent": {k: frozenset(v) for k, v in parent.items()},
+            "provider": {k: frozenset(v) for k, v in provider.items()}}
+
+
+def _reconciliation_match(grain: str, record: dict[str, Any], filters: dict[str, Any],
+                          names: dict[str, dict[tuple[int, str], frozenset[str]]] | None = None) -> bool:
+    """A record's own source names always match. MF46A01-02: a name of the other source matches only through a
+    participant's own BOUND crosswalk binding and only that source's names of the record's season, so a parent name,
+    the provider name of its bound team, org:<id> and cfbdteam:<id> select the same records; an unbound or
+    not one-to-one participant never borrows a name and no alias, normalization or fuzzy rule applies."""
+    names = names or {"parent": {}, "provider": {}}
     if grain == "parent-reconciliation":
         season = record["season"]
         participants = [record["participants"]["a"], record["participants"]["b"]]
+        bound = [p["crosswalk"]["provider_team_id"] for p in participants if p["crosswalk"]["state"] == "BOUND"]
         team_keys = {p["key"] for p in participants if p["key"]} | \
             {str(p["team_name"]).casefold() for p in participants if p["team_name"]} | \
-            {f"cfbdteam:{p['crosswalk']['provider_team_id']}" for p in participants
-             if p["crosswalk"]["state"] == "BOUND"}
+            {f"cfbdteam:{team}" for team in bound}
+        for team in bound:
+            team_keys |= names["provider"].get((season, team), frozenset())
         contest_keys = {record["contest_key"]}
         if record["relation"] and record["relation"]["provider_game_id"]:
             contest_keys.add(f"cfbd:{record['relation']['provider_game_id']}")
@@ -1407,6 +1473,9 @@ def _reconciliation_match(grain: str, record: dict[str, Any], filters: dict[str,
         team_keys = {s["parent_key"] for s in sides if s["parent_key"]} | \
             {f"cfbdteam:{s['provider_team_id']}" for s in sides if s["provider_team_id"]} | \
             {str(s["provider_team_name"]).casefold() for s in sides if isinstance(s["provider_team_name"], str)}
+        for side in sides:
+            if side["crosswalk"]["state"] == "BOUND":
+                team_keys |= names["parent"].get((season, side["crosswalk"]["org_id"]), frozenset())
         contest_keys = set(record["candidates"]["dated_parent_contests"])
         if record["provider_game_id"]:
             contest_keys.add(f"cfbd:{record['provider_game_id']}")

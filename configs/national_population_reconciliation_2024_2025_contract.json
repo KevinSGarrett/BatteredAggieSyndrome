@@ -1,0 +1,182 @@
+{
+ "schema_version": "1.0.0",
+ "contract_id": "BAT-718-NATIONAL-POPULATION-RECONCILIATION-2024-2025-V1",
+ "jira_key": "BAT-718",
+ "cycle_number": 46,
+ "attempt_number": 1,
+ "governing_plan": {
+  "path": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle46\\attempt01\\preparation-20261008\\TECHNICAL_PLAN_TP46_A01.md",
+  "sha256": "4e5c8f5d045b849d9e1f5521c8166fd0a547ae20a7265103be70e676e0470c94",
+  "revision": "2026-10-08.1",
+  "sections": "1-6"
+ },
+ "population_id": "national_population_reconciliation_2024_2025",
+ "seasons": [2024, 2025],
+ "purpose": "An explicit, create-only, content-addressed cached-source reconciliation sidecar for the accepted BAT-710 parent's 2024 and 2025 contests, which the parent leaves SINGLE_SOURCE_UNRECONCILED (parent contract reconciliation.src002_2024_2025_join NOT_PERFORMED_RETAINED_FUTURE_SCOPE). It accounts for every parent contest and every row of the two issued CFBD FBS-route captures in both directions, exposes evidence-backed one-to-one relations and field-level agreement or conflict at each field's own authority, and preserves every unmatched, ambiguous, out-of-route, unverified and conflicting case. It never rewrites, re-labels or replaces the parent, its contract, its acceptance or any default query view, and it is served only when explicitly selected.",
+ "parent_contract": {
+  "repository_path": "configs/national_di_population_2016_2025_contract.json",
+  "sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+  "reused_rules": [
+   "reconciliation.participant_resolution.name_candidates (BAT-554 normalization)",
+   "reconciliation.participant_resolution.token_expansions",
+   "reconciliation.cfbd_date_basis (candidate US-local dates from UTC -4 h and -10 h; the UTC calendar date is never compared)",
+   "parameters.cfbd_local_offset_hours"
+  ],
+  "unchanged": "The parent contract, its 2016-2023 reconciliation, its 2024/2025 SINGLE_SOURCE_UNRECONCILED rows and its acceptance are read-only; this sidecar is a prospective addition, not a successor of the parent and not a retroactive acceptance."
+ },
+ "parent": {
+  "query_db_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+  "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172",
+  "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+  "schema_version": "BAS-NATIONAL-DI-POPULATION-DB-1",
+  "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+  "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+  "expected_contests": {"2024": 1672, "2025": 1688}
+ },
+ "inputs": {
+  "identity_bindings": {
+   "relative_path": "canonical/national_di_population_2016_2025/sha256/711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e/identity_bindings.jsonl.gz",
+   "sha256": "5d15acf7c12b94d5e7ad5fa2d22c60192aad0b4d6a48cecd66cab6835596dee9"
+  },
+  "registry": {
+   "relative_path": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+   "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+  },
+  "provider_captures": [
+   {
+    "season": 2024,
+    "relative_path": "raw/SRC-002/games/sha256_6a49d6e19808cecf3743e0b3e85067ce7b717027c25ad571247a19c749d692f6.json",
+    "sha256": "6a49d6e19808cecf3743e0b3e85067ce7b717027c25ad571247a19c749d692f6",
+    "rows": 920,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_6a97891fa5d6fdff8afab532.json",
+    "receipt_sha256": "93cbc39c96cb8401576a7c3e301907116bc76f807fdbaddcdd708d896eb9ee23",
+    "capture_id": "cap_6a97891fa5d6fdff8afab532",
+    "source_id": "SRC-002",
+    "route_path": "/games",
+    "route_parameters": {"classification": "fbs", "year": "2024"}
+   },
+   {
+    "season": 2025,
+    "relative_path": "raw/SRC-002/games/sha256_4bcce67d1d788b3af33124d35837ec2836fb0f064850c5ec8554cfaed0024b79.json",
+    "sha256": "4bcce67d1d788b3af33124d35837ec2836fb0f064850c5ec8554cfaed0024b79",
+    "rows": 934,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_f17f633d4e589a13300f2320.json",
+    "receipt_sha256": "da9dd3f79f6ee50deb59c97cf1b8c199d49779a0daf79019da705e326f05b23a",
+    "capture_id": "cap_f17f633d4e589a13300f2320",
+    "source_id": "SRC-002",
+    "route_path": "/games",
+    "route_parameters": {"classification": "fbs", "year": "2025"}
+   }
+  ]
+ },
+ "input_resolution": "Every bound input is read under the data root of the verified parent database (<data>/canonical/national_di_population_2016_2025/sha256/<id>/national_population.sqlite -> <data>) and must hash to its bound SHA-256; each capture receipt must name its raw capture's SHA-256, row count, capture id, source, /games route, classification=fbs year=<season> parameters, immutable path, HTTP 200 and SUCCESS. No later mutable provider response, network request or guessed source is used.",
+ "expected_population": {
+  "authority": "The expected collections come only from the verified inputs, never from output rows: one parent record per contest of the verified parent with season 2024 or 2025 (1672 + 1688 = 3360), and one provider record per element of each capture's JSON array, keyed by capture season and zero-based array ordinal (920 + 934 = 1854). Both collections are exact in membership, multiplicity and order.",
+  "parent_contests": 3360,
+  "provider_rows": 1854,
+  "planning_census_note": "The manager's planning census (CACHED_POPULATION_READINESS.json, 1854 seed candidates, 1506 parents without candidate) qualified feasibility only; it is not an oracle and no match count is targeted."
+ },
+ "grains": {
+  "parent_record": "One canonical record per parent contest, keyed contest_key, ordered (season, contest_date, contest_key). It carries the parent row's columns verbatim (parent assertions), participant evidence for sides a and b, the route scope, every same-pair and dated provider candidate, the one-to-one relation if any, the field comparisons of that relation, the conflicting field names and one disposition with its reason.",
+  "provider_record": "One reverse record per provider input row, keyed src002:<capture season>:<ordinal as four digits>, ordered (capture season, ordinal). It binds the capture SHA-256 and capture id, the SHA-256 of the row's canonical JSON, the provider game-fact fields only (parameters.provider_fact_fields; no Elo, win probability, attendance, line score, venue, conference, notes or other column is promoted), the candidate local dates, both provider participants with their crosswalk binding, every same-pair and dated parent candidate, the relation if any, the conflicting field names and one disposition with its reason.",
+  "provider_only_rows": "A provider row with no parent contest stays an observation; no canonical contest is ever created from it and no parent score, site, date or status is filled from provider data."
+ },
+ "rules": {
+  "crosswalk": "A parent participant is bound only through the accepted parent identity_bindings (rule NAME_CONFIRMED_BY_SCHEDULE, NAME_COLLISION_DISAMBIGUATED_BY_SCHEDULE or SCHEDULE_FINGERPRINT_ONLY) and only when the binding is one-to-one in both directions; the crosswalk is candidate authority, not proof for a contemporary game. NCAA organization ids and provider team ids are different namespaces and are never compared with each other.",
+  "participant_verification": "A participant of a one-to-one relation is verified only when (1) its crosswalk binding is BOUND, (2) the parent contest side equals the parent program-season cell of that organization and season (team-season id, team name and division label, a missing cell label equal to UNRESOLVED), (3) the provider display name for that side is a verified registry alias (canonical_core_registry.csv, entity team, record ALIAS, AUTO_ACCEPTED_VERIFIED) of the canonical team that the registry ENTITY TEAM|SRC-002|<provider team id> names, effective for the season, and (4) the normalized parent name equals the normalized provider name (NAME_EQUAL) or a verified registry alias of that canonical team effective for the season (SEASON_ALIAS_DOCUMENTED). An alias applies to season S when its effective_from year <= S < its effective_to_exclusive year. No fuzzy, best-match, score-based or name-only promotion exists; an alias effective only in another season is recorded but never used.",
+  "dates": "A provider startDate must be a UTC instant (Z or +00:00); its candidate US-local calendar dates are the dates of the instant shifted by -4 h and by -10 h (EDT through HST; one or two dates) under the accepted parent cfbd_date_basis. The parent calendar date is the parent's own contest_date. A provider row and a parent contest are dated candidates when the parent date is one of the provider candidate dates; the UTC calendar date is never compared, so a UTC-midnight instant never creates a second local date. No venue timezone is claimed; a two-date candidate set is recorded as provider_local_date_determined false. A start time flagged TBD keeps its instant and is recorded. A date mismatch is never resolved by comparing scores and no date is rewritten. Postseason contests belong to their season even in the next calendar year.",
+  "relation": "Within one season, a dated candidate edge needs the parent's two bound provider team ids to equal the provider row's home and away team ids as an unordered pair. A relation is one-to-one only when the parent has exactly one dated edge, that provider row has exactly one dated edge and its game id occurs in exactly one provider row. Every other multiplicity is explicit ambiguity, never a match.",
+  "fields": "For a one-to-one relation (promoted or not) every exposed decision-bearing field is compared at its own authority with both values retained: season; date; participants; neutral_status (parent site NEUTRAL versus provider neutralSite); home_orientation (parent HOME_A/HOME_B versus the provider home team mapped to side a or b through the bound ids; not comparable when the parent is NEUTRAL, which carries no designation, or when the provider marks the game neutral, whose home is only a designation); completion (parent COMPLETED true, CANCELED or NO_CONTEST false, any other status unknown, versus provider completed); score (parent a/b points versus provider points oriented to a/b through the bound ids, never by provider order); classification_a and classification_b (contemporary parent division label FBS or FCS versus provider fbs or fcs; other labels are NOT_COMPARABLE_VOCABULARY). A missing value is unknown, never zero; a non-integer, negative or boolean score and a non-boolean flag are invalid; field_conflicts lists every DISAGREE field and a match label never masks a child conflict.",
+  "route_scope": "IN_FBS_ROUTE when at least one parent side has the contemporary parent division label FBS for that season, otherwise OUTSIDE_FBS_ROUTE. The captures use the provider FBS route (classification=fbs), so absence from them never proves a missing FCS or lower-division game; current classification is never projected backward.",
+  "parent_dispositions": {
+   "RECONCILED_FIELDS_AGREE": "one-to-one relation, both participants verified, no compared field DISAGREE (not-comparable results are listed in comparisons)",
+   "RECONCILED_FIELD_CONFLICT": "one-to-one relation, both participants verified, at least one compared field DISAGREE",
+   "CANDIDATE_PARTICIPANT_EVIDENCE_INCOMPLETE": "one-to-one by bound ids and date, but a participant lacks verified program-season, documented provider name or documented name link; comparisons are recorded, nothing is promoted",
+   "AMBIGUOUS_PROVIDER_CANDIDATES": "several dated provider rows, a dated provider row with several dated parents, or a duplicated provider game id",
+   "UNMATCHED_DATE_OUTSIDE_LOCAL_CANDIDATES": "a provider row with the same bound pair exists, is not in another one-to-one relation, and the parent date is not among its candidate local dates",
+   "UNMATCHED_IN_ROUTE_PROVIDER_ROW_ABSENT": "both participants bound, at least one FBS side, no unlinked same-pair provider row",
+   "UNMATCHED_PARTICIPANT_UNBOUND": "at least one FBS side and a participant without a usable crosswalk binding",
+   "UNMATCHED_PARENT_DATE_MISSING": "the parent contest date is missing or not an ISO date",
+   "OUT_OF_ROUTE_NOT_EXPECTED": "no FBS side by contemporary parent classification, no dated provider candidate and no unlinked same-pair provider row",
+   "precedence": "one-to-one relation, then ambiguity, then missing date, then date outside the local candidates, then out of route, then unbound participant, then in-route absence"
+  },
+  "provider_dispositions": {
+   "RECONCILED_FIELDS_AGREE": "mirror of the related parent record",
+   "RECONCILED_FIELD_CONFLICT": "mirror of the related parent record",
+   "CANDIDATE_PARTICIPANT_EVIDENCE_INCOMPLETE": "mirror of the related parent record",
+   "AMBIGUOUS_PARENT_CANDIDATES": "several dated parent contests, or its single dated parent has several dated provider rows",
+   "DUPLICATE_PROVIDER_GAME_ID": "its provider game id occurs in more than one provider row",
+   "PROVIDER_SEASON_MISMATCH": "the row's season differs from its capture season",
+   "INVALID_PROVIDER_ROW": "not an object, invalid game or team id, the same team on both sides, or a start that is not a UTC instant",
+   "UNMATCHED_PARTICIPANT_UNBOUND": "a provider team id without an accepted one-to-one crosswalk organization",
+   "UNMATCHED_DATE_OUTSIDE_LOCAL_CANDIDATES": "a parent contest with the same bound pair exists, is not in another one-to-one relation, and its date is not among the row's candidate local dates",
+   "UNMATCHED_PARENT_CONTEST_ABSENT": "no unlinked parent contest with the same bound pair: a provider-only observation",
+   "precedence": "one-to-one relation, then invalid row, then season mismatch, then duplicated game id, then ambiguity, then unbound participant, then date outside the local candidates, then parent contest absent"
+  },
+  "independent_truth": "Provider agreement may share upstream evidence with the parent (capture receipt upstream_lineage CFBD_AGGREGATED_OR_DERIVED_RECORD); a reconciled relation is reconciliation, not independent historical truth."
+ },
+ "labels": {
+  "observation_authority": "CACHED_SOURCE_RECONCILIATION_ONLY",
+  "independent_truth": "NOT_ESTABLISHED_PROVIDER_MAY_SHARE_UPSTREAM_EVIDENCE",
+  "pit_eligibility": "PIT_ELIGIBILITY_NOT_ESTABLISHED",
+  "exposure": "EXPOSED_NOT_PROTECTED",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "predictive_skill": "NOT_ESTABLISHED",
+  "selection": "EXPLICIT_SIDECAR_SELECTION_ONLY_NEVER_A_DEFAULT"
+ },
+ "content_scope": {
+  "seasons": [2024, 2025],
+  "parent_population": "national_di_population_2016_2025",
+  "parent_contests_expected": {"2024": 1672, "2025": 1688},
+  "provider_rows_expected": {"2024": 920, "2025": 934},
+  "provider_route": "SRC-002 GET /games classification=fbs year=<season> (FBS route only)",
+  "excluded_seasons_note": "2016-2023 are reconciled in the parent itself; 2026 and earlier eras are not in this sidecar"
+ },
+ "output_identity_scheme": {
+  "content_root": "canonical/national_population_reconciliation_2024_2025/sha256/<content identity>/{parent_reconciliation.jsonl, provider_reconciliation.jsonl, summary.json}",
+  "database_root": "canonical/national_population_reconciliation_2024_2025/sha256/<database identity>/national_population_reconciliation.sqlite",
+  "manifests": "manifests/national_population_reconciliation_2024_2025/sha256/<identity>/run_manifest.json with {identity, identity_document, provenance}",
+  "content_identity": "SHA-256 of the canonical JSON content document {schema BAS-NATIONAL-POPULATION-RECONCILIATION-CONTENT-1, stage reconciliation-content, population, contract_id, contract_sha256, parent, inputs, parameters_sha256, labels, scope, payload_schema, outputs {payload: SHA-256}, row_counts}",
+  "database_identity": "SHA-256 of the canonical JSON database document {schema BAS-NATIONAL-POPULATION-RECONCILIATION-DATABASE-1, stage reconciliation-database, population, contract_sha256, content_identity, db_schema_version BAS-NATIONAL-POPULATION-RECONCILIATION-DB-1, outputs {database file: SHA-256}, table_counts}",
+  "records": "Each record is canonical JSON (sorted keys, compact separators, UTF-8, no binary float); payload lines end with a newline.",
+  "database": "Tables meta, parent_reconciliation and provider_reconciliation exactly as the reader's RECONCILIATION_DDL, page size 4096, journal off, rows in contract order, indexes after rows, no VACUUM, no automatic index; meta holds the schema version, contract id and hash, content identity, payload schema and hashes, row counts, parent, inputs, labels, scope, parameters hash and summary.",
+  "create_only": "An existing identity whose files equal the new bytes is verified and never rewritten; different bytes are REFUSED_IMMUTABLE_COLLISION; earlier materializations stay immutable and counted.",
+  "determinism": "Natural, reversed and seeded-shuffle input orders, any chunk size and an interrupted and resumed checkpoint build must give the same payload bytes, content identity and SQLite bytes on the recorded runtime."
+ },
+ "consumer": {
+  "console_script": "bas-national-population-query (unchanged entry point)",
+  "module": "aggie_analytics.national_population.query (standard library only)",
+  "selection": "--reconciliation <...\\sha256\\<id>\\national_population_reconciliation.sqlite> [--reconciliation-manifest P] [--expect-reconciliation-identity ID] with the required --database naming the accepted parent",
+  "grains": ["parent-reconciliation", "provider-reconciliation"],
+  "filters": "--season, --team (org:<id> or bare digits for a parent organization, cfbdteam:<id> for a bound or observed provider team, or a parent or provider team name, case-insensitive), --contest (parent key ncaa:/nolink:, bare digits = ncaa:, or cfbd:<provider game id>; on the provider grain a parent key matches its dated parent candidates), --disposition (the grain's vocabulary); --division, --org, --classification-pair and --reconciliation-state do not apply",
+  "paging": "--limit/--offset/--all over the verified records in contract order with exact total, returned, next_offset, collection denominators and filtered disposition counts",
+  "verification": "Before any row is served: sidecar location, manifest identity, database bytes, schema, meta claims (contract, parent, inputs, labels, scope, parameters), table counts, the accepted parent and every bound input; then every parent and provider record, the summary and the content identity are re-derived from the verified inputs and compared; any difference refuses with its own code.",
+  "defaults": "Without --reconciliation every existing grain, filter, refusal and output is unchanged; a reconciliation grain or option without --reconciliation is refused (RECONCILIATION_NOT_SELECTED).",
+  "pit": "--require-pit is always refused (PIT_ELIGIBILITY_NOT_ESTABLISHED)",
+  "location": "The BAT-717 literal-location core opens the sidecar read-only, including long and extended-length local locations; network, device and non-literal locations are refused."
+ },
+ "non_claims": [
+  "no PIT or known-at authority; capture_known_at 2026-08-09 is retrieval time, not historical availability",
+  "no independent historical truth: provider agreement may share upstream evidence",
+  "no protected or blind 2024/2025 evaluation; RETAIN_PROTECTED_LANE_BLOCKED remains",
+  "predictive skill NOT_ESTABLISHED; no forecast, model, feature or champion admission",
+  "no rewrite or re-acceptance of the BAT-710 parent, its contract, its 2016-2023 reconciliation or its default views",
+  "no completeness claim for FCS-only, lower-division or pre-2024/post-2025 contests from an FBS-route capture",
+  "no canonical activation; the sidecar is served only when explicitly selected"
+ ],
+ "parameters": {
+  "seasons": [2024, 2025],
+  "name_normalization": "BAT-554: html.unescape, NFKD then ASCII, lowercase, '&' -> ' and ', every run of non-alphanumerics -> one space, then the token expansions",
+  "token_expansions": {"ala": "alabama", "ariz": "arizona", "ark": "arkansas", "caro": "carolina", "coll": "college", "colo": "colorado", "conn": "connecticut", "fla": "florida", "ga": "georgia", "ill": "illinois", "ind": "indiana", "ky": "kentucky", "la": "louisiana", "mass": "massachusetts", "mich": "michigan", "minn": "minnesota", "miss": "mississippi", "mo": "missouri", "neb": "nebraska", "okla": "oklahoma", "ore": "oregon", "so": "southern", "st": "state", "tenn": "tennessee", "tex": "texas", "va": "virginia", "wash": "washington", "wis": "wisconsin"},
+  "provider_local_offset_hours": [-4, -10],
+  "bound_crosswalk_rules": ["NAME_CONFIRMED_BY_SCHEDULE", "NAME_COLLISION_DISAMBIGUATED_BY_SCHEDULE", "SCHEDULE_FINGERPRINT_ONLY"],
+  "parent_completion": {"COMPLETED": true, "CANCELED": false, "NO_CONTEST": false},
+  "comparable_classifications": {"FBS": "fbs", "FCS": "fcs"},
+  "provider_fact_fields": ["id", "season", "seasonType", "week", "startDate", "startTimeTBD", "completed", "neutralSite", "homeId", "homeTeam", "homeClassification", "homePoints", "awayId", "awayTeam", "awayClassification", "awayPoints"],
+  "compared_fields": ["season", "date", "participants", "neutral_status", "home_orientation", "completion", "score", "classification_a", "classification_b"],
+  "field_results": ["AGREE", "DISAGREE", "NOT_COMPARABLE_PARENT_MISSING", "NOT_COMPARABLE_PROVIDER_MISSING", "NOT_COMPARABLE_BOTH_MISSING", "NOT_COMPARABLE_PARENT_INVALID", "NOT_COMPARABLE_PROVIDER_INVALID", "NOT_COMPARABLE_PARENT_NEUTRAL_NO_DESIGNATION", "NOT_COMPARABLE_PROVIDER_NEUTRAL_DESIGNATION", "NOT_COMPARABLE_VOCABULARY"],
+  "parent_dispositions": ["RECONCILED_FIELDS_AGREE", "RECONCILED_FIELD_CONFLICT", "CANDIDATE_PARTICIPANT_EVIDENCE_INCOMPLETE", "AMBIGUOUS_PROVIDER_CANDIDATES", "UNMATCHED_DATE_OUTSIDE_LOCAL_CANDIDATES", "UNMATCHED_IN_ROUTE_PROVIDER_ROW_ABSENT", "UNMATCHED_PARTICIPANT_UNBOUND", "UNMATCHED_PARENT_DATE_MISSING", "OUT_OF_ROUTE_NOT_EXPECTED"],
+  "provider_dispositions": ["RECONCILED_FIELDS_AGREE", "RECONCILED_FIELD_CONFLICT", "CANDIDATE_PARTICIPANT_EVIDENCE_INCOMPLETE", "AMBIGUOUS_PARENT_CANDIDATES", "DUPLICATE_PROVIDER_GAME_ID", "PROVIDER_SEASON_MISMATCH", "INVALID_PROVIDER_ROW", "UNMATCHED_PARTICIPANT_UNBOUND", "UNMATCHED_DATE_OUTSIDE_LOCAL_CANDIDATES", "UNMATCHED_PARENT_CONTEST_ABSENT"]
+ },
+ "revision_note": "Revision 1 (Cycle #46 Attempt #1): first explicit contract, committed before the first canonical write."
+}

@@ -884,6 +884,7 @@ configs/national_history_prefix_2016_2023_contract.json
 configs/national_multi_year_walk_forward_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
 configs/national_pit_eligible_slice_contract.json
+configs/national_population_reconciliation_2024_2025_contract.json
 configs/national_shadow_operations_contract.json
 configs/national_source_time_2016_2023_contract.json
 configs/national_tiered_game_spine_contract.json
@@ -1182,6 +1183,7 @@ docs/architecture/DATAFLOW_AND_STORAGE.md
 docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md
 docs/architecture/INTERFACE_CONTRACTS.md
 docs/architecture/MODEL_LAYERS.md
+docs/architecture/NATIONAL_POPULATION_RECONCILIATION_SIDECAR.md
 docs/architecture/NATIONAL_TAMU_INTERFACE.md
 docs/architecture/OPENAI_ASSISTIVE_PLANE.md
 docs/architecture/OPENROUTER_ASSISTIVE_PLANE.md
@@ -4566,6 +4568,7 @@ tests/test_national_multi_year_walk_forward.py
 tests/test_national_pit_domain_admission_matrix.py
 tests/test_national_pit_eligible_slice.py
 tests/test_national_population_query.py
+tests/test_national_population_reconciliation.py
 tests/test_national_shadow_state_machine.py
 tests/test_national_source_time.py
 tests/test_national_tiered_game_spine.py
@@ -4863,6 +4866,7 @@ tools/build_national_history_prefix.py
 tools/build_national_multi_year_walk_forward.py
 tools/build_national_pit_domain_admission_matrix.py
 tools/build_national_pit_eligible_slice.py
+tools/build_national_population_reconciliation.py
 tools/build_national_shadow_operations.py
 tools/build_national_source_time.py
 tools/build_national_tiered_game_spine.py

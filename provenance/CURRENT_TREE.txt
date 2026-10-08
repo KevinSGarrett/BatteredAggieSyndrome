@@ -871,6 +871,7 @@ configs/national_archived_publication_2019_contract.json
 configs/national_archived_publication_2019_contract_v1_1.json
 configs/national_archived_publication_2019_contract_v1_2.json
 configs/national_archived_publication_2019_expansion_contract.json
+configs/national_archived_publication_capture_policy.json
 configs/national_chronological_development_matrix_contract.json
 configs/national_di_population_2016_2025_contract.json
 configs/national_entity_benchmark_targets.json
@@ -1176,6 +1177,7 @@ docs/98_RESEARCH_PROVENANCE.md
 docs/99_FULL_REBUILD_AUDIT_METHOD.md
 docs/OPEN_SOURCE_INTEGRATION_STRATEGY.md
 docs/README.md
+docs/architecture/ARCHIVE_CAPTURE_SERVICE_PAUSE.md
 docs/architecture/DATAFLOW_AND_STORAGE.md
 docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md
 docs/architecture/INTERFACE_CONTRACTS.md
@@ -4546,6 +4548,7 @@ tests/test_model_tournament.py
 tests/test_model_tournament_full.py
 tests/test_mounted_data_acceptance.py
 tests/test_national_archived_publication.py
+tests/test_national_archived_publication_capture_policy.py
 tests/test_national_archived_publication_expansion.py
 tests/test_national_chronological_development_matrix.py
 tests/test_national_di_population_2016_2025.py

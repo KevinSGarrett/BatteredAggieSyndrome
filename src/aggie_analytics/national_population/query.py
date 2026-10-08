@@ -11,7 +11,9 @@ Standard library only (argparse, json, sqlite3, hashlib). Before any row is read
   SHA-256; the database bytes must hash to that value (row tampering is refused, and a tamper that also rewrites
   the manifest changes the identity, which no longer matches the directory);
 * an ``--expect-identity`` that differs is refused as a stale identity;
-* the connection is opened through a ``file:...?mode=ro`` URI, so no statement can write.
+* the connection is opened read-only through :mod:`aggie_analytics.readonly_sqlite`, so no statement can write and
+  SQLite opens exactly the literal local file named (long and extended-length Windows locations included); a network,
+  device or non-literal location is refused before any file is touched.
 
 Every grain returns exact totals with ``--limit``/``--offset`` or ``--all``. A season outside 2016-2025 returns
 ``NOT_YET_AUDITED`` with no rows; nothing is fabricated for an out-of-tranche season. Unknown flags, flag
@@ -27,6 +29,8 @@ import sqlite3
 import sys
 from pathlib import Path
 from typing import Any, Sequence
+
+from aggie_analytics import readonly_sqlite
 
 DB_FILE_NAME = "national_population.sqlite"
 DB_SCHEMA_VERSION = "BAS-NATIONAL-DI-POPULATION-DB-1"
@@ -90,6 +94,7 @@ def manifest_path_for(database: Path) -> Path:
 def verify_database(database: Path, *, manifest: Path | None = None,
                     expect_identity: str | None = None) -> dict[str, Any]:
     """Verify location, manifest identity, database bytes and expected identity; return the bound identity."""
+    literal_location(database)
     db = Path(database)
     if not db.is_file():
         raise NationalQueryError("DATABASE_MISSING", f"no database file at {db}")
@@ -123,8 +128,19 @@ def verify_database(database: Path, *, manifest: Path | None = None,
             "upstream": identity_document.get("upstream")}
 
 
+def literal_location(database: Path) -> str:
+    """The literal local file ``database`` names; a network, device or non-literal location is refused lexically."""
+    try:
+        return readonly_sqlite.literal_path(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise NationalQueryError(exc.code, exc.detail) from exc
+
+
 def connect_readonly(database: Path) -> sqlite3.Connection:
-    conn = sqlite3.connect(Path(database).resolve().as_uri() + "?mode=ro", uri=True)
+    try:
+        conn = readonly_sqlite.connect_readonly(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise NationalQueryError(exc.code, exc.detail) from exc
     conn.row_factory = sqlite3.Row
     return conn
 

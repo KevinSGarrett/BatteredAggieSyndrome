@@ -296,10 +296,12 @@ class FrontAndIntegrityTests(unittest.TestCase):
                               encoding="utf-8", env=fx.child_env(), check=False)
 
     @unittest.skipUnless(sys.platform == "win32", "Windows extended-length paths")
-    def test_readonly_uri_never_carries_the_windows_extended_prefix(self) -> None:
-        # Path.resolve() returns an extended-length path for a long location; its URI would be refused by SQLite
+    def test_readonly_uri_keeps_the_extended_prefix_of_the_literal_file(self) -> None:
+        # BAT-717 (Cycle #45) supersedes the Cycle #42 expectation that the prefix is stripped: the stripped spelling
+        # cannot be opened beyond 260 characters on a host without long-path support and, for a verbatim name that
+        # Win32 normalization changes (a trailing-dot directory), it names a different file than the verbatim one.
         self.assertEqual(aq.readonly_uri(aq.EXTENDED_PREFIX + "C:\\data\\x y\\db.sqlite"),
-                         "file:///C:/data/x%20y/db.sqlite?mode=ro")
+                         "file:%5C%5C%3F%5CC%3A%5Cdata%5Cx%20y%5Cdb.sqlite?mode=ro")
         self.assertEqual(aq.readonly_uri(STATE["db"]), Path(STATE["db"]).absolute().as_uri() + "?mode=ro")
 
     def test_module_front_equals_console_entry_and_refuses_cleanly(self) -> None:
@@ -468,6 +470,43 @@ class FrontAndIntegrityTests(unittest.TestCase):
         for grain in ("target", "history", "relationship", "prior-evidence"):
             ok("--grain", grain, "--all", "--cutoff", LATE)
         self.assertEqual(fx.sha(STATE["db"].read_bytes()), STATE["db_sha"])
+
+    @unittest.skipUnless(sys.platform == "win32", "Windows native extended-length spelling")
+    def test_a_long_extended_location_serves_the_same_answers(self) -> None:
+        # BAT-717: a byte-identical copy of the whole synthetic world (projection, manifests, parents and the archive
+        # sidecar's raw store) beyond 260 characters, read through the native extended-length spelling.
+        base = str(STATE["world"]["base"])
+        top = aq.EXTENDED_PREFIX + os.path.join(str(Path(STATE["tmp"].name).resolve()), "long " + "x" * 120)
+        far = os.path.join(top, "deeper # % é ' " + "y" * 120)
+        self.addCleanup(shutil.rmtree, top)  # removable only through the verbatim spelling
+        self.assertTrue(str(STATE["db"]).startswith(base))
+        for dirpath, _dirs, files in os.walk(base):
+            for name in files:
+                source = os.path.join(dirpath, name)
+                target = far + source[len(base):]
+                os.makedirs(os.path.dirname(target), exist_ok=True)
+                shutil.copyfile(source, target)
+        moved = {k: far + str(v)[len(base):] for k, v in STATE["world"]["paths"].items()}
+        database = far + str(STATE["db"])[len(base):]
+        self.assertGreater(len(database), 300)
+        parents = ["--population-database", moved["population"], "--history-database", moved["history"],
+                   "--source-time-database", moved["source_time"], "--archive-database", moved["archive"]]
+        for grain in ("target", "history", "relationship", "prior-evidence"):
+            code, doc, err = self.far_query(database, parents, grain)
+            self.assertEqual(code, 0, err)
+            self.assertEqual(doc, ok("--grain", grain, "--all", "--cutoff", LATE), grain)
+        self.assertEqual(fx.sha(Path(database).read_bytes()), STATE["db_sha"])
+
+    @staticmethod
+    def far_query(database: str, parents: list[str], grain: str) -> tuple[int, dict | None, str]:
+        stdout, stderr = io.StringIO(), io.StringIO()
+        with fx.authorities(STATE["world"]), contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+            try:
+                code = aq.main(["--database", database, *parents, "--grain", grain, "--all", "--cutoff", LATE])
+            except SystemExit as exc:
+                code = exc.code
+        text = stdout.getvalue()
+        return code, (json.loads(text) if text.strip() else None), stderr.getvalue()
 
 
 MOUNTED = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT") or "")

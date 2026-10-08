@@ -13,7 +13,9 @@ Standard library only (argparse, hashlib, json, re, sqlite3). Before any row is 
   no longer matches the directory);
 * the database meta table must carry the known schema version and the same content identity and contract hash;
 * an ``--expect-identity`` that differs is refused as a stale identity;
-* the connection is opened through a ``file:...?mode=ro`` URI, so no statement can write.
+* the connection is opened read-only through :mod:`aggie_analytics.readonly_sqlite`, so no statement can write and
+  SQLite opens exactly the literal local file named (long and extended-length Windows locations included); a network,
+  device or non-literal location is refused before any file is touched.
 
 Grains: ``targets`` (target contests), ``history`` (two team/current-opponent views per target) and ``exclusions``
 (every other 2016-2023 parent contest with exact reasons). Each returns exact totals with ``--limit``/``--offset``
@@ -32,6 +34,8 @@ import sqlite3
 import sys
 from pathlib import Path
 from typing import Any, Sequence
+
+from aggie_analytics import readonly_sqlite
 
 DB_FILE_NAME = "national_history.sqlite"
 DB_SCHEMA_VERSION = "BAS-NATIONAL-HISTORY-PREFIX-DB-1"
@@ -102,6 +106,7 @@ def normalize_contest(value: str) -> str:
 
 def verify_database(database: Path, *, expect_identity: str | None = None) -> dict[str, Any]:
     """Verify location, manifest identity, database bytes and expected identity; return the bound identity."""
+    literal_location(database)
     db = Path(database)
     if not db.is_file():
         raise HistoryQueryError("DATABASE_MISSING", f"no database file at {db}")
@@ -138,8 +143,19 @@ def verify_database(database: Path, *, expect_identity: str | None = None) -> di
             "table_counts": identity_document.get("table_counts")}
 
 
+def literal_location(database: Path) -> str:
+    """The literal local file ``database`` names; a network, device or non-literal location is refused lexically."""
+    try:
+        return readonly_sqlite.literal_path(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise HistoryQueryError(exc.code, exc.detail) from exc
+
+
 def connect_readonly(database: Path) -> sqlite3.Connection:
-    conn = sqlite3.connect(Path(database).resolve().as_uri() + "?mode=ro", uri=True)
+    try:
+        conn = readonly_sqlite.connect_readonly(database)
+    except readonly_sqlite.DatabaseLocationError as exc:
+        raise HistoryQueryError(exc.code, exc.detail) from exc
     conn.row_factory = sqlite3.Row
     return conn
 

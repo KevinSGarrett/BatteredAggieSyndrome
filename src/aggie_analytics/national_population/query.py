@@ -30,6 +30,15 @@ capture receipts, the accepted crosswalk and the canonical registry), then re-de
 the summary denominators and the content identity from those verified inputs and refuses any difference for its own
 cause. Without ``--reconciliation`` every existing grain answers exactly as before. ``--require-pit`` is always
 refused (PIT_ELIGIBILITY_NOT_ESTABLISHED).
+
+BAT-720 (Cycle #48 TP48-A01) adds an explicit, never-default, immutable alias successor of that sidecar: a
+``--reconciliation`` location inside ``national_reconciliation_aliases_2024_2025`` selects it with the same grains and
+filters. The successor reader additionally verifies the pinned alias evidence bundle (its retained institutional
+documents and capture receipts) and proves every SUPPORTED season-scoped assertion from exact delimited byte witnesses
+-- the NCAA organization record of the program's institution and official athletics site, and that site's season
+document naming the provider's exact program name -- before it re-derives every record; only such an assertion adds a
+name link (SOURCE_ASSERTION_DOCUMENTED). Unsupported universe rows stay unpromoted with their recorded reason. Every
+other ``--reconciliation`` location is read by the accepted V1 reader exactly as before.
 """
 from __future__ import annotations
 
@@ -691,8 +700,13 @@ def _parent_side(contest: dict[str, Any], side: str, cells: dict, org_state: dic
 
 
 def _name_evidence(evidence: dict[str, Any], provider_name: Any, provider_team: str, registry: dict[str, Any],
-                   season: int) -> None:
-    """Add the provider-name and name-link evidence of one parent participant in a one-to-one relation."""
+                   season: int, aliases: dict[str, Any] | None = None) -> None:
+    """Add the provider-name and name-link evidence of one parent participant in a one-to-one relation.
+
+    BAT-720: with the verified alias universe of an explicit successor (``aliases``), a participant still without a
+    documented name link whose organization, bound provider team and season name a universe row records that row's
+    disposition, and a SUPPORTED row whose exact names are the observed ones links it (SOURCE_ASSERTION_DOCUMENTED).
+    Without ``aliases`` the evidence is exactly the accepted V1 evidence."""
     canonical = registry["provider_to_canonical"].get(provider_team)
     inside, outside = _season_aliases(registry, canonical, season)
     if not isinstance(provider_name, str) or not provider_name.strip():
@@ -720,9 +734,16 @@ def _name_evidence(evidence: dict[str, Any], provider_name: Any, provider_team: 
     evidence["name_link"] = {"state": state, "parent_name_normalized": parent_norm,
                              "provider_name_normalized": provider_norm, "alias_record_ids": season_hits,
                              "alias_outside_season_record_ids": other_hits}
+    if aliases is not None and state == "NO_DOCUMENTED_NAME_LINK":
+        row = aliases["universe"].get((evidence["org_id"], provider_team, season))
+        if row is not None:
+            evidence["name_link"]["alias_assertion"] = _alias_link(row)
+            if row["disposition"] == "SUPPORTED" and row["parent_name"] == evidence["team_name"] and \
+                    row["provider_name"] == provider_name:
+                state = evidence["name_link"]["state"] = ALIAS_NAME_LINK
     evidence["verified"] = (evidence["crosswalk"]["state"] == "BOUND" and evidence["program_season"]["state"] == "VERIFIED"
                             and provider["state"] == "SEASON_ALIAS_DOCUMENTED"
-                            and state in ("NAME_EQUAL", "SEASON_ALIAS_DOCUMENTED"))
+                            and state in ("NAME_EQUAL", "SEASON_ALIAS_DOCUMENTED", ALIAS_NAME_LINK))
 
 
 def _compare(contest: dict[str, Any], row: dict[str, Any], side_map: dict[str, str]) -> dict[str, Any]:
@@ -815,12 +836,14 @@ def _provider_row_key(season: int, ordinal: int) -> str:
     return f"src002:{season}:{ordinal:04d}"
 
 
-def derive_reconciliation(parent: dict[str, Any], inputs: dict[str, Any], *, input_order: str = "natural"
-                          ) -> dict[str, Any]:
+def derive_reconciliation(parent: dict[str, Any], inputs: dict[str, Any], *, input_order: str = "natural",
+                          aliases: dict[str, Any] | None = None) -> dict[str, Any]:
     """The complete parent and provider reconciliation records and their summary, derived from verified inputs.
 
     The expected collections come from the inputs, never from outputs: one record per parent contest of the
-    reconciliation seasons and one per provider input row (capture season + array ordinal)."""
+    reconciliation seasons and one per provider input row (capture season + array ordinal). ``aliases`` (BAT-720) is
+    the verified alias universe of an explicit successor: it can change only a participant's name link, and so its
+    promotion and disposition; every comparison, candidate and conflict is derived exactly as without it."""
     org_state, team_to_org = _crosswalk(inputs["bindings"])
     registry = inputs["registry"]
     cells = parent["cells"]
@@ -921,7 +944,7 @@ def derive_reconciliation(parent: dict[str, Any], inputs: dict[str, Any], *, inp
             side_map["b"] = "away" if side_map["a"] == "home" else "home"
             for s in ("a", "b"):
                 _name_evidence(sides[s], raw.get(f"{side_map[s]}Team"), str(raw[f"{side_map[s]}Id"]), registry,
-                               c["season"])
+                               c["season"], aliases)
             comparisons = _compare(c, raw, side_map)
             conflicts = sorted(name for name, value in comparisons.items() if value["result"] == "DISAGREE")
             promoted = sides["a"]["verified"] and sides["b"]["verified"]
@@ -1010,15 +1033,18 @@ def derive_reconciliation(parent: dict[str, Any], inputs: dict[str, Any], *, inp
             "candidates": {"same_pair_parent_contests": row_same_pair[key], "dated_parent_contests": row_dated[key]},
             "relation": relation, "field_conflicts": conflicts, "disposition": disposition,
             "disposition_reason": reason})
+    if aliases is not None:
+        _check_alias_universe(parent_records, aliases)
     return {"parent_records": parent_records, "provider_records": provider_records,
-            "summary": reconciliation_summary(parent_records, provider_records)}
+            "summary": reconciliation_summary(parent_records, provider_records, aliases)}
 
 
 def _participant_gap(evidence: dict[str, Any]) -> str:
     for name, ok in (("CROSSWALK", evidence["crosswalk"]["state"] == "BOUND"),
                      ("PROGRAM_SEASON", evidence["program_season"]["state"] == "VERIFIED"),
                      ("PROVIDER_NAME", evidence["provider_name"].get("state") == "SEASON_ALIAS_DOCUMENTED"),
-                     ("NAME_LINK", evidence["name_link"].get("state") in ("NAME_EQUAL", "SEASON_ALIAS_DOCUMENTED"))):
+                     ("NAME_LINK", evidence["name_link"].get("state") in ("NAME_EQUAL", "SEASON_ALIAS_DOCUMENTED",
+                                                                          ALIAS_NAME_LINK))):
         if not ok:
             return name
     return "NONE"
@@ -1031,8 +1057,10 @@ def _count(values: Sequence[str]) -> dict[str, int]:
     return dict(sorted(out.items()))
 
 
-def reconciliation_summary(parent_records: list[dict[str, Any]], provider_records: list[dict[str, Any]]) -> dict[str, Any]:
-    """The summary denominators, computed only from the records themselves."""
+def reconciliation_summary(parent_records: list[dict[str, Any]], provider_records: list[dict[str, Any]],
+                           aliases: dict[str, Any] | None = None) -> dict[str, Any]:
+    """The summary denominators, computed only from the records themselves (plus, for an alias successor, the alias
+    universe block computed from the records and the verified universe)."""
     def block(records: list[dict[str, Any]], season_key: str) -> dict[str, Any]:
         seasons = sorted({str(r[season_key]) for r in records})
         return {"total": len(records), "by_season": _count([str(r[season_key]) for r in records]),
@@ -1047,12 +1075,15 @@ def reconciliation_summary(parent_records: list[dict[str, Any]], provider_record
             slot = bucket.setdefault(name, {})
             slot[value["result"]] = slot.get(value["result"], 0) + 1
     links = [record["participants"][s]["name_link"]["state"] for record in relations for s in ("a", "b")]
-    return {"parent": block(parent_records, "season"), "provider": block(provider_records, "capture_season"),
-            "relations": {"one_to_one": len(relations), "promoted": sum(r["relation"]["promoted"] for r in relations),
-                          "not_promoted": sum(not r["relation"]["promoted"] for r in relations)},
-            "field_results": {k: {n: dict(sorted(v.items())) for n, v in sorted(b.items())} for k, b in fields.items()},
-            "name_links": _count(links),
-            "route_scope": _count([r["route_scope"] for r in parent_records])}
+    summary = {"parent": block(parent_records, "season"), "provider": block(provider_records, "capture_season"),
+               "relations": {"one_to_one": len(relations), "promoted": sum(r["relation"]["promoted"] for r in relations),
+                             "not_promoted": sum(not r["relation"]["promoted"] for r in relations)},
+               "field_results": {k: {n: dict(sorted(v.items())) for n, v in sorted(b.items())} for k, b in fields.items()},
+               "name_links": _count(links),
+               "route_scope": _count([r["route_scope"] for r in parent_records])}
+    if aliases is not None:
+        summary["alias_universe"] = _alias_universe_summary(relations, aliases)
+    return summary
 
 
 def reconciliation_payloads(derived: dict[str, Any]) -> dict[str, bytes]:
@@ -1504,6 +1535,713 @@ def _reconciliation_match(grain: str, record: dict[str, Any], filters: dict[str,
     return True
 
 
+# =============================================================================================== BAT-720 alias successor
+# Cycle #48 TP48-A01: an explicitly selected, immutable successor of the accepted BAT-718 sidecar. It is rebuilt from
+# the same verified parent and cached inputs plus one finite bundle of retained institutional alias evidence; only a
+# verified, season-scoped source assertion can add a participant name link (SOURCE_ASSERTION_DOCUMENTED). The producer
+# (tools/build_national_reconciliation_aliases.py) materializes exactly what AliasReconciliationSuccessor re-derives from
+# those verified inputs before it serves a row; the independent oracle never imports this code.
+
+ALIAS_SUCCESSOR_POPULATION = "national_reconciliation_aliases_2024_2025"
+ALIAS_DB_FILE = "national_reconciliation_aliases.sqlite"
+ALIAS_CONTENT_SCHEMA = "BAS-NATIONAL-RECONCILIATION-ALIASES-CONTENT-1"
+ALIAS_DATABASE_SCHEMA = "BAS-NATIONAL-RECONCILIATION-ALIASES-DATABASE-1"
+ALIAS_DB_SCHEMA = "BAS-NATIONAL-RECONCILIATION-ALIASES-DB-1"
+ALIAS_PAYLOAD_SCHEMA = "BAS-NATIONAL-RECONCILIATION-ALIASES-PAYLOAD-1"
+ALIAS_EVIDENCE_SCHEMA = "BAS-NATIONAL-RECONCILIATION-ALIAS-EVIDENCE-1"
+ALIAS_ASSERTIONS_SCHEMA = "BAS-NATIONAL-RECONCILIATION-ALIAS-ASSERTIONS-1"
+ALIAS_ASSERTIONS_FILE = "alias_assertions.json"
+ALIAS_PAYLOADS = ("parent_reconciliation.jsonl", "provider_reconciliation.jsonl", "alias_dispositions.jsonl",
+                  "summary.json")
+ALIAS_NAME_LINK = "SOURCE_ASSERTION_DOCUMENTED"
+ALIAS_UNIVERSE_DISPOSITIONS = ("SUPPORTED", "UNSUPPORTED")
+ALIAS_DOCUMENT_ROLES = ("NCAA_ORGANIZATION_RECORD", "OFFICIAL_SEASON_DOCUMENT", "ATTEMPTED_DOCUMENT")
+ALIAS_WITNESS_KINDS = ("DELIMITED_FIELD", "JSON_PATH")
+ALIAS_WITNESS_ROLES = ("NCAA_ORGANIZATION_ID", "NCAA_INSTITUTION_NAME", "NCAA_OFFICIAL_ATHLETICS_URL",
+                       "NCAA_PROGRAM_NAME", "OFFICIAL_SEASON", "OFFICIAL_PROGRAM_NAME")
+ALIAS_NCAA_HOSTS = ("ncaa.org", "stats.ncaa.org", "web3.ncaa.org", "www.ncaa.org")
+ALIAS_NAME_EQUIVALENCES = ("EXACT", "APOSTROPHE_FORMS")
+#: The only name equivalence an assertion may declare: these apostrophe forms are one character (U+0027).
+ALIAS_APOSTROPHE_FORMS = ("'", "‘", "’", "ʻ", "ʼ")
+#: A delimited field's opening delimiter (the last prefix character) and the closing delimiter its suffix starts with.
+ALIAS_FIELD_DELIMITERS = {'"': '"', "'": "'", ">": "<"}
+ALIAS_DECODINGS = ("NONE", "HTML_ENTITIES")
+ALIAS_REDIRECT_STATUSES = (301, 302, 303, 307, 308)
+ALIAS_LABELS = {**RECONCILIATION_LABELS,
+                "alias_authority": "SEASON_SCOPED_INSTITUTIONAL_DOCUMENT_ASSERTION_RETRIEVED_NOT_PIT"}
+ALIAS_PARAMETERS = {
+    **RECONCILIATION_PARAMETERS,
+    "name_link_states": ["NAME_EQUAL", "SEASON_ALIAS_DOCUMENTED", ALIAS_NAME_LINK, "NO_DOCUMENTED_NAME_LINK"],
+    "alias_universe_dispositions": list(ALIAS_UNIVERSE_DISPOSITIONS),
+    "alias_document_roles": list(ALIAS_DOCUMENT_ROLES),
+    "alias_witness_kinds": list(ALIAS_WITNESS_KINDS),
+    "alias_witness_roles": list(ALIAS_WITNESS_ROLES),
+    "alias_ncaa_hosts": list(ALIAS_NCAA_HOSTS),
+    "alias_name_equivalences": list(ALIAS_NAME_EQUIVALENCES),
+    "alias_apostrophe_forms": list(ALIAS_APOSTROPHE_FORMS),
+    "alias_field_delimiters": ALIAS_FIELD_DELIMITERS,
+    "alias_decodings": list(ALIAS_DECODINGS),
+    "alias_redirect_statuses": list(ALIAS_REDIRECT_STATUSES),
+    "alias_season_labels": ["<season>", "<season>-<yy>", "<season>-<season+1>"],
+}
+#: The production trust anchors of the successor: the committed successor contract (SHA-256 and contract id), the
+#: accepted parent and cached inputs (exactly V1's), the alias evidence bundle and its assertions document, and the
+#: predecessor. None until the committed contract pins them; the command line refuses a successor until then.
+ALIAS_ANCHORS: dict[str, Any] | None = None
+
+_ALIAS_DOCUMENT_KEYS = {"sha256", "file", "bytes", "media_type", "role", "request_url", "final_url", "hops",
+                        "http_status", "retrieved_at", "acquisition"}
+_ALIAS_UNIVERSE_KEYS = {"key", "org_id", "provider_team_id", "season", "parent_name", "provider_name", "disposition",
+                        "assertion_id", "reason", "attempted_documents"}
+_ALIAS_ASSERTION_KEYS = {"assertion_id", "org_id", "provider_team_id", "season", "parent_name", "provider_name",
+                         "name_equivalence", "institution", "witnesses"}
+_ALIAS_WITNESS_KEYS = {"document", "role", "kind", "field", "byte_start", "byte_end", "prefix", "suffix", "value"}
+_ALIAS_KIND_KEYS = {"DELIMITED_FIELD": {"decoding"}, "JSON_PATH": {"path", "devalue"}}
+_NCAA_ROLES = ("NCAA_ORGANIZATION_ID", "NCAA_INSTITUTION_NAME", "NCAA_OFFICIAL_ATHLETICS_URL", "NCAA_PROGRAM_NAME")
+_OFFICIAL_ROLES = ("OFFICIAL_SEASON", "OFFICIAL_PROGRAM_NAME")
+
+
+def _alias_refuse(code: str, message: str) -> None:
+    raise NationalQueryError(code, message)
+
+
+def alias_key(org_id: str, provider_team_id: str, season: int) -> str:
+    return f"org:{org_id}|cfbdteam:{provider_team_id}|{season}"
+
+
+def alias_population_root(database: Path) -> Path:
+    """``<data>/canonical/<successor>/sha256/<id>/<db>`` -> ``<data>/canonical/<successor>`` (where its evidence lives)."""
+    return Path(database).resolve().parent.parent.parent
+
+
+def alias_evidence_document(assertions_sha256: str, outputs: dict[str, str]) -> dict[str, Any]:
+    """The contract-defined identity document of one alias evidence bundle."""
+    return {"schema": ALIAS_EVIDENCE_SCHEMA, "stage": "alias-evidence", "population": ALIAS_SUCCESSOR_POPULATION,
+            "assertions_sha256": assertions_sha256, "outputs": dict(sorted(outputs.items()))}
+
+
+def load_alias_evidence(population_root: Path, anchors: dict[str, Any]) -> dict[str, Any]:
+    """Read and verify the pinned alias evidence bundle under the successor population root: its manifest identity, the
+    exact file listing and bytes, the pinned assertions document and every retained document body."""
+    pins = anchors.get("alias_evidence") or {}
+    bundle_id, assertions_sha = pins.get("bundle_identity"), pins.get("assertions_sha256")
+    if not isinstance(bundle_id, str) or not IDENTITY_RE.match(bundle_id) or \
+            not isinstance(assertions_sha, str) or not IDENTITY_RE.match(assertions_sha):
+        _alias_refuse("ALIAS_EVIDENCE_PIN_INVALID", "the reader binds no valid alias evidence identity")
+    root = Path(population_root)
+    bundle = root / "sha256" / bundle_id
+    manifest = root.parent.parent / "manifests" / root.name / "sha256" / bundle_id / "run_manifest.json"
+    try:
+        document = json.loads(_io_path(manifest).read_text(encoding="utf-8"))
+        identity_document = document["identity_document"]
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise NationalQueryError("ALIAS_EVIDENCE_MISSING", f"alias evidence manifest {manifest}: {exc}") from exc
+    if hashlib.sha256(canonical_json_bytes(identity_document)).hexdigest() != bundle_id or \
+            document.get("identity") != bundle_id:
+        _alias_refuse("ALIAS_EVIDENCE_IDENTITY_MISMATCH", "the evidence manifest does not hash to the pinned bundle")
+    outputs = identity_document.get("outputs") if isinstance(identity_document, dict) else None
+    if not isinstance(outputs, dict) or canonical_json_bytes(identity_document) != canonical_json_bytes(
+            alias_evidence_document(identity_document.get("assertions_sha256"), outputs)):
+        _alias_refuse("ALIAS_EVIDENCE_IDENTITY_MISMATCH", "the evidence manifest is not the contract-defined document")
+    if identity_document["assertions_sha256"] != assertions_sha or outputs.get(ALIAS_ASSERTIONS_FILE) != assertions_sha:
+        _alias_refuse("ALIAS_EVIDENCE_PIN_MISMATCH", "the bundle's assertions document is not the pinned one")
+    try:
+        present = sorted(p.name for p in _io_path(bundle).iterdir())
+    except OSError as exc:
+        raise NationalQueryError("ALIAS_EVIDENCE_MISSING", f"alias evidence bundle {bundle}: {exc}") from exc
+    if present != sorted(outputs):
+        _alias_refuse("ALIAS_EVIDENCE_LISTING_MISMATCH", f"bundle files {present[:5]} differ from its manifest")
+    files: dict[str, bytes] = {}
+    for name, expected in sorted(outputs.items()):
+        data = _io_path(bundle / name).read_bytes()
+        if hashlib.sha256(data).hexdigest() != expected:
+            _alias_refuse("ALIAS_EVIDENCE_BYTES_MISMATCH", f"bundle file {name} differs from its manifest")
+        files[name] = data
+    try:
+        assertions = json.loads(files[ALIAS_ASSERTIONS_FILE].decode("utf-8"))
+    except ValueError as exc:
+        raise NationalQueryError("ALIAS_ASSERTION_INVALID", f"assertions document unreadable: {exc}") from exc
+    bodies: dict[str, bytes] = {}
+    documents = assertions.get("documents") if isinstance(assertions, dict) else None
+    if not isinstance(documents, list):
+        _alias_refuse("ALIAS_ASSERTION_INVALID", "the assertions document lists no documents")
+    for doc in documents:
+        name = doc.get("file") if isinstance(doc, dict) else None
+        if not isinstance(name, str) or name not in files or name == ALIAS_ASSERTIONS_FILE:
+            _alias_refuse("ALIAS_EVIDENCE_LISTING_MISMATCH", f"document body {name!r} is not in the bundle")
+        try:
+            body = gzip.decompress(files[name])
+        except OSError as exc:
+            raise NationalQueryError("ALIAS_EVIDENCE_BYTES_MISMATCH", f"{name} is not a gzip body: {exc}") from exc
+        if hashlib.sha256(body).hexdigest() != doc.get("sha256") or len(body) != doc.get("bytes"):
+            _alias_refuse("ALIAS_EVIDENCE_BYTES_MISMATCH", f"document {name} body differs from its declared bytes")
+        bodies[doc["sha256"]] = body
+    extra = sorted(set(files) - {ALIAS_ASSERTIONS_FILE} - {d.get("file") for d in documents})
+    if extra:
+        _alias_refuse("ALIAS_EVIDENCE_LISTING_MISMATCH", f"bundle files without a document entry: {extra[:3]}")
+    return {"bundle_identity": bundle_id, "manifest": str(manifest), "outputs": dict(outputs),
+            "assertions": assertions, "bodies": bodies}
+
+
+def _url_host(url: Any) -> str | None:
+    if not isinstance(url, str):
+        return None
+    parts = urllib.parse.urlsplit(url)
+    return (parts.hostname or "").lower() or None if parts.scheme in ("http", "https") else None
+
+
+def _domain_of(value: Any) -> str | None:
+    """The host a published athletics URL value names (a bare host or a URL), or None."""
+    if not isinstance(value, str) or not value.strip() or any(ch.isspace() for ch in value.strip()):
+        return None
+    text = value.strip()
+    host = _url_host(text if "://" in text else "https://" + text)
+    return host if host and "." in host else None
+
+
+def _host_family(domain: str) -> set[str]:
+    base = domain[4:] if domain.startswith("www.") else domain
+    return {base, "www." + base}
+
+
+def _season_labels(season: int) -> set[str]:
+    return {str(season), f"{season}-{(season + 1) % 100:02d}", f"{season}-{season + 1}"}
+
+
+def _apostrophes(text: str) -> str:
+    return "".join("'" if ch in ALIAS_APOSTROPHE_FORMS else ch for ch in text)
+
+
+def _json_resolve(data: Any, path: list[Any], devalue: bool) -> Any:
+    cur = data
+    for step in path:
+        if isinstance(cur, list) and type(step) is int and 0 <= step < len(cur):
+            cur = cur[step]
+        elif isinstance(cur, dict) and isinstance(step, str) and step in cur:
+            cur = cur[step]
+        else:
+            raise ValueError(f"path step {step!r} does not resolve")
+        if devalue and type(cur) is int:  # a devalue payload stores every member as an index into its root array
+            if not isinstance(data, list) or not 0 <= cur < len(data):
+                raise ValueError(f"devalue reference {cur} out of range")
+            cur = data[cur]
+    return cur
+
+
+def _verify_witness(witness: Any, body: bytes) -> None:
+    """The exact bytes at the witness locator: a complete delimited field (or a delimited/whole embedded JSON text and
+    its path) whose decoded value is the declared value. Never a substring of a larger field."""
+    if not isinstance(witness, dict) or set(witness) != _ALIAS_WITNESS_KEYS | _ALIAS_KIND_KEYS.get(
+            witness.get("kind"), {"<unknown>"}):
+        _alias_refuse("ALIAS_ASSERTION_INVALID", f"witness members {sorted(witness) if isinstance(witness, dict) else witness}")
+    start, end, prefix, suffix, value = (witness[k] for k in ("byte_start", "byte_end", "prefix", "suffix", "value"))
+    if type(start) is not int or type(end) is not int or not 0 <= start < end <= len(body) or \
+            not isinstance(prefix, str) or not isinstance(suffix, str) or not isinstance(value, str) or not value:
+        _alias_refuse("ALIAS_ASSERTION_INVALID", f"witness locator {start}-{end} outside a {len(body)}-byte document")
+    pre, post = prefix.encode("utf-8"), suffix.encode("utf-8")
+    if start < len(pre) or body[start - len(pre):start] != pre or body[end:end + len(post)] != post:
+        _alias_refuse("ALIAS_WITNESS_MISMATCH", f"witness {witness['field']!r} delimiters differ from the document")
+    try:
+        text = body[start:end].decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise NationalQueryError("ALIAS_WITNESS_MISMATCH", f"witness bytes are not UTF-8: {exc}") from exc
+    if witness["kind"] == "DELIMITED_FIELD":
+        close = ALIAS_FIELD_DELIMITERS.get(prefix[-1:]) if len(prefix) >= 2 else None
+        if close is None or not suffix.startswith(close) or not text or text != text.strip() or \
+                any(ch in text for ch in (close, "<", ">", '"')):
+            _alias_refuse("ALIAS_WITNESS_NOT_DELIMITED", f"witness {witness['field']!r} is not one complete field")
+        if witness["decoding"] not in ALIAS_DECODINGS:
+            _alias_refuse("ALIAS_ASSERTION_INVALID", f"witness decoding {witness['decoding']!r}")
+        decoded = text if witness["decoding"] == "NONE" else html.unescape(text)
+        if decoded != value:
+            _alias_refuse("ALIAS_WITNESS_MISMATCH", f"witness {witness['field']!r} reads {decoded!r}, not {value!r}")
+        return
+    whole = start == 0 and end == len(body) and not prefix and not suffix
+    if not whole and (not prefix.endswith(">") or not suffix.startswith("<")):
+        _alias_refuse("ALIAS_WITNESS_NOT_DELIMITED", f"embedded JSON witness {witness['field']!r} is not one element")
+    path, devalue = witness["path"], witness["devalue"]
+    if not isinstance(path, list) or not path or not all(type(s) is int or isinstance(s, str) for s in path) or \
+            not isinstance(devalue, bool):
+        _alias_refuse("ALIAS_ASSERTION_INVALID", f"witness path {path!r}")
+    try:
+        resolved = _json_resolve(json.loads(text), path, devalue)
+    except ValueError as exc:
+        raise NationalQueryError("ALIAS_WITNESS_MISMATCH", f"witness {witness['field']!r}: {exc}") from exc
+    if not (isinstance(resolved, str) or type(resolved) is int) or str(resolved) != value:
+        _alias_refuse("ALIAS_WITNESS_MISMATCH", f"witness {witness['field']!r} resolves to {resolved!r}, not {value!r}")
+
+
+def _verify_document(doc: Any) -> None:
+    if not isinstance(doc, dict) or set(doc) != _ALIAS_DOCUMENT_KEYS:
+        _alias_refuse("ALIAS_ASSERTION_INVALID", f"document members {sorted(doc) if isinstance(doc, dict) else doc}")
+    if not isinstance(doc["sha256"], str) or not IDENTITY_RE.match(doc["sha256"]) or doc["file"] != doc["sha256"] + ".gz" \
+            or doc["role"] not in ALIAS_DOCUMENT_ROLES or type(doc["bytes"]) is not int:
+        _alias_refuse("ALIAS_ASSERTION_INVALID", f"document {doc.get('sha256')} identity members")
+    hops = doc["hops"]
+    if not isinstance(hops, list) or not hops or any(not isinstance(h, dict) or set(h) != {"url", "status", "location"}
+                                                     for h in hops):
+        _alias_refuse("ALIAS_EVIDENCE_RECEIPT_INVALID", f"document {doc['sha256']} hops")
+    ok = hops[0]["url"] == doc["request_url"] and hops[-1]["url"] == doc["final_url"] and \
+        hops[-1]["status"] == 200 == doc["http_status"] and hops[-1]["location"] is None and \
+        all(_url_host(h["url"]) for h in hops) and isinstance(doc["retrieved_at"], str) and \
+        bool(_INSTANT_RE.match(doc["retrieved_at"]))
+    for current, following in zip(hops, hops[1:]):
+        ok = ok and current["status"] in ALIAS_REDIRECT_STATUSES and current["location"] == following["url"]
+    if not ok:
+        _alias_refuse("ALIAS_EVIDENCE_RECEIPT_INVALID", f"document {doc['sha256']} receipt is not a 200 hop chain")
+
+
+def verify_alias_assertions(evidence: dict[str, Any]) -> dict[str, Any]:
+    """The finite alias universe and its assertions, each SUPPORTED assertion proved from retained bytes: an NCAA
+    organization record (the organization id, its institution name and its official athletics site, one object) and an
+    official season document of that site's host family (the season and the provider's exact program name)."""
+    doc = evidence["assertions"]
+    if not isinstance(doc, dict) or set(doc) != {"schema", "population", "universe", "assertions", "documents"} or \
+            doc.get("schema") != ALIAS_ASSERTIONS_SCHEMA or doc.get("population") != ALIAS_SUCCESSOR_POPULATION:
+        _alias_refuse("ALIAS_ASSERTION_INVALID", "the assertions document is not the contract schema")
+    documents: dict[str, dict[str, Any]] = {}
+    for item in doc["documents"]:
+        _verify_document(item)
+        if item["sha256"] in documents:
+            _alias_refuse("ALIAS_ASSERTION_INVALID", f"document {item['sha256']} listed twice")
+        documents[item["sha256"]] = item
+    assertions: dict[str, dict[str, Any]] = {}
+    for a in doc["assertions"] if isinstance(doc["assertions"], list) else [None]:
+        if not isinstance(a, dict) or set(a) != _ALIAS_ASSERTION_KEYS or not isinstance(a["assertion_id"], str) or \
+                a["assertion_id"] in assertions or not isinstance(a["witnesses"], list) or \
+                not isinstance(a["institution"], dict) or set(a["institution"]) != {"name", "official_domain"}:
+            _alias_refuse("ALIAS_ASSERTION_INVALID", f"assertion {a.get('assertion_id') if isinstance(a, dict) else a}")
+        assertions[a["assertion_id"]] = a
+        _verify_assertion(a, documents, evidence["bodies"])
+    universe: dict[tuple[str, str, int], dict[str, Any]] = {}
+    used: dict[str, int] = {}
+    for row in doc["universe"] if isinstance(doc["universe"], list) else [None]:
+        if not isinstance(row, dict) or set(row) != _ALIAS_UNIVERSE_KEYS or row["disposition"] not in \
+                ALIAS_UNIVERSE_DISPOSITIONS or type(row["season"]) is not int or row["season"] not in RECONCILIATION_SEASONS \
+                or not all(isinstance(row[k], str) and row[k] for k in ("org_id", "provider_team_id", "parent_name",
+                                                                         "provider_name")) or \
+                row["key"] != alias_key(row["org_id"], row["provider_team_id"], row["season"]) or \
+                not isinstance(row["attempted_documents"], list) or \
+                any(d not in documents for d in row["attempted_documents"]):
+            _alias_refuse("ALIAS_ASSERTION_INVALID", f"universe row {row.get('key') if isinstance(row, dict) else row}")
+        key = (row["org_id"], row["provider_team_id"], row["season"])
+        if key in universe:
+            _alias_refuse("ALIAS_ASSERTION_INVALID", f"universe row {row['key']} listed twice")
+        if row["disposition"] == "SUPPORTED":
+            a = assertions.get(row["assertion_id"]) if isinstance(row["assertion_id"], str) else None
+            if a is None or row["reason"] is not None or \
+                    (a["org_id"], a["provider_team_id"], a["season"], a["parent_name"], a["provider_name"]) != \
+                    (row["org_id"], row["provider_team_id"], row["season"], row["parent_name"], row["provider_name"]):
+                _alias_refuse("ALIAS_ASSERTION_INVALID", f"supported row {row['key']} does not name its assertion")
+            used[a["assertion_id"]] = used.get(a["assertion_id"], 0) + 1
+        elif row["assertion_id"] is not None or not isinstance(row["reason"], str) or not row["reason"]:
+            _alias_refuse("ALIAS_ASSERTION_INVALID", f"unsupported row {row['key']} needs a reason and no assertion")
+        universe[key] = row
+    if sorted(used) != sorted(assertions) or any(n != 1 for n in used.values()):
+        _alias_refuse("ALIAS_ASSERTION_INVALID", "every assertion must be used by exactly one supported universe row")
+    rows = sorted(universe.values(), key=lambda r: r["key"])
+    return {"universe": universe, "rows": rows, "assertions": assertions, "documents": documents,
+            "bundle_identity": evidence["bundle_identity"], "assertions_sha256": evidence["outputs"][ALIAS_ASSERTIONS_FILE]}
+
+
+def _verify_assertion(a: dict[str, Any], documents: dict[str, dict[str, Any]], bodies: dict[str, bytes]) -> None:
+    if not all(isinstance(a[k], str) and a[k] for k in ("org_id", "provider_team_id", "parent_name", "provider_name")) \
+            or type(a["season"]) is not int or a["season"] not in RECONCILIATION_SEASONS or \
+            a["name_equivalence"] not in ALIAS_NAME_EQUIVALENCES or \
+            not isinstance(a["institution"]["name"], str) or not a["institution"]["name"]:
+        _alias_refuse("ALIAS_ASSERTION_INVALID", f"assertion {a['assertion_id']} members")
+    domain = _domain_of(a["institution"]["official_domain"])
+    if domain is None or domain != a["institution"]["official_domain"]:
+        _alias_refuse("ALIAS_ASSERTION_INVALID", f"assertion {a['assertion_id']} official domain")
+    by_role: dict[str, list[dict[str, Any]]] = {}
+    for w in a["witnesses"]:
+        if not isinstance(w, dict) or w.get("role") not in ALIAS_WITNESS_ROLES or w.get("kind") not in ALIAS_WITNESS_KINDS \
+                or w.get("document") not in documents:
+            _alias_refuse("ALIAS_ASSERTION_INVALID", f"assertion {a['assertion_id']} witness {w}")
+        _verify_witness(w, bodies[w["document"]])
+        by_role.setdefault(w["role"], []).append(w)
+    # ---- institution and official site: one NCAA organization record, one object
+    ncaa = [w for role in _NCAA_ROLES for w in by_role.get(role, [])]
+    ncaa_docs = {w["document"] for w in ncaa}
+    if len(by_role.get("NCAA_ORGANIZATION_ID", [])) != 1 or len(by_role.get("NCAA_INSTITUTION_NAME", [])) != 1 or \
+            not by_role.get("NCAA_OFFICIAL_ATHLETICS_URL") or len(ncaa_docs) != 1:
+        _alias_refuse("ALIAS_INSTITUTION_UNPROVEN", f"assertion {a['assertion_id']} needs one NCAA organization record")
+    record = documents[next(iter(ncaa_docs))]
+    if record["role"] != "NCAA_ORGANIZATION_RECORD" or \
+            any(_url_host(h["url"]) not in ALIAS_NCAA_HOSTS for h in record["hops"]):
+        _alias_refuse("ALIAS_INSTITUTION_UNPROVEN", f"assertion {a['assertion_id']} record is not an NCAA publication")
+    if any(w["kind"] != "JSON_PATH" for w in ncaa) or len({json.dumps(w["path"][:-1]) for w in ncaa}) != 1 or \
+            len({(w["byte_start"], w["byte_end"]) for w in ncaa}) != 1:
+        _alias_refuse("ALIAS_INSTITUTION_UNPROVEN", f"assertion {a['assertion_id']} NCAA members are not one object")
+    if by_role["NCAA_ORGANIZATION_ID"][0]["value"] != a["org_id"] or \
+            by_role["NCAA_INSTITUTION_NAME"][0]["value"] != a["institution"]["name"] or \
+            any(w["value"] != a["parent_name"] for w in by_role.get("NCAA_PROGRAM_NAME", [])):
+        _alias_refuse("ALIAS_INSTITUTION_UNPROVEN", f"assertion {a['assertion_id']} NCAA record names another program")
+    family = _host_family(domain)
+    if any(_domain_of(w["value"]) is None or _domain_of(w["value"]) not in family
+           for w in by_role["NCAA_OFFICIAL_ATHLETICS_URL"]):
+        _alias_refuse("ALIAS_DOMAIN_UNPROVEN", f"assertion {a['assertion_id']} NCAA record names another site")
+    # ---- season and exact provider name: one official season document of that host family
+    official = [w for role in _OFFICIAL_ROLES for w in by_role.get(role, [])]
+    official_docs = {w["document"] for w in official}
+    if not by_role.get("OFFICIAL_SEASON") or not by_role.get("OFFICIAL_PROGRAM_NAME") or len(official_docs) != 1:
+        _alias_refuse("ALIAS_SEASON_UNPROVEN", f"assertion {a['assertion_id']} needs one official season document")
+    season_doc = documents[next(iter(official_docs))]
+    if season_doc["role"] != "OFFICIAL_SEASON_DOCUMENT" or \
+            any(_url_host(h["url"]) not in family for h in season_doc["hops"]):
+        _alias_refuse("ALIAS_DOMAIN_UNPROVEN", f"assertion {a['assertion_id']} season document is not on the official site")
+    labels = _season_labels(a["season"])
+    segments = [s for s in urllib.parse.urlsplit(season_doc["request_url"]).path.split("/") if s]
+    if not segments or segments[-1] not in labels or any(w["value"] not in labels for w in by_role["OFFICIAL_SEASON"]):
+        _alias_refuse("ALIAS_SEASON_UNPROVEN", f"assertion {a['assertion_id']} season document is another season")
+    for w in by_role["OFFICIAL_PROGRAM_NAME"]:
+        exact = w["value"] == a["provider_name"]
+        forms = a["name_equivalence"] == "APOSTROPHE_FORMS" and not exact and \
+            _apostrophes(w["value"]) == _apostrophes(a["provider_name"]) and "'" in _apostrophes(a["provider_name"])
+        if not (exact or forms):
+            _alias_refuse("ALIAS_NAME_UNPROVEN", f"assertion {a['assertion_id']} official name {w['value']!r} is not "
+                                                 f"{a['provider_name']!r}")
+    if a["name_equivalence"] == "APOSTROPHE_FORMS" and all(w["value"] == a["provider_name"]
+                                                            for w in by_role["OFFICIAL_PROGRAM_NAME"]):
+        _alias_refuse("ALIAS_ASSERTION_INVALID", f"assertion {a['assertion_id']} declares an unused equivalence")
+
+
+def _alias_link(row: dict[str, Any]) -> dict[str, Any]:
+    return {"key": row["key"], "disposition": row["disposition"], "assertion_id": row["assertion_id"],
+            "reason": row["reason"]}
+
+
+def _check_alias_universe(parent_records: list[dict[str, Any]], aliases: dict[str, Any]) -> None:
+    """The universe is exactly the set of relation participants without a documented V1 name link (organization,
+    bound provider team, season), and each universe row names exactly the names observed there."""
+    gaps: dict[tuple[str, str, int], set[tuple[Any, Any]]] = {}
+    for record in parent_records:
+        if not record["relation"]:
+            continue
+        for side in ("a", "b"):
+            p = record["participants"][side]
+            if p["name_link"]["state"] in ("NO_DOCUMENTED_NAME_LINK", ALIAS_NAME_LINK):
+                key = (p["org_id"], p["crosswalk"]["provider_team_id"], record["season"])
+                gaps.setdefault(key, set()).add((p["team_name"], p["provider_name"].get("provider_team_name")))
+    universe = aliases["universe"]
+    missing, extra = sorted(set(gaps) - set(universe)), sorted(set(universe) - set(gaps))
+    if missing or extra:
+        _alias_refuse("ALIAS_UNIVERSE_MISMATCH", f"universe omits {missing[:3]} and adds {extra[:3]}")
+    for key, names in gaps.items():
+        row = universe[key]
+        if names != {(row["parent_name"], row["provider_name"])}:
+            _alias_refuse("ALIAS_UNIVERSE_MISMATCH", f"universe row {row['key']} names {row['parent_name']!r}/"
+                                                     f"{row['provider_name']!r}, observed {sorted(names)[:2]}")
+
+
+def _alias_universe_summary(relations: list[dict[str, Any]], aliases: dict[str, Any]) -> dict[str, Any]:
+    linked = unsupported = 0
+    promoted_with_link = with_link = 0
+    for record in relations:
+        states = [record["participants"][s]["name_link"] for s in ("a", "b")]
+        links = [s for s in states if s["state"] == ALIAS_NAME_LINK]
+        linked += len(links)
+        unsupported += sum(1 for s in states if (s.get("alias_assertion") or {}).get("disposition") == "UNSUPPORTED")
+        if links:
+            with_link += 1
+            promoted_with_link += int(record["relation"]["promoted"])
+    return {"program_seasons": len(aliases["rows"]), "by_disposition": _count([r["disposition"] for r in aliases["rows"]]),
+            "sides_linked_by_assertion": linked, "sides_unsupported": unsupported,
+            "relations_with_assertion_link": with_link, "relations_promoted_with_assertion_link": promoted_with_link}
+
+
+def alias_disposition_records(derived: dict[str, Any], aliases: dict[str, Any]) -> list[dict[str, Any]]:
+    """One record per universe row (key order): the verified decision, its assertion and evidence documents, and the
+    relation sides it applies to."""
+    applied: dict[str, list[str]] = {}
+    for record in derived["parent_records"]:
+        for side in ("a", "b"):
+            link = record["participants"][side]["name_link"].get("alias_assertion")
+            if link:
+                applied.setdefault(link["key"], []).append(f"{record['contest_key']}#{side}")
+    out = []
+    for row in aliases["rows"]:
+        assertion = aliases["assertions"].get(row["assertion_id"]) if row["assertion_id"] else None
+        shas = sorted({w["document"] for w in (assertion or {}).get("witnesses", [])} | set(row["attempted_documents"]))
+        docs = [{k: aliases["documents"][s][k] for k in ("sha256", "role", "request_url", "final_url", "http_status",
+                                                         "retrieved_at", "bytes", "media_type")} for s in shas]
+        out.append({"record_type": "alias_disposition", "key": row["key"], "org_id": row["org_id"],
+                    "provider_team_id": row["provider_team_id"], "season": row["season"],
+                    "parent_name": row["parent_name"], "provider_name": row["provider_name"],
+                    "disposition": row["disposition"], "assertion_id": row["assertion_id"], "reason": row["reason"],
+                    "assertion": assertion, "documents": docs, "sides": sorted(applied.get(row["key"], []))})
+    return out
+
+
+def alias_payloads(derived: dict[str, Any], aliases: dict[str, Any]) -> dict[str, bytes]:
+    base = reconciliation_payloads(derived)
+    lines = "".join(reconciliation_line(r) + "\n" for r in alias_disposition_records(derived, aliases))
+    return {"parent_reconciliation.jsonl": base["parent_reconciliation.jsonl"],
+            "provider_reconciliation.jsonl": base["provider_reconciliation.jsonl"],
+            "alias_dispositions.jsonl": lines.encode("utf-8"), "summary.json": base["summary.json"]}
+
+
+def alias_scope(anchors: dict[str, Any]) -> dict[str, Any]:
+    return {**reconciliation_scope(anchors), "successor_of": RECONCILIATION_POPULATION,
+            "alias_universe": "exactly the relation participants without a documented V1 name link"}
+
+
+def alias_content_document(contract_id: str, contract_sha256: str, anchors: dict[str, Any],
+                           payloads: dict[str, bytes]) -> dict[str, Any]:
+    return {"schema": ALIAS_CONTENT_SCHEMA, "stage": "alias-reconciliation-content",
+            "population": ALIAS_SUCCESSOR_POPULATION, "contract_id": contract_id, "contract_sha256": contract_sha256,
+            "parent": dict(anchors["parent"]), "inputs": anchors["inputs"], "alias_evidence": anchors["alias_evidence"],
+            "predecessor": anchors["predecessor"],
+            "parameters_sha256": hashlib.sha256(canonical_json_bytes(ALIAS_PARAMETERS)).hexdigest(),
+            "labels": ALIAS_LABELS, "scope": alias_scope(anchors), "payload_schema": ALIAS_PAYLOAD_SCHEMA,
+            "outputs": {name: hashlib.sha256(payloads[name]).hexdigest() for name in ALIAS_PAYLOADS},
+            "row_counts": {name: payloads[name].count(b"\n") for name in ALIAS_PAYLOADS if name.endswith(".jsonl")}}
+
+
+def alias_meta(content_document: dict[str, Any], content_identity: str, summary: dict[str, Any]) -> dict[str, str]:
+    dumps = lambda value: json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)  # noqa: E731
+    return {"schema_version": ALIAS_DB_SCHEMA, "contract_id": content_document["contract_id"],
+            "contract_sha256": content_document["contract_sha256"], "content_identity": content_identity,
+            "payload_schema": ALIAS_PAYLOAD_SCHEMA, "payload_sha256": dumps(content_document["outputs"]),
+            "row_counts": dumps(content_document["row_counts"]), "parent": dumps(content_document["parent"]),
+            "inputs": dumps(content_document["inputs"]), "alias_evidence": dumps(content_document["alias_evidence"]),
+            "predecessor": dumps(content_document["predecessor"]), "labels": dumps(content_document["labels"]),
+            "scope": dumps(content_document["scope"]), "parameters_sha256": content_document["parameters_sha256"],
+            "summary": dumps(summary)}
+
+
+def alias_database_document(contract_sha256: str, content_identity: str, database_sha256: str,
+                            table_counts: dict[str, int]) -> dict[str, Any]:
+    """The complete contract-defined successor database identity document: exactly these members."""
+    return {"schema": ALIAS_DATABASE_SCHEMA, "stage": "alias-reconciliation-database",
+            "population": ALIAS_SUCCESSOR_POPULATION, "contract_sha256": contract_sha256,
+            "content_identity": content_identity, "db_schema_version": ALIAS_DB_SCHEMA,
+            "outputs": {ALIAS_DB_FILE: database_sha256}, "table_counts": dict(table_counts)}
+
+
+ALIAS_DDL = RECONCILIATION_DDL + (
+    ("table", "alias_disposition",
+     "CREATE TABLE alias_disposition (ord INTEGER PRIMARY KEY, alias_key TEXT NOT NULL, org_id TEXT NOT NULL, "
+     "provider_team_id TEXT NOT NULL, season INTEGER NOT NULL, disposition TEXT NOT NULL, record TEXT NOT NULL)"),
+    ("index", "ix_alias_key", "CREATE INDEX ix_alias_key ON alias_disposition (alias_key)"),
+)
+ALIAS_TABLES = ("meta", "parent_reconciliation", "provider_reconciliation", "alias_disposition")
+
+
+def alias_table_rows(derived: dict[str, Any], aliases: dict[str, Any]) -> dict[str, list[tuple[Any, ...]]]:
+    rows = reconciliation_table_rows(derived)
+    rows["alias_disposition"] = [(i, r["key"], r["org_id"], r["provider_team_id"], r["season"], r["disposition"],
+                                  reconciliation_line(r))
+                                 for i, r in enumerate(alias_disposition_records(derived, aliases))]
+    return rows
+
+
+class AliasReconciliationSuccessor(ReconciliationSidecar):
+    """A verified, read-only handle on one content-addressed alias successor of the accepted BAT-718 sidecar.
+
+    Construction refuses (NationalQueryError with a stable code) unless the successor location, manifest identity,
+    database bytes, schema, meta claims, the accepted parent, every bound cached input and the pinned alias evidence
+    bundle verify, every SUPPORTED assertion is proved from its retained bytes, the universe is exactly the participants
+    without a documented V1 name link, and every record, the summary and the content identity equal what is re-derived
+    from those inputs. The identity documents are compared as canonical bytes and the served identity is the digest of
+    the rebuilt contract-defined document."""
+
+    def __init__(self, database: Path, *, parent: NationalPopulationDatabase, parent_database: Path,
+                 manifest: Path | None = None, expect_identity: str | None = None,
+                 anchors: dict[str, Any] | None = None) -> None:
+        self.anchors = anchors if anchors is not None else ALIAS_ANCHORS
+        if not isinstance(self.anchors, dict):
+            raise NationalQueryError("ALIAS_SUCCESSOR_NOT_PINNED",
+                                     "this reader pins no committed alias successor contract; nothing is served")
+        a = self.anchors
+        verify_reconciliation_parent(parent, a)
+        self.binding = self._verify_alias_location(database, manifest, expect_identity)
+        document = self.binding["identity_document"]
+        if document.get("contract_sha256") != a["contract_sha256"]:
+            raise NationalQueryError("RECONCILIATION_CONTRACT_MISMATCH",
+                                     f"the successor names contract {document.get('contract_sha256')}, the reader binds "
+                                     f"{a['contract_sha256']}")
+        self.conn = connect_readonly(database)
+        try:
+            self._verify_successor(parent, Path(parent_database), Path(database))
+        except BaseException:
+            self.conn.close()
+            raise
+
+    @staticmethod
+    def _verify_alias_location(database: Path, manifest: Path | None, expect_identity: str | None) -> dict[str, Any]:
+        try:
+            _literal_path(database)
+        except _LocationError as exc:
+            raise NationalQueryError(exc.code, exc.detail) from exc
+        db = Path(database)
+        if not db.is_file():
+            raise NationalQueryError("RECONCILIATION_DATABASE_MISSING", f"no successor database file at {db}")
+        resolved = db.resolve()
+        if db.name != ALIAS_DB_FILE or resolved.parent.parent.name != "sha256" or \
+                resolved.parent.parent.parent.name != ALIAS_SUCCESSOR_POPULATION:
+            raise NationalQueryError("RECONCILIATION_LOCATION_INVALID",
+                                     f"the successor must sit at <root>/{ALIAS_SUCCESSOR_POPULATION}/sha256/<id>/"
+                                     f"{ALIAS_DB_FILE}")
+        identity = resolved.parent.name
+        if not IDENTITY_RE.match(identity):
+            raise NationalQueryError("RECONCILIATION_LOCATION_INVALID", f"directory name {identity!r} is not an identity")
+        manifest_path = Path(manifest) if manifest is not None else manifest_path_for(db)
+        if not manifest_path.is_file():
+            raise NationalQueryError("RECONCILIATION_MANIFEST_MISSING", f"no run manifest at {manifest_path}")
+        try:
+            document = json.loads(manifest_path.read_text(encoding="utf-8"))
+            identity_document = document["identity_document"]
+            computed = hashlib.sha256(canonical_json_bytes(identity_document)).hexdigest()
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            raise NationalQueryError("RECONCILIATION_MANIFEST_MALFORMED", str(exc)) from exc
+        if computed != identity or document.get("identity") != identity:
+            raise NationalQueryError("RECONCILIATION_IDENTITY_MISMATCH",
+                                     f"manifest identity document hashes to {computed}, directory is {identity}")
+        if not isinstance(identity_document, dict) or \
+                (identity_document.get("stage"), identity_document.get("schema"),
+                 identity_document.get("db_schema_version"), identity_document.get("population")) != \
+                ("alias-reconciliation-database", ALIAS_DATABASE_SCHEMA, ALIAS_DB_SCHEMA, ALIAS_SUCCESSOR_POPULATION):
+            raise NationalQueryError("RECONCILIATION_SCHEMA_UNSUPPORTED", "not an alias successor database manifest")
+        outputs = identity_document.get("outputs")
+        if outputs is not None and not isinstance(outputs, dict):
+            raise NationalQueryError("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH",
+                                     "the manifest identity document's outputs member is not an object")
+        expected_sha = (outputs or {}).get(ALIAS_DB_FILE)
+        actual_sha = _sha256_file(_io_path(db))
+        if expected_sha != actual_sha:
+            raise NationalQueryError("RECONCILIATION_DATABASE_TAMPERED",
+                                     f"successor bytes hash to {actual_sha}, manifest names {expected_sha}")
+        if expect_identity is not None and expect_identity != identity:
+            raise NationalQueryError("STALE_RECONCILIATION_IDENTITY", f"expected {expect_identity}, found {identity}")
+        return {"identity": identity, "sha256": actual_sha, "manifest": str(manifest_path),
+                "identity_document": identity_document}
+
+    def _verify_successor(self, parent: NationalPopulationDatabase, parent_database: Path, database: Path) -> None:
+        a = self.anchors
+        try:
+            master = sorted((str(r[0]), str(r[1]), r[2]) for r in self.conn.execute(
+                "SELECT type, name, sql FROM sqlite_master"))
+        except sqlite3.DatabaseError as exc:
+            raise NationalQueryError("RECONCILIATION_SCHEMA_UNSUPPORTED", str(exc)) from exc
+        if master != sorted(ALIAS_DDL):
+            raise NationalQueryError("RECONCILIATION_SCHEMA_UNSUPPORTED", "the successor schema differs from the contract")
+        meta_rows = [(str(r[0]), r[1]) for r in self.conn.execute("SELECT key, value FROM meta ORDER BY rowid")]
+        meta = dict(meta_rows)
+        if len(meta) != len(meta_rows):
+            raise NationalQueryError("RECONCILIATION_META_MISMATCH", "duplicate meta keys")
+        if meta.get("schema_version") != ALIAS_DB_SCHEMA:
+            raise NationalQueryError("RECONCILIATION_SCHEMA_UNSUPPORTED", f"schema {meta.get('schema_version')!r}")
+        if meta.get("contract_sha256") != a["contract_sha256"]:
+            raise NationalQueryError("RECONCILIATION_CONTRACT_MISMATCH", "the successor meta names another contract")
+        bound_id = a.get("contract_id")
+        if not isinstance(bound_id, str) or not bound_id:
+            raise NationalQueryError("RECONCILIATION_CONTRACT_MISMATCH", "the reader binds no contract id")
+        if meta.get("contract_id") != bound_id:
+            raise NationalQueryError("RECONCILIATION_CONTRACT_MISMATCH",
+                                     f"the successor meta names contract id {meta.get('contract_id')!r}, the reader "
+                                     f"binds {bound_id!r}")
+        claims = {name: _json_or_none(meta.get(name)) for name in ("parent", "inputs", "labels", "scope",
+                                                                   "alias_evidence", "predecessor")}
+        if claims["parent"] != a["parent"]:
+            raise NationalQueryError("RECONCILIATION_PARENT_MISMATCH", "the successor was built for another parent")
+        if claims["inputs"] != a["inputs"]:
+            raise NationalQueryError("RECONCILIATION_SOURCE_MISMATCH", "the successor names other cached inputs")
+        if claims["alias_evidence"] != a["alias_evidence"]:
+            raise NationalQueryError("ALIAS_EVIDENCE_PIN_MISMATCH", "the successor names other alias evidence")
+        if claims["predecessor"] != a["predecessor"]:
+            raise NationalQueryError("RECONCILIATION_SOURCE_MISMATCH", "the successor names another predecessor")
+        if claims["labels"] != ALIAS_LABELS:
+            labels = claims["labels"] if isinstance(claims["labels"], dict) else {}
+            code = ("RECONCILIATION_PIT_CLAIM_INVALID" if labels.get("pit_eligibility") !=
+                    ALIAS_LABELS["pit_eligibility"] else "RECONCILIATION_LABEL_CLAIM_INVALID")
+            raise NationalQueryError(code, "the successor declares labels other than the contract's")
+        if claims["scope"] != alias_scope(a):
+            raise NationalQueryError("RECONCILIATION_SCOPE_CLAIM_INVALID", "the successor declares another scope")
+        if meta.get("parameters_sha256") != hashlib.sha256(canonical_json_bytes(ALIAS_PARAMETERS)).hexdigest():
+            raise NationalQueryError("RECONCILIATION_PARAMETERS_MISMATCH", "the successor was built with other rules")
+        counts = {table: self.conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0] for table in ALIAS_TABLES}
+        if counts != self.binding["identity_document"].get("table_counts"):
+            raise NationalQueryError("RECONCILIATION_COUNT_MISMATCH",
+                                     f"table counts {counts} != {self.binding['identity_document'].get('table_counts')}")
+        inputs = load_reconciliation_inputs(reconciliation_data_root(parent_database), a)
+        evidence = load_alias_evidence(alias_population_root(database), a)
+        aliases = verify_alias_assertions(evidence)
+        parent_rows = read_reconciliation_parent(parent.conn)
+        observed = _count([str(c["season"]) for c in parent_rows["contests"]])
+        if observed != a["parent"]["expected_contests"]:
+            raise NationalQueryError("RECONCILIATION_PARENT_MISMATCH",
+                                     f"parent contests {observed} != bound {a['parent']['expected_contests']}")
+        derived = derive_reconciliation(parent_rows, inputs, aliases=aliases)
+        expected_rows = alias_table_rows(derived, aliases)
+        self._compare_table("parent_reconciliation", expected_rows["parent_reconciliation"], 1, "PARENT")
+        self._compare_table("provider_reconciliation", expected_rows["provider_reconciliation"], 1, "PROVIDER")
+        self._compare_table("alias_disposition", expected_rows["alias_disposition"], 1, "ALIAS")
+        payloads = alias_payloads(derived, aliases)
+        content_document = alias_content_document(bound_id, a["contract_sha256"], a, payloads)
+        content_identity = hashlib.sha256(canonical_json_bytes(content_document)).hexdigest()
+        if _json_or_none(meta.get("summary")) != derived["summary"]:
+            raise NationalQueryError("RECONCILIATION_SUMMARY_MISMATCH", "the successor summary differs from its records")
+        if meta.get("content_identity") != content_identity or \
+                self.binding["identity_document"].get("content_identity") != content_identity:
+            raise NationalQueryError("RECONCILIATION_CONTENT_IDENTITY_MISMATCH",
+                                     f"the re-derived content identity is {content_identity}")
+        expected_meta = alias_meta(content_document, content_identity, derived["summary"])
+        if meta != expected_meta:
+            raise NationalQueryError("RECONCILIATION_META_MISMATCH",
+                                     f"meta differs on {sorted(k for k in set(meta) | set(expected_meta) if meta.get(k) != expected_meta.get(k))}")
+        document = self.binding["identity_document"]
+        expected_document = alias_database_document(a["contract_sha256"], content_identity, self.binding["sha256"],
+                                                    counts)
+        expected_bytes = canonical_json_bytes(expected_document)
+        if canonical_json_bytes(document) != expected_bytes:
+            differing = sorted(k for k in set(document) | set(expected_document)
+                               if k not in document or k not in expected_document
+                               or canonical_json_bytes(document[k]) != canonical_json_bytes(expected_document[k]))
+            raise NationalQueryError("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH",
+                                     f"the manifest identity document is not the contract-defined successor document "
+                                     f"(differs on {differing})")
+        database_identity = hashlib.sha256(expected_bytes).hexdigest()
+        if database_identity != self.binding["identity"]:
+            raise NationalQueryError("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH",
+                                     f"the successor location names {self.binding['identity']}, the contract-defined "
+                                     f"database document is {database_identity}")
+        self.database_identity = database_identity
+        self.meta = meta
+        self.content_identity = content_identity
+        self.summary = derived["summary"]
+        self.records = {"parent-reconciliation": derived["parent_records"],
+                        "provider-reconciliation": derived["provider_records"]}
+        self.team_names = reconciliation_team_names(self.records)
+        self.parent_identity = parent.binding["database_identity"]
+        self.aliases = aliases
+        self.alias_rows = [{k: r[k] for k in ("key", "org_id", "provider_team_id", "season", "parent_name",
+                                              "provider_name", "disposition", "assertion_id", "reason")}
+                           | {"documents": [d["sha256"] for d in r["documents"]], "sides": len(r["sides"])}
+                           for r in alias_disposition_records(derived, aliases)]
+
+    def query(self, grain: str, **kwargs: Any) -> dict[str, Any]:
+        result = super().query(grain, **kwargs)
+        result.update(ALIAS_LABELS)
+        result["alias_evidence"] = dict(self.anchors["alias_evidence"])
+        result["predecessor"] = dict(self.anchors["predecessor"])
+        result["alias_universe"] = self.alias_rows
+        result["alias_summary"] = self.summary["alias_universe"]
+        result["verification"] = {**result["verification"], "alias_evidence_verified": True,
+                                  "alias_assertions_verified": len(self.aliases["assertions"])}
+        return result
+
+
+def _selected_population(reconciliation: Path) -> str | None:
+    """The population directory an explicitly selected reconciliation location names (lexically, after the literal
+    location check); None when it cannot be determined (the V1 reader then refuses it exactly as before)."""
+    try:
+        _literal_path(reconciliation)
+        return Path(reconciliation).resolve().parent.parent.parent.name
+    except (_LocationError, OSError, ValueError, RuntimeError):
+        return None
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="bas-national-population-query", allow_abbrev=False,
                                      description="Read-only national Division I population query (2016-2025).")
@@ -1543,10 +2281,14 @@ def _reconciliation_main(args: argparse.Namespace) -> dict[str, Any]:
     for name in ("division", "org", "classification_pair", "reconciliation_state"):
         if getattr(args, name) is not None:
             raise NationalQueryError("FILTER_NOT_APPLICABLE", f"filter {name!r} does not apply to grain {args.grain!r}")
+    # BAT-720: a location inside the alias successor dataset selects the successor reader; every other location is
+    # verified by the accepted V1 reader exactly as before.
+    reader = AliasReconciliationSuccessor if _selected_population(args.reconciliation) == ALIAS_SUCCESSOR_POPULATION \
+        else ReconciliationSidecar
     with NationalPopulationDatabase(args.database, manifest=args.manifest, expect_identity=args.expect_identity) as parent:
-        with ReconciliationSidecar(args.reconciliation, parent=parent, parent_database=args.database,
-                                   manifest=args.reconciliation_manifest,
-                                   expect_identity=args.expect_reconciliation_identity) as sidecar:
+        with reader(args.reconciliation, parent=parent, parent_database=args.database,
+                    manifest=args.reconciliation_manifest,
+                    expect_identity=args.expect_reconciliation_identity) as sidecar:
             return sidecar.query(args.grain, season=args.season, team=args.team, contest=args.contest,
                                  disposition=args.disposition, limit=args.limit, offset=args.offset,
                                  all_rows=args.all_rows)

@@ -1349,9 +1349,15 @@ class RetrospectiveBenchmark:
 
     def _match(self, grain: str, record: dict[str, Any], filters: dict[str, Any]) -> bool:
         if grain == "summary":
-            if "season" in filters and record.get("scope_id") != str(filters["season"]):
-                return False
-            if "partition" in filters and record.get("scope_id") != filters["partition"]:
+            # A summary record describes one scope. A season selects its own season scope; a partition given with it
+            # only has to contain that season under the frozen split (otherwise nothing is selected), and a partition
+            # given alone selects its own partition scope.
+            if "season" in filters:
+                if "partition" in filters and filters["season"] not in PARTITION_SEASONS[filters["partition"]]:
+                    return False
+                if record.get("scope_id") != str(filters["season"]):
+                    return False
+            elif "partition" in filters and record.get("scope_id") != filters["partition"]:
                 return False
             if "model" in filters and record.get("model_id") != filters["model"]:
                 return False
@@ -1373,6 +1379,7 @@ class RetrospectiveBenchmark:
 
 GRAINS = {"feature": "features", "estimate": "estimates", "score": "scores", "summary": "summary"}
 PARTITION_IDS = tuple(p["split_id"] for p in SPLIT["partitions"])
+PARTITION_SEASONS = {p["split_id"]: frozenset(p["seasons"]) for p in SPLIT["partitions"]}
 TABLE_LABELS = {"features": "FEATURE", "estimates": "ESTIMATE", "labels": "LABEL", "scores": "SCORE"}
 
 

@@ -41,6 +41,8 @@ from aggie_analytics.retrospective_baseline import query  # noqa: E402
 WINDOWS = os.name == "nt"
 EXT = "\\\\?\\"
 SHA_FIELDS = ("feature_record_sha256", "game_feature_record_sha256")
+#: The cause every MF47A01-01 regression assertion names (C47-CONT-01).
+MF47A01_01 = "MF47A01-01 compatible season/partition"
 
 
 def frac(value: dict) -> Fraction:
@@ -510,6 +512,80 @@ class ConsumerTests(World):
                               (2015, "OUTSIDE_BENCHMARK_SCOPE")):
             doc = self.serve("--grain", "score", "--season", str(season))[1]
             self.assertEqual((doc["season_scope_state"], doc["total"], doc["rows"]), (state, 0, []))
+
+    def split_seasons(self) -> dict[str, frozenset[int]]:
+        """The development partitions and their seasons, read from this world's frozen contract (never from which
+        summary rows exist)."""
+        contract = json.loads(self.contract_path.read_text(encoding="utf-8"))
+        return {p["split_id"]: frozenset(p["seasons"]) for p in contract["split"]["partitions"]}
+
+    def summary_scope(self, scope_id: str | None, model: str | None = None) -> list[dict]:
+        records = self.derived["summary"]["rows"] + self.derived["summary"]["comparisons"]
+        return [r for r in records if (scope_id is None or r["scope_id"] == scope_id) and
+                (model is None or r.get("model_id") == model)]
+
+    def test_compatible_season_partition_summary_equals_the_season_summary(self) -> None:
+        # MF47A01-01: a season given with the development partition that contains it selects exactly that season's
+        # summary records (model rows and comparison), narrowed by the model when one is given, with exact paging
+        split = self.split_seasons()
+        for season in bm.TARGET_SEASONS:
+            partition = next(p for p, seasons in split.items() if season in seasons)
+            for model in (None, bm.MODEL_NULL, bm.MODEL_SMOOTHED):
+                want = self.summary_scope(str(season), model)
+                extra = ("--model", model) if model else ()
+                cause = f"{MF47A01_01} {season} {partition} {model}"
+                with self.subTest(season=season, partition=partition, model=model):
+                    code, doc, refused = self.serve("--grain", "summary", "--season", str(season), "--partition",
+                                                    partition, *extra, "--all")
+                    self.assertEqual((code, refused), (0, None), cause)
+                    self.assertEqual(len(want), 3 if model is None else 1, cause)
+                    self.assertEqual(doc["rows"], want, cause)
+                    self.assertEqual((doc["total"], doc["returned"], doc["next_offset"], doc["season_scope_state"]),
+                                     (len(want), len(want), None, "RETROSPECTIVE_2016_2023"), cause)
+                    self.assertEqual(doc["filters"], {"season": season, "partition": partition,
+                                                      **({"model": model} if model else {})}, cause)
+            with self.subTest(season=season, partition=partition, paging=True):
+                pages = [self.serve("--grain", "summary", "--season", str(season), "--partition", partition,
+                                    "--limit", "1", "--offset", str(offset))[1] for offset in range(3)]
+                cause = f"{MF47A01_01} {season} {partition} paging"
+                self.assertEqual([r for page in pages for r in page["rows"]], self.summary_scope(str(season)), cause)
+                self.assertEqual([(p["total"], p["next_offset"]) for p in pages], [(3, 1), (3, 2), (3, None)], cause)
+
+    def test_incompatible_partition_selects_nothing_and_single_summary_filters_are_unchanged(self) -> None:
+        split = self.split_seasons()
+        for season in bm.TARGET_SEASONS:
+            for model in (None, bm.MODEL_NULL, bm.MODEL_SMOOTHED):
+                extra = ("--model", model) if model else ()
+                with self.subTest(season=season, model=model):
+                    self.assertEqual(self.serve("--grain", "summary", "--season", str(season), *extra, "--all")[1]
+                                     ["rows"], self.summary_scope(str(season), model))
+                    for partition in (p for p, seasons in split.items() if season not in seasons):
+                        code, doc, refused = self.serve("--grain", "summary", "--season", str(season), "--partition",
+                                                        partition, *extra, "--all")
+                        self.assertEqual((code, refused, doc["total"], doc["returned"], doc["rows"], doc["next_offset"],
+                                          doc["season_scope_state"]),
+                                         (0, None, 0, 0, [], None, "RETROSPECTIVE_2016_2023"))
+        for partition in split:
+            for model in (None, bm.MODEL_NULL, bm.MODEL_SMOOTHED):
+                extra = ("--model", model) if model else ()
+                with self.subTest(partition=partition, model=model):
+                    self.assertEqual(self.serve("--grain", "summary", "--partition", partition, *extra, "--all")[1]
+                                     ["rows"], self.summary_scope(partition, model))
+        self.assertEqual(self.serve("--grain", "summary", "--all")[1]["rows"], self.summary_scope(None))
+        for model in (bm.MODEL_NULL, bm.MODEL_SMOOTHED):
+            self.assertEqual(self.serve("--grain", "summary", "--model", model, "--all")[1]["rows"],
+                             self.summary_scope(None, model))
+        pages = [self.serve("--grain", "summary", "--partition", "SPLIT-DEV-HIST", "--limit", "2", "--offset",
+                            str(offset))[1] for offset in (0, 2)]
+        self.assertEqual([r for page in pages for r in page["rows"]], self.summary_scope("SPLIT-DEV-HIST"))
+        self.assertEqual([p["next_offset"] for p in pages], [2, None])
+        # record grains carry their own season and partition, so the same selections intersect there too
+        for season in bm.TARGET_SEASONS:
+            for partition, seasons in split.items():
+                want = [s for s in self.derived["scores"] if s["season"] == season] if season in seasons else []
+                with self.subTest(season=season, partition=partition, grain="score"):
+                    self.assertEqual(self.serve("--grain", "score", "--season", str(season), "--partition", partition,
+                                                "--all")[1]["rows"], want)
 
     def test_misuse_is_refused(self) -> None:
         for argv, code in ((["--grain", "score", "--require-pit"], "PIT_ELIGIBILITY_NOT_ESTABLISHED"),

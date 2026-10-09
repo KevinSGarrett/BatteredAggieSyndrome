@@ -76,6 +76,8 @@ reader verifies and pins the history, verifies the benchmark location, manifest,
 re-derives every record, the summary, the content identity and the contract-defined database identity document;
 each difference is refused with its own stable code (exit 2, `{"refused": ...}` on stderr). Grains: `feature`,
 `estimate`, `score`, `summary`; filters `--season`, `--team` (org key, digits or a team name of the record's own
-season), `--contest`, `--model`, `--partition`; exact totals with `--limit`/`--offset`/`--all`. `--require-pit` is
+season), `--contest`, `--model`, `--partition`; exact totals with `--limit`/`--offset`/`--all`. Filters intersect: on
+the summary grain `--season` with `--partition` selects that season's rows when the contract split places the season
+in that partition and nothing otherwise, and `--partition` alone selects the partition's rows. `--require-pit` is
 always refused. BAT-717 literal read-only SQLite locations apply (long and extended-length Windows paths); a missing
 database is never created. The five accepted query commands are unchanged.

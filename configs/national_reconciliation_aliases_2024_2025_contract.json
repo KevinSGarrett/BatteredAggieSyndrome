@@ -771,13 +771,42 @@
   "successor_of": "national_population_reconciliation_2024_2025",
   "alias_universe": "exactly the relation participants without a documented V1 name link"
  },
- "output_identity_scheme": "content identity = sha256(canonical content document: contract id and SHA-256, anchors, payload hashes); database identity = sha256(canonical database document); evidence bundle identity = sha256(canonical evidence document: assertions SHA-256 and every bundle file hash). All create-only under canonical/national_reconciliation_aliases_2024_2025/sha256/<identity>.",
- "consumer": "bas-national-population-query --reconciliation <successor sqlite> and python -m aggie_analytics.national_population.query --reconciliation <successor sqlite>; never a default; the original V1 sidecar and every default view are unchanged.",
+ "grains": {
+  "parent_record": "Exactly the V1 parent record (one per parent contest, contract order) except the name link of an alias-universe participant: it carries alias_assertion {key, disposition, assertion_id, reason}, and a SUPPORTED row whose exact names are the observed names makes the state SOURCE_ASSERTION_DOCUMENTED, which verifies the participant; promotion, disposition and reason follow from the same V1 rules.",
+  "provider_record": "Exactly the V1 provider record (one per provider input row); its relation, conflicts, disposition and reason follow its parent contest.",
+  "alias_disposition_record": "One per universe row in key order: record_type alias_disposition, key, org_id, provider_team_id, season, parent_name, provider_name, disposition, assertion_id, reason, assertion (the verified assertion or null), documents (sha256, role, request_url, final_url, http_status, retrieved_at, bytes, media_type of every witness and attempted document, by SHA-256) and sides (<contest_key>#<side> it applies to)."
+ },
+ "output_identity_scheme": {
+  "content_root": "canonical/national_reconciliation_aliases_2024_2025/sha256/<content identity>/{parent_reconciliation.jsonl, provider_reconciliation.jsonl, alias_dispositions.jsonl, summary.json}",
+  "database_root": "canonical/national_reconciliation_aliases_2024_2025/sha256/<database identity>/national_reconciliation_aliases.sqlite",
+  "evidence_root": "canonical/national_reconciliation_aliases_2024_2025/sha256/<bundle identity>/{alias_assertions.json, <document SHA-256>.gz ...}",
+  "manifests": "manifests/national_reconciliation_aliases_2024_2025/sha256/<identity>/run_manifest.json with {identity, identity_document, provenance}",
+  "content_identity": "SHA-256 of the canonical JSON content document {schema BAS-NATIONAL-RECONCILIATION-ALIASES-CONTENT-1, stage alias-reconciliation-content, population, contract_id, contract_sha256, parent, inputs, alias_evidence, predecessor, parameters_sha256, labels, scope, payload_schema, outputs {payload: SHA-256}, row_counts}",
+  "database_identity": "SHA-256 of the canonical JSON database document {schema BAS-NATIONAL-RECONCILIATION-ALIASES-DATABASE-1, stage alias-reconciliation-database, population, contract_sha256, content_identity, db_schema_version BAS-NATIONAL-RECONCILIATION-ALIASES-DB-1, outputs {database file: SHA-256}, table_counts}",
+  "evidence_identity": "SHA-256 of the canonical JSON evidence document {schema BAS-NATIONAL-RECONCILIATION-ALIAS-EVIDENCE-1, stage alias-evidence, population, assertions_sha256, outputs {file: SHA-256}}",
+  "records": "Each record is canonical JSON (sorted keys, compact separators, UTF-8, no binary float); payload lines end with a newline; payload schema BAS-NATIONAL-RECONCILIATION-ALIASES-PAYLOAD-1.",
+  "database": "Tables meta, parent_reconciliation, provider_reconciliation and alias_disposition exactly as the reader's ALIAS_DDL, page size 4096, journal off, rows in contract order, indexes after rows, no VACUUM, no automatic index; meta holds the schema version, contract id and hash, content identity, payload schema and hashes, row counts, parent, inputs, alias evidence, predecessor, labels, scope, parameters hash and summary.",
+  "create_only": "An existing identity whose files equal the new bytes is verified and never rewritten; different bytes are REFUSED_IMMUTABLE_COLLISION; earlier materializations stay immutable and counted.",
+  "determinism": "Natural, reversed and seeded-shuffle input orders, any chunk size and an interrupted and resumed checkpoint build must give the same payload bytes, content identity and SQLite bytes on the recorded runtime."
+ },
+ "consumer": {
+  "console_script": "bas-national-population-query (unchanged entry point)",
+  "module": "aggie_analytics.national_population.query (standard library only)",
+  "selection": "--reconciliation <...\\national_reconciliation_aliases_2024_2025\\sha256\\<id>\\national_reconciliation_aliases.sqlite> with the required --database naming the accepted parent; never a default; any other --reconciliation location is read by the V1 reader exactly as before",
+  "grains": [
+   "parent-reconciliation",
+   "provider-reconciliation"
+  ],
+  "filters": "exactly the V1 reconciliation filters (--season, --team, --contest, --disposition) and paging",
+  "additions": "alias_universe, alias_summary, alias_evidence and predecessor blocks with every answer",
+  "verification": "Before any row is served: successor location, manifest identity, database bytes, schema, meta claims, table counts, the accepted parent, every bound input, the pinned evidence bundle (manifest identity, listing, bytes, every document receipt) and every assertion; then every parent, provider and alias-disposition record, the summary and both identity documents are re-derived and compared as canonical bytes; any difference refuses with its own code.",
+  "unchanged": "the original V1 sidecar and every default view answer exactly as before"
+ },
  "non_claims": [
   "Alias authority is SEASON_SCOPED_INSTITUTIONAL_DOCUMENT_ASSERTION_RETRIEVED_NOT_PIT: retrieval time is not publication time, and a season document's current rendering is evidence of what it shows at retrieval, not proof of in-season historical publication.",
   "The NCAA directory member list is the current directory (retrieved 2026-10-09), an institutional identity record, not a season document.",
   "No PIT admission, protected evaluation, default activation, hold release, model or predictive-skill claim.",
   "Unsupported program-seasons are not evidence that no alias exists; they only lack admitted evidence under this bounded grant and policy."
  ],
- "revision_note": "V1 of the successor contract; committed before the first canonical write of the successor or its evidence bundle."
+ "revision_note": "V1 of the successor contract. First committed in b9896d6e; this revision adds the structured record, output identity and consumer specification (so an independent oracle can derive the identity documents from the contract) and changes no rule, binding, pin or universe row. Both revisions precede the first canonical write of the successor or its evidence bundle."
 }

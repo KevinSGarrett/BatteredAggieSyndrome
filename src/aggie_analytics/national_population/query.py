@@ -1588,7 +1588,7 @@ ALIAS_PARAMETERS = {
 #: accepted parent and cached inputs (exactly V1's), the alias evidence bundle and its assertions document, and the
 #: predecessor (configs/national_reconciliation_aliases_2024_2025_contract.json).
 ALIAS_ANCHORS: dict[str, Any] | None = {
-    "contract_sha256": "51e3f06ed810b46fa49a1ecefc636841a740fadbec8efcc2232377a183f3afa4",
+    "contract_sha256": "a4ec96e54d909711c0bb89b37f8d7901b33b24ddb033d29da6cadc76802e7cc7",
     "contract_id": "BAT-720-NATIONAL-RECONCILIATION-ALIASES-2024-2025-V1",
     "parent": RECONCILIATION_ANCHORS["parent"],
     "inputs": RECONCILIATION_ANCHORS["inputs"],

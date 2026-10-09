@@ -1586,8 +1586,20 @@ ALIAS_PARAMETERS = {
 }
 #: The production trust anchors of the successor: the committed successor contract (SHA-256 and contract id), the
 #: accepted parent and cached inputs (exactly V1's), the alias evidence bundle and its assertions document, and the
-#: predecessor. None until the committed contract pins them; the command line refuses a successor until then.
-ALIAS_ANCHORS: dict[str, Any] | None = None
+#: predecessor (configs/national_reconciliation_aliases_2024_2025_contract.json).
+ALIAS_ANCHORS: dict[str, Any] | None = {
+    "contract_sha256": "51e3f06ed810b46fa49a1ecefc636841a740fadbec8efcc2232377a183f3afa4",
+    "contract_id": "BAT-720-NATIONAL-RECONCILIATION-ALIASES-2024-2025-V1",
+    "parent": RECONCILIATION_ANCHORS["parent"],
+    "inputs": RECONCILIATION_ANCHORS["inputs"],
+    "alias_evidence": {"bundle_identity": "665232f068c777b2ad269af3ae33adb6142e0ff0a089d86c712e95bb916b8bf5",
+                       "assertions_sha256": "e0ac619e6b64828d8d18c7de612ab08ce97ac443591b36668513f396efa6fae0"},
+    "predecessor": {"population_id": RECONCILIATION_POPULATION,
+                    "contract_sha256": RECONCILIATION_ANCHORS["contract_sha256"],
+                    "contract_id": RECONCILIATION_ANCHORS["contract_id"],
+                    "content_identity": "378307f71b57b0e5e27eafde90d9bd43cb8a91b5d0d7d85652c91fc2b49c2480",
+                    "database_identity": "41b0822a6367de3f6919d1f326bbc0fb00f3d76a7e6af1d55a2a1696b6704bbf"},
+}
 
 _ALIAS_DOCUMENT_KEYS = {"sha256", "file", "bytes", "media_type", "role", "request_url", "final_url", "hops",
                         "http_status", "retrieved_at", "acquisition"}

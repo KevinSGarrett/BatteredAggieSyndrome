@@ -65,6 +65,32 @@ Schedules, scores, dates, numeric id coincidence, edit distance, global punctuat
 alias authority. Names of other programs (USC/South Carolina, Southern/Georgia Southern) cannot satisfy an assertion
 keyed by another organization and provider team.
 
+## The committed evidence (contract V1)
+
+The contract (`BAT-720-NATIONAL-RECONCILIATION-ALIASES-2024-2025-V1`) pins evidence bundle
+`665232f068c777b2ad269af3ae33adb6142e0ff0a089d86c712e95bb916b8bf5` (assertions document
+`e0ac619e…`) and freezes the policy that decided it before any canonical write (`evidence_policy`):
+
+1. one object of the retained NCAA directory member list (`web3.ncaa.org`) names the organization id, its official
+   institution name and its athletics site;
+2. a retained HTTP 200 document requested at that site's host family under `/sports/football/schedule/<season>`;
+3. the document's `__NUXT_DATA__` devalue element holds the season schedule record
+   `pinia > schedule > schedules > "schedules-football,<season>"` with that season's title. Site-level, analytics,
+   header, logo or current-season widget names are never name authority, so a classic-platform page without that
+   record leaves the program-season unsupported;
+4. that record's `school_name` equals the provider name exactly (or only in apostrophe forms).
+
+Of the 30 program-seasons, 6 are `SUPPORTED`: USC, Stephen F. Austin and Northern Iowa, each in 2024 and 2025.
+The other 24 are `UNSUPPORTED`, each with its reason and the documents examined:
+
+* 2 have no official document because the NCAA-named host answered HTTP 403 and was stopped (Central Connecticut);
+* 20 come from classic-platform season pages without a season schedule record;
+* 2 come from season records that name another program name (Army: "Army West Point").
+
+No count was targeted. The reader's proof rules were committed before any capture and are unchanged. The authoring
+policy (rules 3-4) was fixed after a two-page structure probe and before any assertion was authored; it only narrows
+what the reader admits. The capture used 38 of the 80 granted requests.
+
 ## Records
 
 The parent, provider and alias-disposition records are derived exactly as in V1 except the name link of a universe
@@ -98,8 +124,9 @@ The same command (or `python -m aggie_analytics.national_population.query`) serv
 paging, plus `alias_universe`, `alias_summary`, `alias_evidence` and `predecessor`. Before any row is served the reader
 verifies location, manifest identity, bytes, schema, meta claims, the parent, every cached input, the evidence bundle
 and every assertion, then re-derives every record, the summary and both identity documents. Any other
-`--reconciliation` location is read by the V1 reader exactly as before. Until the reader pins a committed successor
-contract it refuses every successor (`ALIAS_SUCCESSOR_NOT_PINNED`). `--require-pit` is always refused.
+`--reconciliation` location is read by the V1 reader exactly as before. The reader pins the committed successor contract
+(`ALIAS_ANCHORS`); a reader without a pinned contract refuses every successor (`ALIAS_SUCCESSOR_NOT_PINNED`).
+`--require-pit` is always refused.
 
 Non-claims: no PIT or known-at authority (retrieval time is not publication time, and a season document's current
 rendering is not proof of in-season usage beyond what it shows), no independent historical truth, no protected

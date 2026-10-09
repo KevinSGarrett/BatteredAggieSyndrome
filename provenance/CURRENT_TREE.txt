@@ -885,6 +885,7 @@ configs/national_multi_year_walk_forward_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
 configs/national_pit_eligible_slice_contract.json
 configs/national_population_reconciliation_2024_2025_contract.json
+configs/national_retrospective_baseline_2016_2023_contract.json
 configs/national_shadow_operations_contract.json
 configs/national_source_time_2016_2023_contract.json
 configs/national_tiered_game_spine_contract.json
@@ -1184,6 +1185,7 @@ docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md
 docs/architecture/INTERFACE_CONTRACTS.md
 docs/architecture/MODEL_LAYERS.md
 docs/architecture/NATIONAL_POPULATION_RECONCILIATION_SIDECAR.md
+docs/architecture/NATIONAL_RETROSPECTIVE_BASELINE_BENCHMARK.md
 docs/architecture/NATIONAL_TAMU_INTERFACE.md
 docs/architecture/OPENAI_ASSISTIVE_PLANE.md
 docs/architecture/OPENROUTER_ASSISTIVE_PLANE.md
@@ -4229,6 +4231,9 @@ src/aggie_analytics/product/static/styles.css
 src/aggie_analytics/readiness/__init__.py
 src/aggie_analytics/readiness/e2e.py
 src/aggie_analytics/readonly_sqlite.py
+src/aggie_analytics/retrospective_baseline/__init__.py
+src/aggie_analytics/retrospective_baseline/benchmark.py
+src/aggie_analytics/retrospective_baseline/query.py
 src/aggie_analytics/scientific_reference/.cursor/BUGBOT.md
 src/aggie_analytics/scientific_reference/__init__.py
 src/aggie_analytics/scientific_reference/binding.py
@@ -4312,6 +4317,7 @@ tests/national_archived_publication_fixture.py
 tests/national_history_availability_fixture.py
 tests/national_history_fixture.py
 tests/national_source_time_fixture.py
+tests/retrospective_baseline_fixture.py
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
 tests/test_action_play_summary.py
@@ -4569,6 +4575,7 @@ tests/test_national_pit_domain_admission_matrix.py
 tests/test_national_pit_eligible_slice.py
 tests/test_national_population_query.py
 tests/test_national_population_reconciliation.py
+tests/test_national_retrospective_baseline.py
 tests/test_national_shadow_state_machine.py
 tests/test_national_source_time.py
 tests/test_national_tiered_game_spine.py
@@ -4867,6 +4874,7 @@ tools/build_national_multi_year_walk_forward.py
 tools/build_national_pit_domain_admission_matrix.py
 tools/build_national_pit_eligible_slice.py
 tools/build_national_population_reconciliation.py
+tools/build_national_retrospective_baseline.py
 tools/build_national_shadow_operations.py
 tools/build_national_source_time.py
 tools/build_national_tiered_game_spine.py

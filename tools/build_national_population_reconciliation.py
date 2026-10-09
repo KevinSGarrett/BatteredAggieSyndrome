@@ -268,7 +268,9 @@ def materialize(output_root: Path, manifest_root: Path, identity_document: dict[
         os.rename(temporary, target)
     if manifest.exists():
         existing = json.loads(manifest.read_text(encoding="utf-8"))
-        if existing.get("identity") != identity or existing.get("identity_document") != identity_document:
+        # MF46A01-03: canonical bytes, never Python equality (an integral float count equals its integer there)
+        if existing.get("identity") != identity or query.canonical_json_bytes(existing.get("identity_document")) != \
+                query.canonical_json_bytes(identity_document):
             raise BuildRefused("REFUSED_IMMUTABLE_COLLISION", f"{manifest} names a different identity")
         manifest_state = "ALREADY_PRESENT"
     else:

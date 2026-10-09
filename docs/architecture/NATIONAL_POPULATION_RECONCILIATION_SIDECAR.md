@@ -86,6 +86,13 @@ scope, computed only from the records.
   bytes and their actual table counts. A self-consistent, rehashed envelope is not authority: an extra output, an
   extra member or a malformed `outputs` refuses `RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH`, and an omitted or wrong
   member refuses with its own earlier code. Manifest `provenance` lies outside the identity and is not compared.
+* Canonical representation (C46-CONT-02, MF46A01-03). The two documents are compared as canonical bytes (sorted keys,
+  compact separators, UTF-8), never by value equality: a table count declared as its equal integral float (`13.0` for
+  `13`) is another document with another identity and refuses `RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH`, also when
+  `--expect-reconciliation-identity` names that forged identity. A fractional, string or boolean count still refuses
+  `RECONCILIATION_COUNT_MISMATCH`. The served `reconciliation_identity` is the SHA-256 of the rebuilt contract-defined
+  document. The builder likewise refuses an existing manifest whose document differs in canonical bytes
+  (`REFUSED_IMMUTABLE_COLLISION`).
 
 ## Reading it
 

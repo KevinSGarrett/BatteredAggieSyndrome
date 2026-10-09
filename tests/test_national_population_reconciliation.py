@@ -16,6 +16,12 @@ refuse even when every outer hash is recomputed, while omitted or wrong members 
 provider team name selects on both grains exactly what the organization or provider-team id selects, through a bound
 crosswalk and the other source's names of the same season only. The five tests named in MF_TESTS of the attempt's
 lane runner fail on the unfixed subject; the adjacent controls pass on it.
+
+C46-CONT-02 (manager finding MF46A01-03): identity documents are compared as canonical bytes, so a table count declared
+as its equal integral float refuses (all counts and each count alone), a pin naming that forged identity is never
+served, and the producer refuses an existing manifest whose document is only numerically equal; fractional, string and
+boolean counts, nonidentity provenance and a rehoused copy keep their outcomes. The three tests named in MF_TESTS_02
+fail on the unfixed subject 8960358f; the adjacent controls pass on it.
 """
 from __future__ import annotations
 
@@ -620,6 +626,21 @@ class DeterminismTests(Fixture):
         self.assertEqual(code, 2)
         self.assertIn("REFUSED_IMMUTABLE_COLLISION", err)
 
+    def test_an_existing_manifest_must_name_the_canonical_document(self) -> None:
+        """MF46A01-03 (producer): a manifest already at the database identity whose document is only numerically equal
+        -- its table counts written as integral floats -- is an immutable collision, never ALREADY_PRESENT."""
+        work = Path(self._tmp.name) / "float-manifest"
+        for kind in ("canonical", "manifests"):
+            shutil.copytree(self.base / kind / POPULATION, work / kind / POPULATION)
+        manifest = work / "manifests" / POPULATION / "sha256" / self.sidecar.parent.name / "run_manifest.json"
+        doc = json.loads(manifest.read_text(encoding="utf-8"))
+        doc["identity_document"]["table_counts"] = {k: float(v) for k, v in
+                                                    doc["identity_document"]["table_counts"].items()}
+        manifest.write_text(json.dumps(doc), encoding="utf-8")
+        code, _built, err = build_sidecar(self.builder, self.contract, self.parent_db, work)
+        self.assertEqual(code, 2, err)
+        self.assertIn("REFUSED_IMMUTABLE_COLLISION", err)
+
     def test_a_contract_with_other_rules_or_a_forked_checkpoint_is_refused(self) -> None:
         work = Path(self._tmp.name)
         bad = json.loads(self.contract.read_text(encoding="utf-8"))
@@ -962,6 +983,80 @@ class ForgeryTests(Fixture):
                          {"pit_eligibility": "PIT_ELIGIBLE"}, {"outputs": [genuine]}):
             with self.subTest(document=document):
                 self.refused("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH", self.forge([], document))
+
+    def genuine_counts(self) -> dict:
+        manifest = json.loads((self.base / "manifests" / POPULATION / "sha256" / self.sidecar.parent.name /
+                               "run_manifest.json").read_text(encoding="utf-8"))
+        return manifest["identity_document"]["table_counts"]
+
+    def test_integral_float_counts_are_not_the_contract_document(self) -> None:
+        """MF46A01-03: a table count declared as its equal integral float (13.0 for 13) is another canonical document
+        and identity although Python compares it equal; with every outer hash recomputed it refuses for the
+        identity-document rule -- all counts at once and each count alone -- and is never served."""
+        counts = self.genuine_counts()
+        variants = [{k: float(v) for k, v in counts.items()}] + [{**counts, k: float(v)} for k, v in counts.items()]
+        for changed in variants:
+            with self.subTest(table_counts=changed):
+                self.assertEqual(changed, counts)
+                self.assertNotEqual(json.dumps(changed, sort_keys=True), json.dumps(counts, sort_keys=True))
+                self.refused("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH", self.forge([], {"table_counts": changed}))
+
+    def test_a_pinned_noncanonical_identity_is_never_served(self) -> None:
+        """MF46A01-03: pinning the forged float-count identity does not make it served; the genuine identity pinned at
+        the forged location stays stale; and the genuine pin serves exactly the SHA-256 of the contract-defined
+        document built here without the reader (contract constants, the contract file, the content manifest, the
+        database bytes and its SQL counts)."""
+        forged = self.forge([], {"table_counts": {k: float(v) for k, v in self.genuine_counts().items()}})
+        argv = ("--reconciliation", str(forged), "--grain", "parent-reconciliation", "--limit", "1")
+        code, result, err = self.run_main(*argv, "--expect-reconciliation-identity", forged.parent.name)
+        self.assertEqual(code, 2, result)
+        self.assertEqual(json.loads(err.strip().splitlines()[-1])["refused"], "RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH")
+        genuine = self.sidecar.parent.name
+        code, _result, err = self.run_main(*argv, "--expect-reconciliation-identity", genuine)
+        self.assertEqual((code, json.loads(err.strip().splitlines()[-1])["refused"]), (2, "STALE_RECONCILIATION_IDENTITY"))
+        content_id = self.built["content_identity"]
+        content = json.loads((self.base / "manifests" / POPULATION / "sha256" / content_id /
+                              "run_manifest.json").read_text(encoding="utf-8"))["identity_document"]
+        canonical = lambda value: json.dumps(value, sort_keys=True, separators=(",", ":"),  # noqa: E731
+                                             ensure_ascii=False).encode("utf-8")
+        self.assertEqual(hashlib.sha256(canonical(content)).hexdigest(), content_id)
+        conn = sqlite3.connect(self.sidecar.as_uri() + "?mode=ro", uri=True)
+        counts = {t: conn.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
+                  for t in ("meta", "parent_reconciliation", "provider_reconciliation")}
+        conn.close()
+        expected = {"schema": "BAS-NATIONAL-POPULATION-RECONCILIATION-DATABASE-1", "stage": "reconciliation-database",
+                    "population": POPULATION, "contract_sha256": sha(self.contract), "content_identity": content_id,
+                    "db_schema_version": "BAS-NATIONAL-POPULATION-RECONCILIATION-DB-1",
+                    "outputs": {DB_NAME: sha(self.sidecar)}, "table_counts": counts}
+        expected_identity = hashlib.sha256(canonical(expected)).hexdigest()
+        self.assertEqual(expected_identity, genuine)
+        code, result, err = self.run_main("--reconciliation", str(self.sidecar), "--grain", "parent-reconciliation",
+                                          "--limit", "1", "--expect-reconciliation-identity", expected_identity)
+        self.assertEqual((code, result["reconciliation_identity"]), (0, expected_identity), err)
+
+    def test_count_types_provenance_and_rehousing_keep_their_outcomes(self) -> None:
+        """Adjacent controls (they pass before and after MF46A01-03): a fractional, string or boolean count still refuses
+        as a count mismatch; provenance outside the identity document and a rehoused byte-identical copy serve the
+        genuine identity."""
+        counts = self.genuine_counts()
+        for value in (counts["meta"] + 0.5, str(counts["meta"]), True):
+            with self.subTest(meta=value):
+                self.refused("RECONCILIATION_COUNT_MISMATCH", self.forge([], {"table_counts": {**counts, "meta": value}}))
+        identity = self.sidecar.parent.name
+        manifest = json.loads((self.base / "manifests" / POPULATION / "sha256" / identity /
+                               "run_manifest.json").read_text(encoding="utf-8"))
+        for name, provenance in (("rehoused", manifest.get("provenance")),
+                                 ("provenance", {"rehousing": "nonidentity metadata outside the identity document"})):
+            with self.subTest(copy=name):
+                target = self.work / name / "canonical" / POPULATION / "sha256" / identity / DB_NAME
+                target.parent.mkdir(parents=True)
+                shutil.copyfile(self.sidecar, target)
+                man = self.work / name / "manifests" / POPULATION / "sha256" / identity / "run_manifest.json"
+                man.parent.mkdir(parents=True)
+                man.write_text(json.dumps({**manifest, "provenance": provenance}), encoding="utf-8")
+                code, result, err = self.run_main("--reconciliation", str(target), "--grain", "parent-reconciliation",
+                                                  "--limit", "1", "--expect-reconciliation-identity", identity)
+                self.assertEqual((code, result["reconciliation_identity"]), (0, identity), err)
 
     def test_omitted_or_wrong_identity_document_members_keep_their_codes(self) -> None:
         """Adjacent controls (they pass before and after MF46A01-01): each omitted or wrong member keeps its own code,

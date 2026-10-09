@@ -1167,7 +1167,9 @@ class ReconciliationSidecar:
     documents come from trusted authority, never from the sidecar's own claims: the content document is re-derived
     with the reader's pinned contract id and SHA-256, and the manifest's identity document must be exactly the
     contract-defined database document of the re-derived content identity, the database bytes and its table counts
-    (a self-consistent, rehashed envelope is not authority)."""
+    (a self-consistent, rehashed envelope is not authority). The documents are compared as canonical bytes, so a count
+    declared as its equal integral float is another document, and the served identity is the digest of the rebuilt
+    document (MF46A01-03)."""
 
     def __init__(self, database: Path, *, parent: NationalPopulationDatabase, parent_database: Path,
                  manifest: Path | None = None, expect_identity: str | None = None,
@@ -1308,17 +1310,27 @@ class ReconciliationSidecar:
         if meta != expected_meta:
             raise NationalQueryError("RECONCILIATION_META_MISMATCH",
                                      f"meta differs on {sorted(k for k in set(meta) | set(expected_meta) if meta.get(k) != expected_meta.get(k))}")
-        # MF46A01-01: the whole manifest identity document must be the contract-defined one (checked last, so every
-        # earlier refusal keeps its own code)
+        # MF46A01-01/-03: the whole manifest identity document must be the contract-defined one, compared as canonical
+        # bytes -- Python equality takes an integral float count for its integer although the canonical bytes, and so
+        # the identity, differ -- and the served identity is the digest of that rebuilt document. Checked last, so
+        # every earlier refusal keeps its own code.
         document = self.binding["identity_document"]
         expected_document = reconciliation_database_document(a["contract_sha256"], content_identity,
                                                              self.binding["sha256"], counts)
-        if document != expected_document:
+        expected_bytes = canonical_json_bytes(expected_document)
+        if canonical_json_bytes(document) != expected_bytes:
             differing = sorted(k for k in set(document) | set(expected_document)
-                               if document.get(k) != expected_document.get(k))
+                               if k not in document or k not in expected_document
+                               or canonical_json_bytes(document[k]) != canonical_json_bytes(expected_document[k]))
             raise NationalQueryError("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH",
                                      f"the manifest identity document is not the contract-defined database document "
                                      f"(differs on {differing})")
+        database_identity = hashlib.sha256(expected_bytes).hexdigest()
+        if database_identity != self.binding["identity"]:
+            raise NationalQueryError("RECONCILIATION_IDENTITY_DOCUMENT_MISMATCH",
+                                     f"the sidecar location names {self.binding['identity']}, the contract-defined "
+                                     f"database document is {database_identity}")
+        self.database_identity = database_identity
         self.meta = meta
         self.content_identity = content_identity
         self.summary = derived["summary"]
@@ -1394,7 +1406,7 @@ class ReconciliationSidecar:
                 raise NationalQueryError("DISPOSITION_UNKNOWN", f"disposition must be one of {list(vocabulary)}")
             filters["disposition"] = disposition
         side = "parent" if grain == "parent-reconciliation" else "provider"
-        result: dict[str, Any] = {"reconciliation_identity": self.binding["identity"],
+        result: dict[str, Any] = {"reconciliation_identity": self.database_identity,
                                   "content_identity": self.content_identity,
                                   "contract_sha256": self.anchors["contract_sha256"],
                                   "parent_database_identity": self.parent_identity, "grain": grain,

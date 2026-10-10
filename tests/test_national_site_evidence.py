@@ -882,6 +882,8 @@ class ContractPinTests(unittest.TestCase):
         self.assertEqual(anchors["predecessor"]["contract_sha256"], query.ALIAS_ANCHORS["contract_sha256"])
         self.assertEqual(contract["parameters"], query.SITE_PARAMETERS)
         self.assertEqual(contract["labels"], query.SITE_LABELS)
+        self.assertEqual(contract["content_scope"], query.site_scope(anchors))
+        self.assertEqual(contract["population_id"], query.SITE_EVIDENCE_POPULATION)
 
 
 if __name__ == "__main__":

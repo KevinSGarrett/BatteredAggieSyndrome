@@ -1,7 +1,9 @@
 # National official-site evidence sidecar, 2024-2025 (BAT-721)
 
 Cycle #49 — Attempt #1. Governing plan TP49-A01 revision 2026-10-09.1 sections 1-6. Contract:
-`configs/national_site_evidence_2024_2025_contract.json` (committed before the first canonical write).
+`configs/national_site_evidence_2024_2025_contract.json` (`BAT-721-NATIONAL-SITE-EVIDENCE-2024-2025-V1`, committed
+before the first canonical write and pinned in the reader as `SITE_EVIDENCE_ANCHORS`: contract SHA-256, predecessor,
+the 33 universe keys and the evidence bundle identity with its sources SHA-256).
 
 The accepted BAT-720 alias successor (`national_reconciliation_aliases_2024_2025`, contract
 `BAT-720-NATIONAL-RECONCILIATION-ALIASES-2024-2025-V1`) keeps every one-to-one relation whose parent and provider records

@@ -2399,9 +2399,25 @@ SITE_PARAMETERS = {
     "discrepancies": SITE_DISCREPANCIES,
     "pit_class": SITE_PIT_CLASS,
 }
-#: The production trust anchors (set when the committed site-evidence contract pins its evidence); until then the reader
-#: serves nothing.
-SITE_EVIDENCE_ANCHORS: dict[str, Any] | None = None
+#: The production trust anchors: the committed site-evidence contract (configs/national_site_evidence_2024_2025_contract.json),
+#: the accepted BAT-720 alias successor it binds, its universe in predecessor order and the pinned evidence bundle.
+SITE_EVIDENCE_ANCHORS: dict[str, Any] | None = {
+    "contract_sha256": "90dedc5efecdb80d2385391977150ae794d81d8b1af61ba1cc12beafe9cf439b",
+    "contract_id": "BAT-721-NATIONAL-SITE-EVIDENCE-2024-2025-V1",
+    "predecessor": {"population_id": ALIAS_SUCCESSOR_POPULATION,
+                    "contract_sha256": ALIAS_ANCHORS["contract_sha256"],
+                    "contract_id": ALIAS_ANCHORS["contract_id"],
+                    "content_identity": "fd48fe84cad63d85fbef01b85dccba50621566698c50a833116c188f67f69db3",
+                    "database_identity": "c1e83fda4dc696f1f2d98dee9bfae93763b88e382a6b250a4e2c0d155683f313"},
+    "universe": {"keys": [
+        "ncaa:5361415", "ncaa:5362321", "ncaa:5361921", "ncaa:5361922", "ncaa:5361781", "ncaa:5362317", "ncaa:5361923",
+        "ncaa:5362594", "ncaa:5362326", "ncaa:5362373", "ncaa:5336669", "ncaa:5361972", "ncaa:5362331", "ncaa:5362575",
+        "ncaa:5362580", "ncaa:5361490", "ncaa:5336811", "ncaa:5362334", "ncaa:5361927", "ncaa:5362596", "ncaa:6081067",
+        "ncaa:6409635", "ncaa:6418717", "ncaa:6401495", "ncaa:6392340", "ncaa:6404037", "ncaa:6410317", "ncaa:6415383",
+        "ncaa:6389235", "ncaa:6409740", "ncaa:6410322", "ncaa:6416223", "ncaa:6491210"]},
+    "evidence": {"bundle_identity": "1c2cfa2c6b93dbaadc573a4dc619fbe27d90c1a879a091890d77db903e86a420",
+                 "sources_sha256": "593a2b3dc8c2f2a407ef708a3525fcb65a4a12660e8c87abae18f6d16aaf3d01"},
+}
 
 _SITE_DOCUMENT_KEYS = {"sha256", "file", "bytes", "media_type", "role", "org_id", "season", "request_url", "final_url",
                        "hops", "http_status", "retrieved_at", "acquisition"}

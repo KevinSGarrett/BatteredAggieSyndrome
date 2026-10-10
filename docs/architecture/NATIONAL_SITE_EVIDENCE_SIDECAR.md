@@ -44,7 +44,7 @@ id order), including failures, redirects, denials and stopped hosts.
   produced by at least one attempt; an outcome must agree with its last hop.
 * Exactly one NCAA member directory, retrieved from an NCAA host, names each schedule owner's official athletics site
   (one object per organization). Every hop of a schedule document, and every schedule attempt's request, is inside that
-  site's host family; the request path names football and a label of its season.
+  site's host family; the request path names the football sport segment and a label of its season.
 * Every schedule document and attempt belongs to a participant season of a universe contest.
 
 Retrieval time is not publication time: a document is evidence of what it showed when retrieved.
@@ -63,6 +63,15 @@ season's records (`SITE_RECORD_SCHEMAS`, fixed order):
   its single class token `sidearm-schedule-home-game`, `-away-game` or `-neutral-game`; the date is the first span of the
   opponent-date element (`Mon D (Ddd)`), its year the one of the season and the next year whose weekday matches (none or
   both: undetermined); the opponent name and link, and the location spans (city, then facility when it differs).
+* `WMT_EVENT_SCHEDULE`: a server-rendered page whose `<title>` begins with `<season label> Football Schedule`; every
+  `<div>` whose class tokens include `schedule-event-item`; the designation is the single venue token
+  (`schedule-event-date--venue-home`, `--venue-away` or `--venue-neutral`) of its first `schedule-event-date` element;
+  the date is the `datetime` attribute of its first `schedule-event-date__day` `<time>` (date part = local date); the
+  opponent name, the divider and the location text `City / Facility` (split at the first ` / `; no facility without
+  one). This schema was added after the two-request structure probe (amendment 01, structure only; see the contract).
+
+A season document's request path names the football sport segment (`football`, or the WMT slug `m-footbl`) and ends
+with a label of its season.
 
 Widgets (for example `nextEvents` or an ld+json event list), other sports' records, other seasons' records and page
 headers are never read. A document no schema admits is reported as `NO_DECLARED_RECORD_SCHEMA` with every schema's
@@ -70,8 +79,9 @@ reason; it is an examined, retained document, not an unavailable source.
 
 A record is the contest's event record when its local event date (the date part of its `date` member) equals the
 contest's final event date and its opponent is the other participant: the opponent's published site lies in the other
-participant's NCAA athletics host family (`OFFICIAL_SITE`), or its published name equals one of that participant's
-documented names (parent name, provider name, NCAA official name) under the accepted BAT-554 normalization
+participant's NCAA athletics host family (`OFFICIAL_SITE`), or its published name (a leading poll rank `#N` or `#N/M`
+is not part of the name) equals one of that participant's documented names (parent name, provider name, NCAA official
+name) under the accepted BAT-554 normalization
 (`DOCUMENTED_NAME`). Exactly one such record per document binds; two are `AMBIGUOUS_RECORDS_ON_DATE`; a record on the date
 with another opponent is `RECORD_ON_DATE_OPPONENT_NOT_BOUND`; the opponent on another date only is
 `OPPONENT_RECORD_ON_OTHER_DATE` (a stale or corrected date is reported, never borrowed); otherwise

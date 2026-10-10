@@ -342,6 +342,35 @@ class RuleTests(Fixture):
         self.assertEqual((delta["schema"], delta["event_local_date"], delta["statements"]["designation"]),
                          ("SIDEARM_CLASSIC_SCHEDULE", "2024-10-05", "HOME"))
 
+    def test_wmt_pages_use_the_date_elements_venue_designation_and_split_city_from_facility(self) -> None:
+        games = [{"venue": "home", "datetime": "2025-10-04T19:00:00.000-05:00", "opponent": "#4/5 Harbor Tech",
+                  "location": "Lakeside, ST / Lakefront Temporary Field"},
+                 {"venue": "away", "datetime": "2026-01-19T19:30:00.000-05:00", "opponent": "Canyon A&amp;M",
+                  "location": "Metro City, ST"},
+                 {"venue": "bogus", "datetime": "2025-11-01", "opponent": "Prairie St.", "location": "Lakeside"}]
+        page = fx.wmt_page("811", 2025, games)
+        result = query.extract_site_records(page, 2025)
+        self.assertEqual(result["schema"], "WMT_EVENT_SCHEDULE")
+        first, second, third = (e["values"] for e in result["events"])
+        self.assertEqual(query.site_event_date(first, result["schema"], 2025), "2025-10-04")
+        self.assertEqual(query.site_event_date(second, result["schema"], 2025), "2026-01-19")
+        self.assertEqual((first["location"], first["facility"], first["location_designation"], first["at_vs"]),
+                         ("Lakeside, ST", "Lakefront Temporary Field", "schedule-event-date--venue-home", "vs."))
+        self.assertEqual((second["location"], second["facility"], second["opponent_name"]),
+                         ("Metro City, ST", None, "Canyon A&M"))
+        self.assertIsNone(third["location_designation"])
+        s = query._statements(first, "WMT_EVENT_SCHEDULE", "a", "b")
+        self.assertEqual((s["designation"], s["neutral_designation"], s["designated_home"], s["physical_venue"]),
+                         ("HOME", False, "a", "Lakefront Temporary Field"))
+        opponent = {"team_name": "Harbor Tech", "provider_name": "Harbor Tech"}
+        self.assertEqual(query._opponent_binding(first, opponent, None), "DOCUMENTED_NAME")
+        self.assertIsNone(query._opponent_binding({"opponent_name": "4 Harbor Tech"}, opponent, None))
+        self.assertFalse(query.extract_site_records(fx.wmt_page("811", 2025, games, title="Schedule"), 2025)["matched"])
+        r = self.records()["ncaa:9104"]
+        summit = next(e for e in r["event_records"] if e["side"] == "a")
+        self.assertEqual((summit["schema"], summit["opponent_binding"], summit["statements"]["physical_venue"]),
+                         ("WMT_EVENT_SCHEDULE", "DOCUMENTED_NAME", "Summit Stadium"))
+
     def test_two_bound_records_on_the_final_date_are_ambiguous(self) -> None:
         sources = dict(query.verify_site_sources(query.load_site_bundle(self.bundle_root, self.anchors)))
         lake = next(d for d in sources["documents"].values() if d["org_id"] == "811" and d["season"] == 2024)

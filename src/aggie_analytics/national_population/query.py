@@ -2326,14 +2326,33 @@ SITE_RECORD_SCHEMAS: dict[str, dict[str, Any]] = {
         "designations": {"sidearm-schedule-home-game": "HOME", "sidearm-schedule-away-game": "AWAY",
                          "sidearm-schedule-neutral-game": "NEUTRAL"},
     },
+    "WMT_EVENT_SCHEDULE": {
+        "element": "every <div> element whose class tokens include schedule-event-item, in a document whose <title> "
+                   "begins with '<season label> Football Schedule'",
+        "members": {"location_designation": "the class token among the designations of the first element with class "
+                                            "token schedule-event-date inside it",
+                    "event_date": "the datetime attribute of the first <time> element with class token "
+                                  "schedule-event-date__day inside it (its date part is the local event date)",
+                    "opponent_name": "the text of the element with class token schedule-event-item__opponent-name",
+                    "at_vs": "the text of the element with class token schedule-event-item__divider",
+                    "location": "the text of the element with class token schedule-event-location, before ' / ' when "
+                                "it holds one",
+                    "facility": "that text after its first ' / ' (absent without one)"},
+        "text": "character references decoded, every whitespace run one space, stripped",
+        "designations": {"schedule-event-date--venue-home": "HOME", "schedule-event-date--venue-away": "AWAY",
+                         "schedule-event-date--venue-neutral": "NEUTRAL"},
+    },
 }
+#: The sport segment a season document's request path names (Sidearm slug, WMT slug).
+SITE_SPORT_SEGMENTS = ("football", "m-footbl")
 SITE_FIELD_RULES = {
     "event_binding": "a record of the schedule owner's own official season document is the contest's event record when "
                      "its local event date (the date part of its date member) equals the contest's final event date and "
                      "its opponent is the other participant: the opponent's published site is in the host family of the "
-                     "other participant's NCAA directory athletics site, or its published name equals one of that "
-                     "participant's documented names (parent name, provider name, NCAA official name) under the "
-                     "accepted BAT-554 normalization; exactly one such record per document",
+                     "other participant's NCAA directory athletics site, or its published name (without a leading poll "
+                     "rank '#N' or '#N/M') equals one of that participant's documented names (parent name, provider "
+                     "name, NCAA official name) under the accepted BAT-554 normalization; exactly one such record per "
+                     "document",
     "neutral_designation": "HOME or AWAY states a non-neutral designation (false), NEUTRAL states a neutral-site "
                            "designation (true); nothing else (venue, city, facility owner, tournament or bowl title, "
                            "'vs'/'at', provider role) states it",
@@ -2368,6 +2387,7 @@ SITE_PARAMETERS = {
     "document_roles": list(SITE_DOCUMENT_ROLES),
     "attempt_outcomes": list(SITE_ATTEMPT_OUTCOMES),
     "record_schemas": SITE_RECORD_SCHEMAS,
+    "sport_segments": list(SITE_SPORT_SEGMENTS),
     "designations": list(SITE_DESIGNATIONS),
     "opponent_bindings": list(SITE_BINDINGS),
     "examined_outcomes": list(SITE_EXAMINED_OUTCOMES),
@@ -2388,8 +2408,11 @@ _SITE_DOCUMENT_KEYS = {"sha256", "file", "bytes", "media_type", "role", "org_id"
 _SITE_ATTEMPT_KEYS = {"request_id", "role", "org_id", "season", "request_url", "outcome", "acquisition", "hops"}
 _SITE_HOP_KEYS = {"url", "status", "location", "retrieved_at", "body_sha256", "body_bytes", "error"}
 _SITE_REQUEST_ID_RE = re.compile(r"^C[0-9]{2}-[A-Z0-9][A-Z0-9-]{0,40}$")
-_SITE_EVENT_DATE_RE = re.compile(r"^([0-9]{4}-[0-9]{2}-[0-9]{2})(?:[T ][0-9]{2}:[0-9]{2}(?::[0-9]{2}(?:\.[0-9]{1,6})?)?)?$")
+_SITE_EVENT_DATE_RE = re.compile(r"^([0-9]{4}-[0-9]{2}-[0-9]{2})(?:[T ][0-9]{2}:[0-9]{2}(?::[0-9]{2}(?:\.[0-9]{1,6})?)?"
+                                 r"(?:[+-][0-9]{2}:[0-9]{2})?)?$")
 _NUXT_ELEMENT_RE = re.compile(rb'<script\b[^>]*\bid="__NUXT_DATA__"[^>]*>')
+#: A leading poll rank in a published opponent name ('#23 Indiana', '#16/17 Abilene Christian') is not part of the name.
+_SITE_RANK_PREFIX_RE = re.compile(r"^#[0-9]{1,2}(?:/[0-9]{1,2})?\s+")
 _DEVALUE_WRAPPERS = ("Reactive", "ShallowReactive", "Ref", "ShallowRef")
 
 
@@ -2647,7 +2670,8 @@ def verify_site_sources(bundle: dict[str, Any]) -> dict[str, Any]:
             _site_refuse("SITE_EVIDENCE_DOMAIN_UNPROVEN", f"attempt {item['request_id']} is not on organization {org}'s "
                                                           f"official site {record['official_domain']}")
         segments = [s for s in urllib.parse.urlsplit(item["request_url"]).path.split("/") if s]
-        if not segments or segments[-1] not in _season_labels(season) or "football" not in segments:
+        if not segments or segments[-1] not in _season_labels(season) or \
+                not set(SITE_SPORT_SEGMENTS) & set(segments):
             _site_refuse("SITE_EVIDENCE_SEASON_UNPROVEN", f"schedule source {item.get('sha256') or item.get('request_id')} "
                                                           f"does not request a football {season} season")
     return {"documents": documents, "document_order": [d["sha256"] for d in doc["documents"]], "attempts": attempts,
@@ -2867,7 +2891,107 @@ def _extract_sidearm_classic(body: bytes, season: int) -> dict[str, Any]:
     return {"matched": True, "schema": "SIDEARM_CLASSIC_SCHEDULE", "season_title": title, "events": events}
 
 
-SITE_EXTRACTORS = {"SIDEARM_NUXT_SCHEDULE": _extract_sidearm_nuxt, "SIDEARM_CLASSIC_SCHEDULE": _extract_sidearm_classic}
+class _WmtSchedule(html.parser.HTMLParser):
+    """The event elements of a WMT schedule page: the same tolerant element stack as the classic page, with each member
+    collected only inside the open event element (its own date, opponent, divider and location elements)."""
+
+    def __init__(self, text: str) -> None:
+        super().__init__(convert_charrefs=True)
+        self.text = text
+        self.line_starts = [0]
+        for index, char in enumerate(text):
+            if char == "\n":
+                self.line_starts.append(index + 1)
+        self.stack: list[dict[str, Any]] = []
+        self.title_parts: list[str] | None = None
+        self.title: str | None = None
+        self.item: dict[str, Any] | None = None
+        self.events: list[dict[str, Any]] = []
+
+    def _offset(self) -> int:
+        line, column = self.getpos()
+        return self.line_starts[line - 1] + column
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = {k: v for k, v in attrs}
+        classes = (values.get("class") or "").split()
+        if tag == "title" and self.title is None and self.title_parts is None:
+            self.title_parts = []
+        element = {"tag": tag, "classes": classes, "collectors": []}
+        if tag == "div" and "schedule-event-item" in classes and self.item is None:
+            self.item = {"depth": len(self.stack), "start": self._offset(), "classes": classes, "date": None,
+                         "date_classes": None, "opponent": None, "location": None, "at_vs": None}
+        elif self.item is not None:
+            if "schedule-event-date" in classes and self.item["date_classes"] is None:
+                self.item["date_classes"] = classes
+            if tag == "time" and "schedule-event-date__day" in classes and self.item["date"] is None:
+                self.item["date"] = values.get("datetime")
+            if "schedule-event-item__opponent-name" in classes and self.item["opponent"] is None:
+                element["collectors"].append(("opponent", []))
+            if "schedule-event-location" in classes and self.item["location"] is None:
+                element["collectors"].append(("location", []))
+            if "schedule-event-item__divider" in classes and self.item["at_vs"] is None:
+                element["collectors"].append(("at_vs", []))
+        if tag not in _HTML_VOID:
+            self.stack.append(element)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "title" and self.title_parts is not None and self.title is None:
+            self.title = _text(self.title_parts) or ""
+        position = next((i for i in range(len(self.stack) - 1, -1, -1) if self.stack[i]["tag"] == tag), None)
+        if position is None:
+            return
+        while len(self.stack) > position:
+            element = self.stack.pop()
+            for name, parts in element["collectors"]:
+                if self.item is not None and self.item[name] is None:
+                    self.item[name] = _text(parts)
+            if self.item is not None and len(self.stack) == self.item["depth"]:
+                end = self.text.find(">", self._offset())
+                self.item["end"] = len(self.text) if end < 0 else end + 1
+                self.events.append(self.item)
+                self.item = None
+
+    def handle_data(self, data: str) -> None:
+        if self.title_parts is not None and self.title is None:
+            self.title_parts.append(data)
+        for element in self.stack:
+            for _name, parts in element["collectors"]:
+                parts.append(data)
+
+
+def _extract_wmt_events(body: bytes, season: int) -> dict[str, Any]:
+    schema = SITE_RECORD_SCHEMAS["WMT_EVENT_SCHEDULE"]
+    try:
+        text = body.decode("utf-8")
+    except UnicodeDecodeError:
+        return {"matched": False, "reason": "WMT_NOT_UTF8"}
+    parser = _WmtSchedule(text)
+    parser.feed(text)
+    parser.close()
+    title = parser.title or ""
+    if not any(title.startswith(f"{label} Football Schedule") for label in _season_labels(season)):
+        return {"matched": False, "reason": f"WMT_TITLE_NOT_A_SEASON_SCHEDULE:{title[:60]}"}
+    if not parser.events:
+        return {"matched": False, "reason": "WMT_NO_EVENT_ELEMENT"}
+    events = []
+    for index, item in enumerate(parser.events):
+        tokens = [t for t in item["date_classes"] or [] if t in schema["designations"]]
+        location, facility = item["location"], None
+        if isinstance(location, str) and " / " in location:
+            location, facility = (part.strip() or None for part in location.split(" / ", 1))
+        values = {"event_date": item["date"], "location_designation": tokens[0] if len(tokens) == 1 else None,
+                  "neutral_home_team": None, "at_vs": item["at_vs"], "opponent_name": item["opponent"],
+                  "opponent_site": None, "facility": facility, "location": location, "event_title": None}
+        start = len(text[:item["start"]].encode("utf-8"))
+        end = start + len(text[item["start"]:item["end"]].encode("utf-8"))
+        events.append({"index": index, "valid": True, "values": values,
+                       "locator": {"element_bytes": [start, end], "path": ["div.schedule-event-item", index]}})
+    return {"matched": True, "schema": "WMT_EVENT_SCHEDULE", "season_title": title, "events": events}
+
+
+SITE_EXTRACTORS = {"SIDEARM_NUXT_SCHEDULE": _extract_sidearm_nuxt, "SIDEARM_CLASSIC_SCHEDULE": _extract_sidearm_classic,
+                   "WMT_EVENT_SCHEDULE": _extract_wmt_events}
 
 
 def site_event_date(values: dict[str, Any], schema: str, season: int) -> str | None:
@@ -2914,8 +3038,9 @@ def _opponent_binding(values: dict[str, Any], opponent: dict[str, Any], org: dic
         return "OFFICIAL_SITE"
     name = values.get("opponent_name")
     if isinstance(name, str) and name.strip():
+        name = _SITE_RANK_PREFIX_RE.sub("", name.strip())
         documented = {opponent["team_name"], opponent["provider_name"]} | ({org["name_official"]} if org else set())
-        if normalize_team_name(name) in {normalize_team_name(n) for n in documented if isinstance(n, str) and n}:
+        if name and normalize_team_name(name) in {normalize_team_name(n) for n in documented if isinstance(n, str) and n}:
             return "DOCUMENTED_NAME"
     return None
 

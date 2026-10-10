@@ -284,6 +284,33 @@ def classic_page(org: str, season: int, games: list[dict[str, Any]], title: str 
     return text.encode("utf-8")
 
 
+def wmt_page(org: str, season: int, games: list[dict[str, Any]], title: str | None = None) -> bytes:
+    """A synthetic WMT schedule page: one server-rendered event element per game, the venue designation on its date
+    element, an offset datetime, the divider, the opponent name and a 'City / Facility' location, plus a schema-org
+    graph (never read)."""
+    items = []
+    for g in games:
+        away = g["venue"] == "away"
+        items.append(
+            f'<div class="schedule-event-item{" schedule-event-item--away" if away else ""}" data-aos="fade-up">'
+            f'<div class="schedule-event-item__top"><div class="schedule-event-date schedule-event-date--venue-'
+            f'{g["venue"]}"><div class="schedule-event-date__items-wrapper"><strong class="schedule-event-date__time">'
+            f'<time datetime="{g["datetime"]}" class="schedule-event-date__weekday">Sat</time>'
+            f'<time datetime="{g["datetime"]}" class="schedule-event-date__day">Day</time></strong></div></div>'
+            f'<div class="schedule-event-item__content"><div class="schedule-event-item__teams">'
+            f'<strong class="schedule-event-item__divider">{"at" if away else "vs."}</strong>'
+            f'<div class="schedule-event-item__team-content"><!----><strong class="schedule-event-item__opponent-name">'
+            f'{g["opponent"]}</strong></div></div><div class="schedule-event-item__location">'
+            f'<span class="schedule-event-location"><!--[-->{g["location"]}<!--]--></span></div></div></div>'
+            f'<div class="schedule-event-item__bottom"><a href="/boxscore/1">Box Score</a></div></div>')
+    graph = json.dumps({"@graph": [{"@type": "SportsEvent", "startDate": f"{season}-10-05T17:00:00Z",
+                                    "location": {"name": "Neutral Dome"}}]})
+    text = (f"<!DOCTYPE html><html><head><title>{title or f'{season} Football Schedule - {TEAMS[org][0]}'}</title>"
+            f'<script type="application/ld+json">{graph}</script></head><body><div class="schedule">'
+            + "".join(items) + "</div></body></html>")
+    return text.encode("utf-8")
+
+
 def plain_page(season: int) -> bytes:
     """An official page in a structure no declared schema admits (it is examined and reported, never unavailable)."""
     return (f"<!DOCTYPE html><html><body><h1>{season} Football</h1><table><tr><td>Jan 19</td><td>vs Lakefront</td>"
@@ -329,10 +356,11 @@ def pages() -> list[tuple[str, int, bytes, bool]]:
         ("815", 2024, classic_page("815", 2024, [
             {"date": "Oct 5 (Sat)", "token": "sidearm-schedule-home-game", "opponent": "Summit", "site": site("816"),
              "spans": ["Delta, ST", "Delta Field"]}]), False),
-        ("816", 2024, schedule_page("816", 2024, [
-            event("2024-10-05", "Delta", "N", facility="Delta Field"),
-            event("2024-12-21", "Harbor Tech", "N", site=site("813"), facility="Summit Stadium",
-                  tournament="Lake Bowl")]), True),
+        ("816", 2024, wmt_page("816", 2024, [
+            {"venue": "neutral", "datetime": "2024-10-05T13:00:00.000-05:00", "opponent": "Delta",
+             "location": "Delta, ST / Delta Field"},
+            {"venue": "neutral", "datetime": "2024-12-21T11:00:00.000-06:00", "opponent": "#18 Harbor Tech",
+             "location": "Summit City, ST / Summit Stadium"}]), True),
         ("811", 2025, schedule_page("811", 2025, [
             event("2025-10-04", "Harbor Tech", None, site=site("813"), facility="Lakefront Temporary Field",
                   tournament="Lakefront Classic"),

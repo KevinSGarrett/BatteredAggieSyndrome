@@ -1,0 +1,383 @@
+{
+ "schema_version": "1.0.0",
+ "contract_id": "BAT-721-NATIONAL-SITE-EVIDENCE-2024-2025-V1",
+ "jira_key": "BAT-721",
+ "cycle_number": 49,
+ "attempt_number": 1,
+ "governing_plan": "TP49-A01 revision 2026-10-09.1 sections 1-6 (Cycle #49 Attempt #1)",
+ "population_id": "national_site_evidence_2024_2025",
+ "seasons": [
+  2024,
+  2025
+ ],
+ "purpose": "Explicit, immutable, never-default official-site evidence sidecar of the accepted BAT-720 alias successor: for every one of its 33 retained 2024/2025 contests whose parent and provider records disagree on neutral status or home orientation, the designated home team, the official neutral-site designation and the physical venue are derived separately, from the raw bytes of one pinned bundle of retained public NCAA and official institutional season documents, with authoritative, conflicting or unsupported field states and a disposition on the disputed field; both original claims are kept side by side and no predecessor record, default view or acceptance changes.",
+ "predecessor": {
+  "population_id": "national_reconciliation_aliases_2024_2025",
+  "contract_sha256": "a4ec96e54d909711c0bb89b37f8d7901b33b24ddb033d29da6cadc76802e7cc7",
+  "contract_id": "BAT-720-NATIONAL-RECONCILIATION-ALIASES-2024-2025-V1",
+  "content_identity": "fd48fe84cad63d85fbef01b85dccba50621566698c50a833116c188f67f69db3",
+  "database_identity": "c1e83fda4dc696f1f2d98dee9bfae93763b88e382a6b250a4e2c0d155683f313"
+ },
+ "universe": {
+  "keys": [
+   "ncaa:5361415",
+   "ncaa:5362321",
+   "ncaa:5361921",
+   "ncaa:5361922",
+   "ncaa:5361781",
+   "ncaa:5362317",
+   "ncaa:5361923",
+   "ncaa:5362594",
+   "ncaa:5362326",
+   "ncaa:5362373",
+   "ncaa:5336669",
+   "ncaa:5361972",
+   "ncaa:5362331",
+   "ncaa:5362575",
+   "ncaa:5362580",
+   "ncaa:5361490",
+   "ncaa:5336811",
+   "ncaa:5362334",
+   "ncaa:5361927",
+   "ncaa:5362596",
+   "ncaa:6081067",
+   "ncaa:6409635",
+   "ncaa:6418717",
+   "ncaa:6401495",
+   "ncaa:6392340",
+   "ncaa:6404037",
+   "ncaa:6410317",
+   "ncaa:6415383",
+   "ncaa:6389235",
+   "ncaa:6409740",
+   "ncaa:6410322",
+   "ncaa:6416223",
+   "ncaa:6491210"
+  ]
+ },
+ "evidence": {
+  "bundle_identity": "1c2cfa2c6b93dbaadc573a4dc619fbe27d90c1a879a091890d77db903e86a420",
+  "sources_sha256": "593a2b3dc8c2f2a407ef708a3525fcb65a4a12660e8c87abae18f6d16aaf3d01"
+ },
+ "evidence_policy": {
+  "rules_frozen_before_first_request": true,
+  "rules_freeze": {
+   "reader_commit": "ae4db1c27d5b7b3c98bf06ae2bc204ef0494dd5f",
+   "frozen_at": "2026-10-10T02:27:54.180243+00:00",
+   "parameters_sha256": "865e369e27a60f88368f4cc20e075088cfb5b1bee356c43aafa292603463e0e9"
+  },
+  "amendments": [
+   {
+    "amendment": 1,
+    "reader_commit": "e2807ccaad88146e0814c833096e71a6e73c2d42",
+    "amended_at": "2026-10-10T02:37:07.594307+00:00",
+    "previous_parameters_sha256": "865e369e27a60f88368f4cc20e075088cfb5b1bee356c43aafa292603463e0e9",
+    "parameters_sha256": "096788819c218c93d9c3f5d2a0dd51bb7063584769337ab09a64bddd0ffecf04",
+    "reason": "structure only, after the six-request structure probe and before any full capture: the WMT_EVENT_SCHEDULE record schema (third in the fixed order), the m-footbl sport segment, an optional UTC offset on event dates and removal of a leading poll rank before DOCUMENTED_NAME normalization; no outcome, disposition or count was examined; no earlier schema, field or disposition rule changed"
+   }
+  ],
+  "no_change_after_full_capture": "After the first full capture (acquisition plan 03) no rule changed; two later retained WMT pages whose titles no declared schema admits stay NO_DECLARED_RECORD_SCHEMA.",
+  "source_grant": "TP49 section 2: at most 100 public HTTP attempts (redirects and failures counted) to NCAA publication hosts or to the official athletics site the retained NCAA organization record names for a participant of one of the 33 contests, for that participant's official season schedule; no keys, accounts, paid providers, web archives or broad crawl; a host answering 401/403/429/451 is stopped without retry, polling or bypass; every request, hop, status, header, retrieval instant and raw body is retained privately outside Git.",
+  "acquisition": {
+   "plans": [
+    "PLAN_01 RETAINED_DIRECTORY (the Cycle 48 NCAA directory, 0 requests)",
+    "PLAN_02 STRUCTURE_PROBE (3 schedules, 6 requests)",
+    "PLAN_03 SCHEDULE_CAPTURE_2024 (24 schedules, 24 requests)",
+    "PLAN_04 SCHEDULE_CAPTURE_2025 (18 schedules, 18 requests)",
+    "PLAN_05 CORRECTED_PATH (2 schedules, 4 requests)",
+    "PLAN_06 CORRECTED_PATH (1 schedule, 1 request)"
+   ],
+   "requests": 53,
+   "documents": 43,
+   "attempts": 49,
+   "not_attempted": "University of Arkansas 2025: its official site publishes football under /sport/m-footbl/schedule/ with no season path segment (its own navigation in the retained probe 404 page), which the declared season-path rule cannot address; the other participant's season document was examined."
+  }
+ },
+ "labels": {
+  "observation_authority": "OFFICIAL_PUBLIC_SCHEDULE_EVIDENCE_RETRIEVED_NOT_PIT",
+  "pit_eligibility": "PIT_ELIGIBILITY_NOT_ESTABLISHED",
+  "exposure": "EXPOSED_NOT_PROTECTED",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "predictive_skill": "NOT_ESTABLISHED",
+  "selection": "EXPLICIT_SIDECAR_SELECTION_ONLY_NEVER_A_DEFAULT",
+  "original_claims": "PRESERVED_SIDE_BY_SIDE_NEVER_OVERWRITTEN",
+  "population_effect": "NONE_EVIDENCE_SIDECAR_ONLY"
+ },
+ "parameters": {
+  "seasons": [
+   2024,
+   2025
+  ],
+  "season_labels": [
+   "<season>",
+   "<season>-<yy>",
+   "<season>-<season+1>"
+  ],
+  "season_note": "a season includes its postseason events dated in January of the next calendar year",
+  "name_normalization": "BAT-554: html.unescape, NFKD then ASCII, lowercase, '&' -> ' and ', every run of non-alphanumerics -> one space, then the token expansions",
+  "token_expansions": {
+   "ala": "alabama",
+   "ariz": "arizona",
+   "ark": "arkansas",
+   "caro": "carolina",
+   "coll": "college",
+   "colo": "colorado",
+   "conn": "connecticut",
+   "fla": "florida",
+   "ga": "georgia",
+   "ill": "illinois",
+   "ind": "indiana",
+   "ky": "kentucky",
+   "la": "louisiana",
+   "mass": "massachusetts",
+   "mich": "michigan",
+   "minn": "minnesota",
+   "miss": "mississippi",
+   "mo": "missouri",
+   "neb": "nebraska",
+   "okla": "oklahoma",
+   "ore": "oregon",
+   "so": "southern",
+   "st": "state",
+   "tenn": "tennessee",
+   "tex": "texas",
+   "va": "virginia",
+   "wash": "washington",
+   "wis": "wisconsin"
+  },
+  "ncaa_hosts": [
+   "ncaa.org",
+   "stats.ncaa.org",
+   "web3.ncaa.org",
+   "www.ncaa.org"
+  ],
+  "redirect_statuses": [
+   301,
+   302,
+   303,
+   307,
+   308
+  ],
+  "stop_statuses": [
+   401,
+   403,
+   429,
+   451
+  ],
+  "document_roles": [
+   "NCAA_MEMBER_DIRECTORY",
+   "OFFICIAL_SEASON_SCHEDULE"
+  ],
+  "attempt_outcomes": [
+   "RETAINED_200",
+   "FAILED_HTTP_",
+   "FAILED_NO_RESPONSE",
+   "HOST_STOPPED_HTTP_",
+   "NOT_REQUESTED_HOST_STOPPED:",
+   "NOT_REQUESTED_OUTSIDE_ALLOWED_HOSTS:",
+   "STOPPED_TOO_MANY_REDIRECTS",
+   "NOT_REQUESTED_PLAN_LIMIT",
+   "NOT_REQUESTED_LEDGER_CEILING"
+  ],
+  "record_schemas": {
+   "SIDEARM_NUXT_SCHEDULE": {
+    "element": "the single <script id=\"__NUXT_DATA__\"> element (a devalue payload; every member is a reference into the payload array)",
+    "season_record": [
+     "pinia",
+     "schedule",
+     "schedules",
+     "schedules-football,<season>"
+    ],
+    "season_title": [
+     "season",
+     "title"
+    ],
+    "events": [
+     "games"
+    ],
+    "members": {
+     "event_date": [
+      "date"
+     ],
+     "location_designation": [
+      "location_indicator"
+     ],
+     "neutral_home_team": [
+      "neutral_hometeam"
+     ],
+     "at_vs": [
+      "at_vs"
+     ],
+     "opponent_name": [
+      "opponent",
+      "title"
+     ],
+     "opponent_site": [
+      "opponent",
+      "website"
+     ],
+     "facility": [
+      "facility",
+      "title"
+     ],
+     "location": [
+      "location"
+     ],
+     "event_title": [
+      "tournament",
+      "title"
+     ]
+    },
+    "designations": {
+     "H": "HOME",
+     "A": "AWAY",
+     "N": "NEUTRAL"
+    }
+   },
+   "SIDEARM_CLASSIC_SCHEDULE": {
+    "element": "every <li> element whose class tokens include sidearm-schedule-game, in a document whose <title> begins with '<season label> Football Schedule'",
+    "members": {
+     "location_designation": "the <li> class token among the designations",
+     "event_date": "the first <span> text inside the element with class token sidearm-schedule-game-opponent-date ('Mon D (Ddd)'; the year is the one of the season and the next year whose weekday matches, else undetermined)",
+     "opponent_name": "the text of the element with class token sidearm-schedule-game-opponent-name",
+     "opponent_site": "the href of the first <a> inside that element",
+     "location": "the first <span> text inside the element with class token sidearm-schedule-game-location",
+     "facility": "the second <span> text inside that element when it differs from the first",
+     "at_vs": "the text of the <span> with class token sidearm-schedule-game-away or sidearm-schedule-game-home"
+    },
+    "text": "character references decoded, every whitespace run one space, stripped",
+    "designations": {
+     "sidearm-schedule-home-game": "HOME",
+     "sidearm-schedule-away-game": "AWAY",
+     "sidearm-schedule-neutral-game": "NEUTRAL"
+    }
+   },
+   "WMT_EVENT_SCHEDULE": {
+    "element": "every <div> element whose class tokens include schedule-event-item, in a document whose <title> begins with '<season label> Football Schedule'",
+    "members": {
+     "location_designation": "the class token among the designations of the first element with class token schedule-event-date inside it",
+     "event_date": "the datetime attribute of the first <time> element with class token schedule-event-date__day inside it (its date part is the local event date)",
+     "opponent_name": "the text of the element with class token schedule-event-item__opponent-name",
+     "at_vs": "the text of the element with class token schedule-event-item__divider",
+     "location": "the text of the element with class token schedule-event-location, before ' / ' when it holds one",
+     "facility": "that text after its first ' / ' (absent without one)"
+    },
+    "text": "character references decoded, every whitespace run one space, stripped",
+    "designations": {
+     "schedule-event-date--venue-home": "HOME",
+     "schedule-event-date--venue-away": "AWAY",
+     "schedule-event-date--venue-neutral": "NEUTRAL"
+    }
+   }
+  },
+  "sport_segments": [
+   "football",
+   "m-footbl"
+  ],
+  "designations": [
+   "HOME",
+   "AWAY",
+   "NEUTRAL"
+  ],
+  "opponent_bindings": [
+   "OFFICIAL_SITE",
+   "DOCUMENTED_NAME"
+  ],
+  "examined_outcomes": [
+   "BOUND",
+   "NO_DECLARED_RECORD_SCHEMA",
+   "NO_RECORD_ON_FINAL_EVENT_DATE",
+   "OPPONENT_RECORD_ON_OTHER_DATE",
+   "RECORD_ON_DATE_OPPONENT_NOT_BOUND",
+   "AMBIGUOUS_RECORDS_ON_DATE",
+   "ATTEMPT_WITHOUT_DOCUMENT"
+  ],
+  "fields": [
+   "designated_home",
+   "neutral_designation",
+   "physical_venue",
+   "venue_location"
+  ],
+  "field_states": [
+   "SUPPORTED",
+   "CONFLICTING",
+   "UNSUPPORTED"
+  ],
+  "field_rules": {
+   "event_binding": "a record of the schedule owner's own official season document is the contest's event record when its local event date (the date part of its date member) equals the contest's final event date and its opponent is the other participant: the opponent's published site is in the host family of the other participant's NCAA directory athletics site, or its published name (without a leading poll rank '#N' or '#N/M') equals one of that participant's documented names (parent name, provider name, NCAA official name) under the accepted BAT-554 normalization; exactly one such record per document",
+   "neutral_designation": "HOME or AWAY states a non-neutral designation (false), NEUTRAL states a neutral-site designation (true); nothing else (venue, city, facility owner, tournament or bowl title, 'vs'/'at', provider role) states it",
+   "designated_home": "HOME states the schedule owner, AWAY states the other participant; NEUTRAL states the schedule owner only when its neutral home-team member is true; otherwise not stated",
+   "physical_venue": "the record's facility title, every whitespace run one space, stripped",
+   "venue_location": "the record's location text, every whitespace run one space, stripped",
+   "field_state": "UNSUPPORTED without a statement, SUPPORTED when every bound record that states the field states the same value, CONFLICTING otherwise (values kept per source; never a majority vote)",
+   "disposition": "the disputed field's official state against both original claims"
+  },
+  "claim_checks": [
+   "SUPPORTED",
+   "CONTRADICTED",
+   "CONFLICTING_EVIDENCE",
+   "NOT_ADDRESSED"
+  ],
+  "dispositions": [
+   "PARENT_CLAIM_SUPPORTED",
+   "PROVIDER_CLAIM_SUPPORTED",
+   "OFFICIAL_SOURCES_CONFLICT",
+   "UNSUPPORTED_NO_BOUND_RECORD",
+   "UNSUPPORTED_FIELD_NOT_STATED"
+  ],
+  "discrepancies": {
+   "neutral_status": "NEUTRAL_STATUS_DISAGREEMENT",
+   "home_orientation": "HOME_ORIENTATION_DISAGREEMENT"
+  },
+  "pit_class": "NO_PIT_RETRIEVED_CURRENT_PUBLICATION"
+ },
+ "content_scope": {
+  "seasons": [
+   2024,
+   2025
+  ],
+  "predecessor_population": "national_reconciliation_aliases_2024_2025",
+  "universe_rule": "every predecessor parent record with a one-to-one relation whose neutral_status or home_orientation comparison is DISAGREE, in predecessor order",
+  "expected_contests": 33,
+  "expected_keys_sha256": "94fbb0ca64c751b875246f94abcbf949c584eb7cec11a2fc831ab6e52e630cd4",
+  "season_note": "a season includes its postseason events dated in January of the next calendar year"
+ },
+ "records": {
+  "site_evidence": "One per universe contest in predecessor order: record_type site_evidence, contest_key, season, final_event_date (the predecessor contest_date), participants {a, b: key, org_id, team_name, provider_team_id (crosswalk), provider_name (provider_team_name), provider_role (relation side_map)}, provider_game_id, provider_row_key, original_claims {parent_site, provider_neutral_site, provider_home_side, provider_home_team_id, neutral_status_result, home_orientation_result, field_conflicts, disposition, disposition_reason} copied unchanged, discrepancy and disputed_field (the first DISAGREE of neutral_status, home_orientation), official_sites {a, b: org_id, name_official, athletic_web_url, official_domain, locator {document, path [member index]}} from the one NCAA directory object of the organization (null without exactly one), examined_documents (per side a then b: every retained schedule document of the side's organization season in SHA-256 order {document, side, org_id, schema, request_ids, outcome, detail}, then every failed attempt of that season {document null, schema null, request_ids [id], outcome ATTEMPT_WITHOUT_DOCUMENT, detail {attempt_outcome}}), event_records (each BOUND record: side, org_id, document, schema, locator {element_bytes [start, end) of the record's element in the body, path}, event_local_date, opponent_binding, values {event_date, location_designation, neutral_home_team, at_vs, opponent_name, opponent_site, facility, location, event_title}, statements {designation, designated_home, neutral_designation, physical_venue, venue_location}), fields {designated_home, neutral_designation, physical_venue, venue_location: state, value, sources [{document, side, value}] in event-record order; designated_home value {side, participant_key}; venue fields carry conflict_kind}, claim_checks {parent, provider: neutral_designation, designated_home}, unsupported_fields, disposition and pit_class.",
+  "examined_detail": "BOUND {index}; AMBIGUOUS_RECORDS_ON_DATE {indexes}; RECORD_ON_DATE_OPPONENT_NOT_BOUND {indexes, opponent_names}; OPPONENT_RECORD_ON_OTHER_DATE {dates (sorted, distinct), final_event_date}; NO_RECORD_ON_FINAL_EVENT_DATE {final_event_date}; NO_DECLARED_RECORD_SCHEMA {schema name: reason} for every declared schema.",
+  "claims": "parent neutral = parent_site NEUTRAL (HOME_A/HOME_B false, anything else unstated); parent home = a for HOME_A, b for HOME_B; provider neutral = provider_neutral_site when boolean; provider home = provider_home_side when a or b. A claim check is CONFLICTING_EVIDENCE for a conflicting field, NOT_ADDRESSED for an unsupported field or an unstated claim, else SUPPORTED or CONTRADICTED.",
+  "disposition": "On the disputed field's official state: CONFLICTING -> OFFICIAL_SOURCES_CONFLICT; UNSUPPORTED -> UNSUPPORTED_FIELD_NOT_STATED with a bound record, else UNSUPPORTED_NO_BOUND_RECORD; SUPPORTED -> PARENT_CLAIM_SUPPORTED when the parent's claim check is SUPPORTED, else PROVIDER_CLAIM_SUPPORTED.",
+  "site_source": "One per acquisition attempt in request-id order: record_type site_source, source_key (request_id), role, org_id, season, request_url, outcome, acquisition, hops {url, status, location, retrieved_at, body_sha256, body_bytes, error}, document (the last hop's body for RETAINED_200, else null), schema (the admitting schema or null), examined_for and bound_for (universe contest keys in universe order).",
+  "summary": "contests, by_season, by_discrepancy, by_disposition, by_discrepancy_and_disposition, field_states, claim_checks, event_records, contests_with_bound_record, examined_outcomes, sources, source_outcomes (outcome before any ':'), documents; every count map has sorted keys and omits zero."
+ },
+ "output_identity_scheme": {
+  "evidence_root": "canonical/national_site_evidence_2024_2025/sha256/<bundle identity>/{site_evidence_sources.json, <document SHA-256>.gz ...}",
+  "content_root": "canonical/national_site_evidence_2024_2025/sha256/<content identity>/{site_evidence.jsonl, site_sources.jsonl, summary.json}",
+  "database_root": "canonical/national_site_evidence_2024_2025/sha256/<database identity>/national_site_evidence.sqlite",
+  "manifests": "manifests/national_site_evidence_2024_2025/sha256/<identity>/run_manifest.json with {identity, identity_document, provenance}",
+  "bundle_identity": "SHA-256 of the canonical JSON document {schema BAS-NATIONAL-SITE-EVIDENCE-BUNDLE-1, stage site-evidence-bundle, population, sources_sha256, outputs {file: SHA-256}}",
+  "sources_document": "site_evidence_sources.json: {schema BAS-NATIONAL-SITE-EVIDENCE-SOURCES-1, population, documents (SHA-256 order), attempts (request-id order)}",
+  "content_identity": "SHA-256 of the canonical JSON content document {schema BAS-NATIONAL-SITE-EVIDENCE-CONTENT-1, stage site-evidence-content, population, contract_id, contract_sha256, predecessor, evidence, parameters_sha256, labels, scope, payload_schema BAS-NATIONAL-SITE-EVIDENCE-PAYLOAD-1, outputs {payload: SHA-256}, row_counts {jsonl payload: lines}}",
+  "database_identity": "SHA-256 of the canonical JSON database document {schema BAS-NATIONAL-SITE-EVIDENCE-DATABASE-1, stage site-evidence-database, population, contract_sha256, content_identity, db_schema_version BAS-NATIONAL-SITE-EVIDENCE-DB-1, outputs {national_site_evidence.sqlite: SHA-256}, table_counts}",
+  "records": "Each record is canonical JSON (sorted keys, compact separators, UTF-8 without escaping, no binary float); payload lines end with a newline.",
+  "database": "Tables meta, site_evidence and site_source exactly as the reader's SITE_DDL, page size 4096, journal off, rows in contract order, indexes after rows, no VACUUM; meta holds schema_version, contract_id, contract_sha256, content_identity, payload_schema, payload_sha256, row_counts, predecessor, evidence, labels, scope, parameters_sha256 and summary (objects as canonical JSON).",
+  "create_only": "An existing identity whose files equal the new bytes is verified and never rewritten; different bytes are REFUSED_IMMUTABLE_COLLISION.",
+  "determinism": "Natural, reversed and seeded-shuffle input orders, any chunk size and an interrupted and resumed checkpoint build give the same payload bytes, content identity and SQLite bytes."
+ },
+ "consumer": {
+  "console_script": "bas-national-population-query (unchanged entry point)",
+  "module": "aggie_analytics.national_population.query (standard library only)",
+  "selection": "--site-evidence <...\\national_site_evidence_2024_2025\\sha256\\<id>\\national_site_evidence.sqlite> with --grain site-evidence, the required --database naming the accepted parent and --reconciliation naming the accepted alias successor; never a default",
+  "filters": "--season, --team (either source's participant name, org:<id>, cfbdteam:<id>), --contest (ncaa:<id>, digits, cfbd:<id>), --disposition, paging",
+  "verification": "Before any row is served: the predecessor, sidecar location, manifest identity, database bytes, schema, meta claims, table counts, the pinned evidence bundle (manifest identity, listing, bytes, every receipt, the directory and host families), the universe; then every record, source record, the summary and both identity documents are re-derived and compared as canonical bytes; any difference refuses with its own code.",
+  "unchanged": "without --site-evidence every grain answers exactly as before"
+ },
+ "non_claims": [
+  "Observation authority is OFFICIAL_PUBLIC_SCHEDULE_EVIDENCE_RETRIEVED_NOT_PIT: retrieval time is not publication time; a season document's current rendering is evidence of what it shows at retrieval.",
+  "The NCAA directory member list is the current directory retrieved by Cycle 48 (2026-10-09), an institutional identity record, not a season document.",
+  "An official designation is the institution's own classification for itself; a disposition is not independent truth, and conflicting official sources are kept, never voted.",
+  "No PIT admission, protected evaluation, default activation, hold release, F1 use, model or predictive-skill claim.",
+  "Unsupported contests are not evidence of either claim; they only lack an admitted statement under this bounded grant and the frozen rules."
+ ],
+ "revision_note": "V1 of the site-evidence contract, committed before the first canonical write of the sidecar or its evidence bundle."
+}

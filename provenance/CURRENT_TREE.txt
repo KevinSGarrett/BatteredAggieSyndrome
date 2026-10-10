@@ -1188,6 +1188,7 @@ docs/architecture/MODEL_LAYERS.md
 docs/architecture/NATIONAL_POPULATION_RECONCILIATION_SIDECAR.md
 docs/architecture/NATIONAL_RECONCILIATION_ALIASES_SUCCESSOR.md
 docs/architecture/NATIONAL_RETROSPECTIVE_BASELINE_BENCHMARK.md
+docs/architecture/NATIONAL_SITE_EVIDENCE_SIDECAR.md
 docs/architecture/NATIONAL_TAMU_INTERFACE.md
 docs/architecture/OPENAI_ASSISTIVE_PLANE.md
 docs/architecture/OPENROUTER_ASSISTIVE_PLANE.md
@@ -4319,6 +4320,7 @@ tests/national_archived_publication_fixture.py
 tests/national_history_availability_fixture.py
 tests/national_history_fixture.py
 tests/national_reconciliation_aliases_fixture.py
+tests/national_site_evidence_fixture.py
 tests/national_source_time_fixture.py
 tests/retrospective_baseline_fixture.py
 tests/test_acceptance_governance.py
@@ -4581,6 +4583,7 @@ tests/test_national_population_reconciliation.py
 tests/test_national_reconciliation_aliases.py
 tests/test_national_retrospective_baseline.py
 tests/test_national_shadow_state_machine.py
+tests/test_national_site_evidence.py
 tests/test_national_source_time.py
 tests/test_national_tiered_game_spine.py
 tests/test_ncaa_contest_outcome_reference_adapter.py
@@ -4881,6 +4884,7 @@ tools/build_national_population_reconciliation.py
 tools/build_national_reconciliation_aliases.py
 tools/build_national_retrospective_baseline.py
 tools/build_national_shadow_operations.py
+tools/build_national_site_evidence.py
 tools/build_national_source_time.py
 tools/build_national_tiered_game_spine.py
 tools/build_ncaa_contest_outcome_reference_adapter.py

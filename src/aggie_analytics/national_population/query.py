@@ -39,6 +39,15 @@ documents and capture receipts) and proves every SUPPORTED season-scoped asserti
 document naming the provider's exact program name -- before it re-derives every record; only such an assertion adds a
 name link (SOURCE_ASSERTION_DOCUMENTED). Unsupported universe rows stay unpromoted with their recorded reason. Every
 other ``--reconciliation`` location is read by the accepted V1 reader exactly as before.
+
+BAT-721 (Cycle #49 TP49-A01) adds an explicit, never-default, immutable official-site evidence sidecar for the contests
+whose accepted records disagree on neutral status or home orientation: ``--site-evidence <...\sha256\<id>\
+national_site_evidence.sqlite>`` with ``--grain site-evidence``, ``--reconciliation`` naming the bound alias successor and
+the ``--season``, ``--team``, ``--contest`` and ``--disposition`` filters. The reader verifies the alias successor
+completely, then the sidecar, its pinned bundle of retained public NCAA and official institutional documents and every
+receipt; it re-extracts every event record from those raw bytes under the declared record schemas and re-derives the
+designated home team, the official neutral-site designation and the physical venue (each SUPPORTED, CONFLICTING or
+UNSUPPORTED) beside the unchanged original claims before it serves a row. No predecessor record, label or default changes.
 """
 from __future__ import annotations
 
@@ -47,6 +56,7 @@ import csv
 import gzip
 import hashlib
 import html
+import html.parser
 import io
 import json
 import os
@@ -2244,6 +2254,1258 @@ class AliasReconciliationSuccessor(ReconciliationSidecar):
         return result
 
 
+# =============================================================================================== BAT-721 site evidence
+# Cycle #49 TP49-A01: an explicitly selected, immutable official-site evidence sidecar for the contests whose accepted
+# reconciliation records disagree on neutral status or home orientation. It never changes a predecessor record: it binds
+# the verified BAT-720 alias successor (whose records name each disagreement and keep both claims) and one pinned bundle of
+# retained public NCAA and official institutional documents, re-extracts every event record from those raw bytes under the
+# declared record schemas, and derives the designated home team, the official neutral-site designation and the physical
+# venue separately, each SUPPORTED, CONFLICTING or UNSUPPORTED. The producer (tools/build_national_site_evidence.py)
+# materializes exactly what SiteEvidenceSidecar re-derives before it serves a row; the independent oracle never imports
+# this code.
+
+SITE_EVIDENCE_POPULATION = "national_site_evidence_2024_2025"
+SITE_DB_FILE = "national_site_evidence.sqlite"
+SITE_GRAIN = "site-evidence"
+SITE_CONTENT_SCHEMA = "BAS-NATIONAL-SITE-EVIDENCE-CONTENT-1"
+SITE_DATABASE_SCHEMA = "BAS-NATIONAL-SITE-EVIDENCE-DATABASE-1"
+SITE_DB_SCHEMA = "BAS-NATIONAL-SITE-EVIDENCE-DB-1"
+SITE_PAYLOAD_SCHEMA = "BAS-NATIONAL-SITE-EVIDENCE-PAYLOAD-1"
+SITE_BUNDLE_SCHEMA = "BAS-NATIONAL-SITE-EVIDENCE-BUNDLE-1"
+SITE_SOURCES_SCHEMA = "BAS-NATIONAL-SITE-EVIDENCE-SOURCES-1"
+SITE_SOURCES_FILE = "site_evidence_sources.json"
+SITE_PAYLOADS = ("site_evidence.jsonl", "site_sources.jsonl", "summary.json")
+SITE_FIELDS = ("designated_home", "neutral_designation", "physical_venue", "venue_location")
+SITE_FIELD_STATES = ("SUPPORTED", "CONFLICTING", "UNSUPPORTED")
+SITE_DISPOSITIONS = ("PARENT_CLAIM_SUPPORTED", "PROVIDER_CLAIM_SUPPORTED", "OFFICIAL_SOURCES_CONFLICT",
+                     "UNSUPPORTED_NO_BOUND_RECORD", "UNSUPPORTED_FIELD_NOT_STATED")
+SITE_DISCREPANCIES = {"neutral_status": "NEUTRAL_STATUS_DISAGREEMENT",
+                      "home_orientation": "HOME_ORIENTATION_DISAGREEMENT"}
+SITE_CLAIM_CHECKS = ("SUPPORTED", "CONTRADICTED", "CONFLICTING_EVIDENCE", "NOT_ADDRESSED")
+SITE_DOCUMENT_ROLES = ("NCAA_MEMBER_DIRECTORY", "OFFICIAL_SEASON_SCHEDULE")
+SITE_DESIGNATIONS = ("HOME", "AWAY", "NEUTRAL")
+SITE_BINDINGS = ("OFFICIAL_SITE", "DOCUMENTED_NAME")
+SITE_EXAMINED_OUTCOMES = ("BOUND", "NO_DECLARED_RECORD_SCHEMA", "NO_RECORD_ON_FINAL_EVENT_DATE",
+                          "OPPONENT_RECORD_ON_OTHER_DATE", "RECORD_ON_DATE_OPPONENT_NOT_BOUND", "AMBIGUOUS_RECORDS_ON_DATE",
+                          "ATTEMPT_WITHOUT_DOCUMENT")
+#: Every outcome an acquisition attempt may record (an exact value or a prefix followed by its detail).
+SITE_ATTEMPT_OUTCOMES = ("RETAINED_200", "FAILED_HTTP_", "FAILED_NO_RESPONSE", "HOST_STOPPED_HTTP_",
+                         "NOT_REQUESTED_HOST_STOPPED:", "NOT_REQUESTED_OUTSIDE_ALLOWED_HOSTS:", "STOPPED_TOO_MANY_REDIRECTS",
+                         "NOT_REQUESTED_PLAN_LIMIT", "NOT_REQUESTED_LEDGER_CEILING")
+SITE_STOP_STATUSES = (401, 403, 429, 451)
+#: The declared record schemas: where one season's event records live in an official document and which member states
+#: which value. The location designation is the institution's own three-way classification of the event for itself.
+SITE_RECORD_SCHEMAS: dict[str, dict[str, Any]] = {
+    "SIDEARM_NUXT_SCHEDULE": {
+        "element": "the single <script id=\"__NUXT_DATA__\"> element (a devalue payload; every member is a reference "
+                   "into the payload array)",
+        "season_record": ["pinia", "schedule", "schedules", "schedules-football,<season>"],
+        "season_title": ["season", "title"],
+        "events": ["games"],
+        "members": {"event_date": ["date"], "location_designation": ["location_indicator"],
+                    "neutral_home_team": ["neutral_hometeam"], "at_vs": ["at_vs"],
+                    "opponent_name": ["opponent", "title"], "opponent_site": ["opponent", "website"],
+                    "facility": ["facility", "title"], "location": ["location"],
+                    "event_title": ["tournament", "title"]},
+        "designations": {"H": "HOME", "A": "AWAY", "N": "NEUTRAL"},
+    },
+    "SIDEARM_CLASSIC_SCHEDULE": {
+        "element": "every <li> element whose class tokens include sidearm-schedule-game, in a document whose <title> "
+                   "begins with '<season label> Football Schedule'",
+        "members": {"location_designation": "the <li> class token among the designations",
+                    "event_date": "the first <span> text inside the element with class token "
+                                  "sidearm-schedule-game-opponent-date ('Mon D (Ddd)'; the year is the one of the season "
+                                  "and the next year whose weekday matches, else undetermined)",
+                    "opponent_name": "the text of the element with class token sidearm-schedule-game-opponent-name",
+                    "opponent_site": "the href of the first <a> inside that element",
+                    "location": "the first <span> text inside the element with class token sidearm-schedule-game-location",
+                    "facility": "the second <span> text inside that element when it differs from the first",
+                    "at_vs": "the text of the <span> with class token sidearm-schedule-game-away or "
+                             "sidearm-schedule-game-home"},
+        "text": "character references decoded, every whitespace run one space, stripped",
+        "designations": {"sidearm-schedule-home-game": "HOME", "sidearm-schedule-away-game": "AWAY",
+                         "sidearm-schedule-neutral-game": "NEUTRAL"},
+    },
+}
+SITE_FIELD_RULES = {
+    "event_binding": "a record of the schedule owner's own official season document is the contest's event record when "
+                     "its local event date (the date part of its date member) equals the contest's final event date and "
+                     "its opponent is the other participant: the opponent's published site is in the host family of the "
+                     "other participant's NCAA directory athletics site, or its published name equals one of that "
+                     "participant's documented names (parent name, provider name, NCAA official name) under the "
+                     "accepted BAT-554 normalization; exactly one such record per document",
+    "neutral_designation": "HOME or AWAY states a non-neutral designation (false), NEUTRAL states a neutral-site "
+                           "designation (true); nothing else (venue, city, facility owner, tournament or bowl title, "
+                           "'vs'/'at', provider role) states it",
+    "designated_home": "HOME states the schedule owner, AWAY states the other participant; NEUTRAL states the schedule "
+                       "owner only when its neutral home-team member is true; otherwise not stated",
+    "physical_venue": "the record's facility title, every whitespace run one space, stripped",
+    "venue_location": "the record's location text, every whitespace run one space, stripped",
+    "field_state": "UNSUPPORTED without a statement, SUPPORTED when every bound record that states the field states the "
+                   "same value, CONFLICTING otherwise (values kept per source; never a majority vote)",
+    "disposition": "the disputed field's official state against both original claims",
+}
+SITE_LABELS = {
+    "observation_authority": "OFFICIAL_PUBLIC_SCHEDULE_EVIDENCE_RETRIEVED_NOT_PIT",
+    "pit_eligibility": "PIT_ELIGIBILITY_NOT_ESTABLISHED",
+    "exposure": "EXPOSED_NOT_PROTECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "predictive_skill": "NOT_ESTABLISHED",
+    "selection": "EXPLICIT_SIDECAR_SELECTION_ONLY_NEVER_A_DEFAULT",
+    "original_claims": "PRESERVED_SIDE_BY_SIDE_NEVER_OVERWRITTEN",
+    "population_effect": "NONE_EVIDENCE_SIDECAR_ONLY",
+}
+SITE_PIT_CLASS = "NO_PIT_RETRIEVED_CURRENT_PUBLICATION"
+SITE_PARAMETERS = {
+    "seasons": list(RECONCILIATION_SEASONS),
+    "season_labels": ["<season>", "<season>-<yy>", "<season>-<season+1>"],
+    "season_note": "a season includes its postseason events dated in January of the next calendar year",
+    "name_normalization": RECONCILIATION_PARAMETERS["name_normalization"],
+    "token_expansions": RECONCILIATION_TOKEN_EXPANSIONS,
+    "ncaa_hosts": list(ALIAS_NCAA_HOSTS),
+    "redirect_statuses": list(ALIAS_REDIRECT_STATUSES),
+    "stop_statuses": list(SITE_STOP_STATUSES),
+    "document_roles": list(SITE_DOCUMENT_ROLES),
+    "attempt_outcomes": list(SITE_ATTEMPT_OUTCOMES),
+    "record_schemas": SITE_RECORD_SCHEMAS,
+    "designations": list(SITE_DESIGNATIONS),
+    "opponent_bindings": list(SITE_BINDINGS),
+    "examined_outcomes": list(SITE_EXAMINED_OUTCOMES),
+    "fields": list(SITE_FIELDS),
+    "field_states": list(SITE_FIELD_STATES),
+    "field_rules": SITE_FIELD_RULES,
+    "claim_checks": list(SITE_CLAIM_CHECKS),
+    "dispositions": list(SITE_DISPOSITIONS),
+    "discrepancies": SITE_DISCREPANCIES,
+    "pit_class": SITE_PIT_CLASS,
+}
+#: The production trust anchors (set when the committed site-evidence contract pins its evidence); until then the reader
+#: serves nothing.
+SITE_EVIDENCE_ANCHORS: dict[str, Any] | None = None
+
+_SITE_DOCUMENT_KEYS = {"sha256", "file", "bytes", "media_type", "role", "org_id", "season", "request_url", "final_url",
+                       "hops", "http_status", "retrieved_at", "acquisition"}
+_SITE_ATTEMPT_KEYS = {"request_id", "role", "org_id", "season", "request_url", "outcome", "acquisition", "hops"}
+_SITE_HOP_KEYS = {"url", "status", "location", "retrieved_at", "body_sha256", "body_bytes", "error"}
+_SITE_REQUEST_ID_RE = re.compile(r"^C[0-9]{2}-[A-Z0-9][A-Z0-9-]{0,40}$")
+_SITE_EVENT_DATE_RE = re.compile(r"^([0-9]{4}-[0-9]{2}-[0-9]{2})(?:[T ][0-9]{2}:[0-9]{2}(?::[0-9]{2}(?:\.[0-9]{1,6})?)?)?$")
+_NUXT_ELEMENT_RE = re.compile(rb'<script\b[^>]*\bid="__NUXT_DATA__"[^>]*>')
+_DEVALUE_WRAPPERS = ("Reactive", "ShallowReactive", "Ref", "ShallowRef")
+
+
+def _site_refuse(code: str, message: str) -> None:
+    raise NationalQueryError(code, message)
+
+
+def site_population_root(database: Path) -> Path:
+    """``<data>/canonical/<site population>/sha256/<id>/<db>`` -> ``<data>/canonical/<site population>``."""
+    return Path(database).resolve().parent.parent.parent
+
+
+def site_bundle_document(sources_sha256: str, outputs: dict[str, str]) -> dict[str, Any]:
+    """The contract-defined identity document of one site evidence bundle."""
+    return {"schema": SITE_BUNDLE_SCHEMA, "stage": "site-evidence-bundle", "population": SITE_EVIDENCE_POPULATION,
+            "sources_sha256": sources_sha256, "outputs": dict(sorted(outputs.items()))}
+
+
+def load_site_bundle(population_root: Path, anchors: dict[str, Any]) -> dict[str, Any]:
+    """Read and verify the pinned evidence bundle under the sidecar population root: its manifest identity, the exact
+    file listing and bytes, the pinned sources document and every retained document body."""
+    pins = anchors.get("evidence") or {}
+    bundle_id, sources_sha = pins.get("bundle_identity"), pins.get("sources_sha256")
+    if not isinstance(bundle_id, str) or not IDENTITY_RE.match(bundle_id) or \
+            not isinstance(sources_sha, str) or not IDENTITY_RE.match(sources_sha):
+        _site_refuse("SITE_EVIDENCE_PIN_INVALID", "the reader binds no valid site evidence identity")
+    root = Path(population_root)
+    bundle = root / "sha256" / bundle_id
+    manifest = root.parent.parent / "manifests" / root.name / "sha256" / bundle_id / "run_manifest.json"
+    try:
+        document = json.loads(_io_path(manifest).read_text(encoding="utf-8"))
+        identity_document = document["identity_document"]
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise NationalQueryError("SITE_EVIDENCE_MISSING", f"site evidence manifest {manifest}: {exc}") from exc
+    if hashlib.sha256(canonical_json_bytes(identity_document)).hexdigest() != bundle_id or \
+            document.get("identity") != bundle_id:
+        _site_refuse("SITE_EVIDENCE_IDENTITY_MISMATCH", "the evidence manifest does not hash to the pinned bundle")
+    outputs = identity_document.get("outputs") if isinstance(identity_document, dict) else None
+    if not isinstance(outputs, dict) or canonical_json_bytes(identity_document) != canonical_json_bytes(
+            site_bundle_document(identity_document.get("sources_sha256"), outputs)):
+        _site_refuse("SITE_EVIDENCE_IDENTITY_MISMATCH", "the evidence manifest is not the contract-defined document")
+    if identity_document["sources_sha256"] != sources_sha or outputs.get(SITE_SOURCES_FILE) != sources_sha:
+        _site_refuse("SITE_EVIDENCE_PIN_MISMATCH", "the bundle's sources document is not the pinned one")
+    try:
+        present = sorted(p.name for p in _io_path(bundle).iterdir())
+    except OSError as exc:
+        raise NationalQueryError("SITE_EVIDENCE_MISSING", f"site evidence bundle {bundle}: {exc}") from exc
+    if present != sorted(outputs):
+        _site_refuse("SITE_EVIDENCE_LISTING_MISMATCH", f"bundle files {present[:5]} differ from its manifest")
+    files: dict[str, bytes] = {}
+    for name, expected in sorted(outputs.items()):
+        data = _io_path(bundle / name).read_bytes()
+        if hashlib.sha256(data).hexdigest() != expected:
+            _site_refuse("SITE_EVIDENCE_BYTES_MISMATCH", f"bundle file {name} differs from its manifest")
+        files[name] = data
+    try:
+        sources = json.loads(files[SITE_SOURCES_FILE].decode("utf-8"))
+    except ValueError as exc:
+        raise NationalQueryError("SITE_EVIDENCE_SOURCES_INVALID", f"sources document unreadable: {exc}") from exc
+    documents = sources.get("documents") if isinstance(sources, dict) else None
+    if not isinstance(documents, list):
+        _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", "the sources document lists no documents")
+    bodies: dict[str, bytes] = {}
+    for doc in documents:
+        name = doc.get("file") if isinstance(doc, dict) else None
+        if not isinstance(name, str) or name not in files or name == SITE_SOURCES_FILE:
+            _site_refuse("SITE_EVIDENCE_LISTING_MISMATCH", f"document body {name!r} is not in the bundle")
+        try:
+            body = gzip.decompress(files[name])
+        except OSError as exc:
+            raise NationalQueryError("SITE_EVIDENCE_BYTES_MISMATCH", f"{name} is not a gzip body: {exc}") from exc
+        if hashlib.sha256(body).hexdigest() != doc.get("sha256") or len(body) != doc.get("bytes"):
+            _site_refuse("SITE_EVIDENCE_BYTES_MISMATCH", f"document {name} body differs from its declared bytes")
+        bodies[doc["sha256"]] = body
+    extra = sorted(set(files) - {SITE_SOURCES_FILE} - {d.get("file") for d in documents})
+    if extra:
+        _site_refuse("SITE_EVIDENCE_LISTING_MISMATCH", f"bundle files without a document entry: {extra[:3]}")
+    return {"bundle_identity": bundle_id, "manifest": str(manifest), "outputs": dict(outputs), "sources": sources,
+            "bodies": bodies}
+
+
+def _site_url_host(url: Any) -> str | None:
+    return _url_host(url)
+
+
+def _site_hops_ok(hops: list[dict[str, Any]]) -> bool:
+    for current, following in zip(hops, hops[1:]):
+        if current["status"] not in ALIAS_REDIRECT_STATUSES or current["location"] != following["url"]:
+            return False
+    return True
+
+
+def _verify_site_document(doc: Any) -> None:
+    if not isinstance(doc, dict) or set(doc) != _SITE_DOCUMENT_KEYS:
+        _site_refuse("SITE_EVIDENCE_SOURCES_INVALID",
+                     f"document members {sorted(doc) if isinstance(doc, dict) else doc}")
+    if not isinstance(doc["sha256"], str) or not IDENTITY_RE.match(doc["sha256"]) or \
+            doc["file"] != doc["sha256"] + ".gz" or doc["role"] not in SITE_DOCUMENT_ROLES or \
+            type(doc["bytes"]) is not int or not isinstance(doc["media_type"], str) or \
+            not isinstance(doc["acquisition"], str) or not doc["acquisition"]:
+        _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"document {doc.get('sha256')} identity members")
+    if doc["role"] == "OFFICIAL_SEASON_SCHEDULE":
+        if not isinstance(doc["org_id"], str) or not doc["org_id"].isdigit() or type(doc["season"]) is not int or \
+                doc["season"] not in RECONCILIATION_SEASONS:
+            _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"schedule document {doc['sha256']} names no organization season")
+    elif doc["org_id"] is not None or doc["season"] is not None:
+        _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"directory document {doc['sha256']} names an organization season")
+    hops = doc["hops"]
+    if not isinstance(hops, list) or not hops or any(not isinstance(h, dict) or set(h) != {"url", "status", "location"}
+                                                     for h in hops):
+        _site_refuse("SITE_EVIDENCE_RECEIPT_INVALID", f"document {doc['sha256']} hops")
+    ok = hops[0]["url"] == doc["request_url"] and hops[-1]["url"] == doc["final_url"] and \
+        hops[-1]["status"] == 200 == doc["http_status"] and hops[-1]["location"] is None and \
+        all(_site_url_host(h["url"]) for h in hops) and isinstance(doc["retrieved_at"], str) and \
+        bool(_INSTANT_RE.match(doc["retrieved_at"])) and _site_hops_ok(hops)
+    if not ok:
+        _site_refuse("SITE_EVIDENCE_RECEIPT_INVALID", f"document {doc['sha256']} receipt is not a 200 hop chain")
+
+
+def _verify_site_attempt(attempt: Any) -> None:
+    if not isinstance(attempt, dict) or set(attempt) != _SITE_ATTEMPT_KEYS or \
+            not isinstance(attempt["request_id"], str) or not _SITE_REQUEST_ID_RE.match(attempt["request_id"]) or \
+            attempt["role"] not in SITE_DOCUMENT_ROLES or not isinstance(attempt["acquisition"], str) or \
+            not attempt["acquisition"] or not isinstance(attempt["outcome"], str) or \
+            not isinstance(attempt["hops"], list) or not _site_url_host(attempt["request_url"]):
+        _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"attempt {attempt.get('request_id') if isinstance(attempt, dict) else attempt}")
+    if not any(attempt["outcome"] == o or (o.endswith(("_", ":")) and attempt["outcome"].startswith(o))
+               for o in SITE_ATTEMPT_OUTCOMES):
+        _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"attempt {attempt['request_id']} outcome {attempt['outcome']!r}")
+    for hop in attempt["hops"]:
+        if not isinstance(hop, dict) or set(hop) != _SITE_HOP_KEYS or not _site_url_host(hop["url"]) or \
+                not isinstance(hop["retrieved_at"], str) or not _INSTANT_RE.match(hop["retrieved_at"]):
+            _site_refuse("SITE_EVIDENCE_RECEIPT_INVALID", f"attempt {attempt['request_id']} hop {hop}")
+    hops = attempt["hops"]
+    if hops and (hops[0]["url"] != attempt["request_url"] or
+                 not _site_hops_ok([{"url": h["url"], "status": h["status"], "location": h["location"]} for h in hops])):
+        _site_refuse("SITE_EVIDENCE_RECEIPT_INVALID", f"attempt {attempt['request_id']} hop chain")
+    last = hops[-1] if hops else None
+    outcome = attempt["outcome"]
+    consistent = True
+    if outcome == "RETAINED_200":
+        consistent = bool(last) and last["status"] == 200 and isinstance(last["body_sha256"], str) and \
+            last["location"] is None and not last["error"]
+    elif outcome.startswith(("FAILED_HTTP_", "HOST_STOPPED_HTTP_")):
+        consistent = bool(last) and str(last["status"]) == outcome.rsplit("_", 1)[-1] and \
+            (not outcome.startswith("HOST_STOPPED_HTTP_") or last["status"] in SITE_STOP_STATUSES)
+    elif outcome == "FAILED_NO_RESPONSE":
+        consistent = bool(last) and last["status"] is None
+    if not consistent:
+        _site_refuse("SITE_EVIDENCE_RECEIPT_INVALID", f"attempt {attempt['request_id']} outcome contradicts its hops")
+
+
+def _directory_records(body: bytes) -> dict[str, list[tuple[int, dict[str, Any]]]]:
+    try:
+        members = json.loads(body.decode("utf-8"))
+    except (UnicodeDecodeError, ValueError) as exc:
+        raise NationalQueryError("SITE_EVIDENCE_DIRECTORY_INVALID", f"NCAA directory unreadable: {exc}") from exc
+    if not isinstance(members, list):
+        _site_refuse("SITE_EVIDENCE_DIRECTORY_INVALID", "the NCAA directory is not a member list")
+    out: dict[str, list[tuple[int, dict[str, Any]]]] = {}
+    for index, member in enumerate(members):
+        if isinstance(member, dict) and (type(member.get("orgId")) is int or isinstance(member.get("orgId"), str)):
+            out.setdefault(str(member["orgId"]), []).append((index, member))
+    return out
+
+
+def verify_site_sources(bundle: dict[str, Any]) -> dict[str, Any]:
+    """The verified sources: every retained document with its 200 receipt, every acquisition attempt (failures and
+    denials included) consistent with the documents, the one NCAA member directory and each schedule owner's official
+    athletics site from it (every schedule hop inside that site's host family, the request naming a label of its
+    season), in the contract order (documents by SHA-256, attempts by request id)."""
+    doc = bundle["sources"]
+    if not isinstance(doc, dict) or set(doc) != {"schema", "population", "documents", "attempts"} or \
+            doc.get("schema") != SITE_SOURCES_SCHEMA or doc.get("population") != SITE_EVIDENCE_POPULATION:
+        _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", "the sources document is not the contract schema")
+    documents: dict[str, dict[str, Any]] = {}
+    for item in doc["documents"]:
+        _verify_site_document(item)
+        if item["sha256"] in documents:
+            _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"document {item['sha256']} listed twice")
+        documents[item["sha256"]] = item
+    if [d["sha256"] for d in doc["documents"]] != sorted(documents):
+        _site_refuse("SITE_EVIDENCE_SOURCES_ORDER_INVALID", "documents are not in SHA-256 order")
+    attempts = doc["attempts"] if isinstance(doc["attempts"], list) else None
+    if attempts is None:
+        _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", "the sources document lists no attempts")
+    seen: set[str] = set()
+    for attempt in attempts:
+        _verify_site_attempt(attempt)
+        if attempt["request_id"] in seen:
+            _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"attempt {attempt['request_id']} listed twice")
+        seen.add(attempt["request_id"])
+    if [a["request_id"] for a in attempts] != sorted(seen):
+        _site_refuse("SITE_EVIDENCE_SOURCES_ORDER_INVALID", "attempts are not in request-id order")
+    produced: dict[str, list[str]] = {}
+    for attempt in attempts:
+        if attempt["outcome"] != "RETAINED_200":
+            continue
+        last = attempt["hops"][-1]
+        target = documents.get(last["body_sha256"])
+        if target is None:
+            _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"attempt {attempt['request_id']} retained no listed document")
+        same = target["request_url"] == attempt["request_url"] and target["final_url"] == last["url"] and \
+            target["hops"] == [{"url": h["url"], "status": h["status"], "location": h["location"]}
+                               for h in attempt["hops"]] and target["retrieved_at"] == last["retrieved_at"] and \
+            target["bytes"] == last["body_bytes"] and \
+            (target["role"], target["org_id"], target["season"]) == (attempt["role"], attempt["org_id"],
+                                                                      attempt["season"]) and \
+            target["acquisition"] == attempt["acquisition"]
+        if not same:
+            _site_refuse("SITE_EVIDENCE_RECEIPT_INVALID", f"document {target['sha256']} differs from the receipt of "
+                                                          f"attempt {attempt['request_id']}")
+        produced.setdefault(target["sha256"], []).append(attempt["request_id"])
+    orphans = sorted(set(documents) - set(produced))
+    if orphans:
+        _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"documents without an acquisition attempt: {orphans[:3]}")
+    directories = [d for d in doc["documents"] if d["role"] == "NCAA_MEMBER_DIRECTORY"]
+    if len(directories) != 1 or any(_site_url_host(h["url"]) not in ALIAS_NCAA_HOSTS for h in directories[0]["hops"]):
+        _site_refuse("SITE_EVIDENCE_DIRECTORY_INVALID", "exactly one NCAA member directory from an NCAA host is required")
+    directory_doc = directories[0]
+    members = _directory_records(bundle["bodies"][directory_doc["sha256"]])
+    organizations: dict[str, dict[str, Any]] = {}
+
+    def organization(org: str) -> dict[str, Any] | None:
+        if org in organizations:
+            return organizations[org]
+        hits = members.get(org, [])
+        record = None
+        if len(hits) == 1:
+            index, member = hits[0]
+            domain = _domain_of(member.get("athleticWebUrl"))
+            if domain is not None and isinstance(member.get("nameOfficial"), str) and member["nameOfficial"]:
+                record = {"org_id": org, "name_official": member["nameOfficial"],
+                          "athletic_web_url": member["athleticWebUrl"], "official_domain": domain,
+                          "host_family": sorted(_host_family(domain)),
+                          "locator": {"document": directory_doc["sha256"], "path": [index]}}
+        organizations[org] = record
+        return record
+    for item in [*doc["documents"], *attempts]:
+        if item["role"] != "OFFICIAL_SEASON_SCHEDULE":
+            continue
+        org, season = item["org_id"], item["season"]
+        if not isinstance(org, str) or type(season) is not int or season not in RECONCILIATION_SEASONS:
+            _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"schedule source {item.get('sha256') or item.get('request_id')} "
+                                                          "names no organization season")
+        record = organization(org)
+        if record is None:
+            _site_refuse("SITE_EVIDENCE_DOMAIN_UNPROVEN", f"organization {org} has no single NCAA directory record")
+        family = set(record["host_family"])
+        urls = [item["request_url"], *[h["url"] for h in item["hops"]]]
+        if "sha256" in item and any(_site_url_host(u) not in family for u in urls):
+            _site_refuse("SITE_EVIDENCE_DOMAIN_UNPROVEN", f"schedule document {item['sha256']} is not on organization "
+                                                          f"{org}'s official site {record['official_domain']}")
+        if "request_id" in item and _site_url_host(item["request_url"]) not in family:
+            _site_refuse("SITE_EVIDENCE_DOMAIN_UNPROVEN", f"attempt {item['request_id']} is not on organization {org}'s "
+                                                          f"official site {record['official_domain']}")
+        segments = [s for s in urllib.parse.urlsplit(item["request_url"]).path.split("/") if s]
+        if not segments or segments[-1] not in _season_labels(season) or "football" not in segments:
+            _site_refuse("SITE_EVIDENCE_SEASON_UNPROVEN", f"schedule source {item.get('sha256') or item.get('request_id')} "
+                                                          f"does not request a football {season} season")
+    return {"documents": documents, "document_order": [d["sha256"] for d in doc["documents"]], "attempts": attempts,
+            "produced_by": produced, "directory": directory_doc["sha256"], "organization": organization,
+            "organizations": organizations, "bodies": bundle["bodies"], "bundle_identity": bundle["bundle_identity"],
+            "sources_sha256": bundle["outputs"][SITE_SOURCES_FILE]}
+
+
+# ---- record schemas
+
+def _devalue(data: list[Any], value: Any) -> Any:
+    """One devalue reference resolved (undefined and holes are absent); wrappers of reactive state are unwrapped."""
+    if type(value) is int:
+        if value in (-1, -2):
+            return None
+        if not 0 <= value < len(data):
+            raise ValueError(f"devalue reference {value} out of range")
+        value = data[value]
+    while isinstance(value, list) and len(value) == 2 and value[0] in _DEVALUE_WRAPPERS and type(value[1]) is int:
+        value = _devalue(data, value[1])
+    return value
+
+
+def _devalue_member(data: list[Any], obj: Any, path: list[str]) -> Any:
+    cur = obj
+    for step in path:
+        if not isinstance(cur, dict) or step not in cur:
+            return None
+        cur = _devalue(data, cur[step])
+    return cur
+
+
+def _site_value(value: Any) -> Any:
+    """A record member as recorded: a string, boolean or absent; anything else an explicit marker."""
+    if value is None or isinstance(value, (str, bool)):
+        return value
+    return f"INVALID_TYPE:{type(value).__name__}"
+
+
+def _extract_sidearm_nuxt(body: bytes, season: int) -> dict[str, Any]:
+    schema = SITE_RECORD_SCHEMAS["SIDEARM_NUXT_SCHEDULE"]
+    found = list(_NUXT_ELEMENT_RE.finditer(body))
+    if len(found) != 1:
+        return {"matched": False, "reason": f"NUXT_DATA_ELEMENTS:{len(found)}"}
+    start = found[0].end()
+    end = body.find(b"</script>", start)
+    try:
+        data = json.loads(body[start:end].decode("utf-8")) if end > start else None
+    except (UnicodeDecodeError, ValueError):
+        data = None
+    if not isinstance(data, list) or not data or not isinstance(data[0], dict):
+        return {"matched": False, "reason": "NUXT_DATA_NOT_A_DEVALUE_PAYLOAD"}
+    try:
+        key = f"schedules-football,{season}"
+        path = [*schema["season_record"][:-1], key]
+        record = _devalue_member(data, data[0], path)
+        if not isinstance(record, dict):
+            return {"matched": False, "reason": f"NO_SEASON_RECORD:{key}"}
+        title = _devalue_member(data, record, schema["season_title"])
+        if not isinstance(title, str) or title not in _season_labels(season):
+            return {"matched": False, "reason": f"SEASON_RECORD_TITLE:{_site_value(title)}"}
+        games = _devalue_member(data, record, schema["events"])
+        if not isinstance(games, list):
+            return {"matched": False, "reason": "SEASON_RECORD_HAS_NO_EVENT_LIST"}
+        events = []
+        for index, ref in enumerate(games):
+            game = _devalue(data, ref)
+            values = {name: _site_value(_devalue_member(data, game, member)) if isinstance(game, dict) else None
+                      for name, member in schema["members"].items()}
+            events.append({"index": index, "valid": isinstance(game, dict), "values": values,
+                           "locator": {"element_bytes": [start, end], "path": [*path, *schema["events"], index]}})
+    except ValueError as exc:
+        return {"matched": False, "reason": f"NUXT_DATA_REFERENCE_INVALID:{exc}"}
+    return {"matched": True, "schema": "SIDEARM_NUXT_SCHEDULE", "season_title": title, "events": events}
+
+
+_HTML_VOID = frozenset(("area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source",
+                        "track", "wbr"))
+_MONTHS = {"Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6, "Jul": 7, "Aug": 8, "Sep": 9, "Sept": 9,
+           "Oct": 10, "Nov": 11, "Dec": 12}
+_WEEKDAYS = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+_CLASSIC_DATE_RE = re.compile(r"^([A-Z][a-z]{2,3})\.? ([0-9]{1,2}) \(([A-Z][a-z]{2})\)$")
+_CLASSIC_GAME = "sidearm-schedule-game"
+
+
+def _text(parts: list[str]) -> str | None:
+    text = " ".join("".join(parts).split())
+    return text or None
+
+
+class _ClassicSchedule(html.parser.HTMLParser):
+    """The game elements of a classic schedule page: a tolerant element stack (void elements never pushed; an end tag
+    closes back to its own open element), with each member collected only inside the open game element."""
+
+    def __init__(self, text: str) -> None:
+        super().__init__(convert_charrefs=True)
+        self.text = text
+        self.line_starts = [0]
+        for index, char in enumerate(text):
+            if char == "\n":
+                self.line_starts.append(index + 1)
+        self.stack: list[dict[str, Any]] = []
+        self.title_parts: list[str] | None = None
+        self.title: str | None = None
+        self.game: dict[str, Any] | None = None
+        self.events: list[dict[str, Any]] = []
+
+    def _offset(self) -> int:
+        line, column = self.getpos()
+        return self.line_starts[line - 1] + column
+
+    def _inside(self, token: str) -> bool:
+        return any(token in e["classes"] for e in self.stack[self.game["depth"]:]) if self.game else False
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = {k: v for k, v in attrs}
+        classes = (values.get("class") or "").split()
+        if tag == "title" and self.title is None and self.title_parts is None:
+            self.title_parts = []
+        element = {"tag": tag, "classes": classes, "collectors": []}
+        if tag == "li" and _CLASSIC_GAME in classes and self.game is None:
+            self.game = {"depth": len(self.stack), "start": self._offset(), "classes": classes, "date": None,
+                         "opponent": None, "site": None, "spans": [], "at_vs": None}
+        elif self.game is not None:
+            g = self.game
+            if tag == "span" and self._inside("sidearm-schedule-game-opponent-date") and g["date"] is None:
+                element["collectors"].append(("date", []))
+            if "sidearm-schedule-game-opponent-name" in classes and g["opponent"] is None:
+                element["collectors"].append(("opponent", []))
+            if tag == "a" and self._inside("sidearm-schedule-game-opponent-name") and g["site"] is None:
+                g["site"] = values.get("href")
+            if tag == "span" and self._inside("sidearm-schedule-game-location"):
+                element["collectors"].append(("location_span", []))
+            if tag == "span" and ({"sidearm-schedule-game-away", "sidearm-schedule-game-home"} & set(classes)) and \
+                    g["at_vs"] is None:
+                element["collectors"].append(("at_vs", []))
+        if tag not in _HTML_VOID:
+            self.stack.append(element)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "title" and self.title_parts is not None and self.title is None:
+            self.title = _text(self.title_parts) or ""
+        position = next((i for i in range(len(self.stack) - 1, -1, -1) if self.stack[i]["tag"] == tag), None)
+        if position is None:
+            return
+        while len(self.stack) > position:
+            element = self.stack.pop()
+            for name, parts in element["collectors"]:
+                value = _text(parts)
+                if self.game is None:
+                    continue
+                if name == "date" and self.game["date"] is None:
+                    self.game["date"] = value
+                elif name == "opponent" and self.game["opponent"] is None:
+                    self.game["opponent"] = value
+                elif name == "location_span":
+                    self.game["spans"].append(value)
+                elif name == "at_vs" and self.game["at_vs"] is None:
+                    self.game["at_vs"] = value
+            if self.game is not None and len(self.stack) == self.game["depth"]:
+                end = self.text.find(">", self._offset())
+                self.game["end"] = len(self.text) if end < 0 else end + 1
+                self.events.append(self.game)
+                self.game = None
+
+    def handle_data(self, data: str) -> None:
+        if self.title_parts is not None and self.title is None:
+            self.title_parts.append(data)
+        for element in self.stack:
+            for _name, parts in element["collectors"]:
+                parts.append(data)
+
+
+def _classic_date(text: Any, season: int) -> str | None:
+    """'Mon D (Ddd)' -> the ISO date in the season or the next year whose weekday matches (exactly one), else None."""
+    match = _CLASSIC_DATE_RE.match(text) if isinstance(text, str) else None
+    if not match or match.group(1) not in _MONTHS or match.group(3) not in _WEEKDAYS:
+        return None
+    found = []
+    for year in (season, season + 1):
+        try:
+            day = datetime(year, _MONTHS[match.group(1)], int(match.group(2)))
+        except ValueError:
+            continue
+        if _WEEKDAYS[day.weekday()] == match.group(3):
+            found.append(day.date().isoformat())
+    return found[0] if len(found) == 1 else None
+
+
+def _extract_sidearm_classic(body: bytes, season: int) -> dict[str, Any]:
+    schema = SITE_RECORD_SCHEMAS["SIDEARM_CLASSIC_SCHEDULE"]
+    try:
+        text = body.decode("utf-8")
+    except UnicodeDecodeError:
+        return {"matched": False, "reason": "CLASSIC_NOT_UTF8"}
+    parser = _ClassicSchedule(text)
+    parser.feed(text)
+    parser.close()
+    title = parser.title or ""
+    if not any(title.startswith(f"{label} Football Schedule") for label in _season_labels(season)):
+        return {"matched": False, "reason": f"CLASSIC_TITLE_NOT_A_SEASON_SCHEDULE:{title[:60]}"}
+    if not parser.events:
+        return {"matched": False, "reason": "CLASSIC_NO_GAME_ELEMENT"}
+    events = []
+    for index, game in enumerate(parser.events):
+        tokens = [t for t in game["classes"] if t in schema["designations"]]
+        spans = game["spans"]
+        values = {"event_date": game["date"], "location_designation": tokens[0] if len(tokens) == 1 else None,
+                  "neutral_home_team": None, "at_vs": game["at_vs"], "opponent_name": game["opponent"],
+                  "opponent_site": game["site"],
+                  "facility": spans[1] if len(spans) > 1 and spans[1] != spans[0] else None,
+                  "location": spans[0] if spans else None, "event_title": None}
+        start = len(text[:game["start"]].encode("utf-8"))
+        end = start + len(text[game["start"]:game["end"]].encode("utf-8"))
+        events.append({"index": index, "valid": True, "values": values,
+                       "locator": {"element_bytes": [start, end], "path": ["li.sidearm-schedule-game", index]}})
+    return {"matched": True, "schema": "SIDEARM_CLASSIC_SCHEDULE", "season_title": title, "events": events}
+
+
+SITE_EXTRACTORS = {"SIDEARM_NUXT_SCHEDULE": _extract_sidearm_nuxt, "SIDEARM_CLASSIC_SCHEDULE": _extract_sidearm_classic}
+
+
+def site_event_date(values: dict[str, Any], schema: str, season: int) -> str | None:
+    """The record's local event date under its schema's date rule."""
+    if schema == "SIDEARM_CLASSIC_SCHEDULE":
+        return _classic_date(values.get("event_date"), season)
+    return _event_date(values.get("event_date"))
+
+
+def extract_site_records(body: bytes, season: int) -> dict[str, Any]:
+    """The season's event records of one official document under the first declared schema that holds them (fixed
+    order); a document no schema matches yields no record and names every schema's reason."""
+    reasons = {}
+    for name, extractor in SITE_EXTRACTORS.items():
+        result = extractor(body, season)
+        if result["matched"]:
+            return result
+        reasons[name] = result["reason"]
+    return {"matched": False, "schema": None, "reasons": reasons, "events": []}
+
+
+# ---- derivation
+
+def site_universe(parent_records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Every predecessor parent record with a one-to-one relation whose neutral_status or home_orientation comparison
+    is DISAGREE, in predecessor order."""
+    out = []
+    for record in parent_records:
+        comparisons = record.get("comparisons") or {}
+        if record.get("relation") and any((comparisons.get(f) or {}).get("result") == "DISAGREE"
+                                          for f in SITE_DISCREPANCIES):
+            out.append(record)
+    return out
+
+
+def _event_date(value: Any) -> str | None:
+    match = _SITE_EVENT_DATE_RE.match(value) if isinstance(value, str) else None
+    return match.group(1) if match else None
+
+
+def _opponent_binding(values: dict[str, Any], opponent: dict[str, Any], org: dict[str, Any] | None) -> str | None:
+    site = _domain_of(values.get("opponent_site")) if isinstance(values.get("opponent_site"), str) else None
+    if site is not None and org is not None and site in set(org["host_family"]):
+        return "OFFICIAL_SITE"
+    name = values.get("opponent_name")
+    if isinstance(name, str) and name.strip():
+        documented = {opponent["team_name"], opponent["provider_name"]} | ({org["name_official"]} if org else set())
+        if normalize_team_name(name) in {normalize_team_name(n) for n in documented if isinstance(n, str) and n}:
+            return "DOCUMENTED_NAME"
+    return None
+
+
+def _statements(values: dict[str, Any], schema: str, side: str, other: str) -> dict[str, Any]:
+    designation = SITE_RECORD_SCHEMAS[schema]["designations"].get(values.get("location_designation")) \
+        if isinstance(values.get("location_designation"), str) else None
+    neutral = {"HOME": False, "AWAY": False, "NEUTRAL": True}.get(designation)
+    home = side if designation == "HOME" else other if designation == "AWAY" else \
+        side if designation == "NEUTRAL" and values.get("neutral_home_team") is True else None
+    venue = " ".join(values["facility"].split()) or None if isinstance(values.get("facility"), str) else None
+    location = " ".join(values["location"].split()) or None if isinstance(values.get("location"), str) else None
+    return {"designation": designation, "designated_home": home, "neutral_designation": neutral,
+            "physical_venue": venue, "venue_location": location}
+
+
+def _field(statements: list[tuple[str, str, Any]]) -> dict[str, Any]:
+    stated = [{"document": d, "side": s, "value": v} for d, s, v in statements if v is not None]
+    values = []
+    for item in stated:
+        if item["value"] not in values:
+            values.append(item["value"])
+    if not stated:
+        return {"state": "UNSUPPORTED", "value": None, "sources": []}
+    return {"state": "SUPPORTED" if len(values) == 1 else "CONFLICTING",
+            "value": values[0] if len(values) == 1 else None, "sources": stated}
+
+
+def _claim_check(official: dict[str, Any], claim: Any) -> str:
+    if official["state"] == "CONFLICTING":
+        return "CONFLICTING_EVIDENCE"
+    if official["state"] == "UNSUPPORTED" or claim is None:
+        return "NOT_ADDRESSED"
+    return "SUPPORTED" if official["value"] == claim else "CONTRADICTED"
+
+
+def derive_site_evidence(parent_records: list[dict[str, Any]], sources: dict[str, Any], *,
+                         input_order: str = "natural") -> dict[str, Any]:
+    """The complete site-evidence records, source records and summary, derived from the verified predecessor records and
+    the verified sources. Expected collections come from the inputs: one record per universe contest (predecessor order)
+    and one source record per acquisition attempt (request-id order)."""
+    universe = site_universe(parent_records)
+    keys = [r["contest_key"] for r in universe]
+    if len(keys) != len(set(keys)):
+        _site_refuse("SITE_EVIDENCE_UNIVERSE_MISMATCH", "duplicate universe contest keys")
+    order = {k: i for i, k in enumerate(keys)}
+    documents = sources["documents"]
+    extractions: dict[str, dict[str, Any]] = {}
+    for sha in _permute(sources["document_order"], input_order):
+        d = documents[sha]
+        if d["role"] == "OFFICIAL_SEASON_SCHEDULE":
+            extractions[sha] = extract_site_records(sources["bodies"][sha], d["season"])
+    by_owner: dict[tuple[str, int], list[str]] = {}
+    for sha in sources["document_order"]:
+        d = documents[sha]
+        if d["role"] == "OFFICIAL_SEASON_SCHEDULE":
+            by_owner.setdefault((d["org_id"], d["season"]), []).append(sha)
+    failed: dict[tuple[str, int], list[dict[str, Any]]] = {}
+    for attempt in sources["attempts"]:
+        if attempt["role"] == "OFFICIAL_SEASON_SCHEDULE" and attempt["outcome"] != "RETAINED_200":
+            failed.setdefault((attempt["org_id"], attempt["season"]), []).append(attempt)
+    records, examined_by_doc, bound_by_doc = [], {}, {}
+    for record in sorted(_permute(universe, input_order), key=lambda r: order[r["contest_key"]]):
+        season, date = record["season"], record["contest_date"]
+        parts = {s: record["participants"][s] for s in ("a", "b")}
+        relation = record["relation"]
+        sides = {}
+        for s in ("a", "b"):
+            p = parts[s]
+            sides[s] = {"key": p["key"], "org_id": p["org_id"], "team_name": p["team_name"],
+                        "provider_team_id": p["crosswalk"].get("provider_team_id"),
+                        "provider_name": (p.get("provider_name") or {}).get("provider_team_name"),
+                        "provider_role": relation["side_map"][s]}
+        orgs = {s: sources["organization"](sides[s]["org_id"]) if sides[s]["org_id"] else None for s in ("a", "b")}
+        examined, events = [], []
+        for s in ("a", "b"):
+            other = "b" if s == "a" else "a"
+            for sha in by_owner.get((sides[s]["org_id"], season), []):
+                extraction = extractions[sha]
+                entry = {"document": sha, "side": s, "org_id": sides[s]["org_id"], "schema": extraction.get("schema"),
+                         "request_ids": sources["produced_by"][sha]}
+                examined_by_doc.setdefault(sha, []).append(record["contest_key"])
+                if not extraction["matched"]:
+                    examined.append({**entry, "outcome": "NO_DECLARED_RECORD_SCHEMA",
+                                     "detail": extraction["reasons"]})
+                    continue
+                on_date, bound, other_dates = [], [], []
+                for event in extraction["events"]:
+                    if not event["valid"]:
+                        continue
+                    binding = _opponent_binding(event["values"], sides[other], orgs[other])
+                    event_date = site_event_date(event["values"], extraction["schema"], season)
+                    if event_date == date:
+                        on_date.append(event)
+                        if binding:
+                            bound.append((event, binding))
+                    elif binding and event_date is not None:
+                        other_dates.append(event_date)
+                if len(bound) == 1:
+                    event, binding = bound[0]
+                    stated = _statements(event["values"], extraction["schema"], s, other)
+                    events.append({"side": s, "org_id": sides[s]["org_id"], "document": sha,
+                                   "schema": extraction["schema"], "locator": event["locator"], "event_local_date": date,
+                                   "opponent_binding": binding, "values": event["values"], "statements": stated})
+                    bound_by_doc.setdefault(sha, []).append(record["contest_key"])
+                    examined.append({**entry, "outcome": "BOUND", "detail": {"index": event["index"]}})
+                elif len(bound) > 1:
+                    examined.append({**entry, "outcome": "AMBIGUOUS_RECORDS_ON_DATE",
+                                     "detail": {"indexes": [e["index"] for e, _b in bound]}})
+                elif on_date:
+                    examined.append({**entry, "outcome": "RECORD_ON_DATE_OPPONENT_NOT_BOUND",
+                                     "detail": {"indexes": [e["index"] for e in on_date],
+                                                "opponent_names": [e["values"].get("opponent_name") for e in on_date]}})
+                elif other_dates:
+                    examined.append({**entry, "outcome": "OPPONENT_RECORD_ON_OTHER_DATE",
+                                     "detail": {"dates": sorted(set(other_dates)), "final_event_date": date}})
+                else:
+                    examined.append({**entry, "outcome": "NO_RECORD_ON_FINAL_EVENT_DATE",
+                                     "detail": {"final_event_date": date}})
+            for attempt in failed.get((sides[s]["org_id"], season), []):
+                examined.append({"document": None, "side": s, "org_id": sides[s]["org_id"], "schema": None,
+                                 "request_ids": [attempt["request_id"]], "outcome": "ATTEMPT_WITHOUT_DOCUMENT",
+                                 "detail": {"attempt_outcome": attempt["outcome"]}})
+        fields = {name: _field([(e["document"], e["side"], e["statements"][name]) for e in events])
+                  for name in SITE_FIELDS}
+        if fields["designated_home"]["value"] is not None:
+            fields["designated_home"]["value"] = {"side": fields["designated_home"]["value"],
+                                                  "participant_key": sides[fields["designated_home"]["value"]]["key"]}
+        for name in ("physical_venue", "venue_location"):
+            fields[name]["conflict_kind"] = "TEXT_RENDERINGS_DIFFER" if fields[name]["state"] == "CONFLICTING" else None
+        comparisons = record["comparisons"]
+        site = comparisons["neutral_status"]["parent_site"]
+        claims = {"parent_site": site, "provider_neutral_site": comparisons["neutral_status"]["provider_neutral_site"],
+                  "provider_home_side": comparisons["home_orientation"]["provider_home_side"],
+                  "provider_home_team_id": comparisons["home_orientation"]["provider_home_team_id"],
+                  "neutral_status_result": comparisons["neutral_status"]["result"],
+                  "home_orientation_result": comparisons["home_orientation"]["result"],
+                  "field_conflicts": record["field_conflicts"], "disposition": record["disposition"],
+                  "disposition_reason": record["disposition_reason"]}
+        parent_neutral = site == "NEUTRAL" if site in ("HOME_A", "HOME_B", "NEUTRAL") else None
+        parent_home = {"HOME_A": "a", "HOME_B": "b"}.get(site)
+        provider_neutral = claims["provider_neutral_site"] if isinstance(claims["provider_neutral_site"], bool) else None
+        provider_home = claims["provider_home_side"] if claims["provider_home_side"] in ("a", "b") else None
+        official_home = dict(fields["designated_home"])
+        official_home["value"] = (official_home["value"] or {}).get("side")
+        checks = {"parent": {"neutral_designation": _claim_check(fields["neutral_designation"], parent_neutral),
+                             "designated_home": _claim_check(official_home, parent_home)},
+                  "provider": {"neutral_designation": _claim_check(fields["neutral_designation"], provider_neutral),
+                               "designated_home": _claim_check(official_home, provider_home)}}
+        disputed = next(f for f in SITE_DISCREPANCIES if comparisons[f]["result"] == "DISAGREE")
+        official = fields["neutral_designation"] if disputed == "neutral_status" else official_home
+        check_key = "neutral_designation" if disputed == "neutral_status" else "designated_home"
+        if official["state"] == "CONFLICTING":
+            disposition = "OFFICIAL_SOURCES_CONFLICT"
+        elif official["state"] == "UNSUPPORTED":
+            disposition = "UNSUPPORTED_FIELD_NOT_STATED" if events else "UNSUPPORTED_NO_BOUND_RECORD"
+        elif checks["parent"][check_key] == "SUPPORTED":
+            disposition = "PARENT_CLAIM_SUPPORTED"
+        else:
+            disposition = "PROVIDER_CLAIM_SUPPORTED"
+        records.append({
+            "record_type": "site_evidence", "contest_key": record["contest_key"], "season": season,
+            "final_event_date": date, "participants": sides,
+            "provider_game_id": relation["provider_game_id"], "provider_row_key": relation["provider_row_key"],
+            "original_claims": claims, "discrepancy": SITE_DISCREPANCIES[disputed], "disputed_field": disputed,
+            "official_sites": {s: orgs[s] and {k: orgs[s][k] for k in ("org_id", "name_official", "athletic_web_url",
+                                                                       "official_domain", "locator")}
+                               for s in ("a", "b")},
+            "examined_documents": examined, "event_records": events, "fields": fields, "claim_checks": checks,
+            "unsupported_fields": [n for n in SITE_FIELDS if fields[n]["state"] == "UNSUPPORTED"],
+            "disposition": disposition, "pit_class": SITE_PIT_CLASS})
+    source_records = []
+    for attempt in sources["attempts"]:
+        last = attempt["hops"][-1] if attempt["hops"] else None
+        sha = last["body_sha256"] if attempt["outcome"] == "RETAINED_200" else None
+        source_records.append({
+            "record_type": "site_source", "source_key": attempt["request_id"], "role": attempt["role"],
+            "org_id": attempt["org_id"], "season": attempt["season"], "request_url": attempt["request_url"],
+            "outcome": attempt["outcome"], "acquisition": attempt["acquisition"],
+            "hops": [{k: h[k] for k in ("url", "status", "location", "retrieved_at", "body_sha256", "body_bytes", "error")}
+                     for h in attempt["hops"]],
+            "document": sha, "schema": (extractions.get(sha) or {}).get("schema") if sha else None,
+            "examined_for": sorted(set(examined_by_doc.get(sha, [])), key=lambda k: order[k]) if sha else [],
+            "bound_for": sorted(set(bound_by_doc.get(sha, [])), key=lambda k: order[k]) if sha else []})
+    for sha, d in documents.items():
+        if d["role"] == "OFFICIAL_SEASON_SCHEDULE" and sha not in examined_by_doc:
+            _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"schedule document {sha} belongs to no universe contest's "
+                                                          "participant season")
+    for attempt in sources["attempts"]:
+        if attempt["role"] == "OFFICIAL_SEASON_SCHEDULE" and not any(
+                (attempt["org_id"], attempt["season"]) == (p["org_id"], r["season"])
+                for r in universe for p in r["participants"].values()):
+            _site_refuse("SITE_EVIDENCE_SOURCES_INVALID", f"attempt {attempt['request_id']} belongs to no universe "
+                                                          "contest's participant season")
+    return {"records": records, "sources": source_records, "summary": site_summary(records, source_records)}
+
+
+def site_summary(records: list[dict[str, Any]], sources: list[dict[str, Any]]) -> dict[str, Any]:
+    """The summary denominators, computed only from the records themselves."""
+    return {"contests": len(records), "by_season": _count([str(r["season"]) for r in records]),
+            "by_discrepancy": _count([r["discrepancy"] for r in records]),
+            "by_disposition": _count([r["disposition"] for r in records]),
+            "by_discrepancy_and_disposition": {d: _count([r["disposition"] for r in records if r["discrepancy"] == d])
+                                               for d in sorted({r["discrepancy"] for r in records})},
+            "field_states": {f: _count([r["fields"][f]["state"] for r in records]) for f in SITE_FIELDS},
+            "claim_checks": {who: {f: _count([r["claim_checks"][who][f] for r in records])
+                                   for f in ("neutral_designation", "designated_home")} for who in ("parent", "provider")},
+            "event_records": sum(len(r["event_records"]) for r in records),
+            "contests_with_bound_record": sum(1 for r in records if r["event_records"]),
+            "examined_outcomes": _count([e["outcome"] for r in records for e in r["examined_documents"]]),
+            "sources": len(sources), "source_outcomes": _count([s["outcome"].split(":")[0] for s in sources]),
+            "documents": len({s["document"] for s in sources if s["document"]})}
+
+
+def site_payloads(derived: dict[str, Any]) -> dict[str, bytes]:
+    return {"site_evidence.jsonl": "".join(reconciliation_line(r) + "\n" for r in derived["records"]).encode("utf-8"),
+            "site_sources.jsonl": "".join(reconciliation_line(r) + "\n" for r in derived["sources"]).encode("utf-8"),
+            "summary.json": (reconciliation_line(derived["summary"]) + "\n").encode("utf-8")}
+
+
+def site_scope(anchors: dict[str, Any]) -> dict[str, Any]:
+    keys = list((anchors.get("universe") or {}).get("keys") or [])
+    return {"seasons": list(RECONCILIATION_SEASONS), "predecessor_population": ALIAS_SUCCESSOR_POPULATION,
+            "universe_rule": "every predecessor parent record with a one-to-one relation whose neutral_status or "
+                             "home_orientation comparison is DISAGREE, in predecessor order",
+            "expected_contests": len(keys),
+            "expected_keys_sha256": hashlib.sha256(canonical_json_bytes(keys)).hexdigest(),
+            "season_note": SITE_PARAMETERS["season_note"]}
+
+
+def site_content_document(contract_id: str, contract_sha256: str, anchors: dict[str, Any],
+                          payloads: dict[str, bytes]) -> dict[str, Any]:
+    return {"schema": SITE_CONTENT_SCHEMA, "stage": "site-evidence-content", "population": SITE_EVIDENCE_POPULATION,
+            "contract_id": contract_id, "contract_sha256": contract_sha256, "predecessor": anchors["predecessor"],
+            "evidence": anchors["evidence"],
+            "parameters_sha256": hashlib.sha256(canonical_json_bytes(SITE_PARAMETERS)).hexdigest(),
+            "labels": SITE_LABELS, "scope": site_scope(anchors), "payload_schema": SITE_PAYLOAD_SCHEMA,
+            "outputs": {name: hashlib.sha256(payloads[name]).hexdigest() for name in SITE_PAYLOADS},
+            "row_counts": {name: payloads[name].count(b"\n") for name in SITE_PAYLOADS if name.endswith(".jsonl")}}
+
+
+def site_meta(content_document: dict[str, Any], content_identity: str, summary: dict[str, Any]) -> dict[str, str]:
+    dumps = lambda value: json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)  # noqa: E731
+    return {"schema_version": SITE_DB_SCHEMA, "contract_id": content_document["contract_id"],
+            "contract_sha256": content_document["contract_sha256"], "content_identity": content_identity,
+            "payload_schema": SITE_PAYLOAD_SCHEMA, "payload_sha256": dumps(content_document["outputs"]),
+            "row_counts": dumps(content_document["row_counts"]), "predecessor": dumps(content_document["predecessor"]),
+            "evidence": dumps(content_document["evidence"]), "labels": dumps(content_document["labels"]),
+            "scope": dumps(content_document["scope"]), "parameters_sha256": content_document["parameters_sha256"],
+            "summary": dumps(summary)}
+
+
+def site_database_document(contract_sha256: str, content_identity: str, database_sha256: str,
+                           table_counts: dict[str, int]) -> dict[str, Any]:
+    """The complete contract-defined sidecar database identity document: exactly these members."""
+    return {"schema": SITE_DATABASE_SCHEMA, "stage": "site-evidence-database", "population": SITE_EVIDENCE_POPULATION,
+            "contract_sha256": contract_sha256, "content_identity": content_identity, "db_schema_version": SITE_DB_SCHEMA,
+            "outputs": {SITE_DB_FILE: database_sha256}, "table_counts": dict(table_counts)}
+
+
+SITE_DDL = (
+    ("table", "meta", "CREATE TABLE meta (key TEXT NOT NULL, value TEXT NOT NULL)"),
+    ("table", "site_evidence",
+     "CREATE TABLE site_evidence (ord INTEGER PRIMARY KEY, contest_key TEXT NOT NULL, season INTEGER NOT NULL, "
+     "final_event_date TEXT, a_key TEXT, b_key TEXT, discrepancy TEXT NOT NULL, disposition TEXT NOT NULL, "
+     "record TEXT NOT NULL)"),
+    ("table", "site_source",
+     "CREATE TABLE site_source (ord INTEGER PRIMARY KEY, source_key TEXT NOT NULL, role TEXT NOT NULL, org_id TEXT, "
+     "season INTEGER, outcome TEXT NOT NULL, document_sha256 TEXT, record TEXT NOT NULL)"),
+    ("index", "ix_meta_key", "CREATE INDEX ix_meta_key ON meta (key)"),
+    ("index", "ix_site_contest", "CREATE INDEX ix_site_contest ON site_evidence (contest_key)"),
+    ("index", "ix_site_season", "CREATE INDEX ix_site_season ON site_evidence (season, ord)"),
+    ("index", "ix_site_disposition", "CREATE INDEX ix_site_disposition ON site_evidence (disposition, ord)"),
+    ("index", "ix_source_key", "CREATE INDEX ix_source_key ON site_source (source_key)"),
+)
+SITE_TABLES = ("meta", "site_evidence", "site_source")
+
+
+def site_table_rows(derived: dict[str, Any]) -> dict[str, list[tuple[Any, ...]]]:
+    """The exact rows of both record tables (ord order); every index column is taken from its record."""
+    evidence = [(i, r["contest_key"], r["season"], r["final_event_date"], r["participants"]["a"]["key"],
+                 r["participants"]["b"]["key"], r["discrepancy"], r["disposition"], reconciliation_line(r))
+                for i, r in enumerate(derived["records"])]
+    sources = [(i, r["source_key"], r["role"], r["org_id"], r["season"], r["outcome"], r["document"],
+                reconciliation_line(r)) for i, r in enumerate(derived["sources"])]
+    return {"site_evidence": evidence, "site_source": sources}
+
+
+#: Which refusal a differing top-level record field gets (first match in this order).
+_SITE_RECORD_FIELD_CODES = (("original_claims", "SITE_EVIDENCE_CLAIM_MISMATCH"),
+                            ("participants", "SITE_EVIDENCE_CLAIM_MISMATCH"),
+                            ("examined_documents", "SITE_EVIDENCE_SOURCE_RECORD_MISMATCH"),
+                            ("event_records", "SITE_EVIDENCE_SOURCE_RECORD_MISMATCH"),
+                            ("official_sites", "SITE_EVIDENCE_SOURCE_RECORD_MISMATCH"),
+                            ("fields", "SITE_EVIDENCE_FIELD_MISMATCH"),
+                            ("unsupported_fields", "SITE_EVIDENCE_FIELD_MISMATCH"),
+                            ("claim_checks", "SITE_EVIDENCE_FIELD_MISMATCH"),
+                            ("disposition", "SITE_EVIDENCE_DISPOSITION_MISMATCH"),
+                            ("discrepancy", "SITE_EVIDENCE_DISPOSITION_MISMATCH"),
+                            ("disputed_field", "SITE_EVIDENCE_DISPOSITION_MISMATCH"),
+                            ("examined_for", "SITE_EVIDENCE_SOURCE_RECORD_MISMATCH"),
+                            ("bound_for", "SITE_EVIDENCE_SOURCE_RECORD_MISMATCH"),
+                            ("hops", "SITE_EVIDENCE_SOURCE_RECORD_MISMATCH"),
+                            ("outcome", "SITE_EVIDENCE_SOURCE_RECORD_MISMATCH"))
+
+
+class SiteEvidenceSidecar:
+    """A verified, read-only handle on one content-addressed site-evidence sidecar of the verified BAT-720 alias
+    successor.
+
+    Construction refuses (NationalQueryError with a stable code) unless the predecessor is exactly the pinned one, the
+    sidecar location, manifest identity, database bytes, schema and meta claims verify, the pinned evidence bundle and
+    every retained body and receipt verify, the universe is exactly the pinned contests, and every record, source record,
+    the summary and the content identity equal what is re-derived from those inputs. The identity documents are compared
+    as canonical bytes and the served identity is the digest of the rebuilt contract-defined document."""
+
+    def __init__(self, database: Path, *, predecessor: AliasReconciliationSuccessor, manifest: Path | None = None,
+                 expect_identity: str | None = None, anchors: dict[str, Any] | None = None) -> None:
+        self.anchors = anchors if anchors is not None else SITE_EVIDENCE_ANCHORS
+        if not isinstance(self.anchors, dict):
+            raise NationalQueryError("SITE_EVIDENCE_NOT_PINNED",
+                                     "this reader pins no committed site-evidence contract; nothing is served")
+        a = self.anchors
+        observed = {"population_id": ALIAS_SUCCESSOR_POPULATION,
+                    "contract_sha256": predecessor.anchors.get("contract_sha256"),
+                    "contract_id": predecessor.anchors.get("contract_id"),
+                    "content_identity": predecessor.content_identity,
+                    "database_identity": predecessor.database_identity}
+        if observed != a.get("predecessor"):
+            differing = sorted(k for k in set(observed) | set(a.get("predecessor") or {})
+                               if observed.get(k) != (a.get("predecessor") or {}).get(k))
+            raise NationalQueryError("SITE_EVIDENCE_PREDECESSOR_MISMATCH",
+                                     f"the selected reconciliation differs from the bound alias successor on {differing}")
+        self.predecessor = predecessor
+        self.binding = self._verify_location(database, manifest, expect_identity)
+        if self.binding["identity_document"].get("contract_sha256") != a["contract_sha256"]:
+            raise NationalQueryError("SITE_EVIDENCE_CONTRACT_MISMATCH",
+                                     f"the sidecar names contract {self.binding['identity_document'].get('contract_sha256')}"
+                                     f", the reader binds {a['contract_sha256']}")
+        self.conn = connect_readonly(database)
+        try:
+            self._verify(Path(database))
+        except BaseException:
+            self.conn.close()
+            raise
+
+    @staticmethod
+    def _verify_location(database: Path, manifest: Path | None, expect_identity: str | None) -> dict[str, Any]:
+        try:
+            _literal_path(database)
+        except _LocationError as exc:
+            raise NationalQueryError(exc.code, exc.detail) from exc
+        db = Path(database)
+        if not db.is_file():
+            raise NationalQueryError("SITE_EVIDENCE_DATABASE_MISSING", f"no site-evidence database file at {db}")
+        resolved = db.resolve()
+        if db.name != SITE_DB_FILE or resolved.parent.parent.name != "sha256" or \
+                resolved.parent.parent.parent.name != SITE_EVIDENCE_POPULATION:
+            raise NationalQueryError("SITE_EVIDENCE_LOCATION_INVALID",
+                                     f"the sidecar must sit at <root>/{SITE_EVIDENCE_POPULATION}/sha256/<id>/{SITE_DB_FILE}")
+        identity = resolved.parent.name
+        if not IDENTITY_RE.match(identity):
+            raise NationalQueryError("SITE_EVIDENCE_LOCATION_INVALID", f"directory name {identity!r} is not an identity")
+        manifest_path = Path(manifest) if manifest is not None else manifest_path_for(db)
+        if not manifest_path.is_file():
+            raise NationalQueryError("SITE_EVIDENCE_MANIFEST_MISSING", f"no run manifest at {manifest_path}")
+        try:
+            document = json.loads(manifest_path.read_text(encoding="utf-8"))
+            identity_document = document["identity_document"]
+            computed = hashlib.sha256(canonical_json_bytes(identity_document)).hexdigest()
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            raise NationalQueryError("SITE_EVIDENCE_MANIFEST_MALFORMED", str(exc)) from exc
+        if computed != identity or document.get("identity") != identity:
+            raise NationalQueryError("SITE_EVIDENCE_IDENTITY_MISMATCH",
+                                     f"manifest identity document hashes to {computed}, directory is {identity}")
+        if not isinstance(identity_document, dict) or \
+                (identity_document.get("stage"), identity_document.get("schema"),
+                 identity_document.get("db_schema_version"), identity_document.get("population")) != \
+                ("site-evidence-database", SITE_DATABASE_SCHEMA, SITE_DB_SCHEMA, SITE_EVIDENCE_POPULATION):
+            raise NationalQueryError("SITE_EVIDENCE_SCHEMA_UNSUPPORTED", "not a site-evidence database manifest")
+        outputs = identity_document.get("outputs")
+        if outputs is not None and not isinstance(outputs, dict):
+            raise NationalQueryError("SITE_EVIDENCE_IDENTITY_DOCUMENT_MISMATCH",
+                                     "the manifest identity document's outputs member is not an object")
+        expected_sha = (outputs or {}).get(SITE_DB_FILE)
+        actual_sha = _sha256_file(_io_path(db))
+        if expected_sha != actual_sha:
+            raise NationalQueryError("SITE_EVIDENCE_DATABASE_TAMPERED",
+                                     f"sidecar bytes hash to {actual_sha}, manifest names {expected_sha}")
+        if expect_identity is not None and expect_identity != identity:
+            raise NationalQueryError("STALE_SITE_EVIDENCE_IDENTITY", f"expected {expect_identity}, found {identity}")
+        return {"identity": identity, "sha256": actual_sha, "manifest": str(manifest_path),
+                "identity_document": identity_document}
+
+    def _verify(self, database: Path) -> None:
+        a = self.anchors
+        try:
+            master = sorted((str(r[0]), str(r[1]), r[2]) for r in self.conn.execute(
+                "SELECT type, name, sql FROM sqlite_master"))
+        except sqlite3.DatabaseError as exc:
+            raise NationalQueryError("SITE_EVIDENCE_SCHEMA_UNSUPPORTED", str(exc)) from exc
+        if master != sorted(SITE_DDL):
+            raise NationalQueryError("SITE_EVIDENCE_SCHEMA_UNSUPPORTED", "the sidecar schema differs from the contract")
+        meta_rows = [(str(r[0]), r[1]) for r in self.conn.execute("SELECT key, value FROM meta ORDER BY rowid")]
+        meta = dict(meta_rows)
+        if len(meta) != len(meta_rows):
+            raise NationalQueryError("SITE_EVIDENCE_META_MISMATCH", "duplicate meta keys")
+        if meta.get("schema_version") != SITE_DB_SCHEMA:
+            raise NationalQueryError("SITE_EVIDENCE_SCHEMA_UNSUPPORTED", f"schema {meta.get('schema_version')!r}")
+        bound_id = a.get("contract_id")
+        if meta.get("contract_sha256") != a["contract_sha256"] or not isinstance(bound_id, str) or not bound_id or \
+                meta.get("contract_id") != bound_id:
+            raise NationalQueryError("SITE_EVIDENCE_CONTRACT_MISMATCH",
+                                     f"the sidecar meta names contract {meta.get('contract_id')!r}, the reader binds "
+                                     f"{bound_id!r}")
+        claims = {name: _json_or_none(meta.get(name)) for name in ("predecessor", "evidence", "labels", "scope")}
+        if claims["predecessor"] != a["predecessor"]:
+            raise NationalQueryError("SITE_EVIDENCE_PREDECESSOR_MISMATCH", "the sidecar names another predecessor")
+        if claims["evidence"] != a["evidence"]:
+            raise NationalQueryError("SITE_EVIDENCE_PIN_MISMATCH", "the sidecar names other site evidence")
+        if claims["labels"] != SITE_LABELS:
+            labels = claims["labels"] if isinstance(claims["labels"], dict) else {}
+            code = ("SITE_EVIDENCE_PIT_CLAIM_INVALID" if labels.get("pit_eligibility") !=
+                    SITE_LABELS["pit_eligibility"] else "SITE_EVIDENCE_LABEL_CLAIM_INVALID")
+            raise NationalQueryError(code, "the sidecar declares labels other than the contract's")
+        if claims["scope"] != site_scope(a):
+            raise NationalQueryError("SITE_EVIDENCE_SCOPE_CLAIM_INVALID", "the sidecar declares another scope")
+        if meta.get("parameters_sha256") != hashlib.sha256(canonical_json_bytes(SITE_PARAMETERS)).hexdigest():
+            raise NationalQueryError("SITE_EVIDENCE_PARAMETERS_MISMATCH", "the sidecar was built with other rules")
+        counts = {table: self.conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0] for table in SITE_TABLES}
+        if counts != self.binding["identity_document"].get("table_counts"):
+            raise NationalQueryError("SITE_EVIDENCE_COUNT_MISMATCH",
+                                     f"table counts {counts} != {self.binding['identity_document'].get('table_counts')}")
+        bundle = load_site_bundle(site_population_root(database), a)
+        sources = verify_site_sources(bundle)
+        parent_records = self.predecessor.records["parent-reconciliation"]
+        universe_keys = [r["contest_key"] for r in site_universe(parent_records)]
+        if universe_keys != list((a.get("universe") or {}).get("keys") or []):
+            raise NationalQueryError("SITE_EVIDENCE_UNIVERSE_MISMATCH",
+                                     f"the predecessor's site disagreements ({len(universe_keys)}) differ from the "
+                                     f"pinned universe ({len((a.get('universe') or {}).get('keys') or [])})")
+        derived = derive_site_evidence(parent_records, sources)
+        expected_rows = site_table_rows(derived)
+        self._compare_table("site_evidence", expected_rows["site_evidence"], "RECORD")
+        self._compare_table("site_source", expected_rows["site_source"], "SOURCE")
+        payloads = site_payloads(derived)
+        content_document = site_content_document(bound_id, a["contract_sha256"], a, payloads)
+        content_identity = hashlib.sha256(canonical_json_bytes(content_document)).hexdigest()
+        if _json_or_none(meta.get("summary")) != derived["summary"]:
+            raise NationalQueryError("SITE_EVIDENCE_SUMMARY_MISMATCH", "the sidecar summary differs from its records")
+        if meta.get("content_identity") != content_identity or \
+                self.binding["identity_document"].get("content_identity") != content_identity:
+            raise NationalQueryError("SITE_EVIDENCE_CONTENT_IDENTITY_MISMATCH",
+                                     f"the re-derived content identity is {content_identity}")
+        expected_meta = site_meta(content_document, content_identity, derived["summary"])
+        if meta != expected_meta:
+            raise NationalQueryError("SITE_EVIDENCE_META_MISMATCH",
+                                     f"meta differs on {sorted(k for k in set(meta) | set(expected_meta) if meta.get(k) != expected_meta.get(k))}")
+        document = self.binding["identity_document"]
+        expected_document = site_database_document(a["contract_sha256"], content_identity, self.binding["sha256"],
+                                                   counts)
+        expected_bytes = canonical_json_bytes(expected_document)
+        if canonical_json_bytes(document) != expected_bytes:
+            differing = sorted(k for k in set(document) | set(expected_document)
+                               if k not in document or k not in expected_document
+                               or canonical_json_bytes(document[k]) != canonical_json_bytes(expected_document[k]))
+            raise NationalQueryError("SITE_EVIDENCE_IDENTITY_DOCUMENT_MISMATCH",
+                                     f"the manifest identity document is not the contract-defined sidecar document "
+                                     f"(differs on {differing})")
+        database_identity = hashlib.sha256(expected_bytes).hexdigest()
+        if database_identity != self.binding["identity"]:
+            raise NationalQueryError("SITE_EVIDENCE_IDENTITY_DOCUMENT_MISMATCH",
+                                     f"the sidecar location names {self.binding['identity']}, the contract-defined "
+                                     f"database document is {database_identity}")
+        self.database_identity = database_identity
+        self.content_identity = content_identity
+        self.meta = meta
+        self.summary = derived["summary"]
+        self.records = derived["records"]
+        self.sources = derived["sources"]
+        self.bundle_identity = bundle["bundle_identity"]
+
+    def _compare_table(self, table: str, expected: list[tuple[Any, ...]], label: str) -> None:
+        present = [tuple(row) for row in self.conn.execute(f"SELECT * FROM {table} ORDER BY ord")]
+        keys = [row[1] for row in present]
+        if len(keys) != len(set(keys)):
+            raise NationalQueryError("SITE_EVIDENCE_DUPLICATE_ROW", f"{table} repeats a record key")
+        wanted = [row[1] for row in expected]
+        missing = sorted(set(wanted) - set(keys))
+        if missing:
+            raise NationalQueryError(f"SITE_EVIDENCE_{label}_MISSING",
+                                     f"{len(missing)} expected {table} records absent, e.g. {missing[:3]}")
+        extra = sorted(set(keys) - set(wanted))
+        if extra:
+            raise NationalQueryError(f"SITE_EVIDENCE_{label}_EXTRA",
+                                     f"{len(extra)} {table} records outside the expected collection, e.g. {extra[:3]}")
+        if keys != wanted or [row[0] for row in present] != list(range(len(present))):
+            raise NationalQueryError("SITE_EVIDENCE_ORDER_MISMATCH", f"{table} is not in the contract order")
+        for got, want in zip(present, expected):
+            if got == want:
+                continue
+            if got[-1] == want[-1]:
+                raise NationalQueryError("SITE_EVIDENCE_INDEX_MISMATCH",
+                                         f"{table} {want[1]} index columns differ from its record")
+            got_record, want_record = _json_or_none(got[-1]), json.loads(want[-1])
+            if not isinstance(got_record, dict):
+                raise NationalQueryError("SITE_EVIDENCE_RECORD_MISMATCH", f"{table} {want[1]} record is not an object")
+            differing = {f for f in set(want_record) | set(got_record) if got_record.get(f) != want_record.get(f)}
+            code = next((c for f, c in _SITE_RECORD_FIELD_CODES if f in differing), "SITE_EVIDENCE_RECORD_MISMATCH")
+            raise NationalQueryError(code, f"{table} {want[1]} differs on {sorted(differing)[:6]}")
+
+    def close(self) -> None:
+        self.conn.close()
+
+    def __enter__(self) -> "SiteEvidenceSidecar":
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        self.close()
+
+    def query(self, *, season: int | None = None, team: str | None = None, contest: str | None = None,
+              disposition: str | None = None, limit: int | None = 50, offset: int = 0,
+              all_rows: bool = False) -> dict[str, Any]:
+        if offset < 0:
+            raise NationalQueryError("NEGATIVE_OFFSET", "offset must be zero or positive")
+        if limit is not None and limit < 0:
+            raise NationalQueryError("NEGATIVE_LIMIT", "limit must be zero or positive")
+        filters: dict[str, Any] = {}
+        if season is not None:
+            if isinstance(season, bool) or not isinstance(season, int):
+                raise NationalQueryError("SEASON_INVALID", f"season must be an integer, got {season!r}")
+            filters["season"] = season
+        if team is not None:
+            match = _ORG_KEY_RE.match(str(team).strip())
+            filters["team"] = f"org:{int(match.group(1))}" if match else str(team).strip()
+        if contest is not None:
+            text = str(contest).strip()
+            filters["contest"] = f"ncaa:{text}" if text.isdigit() and len(text) <= 12 else text
+            if not (CONTEST_KEY_RE.match(filters["contest"]) or _PROVIDER_CONTEST_RE.match(filters["contest"])):
+                raise NationalQueryError("CONTEST_KEY_INVALID", f"contest must be a parent key or cfbd:<id>, got {contest!r}")
+        if disposition is not None:
+            if disposition not in SITE_DISPOSITIONS:
+                raise NationalQueryError("DISPOSITION_UNKNOWN", f"disposition must be one of {list(SITE_DISPOSITIONS)}")
+            filters["disposition"] = disposition
+        result: dict[str, Any] = {
+            "site_evidence_identity": self.database_identity, "content_identity": self.content_identity,
+            "contract_sha256": self.anchors["contract_sha256"], "grain": SITE_GRAIN, "filters": filters,
+            "offset": offset, "limit": None if all_rows else limit, **SITE_LABELS,
+            "parent_database_identity": self.predecessor.parent_identity,
+            "reconciliation_identity": self.predecessor.database_identity,
+            "predecessor": dict(self.anchors["predecessor"]), "evidence": dict(self.anchors["evidence"]),
+            "collection_denominators": self.summary,
+            "verification": {"site_records_verified": len(self.records), "source_records_verified": len(self.sources),
+                             "evidence_bundle_verified": True, "predecessor_verified": True,
+                             "content_identity_rederived": True}}
+        if season is not None and season not in RECONCILIATION_SEASONS:
+            result.update(season_scope_state="OUTSIDE_SITE_EVIDENCE_SCOPE", total=0, returned=0, rows=[],
+                          next_offset=None, filtered_by_disposition={},
+                          note="season outside the 2024-2025 site-evidence sidecar; no rows are fabricated")
+            return result
+        rows = [r for r in self.records if _site_match(r, filters)]
+        total = len(rows)
+        page = rows[offset:] if all_rows else rows[offset:offset + (limit or 0)]
+        result.update(season_scope_state="SITE_EVIDENCE_2024_2025", total=total, returned=len(page), rows=page,
+                      next_offset=offset + len(page) if offset + len(page) < total else None,
+                      filtered_by_disposition=_count([r["disposition"] for r in rows]))
+        return result
+
+
+def _site_match(record: dict[str, Any], filters: dict[str, Any]) -> bool:
+    """Season, team (either source's name of a participant, org:<id> or cfbdteam:<id>), contest (parent key or
+    cfbd:<provider game id>) and disposition; no alias, normalization or fuzzy rule."""
+    sides = record["participants"].values()
+    team_keys = {s["key"] for s in sides if s["key"]} | \
+        {f"cfbdteam:{s['provider_team_id']}" for s in sides if s["provider_team_id"]} | \
+        {str(s["team_name"]).casefold() for s in sides if s["team_name"]} | \
+        {str(s["provider_name"]).casefold() for s in sides if isinstance(s["provider_name"], str)}
+    contest_keys = {record["contest_key"]} | ({f"cfbd:{record['provider_game_id']}"} if record["provider_game_id"]
+                                              else set())
+    if "season" in filters and record["season"] != filters["season"]:
+        return False
+    if "team" in filters and filters["team"] not in team_keys and filters["team"].casefold() not in team_keys:
+        return False
+    if "contest" in filters and filters["contest"] not in contest_keys:
+        return False
+    if "disposition" in filters and record["disposition"] != filters["disposition"]:
+        return False
+    return True
+
+
 def _selected_population(reconciliation: Path) -> str | None:
     """The population directory an explicitly selected reconciliation location names (lexically, after the literal
     location check); None when it cannot be determined (the V1 reader then refuses it exactly as before)."""
@@ -2260,7 +3522,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--database", required=True, type=Path)
     parser.add_argument("--manifest", type=Path, default=None)
     parser.add_argument("--expect-identity", default=None)
-    parser.add_argument("--grain", required=True, choices=sorted(GRAINS) + sorted(RECONCILIATION_GRAINS))
+    parser.add_argument("--grain", required=True, choices=sorted(GRAINS) + sorted(RECONCILIATION_GRAINS) + [SITE_GRAIN])
     parser.add_argument("--season", type=int, default=None)
     parser.add_argument("--division", default=None)
     parser.add_argument("--org", default=None)
@@ -2280,10 +3542,52 @@ def build_parser() -> argparse.ArgumentParser:
                              "cfbd:<provider game id>")
     parser.add_argument("--require-pit", dest="require_pit", action="store_true",
                         help="refused: no row of this query is PIT eligible")
+    parser.add_argument("--site-evidence", dest="site_evidence", type=Path, default=None,
+                        help="explicitly select a site-evidence sidecar database (never a default); needs "
+                             "--grain site-evidence and --reconciliation naming the bound alias successor")
+    parser.add_argument("--site-evidence-manifest", dest="site_evidence_manifest", type=Path, default=None)
+    parser.add_argument("--expect-site-evidence-identity", dest="expect_site_evidence_identity", default=None)
     return parser
 
 
+_SITE_ONLY_FLAGS = ("site_evidence_manifest", "expect_site_evidence_identity")
+
+
+def _site_main(args: argparse.Namespace) -> dict[str, Any]:
+    """BAT-721: the site-evidence grain over an explicitly selected sidecar of the explicitly selected, bound alias
+    successor (both verified completely before a row is served)."""
+    if args.site_evidence is None:
+        raise NationalQueryError("SITE_EVIDENCE_NOT_SELECTED",
+                                 f"grain {args.grain!r} needs an explicitly selected --site-evidence sidecar")
+    if args.grain != SITE_GRAIN:
+        raise NationalQueryError("SITE_EVIDENCE_GRAIN_REQUIRED", f"with --site-evidence the grain must be {SITE_GRAIN!r}")
+    for name in ("division", "org", "classification_pair", "reconciliation_state"):
+        if getattr(args, name) is not None:
+            raise NationalQueryError("FILTER_NOT_APPLICABLE", f"filter {name!r} does not apply to grain {args.grain!r}")
+    literal_location(args.site_evidence)
+    if args.reconciliation is None:
+        raise NationalQueryError("SITE_EVIDENCE_PREDECESSOR_REQUIRED",
+                                 "--site-evidence needs --reconciliation naming the bound alias successor")
+    if _selected_population(args.reconciliation) != ALIAS_SUCCESSOR_POPULATION:
+        raise NationalQueryError("SITE_EVIDENCE_PREDECESSOR_MISMATCH",
+                                 f"--reconciliation must name the bound {ALIAS_SUCCESSOR_POPULATION} successor")
+    with NationalPopulationDatabase(args.database, manifest=args.manifest, expect_identity=args.expect_identity) as parent:
+        with AliasReconciliationSuccessor(args.reconciliation, parent=parent, parent_database=args.database,
+                                          manifest=args.reconciliation_manifest,
+                                          expect_identity=args.expect_reconciliation_identity) as predecessor:
+            with SiteEvidenceSidecar(args.site_evidence, predecessor=predecessor,
+                                     manifest=args.site_evidence_manifest,
+                                     expect_identity=args.expect_site_evidence_identity) as sidecar:
+                return sidecar.query(season=args.season, team=args.team, contest=args.contest,
+                                     disposition=args.disposition, limit=args.limit, offset=args.offset,
+                                     all_rows=args.all_rows)
+
+
 def _reconciliation_main(args: argparse.Namespace) -> dict[str, Any]:
+    for name in _SITE_ONLY_FLAGS:
+        if getattr(args, name) is not None:
+            raise NationalQueryError("SITE_EVIDENCE_NOT_SELECTED",
+                                     f"--{name.replace('_', '-')} applies only with --site-evidence")
     if args.reconciliation is None:
         raise NationalQueryError("RECONCILIATION_NOT_SELECTED",
                                  f"grain {args.grain!r} needs an explicitly selected --reconciliation sidecar")
@@ -2316,9 +3620,15 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise NationalQueryError("PIT_ELIGIBILITY_NOT_ESTABLISHED",
                                      "no population or reconciliation row is PIT eligible; calendar order and cached "
                                      "provider agreement are not known-at authority")
-        if args.reconciliation is not None or args.grain in RECONCILIATION_GRAINS:
+        if args.site_evidence is not None or args.grain == SITE_GRAIN:
+            result = _site_main(args)
+        elif args.reconciliation is not None or args.grain in RECONCILIATION_GRAINS:
             result = _reconciliation_main(args)
         else:
+            for name in _SITE_ONLY_FLAGS:
+                if getattr(args, name) is not None:
+                    raise NationalQueryError("SITE_EVIDENCE_NOT_SELECTED",
+                                             f"--{name.replace('_', '-')} applies only with --site-evidence")
             for name in ("contest", "reconciliation_manifest", "expect_reconciliation_identity"):
                 if getattr(args, name) is not None:
                     raise NationalQueryError("RECONCILIATION_NOT_SELECTED",

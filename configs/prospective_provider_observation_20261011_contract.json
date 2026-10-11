@@ -1,0 +1,447 @@
+{
+ "schema_version": "1.0.0",
+ "contract_id": "BAT-723-PROSPECTIVE-PROVIDER-OBSERVATION-20261011-V1",
+ "jira_key": "BAT-723",
+ "cycle_number": 51,
+ "attempt_number": 1,
+ "governing_plan": "TP51-A01 revision 2026-10-11.1 sections 1-6 (Cycle #51 Attempt #1); TECHNICAL_PLAN_TP51_A01.md sha256 c3ab08dbdba344b1acd25425d2f958efcab2652876a12cb71d909b1acc979314",
+ "population_id": "prospective_provider_observation_20261011",
+ "season": 2026,
+ "purpose": "One immutable, explicitly selected JSON capsule that makes the single retained ESPN college-football scoreboard observation of 2026-10-11 usable through the existing bas-source-time-query console and module (--prospective-evidence): its exact 25 provider event keys for 2026-10-17 and 50 participant overall records, each derived from its own raw fields, with the real observation bound of the retained request. A provider claim only: not an official NCAA result, independent corroboration, first-publication proof, PIT admission, forecast input admission or national coverage.",
+ "source": {
+  "provider": "ESPN site API college-football scoreboard (provider claim; manager-retained original data)",
+  "endpoint": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=20261017&groups=80&limit=1000",
+  "request": {
+   "dates": "20261017",
+   "groups": "80",
+   "limit": "1000"
+  },
+  "raw_sha256": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9",
+  "raw_bytes": 463364,
+  "receipt_sha256": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26",
+  "receipt_bytes": 21559,
+  "expected_cohort_sha256": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328",
+  "expected_cohort_bytes": 18202,
+  "observation_interval": {
+   "request_start": "2026-10-11T18:15:55.264959+00:00",
+   "request_end": "2026-10-11T18:15:55.744674+00:00",
+   "server_date_header": "Sun, 11 Oct 2026 18:15:55 GMT"
+  },
+  "http_status": 200,
+  "requests": 1,
+  "retention": "Exact bytes retained by the Codex manager on 2026-10-11 (Cycle 51 preparation inputs); SOURCE_ACQUISITION ceiling 0: no browser/API request, archive resume, proxy, secret, paid call or prospective acquirer invocation by the worker.",
+  "odds_provider_object": "The response's top-level 'provider' object names the odds provider (DraftKings). It is recorded only as ODDS_PROVIDER_OBJECT_NOT_SCOREBOARD_PROVENANCE; the provenance is the actual ESPN endpoint and retained receipt."
+ },
+ "membership": {
+  "authority": "manager-frozen EXPECTED_COHORT (independent of worker output); the raw response's derived membership must equal it exactly, with multiplicities",
+  "expected_events": 25,
+  "expected_participants": 50,
+  "event_keys": [
+   "espn:event:401856719",
+   "espn:event:401856720",
+   "espn:event:401856721",
+   "espn:event:401856723",
+   "espn:event:401856724",
+   "espn:event:401856725",
+   "espn:event:401856828",
+   "espn:event:401856829",
+   "espn:event:401856830",
+   "espn:event:401858261",
+   "espn:event:401858264",
+   "espn:event:401858266",
+   "espn:event:401858267",
+   "espn:event:401858268",
+   "espn:event:401858488",
+   "espn:event:401858489",
+   "espn:event:401858490",
+   "espn:event:401858491",
+   "espn:event:401862802",
+   "espn:event:401862803",
+   "espn:event:401864522",
+   "espn:event:401866441",
+   "espn:event:401866442",
+   "espn:event:401866443",
+   "espn:event:401869957"
+  ],
+  "participants": [
+   {
+    "event_key": "espn:event:401856719",
+    "side": "away",
+    "team_key": "espn:team:2"
+   },
+   {
+    "event_key": "espn:event:401856719",
+    "side": "home",
+    "team_key": "espn:team:61"
+   },
+   {
+    "event_key": "espn:event:401856720",
+    "side": "away",
+    "team_key": "espn:team:344"
+   },
+   {
+    "event_key": "espn:event:401856720",
+    "side": "home",
+    "team_key": "espn:team:99"
+   },
+   {
+    "event_key": "espn:event:401856721",
+    "side": "away",
+    "team_key": "espn:team:142"
+   },
+   {
+    "event_key": "espn:event:401856721",
+    "side": "home",
+    "team_key": "espn:team:145"
+   },
+   {
+    "event_key": "espn:event:401856723",
+    "side": "home",
+    "team_key": "espn:team:2633"
+   },
+   {
+    "event_key": "espn:event:401856723",
+    "side": "away",
+    "team_key": "espn:team:333"
+   },
+   {
+    "event_key": "espn:event:401856724",
+    "side": "home",
+    "team_key": "espn:team:251"
+   },
+   {
+    "event_key": "espn:event:401856724",
+    "side": "away",
+    "team_key": "espn:team:57"
+   },
+   {
+    "event_key": "espn:event:401856725",
+    "side": "home",
+    "team_key": "espn:team:245"
+   },
+   {
+    "event_key": "espn:event:401856725",
+    "side": "away",
+    "team_key": "espn:team:2643"
+   },
+   {
+    "event_key": "espn:event:401856828",
+    "side": "home",
+    "team_key": "espn:team:2641"
+   },
+   {
+    "event_key": "espn:event:401856828",
+    "side": "away",
+    "team_key": "espn:team:9"
+   },
+   {
+    "event_key": "espn:event:401856829",
+    "side": "away",
+    "team_key": "espn:team:2132"
+   },
+   {
+    "event_key": "espn:event:401856829",
+    "side": "home",
+    "team_key": "espn:team:277"
+   },
+   {
+    "event_key": "espn:event:401856830",
+    "side": "away",
+    "team_key": "espn:team:2305"
+   },
+   {
+    "event_key": "espn:event:401856830",
+    "side": "home",
+    "team_key": "espn:team:2306"
+   },
+   {
+    "event_key": "espn:event:401858261",
+    "side": "away",
+    "team_key": "espn:team:2127"
+   },
+   {
+    "event_key": "espn:event:401858261",
+    "side": "home",
+    "team_key": "espn:team:228"
+   },
+   {
+    "event_key": "espn:event:401858264",
+    "side": "home",
+    "team_key": "espn:team:259"
+   },
+   {
+    "event_key": "espn:event:401858264",
+    "side": "away",
+    "team_key": "espn:team:59"
+   },
+   {
+    "event_key": "espn:event:401858266",
+    "side": "home",
+    "team_key": "espn:team:150"
+   },
+   {
+    "event_key": "espn:event:401858266",
+    "side": "away",
+    "team_key": "espn:team:153"
+   },
+   {
+    "event_key": "espn:event:401858267",
+    "side": "home",
+    "team_key": "espn:team:103"
+   },
+   {
+    "event_key": "espn:event:401858267",
+    "side": "away",
+    "team_key": "espn:team:221"
+   },
+   {
+    "event_key": "espn:event:401858268",
+    "side": "home",
+    "team_key": "espn:team:2567"
+   },
+   {
+    "event_key": "espn:event:401858268",
+    "side": "away",
+    "team_key": "espn:team:258"
+   },
+   {
+    "event_key": "espn:event:401858488",
+    "side": "away",
+    "team_key": "espn:team:194"
+   },
+   {
+    "event_key": "espn:event:401858488",
+    "side": "home",
+    "team_key": "espn:team:84"
+   },
+   {
+    "event_key": "espn:event:401858489",
+    "side": "home",
+    "team_key": "espn:team:120"
+   },
+   {
+    "event_key": "espn:event:401858489",
+    "side": "away",
+    "team_key": "espn:team:164"
+   },
+   {
+    "event_key": "espn:event:401858490",
+    "side": "home",
+    "team_key": "espn:team:130"
+   },
+   {
+    "event_key": "espn:event:401858490",
+    "side": "away",
+    "team_key": "espn:team:213"
+   },
+   {
+    "event_key": "espn:event:401858491",
+    "side": "home",
+    "team_key": "espn:team:127"
+   },
+   {
+    "event_key": "espn:event:401858491",
+    "side": "away",
+    "team_key": "espn:team:77"
+   },
+   {
+    "event_key": "espn:event:401862802",
+    "side": "away",
+    "team_key": "espn:team:2226"
+   },
+   {
+    "event_key": "espn:event:401862802",
+    "side": "home",
+    "team_key": "espn:team:349"
+   },
+   {
+    "event_key": "espn:event:401862803",
+    "side": "home",
+    "team_key": "espn:team:218"
+   },
+   {
+    "event_key": "espn:event:401862803",
+    "side": "away",
+    "team_key": "espn:team:2429"
+   },
+   {
+    "event_key": "espn:event:401864522",
+    "side": "away",
+    "team_key": "espn:team:2459"
+   },
+   {
+    "event_key": "espn:event:401864522",
+    "side": "home",
+    "team_key": "espn:team:2751"
+   },
+   {
+    "event_key": "espn:event:401866441",
+    "side": "home",
+    "team_key": "espn:team:189"
+   },
+   {
+    "event_key": "espn:event:401866441",
+    "side": "away",
+    "team_key": "espn:team:2050"
+   },
+   {
+    "event_key": "espn:event:401866442",
+    "side": "away",
+    "team_key": "espn:team:113"
+   },
+   {
+    "event_key": "espn:event:401866442",
+    "side": "home",
+    "team_key": "espn:team:2084"
+   },
+   {
+    "event_key": "espn:event:401866443",
+    "side": "home",
+    "team_key": "espn:team:2117"
+   },
+   {
+    "event_key": "espn:event:401866443",
+    "side": "away",
+    "team_key": "espn:team:2711"
+   },
+   {
+    "event_key": "espn:event:401869957",
+    "side": "away",
+    "team_key": "espn:team:2247"
+   },
+   {
+    "event_key": "espn:event:401869957",
+    "side": "home",
+    "team_key": "espn:team:256"
+   }
+  ],
+  "completeness": "UNKNOWN: 25 events and the requested limit=1000 do not prove national completeness; no additional pages are assigned; all national historical/current FBS/FCS, transitions, era equivalents and outside opponents remain in the existing queue; not a representative evaluation sample"
+ },
+ "capsule": {
+  "schema": "BAS-PROSPECTIVE-PROVIDER-OBSERVATION-CAPSULE-1",
+  "file": "capsule.json",
+  "serialization": "json.dumps(document, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False) encoded UTF-8 (no byte-order mark) followed by one LF; every governed value is compared by these canonical bytes (integer, float and boolean types differ)",
+  "top_level_members": [
+   "schema",
+   "population",
+   "contract",
+   "source",
+   "observation",
+   "labels",
+   "bundle",
+   "events",
+   "participants",
+   "counts"
+  ],
+  "bundle": {
+   "raw": "raw/provider-response.json",
+   "receipt": "raw/provider-receipt.json",
+   "expected": "inputs/EXPECTED_COHORT.json",
+   "contract": "inputs/contract.json"
+  },
+  "layout": "canonical/prospective_provider_observation_20261011/sha256/<capsule identity>/ holds capsule.json and the four byte-identical bundle members; manifests/prospective_provider_observation_20261011/sha256/<capsule identity>/run_manifest.json records the build; the reader needs only the capsule directory (portable; a rehoused genuine bundle serves identically)",
+  "identity": {
+   "schema": "BAS-PROSPECTIVE-PROVIDER-OBSERVATION-IDENTITY-1",
+   "members": [
+    "schema",
+    "population",
+    "contract_id",
+    "contract_sha256",
+    "capsule_file",
+    "capsule_sha256",
+    "bundle"
+   ],
+   "rule": "capsule identity = sha256 of the canonical bytes of the identity document; the capsule directory is named by it; no other member"
+  },
+  "event_order": "event_key (string order)",
+  "participant_order": "(event_key, team_key or '', side or '', participant_pointer)",
+  "build": "create-only: staged under canonical/.../.staging/, every member written and re-read, then one directory rename to sha256/<identity>; an existing identity directory must be byte-identical (ALREADY_PRESENT_IDENTICAL) or the build refuses; an interrupted build leaves no directory at the identity path and a resumed build yields identical bytes; processing order and read chunk size never change the bytes"
+ },
+ "event_rules": {
+  "key": "espn:event:<id> from the event's own 'id' (digits); an invalid id refuses the capsule",
+  "fields": [
+   "event_key",
+   "source_event_id",
+   "source_pointer",
+   "competition_count",
+   "competition_pointer",
+   "source_competition_id",
+   "season_year",
+   "season_type",
+   "scheduled_utc",
+   "scheduled_literal",
+   "time_valid",
+   "event_status",
+   "competition_status",
+   "home",
+   "away",
+   "support_state",
+   "unsupported_reasons"
+  ],
+  "competition": "exactly one competition object is supported; otherwise COMPETITION_COUNT_NOT_ONE and no role or competition field is served",
+  "season": "season_year and season_type are the event's own integer season.year and season.type (booleans are not integers); otherwise null with SEASON_YEAR_INVALID / SEASON_TYPE_INVALID",
+  "schedule": "scheduled_utc is served only when the event and competition dates are both strict UTC 'YYYY-MM-DDTHH:MM[:SS]Z' instants, equal, and competition.timeValid is true; otherwise null with SCHEDULED_TIME_NO_VALID_ZONE, EVENT_COMPETITION_DATE_CONTRADICTION, TIME_VALID_MISSING or SCHEDULED_TIME_NOT_VALID_PER_SOURCE; the literals are preserved; no kickoff is invented",
+  "status": "event and competition status (type.name, type.state, type.completed) are both exposed; a difference is EVENT_COMPETITION_STATUS_CONTRADICTION; a missing status is STATUS_MISSING",
+  "roles": "home and away come from the competitors' homeAway values: exactly one 'home' and one 'away' among exactly two competitors, each with a valid id; otherwise ROLE_*_MISSING / ROLE_*_DUPLICATE / ROLE_*_ID_INVALID / ROLE_VALUE_INVALID / COMPETITOR_COUNT_NOT_TWO and both role blocks are null; no role is selected silently",
+  "support": "support_state is SUPPORTED exactly when unsupported_reasons is empty"
+ },
+ "participant_rules": {
+  "key": "espn:team:<id> from the competitor's own 'id' (digits); a team.id that differs is TEAM_ID_DISAGREEMENT (unsupported); an invalid competitor id is PARTICIPANT_ID_INVALID",
+  "fields": [
+   "event_key",
+   "side",
+   "team_key",
+   "source_competitor_id",
+   "source_team_id",
+   "source_name",
+   "participant_pointer",
+   "record_pointer",
+   "candidate_record_pointers",
+   "overall_record",
+   "support_state",
+   "unsupported_reasons"
+  ],
+  "side": "the competitor's homeAway literal; a value other than home/away is SIDE_INVALID",
+  "name": "team.displayName; missing is SOURCE_NAME_MISSING",
+  "record": "the competitor's own records row whose name is exactly 'overall' and type exactly 'total'. Zero rows: RECORD_OVERALL_TOTAL_MISSING; more than one: RECORD_OVERALL_TOTAL_MULTIPLE (none selected, every candidate pointer kept). The literal summary is preserved. A strict two-integer 'W-L' string (ASCII digits, no sign, no leading zero) declares ties 0 by rule (TWO_INTEGER_FORM_TIES_ZERO_BY_RULE); a strict three-integer 'W-L-T' string supplies ties (THREE_INTEGER_FORM_TIES_STATED); anything else is RECORD_SUMMARY_MALFORMED (counts null); a missing summary is RECORD_SUMMARY_MISSING. Home/Away/conference records, substring matches, floats, negative numbers and fabricated zero records are never used",
+  "unconsumed": "score placeholders, odds, ranks, statistics, leaders, venue, neutral site, broadcasts, future outcomes and every other unassigned raw field are not consumed"
+ },
+ "query_rules": {
+  "selection": "only with --prospective-evidence <capsule.json>; combining it with --database, --archive-evidence, --expect-archive-identity or --expect-contract is PROSPECTIVE_MODE_CONFLICT; the historical filters are FILTER_NOT_APPLICABLE; the prospective grains or --event without the capsule are PROSPECTIVE_EVIDENCE_REQUIRED; --require-pit is PIT_ADMISSION_AUTHORITY_ABSENT",
+  "grains": [
+   "prospective-event",
+   "prospective-team-record"
+  ],
+  "cutoff": "required, an ISO-8601 instant with an explicit zone; compared as exact instants (equivalent offsets equal): before the retained request start UNAVAILABLE_BEFORE_REQUEST_START, from the start up to but excluding the end INDETERMINATE_WITHIN_REQUEST_INTERVAL, at or after the end AVAILABLE_AT_OR_AFTER_REQUEST_END; a later cutoff never refreshes the snapshot; the current clock is never read",
+  "filters": "--season (2026 serves; any other integer is NOT_YET_AUDITED with no rows), --event espn:event:<digits>, --team espn:team:<digits> (exact; an unknown valid key serves no rows; a malformed key refuses); combined filters are conjunctive on both grains",
+  "paging": "--limit (default 50), --offset and --all; exact totals and next_offset; negative paging refuses",
+  "labels": "every served row carries the labels, the observation interval and the source body hash",
+  "locations": "accepted literal-location rules: local relative, long and extended-length Windows paths; network and device paths are refused before any access; a missing file is never created"
+ },
+ "labels": {
+  "evidence_authority": "SOURCE_OBSERVATION_ONLY",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "source_authority": "PROVIDER_CLAIM_ESPN_SCOREBOARD_NOT_OFFICIAL_NCAA_NOT_CORROBORATED",
+  "coverage": "RETAINED_SINGLE_RESPONSE_ONLY_COMPLETENESS_UNKNOWN_NOT_NATIONAL_NOT_REPRESENTATIVE",
+  "identity": "PROVIDER_NAMESPACED_ONLY_NO_NCAA_OR_CFBD_CROSSWALK",
+  "schedule_status": "SOURCE_REPORTED_NOT_PROOF_OF_KICKOFF_OR_OF_RECORD_COMPLETENESS_AT_A_LATER_CUTOFF",
+  "home_away": "PROVIDER_HOMEAWAY_DESIGNATION_NOT_VENUE_OR_NEUTRAL_SITE",
+  "first_publication": "NOT_INFERRED"
+ },
+ "consumer": {
+  "console": "bas-source-time-query --prospective-evidence <capsule.json>",
+  "module": "python -m aggie_analytics.national_source_time.query --prospective-evidence <capsule.json>",
+  "reader": "aggie_analytics.national_source_time.prospective (imported only for the explicit option)",
+  "defaults": "every existing invocation, default view and accepted data identity is unchanged"
+ },
+ "non_claims": [
+  "no source acquisition, archive resume, retry, proxy, paid call or scheduler",
+  "no forecast, model, training, scoring, betting/market feature or protected evaluation",
+  "no PIT admission, default activation, hold release or cross-provider identity promotion",
+  "equal numeric IDs or similar names do not authorize NCAA/CFBD joins",
+  "not an official NCAA result, corroboration or proof of first publication",
+  "no national completeness or representative-sample claim; historical F1 stays unmet",
+  "BAT-401/429/523/691/695/700 and GAP-005 restrictions preserved"
+ ],
+ "revision_note": "V1 frozen before the first canonical write (Cycle #51 Attempt #1)."
+}

@@ -261,6 +261,13 @@ class AnomalyRuleTests(unittest.TestCase):
         self.assertIn("SCHEDULED_TIME_NO_VALID_ZONE", row["unsupported_reasons"])
         self.assertIsNone(row["scheduled_utc"])
 
+        def trailing_newline(events):
+            events[0]["date"] = events[0]["competitions"][0]["date"] = "2026-10-17T16:00Z\n"
+        row = self.event(self.derive(trailing_newline))
+        self.assertIn("SCHEDULED_TIME_NO_VALID_ZONE", row["unsupported_reasons"])
+        self.assertIsNone(row["scheduled_utc"])
+        self.assertEqual(row["scheduled_literal"]["event_date"], "2026-10-17T16:00Z\n")
+
         def tba(events):
             events[0]["competitions"][0]["timeValid"] = False
         row = self.event(self.derive(tba))
@@ -278,7 +285,8 @@ class AnomalyRuleTests(unittest.TestCase):
         cases = {"4-1.0": "RECORD_SUMMARY_MALFORMED", "-1-2": "RECORD_SUMMARY_MALFORMED",
                  "04-1": "RECORD_SUMMARY_MALFORMED", "4\u20131": "RECORD_SUMMARY_MALFORMED",
                  " 4-1": "RECORD_SUMMARY_MALFORMED", "4-1-0-0": "RECORD_SUMMARY_MALFORMED",
-                 "\u0664-1": "RECORD_SUMMARY_MALFORMED"}
+                 "\u0664-1": "RECORD_SUMMARY_MALFORMED", "4-1\n": "RECORD_SUMMARY_MALFORMED",
+                 "4-1-1\n": "RECORD_SUMMARY_MALFORMED"}
         for summary, reason in cases.items():
             def bad(events, summary=summary):
                 events[0]["competitions"][0]["competitors"][0]["records"][0]["summary"] = summary
@@ -334,6 +342,20 @@ class AnomalyRuleTests(unittest.TestCase):
         self.assertIsNone(row["team_key"])
         self.assertIn("PARTICIPANT_ID_INVALID", row["unsupported_reasons"])
         self.assertIn("ROLE_HOME_ID_INVALID", self.event(doc)["unsupported_reasons"])
+
+        def trailing_newline(events):
+            events[0]["competitions"][0]["competitors"][0]["id"] = "9001\n"
+            events[0]["competitions"][0]["competitors"][0]["team"]["id"] = "9001\n"
+        doc = self.derive(trailing_newline)
+        row = next(r for r in doc["participants"] if r["source_competitor_id"] == "9001\n")
+        self.assertIsNone(row["team_key"])
+        self.assertIn("PARTICIPANT_ID_INVALID", row["unsupported_reasons"])
+
+        def event_id(events):
+            events[0]["id"] = events[0]["competitions"][0]["id"] = "900000001\n"
+        with self.assertRaises(prospective.ProspectiveEvidenceError) as caught:
+            self.derive(event_id)
+        self.assertEqual(caught.exception.code, "RAW_EVENT_ID_INVALID")
 
     def test_membership_must_equal_the_frozen_cohort(self) -> None:
         world = fx.World()
@@ -417,7 +439,9 @@ class CutoffAndSelectorTests(_Workspace):
                          self.q("--grain", "prospective-team-record", "--all", *base)[1]["rows"])
         for argv, refusal in ((["--event", "900000001"], "EVENT_KEY_INVALID"),
                               (["--event", "espn:event:x1"], "EVENT_KEY_INVALID"),
+                              (["--event", "espn:event:900000001\n"], "EVENT_KEY_INVALID"),
                               (["--team", "9001"], "TEAM_KEY_INVALID"), (["--team", "org:9001"], "TEAM_KEY_INVALID"),
+                              (["--team", "espn:team:9001\n"], "TEAM_KEY_INVALID"),
                               (["--offset", "-1"], "NEGATIVE_OFFSET"), (["--limit", "-1"], "NEGATIVE_LIMIT")):
             self.assertEqual(self.q("--grain", "prospective-event", *base, *argv)[0::2], (2, refusal), argv)
 

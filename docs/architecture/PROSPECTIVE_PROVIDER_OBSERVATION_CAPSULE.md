@@ -97,6 +97,10 @@ unsupported_reasons`.
 * Score placeholders, odds, ranks, statistics, leaders, venue, neutral site and every other unassigned raw field are
   not consumed; changing them changes no record.
 
+Every literal grammar (provider IDs and keys, schedule instants, record summaries, `--event`/`--team` selectors) must
+match the whole string: a trailing newline or any other surrounding character is not the strict form (the reader
+anchors with `\Z`, never `$`).
+
 Determinism: records are sorted (events by key; participants by event key, team key, side, pointer), so processing
 order and read chunking never change a byte.
 

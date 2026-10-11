@@ -93,14 +93,15 @@ PARTICIPANT_FIELDS = {"PARTICIPANT_IDENTITY": ("event_key", "side", "team_key", 
                                                "source_team_id", "source_name", "participant_pointer"),
                       "PARTICIPANT_RECORD": ("record_pointer", "candidate_record_pointers", "overall_record"),
                       "PARTICIPANT_SUPPORT": ("support_state", "unsupported_reasons")}
-EVENT_ID_RE = re.compile(r"^[0-9]{1,15}$")
-TEAM_ID_RE = re.compile(r"^[0-9]{1,15}$")
-EVENT_KEY_RE = re.compile(r"^espn:event:([0-9]{1,15})$")
-TEAM_KEY_RE = re.compile(r"^espn:team:([0-9]{1,15})$")
-SCHEDULE_RE = re.compile(r"^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2})(?::([0-9]{2}))?Z$")
-RECORD_TWO_RE = re.compile(r"^(0|[1-9][0-9]{0,2})-(0|[1-9][0-9]{0,2})$")
-RECORD_THREE_RE = re.compile(r"^(0|[1-9][0-9]{0,2})-(0|[1-9][0-9]{0,2})-(0|[1-9][0-9]{0,2})$")
-IDENTITY_RE = re.compile(r"^[0-9a-f]{64}$")
+#: Literal grammars (anchored with \Z: '$' would also match before a trailing newline).
+EVENT_ID_RE = re.compile(r"^[0-9]{1,15}\Z")
+TEAM_ID_RE = re.compile(r"^[0-9]{1,15}\Z")
+EVENT_KEY_RE = re.compile(r"^espn:event:([0-9]{1,15})\Z")
+TEAM_KEY_RE = re.compile(r"^espn:team:([0-9]{1,15})\Z")
+SCHEDULE_RE = re.compile(r"^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2})(?::([0-9]{2}))?Z\Z")
+RECORD_TWO_RE = re.compile(r"^(0|[1-9][0-9]{0,2})-(0|[1-9][0-9]{0,2})\Z")
+RECORD_THREE_RE = re.compile(r"^(0|[1-9][0-9]{0,2})-(0|[1-9][0-9]{0,2})-(0|[1-9][0-9]{0,2})\Z")
+IDENTITY_RE = re.compile(r"^[0-9a-f]{64}\Z")
 SUPPORTED, UNSUPPORTED = "SUPPORTED", "UNSUPPORTED"
 
 

@@ -634,6 +634,19 @@ def literal_location(path: Path | str) -> str:
         raise PreviewError(code, exc.detail) from exc
 
 
+_DRIVE_PATH = re.compile(r"[A-Za-z]:\\")
+
+
+def io_path(location: str) -> str:
+    """The spelling every file API opens for a literal location: on Windows the extended-length form of an absolute
+    drive path, so that the nested bundle members (about 100 characters below the preview directory) stay readable
+    beyond the classic 260-character limit; an extended-length location is kept verbatim. Never re-normalized: the
+    literal location has already been validated."""
+    if os.name == "nt" and not location.startswith(readonly_sqlite.EXTENDED_PREFIX) and _DRIVE_PATH.match(location):
+        return readonly_sqlite.EXTENDED_PREFIX + location
+    return location
+
+
 def _read(path: str, code: str) -> bytes:
     if not os.path.isfile(path):
         raise PreviewError(code, f"no file at {path}")
@@ -673,17 +686,18 @@ def verify_preview(path: Path | str, *, contract_sha256: str = CONTRACT_SHA256,
                    expect_identity: str | None = None) -> dict[str, Any]:
     """Verify a preview directory completely and return its binding plus the re-derived (verified) document."""
     location = literal_location(path)
-    if not os.path.isfile(location):
+    if not os.path.isfile(io_path(location)):
         raise PreviewError("PREVIEW_MISSING", f"no preview file at {location}")
     directory, name = os.path.split(location)
     if name != PREVIEW_FILE or not IDENTITY_RE.match(os.path.basename(directory)):
         raise PreviewError("PREVIEW_LOCATION_INVALID", f"the preview must be <identity>/{PREVIEW_FILE} with a 64-hex "
                                                        "identity directory")
-    contract = _read(os.path.join(directory, *CONTRACT_MEMBER.split("/")), "BUNDLE_MEMBER_MISSING")
+    io_directory = io_path(directory)
+    contract = _read(os.path.join(io_directory, *CONTRACT_MEMBER.split("/")), "BUNDLE_MEMBER_MISSING")
     spec = _spec(contract, contract_sha256)
-    capsule_path = os.path.join(directory, CAPSULE_ROOT, spec["input"]["capsule_identity"], prospective.CAPSULE_FILE)
+    capsule_path = os.path.join(io_directory, CAPSULE_ROOT, spec["input"]["capsule_identity"], prospective.CAPSULE_FILE)
     binding = verify_input_capsule(capsule_path, spec)
-    files = directory_files(directory)
+    files = directory_files(io_directory)
     got = files.pop(PREVIEW_FILE, None)
     if got is None:
         raise PreviewError("PREVIEW_MISSING", f"no preview file at {location}")
@@ -906,7 +920,7 @@ def build_preview(capsule: Path | str, contract: bytes, *, contract_sha256: str 
                   ) -> tuple[str, dict[str, bytes], dict[str, Any], dict[str, Any]]:
     """The identity, the complete set of files of the preview directory, the identity document and the document."""
     spec = _spec(contract, contract_sha256, chunk_size)
-    location = literal_location(capsule)
+    location = io_path(literal_location(capsule))
     binding = verify_input_capsule(location, spec)
     directory = os.path.dirname(location)
     identity = binding["capsule_identity"]

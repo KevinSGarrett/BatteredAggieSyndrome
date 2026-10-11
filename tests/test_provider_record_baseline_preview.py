@@ -676,6 +676,36 @@ class PortableBundleTests(_Workspace):
                                           world.authority)
             self.assertEqual(long_doc["rows"], original["rows"])
 
+    @unittest.skipUnless(os.name == "nt", "Windows classic path limit")
+    def test_plain_spelling_whose_nested_members_exceed_the_classic_limit(self) -> None:
+        world = self.world()
+        _, path = self.build(world)
+        argv = ["--grain", "preview-estimate", "--cutoff", CUTOFF, "--all"]
+        _, original, _ = self.run_cli(["--prospective-preview", str(path), *argv], world.authority)
+        # the preview path itself stays below 260 characters while its nested capsule members exceed it
+        pad = 230 - len(os.path.abspath(self.tmp)) - len(path.parent.name) - len("preview.json") - 4
+        far = os.path.join(os.path.abspath(self.tmp), "n" + "q" * max(pad, 1), path.parent.name)
+        plain = os.path.join(far, "preview.json")
+        nested = os.path.join(far, "capsule", world.capsule_identity, "raw", "provider-response.json")
+        self.assertLess(len(plain), 260)
+        self.assertGreater(len(nested), 260)
+        for name, data in builder.directory_members(path.parent).items():
+            member = "\\\\?\\" + os.path.join(far, *name.split("/"))
+            os.makedirs(os.path.dirname(member), exist_ok=True)
+            with open(member, "xb") as handle:
+                handle.write(data)
+        code, doc, refused = self.run_cli(["--prospective-preview", plain, *argv], world.authority)
+        self.assertEqual(code, 0, refused)
+        self.assertEqual(doc["rows"], original["rows"])
+        # a build into a deep output root (nested members beyond the limit) materializes, verifies and re-verifies
+        deep = Path(os.path.join(os.path.abspath(self.tmp), "d" + "r" * max(pad - 60, 1)))
+        result = builder.build(world.build_args(deep))
+        self.assertEqual((result["identity"], result["preview_state"]), (path.parent.name, "MATERIALIZED"))
+        self.assertGreater(len(os.path.join(str(deep), "canonical", "sha256", result["identity"], "capsule",
+                                            world.capsule_identity, "raw", "provider-response.json")), 260)
+        again = builder.build(world.build_args(deep))
+        self.assertEqual(again["preview_state"], "ALREADY_PRESENT_IDENTICAL")
+
 
 class MountedGenuinePreviewTests(unittest.TestCase):
     """The genuine accepted capsule through the committed authority (mounted lanes only)."""

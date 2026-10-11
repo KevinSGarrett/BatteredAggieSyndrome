@@ -106,7 +106,10 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
                                                                  order=args.processing_order, chunk_size=chunk)
     except preview.PreviewError as exc:
         raise BuildRefused(exc.code, str(exc)) from exc
-    state = materialize(Path(args.output_root), identity, files, stop_after_members=args.stop_after_members)
+    # Every write and read below goes through the extended-length spelling on Windows (the nested capsule members of a
+    # deep output root exceed the classic path limit); reported paths stay the caller's literal spelling.
+    output_io = Path(preview.io_path(os.path.abspath(args.output_root)))
+    state = materialize(output_io, identity, files, stop_after_members=args.stop_after_members)
     target = Path(args.output_root) / "sha256" / identity / preview.PREVIEW_FILE
     try:
         verified = preview.verify_preview(target, contract_sha256=authority)
@@ -114,7 +117,9 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
         raise BuildRefused(f"READER_VERIFICATION_{exc.code}", str(exc)) from exc
     if verified["preview_identity"] != identity:
         raise BuildRefused("READER_VERIFICATION_DIFFERS", "the reader's identity differs from the build's")
-    manifest_path = Path(args.manifest_root) / "sha256" / identity / "run_manifest.json"
+    manifest_report = Path(args.manifest_root) / "sha256" / identity / "run_manifest.json"
+    manifest_path = Path(preview.io_path(os.path.abspath(args.manifest_root))) / "sha256" / identity / \
+        "run_manifest.json"
     manifest_state = "ALREADY_PRESENT"
     if manifest_path.exists():
         existing = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -142,7 +147,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
         with manifest_path.open("x", encoding="utf-8", newline="\n") as handle:
             handle.write(json.dumps(manifest, indent=1, ensure_ascii=False) + "\n")
         manifest_state = "WRITTEN"
-    return {"identity": identity, "preview": str(target), "preview_state": state, "manifest": str(manifest_path),
+    return {"identity": identity, "preview": str(target), "preview_state": state, "manifest": str(manifest_report),
             "manifest_state": manifest_state, "manifest_sha256": hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
             "identity_document": iddoc, "counts": document["counts"], "contract_sha256": contract_sha,
             "capsule_identity": document["input"]["capsule_identity"],

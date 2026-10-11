@@ -65,6 +65,7 @@ artifacts/data_lake/national_source_time_2016_2023_gate.json
 artifacts/data_lake/national_tiered_game_spine_gate.json
 artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
+artifacts/data_lake/prospective_provider_observation_20261011_gate.json
 artifacts/data_lake/tamu_2010_2011_ncaa_contest_route_discovery_gate.json
 artifacts/data_lake/tamu_2010_2011_ncaa_official_acquisition_gate.json
 artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json
@@ -936,6 +937,7 @@ configs/preliminary_wmt_tamu_shadow_contract.json
 configs/prospective_2026_shadow_cohort_contract.json
 configs/prospective_2026_shadow_forecast_contract.json
 configs/prospective_2026_shadow_temporal_audit_contract.json
+configs/prospective_provider_observation_20261011_contract.json
 configs/raw_feature_registry.json
 configs/repository_policy.json
 configs/research_execution_registry.json
@@ -1195,6 +1197,7 @@ docs/architecture/OPENAI_ASSISTIVE_PLANE.md
 docs/architecture/OPENROUTER_ASSISTIVE_PLANE.md
 docs/architecture/PORTABLE_READONLY_SQLITE_LOCATIONS.md
 docs/architecture/PREDICTION_PIPELINE.md
+docs/architecture/PROSPECTIVE_PROVIDER_OBSERVATION_CAPSULE.md
 docs/architecture/RESEARCH_AND_LLM_PLANE.md
 docs/architecture/SYSTEM_BOUNDARIES.md
 docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
@@ -4184,6 +4187,7 @@ src/aggie_analytics/national_source_time/archive.py
 src/aggie_analytics/national_source_time/archive_fields.py
 src/aggie_analytics/national_source_time/national_archived_publication_2019_expansion_cohort.json
 src/aggie_analytics/national_source_time/national_archived_publication_2019_tranche.json
+src/aggie_analytics/national_source_time/prospective.py
 src/aggie_analytics/national_source_time/query.py
 src/aggie_analytics/openai_assist/__init__.py
 src/aggie_analytics/openai_assist/budget.py
@@ -4323,6 +4327,7 @@ tests/national_history_fixture.py
 tests/national_reconciliation_aliases_fixture.py
 tests/national_site_evidence_fixture.py
 tests/national_source_time_fixture.py
+tests/prospective_provider_observation_fixture.py
 tests/retrospective_baseline_fixture.py
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
@@ -4633,6 +4638,7 @@ tests/test_preliminary_wmt_tamu_shadow.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py
 tests/test_prospective_2026_shadow_temporal_audit.py
+tests/test_prospective_provider_observation.py
 tests/test_prospective_shadow_cohort.py
 tests/test_prospective_shadow_forecasts.py
 tests/test_protected_replay_dry_run.py
@@ -4906,6 +4912,7 @@ tools/build_preliminary_sustainability.py
 tools/build_prospective_2026_shadow_cohort.py
 tools/build_prospective_2026_shadow_forecasts.py
 tools/build_prospective_2026_shadow_temporal_audit.py
+tools/build_prospective_provider_observation.py
 tools/build_retrospective_returning_production.py
 tools/build_roster_domain_completeness.py
 tools/build_sec_tamu_availability_candidates.py

@@ -27,6 +27,14 @@ malformed filters and naive cutoffs are refused.
 ``aggie_analytics.national_source_time.archive``, which is imported only then; it adds archive evidence next to the
 unchanged decisions and serves the ``archive-*`` grains. Without it every output is exactly the behaviour above and
 the archive grains are refused (ARCHIVE_EVIDENCE_REQUIRED).
+
+``--prospective-evidence <capsule.json>`` (BAT-723) is a separate explicit mode served by
+``aggie_analytics.national_source_time.prospective``, imported only then: the retained 2026-10-11 provider observation
+capsule at the ``prospective-event`` and ``prospective-team-record`` grains with ``--cutoff`` (required), ``--season``,
+``--event espn:event:<id>``, ``--team espn:team:<id>`` and exact paging. It is never combined with ``--database``,
+``--archive-evidence`` or their identities (PROSPECTIVE_MODE_CONFLICT); the historical filters do not apply to it
+(FILTER_NOT_APPLICABLE); its grains and ``--event`` need the capsule (PROSPECTIVE_EVIDENCE_REQUIRED). Without the
+option every existing invocation keeps exactly the behaviour above.
 """
 from __future__ import annotations
 
@@ -62,6 +70,8 @@ JOIN_STATES = ("JOINED", "JOINED_OUTSIDE_UNIVERSE", "AMBIGUOUS_MULTIPLE_PARENT_C
 GRAINS = ("assertion", "contest", "contribution", "repository-row", "lineage-row", "capture", "partition")
 #: Grains served only with an explicitly named archive sidecar (``--archive-evidence``; BAT-713).
 ARCHIVE_GRAINS = ("archive-disposition", "archive-request", "archive-capture", "archive-assertion")
+#: Grains served only with an explicitly named prospective observation capsule (``--prospective-evidence``; BAT-723).
+PROSPECTIVE_GRAINS = ("prospective-event", "prospective-team-record")
 DECISION_GRAINS = ("assertion", "contest", "contribution")
 APPLICABLE = {"assertion": {"season", "team", "contest", "field", "evidence_class", "source_kind"},
               "contest": {"season", "team", "contest"},
@@ -660,8 +670,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="bas-source-time-query", allow_abbrev=False,
                                      description="Read-only national 2016-2023 source-time evidence and explicit-cutoff "
                                                  "query (evidence only; nothing is PIT admitted).")
-    parser.add_argument("--database", required=True, type=Path)
-    parser.add_argument("--grain", required=True, choices=list(GRAINS) + list(ARCHIVE_GRAINS))
+    # --database stays required for every historical invocation; main() enforces it with the same argparse error
+    # unless the separate --prospective-evidence mode is named.
+    parser.add_argument("--database", default=None, type=Path)
+    parser.add_argument("--grain", required=True,
+                        choices=list(GRAINS) + list(ARCHIVE_GRAINS) + list(PROSPECTIVE_GRAINS))
     parser.add_argument("--cutoff", default=None, help="ISO-8601 instant with seconds and an explicit zone")
     parser.add_argument("--season", type=int, default=None)
     parser.add_argument("--team", default=None, help="organization key org:<digits> or bare digits")
@@ -681,15 +694,55 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--archive-evidence", type=Path, default=None,
                         help="explicitly compose one verified archived-publication sidecar (never a default)")
     parser.add_argument("--expect-archive-identity", default=None)
+    parser.add_argument("--prospective-evidence", type=Path, default=None,
+                        help="explicitly select the retained prospective provider-observation capsule (BAT-723; a "
+                             "separate mode, never combined with --database or --archive-evidence)")
+    parser.add_argument("--event", default=None, help="prospective mode only: provider event key espn:event:<digits>")
     return parser
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
+def _prospective(args: argparse.Namespace, contract_sha256: str | None) -> dict[str, Any]:
+    """The explicit prospective-observation mode (BAT-723); refuses an ambiguous or inapplicable selection first."""
+    conflicts = [flag for flag, value in (("--database", args.database), ("--archive-evidence", args.archive_evidence),
+                                          ("--expect-archive-identity", args.expect_archive_identity),
+                                          ("--expect-contract", args.expect_contract)) if value is not None]
+    if conflicts:
+        raise SourceTimeQueryError("PROSPECTIVE_MODE_CONFLICT", f"{conflicts} cannot be combined with "
+                                                                "--prospective-evidence (ambiguous mode selection)")
+    if args.grain not in PROSPECTIVE_GRAINS:
+        raise SourceTimeQueryError("PROSPECTIVE_GRAIN_REQUIRED", f"--prospective-evidence serves only "
+                                                                 f"{list(PROSPECTIVE_GRAINS)}, not {args.grain!r}")
+    stray = [flag for flag, value in (("--contest", args.contest), ("--field", args.field),
+                                      ("--evidence-class", args.evidence_class), ("--source-kind", args.source_kind),
+                                      ("--relation-type", args.relation_type), ("--join-state", args.join_state))
+             if value is not None]
+    if stray:
+        raise SourceTimeQueryError("FILTER_NOT_APPLICABLE", f"{stray} do not apply to the prospective grains")
+    from aggie_analytics.national_source_time import prospective  # noqa: PLC0415 - explicit option only
+
+    authority = {} if contract_sha256 is None else {"contract_sha256": contract_sha256}
+    with prospective.ProspectiveEvidence(args.prospective_evidence, expect_identity=args.expect_identity,
+                                         **authority) as evidence:
+        return evidence.query(args.grain, cutoff=args.cutoff, season=args.season, event=args.event, team=args.team,
+                              limit=args.limit, offset=args.offset, all_rows=args.all_rows)
+
+
+def main(argv: Sequence[str] | None = None, *, prospective_contract_sha256: str | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    if args.database is None and args.prospective_evidence is None:
+        parser.error("the following arguments are required: --database")
     try:
         if args.require_pit:
             raise SourceTimeQueryError("PIT_ADMISSION_AUTHORITY_ABSENT",
                                        "no row has separate PIT admission authority; evidence is not admission")
+        if args.prospective_evidence is not None:
+            result = _prospective(args, prospective_contract_sha256)
+            sys.stdout.write(json.dumps(result, ensure_ascii=False, sort_keys=True) + "\n")
+            return 0
+        if args.grain in PROSPECTIVE_GRAINS or args.event is not None:
+            raise SourceTimeQueryError("PROSPECTIVE_EVIDENCE_REQUIRED",
+                                       "the prospective grains and --event need an explicit --prospective-evidence")
         if args.archive_evidence is None and (args.grain in ARCHIVE_GRAINS or args.expect_archive_identity):
             raise SourceTimeQueryError("ARCHIVE_EVIDENCE_REQUIRED",
                                        "archive grains and identities need an explicit --archive-evidence sidecar")

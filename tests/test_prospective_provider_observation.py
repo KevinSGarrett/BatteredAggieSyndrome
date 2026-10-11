@@ -28,7 +28,8 @@ CUTOFF = "2026-10-12T00:00:00Z"
 class _Workspace(unittest.TestCase):
     def setUp(self) -> None:
         self.tmp = Path(tempfile.mkdtemp(prefix="bat723-"))
-        self.addCleanup(shutil.rmtree, self.tmp, ignore_errors=True)
+        # the long-path bundle test writes beyond MAX_PATH: remove through the extended-length form on Windows
+        self.addCleanup(shutil.rmtree, "\\\\?\\" + str(self.tmp) if os.name == "nt" else self.tmp)
 
     def build(self, world: fx.World, name: str = "w", **overrides) -> tuple[dict, Path]:
         result = builder.build(world.build_args(self.tmp / name, **overrides))

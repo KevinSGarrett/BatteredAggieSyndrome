@@ -1,0 +1,90 @@
+{
+ "schema_version": "BAS-PROSPECTIVE-PROVIDER-OBSERVATION-GATE-1",
+ "jira_key": "BAT-723",
+ "cycle_number": 51,
+ "attempt_number": 1,
+ "contract_id": "BAT-723-PROSPECTIVE-PROVIDER-OBSERVATION-20261011-V1",
+ "contract_sha256": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a",
+ "population_id": "prospective_provider_observation_20261011",
+ "audit_unit": "C51-PROSPECTIVE25 (zero new historical-population coverage)",
+ "state": "MATERIALIZED_SOURCE_OBSERVATION_ONLY",
+ "labels": {
+  "evidence_authority": "SOURCE_OBSERVATION_ONLY",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "source_authority": "PROVIDER_CLAIM_ESPN_SCOREBOARD_NOT_OFFICIAL_NCAA_NOT_CORROBORATED",
+  "coverage": "RETAINED_SINGLE_RESPONSE_ONLY_COMPLETENESS_UNKNOWN_NOT_NATIONAL_NOT_REPRESENTATIVE",
+  "identity": "PROVIDER_NAMESPACED_ONLY_NO_NCAA_OR_CFBD_CROSSWALK",
+  "schedule_status": "SOURCE_REPORTED_NOT_PROOF_OF_KICKOFF_OR_OF_RECORD_COMPLETENESS_AT_A_LATER_CUTOFF",
+  "home_away": "PROVIDER_HOMEAWAY_DESIGNATION_NOT_VENUE_OR_NEUTRAL_SITE",
+  "first_publication": "NOT_INFERRED"
+ },
+ "capsule_identity": "7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4",
+ "identity_document": {
+  "schema": "BAS-PROSPECTIVE-PROVIDER-OBSERVATION-IDENTITY-1",
+  "population": "prospective_provider_observation_20261011",
+  "contract_id": "BAT-723-PROSPECTIVE-PROVIDER-OBSERVATION-20261011-V1",
+  "contract_sha256": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a",
+  "capsule_file": "capsule.json",
+  "capsule_sha256": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505",
+  "bundle": {
+   "raw/provider-response.json": {
+    "sha256": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9",
+    "bytes": 463364
+   },
+   "raw/provider-receipt.json": {
+    "sha256": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26",
+    "bytes": 21559
+   },
+   "inputs/EXPECTED_COHORT.json": {
+    "sha256": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328",
+    "bytes": 18202
+   },
+   "inputs/contract.json": {
+    "sha256": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a",
+    "bytes": 17513
+   }
+  }
+ },
+ "capsule_sha256": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505",
+ "members": {
+  "capsule.json": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505",
+  "inputs/contract.json": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a",
+  "inputs/EXPECTED_COHORT.json": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328",
+  "raw/provider-receipt.json": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26",
+  "raw/provider-response.json": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9"
+ },
+ "source": {
+  "endpoint": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=20261017&groups=80&limit=1000",
+  "body_sha256": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9",
+  "receipt_sha256": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26",
+  "expected_cohort_sha256": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328",
+  "observation_interval": [
+   "2026-10-11T18:15:55.264959Z",
+   "2026-10-11T18:15:55.744674Z"
+  ],
+  "odds_provider_object_role": "ODDS_PROVIDER_OBJECT_NOT_SCOREBOARD_PROVENANCE"
+ },
+ "counts": {
+  "events": 25,
+  "participants": 50,
+  "supported_events": 25,
+  "unsupported_events": 0,
+  "supported_participants": 50,
+  "unsupported_participants": 0,
+  "unsupported_reasons": {}
+ },
+ "run_manifest_sha256": "e0c2780c984ea808c41e53d19b46cd94253ccc4ff368bfbe58222b3942603ce7",
+ "build": {
+  "lane": "BUILD_OBSERVATION",
+  "run": "20261011T195843076309Z",
+  "head": "f06551d222c0efd0dcb1c2cbf97f47a510f8dd81",
+  "capsule_state": "MATERIALIZED"
+ },
+ "consumer": "bas-source-time-query --prospective-evidence <canonical>/sha256/<capsule_identity>/capsule.json",
+ "non_claims": [
+  "provider claim only; not an official NCAA result, corroboration or first-publication proof",
+  "coverage beyond the retained response UNKNOWN; not national or representative",
+  "PIT_NOT_ADMITTED; no forecast, model, scoring or protected evaluation",
+  "no default activation, hold release or cross-provider identity promotion"
+ ]
+}

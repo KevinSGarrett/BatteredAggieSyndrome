@@ -938,6 +938,7 @@ configs/prospective_2026_shadow_cohort_contract.json
 configs/prospective_2026_shadow_forecast_contract.json
 configs/prospective_2026_shadow_temporal_audit_contract.json
 configs/prospective_provider_observation_20261011_contract.json
+configs/provider_record_baseline_preview_20261011_contract.json
 configs/raw_feature_registry.json
 configs/repository_policy.json
 configs/research_execution_registry.json
@@ -1198,6 +1199,7 @@ docs/architecture/OPENROUTER_ASSISTIVE_PLANE.md
 docs/architecture/PORTABLE_READONLY_SQLITE_LOCATIONS.md
 docs/architecture/PREDICTION_PIPELINE.md
 docs/architecture/PROSPECTIVE_PROVIDER_OBSERVATION_CAPSULE.md
+docs/architecture/PROVIDER_RECORD_BASELINE_PREVIEW.md
 docs/architecture/RESEARCH_AND_LLM_PLANE.md
 docs/architecture/SYSTEM_BOUNDARIES.md
 docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
@@ -4241,6 +4243,7 @@ src/aggie_analytics/readiness/e2e.py
 src/aggie_analytics/readonly_sqlite.py
 src/aggie_analytics/retrospective_baseline/__init__.py
 src/aggie_analytics/retrospective_baseline/benchmark.py
+src/aggie_analytics/retrospective_baseline/preview.py
 src/aggie_analytics/retrospective_baseline/query.py
 src/aggie_analytics/scientific_reference/.cursor/BUGBOT.md
 src/aggie_analytics/scientific_reference/__init__.py
@@ -4328,6 +4331,7 @@ tests/national_reconciliation_aliases_fixture.py
 tests/national_site_evidence_fixture.py
 tests/national_source_time_fixture.py
 tests/prospective_provider_observation_fixture.py
+tests/provider_record_baseline_preview_fixture.py
 tests/retrospective_baseline_fixture.py
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
@@ -4643,6 +4647,7 @@ tests/test_prospective_shadow_cohort.py
 tests/test_prospective_shadow_forecasts.py
 tests/test_protected_replay_dry_run.py
 tests/test_protected_split_exposure.py
+tests/test_provider_record_baseline_preview.py
 tests/test_queue_cpu_worker_manifest_work.py
 tests/test_queue_openai_gamebook_candidate_work.py
 tests/test_readonly_sqlite_location.py
@@ -4913,6 +4918,7 @@ tools/build_prospective_2026_shadow_cohort.py
 tools/build_prospective_2026_shadow_forecasts.py
 tools/build_prospective_2026_shadow_temporal_audit.py
 tools/build_prospective_provider_observation.py
+tools/build_provider_record_baseline_preview.py
 tools/build_retrospective_returning_production.py
 tools/build_roster_domain_completeness.py
 tools/build_sec_tamu_availability_candidates.py

@@ -17,6 +17,15 @@ development partition and pooled scope, plus descriptive smoothed-minus-null dif
 ``--team`` (org:<digits>, bare digits or a team name of the record's own season), ``--contest``, ``--model`` and
 ``--partition``; paging with ``--limit``/``--offset`` or ``--all`` returns exact totals in payload order. Every
 response carries ``RETROSPECTIVE_DATE_ORDER_ONLY_NOT_PIT_NOT_SKILL``; ``--require-pit`` is always refused.
+
+``--prospective-preview <preview.json>`` (BAT-724) is a separate explicit mode served by
+:mod:`aggie_analytics.retrospective_baseline.preview`, imported only then: the provider-record baseline preview over the
+accepted 2026-10-11 provider observation at the ``preview-feature``, ``preview-estimate`` and ``preview-summary`` grains
+with ``--cutoff`` (required), ``--season``, ``--event espn:event:<id>``, ``--team espn:team:<id>``, ``--model``,
+``--orientation home|away`` and exact paging. Every answer is PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST and
+PIT_NOT_ADMITTED. It is never combined with ``--database``, ``--history-database`` or ``--manifest``
+(PREVIEW_MODE_CONFLICT); ``--contest`` and ``--partition`` do not apply to it (FILTER_NOT_APPLICABLE). When the option is
+absent the original parser handles the invocation, so every existing invocation, answer and refusal is unchanged.
 """
 from __future__ import annotations
 
@@ -28,11 +37,21 @@ from typing import Any, Sequence
 
 from aggie_analytics.retrospective_baseline import benchmark as bm
 
+PREVIEW_OPTION = "--prospective-preview"
+PREVIEW_GRAINS = ("preview-feature", "preview-estimate", "preview-summary")
+PREVIEW_EPILOG = ("explicit preview mode (BAT-724): --prospective-preview <preview.json> --grain "
+                  "{preview-feature,preview-estimate,preview-summary} --cutoff <instant with zone> [--season] "
+                  "[--event espn:event:<id>] [--team espn:team:<id>] [--model] [--orientation home|away] [--limit] "
+                  "[--offset] [--all]: the provider-record baseline preview over the accepted 2026-10-11 provider "
+                  "observation; PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST, PIT_NOT_ADMITTED, not calibrated, no "
+                  "skill claim; never combined with --database or --history-database")
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="bas-retrospective-baseline-query", allow_abbrev=False,
                                      description="Read-only explicit retrospective 2016-2023 baseline benchmark "
-                                                 "(calendar order only; not PIT, not a forecast, no skill claim).")
+                                                 "(calendar order only; not PIT, not a forecast, no skill claim).",
+                                     epilog=PREVIEW_EPILOG)
     parser.add_argument("--database", required=True, type=Path,
                         help="the explicitly selected benchmark database (never a default)")
     parser.add_argument("--history-database", dest="history_database", required=True, type=Path,
@@ -53,6 +72,36 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def build_preview_parser() -> argparse.ArgumentParser:
+    """The explicit BAT-724 preview mode's parser (selected only when --prospective-preview is named)."""
+    parser = argparse.ArgumentParser(prog="bas-retrospective-baseline-query --prospective-preview", allow_abbrev=False,
+                                     description="Explicit provider-record baseline preview over the accepted "
+                                                 "2026-10-11 provider observation (illustrative fixed calculation; "
+                                                 "not a forecast, not PIT admitted, not calibrated, no skill claim).")
+    parser.add_argument(PREVIEW_OPTION, dest="prospective_preview", required=True, type=Path,
+                        help="the explicitly selected preview.json of a verified preview directory (never a default)")
+    parser.add_argument("--grain", required=True, choices=list(PREVIEW_GRAINS) + list(bm.GRAINS))
+    parser.add_argument("--cutoff", default=None, help="ISO-8601 instant with seconds and an explicit zone")
+    parser.add_argument("--season", type=int, default=None)
+    parser.add_argument("--event", default=None, help="provider event key espn:event:<digits>")
+    parser.add_argument("--team", default=None, help="provider team key espn:team:<digits>")
+    parser.add_argument("--model", default=None)
+    parser.add_argument("--orientation", default=None, help="home or away (provider designation)")
+    parser.add_argument("--limit", type=int, default=50)
+    parser.add_argument("--offset", type=int, default=0)
+    parser.add_argument("--all", dest="all_rows", action="store_true")
+    parser.add_argument("--expect-identity", dest="expect_identity", default=None)
+    parser.add_argument("--require-pit", dest="require_pit", action="store_true",
+                        help="refused: the preview is never PIT admitted")
+    # Historical-mode options, recognized only to refuse the ambiguous combination clearly.
+    parser.add_argument("--database", type=Path, default=None)
+    parser.add_argument("--history-database", dest="history_database", type=Path, default=None)
+    parser.add_argument("--manifest", type=Path, default=None)
+    parser.add_argument("--contest", default=None)
+    parser.add_argument("--partition", default=None)
+    return parser
+
+
 def run(args: argparse.Namespace) -> dict[str, Any]:
     if args.require_pit:
         raise bm.BenchmarkError("PIT_ELIGIBILITY_NOT_ESTABLISHED",
@@ -67,7 +116,56 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                                all_rows=args.all_rows)
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def preview_mode(argv: Sequence[str]) -> bool:
+    """Whether an invocation names the explicit preview option (exactly, or as ``--prospective-preview=<path>``)."""
+    return any(token == PREVIEW_OPTION or token.startswith(PREVIEW_OPTION + "=") for token in argv)
+
+
+def run_preview(args: argparse.Namespace, contract_sha256: str | None = None) -> dict[str, Any]:
+    """The explicit preview mode (BAT-724): every ambiguous or inapplicable selection and every malformed argument is
+    refused before the preview is read; then the preview is verified completely and queried."""
+    from aggie_analytics.retrospective_baseline import preview  # noqa: PLC0415 - explicit option only
+
+    if args.require_pit:
+        raise preview.PreviewError("PREVIEW_PIT_NOT_ADMITTED", "the preview is PROVIDER_RECORD_BASELINE_PREVIEW_NOT_"
+                                                               "FORECAST and never PIT admitted")
+    conflicts = [flag for flag, value in (("--database", args.database), ("--history-database", args.history_database),
+                                          ("--manifest", args.manifest)) if value is not None]
+    if conflicts:
+        raise preview.PreviewError("PREVIEW_MODE_CONFLICT", f"{conflicts} cannot be combined with {PREVIEW_OPTION} "
+                                                            "(ambiguous mode selection)")
+    stray = [flag for flag, value in (("--contest", args.contest), ("--partition", args.partition)) if value is not None]
+    if stray:
+        raise preview.PreviewError("FILTER_NOT_APPLICABLE", f"{stray} do not apply to the preview grains")
+    preview.ProviderRecordPreview.filters(args.grain, season=args.season, event=args.event, team=args.team,
+                                          model=args.model, orientation=args.orientation)
+    if args.offset < 0:
+        raise preview.PreviewError("NEGATIVE_OFFSET", "offset must be zero or positive")
+    if args.limit < 0:
+        raise preview.PreviewError("NEGATIVE_LIMIT", "limit must be zero or positive")
+    preview.parse_cutoff(args.cutoff)
+    if args.expect_identity is not None and not preview.IDENTITY_RE.match(args.expect_identity):
+        raise preview.PreviewError("STALE_PREVIEW_IDENTITY", "--expect-identity must be a SHA-256 identity")
+    authority = {} if contract_sha256 is None else {"contract_sha256": contract_sha256}
+    with preview.ProviderRecordPreview(args.prospective_preview, expect_identity=args.expect_identity,
+                                       **authority) as selected:
+        return selected.query(args.grain, cutoff=args.cutoff, season=args.season, event=args.event, team=args.team,
+                              model=args.model, orientation=args.orientation, limit=args.limit, offset=args.offset,
+                              all_rows=args.all_rows)
+
+
+def main(argv: Sequence[str] | None = None, *, preview_contract_sha256: str | None = None) -> int:
+    tokens = list(sys.argv[1:] if argv is None else argv)
+    if preview_mode(tokens):
+        args = build_preview_parser().parse_args(tokens)
+        from aggie_analytics.retrospective_baseline import preview  # noqa: PLC0415 - explicit option only
+        try:
+            result = run_preview(args, preview_contract_sha256)
+        except preview.PreviewError as exc:
+            print(json.dumps({"refused": exc.code, "error": str(exc)}), file=sys.stderr)
+            return 2
+        sys.stdout.write(json.dumps(result, ensure_ascii=False, sort_keys=True) + "\n")
+        return 0
     args = build_parser().parse_args(argv)
     try:
         result = run(args)

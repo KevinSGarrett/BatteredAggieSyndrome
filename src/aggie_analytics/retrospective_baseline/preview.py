@@ -875,8 +875,11 @@ class ProviderRecordPreview:
                           note="only the retained 2026 provider observation is previewed; no row is fabricated")
             return result
         if grain == "preview-summary":
-            items = summary_rows(doc, self._selected_events(filters),
-                                 [filters["model"]] if "model" in filters else MODEL_IDS)
+            # a valid selection matching no game serves no rows (an unknown valid key serves no rows), never a
+            # zero-count row per model
+            selected = self._selected_events(filters)
+            items = summary_rows(doc, selected, [filters["model"]] if "model" in filters else MODEL_IDS) \
+                if selected else []
         elif grain == "preview-feature":
             items = [f for f in doc["features"] if
                      filters.get("season", f["season"]) == f["season"] and

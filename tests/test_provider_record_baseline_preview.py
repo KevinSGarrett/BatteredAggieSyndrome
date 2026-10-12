@@ -346,6 +346,33 @@ class QueryTests(_Workspace):
     def cli(self, *argv: str) -> tuple[int, dict | None, str]:
         return self.run_cli(["--prospective-preview", str(self.path), *argv], self.w.authority)
 
+    @staticmethod
+    def summary_counts(rows: list[dict]) -> list[dict]:
+        return [{k: r[k] for k in ("model_id", "distinct_events", "features", "estimates", "supported_estimates",
+                                    "estimates_per_game")} for r in rows]
+
+    @staticmethod
+    def expected_summary(everything: dict[str, list[dict]], chosen: dict) -> list[dict]:
+        """Per-model counts of the selected game set from the served feature and estimate rows, never from the reader's
+        summary: a game is selected when its event and one of its teams match; no selected game, no row (the frozen
+        contract's query_rules.filters: an unknown valid key serves no rows)."""
+        teams: dict[str, set[str]] = {}
+        for f in everything["preview-feature"]:
+            teams.setdefault(f["event_key"], set()).add(f["team_key"])
+        games = {e for e, members in teams.items() if chosen.get("event", e) == e and
+                 chosen.get("season", 2026) == 2026 and ("team" not in chosen or chosen["team"] in members)}
+        if not games:
+            return []
+        out = []
+        for model in ([chosen["model"]] if "model" in chosen else [NULL, SMOOTH]):
+            estimates = [e for e in everything["preview-estimate"] if e["event_key"] in games and e["model_id"] == model]
+            out.append({"model_id": model, "distinct_events": len(games),
+                        "features": sum(f["event_key"] in games for f in everything["preview-feature"]),
+                        "estimates": len(estimates),
+                        "supported_estimates": sum(e["support_state"] == "SUPPORTED" for e in estimates),
+                        "estimates_per_game": 2})
+        return out
+
     def test_cutoff_boundaries_equivalent_zones_and_no_refresh(self) -> None:
         cases = [("2026-10-11T18:15:55.264958Z", "PREVIEW_UNAVAILABLE_BEFORE_OBSERVATION"),
                  ("2026-10-11T18:15:55.264959Z", "PREVIEW_INDETERMINATE_WITHIN_OBSERVATION"),
@@ -385,7 +412,8 @@ class QueryTests(_Workspace):
         events = ["espn:event:900000001", "espn:event:900000002", "espn:event:900000003", "espn:event:999"]
         teams = ["espn:team:9001", "espn:team:9004", "espn:team:9006", "espn:team:1"]
         for grain, filters in (("preview-feature", ("event", "team", "orientation", "season")),
-                               ("preview-estimate", ("event", "team", "model", "orientation", "season"))):
+                               ("preview-estimate", ("event", "team", "model", "orientation", "season")),
+                               ("preview-summary", ("event", "team", "model", "season"))):
             values = {"event": [None, *events], "team": [None, *teams], "model": [None, NULL, SMOOTH],
                       "orientation": [None, "home", "away"], "season": [None, 2026]}
             for combo in itertools.product(*(values[f] for f in filters)):
@@ -393,22 +421,28 @@ class QueryTests(_Workspace):
                 argv = []
                 for f, v in chosen.items():
                     argv += [f"--{f}", str(v)]
-                field = {"event": "event_key", "team": "team_key", "model": "model_id", "season": "season",
-                         "orientation": "side" if grain == "preview-feature" else "orientation"}
-                want = [r for r in everything[grain] if all(r[field[f]] == v for f, v in chosen.items())]
+                if grain == "preview-summary":
+                    want, shape = self.expected_summary(everything, chosen), self.summary_counts
+                else:
+                    field = {"event": "event_key", "team": "team_key", "model": "model_id", "season": "season",
+                             "orientation": "side" if grain == "preview-feature" else "orientation"}
+                    want = [r for r in everything[grain] if all(r[field[f]] == v for f, v in chosen.items())]
+                    shape = list
+                case = f"{grain} {chosen}: conjunctive selection, empty when no game matches (MF52A01-01)"
                 got = self.rows(self.path, self.w.authority, grain, *argv)
-                self.assertEqual(got, want, (grain, chosen))
+                self.assertEqual(len(got), len(want), case)
+                self.assertEqual(shape(got), want, case)
                 pages, offset = [], 0
                 while True:
                     code, out, refused = self.cli("--grain", grain, "--cutoff", CUTOFF, "--limit", "2", "--offset",
                                                   str(offset), *argv)
                     self.assertEqual(code, 0, refused)
-                    self.assertEqual(out["total"], len(want))
+                    self.assertEqual(out["total"], len(want), case)
                     pages += [r[preview.GRAIN_KEY[grain]] for r in out["rows"]]
                     if out["next_offset"] is None:
                         break
                     offset = out["next_offset"]
-                self.assertEqual(pages, want, (grain, chosen))
+                self.assertEqual(shape(pages), want, case)
         incompatible = self.rows(self.path, self.w.authority, "preview-estimate", "--team", "espn:team:9001",
                                  "--orientation", "away")
         self.assertEqual(incompatible, [])
@@ -427,7 +461,83 @@ class QueryTests(_Workspace):
         self.assertEqual((team[0]["distinct_events"], team[0]["features"], team[0]["estimates"],
                           team[0]["supported_games"]), (1, 2, 2, 1))
         none = self.rows(self.path, self.w.authority, "preview-summary", "--event", "espn:event:999")
-        self.assertEqual([(s["distinct_events"], s["features"], s["estimates"]) for s in none], [(0, 0, 0), (0, 0, 0)])
+        self.assertEqual(len(none), 0, "MF52A01-01: a summary selection matching no game serves no rows")
+
+    def test_empty_valid_selections_serve_no_rows_at_every_grain(self) -> None:
+        """A valid selection matching no game (an unknown event or team, or a known event with a known team of another
+        game) serves no rows at every grain, with and without each model and at any offset and limit, and keeps the
+        echoed filters, identity, cutoff and labels (the frozen contract's query_rules.filters: an unknown valid key
+        serves no rows; MF52A01-01: the summary served one zero-count row per model instead)."""
+        labels = self.doc(self.path)["labels"]
+        selections = [{"event": "espn:event:999"}, {"team": "espn:team:1"},
+                      {"event": "espn:event:900000001", "team": "espn:team:9004"},
+                      {"event": "espn:event:999", "team": "espn:team:9001"}]
+        paging = [["--all"], ["--limit", "1"], ["--limit", "0"], ["--limit", "2", "--offset", "3"], ["--offset", "1"]]
+        for grain in preview.GRAINS:
+            models = [None, NULL, SMOOTH] if "model" in preview.APPLICABLE[grain] else [None]
+            for selection, model, page in itertools.product(selections, models, paging):
+                chosen = dict(selection, **({"model": model} if model else {}))
+                argv = ["--grain", grain, "--cutoff", CUTOFF, *page]
+                for f, v in chosen.items():
+                    argv += [f"--{f}", v]
+                code, out, refused = self.cli(*argv)
+                self.assertEqual(code, 0, refused)
+                case = f"{grain} {chosen} {page}: MF52A01-01 a valid selection matching no game serves no rows"
+                self.assertEqual(out["total"], 0, case)
+                self.assertEqual((out["returned"], out["rows"], out["next_offset"]), (0, [], None), case)
+                self.assertEqual(out["filters"], chosen, case)
+                self.assertEqual((out["preview_identity"], out["season_scope_state"], out["labels"],
+                                  out["observation_at_cutoff"]["state"], out["cutoff"]["literal"]),
+                                 (self.path.parent.name, preview.IN_SCOPE_STATE, labels, preview.AVAILABLE, CUTOFF),
+                                 case)
+
+    def test_matching_selections_keep_their_summaries_and_paging(self) -> None:
+        """Nonempty summary selections keep their exact rows: the unfiltered and season-2026 summaries equal the stored
+        one, each event and team alone, an event with its own home or away team and combinations with a model report
+        their games' counts, a model alone serves its stored row, and summary paging is exact."""
+        stored = self.doc(self.path)["summary"]
+        everything = {g: self.rows(self.path, self.w.authority, g) for g in ("preview-feature", "preview-estimate")}
+        self.assertEqual(self.rows(self.path, self.w.authority, "preview-summary"), stored)
+        self.assertEqual(self.rows(self.path, self.w.authority, "preview-summary", "--season", "2026"), stored)
+        self.assertEqual(self.rows(self.path, self.w.authority, "preview-summary", "--model", SMOOTH), [stored[1]])
+        for chosen in ({"event": "espn:event:900000002"}, {"team": "espn:team:9005"},
+                       {"team": "espn:team:9006", "model": NULL},
+                       {"event": "espn:event:900000001", "team": "espn:team:9001"},
+                       {"event": "espn:event:900000001", "team": "espn:team:9002", "model": SMOOTH}):
+            argv = []
+            for f, v in chosen.items():
+                argv += [f"--{f}", v]
+            want = self.expected_summary(everything, chosen)
+            self.assertTrue(want, chosen)
+            self.assertEqual(self.summary_counts(self.rows(self.path, self.w.authority, "preview-summary", *argv)),
+                             want, chosen)
+        pages = []
+        for offset, (returned, following) in enumerate(((1, 1), (1, None), (0, None))):
+            code, out, refused = self.cli("--grain", "preview-summary", "--cutoff", CUTOFF, "--limit", "1", "--offset",
+                                          str(offset))
+            self.assertEqual(code, 0, refused)
+            self.assertEqual((out["total"], out["returned"], out["next_offset"]), (2, returned, following), offset)
+            pages += [r["summary"] for r in out["rows"]]
+        self.assertEqual(pages, stored)
+
+    def test_outside_season_selections_are_not_yet_audited_at_every_grain(self) -> None:
+        """Another season is NOT_YET_AUDITED with no rows at every grain, whatever else is selected (matching, unknown
+        or disjoint keys, with or without each model)."""
+        selections = [{}, {"event": "espn:event:900000001"}, {"team": "espn:team:9001"}, {"event": "espn:event:999"},
+                      {"event": "espn:event:900000001", "team": "espn:team:9004"}]
+        for grain in preview.GRAINS:
+            models = [None, NULL, SMOOTH] if "model" in preview.APPLICABLE[grain] else [None]
+            for selection, model in itertools.product(selections, models):
+                chosen = dict(selection, **({"model": model} if model else {}))
+                argv = ["--grain", grain, "--cutoff", CUTOFF, "--season", "2025", "--limit", "5"]
+                for f, v in chosen.items():
+                    argv += [f"--{f}", v]
+                code, out, refused = self.cli(*argv)
+                self.assertEqual(code, 0, refused)
+                self.assertEqual((out["season_scope_state"], out["total"], out["returned"], out["rows"],
+                                  out["next_offset"], out["filters"]),
+                                 (preview.OUT_OF_SCOPE_STATE, 0, 0, [], None, dict(chosen, season=2025)),
+                                 (grain, chosen))
 
     def test_malformed_inapplicable_and_conflicting_selections_refuse(self) -> None:
         base = ["--grain", "preview-estimate", "--cutoff", CUTOFF]

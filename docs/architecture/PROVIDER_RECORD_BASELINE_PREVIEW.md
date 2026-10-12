@@ -93,7 +93,8 @@ bas-retrospective-baseline-query --prospective-preview <preview.json> --grain pr
   orientation), summary (season, event, team, model). An inapplicable filter refuses (`FILTER_NOT_APPLICABLE`), a
   malformed key, model or orientation refuses; an unknown valid key serves no rows; another season is `NOT_YET_AUDITED`.
 - `preview-summary` reports per model the exact distinct events of the selected game set (two orientations are not two
-  games), their features and estimates, supported/abstained games and estimates and abstention reasons.
+  games), their features and estimates, supported/abstained games and estimates and abstention reasons. A selection
+  that matches no game serves no summary rows (total 0), never a zero-count row per model.
 - Combining the mode with `--database`, `--history-database` or `--manifest` is `PREVIEW_MODE_CONFLICT`; `--contest`
   and `--partition` are `FILTER_NOT_APPLICABLE`. Without `--prospective-preview` the original parser handles the
   invocation, so every existing answer and refusal is byte-identical; only `--help` gains an epilog naming the mode.

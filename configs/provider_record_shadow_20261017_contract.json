@@ -1,0 +1,517 @@
+{
+ "schema_version": "1.0.0",
+ "contract_id": "BAT-725-PROVIDER-RECORD-SHADOW-20261017-V1",
+ "jira_key": "BAT-725",
+ "cycle_number": 53,
+ "attempt_number": 1,
+ "governing_plan": "TP53-A01 revision 2026-10-12.1 sections 1-6 (Cycle #53 Attempt #1); TECHNICAL_PLAN_TP53_A01.md sha256 7fe0c028534002338909b35346953b43d0c3620e9affde564bc4ecef948fefc0",
+ "population_id": "provider_record_shadow_20261017",
+ "season": 2026,
+ "designation": "UNTRUSTED_SHADOW",
+ "purpose": "One private, create-only, content-addressed UNTRUSTED_SHADOW prediction snapshot that freezes the accepted fixed provider-record calculations of the accepted BAT-724 preview for the exact 25-event provider cohort (provider-reported 2026-10-17 starts; 50 participant records; 100 oriented predictions = 25 events x 2 fixed models x 2 sides), anchored by the actual service-created time of a hash-only BAT-725 Jira comment and served only through the explicit --prospective-shadow option of the existing bas-retrospective-baseline-query console and module (grains shadow-prediction and shadow-summary). An actual recorded pre-event shadow prediction with trust explicitly limited: not a trusted operational forecast, calibrated prediction, betting recommendation, historical PIT recovery, protected experiment or skill result; no fitting, selection, recalibration, outcome, scoring or publication of values. Historical milestone F1 stays unmet.",
+ "input": {
+  "preview_population": "provider_record_baseline_preview_20261011",
+  "preview_identity": "09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88",
+  "preview_sha256": "d8d2c7c6ffc8c1533f73bac328d7cfb68d34fa19cfd34712a22c81bbf60caf7c",
+  "preview_contract_id": "BAT-724-PROVIDER-RECORD-BASELINE-PREVIEW-20261011-V1",
+  "preview_contract_sha256": "330d8972c3763f7ac1d7c9b668aba4e20adddb2c31340aef60972988c3117092",
+  "capsule_population": "prospective_provider_observation_20261011",
+  "capsule_identity": "7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4",
+  "capsule_sha256": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505",
+  "capsule_contract_id": "BAT-723-PROSPECTIVE-PROVIDER-OBSERVATION-20261011-V1",
+  "capsule_contract_sha256": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a",
+  "source_body_sha256": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9",
+  "receipt_sha256": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26",
+  "expected_cohort_sha256": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328",
+  "expected_events": 25,
+  "expected_participants": 50,
+  "expected_predictions": 100,
+  "observation_interval": [
+   "2026-10-11T18:15:55.264959Z",
+   "2026-10-11T18:15:55.744674Z"
+  ],
+  "authority": "the accepted immutable Cycle 52 preview (BAT-724 Done; integrated as 5b72b0db through PR 708), verified completely by the accepted reader aggie_analytics.retrospective_baseline.preview.verify_preview with the preview contract pin and the expected preview identity above, which itself re-derives every feature, game and estimate from the accepted Cycle 51 capsule (verified by the accepted BAT-723 reader from the retained raw response, receipt and frozen cohort); every preview event, participant record and estimate is frozen (no subset is chosen after calculation; supported counts are derived, never hardcoded); the expected population is the pinned complete raw cohort, not the produced predictions",
+  "not_read": "no C47 labels, scores, history or benchmark database; no historical outcome, exposed-period model, odds, rank, venue, weather, injury, recruiting, transfer or held matrix; no new source request, schedule refresh, archive retry or outcome acquisition"
+ },
+ "models": {
+  "PROVIDER_PREVIEW_NULL_HALF_V1": {
+   "definition": {
+    "model_id": "PROVIDER_PREVIEW_NULL_HALF_V1",
+    "version": 1,
+    "family": "FIXED_CONSTANT",
+    "formula": "p_home = p_away = 1/2",
+    "inputs": [],
+    "record_dependence": "NONE",
+    "parameters": {
+     "probability": {
+      "numerator": 1,
+      "denominator": 2
+     }
+    },
+    "support_rule": "supported exactly when the event and both role participants have supported identity; no record is read",
+    "fitted": false,
+    "home_advantage": null,
+    "margin": null,
+    "score": null,
+    "interval": null,
+    "calibration": "NOT_CALIBRATED",
+    "role": "NULL_COMPARISON_PROVIDER_PREVIEW"
+   },
+   "sha256": "3d23fe5e8f9476adc89c17719306714aea743af4527bc08623a6fb33f5ca70b0"
+  },
+  "PROVIDER_RECORD_SMOOTHED_ODDS_PREVIEW_V1": {
+   "definition": {
+    "model_id": "PROVIDER_RECORD_SMOOTHED_ODDS_PREVIEW_V1",
+    "version": 1,
+    "family": "FIXED_SMOOTHED_PROVIDER_RECORD_ODDS_RATIO",
+    "formula": "q_X = (W_X + T_X/2 + 1)/(G_X + 2) with G_X = W_X + L_X + T_X from side X's own provider-reported overall/total record; p_home = q_home(1-q_away) / (q_home(1-q_away) + q_away(1-q_home)); p_away = 1 - p_home",
+    "inputs": [
+     "wins",
+     "losses",
+     "ties",
+     "games"
+    ],
+    "input_semantics": "PROVIDER_REPORTED_OVERALL_TOTAL_RECORD_COUNTS_NOT_RECONSTRUCTED_GAME_HISTORY",
+    "record_dependence": "OWN_OVERALL_TOTAL_RECORD_OF_EACH_SIDE",
+    "parameters": {
+     "pseudo_wins": 1,
+     "pseudo_games": 2,
+     "tie_weight": {
+      "numerator": 1,
+      "denominator": 2
+     }
+    },
+    "cold_start": "a supported 0-0 record (G = 0) gives q = 1/2, labelled cold_start; the estimate is kept",
+    "support_rule": "supported exactly when the null model is supported, both role participants' records are supported and the event is pre-game at observation (state 'pre', not completed)",
+    "arithmetic": {
+     "source": "aggie_analytics.retrospective_baseline.benchmark",
+     "functions": [
+      "strength_q",
+      "smoothed_probability",
+      "decimal_text"
+     ],
+     "contract_id": "BAT-719-NATIONAL-RETROSPECTIVE-BASELINE-2016-2023-V1.0",
+     "contract_sha256": "32a2ffb6c55d5fda37e06a75847ab3c21345205524ca5a7f60a2ef99b8142ee4",
+     "reuse": "the accepted C47 pure arithmetic only; no C47 model identity, label, score or database"
+    },
+    "fitted": false,
+    "home_advantage": null,
+    "margin": null,
+    "score": null,
+    "interval": null,
+    "calibration": "NOT_CALIBRATED",
+    "role": "FIXED_PROVIDER_RECORD_COMPARISON"
+   },
+   "sha256": "22cec5e2abe1e1dc03aa38f77853901f627007169a147fa0b9d856bb80743ef0"
+  }
+ },
+ "model_rules": "the two fixed models of the accepted preview, unchanged (definitions and SHA-256 identities equal to the preview contract's): PROVIDER_PREVIEW_NULL_HALF_V1 (1/2) and PROVIDER_RECORD_SMOOTHED_ODDS_PREVIEW_V1 (each side's own provider-reported overall/total record, smoothed odds ratio by the accepted C47 integer arithmetic); nothing fitted, selected, tuned, recalibrated or home-advantaged; distinct from the C47 historical models",
+ "numeric_contract": {
+  "integers": "JSON integers only; a boolean or an integral float is not an integer; no binary float appears in payload.json, snapshot.json, the identity document or a served row",
+  "rationals": "{numerator, denominator} reduced JSON integers with denominator > 0 (exact fractions)",
+  "decimal_display": "probability_decimal and opponent_probability_decimal: the exact rational rounded half-even to 12 decimal places by the accepted C47 integer implementation, as the verified preview holds",
+  "probability": "exact rational; 0 < p < 1 for the smoothed model; p_home + p_away = 1 exactly; probability + opponent_probability = 1 exactly; the away orientation is derived from the game-grain home value",
+  "identities": "event, team, comment and issue identities are JSON strings; an integer, float or boolean in their place is a different value and is refused",
+  "canonical_json": "json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False) as UTF-8; payload.json and snapshot.json are these bytes plus one LF"
+ },
+ "labels": {
+  "designation": "UNTRUSTED_SHADOW",
+  "input_authority": "PROVIDER_CLAIM_INPUTS",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "calibration": "NOT_CALIBRATED",
+  "predictive_skill": "PREDICTIVE_SKILL_NOT_ESTABLISHED",
+  "national_coverage": "UNKNOWN",
+  "record_role": "FROZEN_PRIVATE_SHADOW_PREDICTION_NOT_A_TRUSTED_OPERATIONAL_FORECAST",
+  "source_preview_role": "SOURCE_PROVENANCE_PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST",
+  "source_authority": "PROVIDER_CLAIM_ESPN_SCOREBOARD_NOT_OFFICIAL_NCAA_NOT_CORROBORATED",
+  "timing_basis": "PRE_PROVIDER_REPORTED_START_NOT_OFFICIAL_KICKOFF_CONFIRMED",
+  "evaluation": "NOT_SCORED_NO_OUTCOME_NOT_A_PROTECTED_EVALUATION",
+  "publication": "PRIVATE_HASH_ONLY_ANCHOR_NO_PUBLIC_PREDICTION_VALUES",
+  "home_away": "PROVIDER_HOMEAWAY_DESIGNATION_NOT_VENUE_NO_HOME_ADVANTAGE_APPLIED",
+  "use": "NOT_A_BETTING_RECOMMENDATION_NOT_AN_OPERATIONAL_DEFAULT"
+ },
+ "record_labels": {
+  "designation": "UNTRUSTED_SHADOW",
+  "input_authority": "PROVIDER_CLAIM_INPUTS",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "calibration": "NOT_CALIBRATED",
+  "predictive_skill": "PREDICTIVE_SKILL_NOT_ESTABLISHED",
+  "national_coverage": "UNKNOWN",
+  "source_preview_label": "PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST"
+ },
+ "role_binding": "the payload names the preview identity, file hash and contract and labels it SOURCE_PROVENANCE_PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST; every frozen record carries source_preview_label PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST (the preview's role) beside designation UNTRUSTED_SHADOW (this record's role) and the SHA-256 of the exact preview record it freezes; the frozen prediction is never relabelled a mere preview and the preview is never relabelled a forecast",
+ "payload": {
+  "schema": "BAS-PROVIDER-RECORD-SHADOW-PAYLOAD-1",
+  "file": "payload.json",
+  "serialization": "json.dumps(document, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False) encoded UTF-8 (no byte-order mark) followed by one LF; every governed value is compared by these canonical bytes (integer, float, boolean and string types differ)",
+  "top_level_members": [
+   "schema",
+   "population",
+   "designation",
+   "contract",
+   "source",
+   "models",
+   "numeric_contract",
+   "labels",
+   "events",
+   "participants",
+   "predictions",
+   "summary",
+   "counts"
+  ],
+  "fields": {
+   "events": {
+    "EVENT_IDENTITY": [
+     "record_type",
+     "event_key",
+     "season",
+     "provider_scheduled_utc",
+     "event_state_at_observation",
+     "home_team_key",
+     "away_team_key",
+     "home_participant_pointer",
+     "away_participant_pointer"
+    ],
+    "EVENT_LINEAGE": [
+     "home_feature_sha256",
+     "away_feature_sha256",
+     "preview_game_sha256"
+    ],
+    "EVENT_LABELS": [
+     "designation",
+     "input_authority",
+     "pit_admission",
+     "calibration",
+     "predictive_skill",
+     "national_coverage",
+     "source_preview_label"
+    ]
+   },
+   "participants": {
+    "PARTICIPANT_IDENTITY": [
+     "record_type",
+     "event_key",
+     "season",
+     "side",
+     "team_key",
+     "source_competitor_id",
+     "source_team_id",
+     "source_name",
+     "participant_pointer",
+     "event_role_bound"
+    ],
+    "PARTICIPANT_RECORD": [
+     "record_pointer",
+     "candidate_record_pointers",
+     "record_summary",
+     "ties_rule",
+     "wins",
+     "losses",
+     "ties",
+     "games",
+     "cold_start"
+    ],
+    "PARTICIPANT_SUPPORT": [
+     "support_state",
+     "unsupported_reasons"
+    ],
+    "PARTICIPANT_LINEAGE": [
+     "preview_feature_sha256"
+    ],
+    "PARTICIPANT_LABELS": [
+     "designation",
+     "input_authority",
+     "pit_admission",
+     "calibration",
+     "predictive_skill",
+     "national_coverage",
+     "source_preview_label"
+    ]
+   },
+   "predictions": {
+    "PREDICTION_IDENTITY": [
+     "record_type",
+     "event_key",
+     "season",
+     "model_id",
+     "model_sha256",
+     "orientation",
+     "team_key",
+     "opponent_team_key",
+     "provider_scheduled_utc"
+    ],
+    "PREDICTION_VALUE": [
+     "probability",
+     "probability_decimal",
+     "opponent_probability",
+     "opponent_probability_decimal",
+     "game_home_probability",
+     "team_strength_q",
+     "opponent_strength_q",
+     "team_cold_start",
+     "opponent_cold_start"
+    ],
+    "PREDICTION_SUPPORT": [
+     "support_state",
+     "abstention_reasons"
+    ],
+    "PREDICTION_LINEAGE": [
+     "record_dependence",
+     "team_feature_sha256",
+     "opponent_feature_sha256",
+     "preview_estimate_sha256"
+    ],
+    "PREDICTION_LABELS": [
+     "designation",
+     "input_authority",
+     "pit_admission",
+     "calibration",
+     "predictive_skill",
+     "national_coverage",
+     "source_preview_label"
+    ]
+   },
+   "summary": [
+    "record_type",
+    "model_id",
+    "model_sha256",
+    "distinct_events",
+    "participants",
+    "supported_participants",
+    "unsupported_participants",
+    "cold_start_participants",
+    "predictions",
+    "predictions_per_game",
+    "supported_predictions",
+    "abstained_predictions",
+    "supported_games",
+    "abstained_games",
+    "abstention_reasons",
+    "designation",
+    "input_authority",
+    "pit_admission",
+    "calibration",
+    "predictive_skill",
+    "national_coverage",
+    "source_preview_label"
+   ],
+   "served_summary_timing": [
+    "anchored_pre_provider_start_games",
+    "ineligible_games"
+   ]
+  },
+  "orders": {
+   "events": "event_key",
+   "participants": "(event_key, side rank home < away < other, team_key or '', participant_pointer)",
+   "predictions": "(event_key, model order null then smoothed, orientation home then away)",
+   "summary": "model order null then smoothed"
+  },
+  "rules": "events, participants and predictions are the verified preview's games, features and estimates, re-derived and copied field for field (the event's scheduled_utc as provider_scheduled_utc, its event_state as event_state_at_observation; each record names the SHA-256 of the canonical preview record it freezes); a missing, ambiguous or unsupported input keeps its explicit abstention with input and reason (never a zero record or a dropped game); supported probability + opponent_probability = 1 and home + away = 1 exactly, and every smoothed strength equals strength_q of that side's own frozen W/L/T (SHADOW_ARITHMETIC_INCOHERENT otherwise); the population equals the pinned 25/50/100 cohort (SHADOW_INPUT_POPULATION_MISMATCH otherwise); the stored summary covers every event; no clock, anchor or timing value enters the payload",
+  "materialization": "create-only under canonical/provider_record_shadow_20261017/payload/sha256/<payload sha256>/payload.json (staged under canonical/.../.staging, re-read, one directory rename); an existing directory must be byte-identical (ALREADY_PRESENT_IDENTICAL) and a second different payload in the same root refuses (PAYLOAD_ALREADY_FROZEN) unless a corrected successor names the frozen predecessor explicitly; the run manifest alone records the build clock"
+ },
+ "anchor": {
+  "system": "JIRA_CLOUD_REST_API_3",
+  "tenant": "https://kevinsgarrett.atlassian.net",
+  "issue_key": "BAT-725",
+  "issue_id": "25892",
+  "marker": "C53-A01-M2",
+  "heading": "C53-A01-M2 — Cycle #53 — Attempt #1 — UNTRUSTED_SHADOW payload timestamp anchor (BAT-725)",
+  "role": "the granted C53-A01-M2 material comment: after the complete payload is materialized and its exact SHA-256 computed, one hash-only comment is posted on BAT-725 (duplicate check first; never reposted) and read back by its id; the exact raw readback response is the anchor receipt",
+  "body_rule": "the body is rendered deterministically from the payload (aggie_analytics.retrospective_baseline.shadow.anchor_body): the heading, payload_sha256, payload_bytes, schema/population/designation, the shadow contract id and SHA-256, the source capsule, preview, response, receipt and cohort SHA-256 values, both model SHA-256 values, the cohort counts, the trust labels, the timing basis statement and 'values: none published here'; one ADF paragraph per line; hashes and metadata only, never a prediction value or raw provider content",
+  "receipt_member": "anchor/jira_comment.json",
+  "receipt_rules": "the receipt is the JSON object Jira returns for GET /rest/api/3/issue/BAT-725/comment/<id>: id is a decimal string; self equals <tenant>/rest/api/3/issue/25892/comment/<id> (SHADOW_ANCHOR_ISSUE_MISMATCH otherwise); created and updated match YYYY-MM-DDTHH:MM:SS.mmm+hhmm (SHADOW_ANCHOR_TIME_INVALID otherwise); created equals updated (SHADOW_ANCHOR_EDITED otherwise: an edited body cannot use its old creation time); the plain text of body starts with the marker (SHADOW_ANCHOR_MARKER_MISMATCH) and equals the rendered body of this payload (SHADOW_ANCHOR_BODY_MISMATCH)",
+  "proves": "the payload bytes existed no later than the comment's service-created time",
+  "does_not_prove": [
+   "official kickoff",
+   "original provider publication",
+   "PIT admission",
+   "predictive skill"
+  ],
+  "forbidden_substitutes": "a local clock, file mtime, commit author date, prepared-but-unposted comment or synthetic fixture never stands in for the service-created time; fixture receipts and profiles are test-only and never enter the packaged profile"
+ },
+ "timing": {
+  "basis": "PRE_PROVIDER_REPORTED_START",
+  "rule": "per event: ANCHORED_PRE_PROVIDER_REPORTED_START exactly when the retained observation end <= the anchor's service-created UTC instant < the provider-reported scheduled start and the event was pre-game at observation; otherwise INELIGIBLE_NOT_PRE_PROVIDER_REPORTED_START with every reason; an ineligible key is retained (never dropped, backdated or later made eligible); the basis is never called OFFICIAL_KICKOFF_CONFIRMED",
+  "decisions": [
+   "ANCHORED_PRE_PROVIDER_REPORTED_START",
+   "INELIGIBLE_NOT_PRE_PROVIDER_REPORTED_START"
+  ]
+ },
+ "timing_reasons": {
+  "PROVIDER_START_MISSING": "the event has no valid provider-reported scheduled start",
+  "EVENT_NOT_PRE_GAME_AT_OBSERVATION": "the event was not pre-game (state 'pre', not completed) at observation",
+  "ANCHOR_BEFORE_OBSERVATION_END": "the anchor's service-created time precedes the retained observation end",
+  "ANCHOR_AT_OR_AFTER_PROVIDER_REPORTED_START": "the anchor's service-created time is at or after the provider-reported start"
+ },
+ "snapshot": {
+  "schema": "BAS-PROVIDER-RECORD-SHADOW-SNAPSHOT-1",
+  "file": "snapshot.json",
+  "top_level_members": [
+   "schema",
+   "population",
+   "designation",
+   "contract",
+   "payload",
+   "anchor",
+   "timing",
+   "labels",
+   "counts",
+   "bundle"
+  ],
+  "layout": "canonical/provider_record_shadow_20261017/sha256/<snapshot identity>/ holds snapshot.json, payload.json (the exact stage-one bytes), anchor/jira_comment.json (the exact raw anchor receipt), inputs/contract.json (these contract bytes) and preview/<preview identity>/ (a byte copy of the accepted preview directory, itself holding the accepted capsule directory); manifests/provider_record_shadow_20261017/sha256/<snapshot identity>/run_manifest.json records the build; the reader needs only the snapshot directory (portable; a rehoused genuine copy serves identically); no other file may be present",
+  "identity": {
+   "schema": "BAS-PROVIDER-RECORD-SHADOW-SNAPSHOT-IDENTITY-1",
+   "members": [
+    "schema",
+    "population",
+    "contract_id",
+    "contract_sha256",
+    "snapshot_file",
+    "snapshot_sha256",
+    "bundle"
+   ],
+   "rule": "snapshot identity = sha256 of the canonical bytes of the identity document; the snapshot directory is named by it; bundle = every member except snapshot.json with its sha256 and byte count, so the identity covers the full payload, the exact anchor receipt, the contract and the bundled preview and capsule"
+  },
+  "rules": "snapshot.json binds the payload (file, schema, sha256, bytes, counts), the verified anchor record (system, tenant, issue key and id, comment id, marker, created, updated, created_utc, edited false, body text sha256, receipt file, sha256 and bytes), the per-event timing decisions, the labels, the counts (anchored/ineligible events and predictions included) and the bundle; it is re-derived by the reader and compared by canonical bytes (first differing family names SHADOW_SNAPSHOT_<FAMILY>_MISMATCH)",
+  "build": "create-only: staged under canonical/.../.staging/, every member written and re-read, then one directory rename to sha256/<identity>; an existing identity directory must be byte-identical (ALREADY_PRESENT_IDENTICAL) or the build refuses; a second different snapshot in the same root refuses (SNAPSHOT_ALREADY_FROZEN) unless a corrected successor names the frozen predecessor; an interrupted build leaves no directory at the identity path; rebuilding with the same payload and anchor receipt is byte-identical (no clock enters the content); only the run manifest records the build clock"
+ },
+ "gate": {
+  "file": "artifacts/data_lake/provider_record_shadow_20261017_gate.json",
+  "rule": "after the real anchor exists, a small final gate pins the snapshot identity, payload SHA-256 and the actual anchor (issue key and id, comment id, created, updated, receipt SHA-256, body text SHA-256); the reader packages the same profile (shadow.ANCHOR_PROFILE) and refuses any other anchor (SHADOW_ANCHOR_NOT_PINNED_PROFILE) or snapshot (SHADOW_NOT_PINNED_SNAPSHOT) after every semantic check passes, so a self-consistent forged receipt never becomes profile authority; with no packaged profile the consumer refuses (SHADOW_PROFILE_NOT_PINNED)"
+ },
+ "query_rules": {
+  "selection": "only with --prospective-shadow <snapshot.json> (the original parser handles every invocation without it, unchanged; the preview mode keeps its own parser); combining it with --database, --history-database, --manifest or --prospective-preview is SHADOW_MODE_CONFLICT; --contest and --partition are FILTER_NOT_APPLICABLE; a historical or preview grain is SHADOW_GRAIN_REQUIRED; --require-pit is SHADOW_PIT_NOT_ADMITTED; every malformed argument is refused before the snapshot is read",
+  "grains": [
+   "shadow-prediction",
+   "shadow-summary"
+  ],
+  "applicable_filters": {
+   "shadow-prediction": [
+    "season",
+    "event",
+    "team",
+    "model",
+    "orientation"
+   ],
+   "shadow-summary": [
+    "season",
+    "event",
+    "team",
+    "model"
+   ]
+  },
+  "cutoff": "required; an ISO-8601 instant with seconds and an explicit zone, matched as a whole string (a trailing newline is refused); naive or date-only CUTOFF_TIMEZONE_REQUIRED, other malformed values CUTOFF_INVALID, an instant outside the representable UTC range CUTOFF_OUT_OF_RANGE (clean refusal; the shared historical and preview parsers are not changed); compared as exact instants (equivalent offsets agree): before the anchor's service-created time SHADOW_UNAVAILABLE_BEFORE_ANCHOR, at or after it the same immutable snapshot is served, also after a provider-reported start (no retroactive issuance, refresh or recomputation; the current clock is never read)",
+  "filters": "conjunctive: --season (2026 serves; any other integer is NOT_YET_AUDITED with no rows), --event espn:event:<digits>, --team espn:team:<digits> (a prediction's own team; for the summary, the games in which the team participates), --model (one of the two fixed models) and --orientation home|away (predictions only); an unknown or disjoint valid selection serves rows [], total 0, returned 0 and next_offset null at both grains (never a zero-count summary row); a malformed key, model or orientation refuses; no fuzzy team names",
+  "summary": "one row per selected model over the selected games: distinct_events counts each game once (two orientations are not two games), the participants and predictions of those games, supported and abstained games and predictions, abstention reasons once per game, and the anchored and ineligible games of the snapshot's timing decisions",
+  "paging": "--limit (default 50), --offset and --all over both grains; exact totals and next_offset; negative paging refuses; the union of pages equals --all",
+  "rows": "every served prediction row carries the frozen record (with its record labels), its event's timing decision, basis and reasons, the snapshot identity and the anchor's created UTC instant; every summary row carries the record labels; every response carries the labels, designation, anchor, timing basis, model and source identities",
+  "locations": "accepted literal-location rules: local relative, long and extended-length Windows paths and junctions; network and device paths are refused before any access; a missing file is never created"
+ },
+ "refusal_codes": [
+  "CONTRACT_CODE_DISAGREEMENT",
+  "CONTRACT_MALFORMED",
+  "CONTRACT_NOT_COMMITTED_AUTHORITY",
+  "CUTOFF_INVALID",
+  "CUTOFF_OUT_OF_RANGE",
+  "CUTOFF_REQUIRED",
+  "CUTOFF_TIMEZONE_REQUIRED",
+  "EVENT_KEY_INVALID",
+  "FILTER_NOT_APPLICABLE",
+  "NEGATIVE_LIMIT",
+  "NEGATIVE_OFFSET",
+  "ORIENTATION_INVALID",
+  "SEASON_INVALID",
+  "SHADOW_ANCHOR_BODY_MISMATCH",
+  "SHADOW_ANCHOR_EDITED",
+  "SHADOW_ANCHOR_IDENTITY_INVALID",
+  "SHADOW_ANCHOR_ISSUE_MISMATCH",
+  "SHADOW_ANCHOR_MARKER_MISMATCH",
+  "SHADOW_ANCHOR_NOT_PINNED_PROFILE",
+  "SHADOW_ANCHOR_RECEIPT_MALFORMED",
+  "SHADOW_ANCHOR_TIME_INVALID",
+  "SHADOW_ARITHMETIC_INCOHERENT",
+  "SHADOW_BUNDLE_MEMBERSHIP_MISMATCH",
+  "SHADOW_BUNDLE_MEMBER_MISSING",
+  "SHADOW_GRAIN_REQUIRED",
+  "SHADOW_IDENTITY_MISMATCH",
+  "SHADOW_INPUT_<preview reader code>",
+  "SHADOW_INPUT_MODELS_DIFFER",
+  "SHADOW_INPUT_NOT_PINNED",
+  "SHADOW_INPUT_POPULATION_MISMATCH",
+  "SHADOW_LOCATION_INVALID",
+  "SHADOW_LOCATION_NOT_LITERAL",
+  "SHADOW_LOCATION_UNSUPPORTED",
+  "SHADOW_MISSING",
+  "SHADOW_MODEL_UNKNOWN",
+  "SHADOW_MODE_CONFLICT",
+  "SHADOW_NOT_PINNED_SNAPSHOT",
+  "SHADOW_PAYLOAD_<FAMILY>_MISMATCH",
+  "SHADOW_PAYLOAD_MALFORMED",
+  "SHADOW_PIT_NOT_ADMITTED",
+  "SHADOW_PROFILE_NOT_PINNED",
+  "SHADOW_SNAPSHOT_<FAMILY>_MISMATCH",
+  "SHADOW_SNAPSHOT_MALFORMED",
+  "SHADOW_UNAVAILABLE_BEFORE_ANCHOR",
+  "STALE_SHADOW_IDENTITY",
+  "TEAM_KEY_INVALID"
+ ],
+ "families": {
+  "payload": [
+   "SCHEMA",
+   "DESIGNATION",
+   "CONTRACT",
+   "SOURCE",
+   "MODELS",
+   "NUMERIC_CONTRACT",
+   "LABELS",
+   "EVENT_MEMBERSHIP",
+   "EVENT_IDENTITY",
+   "EVENT_LINEAGE",
+   "EVENT_LABELS",
+   "PARTICIPANT_MEMBERSHIP",
+   "PARTICIPANT_IDENTITY",
+   "PARTICIPANT_RECORD",
+   "PARTICIPANT_SUPPORT",
+   "PARTICIPANT_LINEAGE",
+   "PARTICIPANT_LABELS",
+   "PREDICTION_MEMBERSHIP",
+   "PREDICTION_IDENTITY",
+   "PREDICTION_VALUE",
+   "PREDICTION_SUPPORT",
+   "PREDICTION_LINEAGE",
+   "PREDICTION_LABELS",
+   "SUMMARY",
+   "COUNTS",
+   "CANONICAL_FORM"
+  ],
+  "snapshot": [
+   "SCHEMA",
+   "DESIGNATION",
+   "CONTRACT",
+   "PAYLOAD",
+   "ANCHOR",
+   "TIMING",
+   "LABELS",
+   "COUNTS",
+   "BUNDLE",
+   "CANONICAL_FORM"
+  ]
+ },
+ "consumer": {
+  "console": "bas-retrospective-baseline-query --prospective-shadow <snapshot.json>",
+  "module": "python -m aggie_analytics.retrospective_baseline.query --prospective-shadow <snapshot.json>",
+  "reader": "aggie_analytics.retrospective_baseline.shadow (imported only for the explicit option)",
+  "defaults": "every existing invocation, answer, refusal, preview answer, default view and accepted data identity is unchanged; only --help gains one paragraph naming the explicit shadow mode"
+ },
+ "non_claims": [
+  "UNTRUSTED_SHADOW: a private recorded pre-event shadow prediction, not a trusted operational forecast, calibrated prediction, betting recommendation or published value",
+  "PIT_NOT_ADMITTED; NOT_CALIBRATED; PREDICTIVE_SKILL_NOT_ESTABLISHED; no outcome, score or protected evaluation",
+  "PRE_PROVIDER_REPORTED_START only: not an official kickoff confirmation or original provider publication",
+  "provider claims only: not official NCAA results, not corroborated; opponent strength and record completeness not established; national coverage UNKNOWN",
+  "no fitting, tuning, selection after results, recalibration, home advantage, margin, score or interval",
+  "no source acquisition, schedule refresh, archive retry, outcome acquisition, monitor, scheduler or daemon",
+  "no production/default activation, model promotion, protected evaluation or scientific hold release; BAT-695 inactive; BAT-401/GAP-005 and the scientific-trust recovery owners unchanged",
+  "historical F1 (5875 accepted 2016-2023 targets) stays unmet; BAT-462 and BAT-657 are not completed by this single development snapshot"
+ ],
+ "revision_note": "V1 frozen and committed before the first canonical write (Cycle #53 Attempt #1)."
+}

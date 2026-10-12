@@ -26,6 +26,15 @@ with ``--cutoff`` (required), ``--season``, ``--event espn:event:<id>``, ``--tea
 PIT_NOT_ADMITTED. It is never combined with ``--database``, ``--history-database`` or ``--manifest``
 (PREVIEW_MODE_CONFLICT); ``--contest`` and ``--partition`` do not apply to it (FILTER_NOT_APPLICABLE). When the option is
 absent the original parser handles the invocation, so every existing invocation, answer and refusal is unchanged.
+
+``--prospective-shadow <snapshot.json>`` (BAT-725) is another separate explicit mode, served by
+:mod:`aggie_analytics.retrospective_baseline.shadow` and imported only then: the immutable private UNTRUSTED_SHADOW
+snapshot of the fixed provider-record predictions for the accepted October 17 provider cohort, anchored by a hash-only
+Jira comment's service-created time, at the ``shadow-prediction`` and ``shadow-summary`` grains with ``--cutoff``
+(required; before the anchor it refuses), ``--season``, ``--event``, ``--team``, ``--model``, ``--orientation`` and exact
+paging. It is never combined with the historical databases, ``--manifest`` or ``--prospective-preview``
+(SHADOW_MODE_CONFLICT), and ``--require-pit`` is always refused. Invocations without the option keep their existing
+parsers and bytes; only ``--help`` of the original parser gains one paragraph naming it.
 """
 from __future__ import annotations
 
@@ -45,13 +54,34 @@ PREVIEW_EPILOG = ("explicit preview mode (BAT-724): --prospective-preview <previ
                   "[--offset] [--all]: the provider-record baseline preview over the accepted 2026-10-11 provider "
                   "observation; PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST, PIT_NOT_ADMITTED, not calibrated, no "
                   "skill claim; never combined with --database or --history-database")
+SHADOW_OPTION = "--prospective-shadow"
+SHADOW_GRAINS = ("shadow-prediction", "shadow-summary")
+SHADOW_EPILOG = ("explicit shadow mode (BAT-725): --prospective-shadow <snapshot.json> --grain "
+                 "{shadow-prediction,shadow-summary} --cutoff <instant with zone> [--season] [--event espn:event:<id>] "
+                 "[--team espn:team:<id>] [--model] [--orientation home|away] [--limit] [--offset] [--all]: the "
+                 "immutable private snapshot of the fixed provider-record predictions for the accepted October 17 "
+                 "provider cohort, anchored by a hash-only Jira comment's service-created time; UNTRUSTED_SHADOW, "
+                 "PROVIDER_CLAIM_INPUTS, PIT_NOT_ADMITTED, NOT_CALIBRATED, PREDICTIVE_SKILL_NOT_ESTABLISHED, national "
+                 "coverage UNKNOWN; refused before the anchor time; never combined with --database, --history-database "
+                 "or --prospective-preview")
+_DEFAULT = object()
+
+
+class _HistoricalParser(argparse.ArgumentParser):
+    """The original parser; its help gains one trailing paragraph naming the shadow mode (usage, description, the
+    preview epilog and every error output are unchanged)."""
+
+    def format_help(self) -> str:
+        formatter = self._get_formatter()
+        formatter.add_text(SHADOW_EPILOG)
+        return super().format_help() + "\n" + formatter.format_help()
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="bas-retrospective-baseline-query", allow_abbrev=False,
-                                     description="Read-only explicit retrospective 2016-2023 baseline benchmark "
-                                                 "(calendar order only; not PIT, not a forecast, no skill claim).",
-                                     epilog=PREVIEW_EPILOG)
+    parser = _HistoricalParser(prog="bas-retrospective-baseline-query", allow_abbrev=False,
+                               description="Read-only explicit retrospective 2016-2023 baseline benchmark "
+                                           "(calendar order only; not PIT, not a forecast, no skill claim).",
+                               epilog=PREVIEW_EPILOG)
     parser.add_argument("--database", required=True, type=Path,
                         help="the explicitly selected benchmark database (never a default)")
     parser.add_argument("--history-database", dest="history_database", required=True, type=Path,
@@ -97,6 +127,38 @@ def build_preview_parser() -> argparse.ArgumentParser:
     parser.add_argument("--database", type=Path, default=None)
     parser.add_argument("--history-database", dest="history_database", type=Path, default=None)
     parser.add_argument("--manifest", type=Path, default=None)
+    parser.add_argument("--contest", default=None)
+    parser.add_argument("--partition", default=None)
+    return parser
+
+
+def build_shadow_parser() -> argparse.ArgumentParser:
+    """The explicit BAT-725 shadow mode's parser (selected only when --prospective-shadow is named)."""
+    parser = argparse.ArgumentParser(prog="bas-retrospective-baseline-query --prospective-shadow", allow_abbrev=False,
+                                     description="Explicit immutable private UNTRUSTED_SHADOW snapshot of the fixed "
+                                                 "provider-record predictions for the accepted October 17 provider "
+                                                 "cohort (not a trusted forecast, not PIT admitted, not calibrated, no "
+                                                 "skill claim).")
+    parser.add_argument(SHADOW_OPTION, dest="prospective_shadow", required=True, type=Path,
+                        help="the explicitly selected snapshot.json of a verified snapshot directory (never a default)")
+    parser.add_argument("--grain", required=True, choices=list(SHADOW_GRAINS) + list(PREVIEW_GRAINS) + list(bm.GRAINS))
+    parser.add_argument("--cutoff", default=None, help="ISO-8601 instant with seconds and an explicit zone")
+    parser.add_argument("--season", type=int, default=None)
+    parser.add_argument("--event", default=None, help="provider event key espn:event:<digits>")
+    parser.add_argument("--team", default=None, help="provider team key espn:team:<digits>")
+    parser.add_argument("--model", default=None)
+    parser.add_argument("--orientation", default=None, help="home or away (provider designation)")
+    parser.add_argument("--limit", type=int, default=50)
+    parser.add_argument("--offset", type=int, default=0)
+    parser.add_argument("--all", dest="all_rows", action="store_true")
+    parser.add_argument("--expect-identity", dest="expect_identity", default=None)
+    parser.add_argument("--require-pit", dest="require_pit", action="store_true",
+                        help="refused: the shadow snapshot is never PIT admitted")
+    # Other modes' options, recognized only to refuse the ambiguous combination clearly.
+    parser.add_argument("--database", type=Path, default=None)
+    parser.add_argument("--history-database", dest="history_database", type=Path, default=None)
+    parser.add_argument("--manifest", type=Path, default=None)
+    parser.add_argument(PREVIEW_OPTION, dest="prospective_preview", type=Path, default=None)
     parser.add_argument("--contest", default=None)
     parser.add_argument("--partition", default=None)
     return parser
@@ -154,8 +216,58 @@ def run_preview(args: argparse.Namespace, contract_sha256: str | None = None) ->
                               all_rows=args.all_rows)
 
 
-def main(argv: Sequence[str] | None = None, *, preview_contract_sha256: str | None = None) -> int:
+def shadow_mode(argv: Sequence[str]) -> bool:
+    """Whether an invocation names the explicit shadow option (exactly, or as ``--prospective-shadow=<path>``)."""
+    return any(token == SHADOW_OPTION or token.startswith(SHADOW_OPTION + "=") for token in argv)
+
+
+def run_shadow(args: argparse.Namespace, contract_sha256: str | None = None, profile: Any = _DEFAULT) -> dict[str, Any]:
+    """The explicit shadow mode (BAT-725): every ambiguous or inapplicable selection and every malformed argument is
+    refused before the snapshot is read; then the snapshot is verified completely and queried."""
+    from aggie_analytics.retrospective_baseline import shadow  # noqa: PLC0415 - explicit option only
+
+    if args.require_pit:
+        raise shadow.ShadowError("SHADOW_PIT_NOT_ADMITTED", "the snapshot is UNTRUSTED_SHADOW and never PIT admitted")
+    conflicts = [flag for flag, value in (("--database", args.database), ("--history-database", args.history_database),
+                                          ("--manifest", args.manifest), (PREVIEW_OPTION, args.prospective_preview))
+                 if value is not None]
+    if conflicts:
+        raise shadow.ShadowError("SHADOW_MODE_CONFLICT", f"{conflicts} cannot be combined with {SHADOW_OPTION} "
+                                                         "(ambiguous mode selection)")
+    stray = [flag for flag, value in (("--contest", args.contest), ("--partition", args.partition)) if value is not None]
+    if stray:
+        raise shadow.ShadowError("FILTER_NOT_APPLICABLE", f"{stray} do not apply to the shadow grains")
+    shadow.ShadowSnapshot.filters(args.grain, season=args.season, event=args.event, team=args.team, model=args.model,
+                                  orientation=args.orientation)
+    if args.offset < 0:
+        raise shadow.ShadowError("NEGATIVE_OFFSET", "offset must be zero or positive")
+    if args.limit < 0:
+        raise shadow.ShadowError("NEGATIVE_LIMIT", "limit must be zero or positive")
+    shadow.parse_cutoff(args.cutoff)
+    if args.expect_identity is not None and not shadow.IDENTITY_RE.match(args.expect_identity):
+        raise shadow.ShadowError("STALE_SHADOW_IDENTITY", "--expect-identity must be a SHA-256 identity")
+    authority = {} if contract_sha256 is None else {"contract_sha256": contract_sha256}
+    if profile is not _DEFAULT:
+        authority["profile"] = profile
+    with shadow.ShadowSnapshot(args.prospective_shadow, expect_identity=args.expect_identity, **authority) as selected:
+        return selected.query(args.grain, cutoff=args.cutoff, season=args.season, event=args.event, team=args.team,
+                              model=args.model, orientation=args.orientation, limit=args.limit, offset=args.offset,
+                              all_rows=args.all_rows)
+
+
+def main(argv: Sequence[str] | None = None, *, preview_contract_sha256: str | None = None,
+         shadow_contract_sha256: str | None = None, shadow_profile: Any = _DEFAULT) -> int:
     tokens = list(sys.argv[1:] if argv is None else argv)
+    if shadow_mode(tokens):
+        args = build_shadow_parser().parse_args(tokens)
+        from aggie_analytics.retrospective_baseline import shadow  # noqa: PLC0415 - explicit option only
+        try:
+            result = run_shadow(args, shadow_contract_sha256, shadow_profile)
+        except shadow.ShadowError as exc:
+            print(json.dumps({"refused": exc.code, "error": str(exc)}), file=sys.stderr)
+            return 2
+        sys.stdout.write(json.dumps(result, ensure_ascii=False, sort_keys=True) + "\n")
+        return 0
     if preview_mode(tokens):
         args = build_preview_parser().parse_args(tokens)
         from aggie_analytics.retrospective_baseline import preview  # noqa: PLC0415 - explicit option only

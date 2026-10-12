@@ -267,7 +267,13 @@ FAMILIES = ("SCHEMA", "DESIGNATION", "CONTRACT", "SHADOW", "ACQUISITION", "LABEL
 
 #: The actual sidecar pinned by the packaged final gate (``artifacts/data_lake/official_shadow_schedule_20261017_
 #: gate.json``; a test requires equality). None until the sidecar exists (the contract is committed first).
-SCHEDULE_PROFILE: dict[str, Any] | None = None
+SCHEDULE_PROFILE: dict[str, Any] | None = {
+    "schedule_identity": "a99d70767971b653261c921f57422cc19a749ec53a7ee3ccc8c9c9d5e1c5663e",
+    "schedule_sha256": "67d739b0b5a367fe82e16e8646f30ebc02628b748c54f2c6ccd039913a98dbe1",
+    "journal_sha256": "3b880021a1af938426c15d14bfdfd45221855f96f5b92bc12f54a825b3c2c9c7",
+    "attempts": 46,
+    "availability_bound_utc": "2026-10-12T18:33:49.597278Z",
+}
 PROFILE_FIELDS = ("schedule_identity", "schedule_sha256", "journal_sha256", "attempts", "availability_bound_utc")
 
 IDENTITY_RE = re.compile(r"^[0-9a-f]{64}\Z")

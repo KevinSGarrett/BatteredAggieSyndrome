@@ -74,6 +74,17 @@ class ContractTests(unittest.TestCase):
         gate = json.loads(GATE.read_text(encoding="utf-8"))
         self.assertEqual(gate["profile"], sc.SCHEDULE_PROFILE)
         self.assertEqual(gate["contract_sha256"], sc.CONTRACT_SHA256)
+        self.assertEqual((gate["contract_id"], gate["population_id"]), (sc.CONTRACT_ID, sc.POPULATION))
+        self.assertEqual(gate["schedule_identity"], gate["profile"]["schedule_identity"])
+        self.assertEqual(gate["shadow_identity"], sc.PRODUCTION_SHADOW["identity"])
+        self.assertEqual(gate["identity_document"]["schema"], sc.IDENTITY_SCHEMA)
+        self.assertEqual(gate["identity_document"]["schedule_sha256"], gate["profile"]["schedule_sha256"])
+        self.assertEqual(gate["labels"], sc.LABELS)
+        self.assertEqual((gate["counts"]["events"], gate["counts"]["participants"]), (25, 50))
+        self.assertEqual(sum(gate["summary"]["dispositions"].values()), 25)
+        self.assertEqual(gate["acquisition"]["attempts"], gate["profile"]["attempts"])
+        self.assertLessEqual(gate["profile"]["attempts"], gate["acquisition"]["ceiling"])
+        self.assertEqual(gate["acquisition"]["availability_bound_utc"], gate["profile"]["availability_bound_utc"])
 
 
 class TimeAndNameTests(unittest.TestCase):

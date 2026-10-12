@@ -89,3 +89,15 @@ and compares canonical bytes (integer, float, boolean and string identities diff
 requires the sidecar pinned by the packaged gate. Builds are staged and renamed once; a rebuild of the same capture is
 `ALREADY_PRESENT_IDENTICAL`; processing order, chunking and interrupted/resumed builds reproduce identical bytes; a
 rehoused copy serves identically.
+
+## Delivered sidecar (packaged gate)
+
+One bounded capture (46 of the 80 granted attempts; 40 logical requests: 32 retained documents, 3 HTTP 404, 5 redirects
+outside the official host family not followed; no host stopped) was built once, create-only, into sidecar
+`a99d70767971b653261c921f57422cc19a749ec53a7ee3ccc8c9c9d5e1c5663e` (43 files), availability bound
+`2026-10-12T18:33:49.597278Z`. The gate pins its profile (identity, schedule SHA-256, journal SHA-256, attempts, bound)
+and counts only. Dispositions: RECORD_BOUND 15, OWNER_NOT_VERIFIED 6 (a record's own owner name such as an athletics
+brand or a truncated school name does not bind; a matched container without declared list items states no owner),
+NO_DECLARED_STRUCTURE 3, UNBOUND_OPPONENT_ON_EVENT_DATE 1. Scheduled times: SUPPORTED_INSTANT 4 (each equal to the
+frozen provider instant), NAIVE_LOCAL_TIME_ONLY 10, TBA 1, UNSUPPORTED 10. These are official schedule claims, never
+actual kickoffs; nothing is retroactive to the shadow anchor.

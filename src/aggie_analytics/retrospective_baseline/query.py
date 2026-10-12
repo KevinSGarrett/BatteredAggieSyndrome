@@ -35,6 +35,18 @@ Jira comment's service-created time, at the ``shadow-prediction`` and ``shadow-s
 paging. It is never combined with the historical databases, ``--manifest`` or ``--prospective-preview``
 (SHADOW_MODE_CONFLICT), and ``--require-pit`` is always refused. Invocations without the option keep their existing
 parsers and bytes; only ``--help`` of the original parser gains one paragraph naming it.
+
+``--schedule-evidence <schedule.json>`` together with ``--prospective-shadow <snapshot.json>`` (BAT-726) is the explicit
+official schedule evidence mode, served by :mod:`aggie_analytics.retrospective_baseline.schedule` and imported only then:
+the immutable private sidecar of bounded official 2026 schedule observations for all 25 events of that accepted shadow at
+the ``shadow-schedule`` (one record per event) and ``shadow-schedule-source`` (every request, hop, failure and
+zero-request decision) grains with ``--cutoff`` (required; before the sidecar's observation bound it refuses),
+``--season``, ``--event``, ``--team`` and exact paging. Every row is an OFFICIAL_SCHEDULE_CLAIM, never an actual
+kickoff, and carries UNTRUSTED_SHADOW and PIT_NOT_ADMITTED. It is never combined with the historical databases,
+``--manifest`` or ``--prospective-preview`` (SCHEDULE_MODE_CONFLICT), needs the shadow (SCHEDULE_SHADOW_REQUIRED), and
+``--model``/``--orientation``/``--contest``/``--partition`` do not apply (FILTER_NOT_APPLICABLE). Invocations without
+the option keep their existing parsers and bytes, ``--help`` included; the mode's own parser describes it
+(``--schedule-evidence <schedule.json> --help``).
 """
 from __future__ import annotations
 
@@ -64,6 +76,16 @@ SHADOW_EPILOG = ("explicit shadow mode (BAT-725): --prospective-shadow <snapshot
                  "PROVIDER_CLAIM_INPUTS, PIT_NOT_ADMITTED, NOT_CALIBRATED, PREDICTIVE_SKILL_NOT_ESTABLISHED, national "
                  "coverage UNKNOWN; refused before the anchor time; never combined with --database, --history-database "
                  "or --prospective-preview")
+SCHEDULE_OPTION = "--schedule-evidence"
+SCHEDULE_GRAINS = ("shadow-schedule", "shadow-schedule-source")
+SCHEDULE_EPILOG = ("explicit official schedule evidence mode (BAT-726): --prospective-shadow <snapshot.json> "
+                   "--schedule-evidence <schedule.json> --grain {shadow-schedule,shadow-schedule-source} --cutoff "
+                   "<instant with zone> [--season] [--event espn:event:<id>] [--team espn:team:<id>] [--limit] "
+                   "[--offset] [--all]: the immutable private sidecar of bounded official 2026 schedule observations "
+                   "for the 25 events of that accepted shadow; OFFICIAL_SCHEDULE_CLAIM, SCHEDULE_NOT_ACTUAL_KICKOFF, "
+                   "CURRENT_OBSERVATION_NOT_ORIGINAL_PUBLICATION, NO_RETROACTIVE_ANCHOR_AUTHORITY, UNTRUSTED_SHADOW, "
+                   "PIT_NOT_ADMITTED; refused before the observation bound; never combined with --database, "
+                   "--history-database or --prospective-preview")
 _DEFAULT = object()
 
 
@@ -164,6 +186,41 @@ def build_shadow_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def build_schedule_parser() -> argparse.ArgumentParser:
+    """The explicit BAT-726 schedule evidence mode's parser (selected only when --schedule-evidence is named)."""
+    parser = argparse.ArgumentParser(prog="bas-retrospective-baseline-query --schedule-evidence", allow_abbrev=False,
+                                     description="Explicit immutable private official schedule evidence sidecar for the "
+                                                 "accepted October 17 UNTRUSTED_SHADOW cohort (official schedule "
+                                                 "claims, never actual kickoff; not PIT admitted; no skill claim).",
+                                     epilog=SCHEDULE_EPILOG)
+    parser.add_argument(SCHEDULE_OPTION, dest="schedule_evidence", required=True, type=Path,
+                        help="the explicitly selected schedule.json of a verified sidecar directory (never a default)")
+    parser.add_argument(SHADOW_OPTION, dest="prospective_shadow", type=Path, default=None,
+                        help="the accepted snapshot.json the sidecar is bound to (required)")
+    parser.add_argument("--grain", required=True, choices=list(SCHEDULE_GRAINS) + list(SHADOW_GRAINS) +
+                        list(PREVIEW_GRAINS) + list(bm.GRAINS))
+    parser.add_argument("--cutoff", default=None, help="ISO-8601 instant with seconds and an explicit zone")
+    parser.add_argument("--season", type=int, default=None)
+    parser.add_argument("--event", default=None, help="provider event key espn:event:<digits>")
+    parser.add_argument("--team", default=None, help="provider team key espn:team:<digits>")
+    parser.add_argument("--limit", type=int, default=50)
+    parser.add_argument("--offset", type=int, default=0)
+    parser.add_argument("--all", dest="all_rows", action="store_true")
+    parser.add_argument("--expect-identity", dest="expect_identity", default=None)
+    parser.add_argument("--require-pit", dest="require_pit", action="store_true",
+                        help="refused: the schedule evidence is never PIT admitted")
+    # Other modes' options, recognized only to refuse the ambiguous or inapplicable selection clearly.
+    parser.add_argument("--model", default=None)
+    parser.add_argument("--orientation", default=None)
+    parser.add_argument("--database", type=Path, default=None)
+    parser.add_argument("--history-database", dest="history_database", type=Path, default=None)
+    parser.add_argument("--manifest", type=Path, default=None)
+    parser.add_argument(PREVIEW_OPTION, dest="prospective_preview", type=Path, default=None)
+    parser.add_argument("--contest", default=None)
+    parser.add_argument("--partition", default=None)
+    return parser
+
+
 def run(args: argparse.Namespace) -> dict[str, Any]:
     if args.require_pit:
         raise bm.BenchmarkError("PIT_ELIGIBILITY_NOT_ESTABLISHED",
@@ -255,9 +312,66 @@ def run_shadow(args: argparse.Namespace, contract_sha256: str | None = None, pro
                               all_rows=args.all_rows)
 
 
+def schedule_mode(argv: Sequence[str]) -> bool:
+    """Whether an invocation names the explicit schedule evidence option (exactly, or as ``--schedule-evidence=...``)."""
+    return any(token == SCHEDULE_OPTION or token.startswith(SCHEDULE_OPTION + "=") for token in argv)
+
+
+def run_schedule(args: argparse.Namespace, contract_sha256: str | None = None, profile: Any = _DEFAULT,
+                 shadow_profile: Any = _DEFAULT) -> dict[str, Any]:
+    """The explicit schedule evidence mode (BAT-726): every ambiguous or inapplicable selection and every malformed
+    argument is refused before any file is read; then the shadow and the sidecar are verified completely and queried."""
+    from aggie_analytics.retrospective_baseline import schedule  # noqa: PLC0415 - explicit option only
+
+    if args.require_pit:
+        raise schedule.ScheduleError("SCHEDULE_PIT_NOT_ADMITTED", "the schedule evidence is UNTRUSTED_SHADOW and never "
+                                                                  "PIT admitted")
+    conflicts = [flag for flag, value in (("--database", args.database), ("--history-database", args.history_database),
+                                          ("--manifest", args.manifest), (PREVIEW_OPTION, args.prospective_preview))
+                 if value is not None]
+    if conflicts:
+        raise schedule.ScheduleError("SCHEDULE_MODE_CONFLICT", f"{conflicts} cannot be combined with "
+                                                               f"{SCHEDULE_OPTION} (ambiguous mode selection)")
+    if args.prospective_shadow is None:
+        raise schedule.ScheduleError("SCHEDULE_SHADOW_REQUIRED", f"{SCHEDULE_OPTION} needs the accepted "
+                                                                 f"{SHADOW_OPTION} snapshot it is bound to")
+    stray = [flag for flag, value in (("--model", args.model), ("--orientation", args.orientation),
+                                      ("--contest", args.contest), ("--partition", args.partition)) if value is not None]
+    if stray:
+        raise schedule.ScheduleError("FILTER_NOT_APPLICABLE", f"{stray} do not apply to the schedule evidence grains")
+    schedule.ScheduleEvidence.filters(args.grain, season=args.season, event=args.event, team=args.team)
+    if args.offset < 0:
+        raise schedule.ScheduleError("NEGATIVE_OFFSET", "offset must be zero or positive")
+    if args.limit < 0:
+        raise schedule.ScheduleError("NEGATIVE_LIMIT", "limit must be zero or positive")
+    schedule.parse_cutoff(args.cutoff)
+    if args.expect_identity is not None and not schedule.IDENTITY_RE.match(args.expect_identity):
+        raise schedule.ScheduleError("STALE_SCHEDULE_IDENTITY", "--expect-identity must be a SHA-256 identity")
+    authority: dict[str, Any] = {} if contract_sha256 is None else {"contract_sha256": contract_sha256}
+    if profile is not _DEFAULT:
+        authority["profile"] = profile
+    if shadow_profile is not _DEFAULT:
+        authority["shadow_profile"] = shadow_profile
+    with schedule.ScheduleEvidence(args.schedule_evidence, args.prospective_shadow,
+                                   expect_identity=args.expect_identity, **authority) as selected:
+        return selected.query(args.grain, cutoff=args.cutoff, season=args.season, event=args.event, team=args.team,
+                              limit=args.limit, offset=args.offset, all_rows=args.all_rows)
+
+
 def main(argv: Sequence[str] | None = None, *, preview_contract_sha256: str | None = None,
-         shadow_contract_sha256: str | None = None, shadow_profile: Any = _DEFAULT) -> int:
+         shadow_contract_sha256: str | None = None, shadow_profile: Any = _DEFAULT,
+         schedule_contract_sha256: str | None = None, schedule_profile: Any = _DEFAULT) -> int:
     tokens = list(sys.argv[1:] if argv is None else argv)
+    if schedule_mode(tokens):
+        args = build_schedule_parser().parse_args(tokens)
+        from aggie_analytics.retrospective_baseline import schedule  # noqa: PLC0415 - explicit option only
+        try:
+            result = run_schedule(args, schedule_contract_sha256, schedule_profile, shadow_profile)
+        except schedule.ScheduleError as exc:
+            print(json.dumps({"refused": exc.code, "error": str(exc)}), file=sys.stderr)
+            return 2
+        sys.stdout.write(json.dumps(result, ensure_ascii=False, sort_keys=True) + "\n")
+        return 0
     if shadow_mode(tokens):
         args = build_shadow_parser().parse_args(tokens)
         from aggie_analytics.retrospective_baseline import shadow  # noqa: PLC0415 - explicit option only

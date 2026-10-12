@@ -117,13 +117,24 @@ class CommittedContractTests(unittest.TestCase):
         self.assertFalse(set(shadow.MODEL_IDS) & set(bm.MODEL_IDS))
 
     def test_packaged_profile_matches_the_committed_gate(self) -> None:
-        if not GATE.is_file():
-            self.assertIsNone(shadow.ANCHOR_PROFILE, "a profile is packaged without its committed gate")
-            return
         gate = json.loads(GATE.read_text(encoding="utf-8"))
         self.assertEqual(shadow.ANCHOR_PROFILE, gate["anchor_profile"])
         self.assertEqual(set(shadow.ANCHOR_PROFILE), set(shadow.PROFILE_FIELDS))
         self.assertEqual(gate["anchor_profile"]["snapshot_identity"], gate["snapshot_identity"])
+        self.assertEqual((gate["contract_id"], gate["contract_sha256"]), (shadow.CONTRACT_ID, shadow.CONTRACT_SHA256))
+        anchor = gate["anchor"]
+        self.assertEqual((anchor["issue_key"], anchor["issue_id"], anchor["marker"]),
+                         (shadow.ANCHOR_SPEC["issue_key"], shadow.ANCHOR_SPEC["issue_id"], shadow.ANCHOR_SPEC["marker"]))
+        self.assertEqual(anchor["created"], anchor["updated"])
+        self.assertIs(anchor["edited"], False)
+        self.assertEqual(anchor["comment_id"], shadow.ANCHOR_PROFILE["comment_id"])
+        self.assertEqual(shadow.iso_micro(shadow.parse_service_time(anchor["created"])), anchor["created_utc"])
+        self.assertLess(anchor["created_utc"], gate["timing"]["earliest_provider_reported_start"].replace("Z", ".000000Z"))
+        self.assertLessEqual(gate["timing"]["observation_end_utc"], anchor["created_utc"])
+        self.assertEqual((gate["counts"]["events"], gate["counts"]["participants"], gate["counts"]["predictions"]),
+                         (25, 50, 100))
+        self.assertEqual(gate["payload"]["sha256"], shadow.ANCHOR_PROFILE["payload_sha256"])
+        self.assertEqual(gate["identity_document"]["schema"], shadow.IDENTITY_SCHEMA)
 
     def test_default_authority_refuses_a_fixture_contract(self) -> None:
         with tempfile.TemporaryDirectory(prefix="bat725c-") as tmp:

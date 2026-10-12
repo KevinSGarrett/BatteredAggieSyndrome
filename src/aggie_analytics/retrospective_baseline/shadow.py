@@ -184,8 +184,19 @@ ANCHOR_SPEC = {
     "heading": "C53-A01-M2 — Cycle #53 — Attempt #1 — UNTRUSTED_SHADOW payload timestamp anchor (BAT-725)",
 }
 #: The actual anchor and snapshot pinned by the packaged final gate (``artifacts/data_lake/
-#: provider_record_shadow_20261017_gate.json``); None until the real anchor exists and the gate is committed.
-ANCHOR_PROFILE: dict[str, str] | None = None
+#: provider_record_shadow_20261017_gate.json``, a test requires equality): the real C53-A01-M2 comment on BAT-725 and the
+#: snapshot built from its exact raw readback. Packaged after the anchor existed (the contract was committed first).
+ANCHOR_PROFILE: dict[str, str] | None = {
+    "snapshot_identity": "174f08610d5ab9a1f49a7c8e67b8a3540ebc0b7dece68e5988d677aa20faaf3e",
+    "payload_sha256": "fe4c96bcb7f010bf5c10a308cfd26963a58513a7715a8b84dbff0661af047bcb",
+    "issue_key": "BAT-725",
+    "issue_id": "25892",
+    "comment_id": "15311",
+    "created": "2026-10-12T02:12:21.543-0500",
+    "updated": "2026-10-12T02:12:21.543-0500",
+    "receipt_sha256": "06df7f35dce458d12cfff82d84b1f00e0cd4203e4218a1bb0c1aa93ad2ac18ec",
+    "body_text_sha256": "26ef9e1d6e86b369ef509faf5b8298a3889098762c3ad30ce0eed79d9cfa193b",
+}
 PROFILE_FIELDS = ("snapshot_identity", "payload_sha256", "issue_key", "issue_id", "comment_id", "created", "updated",
                   "receipt_sha256", "body_text_sha256")
 

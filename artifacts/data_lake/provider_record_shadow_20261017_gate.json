@@ -1,0 +1,183 @@
+{
+ "schema_version": "BAS-PROVIDER-RECORD-SHADOW-GATE-1",
+ "jira_key": "BAT-725",
+ "cycle_number": 53,
+ "attempt_number": 1,
+ "contract_id": "BAT-725-PROVIDER-RECORD-SHADOW-20261017-V1",
+ "contract_sha256": "2bbc6aa915169654b9dc7327c42f87306e0e0f137243b1852cc881cee0998d5c",
+ "population_id": "provider_record_shadow_20261017",
+ "audit_unit": "C53-SHADOW25 (zero new historical-population coverage)",
+ "state": "FROZEN_PRIVATE_UNTRUSTED_SHADOW_SNAPSHOT_SERVICE_ANCHORED",
+ "designation": "UNTRUSTED_SHADOW",
+ "labels": {
+  "designation": "UNTRUSTED_SHADOW",
+  "input_authority": "PROVIDER_CLAIM_INPUTS",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "calibration": "NOT_CALIBRATED",
+  "predictive_skill": "PREDICTIVE_SKILL_NOT_ESTABLISHED",
+  "national_coverage": "UNKNOWN",
+  "record_role": "FROZEN_PRIVATE_SHADOW_PREDICTION_NOT_A_TRUSTED_OPERATIONAL_FORECAST",
+  "source_preview_role": "SOURCE_PROVENANCE_PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST",
+  "source_authority": "PROVIDER_CLAIM_ESPN_SCOREBOARD_NOT_OFFICIAL_NCAA_NOT_CORROBORATED",
+  "timing_basis": "PRE_PROVIDER_REPORTED_START_NOT_OFFICIAL_KICKOFF_CONFIRMED",
+  "evaluation": "NOT_SCORED_NO_OUTCOME_NOT_A_PROTECTED_EVALUATION",
+  "publication": "PRIVATE_HASH_ONLY_ANCHOR_NO_PUBLIC_PREDICTION_VALUES",
+  "home_away": "PROVIDER_HOMEAWAY_DESIGNATION_NOT_VENUE_NO_HOME_ADVANTAGE_APPLIED",
+  "use": "NOT_A_BETTING_RECOMMENDATION_NOT_AN_OPERATIONAL_DEFAULT"
+ },
+ "snapshot_identity": "174f08610d5ab9a1f49a7c8e67b8a3540ebc0b7dece68e5988d677aa20faaf3e",
+ "identity_document": {
+  "schema": "BAS-PROVIDER-RECORD-SHADOW-SNAPSHOT-IDENTITY-1",
+  "population": "provider_record_shadow_20261017",
+  "contract_id": "BAT-725-PROVIDER-RECORD-SHADOW-20261017-V1",
+  "contract_sha256": "2bbc6aa915169654b9dc7327c42f87306e0e0f137243b1852cc881cee0998d5c",
+  "snapshot_file": "snapshot.json",
+  "snapshot_sha256": "d5169fdd72b44bfc577178aa4243cbce3466695c8c638964bed95164dc360a4f",
+  "bundle": {
+   "anchor/jira_comment.json": {
+    "sha256": "06df7f35dce458d12cfff82d84b1f00e0cd4203e4218a1bb0c1aa93ad2ac18ec",
+    "bytes": 4971
+   },
+   "inputs/contract.json": {
+    "sha256": "2bbc6aa915169654b9dc7327c42f87306e0e0f137243b1852cc881cee0998d5c",
+    "bytes": 28371
+   },
+   "payload.json": {
+    "sha256": "fe4c96bcb7f010bf5c10a308cfd26963a58513a7715a8b84dbff0661af047bcb",
+    "bytes": 214905
+   },
+   "preview/09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88/capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/capsule.json": {
+    "sha256": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505",
+    "bytes": 53446
+   },
+   "preview/09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88/capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/inputs/EXPECTED_COHORT.json": {
+    "sha256": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328",
+    "bytes": 18202
+   },
+   "preview/09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88/capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/inputs/contract.json": {
+    "sha256": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a",
+    "bytes": 17513
+   },
+   "preview/09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88/capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/raw/provider-receipt.json": {
+    "sha256": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26",
+    "bytes": 21559
+   },
+   "preview/09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88/capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/raw/provider-response.json": {
+    "sha256": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9",
+    "bytes": 463364
+   },
+   "preview/09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88/inputs/contract.json": {
+    "sha256": "330d8972c3763f7ac1d7c9b668aba4e20adddb2c31340aef60972988c3117092",
+    "bytes": 20270
+   },
+   "preview/09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88/preview.json": {
+    "sha256": "d8d2c7c6ffc8c1533f73bac328d7cfb68d34fa19cfd34712a22c81bbf60caf7c",
+    "bytes": 189761
+   }
+  }
+ },
+ "snapshot_sha256": "d5169fdd72b44bfc577178aa4243cbce3466695c8c638964bed95164dc360a4f",
+ "payload": {
+  "file": "payload.json",
+  "schema": "BAS-PROVIDER-RECORD-SHADOW-PAYLOAD-1",
+  "sha256": "fe4c96bcb7f010bf5c10a308cfd26963a58513a7715a8b84dbff0661af047bcb",
+  "bytes": 214905,
+  "counts": {
+   "events": 25,
+   "participants": 50,
+   "supported_participants": 50,
+   "unsupported_participants": 0,
+   "cold_start_participants": 0,
+   "predictions": 100,
+   "supported_predictions": 100,
+   "abstained_predictions": 0
+  }
+ },
+ "anchor": {
+  "system": "JIRA_CLOUD_REST_API_3",
+  "tenant": "https://kevinsgarrett.atlassian.net",
+  "issue_key": "BAT-725",
+  "issue_id": "25892",
+  "comment_id": "15311",
+  "marker": "C53-A01-M2",
+  "created": "2026-10-12T02:12:21.543-0500",
+  "updated": "2026-10-12T02:12:21.543-0500",
+  "created_utc": "2026-10-12T07:12:21.543000Z",
+  "edited": false,
+  "body_text_sha256": "26ef9e1d6e86b369ef509faf5b8298a3889098762c3ad30ce0eed79d9cfa193b",
+  "receipt_file": "anchor/jira_comment.json",
+  "receipt_sha256": "06df7f35dce458d12cfff82d84b1f00e0cd4203e4218a1bb0c1aa93ad2ac18ec",
+  "receipt_bytes": 4971,
+  "proves": "THE_PAYLOAD_BYTES_EXISTED_NO_LATER_THAN_THE_SERVICE_CREATED_TIME",
+  "does_not_prove": [
+   "OFFICIAL_KICKOFF",
+   "ORIGINAL_PROVIDER_PUBLICATION",
+   "PIT_ADMISSION",
+   "PREDICTIVE_SKILL"
+  ]
+ },
+ "anchor_profile": {
+  "snapshot_identity": "174f08610d5ab9a1f49a7c8e67b8a3540ebc0b7dece68e5988d677aa20faaf3e",
+  "payload_sha256": "fe4c96bcb7f010bf5c10a308cfd26963a58513a7715a8b84dbff0661af047bcb",
+  "issue_key": "BAT-725",
+  "issue_id": "25892",
+  "comment_id": "15311",
+  "created": "2026-10-12T02:12:21.543-0500",
+  "updated": "2026-10-12T02:12:21.543-0500",
+  "receipt_sha256": "06df7f35dce458d12cfff82d84b1f00e0cd4203e4218a1bb0c1aa93ad2ac18ec",
+  "body_text_sha256": "26ef9e1d6e86b369ef509faf5b8298a3889098762c3ad30ce0eed79d9cfa193b"
+ },
+ "timing": {
+  "basis": "PRE_PROVIDER_REPORTED_START",
+  "anchored_events": 25,
+  "ineligible_events": 0,
+  "observation_end_utc": "2026-10-11T18:15:55.744674Z",
+  "earliest_provider_reported_start": "2026-10-17T16:00:00Z",
+  "latest_provider_reported_start": "2026-10-17T19:30:00Z"
+ },
+ "counts": {
+  "events": 25,
+  "participants": 50,
+  "predictions": 100,
+  "anchored_events": 25,
+  "ineligible_events": 0,
+  "anchored_predictions": 100,
+  "ineligible_predictions": 0,
+  "supported_predictions": 100,
+  "abstained_predictions": 0
+ },
+ "inputs": {
+  "preview_identity": "09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88",
+  "preview_sha256": "d8d2c7c6ffc8c1533f73bac328d7cfb68d34fa19cfd34712a22c81bbf60caf7c",
+  "preview_contract_sha256": "330d8972c3763f7ac1d7c9b668aba4e20adddb2c31340aef60972988c3117092",
+  "capsule_identity": "7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4",
+  "capsule_sha256": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505",
+  "source_body_sha256": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9",
+  "receipt_sha256": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26",
+  "expected_cohort_sha256": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328"
+ },
+ "models": {
+  "PROVIDER_PREVIEW_NULL_HALF_V1": "3d23fe5e8f9476adc89c17719306714aea743af4527bc08623a6fb33f5ca70b0",
+  "PROVIDER_RECORD_SMOOTHED_ODDS_PREVIEW_V1": "22cec5e2abe1e1dc03aa38f77853901f627007169a147fa0b9d856bb80743ef0"
+ },
+ "run_manifests": {
+  "snapshot_sha256": "9747570ad69b5a13aa15d9cc8aedf6a87a609cc6ec27678cde54c85fc1f1f067",
+  "payload_sha256": "b8c0b3a60bad4d4fe6adef4c177eab8b4b6436b47c9d72daf68c6ba9e605c4f2"
+ },
+ "freeze": {
+  "lane": "FREEZE_SHADOW",
+  "payload_run": "20261012T071112975203Z",
+  "snapshot_run": "20261012T071233287412Z",
+  "contract_commit": "4eed3c5225829b521b961c75c410ce9a409ce56d",
+  "anchor_platform_receipt": "platform/DURING/JIRA_ANCHOR_20261012T071222070163Z.json",
+  "note": "the payload was materialized after the contract commit; the hash-only C53-A01-M2 comment was then posted once and read back unedited; the snapshot binds the exact raw readback"
+ },
+ "consumer": "bas-retrospective-baseline-query --prospective-shadow <canonical>/sha256/<snapshot_identity>/snapshot.json",
+ "non_claims": [
+  "UNTRUSTED_SHADOW; private; no trusted operational forecast or published value",
+  "PRE_PROVIDER_REPORTED_START only; not an official kickoff or original provider publication",
+  "PIT_NOT_ADMITTED; PREDICTIVE_SKILL_NOT_ESTABLISHED; NOT_CALIBRATED; no outcome or score",
+  "provider claims only; national coverage UNKNOWN",
+  "no default activation, hold release, protected evaluation or model promotion"
+ ]
+}

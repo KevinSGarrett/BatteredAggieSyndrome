@@ -376,6 +376,27 @@ class JournalTests(WorldTestCase):
         cap.decision(keys[0], "900000001-1", "INITIAL_SEASON_ROUTE", "x", "REDIRECT_OUTSIDE_FAMILY_NOT_FOLLOWED")
         self.refuse(cap, "SCHEDULE_JOURNAL_DECISION_INVALID")
 
+    def test_budget_stop_inside_a_redirect_chain(self) -> None:
+        cap, keys, pages = self.base()
+        target = self.world.initial(keys[0], "www.alpha.example")
+        cap.attempt(keys[0], "900000001-1", "INITIAL_SEASON_ROUTE", 1, self.world.initial(keys[0]), 301, b"",
+                    headers=[["Location", target]])
+        cap.decision(keys[0], "900000001-1", "INITIAL_SEASON_ROUTE", target, "NOT_REQUESTED_BUDGET_EXHAUSTED")
+        for key in keys[1:]:
+            cap.decision(key, f"{key[-9:]}-1", "INITIAL_SEASON_ROUTE", self.world.initial(key),
+                         "NOT_REQUESTED_BUDGET_EXHAUSTED")
+        tmp = _tmp()
+        self.addCleanup(_cleanup, tmp)
+        built = self.world.build(tmp, cap)
+        code, doc, err = self.world.query(built["path"], "--grain", "shadow-schedule-source", "--cutoff", CUT,
+                                          "--event", keys[0], profile=built["profile"])
+        self.assertEqual((doc["rows"][0]["source"]["outcome"], doc["rows"][0]["source"]["attempts"]),
+                         ("NOT_REQUESTED_BUDGET_EXHAUSTED", 1))
+        cap, keys, pages = self.base()
+        cap.attempt(keys[0], "900000001-1", "INITIAL_SEASON_ROUTE", 1, self.world.initial(keys[0]), 200, pages[keys[0]])
+        cap.decision(keys[0], "900000001-1", "INITIAL_SEASON_ROUTE", "x", "NOT_REQUESTED_BUDGET_EXHAUSTED")
+        self.refuse(cap, "SCHEDULE_JOURNAL_DECISION_INVALID")
+
     def test_interrupted_attempt_counts_and_failures_stay_distinct(self) -> None:
         cap, keys, pages = self.base()
         cap.attempt(keys[0], "900000001-1", "INITIAL_SEASON_ROUTE", 1, self.world.initial(keys[0]), None, b"",
@@ -391,6 +412,17 @@ class JournalTests(WorldTestCase):
                                           "--all", profile=built["profile"])
         outcomes = [r["source"]["outcome"] for r in doc["rows"]]
         self.assertEqual(outcomes, ["FAILED_NO_RESPONSE", "TRUNCATED_BODY", "INTERRUPTED"])
+        cap, keys, pages = self.base()
+        cap.attempt(keys[0], "900000001-1", "INITIAL_SEASON_ROUTE", 1, self.world.initial(keys[0]), 302, b"moved",
+                    headers=[["Content-Type", "text/html"]])
+        for key in keys[1:]:
+            cap.attempt(key, f"{key[-9:]}-1", "INITIAL_SEASON_ROUTE", 1, self.world.initial(key), 200, pages[key])
+        tmp2 = _tmp()
+        self.addCleanup(_cleanup, tmp2)
+        built = self.world.build(tmp2, cap)
+        code, doc, err = self.world.query(built["path"], "--grain", "shadow-schedule-source", "--cutoff", CUT,
+                                          "--event", keys[0], profile=built["profile"])
+        self.assertEqual(doc["rows"][0]["source"]["outcome"], "FAILED_HTTP")
         self.assertEqual(doc["acquisition"]["attempts"], 3)
 
 

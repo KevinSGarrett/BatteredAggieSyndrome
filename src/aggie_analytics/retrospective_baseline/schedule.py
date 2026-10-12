@@ -1067,6 +1067,16 @@ def verify_journal(segments: dict[str, bytes], raw: dict[str, bytes], expected: 
             if d["decision"] == "REDIRECT_LIMIT_REACHED" and len(entry["hops"]) != spec_acquisition["max_hops"]:
                 raise ScheduleError("SCHEDULE_JOURNAL_DECISION_INVALID", "the redirect limit was not reached")
             entry["decision"] = d
+        elif d["logical"] in logical:
+            # only a budget stop may end a requested chain early: its last hop is a same-family redirect not followed
+            entry = logical[d["logical"]]
+            last = entry["hops"][-1] if entry["hops"] else None
+            if d["decision"] != "NOT_REQUESTED_BUDGET_EXHAUSTED" or not last or last.get("result") is None or \
+                    last["result"]["status"] not in spec_acquisition["redirect_statuses"] or \
+                    entry["decision"] is not None or last["location"] != d["url"] or \
+                    _host(d["url"]) not in families[entry["event_key"]]:
+                raise ScheduleError("SCHEDULE_JOURNAL_DECISION_INVALID", f"{d['logical']} was requested")
+            entry["decision"] = d
         else:
             if d["logical"] in logical:
                 raise ScheduleError("SCHEDULE_JOURNAL_DECISION_INVALID", f"{d['logical']} was requested")
@@ -1086,6 +1096,8 @@ def verify_journal(segments: dict[str, bytes], raw: dict[str, bytes], expected: 
             entry["outcome"] = "INTERRUPTED"
         elif res["status"] in spec_acquisition["stop_statuses"]:
             entry["outcome"] = "HOST_STOPPED_HTTP"
+        elif res["status"] in spec_acquisition["redirect_statuses"] and last["location"] is None:
+            entry["outcome"] = "FAILED_HTTP"  # a redirect without exactly one Location cannot be followed
         elif res["status"] in spec_acquisition["redirect_statuses"]:
             if entry["decision"] is None and last is attempts[-1]:
                 entry["outcome"] = "INTERRUPTED"

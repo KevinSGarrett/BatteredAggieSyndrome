@@ -387,19 +387,19 @@ def _offset_text(hours: int) -> str:
 
 def zone_offset(designator: str, local: _dt.datetime) -> tuple[str | None, str | None]:
     """(offset '+HH:MM', None) for a resolvable designator on that local wall time, else (None, reason)."""
-    token = designator.replace(".", "").upper()
-    if token == "MST":
+    abbreviation = designator.replace(".", "").upper()
+    if abbreviation == "MST":
         return "-07:00", None
-    if token == "MT":
+    if abbreviation == "MT":
         return None, "GENERIC_MT_AMBIGUOUS_ARIZONA"
     state = us_daylight_state(local)
     if state in ("GAP", "FOLD"):
         return None, f"LOCAL_TIME_IN_DAYLIGHT_TRANSITION_{state}"
-    if token in _GENERIC_ZONES:
-        standard, daylight = _GENERIC_ZONES[token]
+    if abbreviation in _GENERIC_ZONES:
+        standard, daylight = _GENERIC_ZONES[abbreviation]
         return _offset_text(daylight if state == "DAYLIGHT" else standard), None
-    if token in _SPECIFIC_ZONES:
-        generic, daylight = _SPECIFIC_ZONES[token]
+    if abbreviation in _SPECIFIC_ZONES:
+        generic, daylight = _SPECIFIC_ZONES[abbreviation]
         if daylight != (state == "DAYLIGHT"):
             return None, "ZONE_DESIGNATOR_DISAGREES_WITH_DAYLIGHT_RULE"
         standard, summer = _GENERIC_ZONES.get(generic, _DST_FOR_MT)

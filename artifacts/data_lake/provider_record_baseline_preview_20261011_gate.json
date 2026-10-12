@@ -1,0 +1,113 @@
+{
+ "schema_version": "BAS-PROVIDER-RECORD-BASELINE-PREVIEW-GATE-1",
+ "jira_key": "BAT-724",
+ "cycle_number": 52,
+ "attempt_number": 1,
+ "contract_id": "BAT-724-PROVIDER-RECORD-BASELINE-PREVIEW-20261011-V1",
+ "contract_sha256": "330d8972c3763f7ac1d7c9b668aba4e20adddb2c31340aef60972988c3117092",
+ "population_id": "provider_record_baseline_preview_20261011",
+ "audit_unit": "C52-PROVIDER-PREVIEW25 (zero new historical-population coverage)",
+ "state": "MATERIALIZED_PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST",
+ "labels": {
+  "calibration": "NOT_CALIBRATED",
+  "evaluation": "NOT_SCORED_NO_OUTCOME_NOT_A_PROTECTED_EVALUATION",
+  "forecast_issuance": "NONE_NOT_AN_ISSUED_OR_FROZEN_FORECAST",
+  "home_away": "PROVIDER_HOMEAWAY_DESIGNATION_NOT_VENUE_NO_HOME_ADVANTAGE_APPLIED",
+  "national_coverage": "UNKNOWN_RETAINED_SINGLE_RESPONSE_NOT_NATIONAL_NOT_REPRESENTATIVE",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "predictive_skill": "PREDICTIVE_SKILL_NOT_ESTABLISHED",
+  "preview_status": "PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST",
+  "record_semantics": "PROVIDER_REPORTED_OVERALL_RECORD_COUNTS_NOT_RECONSTRUCTED_HISTORY_OPPONENT_STRENGTH_UNKNOWN",
+  "source_authority": "PROVIDER_CLAIM_ESPN_SCOREBOARD_NOT_OFFICIAL_NCAA_NOT_CORROBORATED",
+  "temporal_basis": "RETAINED_OBSERVATION_INTERVAL_ONLY_A_LATER_CUTOFF_NEVER_REFRESHES",
+  "use": "ILLUSTRATIVE_FIXED_CALCULATION_NOT_A_BETTING_RECOMMENDATION"
+ },
+ "preview_identity": "09597970622178fbde21925866a04491657b6134d4a9524513cc88a027a68c88",
+ "identity_document": {
+  "bundle": {
+   "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/capsule.json": {
+    "bytes": 53446,
+    "sha256": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505"
+   },
+   "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/inputs/EXPECTED_COHORT.json": {
+    "bytes": 18202,
+    "sha256": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328"
+   },
+   "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/inputs/contract.json": {
+    "bytes": 17513,
+    "sha256": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a"
+   },
+   "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/raw/provider-receipt.json": {
+    "bytes": 21559,
+    "sha256": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26"
+   },
+   "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/raw/provider-response.json": {
+    "bytes": 463364,
+    "sha256": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9"
+   },
+   "inputs/contract.json": {
+    "bytes": 20270,
+    "sha256": "330d8972c3763f7ac1d7c9b668aba4e20adddb2c31340aef60972988c3117092"
+   }
+  },
+  "contract_id": "BAT-724-PROVIDER-RECORD-BASELINE-PREVIEW-20261011-V1",
+  "contract_sha256": "330d8972c3763f7ac1d7c9b668aba4e20adddb2c31340aef60972988c3117092",
+  "population": "provider_record_baseline_preview_20261011",
+  "preview_file": "preview.json",
+  "preview_sha256": "d8d2c7c6ffc8c1533f73bac328d7cfb68d34fa19cfd34712a22c81bbf60caf7c",
+  "schema": "BAS-PROVIDER-RECORD-BASELINE-PREVIEW-IDENTITY-1"
+ },
+ "preview_sha256": "d8d2c7c6ffc8c1533f73bac328d7cfb68d34fa19cfd34712a22c81bbf60caf7c",
+ "members": {
+  "preview.json": "d8d2c7c6ffc8c1533f73bac328d7cfb68d34fa19cfd34712a22c81bbf60caf7c",
+  "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/capsule.json": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505",
+  "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/inputs/EXPECTED_COHORT.json": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328",
+  "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/inputs/contract.json": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a",
+  "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/raw/provider-receipt.json": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26",
+  "capsule/7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4/raw/provider-response.json": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9",
+  "inputs/contract.json": "330d8972c3763f7ac1d7c9b668aba4e20adddb2c31340aef60972988c3117092"
+ },
+ "input": {
+  "capsule_population": "prospective_provider_observation_20261011",
+  "capsule_identity": "7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4",
+  "capsule_sha256": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505",
+  "capsule_contract_id": "BAT-723-PROSPECTIVE-PROVIDER-OBSERVATION-20261011-V1",
+  "capsule_contract_sha256": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a",
+  "source_body_sha256": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9",
+  "receipt_sha256": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26"
+ },
+ "observation_interval": [
+  "2026-10-11T18:15:55.264959Z",
+  "2026-10-11T18:15:55.744674Z"
+ ],
+ "models": {
+  "PROVIDER_PREVIEW_NULL_HALF_V1": "3d23fe5e8f9476adc89c17719306714aea743af4527bc08623a6fb33f5ca70b0",
+  "PROVIDER_RECORD_SMOOTHED_ODDS_PREVIEW_V1": "22cec5e2abe1e1dc03aa38f77853901f627007169a147fa0b9d856bb80743ef0"
+ },
+ "counts": {
+  "abstained_estimates": 0,
+  "cold_start_features": 0,
+  "estimates": 100,
+  "events": 25,
+  "features": 50,
+  "games": 25,
+  "supported_estimates": 100,
+  "supported_features": 50,
+  "unsupported_features": 0
+ },
+ "run_manifest_sha256": "a28cc8564a88620c906337d57e372d9e5c63504c66158258b69eff2a2d13974e",
+ "build": {
+  "lane": "BUILD_PREVIEW",
+  "run": "20261011T232145046251Z",
+  "head": "f980ad85ca989c64c6fdcd0c9838149174efb54f",
+  "preview_state": "MATERIALIZED",
+  "note": "the first canonical write, after the contract commit; that lane run is retained FAIL only for its scratch order/chunk variants, whose nested members exceeded the classic Windows path limit (F52A01-01, fixed with extended-length reads); the canonical directory and its manifest are unaffected and are re-verified at the candidate"
+ },
+ "consumer": "bas-retrospective-baseline-query --prospective-preview <canonical>/sha256/<preview_identity>/preview.json",
+ "non_claims": [
+  "PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST; no issued or frozen forecast",
+  "PIT_NOT_ADMITTED; PREDICTIVE_SKILL_NOT_ESTABLISHED; NOT_CALIBRATED; no outcome or score",
+  "provider claims only; national coverage UNKNOWN",
+  "no default activation, hold release or cross-provider identity promotion"
+ ]
+}

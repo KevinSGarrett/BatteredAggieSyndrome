@@ -1,0 +1,358 @@
+{
+ "schema_version": "1.0.0",
+ "contract_id": "BAT-724-PROVIDER-RECORD-BASELINE-PREVIEW-20261011-V1",
+ "jira_key": "BAT-724",
+ "cycle_number": 52,
+ "attempt_number": 1,
+ "governing_plan": "TP52-A01 revision 2026-10-11.1 sections 1-6 (Cycle #52 Attempt #1); TECHNICAL_PLAN_TP52_A01.md sha256 342cf3a57974b02b3bb213110bf257695020547cd00f873fe53c0343bc3ccb71",
+ "population_id": "provider_record_baseline_preview_20261011",
+ "season": 2026,
+ "purpose": "One immutable, explicitly selected, content-addressed JSON preview that connects the accepted BAT-723 provider observation (25 provider events scheduled 2026-10-17 and their 50 participant overall records, observed 2026-10-11) to a deterministic fixed calculation served only through the existing bas-retrospective-baseline-query console and module (--prospective-preview): 50 source-bound participant features, 25 game-grain rows and 100 oriented estimates (25 events x 2 fixed models x 2 sides) with complete support and abstention accounting. An illustrative fixed calculation (PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST): not an issued or frozen pregame forecast, not PIT admitted, not calibrated, no predictive-skill claim, no outcome or score, not a protected evaluation or betting recommendation. Historical milestone F1 stays unmet.",
+ "input": {
+  "capsule_population": "prospective_provider_observation_20261011",
+  "capsule_identity": "7c108ac8d003350b9a03d8106fa3f08aa3ef5651360cbd575ee9ae3fc18a51f4",
+  "capsule_sha256": "c336ab07933823c0088861c64dbebff5b7cb7374053d53f3cdf33d6a33871505",
+  "capsule_contract_id": "BAT-723-PROSPECTIVE-PROVIDER-OBSERVATION-20261011-V1",
+  "capsule_contract_sha256": "f407155bfd540c309b8d8b7b6868e8c1215789f962bc4c707e680e0b7dc2df9a",
+  "source_body_sha256": "f0e86a3051635e28f5b5a43edb51a67fe4b7cf0e4f6469754c8b1ae4b5152fa9",
+  "receipt_sha256": "d3e99883741c269425a5aeab94ba5f901875e759209e9ab326ae976871993c26",
+  "expected_cohort_sha256": "f92240caf742c3e1ccea9e9ee79a7331f9c586e9c8ddf222467aea9f6342b328",
+  "expected_events": 25,
+  "expected_participants": 50,
+  "observation_interval": [
+   "2026-10-11T18:15:55.264959Z",
+   "2026-10-11T18:15:55.744674Z"
+  ],
+  "authority": "the accepted immutable Cycle 51 capsule (BAT-723 Done; integrated as 72daf4a4 through PR 707), verified completely by the accepted reader aggie_analytics.national_source_time.prospective.verify_capsule with the capsule observation-contract pin and the expected capsule identity above, plus the capsule file hash; every capsule event and participant is used (no subset is chosen after calculation; supported counts are derived, never hardcoded)",
+  "not_read": "no C47 labels, scores, history or benchmark database; no new source request; no odds, rank, venue, neutral-site, weather, injury, recruiting, transfer or held-model input; no target score placeholder"
+ },
+ "preview": {
+  "schema": "BAS-PROVIDER-RECORD-BASELINE-PREVIEW-1",
+  "file": "preview.json",
+  "serialization": "json.dumps(document, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False) encoded UTF-8 (no byte-order mark) followed by one LF; every governed value is compared by these canonical bytes (integer, float and boolean types differ)",
+  "top_level_members": [
+   "schema",
+   "population",
+   "contract",
+   "input",
+   "models",
+   "numeric_contract",
+   "labels",
+   "bundle",
+   "features",
+   "games",
+   "estimates",
+   "summary",
+   "counts"
+  ],
+  "layout": "canonical/provider_record_baseline_preview_20261011/sha256/<preview identity>/ holds preview.json, inputs/contract.json (these contract bytes) and capsule/<capsule identity>/ (a byte copy of the accepted capsule directory: capsule.json, raw/provider-response.json, raw/provider-receipt.json, inputs/EXPECTED_COHORT.json, inputs/contract.json); manifests/provider_record_baseline_preview_20261011/sha256/<preview identity>/run_manifest.json records the build; the reader needs only the preview directory (portable; a rehoused genuine bundle serves identically); no other file may be present in the preview directory",
+  "identity": {
+   "schema": "BAS-PROVIDER-RECORD-BASELINE-PREVIEW-IDENTITY-1",
+   "members": [
+    "schema",
+    "population",
+    "contract_id",
+    "contract_sha256",
+    "preview_file",
+    "preview_sha256",
+    "bundle"
+   ],
+   "rule": "preview identity = sha256 of the canonical bytes of the identity document; the preview directory is named by it; bundle = every member except preview.json with its sha256 and byte count; no other member"
+  },
+  "orders": {
+   "features": "(event_key, side rank home < away < other, team_key or '', participant_pointer)",
+   "games": "event_key",
+   "estimates": "(event_key, model order null then smoothed, orientation home then away)",
+   "summary": "model order null then smoothed"
+  },
+  "build": "create-only: staged under canonical/.../.staging/, every member written and re-read, then one directory rename to sha256/<identity>; an existing identity directory must be byte-identical (ALREADY_PRESENT_IDENTICAL) or the build refuses; an interrupted build leaves no directory at the identity path and a resumed build yields identical bytes; processing order and read chunk size never change the bytes; only the run manifest records the build clock (BUILD_CLOCK_ONLY), which never enters the preview content or identity"
+ },
+ "models": {
+  "PROVIDER_PREVIEW_NULL_HALF_V1": {
+   "model_id": "PROVIDER_PREVIEW_NULL_HALF_V1",
+   "version": 1,
+   "family": "FIXED_CONSTANT",
+   "formula": "p_home = p_away = 1/2",
+   "inputs": [],
+   "record_dependence": "NONE",
+   "parameters": {
+    "probability": {
+     "numerator": 1,
+     "denominator": 2
+    }
+   },
+   "support_rule": "supported exactly when the event and both role participants have supported identity; no record is read",
+   "fitted": false,
+   "home_advantage": null,
+   "margin": null,
+   "score": null,
+   "interval": null,
+   "calibration": "NOT_CALIBRATED",
+   "role": "NULL_COMPARISON_PROVIDER_PREVIEW"
+  },
+  "PROVIDER_RECORD_SMOOTHED_ODDS_PREVIEW_V1": {
+   "model_id": "PROVIDER_RECORD_SMOOTHED_ODDS_PREVIEW_V1",
+   "version": 1,
+   "family": "FIXED_SMOOTHED_PROVIDER_RECORD_ODDS_RATIO",
+   "formula": "q_X = (W_X + T_X/2 + 1)/(G_X + 2) with G_X = W_X + L_X + T_X from side X's own provider-reported overall/total record; p_home = q_home(1-q_away) / (q_home(1-q_away) + q_away(1-q_home)); p_away = 1 - p_home",
+   "inputs": [
+    "wins",
+    "losses",
+    "ties",
+    "games"
+   ],
+   "input_semantics": "PROVIDER_REPORTED_OVERALL_TOTAL_RECORD_COUNTS_NOT_RECONSTRUCTED_GAME_HISTORY",
+   "record_dependence": "OWN_OVERALL_TOTAL_RECORD_OF_EACH_SIDE",
+   "parameters": {
+    "pseudo_wins": 1,
+    "pseudo_games": 2,
+    "tie_weight": {
+     "numerator": 1,
+     "denominator": 2
+    }
+   },
+   "cold_start": "a supported 0-0 record (G = 0) gives q = 1/2, labelled cold_start; the estimate is kept",
+   "support_rule": "supported exactly when the null model is supported, both role participants' records are supported and the event is pre-game at observation (state 'pre', not completed)",
+   "arithmetic": {
+    "source": "aggie_analytics.retrospective_baseline.benchmark",
+    "functions": [
+     "strength_q",
+     "smoothed_probability",
+     "decimal_text"
+    ],
+    "contract_id": "BAT-719-NATIONAL-RETROSPECTIVE-BASELINE-2016-2023-V1.0",
+    "contract_sha256": "32a2ffb6c55d5fda37e06a75847ab3c21345205524ca5a7f60a2ef99b8142ee4",
+    "reuse": "the accepted C47 pure arithmetic only; no C47 model identity, label, score or database"
+   },
+   "fitted": false,
+   "home_advantage": null,
+   "margin": null,
+   "score": null,
+   "interval": null,
+   "calibration": "NOT_CALIBRATED",
+   "role": "FIXED_PROVIDER_RECORD_COMPARISON"
+  }
+ },
+ "numeric_contract": {
+  "integers": "JSON integers only; a boolean or an integral float is not an integer; no binary float appears in preview.json, the identity document or a served row",
+  "rationals": "{numerator, denominator} reduced JSON integers with denominator > 0 (exact fractions)",
+  "decimal_display": "probability_decimal and opponent_probability_decimal: the exact rational rounded half-even to 12 decimal places by the accepted C47 integer implementation (decimal_text)",
+  "probability": "exact rational; 0 < p < 1 for the smoothed model; p_home + p_away = 1 exactly; the away orientation is derived from the game-grain home value",
+  "canonical_json": "json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False) as UTF-8; preview.json is these bytes plus one LF"
+ },
+ "feature_rules": {
+  "grain": "one feature per capsule participant record (50 for the accepted capsule)",
+  "fields": {
+   "FEATURE_IDENTITY": [
+    "record_type",
+    "event_key",
+    "season",
+    "side",
+    "team_key",
+    "source_competitor_id",
+    "source_team_id",
+    "source_name",
+    "participant_pointer",
+    "event_role_bound"
+   ],
+   "FEATURE_RECORD": [
+    "record_pointer",
+    "candidate_record_pointers",
+    "record_summary",
+    "ties_rule",
+    "wins",
+    "losses",
+    "ties",
+    "games",
+    "cold_start"
+   ],
+   "FEATURE_SUPPORT": [
+    "support_state",
+    "unsupported_reasons"
+   ],
+   "FEATURE_PROVENANCE": [
+    "capsule_identity",
+    "source_body_sha256",
+    "observation_interval"
+   ],
+   "FEATURE_LABELS": [
+    "preview_label",
+    "pit_admission"
+   ]
+  },
+  "record": "the participant's own overall/total record only, as the accepted capsule derived it from its own raw fields: the literal summary, the integer wins/losses/ties and their ties rule; games = wins + losses + ties. A feature is SUPPORTED exactly when the capsule participant is SUPPORTED and the counts are non-negative JSON integers with a known ties rule (otherwise RECORD_COUNTS_INVALID). An unsupported feature keeps the literal summary and every capsule reason and serves null counts: a missing, ambiguous or malformed record never becomes a fabricated zero",
+  "cold_start": "a supported 0-0 record has games 0 and cold_start true (q = 1/2 in the smoothed model)",
+  "role": "side is the participant's provider homeAway literal; event_role_bound is true exactly when the event's role block for that side names this participant's team key and pointer",
+  "provenance": "capsule identity, source body sha256 and the retained observation interval on every feature",
+  "unconsumed": "no opponent record, score, odds, rank, standings, venue or other raw field enters a feature"
+ },
+ "game_rules": {
+  "grain": "one game-grain row per capsule event (25), both models in home orientation",
+  "fields": {
+   "GAME_IDENTITY": [
+    "record_type",
+    "event_key",
+    "season",
+    "scheduled_utc",
+    "event_state",
+    "home_team_key",
+    "away_team_key",
+    "home_participant_pointer",
+    "away_participant_pointer"
+   ],
+   "GAME_MODELS": [
+    "models"
+   ],
+   "GAME_LINEAGE": [
+    "home_feature_sha256",
+    "away_feature_sha256"
+   ],
+   "GAME_LABELS": [
+    "preview_label",
+    "pit_admission"
+   ]
+  },
+  "null_support": "the null model is SUPPORTED exactly when the event is SUPPORTED in the capsule, its season is 2026 and each side's role block binds exactly one participant record with no capsule identity reason (every capsule participant reason other than the record reasons RECORD_OVERALL_TOTAL_MISSING, RECORD_OVERALL_TOTAL_MULTIPLE, RECORD_SUMMARY_MISSING and RECORD_SUMMARY_MALFORMED); it reads no record",
+  "smoothed_support": "the smoothed model is SUPPORTED exactly when the null model is supported, both role participants' features are SUPPORTED and both the event and competition status are state 'pre' and not completed at observation (otherwise the record may already contain the target game)",
+  "abstention": "an unsupported model ABSTAINS with every applicable reason {input event|home|away, team_key, reason, detail} in a fixed order; it serves no probability",
+  "arithmetic": "null: p_home = 1/2; smoothed: q_home and q_away by strength_q of each side's own (wins, ties, games), p_home = smoothed_probability(q_home, q_away); smoothed_probability(q_away, q_home) must equal 1 - p_home and 0 < p_home < 1 (PREVIEW_ARITHMETIC_INCOHERENT otherwise); no home advantage: exchanging the two sides' records exchanges the probabilities exactly"
+ },
+ "abstention_reasons": {
+  "EVENT_UNSUPPORTED_IN_CAPSULE": "the capsule event is unsupported (detail: its capsule reason); both models abstain",
+  "EVENT_SEASON_NOT_IN_SCOPE": "the event's season is not 2026 (detail: the season); both models abstain",
+  "ROLE_UNRESOLVED": "the event names no participant for this side; both models abstain",
+  "ROLE_PARTICIPANT_NOT_BOUND": "not exactly one participant record matches the event's role block (detail: the number found); both models abstain",
+  "PARTICIPANT_IDENTITY_UNSUPPORTED": "the role participant has an identity reason in the capsule (detail); both models abstain",
+  "RECORD_UNSUPPORTED": "the role participant's own overall/total record is unsupported (detail: the capsule reason); the smoothed model abstains",
+  "RECORD_COUNTS_INVALID": "a supported record's W/L/T are not non-negative JSON integers with a known ties rule; the smoothed model abstains",
+  "EVENT_NOT_PRE_GAME_AT_OBSERVATION": "the event or competition status was not 'pre' and not completed at observation, so the record may already contain the target game (detail: state:completed); the smoothed model abstains"
+ },
+ "estimate_rules": {
+  "grain": "one estimate per event x model x orientation (100 = 25 x 2 x 2)",
+  "fields": {
+   "ESTIMATE_IDENTITY": [
+    "record_type",
+    "event_key",
+    "season",
+    "model_id",
+    "model_sha256",
+    "orientation",
+    "team_key",
+    "opponent_team_key"
+   ],
+   "ESTIMATE_VALUE": [
+    "probability",
+    "probability_decimal",
+    "opponent_probability",
+    "opponent_probability_decimal",
+    "game_home_probability",
+    "team_strength_q",
+    "opponent_strength_q",
+    "team_cold_start",
+    "opponent_cold_start"
+   ],
+   "ESTIMATE_SUPPORT": [
+    "support_state",
+    "abstention_reasons"
+   ],
+   "ESTIMATE_LINEAGE": [
+    "record_dependence",
+    "team_feature_sha256",
+    "opponent_feature_sha256"
+   ],
+   "ESTIMATE_LABELS": [
+    "preview_label",
+    "pit_admission"
+   ]
+  },
+  "orientation": "home and away are the provider's homeAway designation; the away row is derived from the game-grain home value (probability = 1 - p_home exactly); team_key and opponent_team_key come from the event's role blocks (null when unresolved)",
+  "values": "probability and opponent_probability as reduced rationals with half-even 12-place decimals; game_home_probability repeats the game-grain value; the smoothed rows also carry both strengths q, both cold-start flags and the sha256 of both consumed feature records; the null rows carry none of them (record_dependence NONE)"
+ },
+ "summary_rules": {
+  "fields": [
+   "record_type",
+   "model_id",
+   "model_sha256",
+   "distinct_events",
+   "features",
+   "supported_features",
+   "unsupported_features",
+   "cold_start_features",
+   "estimates",
+   "estimates_per_game",
+   "supported_estimates",
+   "abstained_estimates",
+   "supported_games",
+   "abstained_games",
+   "abstention_reasons",
+   "preview_label",
+   "pit_admission"
+  ],
+  "rule": "one row per model over a selected game set: distinct_events counts each event once (two orientations are not two games); features, supported/unsupported/cold-start features and the model's estimates of those games; supported/abstained games and estimates; abstention reasons counted once per game as reason or reason:detail. The stored summary covers every capsule event; preview-summary recomputes it for the selected events"
+ },
+ "query_rules": {
+  "selection": "only with --prospective-preview <preview.json> (the original parser handles every invocation without it, unchanged); combining it with --database, --history-database or --manifest is PREVIEW_MODE_CONFLICT; --contest and --partition are FILTER_NOT_APPLICABLE; a historical grain is PREVIEW_GRAIN_REQUIRED; --require-pit is PREVIEW_PIT_NOT_ADMITTED; every malformed argument is refused before the preview is read",
+  "grains": [
+   "preview-feature",
+   "preview-estimate",
+   "preview-summary"
+  ],
+  "applicable_filters": {
+   "preview-feature": [
+    "season",
+    "event",
+    "team",
+    "orientation"
+   ],
+   "preview-estimate": [
+    "season",
+    "event",
+    "team",
+    "model",
+    "orientation"
+   ],
+   "preview-summary": [
+    "season",
+    "event",
+    "team",
+    "model"
+   ]
+  },
+  "cutoff": "required, an ISO-8601 instant with seconds and an explicit zone, matched as a whole string (a trailing newline is refused); compared as exact instants (equivalent offsets agree): before the retained request start PREVIEW_UNAVAILABLE_BEFORE_OBSERVATION, from the start up to but excluding the end PREVIEW_INDETERMINATE_WITHIN_OBSERVATION, at or after the end the same retained snapshot is served (AVAILABLE_AT_OR_AFTER_REQUEST_END); a later cutoff never refreshes it and never creates a forecast issuance time; the current clock is never read",
+  "filters": "conjunctive: --season (2026 serves; any other integer is NOT_YET_AUDITED with no rows), --event espn:event:<digits>, --team espn:team:<digits> (a feature's or estimate's own team; for the summary, the games in which the team participates), --model (one of the two preview models) and --orientation home|away (a feature's side or an estimate's orientation); an unknown valid key serves no rows; a malformed key, model or orientation refuses; no fuzzy team names",
+  "paging": "--limit (default 50), --offset and --all over every grain; exact totals and next_offset; negative paging refuses; the union of pages equals --all",
+  "labels": "every response and served row carries the labels, the observation interval and the capsule and preview identities",
+  "locations": "accepted literal-location rules: local relative, long and extended-length Windows paths; network and device paths are refused before any access; a missing file is never created"
+ },
+ "labels": {
+  "preview_status": "PROVIDER_RECORD_BASELINE_PREVIEW_NOT_FORECAST",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "predictive_skill": "PREDICTIVE_SKILL_NOT_ESTABLISHED",
+  "calibration": "NOT_CALIBRATED",
+  "source_authority": "PROVIDER_CLAIM_ESPN_SCOREBOARD_NOT_OFFICIAL_NCAA_NOT_CORROBORATED",
+  "national_coverage": "UNKNOWN_RETAINED_SINGLE_RESPONSE_NOT_NATIONAL_NOT_REPRESENTATIVE",
+  "record_semantics": "PROVIDER_REPORTED_OVERALL_RECORD_COUNTS_NOT_RECONSTRUCTED_HISTORY_OPPONENT_STRENGTH_UNKNOWN",
+  "forecast_issuance": "NONE_NOT_AN_ISSUED_OR_FROZEN_FORECAST",
+  "evaluation": "NOT_SCORED_NO_OUTCOME_NOT_A_PROTECTED_EVALUATION",
+  "home_away": "PROVIDER_HOMEAWAY_DESIGNATION_NOT_VENUE_NO_HOME_ADVANTAGE_APPLIED",
+  "use": "ILLUSTRATIVE_FIXED_CALCULATION_NOT_A_BETTING_RECOMMENDATION",
+  "temporal_basis": "RETAINED_OBSERVATION_INTERVAL_ONLY_A_LATER_CUTOFF_NEVER_REFRESHES"
+ },
+ "consumer": {
+  "console": "bas-retrospective-baseline-query --prospective-preview <preview.json>",
+  "module": "python -m aggie_analytics.retrospective_baseline.query --prospective-preview <preview.json>",
+  "reader": "aggie_analytics.retrospective_baseline.preview (imported only for the explicit option)",
+  "defaults": "every existing invocation, answer, refusal, default view and accepted data identity is unchanged; only --help gains an epilog naming the explicit mode"
+ },
+ "non_claims": [
+  "not an issued, frozen or published forecast and no forecast issuance time; no scoring, outcome or label",
+  "not PIT admitted; no calibration or predictive-skill claim; no protected evaluation or hold release",
+  "no fitting, tuning, selection after results, home advantage, margin, score or interval",
+  "provider claims only: not official NCAA results, not corroborated; opponent strength and record completeness are not established; national coverage UNKNOWN",
+  "no source acquisition, archive resume, retry, proxy, paid call or scheduler",
+  "no numeric cross-provider identity join; equal IDs or similar names authorize nothing",
+  "historical F1 (5875 accepted 2016-2023 targets) stays unmet; BAT-423 remains the baseline milestone",
+  "BAT-401/429/523/691/695/700 and GAP-005 restrictions preserved"
+ ],
+ "revision_note": "V1 frozen before the first canonical write (Cycle #52 Attempt #1)."
+}

@@ -1,3 +1,11 @@
+## Current implementation authority and historical W25 context
+
+The W25 state below records completion of the original architecture/starter program. It does not identify the active BAS implementation cycle. Resolve current implementation authority from `C:\BatteredAggieSyndrome.data\ops\manager_review\CURRENT_PROTOCOL.json` and `C:\BatteredAggieSyndrome.data\ops\manager_review\OPERATING_STATE.md`, then use the exact issued contract and adopted amendments. See `PROJECT_PLAN_INDEX.md` for the original full-scope plans and retained evidence.
+
+The W25 cumulative/hydration pair check applies when restoring or rebuilding that historical handoff. Current implementation changes bind their actual Git subject, selected release and issued contract; they must not infer an unverified W25 ZIP identity. None of this changes PIT, target exclusion, empirical adoption, provenance, protected judging or immutable source/forecast requirements.
+
+Historical source and resource instructions must be read with later explicit user corrections. The retired assistive pipeline remains inactive. For BAS and All-22, host CPU/RAM/disk observations alone are not authorization or acceptance gates and cannot defer work. Diagnose actual execution failures under existing ownership/recovery rules. Preserve task-specific grants and active owner work.
+
 ## Retired assistive / Fort Knox pipeline — no active authority
 
 The Fort Knox assistive-execution interlock and the retired

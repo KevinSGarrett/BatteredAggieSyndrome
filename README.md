@@ -1,3 +1,7 @@
+## Project plans and current implementation
+
+The [project-plan index](PROJECT_PLAN_INDEX.md) links the original technical plans, complete requirement/task/domain registries, post-W25 evidence and current private manager checkpoint. The original plans are still under `docs/`. Historical design/starter completion is separate from current integrated capability and independent scientific acceptance.
+
 <p align="center">
   <img src="docs/assets/readme/hero-v2.png" width="100%" alt="Battered Aggie Syndrome: college football analytics and Texas A&amp;M research concept">
 </p>

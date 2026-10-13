@@ -41,11 +41,17 @@ def validate_dependency_routes(dependency: dict, label: str) -> list[str]:
     errors = []
     if not isinstance(dependency, dict):
         return [f"{label}: dependency block invalid"]
+    def valid_source(r):
+        if not isinstance(r, dict):
+            return False
+        repository, path = r.get("repository"), r.get("relative_path")
+        if not isinstance(repository, str) or not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository) or any(p in {".", ".."} for p in repository.split("/")):
+            return False
+        if not isinstance(path, str) or "\\" in path or ":" in path or any(p in {"", ".", ".."} for p in path.split("/")):
+            return False
+        return all(isinstance(r.get(k), str) and re.fullmatch(r"[0-9a-f]{" + str(n) + r"}", r[k]) for k, n in (("head", 40), ("sha256", 64)))
     refs = dependency.get("source_refs", [])
-    if not isinstance(refs, list) or not refs or any(not isinstance(r, dict) or not isinstance(r.get("repository"), str) or "/" not in r["repository"]
-                       or not re.fullmatch(r"[0-9a-f]{40}", str(r.get("head", "")))
-                       or not isinstance(r.get("relative_path"), str) or not r["relative_path"]
-                       or not re.fullmatch(r"[0-9a-f]{64}", str(r.get("sha256", ""))) for r in refs):
+    if not isinstance(refs, list) or not refs or not all(valid_source(r) for r in refs):
         return [f"{label}: dependency source identities missing/invalid"]
     bindings = {dependency_source_binding(r) for r in refs}
     routes = dependency.get("owner_route", [])
@@ -65,11 +71,11 @@ def validate_dependency_routes(dependency: dict, label: str) -> list[str]:
             errors.append(f"{label}: dependency route has missing/unbound/duplicate source references")
         if "jira_key" in route:
             key = route["jira_key"]
-            if "project_key" in route or "dependency_issue_key" in route or not isinstance(key, str) or not re.fullmatch(r"BAT-[1-9]\d*", key):
+            if "project_key" in route or "dependency_issue_key" in route or not isinstance(key, str) or not re.fullmatch(r"BAT-[1-9][0-9]*", key):
                 errors.append(f"{label}: BAS route cannot supply external dependency authority")
         else:
             project, key = route.get("project_key"), route.get("dependency_issue_key")
-            if not isinstance(project, str) or project not in {"CFIP", "CFI", "CFA"} or not isinstance(key, str) or not re.fullmatch(re.escape(project) + r"-[1-9]\d*", key):
+            if not isinstance(project, str) or project not in {"CFIP", "CFI", "CFA"} or not isinstance(key, str) or not re.fullmatch(re.escape(project) + r"-[1-9][0-9]*", key):
                 errors.append(f"{label}: external dependency namespace/key invalid")
         if isinstance(key, str):
             if key in seen:

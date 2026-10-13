@@ -183,6 +183,21 @@ class OriginalIdeaTraceabilityTests(unittest.TestCase):
             with self.subTest(mutation=mutation):
                 self.assertTrue(any("dependency" in e or "BAS route" in e for e in self.valid(damaged)))
 
+    def test_rehashed_external_metadata_must_still_be_well_formed(self):
+        source = {"repository": "GridironCortex/CFBProgramSpecifications", "head": "a" * 40,
+                  "relative_path": "50_BAS_INTEGRATION/04_STAFF_PUBLISHER.md", "sha256": "b" * 64}
+        for field, value in (("head", int("1" * 40)), ("sha256", int("1" * 64)), ("repository", "/"),
+                             ("relative_path", "/absolute.md"), ("relative_path", "../escape.md"),
+                             ("relative_path", "C:/drive.md"), ("relative_path", "dir//empty.md")):
+            changed = dict(source); changed[field] = value
+            dep = {"source_refs": [changed], "owner_route": [{"project_key": "CFIP", "dependency_issue_key": "CFIP-8",
+                   "role": "Reciprocal coordination", "source_bindings": [trace.dependency_source_binding(changed)]}]}
+            with self.subTest(field=field, value=value):
+                self.assertTrue(any("source identities" in e for e in trace.validate_dependency_routes(dep, "fixture")))
+        dep = {"source_refs": [source], "owner_route": [{"project_key": "CFIP", "dependency_issue_key": "CFIP-1\u0662",
+               "role": "Reciprocal coordination", "source_bindings": [trace.dependency_source_binding(source)]}]}
+        self.assertTrue(any("namespace/key" in e for e in trace.validate_dependency_routes(dep, "fixture")))
+
 
 if __name__ == "__main__":
     unittest.main()

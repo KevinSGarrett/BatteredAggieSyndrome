@@ -1,19 +1,20 @@
 {
   "actual_expected_link_count": 1151,
-  "auxiliary_actual_count": 145,
-  "auxiliary_expected_count": 145,
+  "auxiliary_actual_count": 163,
+  "auxiliary_expected_count": 163,
   "auxiliary_issue_type_counts": {
-    "Task": 145
+    "Task": 163
   },
   "auxiliary_status_counts": {
-    "Done": 126,
-    "In Progress": 1,
-    "In Review": 18
+    "Done": 143,
+    "In Progress": 3,
+    "In Review": 17
   },
   "board": {
+    "expected_jql": "project = BAT AND (labels = post-wave OR key in (BAT-510, BAT-511, BAT-523, BAT-565, BAT-566, BAT-567, BAT-568, BAT-569, BAT-570, BAT-571, BAT-572, BAT-573, BAT-574, BAT-575, BAT-576, BAT-577, BAT-578, BAT-579, BAT-580, BAT-581, BAT-582, BAT-583, BAT-584, BAT-585, BAT-586, BAT-587, BAT-588, BAT-589, BAT-590, BAT-591, BAT-592, BAT-593, BAT-594, BAT-595, BAT-596, BAT-597, BAT-598, BAT-599, BAT-600, BAT-601, BAT-602, BAT-603, BAT-604, BAT-605, BAT-606, BAT-607, BAT-608, BAT-609, BAT-610, BAT-611, BAT-612, BAT-613, BAT-615, BAT-617, BAT-618, BAT-619, BAT-620, BAT-621, BAT-622, BAT-623, BAT-624, BAT-625, BAT-626, BAT-627, BAT-628, BAT-629, BAT-630, BAT-631, BAT-632, BAT-633, BAT-634, BAT-635, BAT-636, BAT-637, BAT-638, BAT-639, BAT-640, BAT-641, BAT-642, BAT-643, BAT-644, BAT-645, BAT-646, BAT-647, BAT-648, BAT-649, BAT-650, BAT-651, BAT-652, BAT-653, BAT-654, BAT-655, BAT-656, BAT-657, BAT-658, BAT-659, BAT-660, BAT-661, BAT-662, BAT-663, BAT-664, BAT-665, BAT-666, BAT-667, BAT-668, BAT-669, BAT-670, BAT-671, BAT-672, BAT-673, BAT-674, BAT-675, BAT-676, BAT-677, BAT-678, BAT-679, BAT-680, BAT-681, BAT-682, BAT-683, BAT-684, BAT-685, BAT-686, BAT-687, BAT-688, BAT-689, BAT-690, BAT-691, BAT-692, BAT-693, BAT-694, BAT-695, BAT-696, BAT-697, BAT-698, BAT-699, BAT-700, BAT-701, BAT-702, BAT-703, BAT-704, BAT-705, BAT-706, BAT-707, BAT-708, BAT-710, BAT-711, BAT-712, BAT-713, BAT-714, BAT-715, BAT-716, BAT-717, BAT-718, BAT-719, BAT-720, BAT-721, BAT-722, BAT-723, BAT-724, BAT-725, BAT-726, BAT-727)) ORDER BY Rank ASC",
     "filter_id": "10134",
     "id": "134",
-    "jql": "project = BAT AND labels = post-wave ORDER BY Rank ASC",
+    "jql": "project = BAT AND (labels = post-wave OR key in (BAT-510, BAT-511, BAT-523, BAT-565, BAT-566, BAT-567, BAT-568, BAT-569, BAT-570, BAT-571, BAT-572, BAT-573, BAT-574, BAT-575, BAT-576, BAT-577, BAT-578, BAT-579, BAT-580, BAT-581, BAT-582, BAT-583, BAT-584, BAT-585, BAT-586, BAT-587, BAT-588, BAT-589, BAT-590, BAT-591, BAT-592, BAT-593, BAT-594, BAT-595, BAT-596, BAT-597, BAT-598, BAT-599, BAT-600, BAT-601, BAT-602, BAT-603, BAT-604, BAT-605, BAT-606, BAT-607, BAT-608, BAT-609, BAT-610, BAT-611, BAT-612, BAT-613, BAT-615, BAT-617, BAT-618, BAT-619, BAT-620, BAT-621, BAT-622, BAT-623, BAT-624, BAT-625, BAT-626, BAT-627, BAT-628, BAT-629, BAT-630, BAT-631, BAT-632, BAT-633, BAT-634, BAT-635, BAT-636, BAT-637, BAT-638, BAT-639, BAT-640, BAT-641, BAT-642, BAT-643, BAT-644, BAT-645, BAT-646, BAT-647, BAT-648, BAT-649, BAT-650, BAT-651, BAT-652, BAT-653, BAT-654, BAT-655, BAT-656, BAT-657, BAT-658, BAT-659, BAT-660, BAT-661, BAT-662, BAT-663, BAT-664, BAT-665, BAT-666, BAT-667, BAT-668, BAT-669, BAT-670, BAT-671, BAT-672, BAT-673, BAT-674, BAT-675, BAT-676, BAT-677, BAT-678, BAT-679, BAT-680, BAT-681, BAT-682, BAT-683, BAT-684, BAT-685, BAT-686, BAT-687, BAT-688, BAT-689, BAT-690, BAT-691, BAT-692, BAT-693, BAT-694, BAT-695, BAT-696, BAT-697, BAT-698, BAT-699, BAT-700, BAT-701, BAT-702, BAT-703, BAT-704, BAT-705, BAT-706, BAT-707, BAT-708, BAT-710, BAT-711, BAT-712, BAT-713, BAT-714, BAT-715, BAT-716, BAT-717, BAT-718, BAT-719, BAT-720, BAT-721, BAT-722, BAT-723, BAT-724, BAT-725, BAT-726, BAT-727)) ORDER BY Rank ASC",
     "name": "BAT board"
   },
   "canonical_actual_count": 494,
@@ -64,12 +65,12 @@
     "issue_type_counts": "alias of total_issue_type_counts covering every live BAT issue",
     "status_counts": "alias of total_status_counts covering every live BAT issue"
   },
-  "issue_count": 639,
+  "issue_count": 657,
   "issue_type_counts": {
     "Epic": 50,
     "Story": 53,
     "Sub-task": 190,
-    "Task": 346
+    "Task": 364
   },
   "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
   "missing_auxiliary_keys": [],
@@ -83,28 +84,28 @@
   "result": "PASS",
   "schema_version": 2,
   "status_counts": {
-    "Done": 212,
-    "In Progress": 1,
-    "In Review": 18,
+    "Done": 229,
+    "In Progress": 3,
+    "In Review": 17,
     "To Do": 408
   },
-  "total_actual_issue_count": 639,
-  "total_expected_issue_count": 639,
+  "total_actual_issue_count": 657,
+  "total_expected_issue_count": 657,
   "total_issue_type_counts": {
     "Epic": 50,
     "Story": 53,
     "Sub-task": 190,
-    "Task": 346
+    "Task": 364
   },
   "total_status_counts": {
-    "Done": 212,
-    "In Progress": 1,
-    "In Review": 18,
+    "Done": 229,
+    "In Progress": 3,
+    "In Review": 17,
     "To Do": 408
   },
   "unexpected_issue_keys": [],
   "unexpected_issue_type_counts": {},
   "unexpected_link_count": 0,
   "unexpected_status_counts": {},
-  "verified_at": "2026-09-06T21:24:24.161669+00:00"
+  "verified_at": "2026-10-13T18:01:23.272562+00:00"
 }

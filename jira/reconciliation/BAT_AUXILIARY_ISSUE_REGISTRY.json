@@ -2569,10 +2569,10 @@
       "maturity": "DESIGN_ONLY",
       "owner_wave": "POST_W25",
       "phase": "PHASE-1",
-      "status": "In Progress",
+      "status": "In Review",
       "summary": "[POST-TASK-SHADOW-SCHEDULE-CACHED-EXPANSION-001] Qualify retained official schedule layouts and participant names",
       "delivery_role": "ATOMIC_EXECUTION",
-      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle55\\attempt01\\portfolio-recovery-20261013\\jira\\BAT_producer_page07.json",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle55\\attempt01\\wave3-audit-20261013\\jira\\CHANGED_ISSUES_CONNECTOR_PAGE1.json",
       "labels": [
         "post-wave"
       ],

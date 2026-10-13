@@ -261,7 +261,9 @@ def run_checks(*, write_reports: bool = True) -> tuple[dict[str, dict[str, Any]]
     adr_map = csv_rows(JIRA_ROOT / "index" / "ADR_TRACEABILITY.csv")
     risk_map = csv_rows(JIRA_ROOT / "reconciliation" / "RISK_TO_JIRA_MAPPING.csv")
     gap_map = csv_rows(JIRA_ROOT / "reconciliation" / "GAP_TO_JIRA_MAPPING.csv")
-    requirements_ok = len({row.get("requirement_id") for row in req_map}) == trace_counts["requirements"] and all(row.get("post_wave_issue_ids") or row.get("jira_issue_ids") for row in req_map)
+    from original_idea_traceability import validate_all
+    original_idea_errors, original_idea_metrics = validate_all(REPO_ROOT, JIRA_ROOT, records)
+    requirements_ok = not original_idea_errors
     controls_ok = len({row.get("control_id") for row in ac_map}) == trace_counts["controls"] and all(row.get("post_wave_issue_ids") or row.get("jira_issue_ids") for row in ac_map)
     adrs_ok = len({row.get("adr_id") for row in adr_map}) == trace_counts["adrs"] and all(row.get("post_wave_issue_ids") or row.get("jira_issue_ids") for row in adr_map)
     risks_gaps_ok = len({row.get("risk_id") for row in risk_map}) == trace_counts["risks"] and len({row.get("gap_id") for row in gap_map}) == trace_counts["gaps"] and all(row.get("jira_issue_ids") for row in risk_map + gap_map)
@@ -343,7 +345,7 @@ def run_checks(*, write_reports: bool = True) -> tuple[dict[str, dict[str, Any]]
         "atlassian": result(atlassian_ok, "Current official Jira Cloud CSV/Parent/ADF/REST/link assumptions are recorded with verification date and destination-mapping boundaries.", [atlassian_doc]),
         "fields": result(fields_ok, "The minimal searchable custom-field proposal is present; execution mode remains machine-searchable through the local packet/index schema without unnecessary Jira custom-field bloat.", ["project/FIELD_SCHEMA.yaml", "index/WORK_PACKET_INDEX.csv"]),
         "taxonomy": result(taxonomy_ok, "Controlled component and label vocabularies exist.", ["project/COMPONENTS.csv", "project/LABEL_DICTIONARY.csv"]),
-        "requirements": result(requirements_ok, f"All {trace_counts['requirements']} requirement IDs have Jira mappings.", ["index/REQUIREMENT_TRACEABILITY.csv"]),
+        "requirements": result(requirements_ok, f"{trace_counts['requirements']} historical requirement routes are explicitly governance-only; original child decision ownership is validated separately. {original_idea_metrics.get('requirements_not_reviewed_at_child_grain', 'unknown')} requirements remain unreviewed at child grain. No implementation completion is asserted.", ["index/REQUIREMENT_TRACEABILITY.csv", "index/ORIGINAL_IDEA_TRACEABILITY.csv", "../governance/ORIGINAL_IDEA_DECISIONS.json"]),
         "controls": result(controls_ok, f"All {trace_counts['controls']} acceptance-control IDs have Jira mappings.", ["index/ACCEPTANCE_TRACEABILITY.csv"]),
         "adrs": result(adrs_ok, f"All {trace_counts['adrs']} ADR IDs have Jira mappings.", ["index/ADR_TRACEABILITY.csv"]),
         "risks_gaps": result(risks_gaps_ok, f"All {trace_counts['risks']} risks and {trace_counts['gaps']} final gaps have Jira dispositions.", ["reconciliation/RISK_TO_JIRA_MAPPING.csv", "reconciliation/GAP_TO_JIRA_MAPPING.csv"]),
@@ -378,10 +380,11 @@ def run_checks(*, write_reports: bool = True) -> tuple[dict[str, dict[str, Any]]
         "repository_inventory_count": len(inventory), "baseline_repository_validation_pass": baseline_pass,
         "non_jira_scope_diff": non_jira_diff,
         "import": import_metrics, "traceability_registry_counts": trace_counts,
+        "original_idea_planning": original_idea_metrics,
         "core_validator_error_count": len(errors), "source_error_count": len(source_errors),
         "import_error_count": len(import_errors), "manifest_error_count_at_audit_time": len(manifest_errors),
     }
-    audit_errors = list(errors) + list(import_errors) + list(source_errors)
+    audit_errors = list(errors) + list(import_errors) + list(source_errors) + original_idea_errors
     for key, check in checks.items():
         if check["status"] != "PASS":
             audit_errors.append(f"Check group {key} failed: {check['detail']}")

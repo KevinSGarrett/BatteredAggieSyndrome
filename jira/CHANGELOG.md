@@ -48,3 +48,9 @@ Future meaningful changes must be appended; do not log trivial generated formatt
 - The reusable `POST_IMPORT_KEY_MAP_TEMPLATE.csv` remains blank by contract, while assigned live keys/IDs are stored separately in `POST_IMPORT_KEY_MAP.csv` and validated against canonical records.
 - Derivative rebuild entry points are import-safe and idempotent; importing reconciliation utilities no longer triggers an unintended rebuild.
 - BAS scientific acceptance explicitly permits and preserves a valid null Aggie-specific excess result; no nonzero BAS effect is forced.
+
+## 2026-10-13 — Original idea decision coverage
+
+- Preserve 85 original source groups and 515 detailed children, with exact canonical implementation/evaluation owners and finite decision outputs. Candidate evaluation may validly reject or defer a feature.
+- Extend BAT-402/405/406/409/415/418/483 acceptance for explicit child decisions without rewriting historical Done scope or active Cycle 55.
+- Distinguish historical governance routing from explicit semantic decision coverage. The native producer and audit conserve a separately reviewed source floor and expose requirements still unreviewed at child grain. Planning validation is not implementation or scientific acceptance.

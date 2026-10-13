@@ -106,6 +106,7 @@ Produce and validate these outputs within this atomic work unit:
 1. Every feature maps to source, transformation, temporal class, owner, tests, lineage, and CORE/SUPPORTED/CONDITIONAL/EXPERIMENTAL/REJECTED/BANNED state; design presence is not promotion evidence.
 2. The declared output `artifacts/features/production_feature_inventory.csv` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea feature scope: for every applicable child in governance/ORIGINAL_IDEA_DECISIONS.json, record its exact feature/source/transform identity or an explicit conditional, deferred, rejected or withdrawn disposition, named producer/evaluator, evidence and next decision checkpoint. Parent-family membership or a keyword-generated Jira edge alone does not satisfy child coverage; this does not require every candidate to be implemented or adopted.
 
 ## Tests / validation
 

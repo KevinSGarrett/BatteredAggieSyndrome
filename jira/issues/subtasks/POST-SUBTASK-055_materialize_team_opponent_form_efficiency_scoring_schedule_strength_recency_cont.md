@@ -9,7 +9,8 @@
   "acceptance_criteria": [
     "Rolling/expanding/opponent-adjusted statistics fit only on eligible prior history, declare shrinkage/minimum history, and use visible uncertainty for early-season/lower-division cold starts.",
     "The declared output `artifacts/features/foundation_feature_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
-    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Original-idea rolling-form decision (ORI-024 and ORI-051): explicitly compare eligible prior win/loss streak and after-win/loss candidates, including the requested 1/2/3-game idea, with opponent-adjusted recent form and continuity. Predeclare candidate windows and support/shrinkage rules before evaluation; preserve null, redundant or unsupported results in the existing foundation_feature_manifest output and do not add a fixed streak bonus."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -444,6 +445,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-019 (Foundation and advanced 
 1. Rolling/expanding/opponent-adjusted statistics fit only on eligible prior history, declare shrinkage/minimum history, and use visible uncertainty for early-season/lower-division cold starts.
 2. The declared output `artifacts/features/foundation_feature_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea rolling-form decision (ORI-024 and ORI-051): explicitly compare eligible prior win/loss streak and after-win/loss candidates, including the requested 1/2/3-game idea, with opponent-adjusted recent form and continuity. Predeclare candidate windows and support/shrinkage rules before evaluation; preserve null, redundant or unsupported results in the existing foundation_feature_manifest output and do not add a fixed streak bonus.
 
 ## Definition of Done
 

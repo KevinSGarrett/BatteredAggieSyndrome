@@ -412,6 +412,13 @@ def recompute_ready(records: list[dict[str, Any]]) -> None:
 
 
 def build_indexes(records: list[dict[str, Any]]) -> None:
+    from original_idea_traceability import annotate_requirements, decision_rows, load_catalog
+    catalog = load_catalog(REPO_ROOT)
+    write_csv(JIRA_ROOT / "index/ORIGINAL_IDEA_TRACEABILITY.csv", decision_rows(catalog))
+    requirement_map = JIRA_ROOT / "index/REQUIREMENT_TRACEABILITY.csv"
+    with requirement_map.open(encoding="utf-8-sig", newline="") as handle:
+        requirement_rows = list(csv.DictReader(handle))
+    write_csv(requirement_map, annotate_requirements(requirement_rows, catalog))
     by_id = {record["local_id"]: record for record in records}
     issue_rows: list[dict[str, Any]] = []
     for record in sorted(records, key=lambda item: item["local_id"]):
@@ -512,16 +519,20 @@ def build_indexes(records: list[dict[str, Any]]) -> None:
                 "required_for_completion": True, "expected_maturity": record.get("expected_maturity_after_completion", ""),
                 "downstream_issue_ids": record.get("blocks", []), "evidence_state": record.get("evidence_state", ""),
             })
-        if record.get("historical_classification") == "ACTIONABLE_POST_WAVE":
+        if str(record.get("historical_classification", "")).startswith("ACTIONABLE"):
             packets.append({
-                "local_id": record["local_id"], "issue_type": record["issue_type"],
-                "execution_mode": record.get("execution_mode", ""), "ready": record.get("ready", False),
-                "packet_path": f"jira/ai/work_packets/{record['local_id']}.md",
+                "local_id": record["local_id"], "issue_type": record.get("issue_type", ""),
+                "execution_mode": record.get("execution_mode", ""),
+                "workflow_state": record.get("workflow_state", ""), "ready": record.get("ready", False),
+                "packet_path": record.get("work_packet_path", ""),
                 "directly_executable": record.get("execution_mode") == "ATOMIC_EXECUTION",
+                "aggregate_gate_only": record.get("execution_mode") == "AGGREGATE_GATE",
+                "parent_id": record.get("parent_id", ""),
+                "governance_traceability_gate": record.get("governance_traceability_gate", ""),
             })
     write_csv(JIRA_ROOT / "index" / "TEST_TRACEABILITY.csv", tests)
     write_csv(JIRA_ROOT / "index" / "ARTIFACT_TRACEABILITY.csv", artifacts)
-    write_csv(JIRA_ROOT / "index" / "WORK_PACKET_INDEX.csv", packets)
+    write_csv(JIRA_ROOT / "index" / "WORK_PACKET_INDEX.csv", sorted(packets, key=lambda r: (0 if r.get("ready") else 1, r["local_id"])))
 
     compact = "# Compact READY Queue\n\n" + (
         "\n".join(
@@ -1113,6 +1124,9 @@ def validate_import_files(records: list[dict[str, Any]] | None = None) -> tuple[
 
 
 def _validate_traceability(errors: list[str], records: list[dict[str, Any]]) -> None:
+    from original_idea_traceability import validate_all
+    idea_errors, _ = validate_all(REPO_ROOT, JIRA_ROOT, records)
+    errors.extend(idea_errors)
     trace_specs = [
         ("governance/REQUIREMENTS_INDEX.csv", "requirement_id", "index/REQUIREMENT_TRACEABILITY.csv", "requirement_id"),
         ("governance/ACCEPTANCE_CONTROL_CATALOG.csv", "control_id", "index/ACCEPTANCE_TRACEABILITY.csv", "control_id"),

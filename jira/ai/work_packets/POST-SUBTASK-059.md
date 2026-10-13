@@ -108,6 +108,7 @@ Produce and validate these outputs within this atomic work unit:
 1. Ablations retain null/negative results and report task/season/regime/A&M/peer/market-lane uncertainty, redundancy, and instability rather than cherry-picking one favorable slice.
 2. The declared output `artifacts/features/feature_ablation_stability.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea interactions (ORI-033, ORI-039, ORI-051, ORI-057 and ORI-061): predeclare and adjudicate named offense-versus-defense directional/depth/pressure/personnel interactions, style/halftime residuals, streak-versus-form, weather-football interactions and resource-efficiency/mediation hypotheses. Report target/population support, chronological incremental value, missingness, redundancy and negative results in feature_ablation_stability. A broad matchup category is insufficient, and a valid rejection or evidence-backed deferral satisfies the decision obligation without forced adoption.
 
 ## Tests / validation
 

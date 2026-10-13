@@ -1189,6 +1189,7 @@ docs/97_EXPERIMENT_EXAMPLES.md
 docs/98_RESEARCH_PROVENANCE.md
 docs/99_FULL_REBUILD_AUDIT_METHOD.md
 docs/OPEN_SOURCE_INTEGRATION_STRATEGY.md
+docs/ORIGINAL_IDEA_DECISIONS.md
 docs/README.md
 docs/SYSTEM_REFERENCE_INTEGRITY_BOUNDARIES.md
 docs/architecture/ARCHIVE_CAPTURE_SERVICE_PAUSE.md
@@ -1438,6 +1439,8 @@ governance/OPPONENT_ADJUSTMENT_CANDIDATES.csv
 governance/OPPONENT_STRENGTH_HIERARCHY.csv
 governance/OPPORTUNITY_BACKLOG.yaml
 governance/OPTUNA_FIELD_MAPPING.csv
+governance/ORIGINAL_IDEA_DECISIONS.json
+governance/ORIGINAL_IDEA_SOURCE_INVENTORY.json
 governance/PIT_DOMAIN_POLICY.csv
 governance/PIT_GATEWAY_RULES.csv
 governance/PLAYER_INTELLIGENCE_GATE_STATUS.csv
@@ -1959,6 +1962,7 @@ jira/index/DEPENDENCY_INDEX.csv
 jira/index/HIERARCHY_INDEX.csv
 jira/index/ISSUE_GOVERNANCE_CONTEXT.csv
 jira/index/ISSUE_INDEX.csv
+jira/index/ORIGINAL_IDEA_TRACEABILITY.csv
 jira/index/READY_QUEUE.csv
 jira/index/REQUIREMENT_TRACEABILITY.csv
 jira/index/SOURCE_REFERENCE_INDEX.csv
@@ -3583,6 +3587,7 @@ jira/tools/build_import_files.py
 jira/tools/build_indexes.py
 jira/tools/import_bat_live.py
 jira/tools/jira_pack_lib.py
+jira/tools/original_idea_traceability.py
 jira/tools/rebuild_all_derivatives.py
 jira/tools/reconcile_jira_export.py
 jira/tools/repair_source_refs.py
@@ -4632,6 +4637,7 @@ tests/test_openai_assist.py
 tests/test_openrouter_assist.py
 tests/test_openrouter_campaign_summary.py
 tests/test_operations_drift_alerts.py
+tests/test_original_idea_traceability.py
 tests/test_package_scaffold.py
 tests/test_peer_and_tamu_residual_stability.py
 tests/test_people_registry.py

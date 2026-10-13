@@ -2344,9 +2344,13 @@ def write_indexes(jira_root: Path, issues: list[Issue], refs: SourceRefRegistry,
             "requirement_id": rid, "title": row.get("title", ""), "status": row.get("status", ""),
             "category": row.get("category", ""), "constraint_class": row.get("constraint_class", ""),
             "historical_task_ids": historical, "post_wave_issue_ids": [post] if post else [],
-            "mapping_disposition": "ONGOING_ENFORCEMENT_OR_IMPLEMENTATION" if row.get("status", "").upper() == "ACTIVE" else "PRESERVED_WITH_POST_WAVE_GOVERNANCE_MAPPING",
+            "mapping_disposition": "PRESERVED_GOVERNANCE_ROUTE_NOT_IMPLEMENTATION_PROOF",
+            "mapping_role": "GOVERNANCE_ROUTING_ONLY",
+            "semantic_planning_coverage": "NOT_REVIEWED_AT_CHILD_GRAIN",
             "source_ref_id": id_to_ref.get(rid, ""), "mapped": bool(historical or post),
         })
+    # Keyword classification preserves a routing hint, never a semantic owner.
+    # Current native rebuild annotates only the separately reviewed idea catalog.
     write_csv(idx / "REQUIREMENT_TRACEABILITY.csv", req_rows)
 
     control_rows = []
@@ -3993,7 +3997,7 @@ def build_complete_jira_pack(repo_root: Path, output_zip: Path | None = None, fu
     builder_self_text = Path(__file__).read_text(encoding="utf-8")
     # SECOND_PASS_V2_PRESERVE_AND_APPLY: preserve the v2 hardener/validators before the generator replaces jira/.
     preserved_v2_tools = {}
-    for _name in ["jira_pack_lib.py", "second_pass_hardening.py", "run_second_pass_audit.py", "validate_second_pass.py", "rebuild_all_derivatives.py", "repair_source_refs.py"]:
+    for _name in ["jira_pack_lib.py", "second_pass_hardening.py", "run_second_pass_audit.py", "validate_second_pass.py", "rebuild_all_derivatives.py", "repair_source_refs.py", "original_idea_traceability.py"]:
         _p = jira_root / "tools" / _name
         if _p.is_file():
             preserved_v2_tools[_name] = _p.read_text(encoding="utf-8")

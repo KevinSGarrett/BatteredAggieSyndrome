@@ -66,6 +66,7 @@ bas-retrospective-baseline-query = "aggie_analytics.retrospective_baseline.query
 where = ["src"]
 
 [tool.setuptools.package-data]
+"aggie_analytics.product" = ["static/*.html", "static/*.css", "static/*.js"]
 "aggie_analytics.cycle30" = ["schemas/*.json"]
 # BAT-713: the exact issued 2019 archive tranche bytes the archive-evidence consumer binds (contract V1.2 scope).
 # BAT-715: the exact issued 2019 missing-prior cohort bytes the expansion consumer binds (expansion contract scope).

@@ -1,5 +1,13 @@
 # Source of Truth Map
 
+## Current authority clarification
+
+The provider-specific and unified assistive sections retained below are historical records. They have no active operational, routing, validation, completion or cost authority. Apply the retirement instruction at the start of `AGENTS.md`; do not activate, import or schedule a retired pipeline from these historical links.
+
+The W25 terminal handoff remains the original architecture/starter baseline. Current BAS implementation cycle identity, manager operating release and issued worker authority come from the private CURRENT selector, OPERATING state and actual issued contract/amendments. `PROJECT_PLAN_INDEX.md` maps the original full scope and current post-W25 evidence. Neither a historical `DONE` nor an old 'next wave' instruction replaces current evidence-backed capability status.
+
+Keep the original scientific invariants, immutable history, existing requirement/task/domain IDs and protected dispositions. Resolve later explicit user corrections at the affected clause; do not silently reactivate withdrawn host resource gates, paid assistive routing or exposed historical holdouts.
+
 ## Optional assistive development providers
 
 - `configs/assistive_provider_registry.json` is authoritative for provider separation and adapter ownership.

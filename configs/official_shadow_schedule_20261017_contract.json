@@ -1,0 +1,728 @@
+{
+ "contract_id": "BAT-726-OFFICIAL-SHADOW-SCHEDULE-20261017-V1",
+ "population_id": "official_shadow_schedule_20261017",
+ "version": "1.0.0",
+ "issue": "BAT-726",
+ "cycle_number": 54,
+ "attempt_number": 1,
+ "authority": {
+  "plan": "TP54-A01 revision 2026-10-12.1 sections 1-6",
+  "plan_sha256": "dde6ae9df8db360569c94de14be53a4b30002d42a3594f2447718dbb9046ddac",
+  "issued_contract_sha256": "3e25f20b3a8491c3849f11df82eaa8e205046716908d5a672f4f1e6ae548294c",
+  "grant": "CREATE_ONLY_OFFICIAL_SCHEDULE_EVIDENCE and BOUNDED_PUBLIC_OFFICIAL_SCHEDULE_CAPTURE"
+ },
+ "purpose": "Private immutable official 2026 schedule evidence for all 25 events of the accepted BAT-725 October 17 UNTRUSTED_SHADOW snapshot, served only through the explicit --schedule-evidence option of the existing baseline query together with --prospective-shadow. Evidence only: no outcome, scoring, fitting, calibration, PIT admission, actual kickoff, retroactive anchor authority, default or prediction change.",
+ "frozen_before_capture": "this contract (structures, field, name, time and route rules) is committed before the first source request; the capture journal names its SHA-256",
+ "capture_contract_sha256": null,
+ "shadow": {
+  "population": "provider_record_shadow_20261017",
+  "identity": "174f08610d5ab9a1f49a7c8e67b8a3540ebc0b7dece68e5988d677aa20faaf3e",
+  "snapshot_sha256": "d5169fdd72b44bfc577178aa4243cbce3466695c8c638964bed95164dc360a4f",
+  "payload_sha256": "fe4c96bcb7f010bf5c10a308cfd26963a58513a7715a8b84dbff0661af047bcb",
+  "contract_sha256": "2bbc6aa915169654b9dc7327c42f87306e0e0f137243b1852cc881cee0998d5c"
+ },
+ "structure_basis": {
+  "source": "SOURCE_STRUCTURE_PROBES.json (manager readiness probes; structure basis only, never substituted for the capture)",
+  "sha256": "32cbaa9b796b0f0e01fa312d9a52104e33a549c26118f08b99c15a590f0044e9",
+  "probes": [
+   {
+    "url": "https://georgiadogs.com/sports/football/schedule/text",
+    "final_url": "https://georgiadogs.com/sports/football/schedule/text",
+    "sha256": "ee7e90c5f925ce7eb5a43c43c9f0fd6bc309c35764b8aa53a12a5e1c755fab9f",
+    "bytes": 323537,
+    "status": 200
+   },
+   {
+    "url": "https://12thman.com/sports/football/schedule/2026",
+    "final_url": "https://12thman.com/sports/football/schedule/season/2026",
+    "sha256": "01412ee1aca0d5b34dcfbb57da963c5c63dd8be19290d44529e5ce85209aa188",
+    "bytes": 481269,
+    "status": 200
+   }
+  ]
+ },
+ "expected": {
+  "source": "EXPECTED_SCHEDULE_COHORT.json (manager reference independently derived from the accepted raw provider cohort; the delivered rows never define the denominator)",
+  "sha256": "532ea1533b55c52da3f550488660b72359bd773a7799af448d7833fb33227688",
+  "directory_sha256": "d4e7fccd881c7631c5bf9b67347f31e9f27436eebdf4d9923d9c66491cb96287",
+  "directory_rows": 671,
+  "expected_events": 25,
+  "expected_participants": 50,
+  "route_rule": "the institution the frozen provider names as home, selected once per event; the selection is not proof of the official home role",
+  "events": [
+   {
+    "event_key": "espn:event:401856719",
+    "home_team_key": "espn:team:61",
+    "away_team_key": "espn:team:2",
+    "provider_scheduled_utc": "2026-10-17T19:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 257,
+     "official_name": "University of Georgia",
+     "directory_pointer": "/210",
+     "directory_athletic_site": "www.georgiadogs.com",
+     "directory_host": "www.georgiadogs.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401856720",
+    "home_team_key": "espn:team:99",
+    "away_team_key": "espn:team:344",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 365,
+     "official_name": "Louisiana State University",
+     "directory_pointer": "/307",
+     "directory_athletic_site": "www.lsusports.net",
+     "directory_host": "www.lsusports.net"
+    }
+   },
+   {
+    "event_key": "espn:event:401856721",
+    "home_team_key": "espn:team:145",
+    "away_team_key": "espn:team:142",
+    "provider_scheduled_utc": "2026-10-17T19:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 433,
+     "official_name": "University of Mississippi",
+     "directory_pointer": "/361",
+     "directory_athletic_site": "www.olemisssports.com",
+     "directory_host": "www.olemisssports.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401856723",
+    "home_team_key": "espn:team:2633",
+    "away_team_key": "espn:team:333",
+    "provider_scheduled_utc": "2026-10-17T19:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 694,
+     "official_name": "University of Tennessee, Knoxville",
+     "directory_pointer": "/549",
+     "directory_athletic_site": "www.utsports.com",
+     "directory_host": "www.utsports.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401856724",
+    "home_team_key": "espn:team:251",
+    "away_team_key": "espn:team:57",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 703,
+     "official_name": "University of Texas at Austin",
+     "directory_pointer": "/559",
+     "directory_athletic_site": "www.TexasLonghorns.com",
+     "directory_host": "www.texaslonghorns.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401856725",
+    "home_team_key": "espn:team:245",
+    "away_team_key": "espn:team:2643",
+    "provider_scheduled_utc": "2026-10-17T17:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 697,
+     "official_name": "Texas A&M University, College Station",
+     "directory_pointer": "/551",
+     "directory_athletic_site": "www.12thman.com",
+     "directory_host": "www.12thman.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401856828",
+    "home_team_key": "espn:team:2641",
+    "away_team_key": "espn:team:9",
+    "provider_scheduled_utc": "2026-10-17T19:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 700,
+     "official_name": "Texas Tech University",
+     "directory_pointer": "/558",
+     "directory_athletic_site": "www.texastech.com",
+     "directory_host": "www.texastech.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401856829",
+    "home_team_key": "espn:team:277",
+    "away_team_key": "espn:team:2132",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 768,
+     "official_name": "West Virginia University",
+     "directory_pointer": "/624",
+     "directory_athletic_site": "www.wvusports.com",
+     "directory_host": "www.wvusports.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401856830",
+    "home_team_key": "espn:team:2306",
+    "away_team_key": "espn:team:2305",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 327,
+     "official_name": "Kansas State University",
+     "directory_pointer": "/273",
+     "directory_athletic_site": "www.kstatesports.com",
+     "directory_host": "www.kstatesports.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401858261",
+    "home_team_key": "espn:team:228",
+    "away_team_key": "espn:team:2127",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 147,
+     "official_name": "Clemson University",
+     "directory_pointer": "/122",
+     "directory_athletic_site": "clemsontigers.com",
+     "directory_host": "clemsontigers.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401858264",
+    "home_team_key": "espn:team:259",
+    "away_team_key": "espn:team:59",
+    "provider_scheduled_utc": "2026-10-17T19:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 742,
+     "official_name": "Virginia Polytechnic Institute and State University",
+     "directory_pointer": "/598",
+     "directory_athletic_site": "www.hokiesports.com",
+     "directory_host": "www.hokiesports.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401858266",
+    "home_team_key": "espn:team:150",
+    "away_team_key": "espn:team:153",
+    "provider_scheduled_utc": "2026-10-17T19:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 193,
+     "official_name": "Duke University",
+     "directory_pointer": "/158",
+     "directory_athletic_site": "www.goduke.com",
+     "directory_host": "www.goduke.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401858267",
+    "home_team_key": "espn:team:103",
+    "away_team_key": "espn:team:221",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 67,
+     "official_name": "Boston College",
+     "directory_pointer": "/63",
+     "directory_athletic_site": "www.bceagles.com",
+     "directory_host": "www.bceagles.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401858268",
+    "home_team_key": "espn:team:2567",
+    "away_team_key": "espn:team:258",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 663,
+     "official_name": "Southern Methodist University",
+     "directory_pointer": "/515",
+     "directory_athletic_site": "www.smumustangs.com",
+     "directory_host": "www.smumustangs.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401858488",
+    "home_team_key": "espn:team:84",
+    "away_team_key": "espn:team:194",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 306,
+     "official_name": "Indiana University, Bloomington",
+     "directory_pointer": "/258",
+     "directory_athletic_site": "www.iuhoosiers.com",
+     "directory_host": "www.iuhoosiers.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401858489",
+    "home_team_key": "espn:team:120",
+    "away_team_key": "espn:team:164",
+    "provider_scheduled_utc": "2026-10-17T16:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 392,
+     "official_name": "University of Maryland, College Park",
+     "directory_pointer": "/327",
+     "directory_athletic_site": "www.umterps.com",
+     "directory_host": "www.umterps.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401858490",
+    "home_team_key": "espn:team:130",
+    "away_team_key": "espn:team:213",
+    "provider_scheduled_utc": "2026-10-17T19:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 418,
+     "official_name": "University of Michigan",
+     "directory_pointer": "/344",
+     "directory_athletic_site": "www.mgoblue.com",
+     "directory_host": "www.mgoblue.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401858491",
+    "home_team_key": "espn:team:127",
+    "away_team_key": "espn:team:77",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 416,
+     "official_name": "Michigan State University",
+     "directory_pointer": "/345",
+     "directory_athletic_site": "msuspartans.com/",
+     "directory_host": "msuspartans.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401862802",
+    "home_team_key": "espn:team:349",
+    "away_team_key": "espn:team:2226",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 725,
+     "official_name": "U.S. Military Academy",
+     "directory_pointer": "/580",
+     "directory_athletic_site": "goarmywestpoint.com/index.aspx",
+     "directory_host": "goarmywestpoint.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401862803",
+    "home_team_key": "espn:team:218",
+    "away_team_key": "espn:team:2429",
+    "provider_scheduled_utc": "2026-10-17T17:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 690,
+     "official_name": "Temple University",
+     "directory_pointer": "/545",
+     "directory_athletic_site": "www.owlsports.com",
+     "directory_host": "www.owlsports.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401864522",
+    "home_team_key": "espn:team:2751",
+    "away_team_key": "espn:team:2459",
+    "provider_scheduled_utc": "2026-10-17T19:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 811,
+     "official_name": "University of Wyoming",
+     "directory_pointer": "/668",
+     "directory_athletic_site": "www.gowyo.com",
+     "directory_host": "www.gowyo.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401866441",
+    "home_team_key": "espn:team:189",
+    "away_team_key": "espn:team:2050",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 71,
+     "official_name": "Bowling Green State University",
+     "directory_pointer": "/66",
+     "directory_athletic_site": "www.bgsufalcons.com",
+     "directory_host": "www.bgsufalcons.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401866442",
+    "home_team_key": "espn:team:2084",
+    "away_team_key": "espn:team:113",
+    "provider_scheduled_utc": "2026-10-17T17:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 86,
+     "official_name": "University at Buffalo, the State University of New York",
+     "directory_pointer": "/77",
+     "directory_athletic_site": "www.ubbulls.com",
+     "directory_host": "www.ubbulls.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401866443",
+    "home_team_key": "espn:team:2117",
+    "away_team_key": "espn:team:2711",
+    "provider_scheduled_utc": "2026-10-17T17:30:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 129,
+     "official_name": "Central Michigan University",
+     "directory_pointer": "/103",
+     "directory_athletic_site": "www.cmuchippewas.com",
+     "directory_host": "www.cmuchippewas.com"
+    }
+   },
+   {
+    "event_key": "espn:event:401869957",
+    "home_team_key": "espn:team:256",
+    "away_team_key": "espn:team:2247",
+    "provider_scheduled_utc": "2026-10-17T16:00:00Z",
+    "owner": {
+     "side": "home",
+     "ncaa_org_id": 317,
+     "official_name": "James Madison University",
+     "directory_pointer": "/265",
+     "directory_athletic_site": "www.jmusports.com",
+     "directory_host": "www.jmusports.com"
+    }
+   }
+  ]
+ },
+ "sidecar": {
+  "canonical_root": "canonical/official_shadow_schedule_20261017/sha256/<identity>",
+  "manifest_root": "manifests/official_shadow_schedule_20261017/sha256/<identity>/run_manifest.json",
+  "schedule_file": "schedule.json",
+  "contract_member": "inputs/contract.json",
+  "journal_members": "acquisition/journal-NN.jsonl (exact capture bytes, NN from 01)",
+  "raw_members": "raw/<sha256>.gz",
+  "identity_schema": "BAS-OFFICIAL-SHADOW-SCHEDULE-IDENTITY-1",
+  "identity": "sha256 of the canonical identity document {schema, population, contract_id, contract_sha256, shadow_identity, schedule_file, schedule_sha256, bundle}",
+  "create_only": "staged then renamed once; an existing identity is ALREADY_PRESENT_IDENTICAL or refused; nothing is overwritten, deleted or activated",
+  "profile_gate": "artifacts/data_lake/official_shadow_schedule_20261017_gate.json, committed after materialization, pins the actual sidecar profile the reader requires"
+ },
+ "query": {
+  "options": [
+   "--prospective-shadow",
+   "--schedule-evidence"
+  ],
+  "grains": [
+   "shadow-schedule",
+   "shadow-schedule-source"
+  ],
+  "filters": [
+   "--season",
+   "--event",
+   "--team",
+   "--limit",
+   "--offset",
+   "--all",
+   "--expect-identity",
+   "--cutoff"
+  ],
+  "refused_options": [
+   "--database",
+   "--history-database",
+   "--manifest",
+   "--prospective-preview",
+   "--model",
+   "--orientation",
+   "--contest",
+   "--partition",
+   "--require-pit"
+  ],
+  "cutoff": "required; before the availability bound refused; at or after it the same evidence"
+ },
+ "labels": {
+  "designation": "UNTRUSTED_SHADOW",
+  "claim_class": "OFFICIAL_SCHEDULE_CLAIM",
+  "schedule_authority": "SCHEDULE_NOT_ACTUAL_KICKOFF",
+  "observation_authority": "CURRENT_OBSERVATION_NOT_ORIGINAL_PUBLICATION",
+  "observation_clock": "LOCAL_CAPTURE_OBSERVATION",
+  "anchor_authority": "NO_RETROACTIVE_ANCHOR_AUTHORITY",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "predictive_skill": "PREDICTIVE_SKILL_NOT_ESTABLISHED",
+  "national_coverage": "UNKNOWN",
+  "route_selection": "PROVIDER_HOME_INSTITUTION_ROUTE_NOT_PROOF_OF_OFFICIAL_HOME_ROLE",
+  "predictions": "FROZEN_SHADOW_PREDICTIONS_UNCHANGED_NOT_REEVALUATED",
+  "outcomes": "NO_OUTCOME_EXTRACTED_SCORED_OR_USED",
+  "selection": "EXPLICIT_SIDECAR_SELECTION_ONLY_NEVER_A_DEFAULT"
+ },
+ "record_labels": {
+  "designation": "UNTRUSTED_SHADOW",
+  "claim_class": "OFFICIAL_SCHEDULE_CLAIM",
+  "schedule_authority": "SCHEDULE_NOT_ACTUAL_KICKOFF",
+  "observation_authority": "CURRENT_OBSERVATION_NOT_ORIGINAL_PUBLICATION",
+  "anchor_authority": "NO_RETROACTIVE_ANCHOR_AUTHORITY",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "predictive_skill": "PREDICTIVE_SKILL_NOT_ESTABLISHED",
+  "national_coverage": "UNKNOWN"
+ },
+ "numeric_contract": {
+  "integers": "JSON integers only; a boolean or an integral float is not an integer; no binary float appears in schedule.json, the identity document or a served row",
+  "identities": "event, team, organization and request identities are JSON strings or integers exactly as frozen; an integer, float, boolean or string in another's place is a different value and is refused",
+  "instants": "UTC instants are strings YYYY-MM-DDTHH:MM:SS.ffffffZ; local dates YYYY-MM-DD; local times HH:MM",
+  "monotonic": "journal monotonic stamps are integer nanoseconds (time.perf_counter_ns); spacing is their difference",
+  "canonical_json": "json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False) as UTF-8; schedule.json is these bytes plus one LF",
+  "raw_bodies": "raw/<sha256 of the exact body>.gz holds gzip.compress(body, mtime=0) of the exact received bytes"
+ },
+ "acquisition": {
+  "ceiling_attempts": 80,
+  "counting": "every HTTP attempt: each redirect hop, failure, error, truncated and interrupted attempt counts",
+  "method": "anonymous public GET; no credential, cookie replay, login, paid tool, archive, search API or crawl",
+  "hosts": "only the selected owner institution's official athletics host family (bare and www forms of the NCAA directory athletics host)",
+  "stop_statuses": [
+   401,
+   403,
+   429,
+   451
+  ],
+  "stop_rule": "a host family answering a stop status is stopped for the rest of the attempt (no retry, no circumvention, no resumption); other host families may continue",
+  "redirect_statuses": [
+   301,
+   302,
+   303,
+   307,
+   308
+  ],
+  "max_hops": 5,
+  "redirect_rule": "a redirect is followed only to its Location inside the same host family; a Location outside the family is recorded (REDIRECT_OUTSIDE_FAMILY_NOT_FOLLOWED) and not followed",
+  "max_body_bytes": 12582912,
+  "timeout_seconds": 60,
+  "min_spacing_ns": 2000000000,
+  "spacing_rule": "at least 2 seconds between the starts of any two attempts, measured by the monotonic clock (stricter than per host); no polling and no sleep on Retry-After",
+  "retention": "every attempt keeps its URL, hop, status, headers, body digest/length, UTC start/end and raw bytes; failed, stopped, redirected-outside, truncated, absent and ambiguous outcomes stay distinct"
+ },
+ "routes": {
+  "INITIAL_SEASON_ROUTE": "https://<host family member>/sports/football/schedule/2026 (stage 1, every event)",
+  "LINKED_SEASON_ROUTE": "an explicit same-family href found in a retained body of an earlier attempt of the same event whose path has a 'schedule' segment, a 'football' or 'm-footbl' segment and a '2026' segment (stage 2, only when no earlier document of the event qualified)",
+  "LANDING_ROUTE": "https://<directory host>/sports/football/schedule (stage 3, only when no earlier document of the event qualified)"
+ },
+ "route_order": [
+  "INITIAL_SEASON_ROUTE",
+  "LINKED_SEASON_ROUTE",
+  "LANDING_ROUTE"
+ ],
+ "decisions": [
+  "NOT_REQUESTED_HOST_STOPPED",
+  "NOT_REQUESTED_BUDGET_EXHAUSTED",
+  "REDIRECT_OUTSIDE_FAMILY_NOT_FOLLOWED",
+  "REDIRECT_LIMIT_REACHED"
+ ],
+ "request_outcomes": [
+  "RETAINED_200",
+  "FAILED_HTTP",
+  "FAILED_NO_RESPONSE",
+  "HOST_STOPPED_HTTP",
+  "TRUNCATED_BODY",
+  "REDIRECT_OUTSIDE_FAMILY_NOT_FOLLOWED",
+  "REDIRECT_LIMIT_REACHED",
+  "INTERRUPTED",
+  "NOT_REQUESTED_HOST_STOPPED",
+  "NOT_REQUESTED_BUDGET_EXHAUSTED"
+ ],
+ "structures": {
+  "SIDEARM_NUXT_SCHEDULE": {
+   "element": "the single <script id=\"__NUXT_DATA__\"> element: a devalue payload (every object member is an index into the payload array; Reactive/ShallowReactive/Ref/ShallowRef wrappers unwrapped)",
+   "season_record": "each value of pinia.schedule.schedules whose own sport.shortname is 'football'",
+   "season_binding": "the record's own season.title equals '2026'",
+   "owner_name": "the record's own school_name",
+   "records": "the record's own games list",
+   "members": {
+    "event_date": "date (local date part)",
+    "local_time": "date (time part, only when tbd is false)",
+    "time_text": "time",
+    "tba": "tbd (true)",
+    "designation": "location_indicator H/A/N",
+    "opponent": "opponent.title",
+    "facility": "facility.title",
+    "location": "location"
+   }
+  },
+  "SIDEARM_TEXT_TABLE": {
+   "element": "the <table> inside the element with id scheduleTextPage",
+   "season_binding": "the first <h1> inside that element reads '2026 Football Schedule'",
+   "header": [
+    "Date",
+    "Time",
+    "At",
+    "Opponent",
+    "Location",
+    "Tournament",
+    "Result"
+   ],
+   "owner_name": "none (owner verified by another declared structure of the same document)",
+   "records": "each <tbody> row with exactly the header's seven cells",
+   "members": {
+    "event_date": "Date cell 'Mon D (Ddd)' (year: the season for March-December, the next year for January-February; the weekday must match)",
+    "time_text": "Time cell",
+    "designation": "At cell Home/Away/Neutral",
+    "opponent": "Opponent cell",
+    "location": "Location cell before ' (', or the whole cell",
+    "facility": "Location cell text inside a final '( ... )'"
+   }
+  },
+  "WMT_SCHEDULE_LIST": {
+   "element": "every <div> whose class tokens include schedule-event-item inside the element whose class tokens include schedule__view-box--list",
+   "season_binding": "the <h1> whose class tokens include schedule-hero__title reads '2026 Football Schedule'",
+   "owner_name": "each record's element with class token schedule-event-default__name--current",
+   "records": "each such list item",
+   "members": {
+    "event_date": "the datetime attribute of its <time> with class token schedule-event-date__day (local date part)",
+    "instant": "the datetime attribute of its <time> with class token schedule-event-date__clock (explicit offset; not a statement when the date element has class token schedule-event-date--time-tba)",
+    "tba": "class token schedule-event-date--time-tba on its schedule-event-date element",
+    "designation": "class token schedule-event-date--venue-home/away/neutral",
+    "opponent": "its schedule-event-default__name element without the --current token",
+    "location": "its schedule-event-item__location text before ' / '",
+    "facility": "that text after the first ' / '"
+   }
+  }
+ },
+ "text_rule": "character references decoded, every whitespace run one space, stripped",
+ "name_rules": {
+  "normalization": "text rule, then a leading poll rank '(#N)', '#N', '#N/M' or 'No. N' removed, then casefold",
+  "owner": "a document's every own-team name statement binds the frozen provider home team (displayName, shortDisplayName or location) or the NCAA official name of the selected institution; one binding and no non-binding statement verifies the owner",
+  "opponent": "a record's own opponent equals the frozen provider away team's displayName, shortDisplayName or location; abbreviations, mascots, numeric identifiers, substrings and fuzzy matches never bind"
+ },
+ "fields": [
+  "season",
+  "opponent",
+  "event_date",
+  "designation",
+  "venue_facility",
+  "venue_location",
+  "scheduled_time"
+ ],
+ "field_states": [
+  "SUPPORTED",
+  "CONFLICTING",
+  "UNSUPPORTED"
+ ],
+ "time_states": [
+  "SUPPORTED_INSTANT",
+  "NAIVE_LOCAL_TIME_ONLY",
+  "TBA",
+  "AMBIGUOUS_TIMEZONE",
+  "CONFLICTING",
+  "UNSUPPORTED"
+ ],
+ "comparisons": [
+  "AGREES",
+  "DISAGREES",
+  "TEXT_DIFFERS",
+  "NOT_COMPARABLE"
+ ],
+ "dispositions": [
+  "RECORD_BOUND",
+  "SOURCE_NOT_RETRIEVED",
+  "NO_DECLARED_STRUCTURE",
+  "OWNER_NOT_VERIFIED",
+  "NO_RECORD_FOR_EVENT",
+  "OPPONENT_RECORD_ON_OTHER_DATE",
+  "UNBOUND_OPPONENT_ON_EVENT_DATE"
+ ],
+ "field_rules": {
+  "event_binding": "a record of a declared structure in a document with a verified owner and a 2026 season binding is bound to the event when its own opponent binds the frozen away team and its own local date is in the provider date set (the calendar dates of the provider instant at offsets -04:00 to -10:00)",
+  "occurrences": "records of the bound opponent on other dates, records on the event date naming an unbound opponent and records whose date cannot be determined are retained as occurrences, never as witnesses",
+  "field_state": "SUPPORTED when every bound witness stating the field states the same value, CONFLICTING when they differ (all values kept, never a majority vote), UNSUPPORTED when none states it",
+  "opponent": "SUPPORTED by a bound record; CONFLICTING when a bound record and a record naming an unbound opponent share the event date; with no bound record an unbound opponent name on the event date stays UNSUPPORTED (an unbindable name may be another team or the same team; never fuzzy-resolved)",
+  "event_date": "the bound witnesses' local dates; with no bound record, the bound opponent's other dates are CONFLICTING with the provider date",
+  "designation": "HOME/AWAY/NEUTRAL from the record's own designation member; the provider claim for the owner is NEUTRAL when its neutralSite is true, otherwise HOME",
+  "venue": "facility and location text from the record's own members; the facility is compared with the provider venue name (AGREES when equal after the text rule and casefold, otherwise TEXT_DIFFERS)",
+  "scheduled_time": "see TIME_RULES",
+  "season": "SUPPORTED when the bound record's structure binds football season 2026 by its own season member"
+ },
+ "time_rules": {
+  "explicit": "an ISO-8601 local date-time with an explicit offset or Z in the record's own instant member",
+  "stated_zone": "a time text whose final token is a US zone designator: generic ET/CT/PT resolved by the US daylight rule (second Sunday of March 02:00 to first Sunday of November 02:00 local) on the record's own local date; EDT/EST/CDT/CST/PDT/PST/MDT must agree with that rule's state; MST is a fixed -07:00; generic MT is ambiguous; a local time in a transition gap or fold is ambiguous",
+  "naive": "a time without offset or designator stays NAIVE_LOCAL_TIME (no zone is inferred from the campus or site)",
+  "tba": "TBA/TBD text, a Nuxt tbd flag or a WMT time-tba token is TBA; the placeholder clock is not a statement",
+  "resolution": "SUPPORTED_INSTANT when all instant statements agree and every naive local time and the instants' own local times agree; TBA when every statement is TBA; NAIVE_LOCAL_TIME_ONLY when only equal naive times exist; AMBIGUOUS_TIMEZONE when only ambiguous designators exist; CONFLICTING otherwise",
+  "authority": "a supported instant is OFFICIAL_SCHEDULE_CLAIM, never ACTUAL_KICKOFF"
+ },
+ "availability_rule": "the availability bound is the maximum response end UTC of every attempt in the journal (an interrupted attempt uses its start); before it the sidecar is refused, at or after it the same immutable evidence is served",
+ "grains": [
+  "shadow-schedule",
+  "shadow-schedule-source"
+ ],
+ "event_fields": [
+  "record_type",
+  "event_key",
+  "season",
+  "owner",
+  "opponent",
+  "provider_claims",
+  "requests",
+  "attempts",
+  "documents",
+  "disposition",
+  "disposition_reasons",
+  "fields",
+  "occurrences",
+  "labels"
+ ],
+ "source_fields": [
+  "record_type",
+  "event_key",
+  "logical",
+  "route",
+  "stage",
+  "url",
+  "outcome",
+  "hops",
+  "attempts",
+  "decision",
+  "link_source",
+  "document",
+  "labels"
+ ],
+ "top_level": [
+  "schema",
+  "population",
+  "designation",
+  "contract",
+  "shadow",
+  "acquisition",
+  "labels",
+  "events",
+  "sources",
+  "summary",
+  "counts"
+ ],
+ "families": [
+  "SCHEMA",
+  "DESIGNATION",
+  "CONTRACT",
+  "SHADOW",
+  "ACQUISITION",
+  "LABELS",
+  "EVENT_MEMBERSHIP",
+  "EVENT_RECORD",
+  "SOURCE_MEMBERSHIP",
+  "SOURCE_RECORD",
+  "SUMMARY",
+  "COUNTS",
+  "CANONICAL_FORM"
+ ],
+ "journal_schema": "BAS-OFFICIAL-SCHEDULE-ACQUISITION-JOURNAL-1",
+ "profile_fields": [
+  "schedule_identity",
+  "schedule_sha256",
+  "journal_sha256",
+  "attempts",
+  "availability_bound_utc"
+ ]
+}

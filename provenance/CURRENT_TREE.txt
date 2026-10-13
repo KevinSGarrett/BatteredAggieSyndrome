@@ -65,6 +65,7 @@ artifacts/data_lake/national_source_time_2016_2023_gate.json
 artifacts/data_lake/national_tiered_game_spine_gate.json
 artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
+artifacts/data_lake/official_shadow_schedule_20261017_gate.json
 artifacts/data_lake/prospective_provider_observation_20261011_gate.json
 artifacts/data_lake/provider_record_baseline_preview_20261011_gate.json
 artifacts/data_lake/provider_record_shadow_20261017_gate.json
@@ -906,6 +907,7 @@ configs/noaa_isd_alternate_station_recovery_contract.json
 configs/noaa_isd_game_observation_shadow_contract.json
 configs/noaa_isd_observed_coverage_pilot_contract.json
 configs/noaa_isd_station_matching_contract.json
+configs/official_shadow_schedule_20261017_contract.json
 configs/open_source_integration_registry.json
 configs/openai_assist_policy.json
 configs/openai_availability_source_triage.json
@@ -1197,6 +1199,7 @@ docs/architecture/NATIONAL_RECONCILIATION_ALIASES_SUCCESSOR.md
 docs/architecture/NATIONAL_RETROSPECTIVE_BASELINE_BENCHMARK.md
 docs/architecture/NATIONAL_SITE_EVIDENCE_SIDECAR.md
 docs/architecture/NATIONAL_TAMU_INTERFACE.md
+docs/architecture/OFFICIAL_SHADOW_SCHEDULE.md
 docs/architecture/OPENAI_ASSISTIVE_PLANE.md
 docs/architecture/OPENROUTER_ASSISTIVE_PLANE.md
 docs/architecture/PORTABLE_READONLY_SQLITE_LOCATIONS.md
@@ -4249,6 +4252,7 @@ src/aggie_analytics/retrospective_baseline/__init__.py
 src/aggie_analytics/retrospective_baseline/benchmark.py
 src/aggie_analytics/retrospective_baseline/preview.py
 src/aggie_analytics/retrospective_baseline/query.py
+src/aggie_analytics/retrospective_baseline/schedule.py
 src/aggie_analytics/retrospective_baseline/shadow.py
 src/aggie_analytics/scientific_reference/.cursor/BUGBOT.md
 src/aggie_analytics/scientific_reference/__init__.py
@@ -4335,6 +4339,7 @@ tests/national_history_fixture.py
 tests/national_reconciliation_aliases_fixture.py
 tests/national_site_evidence_fixture.py
 tests/national_source_time_fixture.py
+tests/official_shadow_schedule_fixture.py
 tests/prospective_provider_observation_fixture.py
 tests/provider_record_baseline_preview_fixture.py
 tests/provider_record_shadow_fixture.py
@@ -4615,6 +4620,7 @@ tests/test_noaa_isd_game_observation_shadow.py
 tests/test_noaa_isd_observed_coverage_pilot.py
 tests/test_noaa_isd_station_matching.py
 tests/test_normalized_review_gate.py
+tests/test_official_shadow_schedule.py
 tests/test_offline_reconstruction_guard.py
 tests/test_open_source_adapters.py
 tests/test_open_source_integration_registry.py
@@ -4915,6 +4921,7 @@ tools/build_noaa_gfs_multigame_selection.py
 tools/build_noaa_isd_alternate_station_recovery.py
 tools/build_noaa_isd_game_observation_shadow.py
 tools/build_noaa_isd_station_matching.py
+tools/build_official_shadow_schedule.py
 tools/build_peer_and_tamu_residual_stability.py
 tools/build_post2022_roster_candidate.py
 tools/build_preliminary_possession_pace.py

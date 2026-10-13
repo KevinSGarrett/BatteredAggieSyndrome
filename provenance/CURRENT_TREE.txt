@@ -908,6 +908,7 @@ configs/noaa_isd_game_observation_shadow_contract.json
 configs/noaa_isd_observed_coverage_pilot_contract.json
 configs/noaa_isd_station_matching_contract.json
 configs/official_shadow_schedule_20261017_contract.json
+configs/official_shadow_schedule_expansion_20261017_contract.json
 configs/open_source_integration_registry.json
 configs/openai_assist_policy.json
 configs/openai_availability_source_triage.json
@@ -1200,6 +1201,7 @@ docs/architecture/NATIONAL_RETROSPECTIVE_BASELINE_BENCHMARK.md
 docs/architecture/NATIONAL_SITE_EVIDENCE_SIDECAR.md
 docs/architecture/NATIONAL_TAMU_INTERFACE.md
 docs/architecture/OFFICIAL_SHADOW_SCHEDULE.md
+docs/architecture/OFFICIAL_SHADOW_SCHEDULE_EXPANSION.md
 docs/architecture/OPENAI_ASSISTIVE_PLANE.md
 docs/architecture/OPENROUTER_ASSISTIVE_PLANE.md
 docs/architecture/PORTABLE_READONLY_SQLITE_LOCATIONS.md
@@ -4253,6 +4255,7 @@ src/aggie_analytics/retrospective_baseline/benchmark.py
 src/aggie_analytics/retrospective_baseline/preview.py
 src/aggie_analytics/retrospective_baseline/query.py
 src/aggie_analytics/retrospective_baseline/schedule.py
+src/aggie_analytics/retrospective_baseline/schedule_expansion.py
 src/aggie_analytics/retrospective_baseline/shadow.py
 src/aggie_analytics/scientific_reference/.cursor/BUGBOT.md
 src/aggie_analytics/scientific_reference/__init__.py
@@ -4339,6 +4342,7 @@ tests/national_history_fixture.py
 tests/national_reconciliation_aliases_fixture.py
 tests/national_site_evidence_fixture.py
 tests/national_source_time_fixture.py
+tests/official_shadow_schedule_expansion_fixture.py
 tests/official_shadow_schedule_fixture.py
 tests/prospective_provider_observation_fixture.py
 tests/provider_record_baseline_preview_fixture.py
@@ -4621,6 +4625,7 @@ tests/test_noaa_isd_observed_coverage_pilot.py
 tests/test_noaa_isd_station_matching.py
 tests/test_normalized_review_gate.py
 tests/test_official_shadow_schedule.py
+tests/test_official_shadow_schedule_expansion.py
 tests/test_offline_reconstruction_guard.py
 tests/test_open_source_adapters.py
 tests/test_open_source_integration_registry.py

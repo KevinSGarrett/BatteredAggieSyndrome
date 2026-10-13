@@ -1,0 +1,835 @@
+{
+ "contract_id": "BAT-727-OFFICIAL-SHADOW-SCHEDULE-EXPANSION-20261017-V2",
+ "population_id": "official_shadow_schedule_expansion_20261017",
+ "version": "2.0.0",
+ "issue": "BAT-727",
+ "cycle_number": 55,
+ "attempt_number": 1,
+ "authority": {
+  "plan": "TP55-A01 revision 2026-10-13.1 sections 1-6",
+  "plan_sha256": "68c320ec5b94f9095be40c6221e3cf2d6b5ec00b05c27aea345e76025357ba45",
+  "issued_contract_sha256": "1822122bdef2bb0965211b0d05982e48e5dda3d9dd11373b637fe8bec0990dd9",
+  "grant": "CREATE_ONLY_OFFICIAL_SCHEDULE_EVIDENCE (explicit immutable successor); SOURCE_ACQUISITION = 0"
+ },
+ "purpose": "Private immutable explicitly selected successor to the accepted BAT-726 official schedule evidence for all 25 events of the accepted BAT-725 October 17 UNTRUSTED_SHADOW snapshot, re-qualified from the retained Cycle 54 capture only (zero source requests) under this separately frozen and disclosed policy; served only through the explicit --schedule-evidence option of the existing baseline query together with --prospective-shadow. Evidence only: no outcome, scoring, fitting, prediction change, actual kickoff, PIT admission or skill claim; V1, its policy and every default stay unchanged.",
+ "policy_frozen_utc": "2026-10-13T04:34:48.093870Z",
+ "policy": {
+  "authored": "authored after a disclosed inspection of the retained pages (the worker's disclosed dev inspection of every retained Cycle 54 page (titles, og:site_name, Sidearm Nuxt site settings and season records, WMT view trees, the classic SIDEARM schedule object and JSON-LD; C:\\BatteredAggieSyndrome.validation\\c55a01\\dev\\inspect) and the manager's RETAINED_SOURCE_INSPECTION.json (sha256 78bfbdbdacbb60c2ac756e2c51fcd42623478f2b8bb9e2f12e77cbff287d40b0) and SOURCE_AND_CONSUMER_PREFLIGHT.json (sha256 5ee09d7037a488daa508061d07768b9d0691162d7df1aa4a40218a4b6b13c1ec)); frozen in this committed contract at policy_frozen_utc before any successor decision was derived from the retained pages; the original V1 policy is not rewritten and its decisions keep their original times; a later material policy change needs its own successor contract",
+  "draft": false
+ },
+ "predecessor": {
+  "population": "official_shadow_schedule_20261017",
+  "identity": "a99d70767971b653261c921f57422cc19a749ec53a7ee3ccc8c9c9d5e1c5663e",
+  "schedule_sha256": "67d739b0b5a367fe82e16e8646f30ebc02628b748c54f2c6ccd039913a98dbe1",
+  "contract_id": "BAT-726-OFFICIAL-SHADOW-SCHEDULE-20261017-V1",
+  "contract_sha256": "ac521dc513f39ec247cc88324420c02fae3f3140874ef8de5bfe8ea518dd35e2",
+  "journal_sha256": "3b880021a1af938426c15d14bfdfd45221855f96f5b92bc12f54a825b3c2c9c7",
+  "attempts": 46,
+  "availability_bound_utc": "2026-10-12T18:33:49.597278Z"
+ },
+ "shadow": {
+  "population": "provider_record_shadow_20261017",
+  "identity": "174f08610d5ab9a1f49a7c8e67b8a3540ebc0b7dece68e5988d677aa20faaf3e",
+  "snapshot_sha256": "d5169fdd72b44bfc577178aa4243cbce3466695c8c638964bed95164dc360a4f",
+  "payload_sha256": "fe4c96bcb7f010bf5c10a308cfd26963a58513a7715a8b84dbff0661af047bcb",
+  "contract_sha256": "2bbc6aa915169654b9dc7327c42f87306e0e0f137243b1852cc881cee0998d5c"
+ },
+ "expected": {
+  "source": "the committed V1 contract cohort (EXPECTED_SCHEDULE_COHORT.json sha256 532ea1533b55c52da3f550488660b72359bd773a7799af448d7833fb33227688); the verified V1 events must equal it",
+  "events": [
+   {
+    "event_key": "espn:event:401856719",
+    "ncaa_org_id": 257,
+    "official_name": "University of Georgia",
+    "directory_host": "www.georgiadogs.com"
+   },
+   {
+    "event_key": "espn:event:401856720",
+    "ncaa_org_id": 365,
+    "official_name": "Louisiana State University",
+    "directory_host": "www.lsusports.net"
+   },
+   {
+    "event_key": "espn:event:401856721",
+    "ncaa_org_id": 433,
+    "official_name": "University of Mississippi",
+    "directory_host": "www.olemisssports.com"
+   },
+   {
+    "event_key": "espn:event:401856723",
+    "ncaa_org_id": 694,
+    "official_name": "University of Tennessee, Knoxville",
+    "directory_host": "www.utsports.com"
+   },
+   {
+    "event_key": "espn:event:401856724",
+    "ncaa_org_id": 703,
+    "official_name": "University of Texas at Austin",
+    "directory_host": "www.texaslonghorns.com"
+   },
+   {
+    "event_key": "espn:event:401856725",
+    "ncaa_org_id": 697,
+    "official_name": "Texas A&M University, College Station",
+    "directory_host": "www.12thman.com"
+   },
+   {
+    "event_key": "espn:event:401856828",
+    "ncaa_org_id": 700,
+    "official_name": "Texas Tech University",
+    "directory_host": "www.texastech.com"
+   },
+   {
+    "event_key": "espn:event:401856829",
+    "ncaa_org_id": 768,
+    "official_name": "West Virginia University",
+    "directory_host": "www.wvusports.com"
+   },
+   {
+    "event_key": "espn:event:401856830",
+    "ncaa_org_id": 327,
+    "official_name": "Kansas State University",
+    "directory_host": "www.kstatesports.com"
+   },
+   {
+    "event_key": "espn:event:401858261",
+    "ncaa_org_id": 147,
+    "official_name": "Clemson University",
+    "directory_host": "clemsontigers.com"
+   },
+   {
+    "event_key": "espn:event:401858264",
+    "ncaa_org_id": 742,
+    "official_name": "Virginia Polytechnic Institute and State University",
+    "directory_host": "www.hokiesports.com"
+   },
+   {
+    "event_key": "espn:event:401858266",
+    "ncaa_org_id": 193,
+    "official_name": "Duke University",
+    "directory_host": "www.goduke.com"
+   },
+   {
+    "event_key": "espn:event:401858267",
+    "ncaa_org_id": 67,
+    "official_name": "Boston College",
+    "directory_host": "www.bceagles.com"
+   },
+   {
+    "event_key": "espn:event:401858268",
+    "ncaa_org_id": 663,
+    "official_name": "Southern Methodist University",
+    "directory_host": "www.smumustangs.com"
+   },
+   {
+    "event_key": "espn:event:401858488",
+    "ncaa_org_id": 306,
+    "official_name": "Indiana University, Bloomington",
+    "directory_host": "www.iuhoosiers.com"
+   },
+   {
+    "event_key": "espn:event:401858489",
+    "ncaa_org_id": 392,
+    "official_name": "University of Maryland, College Park",
+    "directory_host": "www.umterps.com"
+   },
+   {
+    "event_key": "espn:event:401858490",
+    "ncaa_org_id": 418,
+    "official_name": "University of Michigan",
+    "directory_host": "www.mgoblue.com"
+   },
+   {
+    "event_key": "espn:event:401858491",
+    "ncaa_org_id": 416,
+    "official_name": "Michigan State University",
+    "directory_host": "msuspartans.com"
+   },
+   {
+    "event_key": "espn:event:401862802",
+    "ncaa_org_id": 725,
+    "official_name": "U.S. Military Academy",
+    "directory_host": "goarmywestpoint.com"
+   },
+   {
+    "event_key": "espn:event:401862803",
+    "ncaa_org_id": 690,
+    "official_name": "Temple University",
+    "directory_host": "www.owlsports.com"
+   },
+   {
+    "event_key": "espn:event:401864522",
+    "ncaa_org_id": 811,
+    "official_name": "University of Wyoming",
+    "directory_host": "www.gowyo.com"
+   },
+   {
+    "event_key": "espn:event:401866441",
+    "ncaa_org_id": 71,
+    "official_name": "Bowling Green State University",
+    "directory_host": "www.bgsufalcons.com"
+   },
+   {
+    "event_key": "espn:event:401866442",
+    "ncaa_org_id": 86,
+    "official_name": "University at Buffalo, the State University of New York",
+    "directory_host": "www.ubbulls.com"
+   },
+   {
+    "event_key": "espn:event:401866443",
+    "ncaa_org_id": 129,
+    "official_name": "Central Michigan University",
+    "directory_host": "www.cmuchippewas.com"
+   },
+   {
+    "event_key": "espn:event:401869957",
+    "ncaa_org_id": 317,
+    "official_name": "James Madison University",
+    "directory_host": "www.jmusports.com"
+   }
+  ],
+  "expected_events": 25
+ },
+ "institution_decisions": [
+  {
+   "id": "TEXAS_TECH_ATHLETICS_OWNER_NAME",
+   "ncaa_org_id": 700,
+   "official_name": "Texas Tech University",
+   "directory_host": "www.texastech.com",
+   "kind": "OWNER_STATEMENT",
+   "owner_statements": [
+    {
+     "member": "school_name",
+     "value": "Texas Tech Athletics",
+     "basis": "PROVIDER_LOCATION_PLUS_ATHLETICS"
+    }
+   ],
+   "identity_members": [
+    {
+     "member": "siteSettings.siteName",
+     "value": "Texas Tech Red Raiders",
+     "basis": "PROVIDER_DISPLAY_NAME"
+    },
+    {
+     "member": "siteSettings.mascotPlural",
+     "value": "Red Raiders",
+     "basis": "PROVIDER_TEAM_NAME"
+    },
+    {
+     "member": "og:site_name",
+     "value": "Texas Tech Red Raiders",
+     "basis": "PROVIDER_DISPLAY_NAME"
+    }
+   ],
+   "witness_documents": [
+    "d2410cb5c2d6bf20e6ddf45dc8d0860678b1c6f49e4b6e22adcedf415114bfd2",
+    "f8910c1a01d23266be7dbcfb6da5080a6ac5f41d5ebc12974fd1bfcad93f1cf6"
+   ],
+   "alternatives_examined": "the school_name 'Texas Tech Athletics' is the athletics department name of the provider location 'Texas Tech'; no other directory institution shares the host family texastech.com or the site name 'Texas Tech Red Raiders' (the provider displayName); the NCAA official name 'Texas Tech University' is not stated on the page",
+   "rationale": "TP55 readiness example: the season record's owner name is the athletics brand, and the same Nuxt payload's site name and mascot equal the frozen provider displayName and team name"
+  },
+  {
+   "id": "BOSTON_COLLEGE_TRUNCATED_OWNER_NAME",
+   "ncaa_org_id": 67,
+   "official_name": "Boston College",
+   "directory_host": "www.bceagles.com",
+   "kind": "OWNER_STATEMENT",
+   "owner_statements": [
+    {
+     "member": "school_name",
+     "value": "Boston",
+     "basis": "OFFICIAL_NAME_WITHOUT_FINAL_WORD"
+    }
+   ],
+   "identity_members": [
+    {
+     "member": "siteSettings.siteName",
+     "value": "Boston College Athletics",
+     "basis": "OFFICIAL_NAME_PLUS_ATHLETICS"
+    },
+    {
+     "member": "siteSettings.mascotPlural",
+     "value": "Eagles",
+     "basis": "PROVIDER_TEAM_NAME"
+    },
+    {
+     "member": "og:site_name",
+     "value": "Boston College Athletics",
+     "basis": "OFFICIAL_NAME_PLUS_ATHLETICS"
+    }
+   ],
+   "witness_documents": [
+    "44311c4c4075359a90ba7be677999f0dd811ff5f811965a90abd8db44ec259ec",
+    "82e49c65b4393b25d79204f421c1accc566de34030d4196af690410a8e81eeca"
+   ],
+   "alternatives_examined": "'Boston' alone cannot distinguish Boston College from Boston University (not a row of the 671-row football directory) or any other Boston institution; it binds only with the same document's site name naming the NCAA official name 'Boston College' and the provider team name 'Eagles', on the directory host family bceagles.com",
+   "rationale": "the Sidearm short school name drops the final word of the official name; the documented identity is the same payload's structured site name and mascot"
+  },
+  {
+   "id": "ARMY_WEST_POINT_BRAND_OWNER_NAME",
+   "ncaa_org_id": 725,
+   "official_name": "U.S. Military Academy",
+   "directory_host": "goarmywestpoint.com",
+   "kind": "OWNER_STATEMENT",
+   "owner_statements": [
+    {
+     "member": "school_name",
+     "value": "Army West Point",
+     "basis": "DIRECTORY_ATHLETICS_HOST_BRAND"
+    }
+   ],
+   "identity_members": [
+    {
+     "member": "siteSettings.siteName",
+     "value": "Army West Point",
+     "basis": "DIRECTORY_ATHLETICS_HOST_BRAND"
+    },
+    {
+     "member": "siteSettings.mascotPlural",
+     "value": "Black Knights",
+     "basis": "PROVIDER_TEAM_NAME"
+    },
+    {
+     "member": "og:site_name",
+     "value": "Army West Point",
+     "basis": "DIRECTORY_ATHLETICS_HOST_BRAND"
+    }
+   ],
+   "witness_documents": [
+    "813468cee8cc3acd0d9642b054000bff491b55d1b4cbc3b923ac44d418546e5d",
+    "fd49eea03b1c8ef6666feaf1c6ad5dc8e111880ba78a1b4ec8596a70f1a23d0a",
+    "a883cafffd00d1d186fcc023e707ac49df474e1213d444bba0a47234eb250fec"
+   ],
+   "alternatives_examined": "'Army West Point' is not the NCAA official name 'U.S. Military Academy' nor a provider name; it is the athletics brand spelled by the directory athletics host goarmywestpoint.com of that institution (its institution site is westpoint.edu), its first word is the provider location 'Army' and the mascot equals the provider team name 'Black Knights'; the other military directory row (Virginia Military Institute, vmikeydets.com) shares none of these",
+   "rationale": "TP55 requires an exact source-bound Army/Army West Point decision, never abbreviation or ID equality"
+  },
+  {
+   "id": "BOWLING_GREEN_STATE_TRUNCATED_OWNER_NAME",
+   "ncaa_org_id": 71,
+   "official_name": "Bowling Green State University",
+   "directory_host": "www.bgsufalcons.com",
+   "kind": "OWNER_STATEMENT",
+   "owner_statements": [
+    {
+     "member": "school_name",
+     "value": "Bowling Green State",
+     "basis": "OFFICIAL_NAME_WITHOUT_FINAL_WORD"
+    }
+   ],
+   "identity_members": [
+    {
+     "member": "siteSettings.siteName",
+     "value": "Bowling Green State University Athletics",
+     "basis": "OFFICIAL_NAME_PLUS_ATHLETICS"
+    },
+    {
+     "member": "siteSettings.mascotPlural",
+     "value": "Falcons",
+     "basis": "PROVIDER_TEAM_NAME"
+    },
+    {
+     "member": "og:site_name",
+     "value": "Bowling Green State University Athletics",
+     "basis": "OFFICIAL_NAME_PLUS_ATHLETICS"
+    }
+   ],
+   "witness_documents": [
+    "48b3063667421433488e22a7a591d3cbe5e5d830d13131177e822985f1f32fb3",
+    "92704b2418ce72d066f98b7c5f387272286d64ce764cdb4614c351f7520bf291"
+   ],
+   "alternatives_examined": "'Bowling Green State' is the official name without its final word 'University'; the provider names say 'Bowling Green'; the same payload's site name is the NCAA official name plus ' Athletics' and its mascot the provider team name 'Falcons'",
+   "rationale": "TP55 requires an exact source-bound Bowling Green/Bowling Green State decision"
+  },
+  {
+   "id": "UNIVERSITY_AT_BUFFALO_TRUNCATED_OWNER_NAME",
+   "ncaa_org_id": 86,
+   "official_name": "University at Buffalo, the State University of New York",
+   "directory_host": "www.ubbulls.com",
+   "kind": "OWNER_STATEMENT",
+   "owner_statements": [
+    {
+     "member": "school_name",
+     "value": "at Buffalo",
+     "basis": "OFFICIAL_LEADING_CLAUSE_WITHOUT_FIRST_WORD"
+    }
+   ],
+   "identity_members": [
+    {
+     "member": "siteSettings.siteName",
+     "value": "University at Buffalo",
+     "basis": "OFFICIAL_LEADING_CLAUSE"
+    },
+    {
+     "member": "og:site_name",
+     "value": "University at Buffalo",
+     "basis": "OFFICIAL_LEADING_CLAUSE"
+    }
+   ],
+   "witness_documents": [
+    "7aac22aa8c2ae90e447c6a9df871807d71bb14915001e5cb259c05f8e03abbaa",
+    "88f2e5dbd1b7a9f63fa42329094796a09e4bfc716744eb5bf2f2af6e66f3a331"
+   ],
+   "alternatives_examined": "'at Buffalo' is never bound by stripping 'at': it is the official name's leading clause 'University at Buffalo' without its first word, and binds only with the same payload's site name equal to that clause; Buffalo State, State University of New York (directory org 85, buffalostateathletics.com, Division III) has another name and host; the page's mascot member is empty and is not used",
+   "rationale": "TP55: 'at Buffalo' requires the documented University-at-Buffalo identity"
+  },
+  {
+   "id": "LSU_PAGE_IDENTITY",
+   "ncaa_org_id": 365,
+   "official_name": "Louisiana State University",
+   "directory_host": "www.lsusports.net",
+   "kind": "PAGE_IDENTITY",
+   "owner_statements": [],
+   "identity_members": [
+    {
+     "member": "og:site_name",
+     "value": "LSUsports.net - The Official Website of LSU Athletics",
+     "basis": "PROVIDER_LOCATION_OFFICIAL_WEBSITE_TITLE"
+    }
+   ],
+   "witness_documents": [
+    "e7137904774e996449703326a330c807c76943450832416e880bdc89357fb0d5"
+   ],
+   "alternatives_examined": "the WMT default-event records state no owner name (the current-team element holds only a ranking and a hashed logo label); the page's own site name names 'LSU' (the provider location) on the directory host lsusports.net; no other institution shares that host",
+   "rationale": "a logo-only WMT layout: the page identity establishes who owns the schedule, never a field"
+  },
+  {
+   "id": "CLEMSON_PAGE_IDENTITY",
+   "ncaa_org_id": 147,
+   "official_name": "Clemson University",
+   "directory_host": "clemsontigers.com",
+   "kind": "PAGE_IDENTITY",
+   "owner_statements": [],
+   "identity_members": [
+    {
+     "member": "og:site_name",
+     "value": "Clemson University Athletics",
+     "basis": "OFFICIAL_NAME_PLUS_ATHLETICS"
+    }
+   ],
+   "witness_documents": [
+    "b1503a2ecb0f4fb16f1a8b909f6eee8d3d9e21b1fe3b866a4a0d0dff3f6508a7"
+   ],
+   "alternatives_examined": "the WMT team-default records name only the opponent (both teams are logos); the page's own site name is the NCAA official name plus ' Athletics' on the directory host clemsontigers.com",
+   "rationale": "a logo-only WMT layout: the page identity establishes who owns the schedule, never a field"
+  },
+  {
+   "id": "VIRGINIA_TECH_PAGE_IDENTITY",
+   "ncaa_org_id": 742,
+   "official_name": "Virginia Polytechnic Institute and State University",
+   "directory_host": "www.hokiesports.com",
+   "kind": "PAGE_IDENTITY",
+   "owner_statements": [],
+   "identity_members": [
+    {
+     "member": "og:site_name",
+     "value": "Virginia Tech Athletics",
+     "basis": "PROVIDER_LOCATION_PLUS_ATHLETICS"
+    }
+   ],
+   "witness_documents": [
+    "17402a09314a2733c4c26dc84ebfc3695eb33ff7c437d659886a703eb69e55ea"
+   ],
+   "alternatives_examined": "the WMT event-block records name only the opponent; the page's own site name is the provider location 'Virginia Tech' plus ' Athletics' on the directory host hokiesports.com; the NCAA official name is not stated on the page",
+   "rationale": "a logo-only WMT layout: the page identity establishes who owns the schedule, never a field"
+  }
+ ],
+ "sidecar": {
+  "canonical_root": "canonical/official_shadow_schedule_expansion_20261017/sha256/<identity>",
+  "manifest_root": "manifests/official_shadow_schedule_expansion_20261017/sha256/<identity>/run_manifest.json",
+  "schedule_file": "schedule.json",
+  "contract_member": "inputs/contract.json",
+  "predecessor_members": "predecessor/<V1 identity>/<every V1 sidecar file, byte for byte>",
+  "identity_schema": "BAS-OFFICIAL-SHADOW-SCHEDULE-EXPANSION-IDENTITY-1",
+  "identity": "sha256 of the canonical identity document {schema, population, contract_id, contract_sha256, predecessor_identity, shadow_identity, policy_frozen_utc, schedule_file, schedule_sha256, bundle}",
+  "create_only": "staged then renamed once; an existing identity is ALREADY_PRESENT_IDENTICAL or refused; nothing is overwritten, deleted or activated",
+  "profile_gate": "artifacts/data_lake/official_shadow_schedule_expansion_20261017_gate.json, committed after materialization, pins the actual successor profile"
+ },
+ "labels": {
+  "designation": "UNTRUSTED_SHADOW",
+  "claim_class": "OFFICIAL_SCHEDULE_CLAIM",
+  "schedule_authority": "SCHEDULE_NOT_ACTUAL_KICKOFF",
+  "observation_authority": "CURRENT_OBSERVATION_NOT_ORIGINAL_PUBLICATION",
+  "observation_clock": "LOCAL_CAPTURE_OBSERVATION",
+  "anchor_authority": "NO_RETROACTIVE_ANCHOR_AUTHORITY",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "predictive_skill": "PREDICTIVE_SKILL_NOT_ESTABLISHED",
+  "national_coverage": "UNKNOWN",
+  "route_selection": "PROVIDER_HOME_INSTITUTION_ROUTE_NOT_PROOF_OF_OFFICIAL_HOME_ROLE",
+  "predictions": "FROZEN_SHADOW_PREDICTIONS_UNCHANGED_NOT_REEVALUATED",
+  "outcomes": "NO_OUTCOME_EXTRACTED_SCORED_OR_USED",
+  "selection": "EXPLICIT_SIDECAR_SELECTION_ONLY_NEVER_A_DEFAULT",
+  "policy_authority": "SUCCESSOR_POLICY_NOT_ORIGINAL_INTERPRETATION",
+  "policy_timing": "POLICY_FROZEN_AFTER_ORIGINAL_CAPTURE_NOT_RETROACTIVE",
+  "acquisition_authority": "RETAINED_CYCLE54_CAPTURE_ZERO_NEW_REQUESTS",
+  "predecessor": "ORIGINAL_V1_EVIDENCE_PRESERVED_AND_REVERIFIED_UNCHANGED"
+ },
+ "record_labels": {
+  "designation": "UNTRUSTED_SHADOW",
+  "claim_class": "OFFICIAL_SCHEDULE_CLAIM",
+  "schedule_authority": "SCHEDULE_NOT_ACTUAL_KICKOFF",
+  "observation_authority": "CURRENT_OBSERVATION_NOT_ORIGINAL_PUBLICATION",
+  "anchor_authority": "NO_RETROACTIVE_ANCHOR_AUTHORITY",
+  "pit_admission": "PIT_NOT_ADMITTED",
+  "predictive_skill": "PREDICTIVE_SKILL_NOT_ESTABLISHED",
+  "national_coverage": "UNKNOWN",
+  "policy_authority": "SUCCESSOR_POLICY_NOT_ORIGINAL_INTERPRETATION"
+ },
+ "numeric_contract": {
+  "integers": "JSON integers only; a boolean or an integral float is not an integer; no binary float appears in schedule.json, the identity document or a served row",
+  "identities": "event, team, organization and request identities are JSON strings or integers exactly as frozen; an integer, float, boolean or string in another's place is a different value and is refused",
+  "instants": "UTC instants are strings YYYY-MM-DDTHH:MM:SS.ffffffZ; local dates YYYY-MM-DD; local times HH:MM",
+  "monotonic": "journal monotonic stamps are integer nanoseconds (time.perf_counter_ns); spacing is their difference",
+  "canonical_json": "json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False) as UTF-8; schedule.json is these bytes plus one LF",
+  "raw_bodies": "raw/<sha256 of the exact body>.gz holds gzip.compress(body, mtime=0) of the exact received bytes",
+  "policy_time": "policy_frozen_utc is a string YYYY-MM-DDTHH:MM:SS.ffffffZ frozen in the contract; rebuilds reuse it and never read the current clock"
+ },
+ "structures": {
+  "SIDEARM_NUXT_SCHEDULE": {
+   "element": "the single <script id=\"__NUXT_DATA__\"> element: a devalue payload (every object member is an index into the payload array; Reactive/ShallowReactive/Ref/ShallowRef wrappers unwrapped)",
+   "season_record": "each value of pinia.schedule.schedules whose own sport.shortname is 'football'",
+   "season_binding": "the record's own season.title equals '2026'",
+   "owner_name": "the record's own school_name",
+   "records": "the record's own games list",
+   "members": {
+    "event_date": "date (local date part)",
+    "local_time": "date (time part, only when tbd is false)",
+    "time_text": "time",
+    "tba": "tbd (true)",
+    "designation": "location_indicator H/A/N",
+    "opponent": "opponent.title",
+    "facility": "facility.title",
+    "location": "location"
+   }
+  },
+  "SIDEARM_TEXT_TABLE": {
+   "element": "the <table> inside the element with id scheduleTextPage",
+   "season_binding": "the first <h1> inside that element reads '2026 Football Schedule'",
+   "header": [
+    "Date",
+    "Time",
+    "At",
+    "Opponent",
+    "Location",
+    "Tournament",
+    "Result"
+   ],
+   "owner_name": "none (owner verified by another declared structure of the same document)",
+   "records": "each <tbody> row with exactly the header's seven cells",
+   "members": {
+    "event_date": "Date cell 'Mon D (Ddd)' (year: the season for March-December, the next year for January-February; the weekday must match)",
+    "time_text": "Time cell",
+    "designation": "At cell Home/Away/Neutral",
+    "opponent": "Opponent cell",
+    "location": "Location cell before ' (', or the whole cell",
+    "facility": "Location cell text inside a final '( ... )'"
+   }
+  },
+  "WMT_SCHEDULE_LIST": {
+   "element": "every <div> whose class tokens include schedule-event-item inside the element whose class tokens include schedule__view-box--list",
+   "season_binding": "the <h1> whose class tokens include schedule-hero__title reads '2026 Football Schedule'",
+   "owner_name": "each record's element with class token schedule-event-default__name--current",
+   "records": "each such list item",
+   "members": {
+    "event_date": "the datetime attribute of its <time> with class token schedule-event-date__day (local date part)",
+    "instant": "the datetime attribute of its <time> with class token schedule-event-date__clock (explicit offset; not a statement when the date element has class token schedule-event-date--time-tba)",
+    "tba": "class token schedule-event-date--time-tba on its schedule-event-date element",
+    "designation": "class token schedule-event-date--venue-home/away/neutral",
+    "opponent": "its schedule-event-default__name element without the --current token",
+    "location": "its schedule-event-item__location text before ' / '",
+    "facility": "that text after the first ' / '"
+   }
+  },
+  "SIDEARM_CLASSIC_SCHEDULE_DATA": {
+   "element": "the JSON object literal assigned to the member schedule (``schedule : {``) inside an inline <script> that registers the Vue component 'vue-schedules' (the classic SIDEARM schedule template); parsed strictly from its opening brace to its matching close",
+   "season_binding": "the object's own season.title equals '2026' and its own sport.shortname equals 'football'",
+   "owner_name": "the object's own school_name",
+   "records": "the object's own games list",
+   "members": {
+    "event_date": "date (local date part)",
+    "local_time": "date (time part)",
+    "time_text": "time",
+    "designation": "location_indicator H/A/N",
+    "opponent": "opponent.title",
+    "facility": "facility.title",
+    "location": "location"
+   }
+  },
+  "WMT_DEFAULT_EVENT_VIEW": {
+   "element": "every <div> with class token schedule-event-item and every <tr> with class token schedule-table-event that contains an element with class token schedule-default-event",
+   "season_binding": "the page's <h1> with class token schedule-hero__title or schedule-hero-block__title reads a declared season heading (SEASON_HEADINGS)",
+   "owner_name": "none: the record's owner side is its schedule-default-event__team--current element, which states no name (the owner is verified only by a page-identity decision)",
+   "records": "each such element (both views)",
+   "members": {
+    "event_date": "the texts of its <time> schedule-event-date__weekday ('Ddd') and schedule-event-date__month-day ('Mon D'); year by the season-year rule; the weekday must match",
+    "opponent": "its schedule-default-event__name text without its schedule-default-event__divider-mobile and schedule-default-event__ranking descendants",
+    "designation": "AWAY only when its schedule-default-event__divider reads 'at'; 'vs.' does not distinguish HOME from NEUTRAL and states no designation",
+    "location": "its schedule-event-location text before a final '( ... )'",
+    "facility": "the text inside that final '( ... )'",
+    "time_text": "its schedule-event-item-result__label text only when it reads as a time or TBA"
+   }
+  },
+  "WMT_TEAM_DEFAULT_VIEW": {
+   "element": "every <div> with class token schedule-event-item and every <tr> with class token schedule-table-item that contains a schedule-event-team-default element and no schedule-event-default__name--current element",
+   "season_binding": "the page's <h1> with class token schedule-hero__title or schedule-hero-block__title reads a declared season heading (SEASON_HEADINGS)",
+   "owner_name": "none: logo-only team components (the owner is verified only by a page-identity decision)",
+   "records": "each such element (both views)",
+   "members": {
+    "event_date": "the text of the <time> inside its schedule-event-date__time ('Ddd, Mon D'); year by the season-year rule; the weekday must match",
+    "designation": "its schedule-event-date__venue-type text home/away/neutral",
+    "opponent": "its schedule-event-default__name text",
+    "location": "its schedule-event-location text before ' / '",
+    "facility": "that text after the first ' / '",
+    "time_text": "its schedule-event-item-result__label text only when it reads as a time or TBA"
+   }
+  },
+  "WMT_EVENT_BLOCK_VIEW": {
+   "element": "every <div> with class token schedule-event-block and every <tr> with class token schedule-item-table",
+   "season_binding": "the page's <h1> with class token schedule-hero__title or schedule-hero-block__title reads a declared season heading (SEASON_HEADINGS)",
+   "owner_name": "none: the record names only the opponent (the owner is verified only by a page-identity decision)",
+   "records": "each such element (both views)",
+   "members": {
+    "event_date": "the datetime attribute of its <time> schedule-event-date__day (local date part only; its clock is a placeholder for TBA events and states no time)",
+    "designation": "class token schedule-event-date--venue-home/away/neutral on its schedule-event-date element",
+    "opponent": "its schedule-default-team__opponent-name text",
+    "facility": "its schedule-default-team__venue text",
+    "location": "its schedule-event-location text before ' / '",
+    "time_text": "its schedule-event-item-result__label text only when it reads as a time or TBA"
+   }
+  }
+ },
+ "new_structures": [
+  "SIDEARM_CLASSIC_SCHEDULE_DATA",
+  "WMT_DEFAULT_EVENT_VIEW",
+  "WMT_TEAM_DEFAULT_VIEW",
+  "WMT_EVENT_BLOCK_VIEW"
+ ],
+ "season_headings": {
+  "2026 Football Schedule": {
+   "season_label": "2026",
+   "rule": "the heading names football season 2026"
+  },
+  "2026-27 Football Schedule": {
+   "season_label": "2026-27",
+   "rule": "a 2026-27 label denotes football season 2026 (its first calendar year) and binds only records with a complete own date (month, day and matching weekday) resolved by the season-year rule"
+  },
+  "Football 2026 Schedule Schedule": {
+   "season_label": "2026",
+   "rule": "the retained heading text exactly as published (a repeated word); names football season 2026"
+  }
+ },
+ "season_year_rule": "a month-day text without a year takes the season year for March-December and the next year for January-February; the stated weekday must equal that date's weekday, otherwise no date",
+ "text_rule": "character references decoded, every whitespace run one space, stripped",
+ "name_rules": {
+  "normalization": "text rule, then a leading poll rank '(#N)', '#N', '#N/M' or 'No. N' removed, then casefold",
+  "owner": "a document's every own-team name statement binds the frozen provider home team (displayName, shortDisplayName or location) or the NCAA official name of the selected institution; one binding and no non-binding statement verifies the owner",
+  "opponent": "a record's own opponent equals the frozen provider away team's displayName, shortDisplayName or location; abbreviations, mascots, numeric identifiers, substrings and fuzzy matches never bind",
+  "opponent_annotation": "in the opponent field only, after the leading poll rank: a final separately delimited ' (<annotation>)' whose text is exactly a known event annotation (KNOWN_EVENT_ANNOTATIONS) is removed, and only when the remaining exact name binds the event's own provider opponent; unknown parentheticals are never removed; the original string and every transformation are kept with the witness"
+ },
+ "known_event_annotations": [
+  "Homecoming"
+ ],
+ "identity_members": {
+  "siteSettings.siteName": "the Sidearm Nuxt payload's pinia.site-config.siteSettings.siteName",
+  "siteSettings.mascotPlural": "the Sidearm Nuxt payload's pinia.site-config.siteSettings.mascotPlural",
+  "og:site_name": "the content of every <meta property=\"og:site_name\"> element of the page"
+ },
+ "decision_kinds": {
+  "OWNER_STATEMENT": "the document's own-team name statements that the V1 rule does not bind are each exactly one of the decision's owner statements, and every identity member of the decision is present in the same document with exactly its decided value (every occurrence equal)",
+  "PAGE_IDENTITY": "the document's declared records state no owner name, and every identity member of the decision is present in the same document with exactly its decided value (every occurrence equal)"
+ },
+ "decision_bases": {
+  "OFFICIAL_NAME_PLUS_ATHLETICS": "value == NCAA official name + ' Athletics'",
+  "OFFICIAL_LEADING_CLAUSE": "value == the NCAA official name's text before its first ','",
+  "OFFICIAL_NAME_WITHOUT_FINAL_WORD": "value == the NCAA official name without its final word",
+  "OFFICIAL_LEADING_CLAUSE_WITHOUT_FIRST_WORD": "value == that leading clause without its first word",
+  "PROVIDER_DISPLAY_NAME": "value == the frozen provider owner displayName",
+  "PROVIDER_LOCATION_PLUS_ATHLETICS": "value == the frozen provider owner location + ' Athletics'",
+  "PROVIDER_LOCATION_OFFICIAL_WEBSITE_TITLE": "value ends with 'The Official Website of ' + the frozen provider owner location + ' Athletics'",
+  "PROVIDER_TEAM_NAME": "value == the frozen provider owner name (team nickname)",
+  "DIRECTORY_ATHLETICS_HOST_BRAND": "value without spaces, casefolded, is contained in the NCAA directory athletics host of the institution, and its first word equals the frozen provider owner location"
+ },
+ "owner_rules": {
+  "provider_or_official_name": "the V1 rule: every own-team name statement binds the frozen provider home names or the NCAA official name (OWNER_VERIFIED)",
+  "documented_identity": "an OWNER_STATEMENT decision for the event's own NCAA institution holds in the same document (OWNER_VERIFIED_DOCUMENTED_IDENTITY)",
+  "page_identity": "a PAGE_IDENTITY decision for the event's own NCAA institution holds in a document whose declared records state no owner name (OWNER_VERIFIED_PAGE_IDENTITY)",
+  "scope": "a decision applies only to its own NCAA organization id; every basis is checked against the frozen official name, provider names and directory host at derivation; identity members establish who owns the schedule and never supply an opponent, date, role, venue or time"
+ },
+ "owner_states": [
+  "OWNER_VERIFIED",
+  "OWNER_VERIFIED_DOCUMENTED_IDENTITY",
+  "OWNER_VERIFIED_PAGE_IDENTITY",
+  "OWNER_NAME_DOES_NOT_BIND",
+  "OWNER_NAME_NOT_STATED"
+ ],
+ "fields": [
+  "season",
+  "opponent",
+  "event_date",
+  "designation",
+  "venue_facility",
+  "venue_location",
+  "scheduled_time"
+ ],
+ "field_states": [
+  "SUPPORTED",
+  "CONFLICTING",
+  "UNSUPPORTED"
+ ],
+ "time_states": [
+  "SUPPORTED_INSTANT",
+  "NAIVE_LOCAL_TIME_ONLY",
+  "TBA",
+  "AMBIGUOUS_TIMEZONE",
+  "CONFLICTING",
+  "UNSUPPORTED"
+ ],
+ "comparisons": [
+  "AGREES",
+  "DISAGREES",
+  "TEXT_DIFFERS",
+  "NOT_COMPARABLE"
+ ],
+ "dispositions": [
+  "RECORD_BOUND",
+  "SOURCE_NOT_RETRIEVED",
+  "NO_DECLARED_STRUCTURE",
+  "OWNER_NOT_VERIFIED",
+  "NO_RECORD_FOR_EVENT",
+  "OPPONENT_RECORD_ON_OTHER_DATE",
+  "UNBOUND_OPPONENT_ON_EVENT_DATE"
+ ],
+ "field_rules": {
+  "event_binding": "a record of a declared structure in a document with a verified owner and a 2026 season binding is bound to the event when its own opponent binds the frozen away team and its own local date is in the provider date set (the calendar dates of the provider instant at offsets -04:00 to -10:00)",
+  "occurrences": "records of the bound opponent on other dates, records on the event date naming an unbound opponent and records whose date cannot be determined are retained as occurrences, never as witnesses",
+  "field_state": "SUPPORTED when every bound witness stating the field states the same value, CONFLICTING when they differ (all values kept, never a majority vote), UNSUPPORTED when none states it",
+  "opponent": "SUPPORTED by a bound record; CONFLICTING when a bound record and a record naming an unbound opponent share the event date; with no bound record an unbound opponent name on the event date stays UNSUPPORTED (an unbindable name may be another team or the same team; never fuzzy-resolved)",
+  "event_date": "the bound witnesses' local dates; with no bound record, the bound opponent's other dates are CONFLICTING with the provider date",
+  "designation": "HOME/AWAY/NEUTRAL from the record's own designation member; the provider claim for the owner is NEUTRAL when its neutralSite is true, otherwise HOME",
+  "venue": "facility and location text from the record's own members; the facility is compared with the provider venue name (AGREES when equal after the text rule and casefold, otherwise TEXT_DIFFERS)",
+  "scheduled_time": "see TIME_RULES",
+  "season": "SUPPORTED when the bound record's structure binds football season 2026 by its own season member",
+  "opponent_binding": "a record's own opponent binds when its normalized name (NAME_RULES) equals the frozen provider away displayName, shortDisplayName or location",
+  "designation_views": "WMT default-event views state AWAY only by an 'at' divider ('vs.' states nothing); team-default views by their venue-type text; event-block views by their venue class token",
+  "json_ld": "embedded JSON-LD is never a field source; its SportsEvent role orientation is censused per document, and a JSON-LD event on the event date (its startDate's own date part when naive, otherwise the calendar dates of its explicit instant at offsets -04:00 to -10:00, intersecting the provider date set) naming the bound opponent on the side opposite the bound designation leaves the designation CONFLICTING with both values"
+ },
+ "time_rules": {
+  "explicit": "an ISO-8601 local date-time with an explicit offset or Z in the record's own instant member",
+  "stated_zone": "a time text whose final token is a US zone designator: generic ET/CT/PT resolved by the US daylight rule (second Sunday of March 02:00 to first Sunday of November 02:00 local) on the record's own local date; EDT/EST/CDT/CST/PDT/PST/MDT must agree with that rule's state; MST is a fixed -07:00; generic MT is ambiguous; a local time in a transition gap or fold is ambiguous",
+  "naive": "a time without offset or designator stays NAIVE_LOCAL_TIME (no zone is inferred from the campus or site)",
+  "tba": "TBA/TBD text, a Nuxt tbd flag or a WMT time-tba token is TBA; the placeholder clock is not a statement",
+  "resolution": "SUPPORTED_INSTANT when all instant statements agree and every naive local time and the instants' own local times agree; TBA when every statement is TBA; NAIVE_LOCAL_TIME_ONLY when only equal naive times exist; AMBIGUOUS_TIMEZONE when only ambiguous designators exist; CONFLICTING otherwise",
+  "authority": "a supported instant is OFFICIAL_SCHEDULE_CLAIM, never ACTUAL_KICKOFF",
+  "result_label": "a WMT result label is a time statement only when it reads as a clock time (optionally with a zone designator) or TBA; any other text (a past result) is not a statement and is never retained",
+  "event_block_clock": "the clock part of an event-block view's day datetime is not a time statement (a placeholder for TBA events)"
+ },
+ "availability_rule": "the effective availability is the later of the retained capture's observation bound (the maximum response end UTC of every attempt, re-derived by the accepted BAT-726 reader) and this contract's policy_frozen_utc; before the observation bound the sidecar is refused SCHEDULE_UNAVAILABLE_BEFORE_OBSERVATION_BOUND, before the policy-frozen time SCHEDULE_UNAVAILABLE_BEFORE_POLICY_FROZEN; at or after both the same immutable evidence is served",
+ "event_movements": [
+  "PRESERVED_RECORD_BOUND",
+  "RECORD_BOUND_FIELDS_CHANGED",
+  "NEWLY_RECORD_BOUND",
+  "STILL_UNSUPPORTED_SAME_DISPOSITION",
+  "STILL_UNSUPPORTED_DISPOSITION_REFINED",
+  "SUPPORT_LOST"
+ ],
+ "field_movements": [
+  "UNCHANGED",
+  "NEWLY_STATED",
+  "STATE_CHANGED"
+ ],
+ "grains": [
+  "shadow-schedule",
+  "shadow-schedule-source"
+ ],
+ "event_fields": [
+  "record_type",
+  "event_key",
+  "season",
+  "owner",
+  "opponent",
+  "provider_claims",
+  "requests",
+  "attempts",
+  "documents",
+  "disposition",
+  "disposition_reasons",
+  "fields",
+  "occurrences",
+  "predecessor",
+  "movement",
+  "labels"
+ ],
+ "source_fields": [
+  "record_type",
+  "event_key",
+  "logical",
+  "route",
+  "stage",
+  "url",
+  "outcome",
+  "hops",
+  "attempts",
+  "decision",
+  "link_source",
+  "document",
+  "predecessor_document",
+  "labels"
+ ],
+ "top_level": [
+  "schema",
+  "population",
+  "designation",
+  "contract",
+  "predecessor",
+  "shadow",
+  "acquisition",
+  "policy",
+  "availability",
+  "labels",
+  "events",
+  "sources",
+  "summary",
+  "counts"
+ ],
+ "families": [
+  "SCHEMA",
+  "DESIGNATION",
+  "CONTRACT",
+  "PREDECESSOR",
+  "SHADOW",
+  "ACQUISITION",
+  "POLICY",
+  "AVAILABILITY",
+  "LABELS",
+  "EVENT_MEMBERSHIP",
+  "EVENT_RECORD",
+  "SOURCE_MEMBERSHIP",
+  "SOURCE_RECORD",
+  "SUMMARY",
+  "COUNTS",
+  "CANONICAL_FORM"
+ ],
+ "profile_fields": [
+  "schedule_identity",
+  "schedule_sha256",
+  "predecessor_identity",
+  "policy_frozen_utc",
+  "effective_availability_utc"
+ ],
+ "predecessor_pins": [
+  "population",
+  "identity",
+  "schedule_sha256",
+  "contract_id",
+  "contract_sha256",
+  "journal_sha256",
+  "attempts",
+  "availability_bound_utc"
+ ],
+ "shadow_pins": [
+  "population",
+  "identity",
+  "snapshot_sha256",
+  "payload_sha256",
+  "contract_sha256"
+ ]
+}

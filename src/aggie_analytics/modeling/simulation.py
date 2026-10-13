@@ -13,10 +13,17 @@ def mix_joint_distributions(weighted: list[tuple[SimulationScenario, JointScoreD
         raise ValueError("scenario weights must sum to one")
     mass: dict[tuple[int,int],float]=defaultdict(float)
     cutoff=None
+    baseline = weighted[0][0].baseline_snapshot_id
+    scenario_ids = set()
     # To mix tie mass coherently, every member must either have no ties or the same explicit OT resolver.
     ot_values=set()
     for scenario,dist in weighted:
         scenario.validate(); dist.validate()
+        if scenario.baseline_snapshot_id != baseline:
+            raise ValueError('scenario distributions must share the immutable baseline snapshot')
+        if scenario.scenario_id in scenario_ids:
+            raise ValueError('duplicate scenario identity')
+        scenario_ids.add(scenario.scenario_id)
         if cutoff is None: cutoff=dist.forecast_cutoff
         if dist.forecast_cutoff != cutoff:
             raise ValueError("scenario distributions must share the forecast cutoff")

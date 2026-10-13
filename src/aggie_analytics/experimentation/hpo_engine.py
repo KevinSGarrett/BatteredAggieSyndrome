@@ -8,9 +8,14 @@ surface so the experiment governance can be tested without installing a tuner.
 
 from dataclasses import dataclass
 from itertools import product
+import math
 from typing import Any, Callable, Iterable, Mapping, Sequence
 
 from .lineage import content_id
+
+
+class InvalidObjectiveError(ValueError):
+    """The trial returned no finite numerical objective; not a scientific result."""
 
 
 @dataclass(frozen=True)
@@ -62,10 +67,14 @@ def run_trials(
     *,
     failure_value: float | None = None,
 ) -> list[TrialResult]:
+    if failure_value is not None and not math.isfinite(float(failure_value)):
+        raise ValueError("failure_value must be finite when supplied")
     out: list[TrialResult] = []
     for trial in trials:
         try:
             value = float(objective(trial.params))
+            if not math.isfinite(value):
+                raise InvalidObjectiveError("objective must be finite")
             out.append(TrialResult(trial, value, "COMPLETE"))
         except Exception as exc:
             if failure_value is None:

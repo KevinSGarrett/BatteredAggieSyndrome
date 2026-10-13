@@ -2,11 +2,13 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from typing import Mapping
 
 from aggie_analytics.product import ForecastProductService, FreshnessPolicy, PublishedSnapshotRepository, SnapshotNotFound
 
 
-def create_app(*, snapshot_root: Path, freshness_seconds: float | None = None, static_root: Path | None = None):
+def create_app(*, snapshot_root: Path, freshness_seconds: float | None = None, static_root: Path | None = None,
+               legacy_artifact_sha256: Mapping[str, str] | None = None):
     """Create the optional FastAPI adapter without making FastAPI a base dependency."""
     try:
         from fastapi import FastAPI, HTTPException, Query
@@ -16,7 +18,7 @@ def create_app(*, snapshot_root: Path, freshness_seconds: float | None = None, s
         raise RuntimeError('FastAPI product extra is not installed; use `pip install -e ".[product]"`') from exc
 
     policy = FreshnessPolicy(None if freshness_seconds is None else timedelta(seconds=float(freshness_seconds)))
-    service = ForecastProductService(PublishedSnapshotRepository(Path(snapshot_root)), policy)
+    service = ForecastProductService(PublishedSnapshotRepository(Path(snapshot_root), legacy_artifact_sha256=legacy_artifact_sha256), policy)
     static_root = static_root or (Path(__file__).resolve().parents[1] / "product" / "static")
     app = FastAPI(
         title="Aggie Analytics Engine Forecast API",

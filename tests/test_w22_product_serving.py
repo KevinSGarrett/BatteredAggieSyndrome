@@ -14,6 +14,7 @@ from unittest.mock import patch
 
 from aggie_analytics.api import create_app
 from aggie_analytics.orchestration import ImmutableForecastPublisher
+from aggie_analytics.orchestration.contracts import stable_hash
 from aggie_analytics.product import (
     ForecastProductService,
     FreshnessPolicy,
@@ -29,6 +30,7 @@ PUBLISHED = datetime(2026, 8, 1, 18, 5, tzinfo=UTC)
 
 def payload(*, snapshot_id: str = "fri-1", lane: str = "PURE_FOOTBALL", cutoff: datetime = CUTOFF, published: datetime = PUBLISHED) -> dict:
     return {
+        "publication_format": "aggie.forecast.publication.v1",
         "schema_version": "aggie.forecast.snapshot.v2",
         "snapshot_id": snapshot_id,
         "game_id": "tamu-lsu-2026",
@@ -64,7 +66,8 @@ def payload(*, snapshot_id: str = "fri-1", lane: str = "PURE_FOOTBALL", cutoff: 
 def write_payload(root: Path, item: dict) -> Path:
     game = root / item["game_id"]
     game.mkdir(parents=True, exist_ok=True)
-    path = game / f"{item['snapshot_id']}-{item['market_lane']}.json"
+    digest = stable_hash(item)
+    path = game / f"{item['snapshot_id']}-{digest}.json"
     path.write_text(json.dumps(item, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return path
 
@@ -82,6 +85,8 @@ class W22ProductServingTests(unittest.TestCase):
             path = next((Path(td) / "tamu-lsu-2026").glob("*.json"))
             old = json.loads(path.read_text(encoding="utf-8")); old.pop("market_lane", None)
             path.write_text(json.dumps(old), encoding="utf-8")
+            digest = stable_hash(old)
+            path.rename(path.with_name(f"{old['snapshot_id']}-{digest}.json"))
             snapshot = PublishedSnapshotRepository(Path(td)).latest("tamu-lsu-2026", as_of=PUBLISHED + timedelta(hours=1))
             self.assertEqual(SNAPSHOT_SCHEMA_V1, snapshot.schema_version)
             self.assertEqual("PURE_FOOTBALL", snapshot.market_lane)

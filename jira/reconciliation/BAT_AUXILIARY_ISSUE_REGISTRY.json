@@ -1,4 +1,7 @@
 {
+  "cycle_number": 55,
+  "attempt_number": 1,
+  "observed_at": "2026-10-13T04:52:47.673871+00:00",
   "issues": [
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -133,7 +136,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010\u20132011 official-evidence gaps."
+      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010–2011 official-evidence gaps."
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -148,7 +151,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-4",
       "status": "Done",
-      "summary": "Recover missing 2010\u20132011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
+      "summary": "Recover missing 2010–2011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -163,7 +166,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-5",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M cross-source domain admission gate"
+      "summary": "Produce an identity-bound 2010–2011 Texas A&M cross-source domain admission gate"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -193,7 +196,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-2",
       "status": "Done",
-      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010\u20132011"
+      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010–2011"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -208,7 +211,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M season-level cross-source reconciliation"
+      "summary": "Produce an identity-bound 2010–2011 Texas A&M season-level cross-source reconciliation"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -2083,7 +2086,11 @@
       "owner_wave": "CYCLE28",
       "phase": "PHASE-3",
       "status": "In Review",
-      "summary": "[POST-TASK-BAS-END-TO-END-CAPABILITY-COMPLETENESS-REGISTRY-001] BAS end-to-end capability completeness registry and anti-omission gate"
+      "summary": "[POST-TASK-BAS-END-TO-END-CAPABILITY-COMPLETENESS-REGISTRY-001] BAS end-to-end capability completeness registry and anti-omission gate",
+      "scope_adoption_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle55\\attempt01\\portfolio-recovery-20261013\\jira\\EXACT_FIELD_CORRECTIONS.json",
+      "description_sha256": "1de315cdc72f755e1414058c06ca32017da8e79018ac53ee56258b11ae681ff1",
+      "accountable_role": "Codex BAS manager",
+      "native_assignee_preserved": true
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -2143,7 +2150,11 @@
       "owner_wave": "CYCLE28",
       "phase": "PHASE-3",
       "status": "In Progress",
-      "summary": "BAS Cycle #37 recovery: independent review and qualified integration"
+      "summary": "BAS Cycle #37 recovery: independent review and qualified integration",
+      "scope_adoption_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle55\\attempt01\\portfolio-recovery-20261013\\jira\\EXACT_FIELD_CORRECTIONS.json",
+      "description_sha256": "044522b8c6a10745ec56076cdbef3a3c47f435d1a1db17190000b8147bea57aa",
+      "accountable_role": "Codex BAS manager",
+      "native_assignee_preserved": true
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -2173,9 +2184,401 @@
       "owner_wave": "CYCLE28",
       "phase": "PHASE-3",
       "status": "In Progress",
-      "summary": "BAS / GridironCortex contracts: current owner authority and delivery reconciliation"
+      "summary": "BAS / GridironCortex contracts: current owner authority and delivery reconciliation",
+      "scope_adoption_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle55\\attempt01\\portfolio-recovery-20261013\\jira\\EXACT_FIELD_CORRECTIONS.json",
+      "description_sha256": "e7a83b3c89ca3c3154cd4d12ae4520dac0d0e1f95da88e2b3720b33cc30a636f",
+      "accountable_role": "Codex BAS manager",
+      "native_assignee_preserved": true
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-710",
+      "local_id": "POST-TASK-C38-NATIONAL-DI-POPULATION-2016-2025-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 38: official national FBS/FCS population 2016–2025 and installed query",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle38\\attempt01\\preparation-20261002\\jira\\ISSUE_SPECIFICATION.json"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-711",
+      "local_id": "POST-TASK-C39-NATIONAL-HISTORY-PREFIX-2016-2023-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 39: national FBS history-prefix dataset and exact replay query, 2016–2023",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle39\\attempt01\\preparation-20261002\\TECHNICAL_PLAN_TP39_A01.md",
+      "description": "Cycle #39 — Attempt #1 — INTEGRATED_VERIFIED\n\nAtomic execution outcome: an installed read-only 2016–2023 national FBS history-prefix query and immutable retrospective chronological dataset derived from the independently accepted BAT-710 parent. It answers which strictly earlier dated contests contribute to each team/current-opponent history, with exact integer totals and rational rates, target-game and same-date exclusion, cold-start missingness, and complete exclusions.\n\nThis is the observation-layer prerequisite for chronological datasets and later source-time admission. It does not treat calendar order as publication time or PIT eligibility. Every row remains RETROSPECTIVE_OBSERVATION_ONLY unless a separate later source-time admission decision is qualified; this assignment grants no such promotion. No model fitting, metrics, protected 2024/2025 evaluation, frozen forecast rebinding, BAT-691 hold release or All-22 runtime work.\n\nDefinition of Done: source-bound contract and all-parent inclusion/exclusion census; one target contest and two oriented views; independently reconstructed exact history aggregates; no target outcome in the history projection; no 2024–2026 inputs; deterministic byte-identical replay under input permutation/chunking/resume; actual noneditable installed query with pagination and refusal cases; preserved BAT-710/staff/C01 consumers; independent manager acceptance, qualified integration and landed consumer verification. Existing retrospective matrix BAT-654 remains historical and is not overwritten or claimed fixed.\n\nOwner roles: user-launched BAS worker implements; Codex manager independently reviews/integrates and decides Done. No human assignee invented. Native To Do until actual start, In Progress during execution, In Review only when a reviewable handoff exists, Done after manager post-integration acceptance. Board134/filter10134. Related prerequisites BAT-710 and BAT-654; downstream BAT-421 and BAT-523 remain broader scopes, not closed by this unit.\n\nThe assignment is now issued and sealed. Complete worker prompt: C:\\\\BatteredAggieSyndrome.data\\\\ops\\\\manager_reviews\\\\cycle39\\\\attempt01\\\\preparation-20261002\\\\rendered-issued\\\\WORKER_PROMPT.txt. Contract SHA256 163d83229fe07467b71547760821158cc35a0c7829281f2b56d575acad626e55; issuance SHA256 ec89bafb32a722dc1812b26b5c9dce9acc81e587432a6c69be96eb19e0b46490. Base e65b2a8aae768efd89c0482d41c9d2385d0d26bd. Historical issuance fact: no worker had started at the time of issuance. Exact implementation and start/review transitions are granted in the contract; manager owns review/integration/Done. Repository registry/profile reconciliation stays manager-owned; no isolated worker row append.\n\nDeterministic creation marker: BAS-C39-A01-NATIONAL-HISTORY-PREFIX-2016-2023.\n\nManager review checkpoint — BAS-C39-A01-MANAGER-REVIEW-20261002: worker handoff at 41bfb291 is independently reconstructed: all 15,520 parent keys, 5,875 targets and 11,750 oriented histories agree; 60 raw-source sample cases/101 pages, 47 focused tests and 41 installed query checks pass. Actual staff and released C01 consumers are preserved. PR695 is published: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/695 . Native In Review remains correct until qualified integration and landed verification. Inherited 20 full-suite identities, 5 strict findings and the base-reproduced empty-root unmounted error remain FAIL. No PIT eligibility or predictive skill is established. Manager review evidence: C:\\\\BatteredAggieSyndrome.data\\\\ops\\\\manager_reviews\\\\cycle39\\\\attempt01\\\\review-20261002T194845Z.\n\nManager accepted delivery — BAS-C39-A01-INTEGRATED-20261002: PR695 merged to main e9c45923749ec19c8fd99edbb07056b1508b7e76; landed tree14265adcf9359c21095cac4f7ca8b3e3d96e2455 equals reviewed tree. Fresh landed wheel installed offline; all514 archive members equal reviewed wheel contents. Full history query checks, existing11/666 population queries, staff final page and actual released C01 composition pass. All18 original criteria independently accepted within retrospective history/query scope. Issue delivery is complete. Inherited20test/5strict failures and empty-mount setup error stay recorded, no PIT or forecast skill granted. BAT523 remains In Progress for its broader source-time recovery; no other issue status changed."
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-712",
+      "local_id": "POST-TASK-C40-NATIONAL-SOURCE-TIME-2016-2023-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 40: national source-time evidence and cutoff query, 2016–2023",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle40\\attempt01\\review-20261003T010739Z\\JIRA_CLOSEOUT_READBACK.json",
+      "labels": [
+        "post-wave"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-713",
+      "local_id": "POST-TASK-C41-ARCHIVED-PUBLICATION-2019-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 41: archived publication evidence for a bounded 2019 national contest tranche",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle42\\attempt01\\review-20261005T140208Z\\evidence\\JIRA_CURRENT.json",
+      "labels": [
+        "archive-evidence",
+        "national-foundation",
+        "post-wave",
+        "source-time"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-714",
+      "local_id": "POST-TASK-C42-HISTORY-AVAILABILITY-2019-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 42: archive-supported prior-game history at an explicit cutoff, 2019",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle42\\attempt01\\review-20261005T173402Z\\evidence\\JIRA_DONE_SECOND_READBACK.json",
+      "labels": [
+        "history-availability",
+        "national-foundation",
+        "post-wave",
+        "source-time"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-715",
+      "local_id": "POST-TASK-C43-EARLY-HISTORY-ARCHIVE-2019-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS next tranche: early-September 2019 prior-result archive evidence and query expansion",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle43\\attempt01\\review-20261007T141159Z\\jira\\FINAL_SECOND_READBACK.json",
+      "labels": [
+        "history-availability",
+        "national-foundation",
+        "post-wave",
+        "source-time"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-716",
+      "local_id": "POST-TASK-C44-ARCHIVE-SERVICE-RECOVERY-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS archive acquisition: service-wide rate-limit pause and budget-preserving resume",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle44\\attempt01\\review-20261008T003334Z\\jira\\FINAL_SECOND_READBACK.json",
+      "labels": [
+        "archive-recovery",
+        "national-foundation",
+        "post-wave",
+        "source-time"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-717",
+      "local_id": "POST-TASK-C45-READONLY-SQLITE-PATHS-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 45: portable read-only SQLite paths for installed national and staff queries",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle45\\attempt01\\review-20261008T181946Z\\jira\\FINAL_SECOND_READBACK.json",
+      "labels": [
+        "consumer-portability",
+        "national-foundation",
+        "post-wave"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-718",
+      "local_id": "POST-TASK-C46-POPULATION-RECONCILIATION-2024-2025-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 46: cached 2024–2025 population reconciliation and installed sidecar query",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle46\\attempt01\\review-20261009T042037Z\\jira\\FINAL_SECOND_READBACK.json",
+      "labels": [
+        "atomic-execution",
+        "cycle46",
+        "post-wave"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-719",
+      "local_id": "POST-TASK-C47-RETROSPECTIVE-BASELINE-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 47: games-only retrospective baseline and installed benchmark consumer",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle47\\attempt01\\review-20261009T182053Z\\jira\\FINAL_ALL_FIELDS_READBACK.json",
+      "labels": [
+        "atomic-execution",
+        "cycle47",
+        "post-wave"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-720",
+      "local_id": "POST-TASK-C48-DOCUMENTED-PARTICIPANT-ALIASES-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 48: documented participant aliases for national reconciliation",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle48\\attempt01\\review-20261009T231421Z\\jira\\FINAL_ALL_FIELDS_READBACK.json",
+      "labels": [
+        "atomic-execution",
+        "cycle48",
+        "post-wave"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-721",
+      "local_id": "POST-TASK-C49-SITE-EVIDENCE-2024-2025-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 49: official evidence for 2024–2025 site disagreements",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle49\\attempt01\\review-20261010T041313Z\\jira\\FINAL_ALL_FIELDS_READBACK.json",
+      "labels": [
+        "atomic-execution",
+        "cycle49",
+        "post-wave"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-722",
+      "local_id": "POST-TASK-C50-ARCHIVE-REACQUISITION-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "BAS Cycle 50: bounded historical archive reacquisition and input-authority census",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle50\\attempt01\\review-20261011T175849Z\\jira\\FINAL_ALL_FIELDS_READBACK.json",
+      "labels": [
+        "atomic-execution",
+        "cycle50",
+        "historical-evidence",
+        "post-wave"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-723",
+      "local_id": "POST-TASK-PROSPECTIVE-INPUT-OBSERVATION-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "[POST-TASK-PROSPECTIVE-INPUT-OBSERVATION-001] Qualify the retained October 17 provider cohort and pregame record inputs",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle51\\attempt01\\review-20261011T213950Z\\jira\\FINAL_ALL_FIELDS_READBACK.json",
+      "labels": [
+        "atomic-execution",
+        "cycle51",
+        "post-wave",
+        "prospective-source-evidence"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-724",
+      "local_id": "POST-TASK-PROVIDER-RECORD-BASELINE-PREVIEW-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "[POST-TASK-PROVIDER-RECORD-BASELINE-PREVIEW-001] Deliver an installed provider-record baseline preview",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle52\\attempt01\\review-20261012T052332Z\\jira\\FINAL_ALL_FIELDS_READBACK.json",
+      "labels": [
+        "atomic-execution",
+        "baseline-preview",
+        "cycle52",
+        "post-wave"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-725",
+      "local_id": "POST-TASK-PROVIDER-RECORD-SHADOW-FREEZE-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "[POST-TASK-PROVIDER-RECORD-SHADOW-FREEZE-001] Freeze and serve an untrusted October 17 provider-record shadow snapshot",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle53\\attempt01\\review-20261012T155037Z\\jira\\FINAL_ALL_FIELDS_READBACK.json",
+      "labels": [
+        "atomic-execution",
+        "cycle53",
+        "post-wave",
+        "untrusted-shadow"
+      ]
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-726",
+      "local_id": "POST-TASK-SHADOW-OFFICIAL-SCHEDULE-001",
+      "logical_state": "DONE",
+      "maturity": "INTEGRATED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "Done",
+      "summary": "[POST-TASK-SHADOW-OFFICIAL-SCHEDULE-001] Qualify official schedule evidence for the frozen October 17 shadow cohort",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle54\\attempt01\\review-20261013T023600Z\\jira\\FINAL_ALL_FIELDS_READBACK.json",
+      "labels": []
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": false,
+      "evidence_state": "PLANNED",
+      "execution_lane": "SOLO_WORKTREE",
+      "issue_type": "Task",
+      "jira_key": "BAT-727",
+      "local_id": "POST-TASK-SHADOW-SCHEDULE-CACHED-EXPANSION-001",
+      "logical_state": "BACKLOG",
+      "maturity": "DESIGN_ONLY",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "In Progress",
+      "summary": "[POST-TASK-SHADOW-SCHEDULE-CACHED-EXPANSION-001] Qualify retained official schedule layouts and participant names",
+      "delivery_role": "ATOMIC_EXECUTION",
+      "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle55\\attempt01\\portfolio-recovery-20261013\\jira\\BAT_producer_page07.json",
+      "labels": [
+        "post-wave"
+      ],
+      "observed_only": true
     }
   ],
-  "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",
+  "purpose": "Adopted auxiliary population successor for manager portfolio recovery; exact live observations and appended scope are retained separately.",
   "schema_version": 1
 }

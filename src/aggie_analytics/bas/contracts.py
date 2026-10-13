@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from math import isfinite
 PRIMARY_ANCHOR="BAS_INDEPENDENT_NATIONAL_PREGAME_EXPECTATION"
 
 @dataclass(frozen=True)
@@ -11,6 +12,8 @@ class ExpectedMarginEvidence:
     uses_bas_target:bool=False; uses_aggie_underperformance_target:bool=False
     anchor_lane:str=PRIMARY_ANCHOR
     def validate(self)->None:
+        if not isfinite(self.expected_margin):
+            raise ValueError('expected margin must be finite')
         if not self.target_game_excluded or not self.canonical_game_group_excluded:
             raise ValueError("Target canonical game and mirrored representations must be excluded")
         if self.model_training_cutoff>=self.prediction_cutoff:

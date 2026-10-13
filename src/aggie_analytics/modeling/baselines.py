@@ -37,12 +37,30 @@ class EloProbabilityBaseline:
     opponent_rating_feature: str='opponent_elo'
     home_adjustment: float=0.0
     scale: float=400.0
+    team_home_indicator_feature: str='team_home_indicator'
     def predict(self,row:FeatureVector)->ScalarPrediction:
         assert_training_precedes_prediction(self.artifact,row)
-        if self.scale<=0: raise ValueError('scale must be positive')
-        try: delta=float(row.values[self.team_rating_feature])-float(row.values[self.opponent_rating_feature])+self.home_adjustment
+        if not math.isfinite(self.scale) or self.scale<=0: raise ValueError('scale must be finite and positive')
+        if not math.isfinite(self.home_adjustment): raise ValueError('home adjustment must be finite')
+        role = 0
+        if self.home_adjustment:
+            role = row.values.get(self.team_home_indicator_feature)
+            if isinstance(role, bool) or role not in (-1, 0, 1):
+                raise ValueError('nonzero Elo home adjustment requires team home indicator -1, 0 or 1')
+        try:
+            team = float(row.values[self.team_rating_feature])
+            opponent = float(row.values[self.opponent_rating_feature])
         except KeyError as e: raise ValueError(f'missing Elo feature: {e.args[0]}') from e
-        p=1/(1+10**(-delta/self.scale))
+        delta = team-opponent+self.home_adjustment*role
+        if not all(math.isfinite(v) for v in (team, opponent, delta)):
+            raise ValueError('Elo ratings and oriented difference must be finite')
+        # Stable logistic evaluation also supports large finite rating differences.
+        z = delta/self.scale*math.log(10)
+        if z >= 0:
+            p = 1/(1+math.exp(-z))
+        else:
+            ez = math.exp(z)
+            p = ez/(1+ez)
         return ScalarPrediction(row.game_id,self.artifact.model_id,self.artifact.model_version,self.artifact.target,p,
             row.forecast_cutoff,row.feature_snapshot_id,self.artifact.artifact_sha256,row.lineage_refs)
 

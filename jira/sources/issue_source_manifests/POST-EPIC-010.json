@@ -88,13 +88,13 @@
       "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\48_BAS_COMPONENTS_REGIME_STABILITY_AND_CALIBRATION.md"
     },
     {
-      "anchor_excerpt": "from __future__ import annotations from collections.abc import Iterable from .contracts import BasLabel,ExpectedMarginEvidence SEVERITY_THRESHOLDS=(3.0,7.0,14.0,21.0) def performance_residual(actual_margin:float,expected_margin:float)->float:return float(actual_margin)-float(expected_margin) def underperformance_shortf",
-      "anchor_hash": "d0093dd8a27b8f6e7d4792a44765b34dff05a8656eb3fbbc370223b5d748c350",
+      "anchor_excerpt": "from __future__ import annotations from collections.abc import Iterable from math import isfinite from .contracts import BasLabel,ExpectedMarginEvidence SEVERITY_THRESHOLDS=(3.0,7.0,14.0,21.0) def performance_residual(actual_margin:float,expected_margin:float)->float: actual, expected = float(actual_margin), float(expe",
+      "anchor_hash": "7f78ce0791988664c6c2248008384813a0639f1d42da882423e6f5cfe31b5a27",
       "authority_level": "IMPLEMENTATION_EVIDENCE",
-      "document_sha256": "f9f7d0d6feca7b835b14d75855e66a3dc52d4b80be48bb793b626df08034bfd2",
-      "end_line": 24,
+      "document_sha256": "27100e2ed63722b7c4be0ca570a16f9b43d09321cc0a36bdd604f1f3554595fa",
+      "end_line": 30,
       "heading": "",
-      "last_verified": "2026-08-08",
+      "last_verified": "2026-10-13",
       "repo_relative_path": "src/aggie_analytics/bas/labels.py",
       "source_ref_id": "SRCREF-02068",
       "source_type": "py",

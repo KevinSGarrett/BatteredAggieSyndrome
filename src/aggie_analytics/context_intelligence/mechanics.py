@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from math import isfinite
 from typing import Iterable
 
 def hidden_yards(*components: float) -> float:
@@ -23,10 +24,20 @@ class OpponentObservation:
     known_at: datetime
 
 def strict_prior_opponent_value(observations: Iterable[OpponentObservation], cutoff: datetime) -> float | None:
+    observations = list(observations)
+    if (not isinstance(cutoff, datetime) or cutoff.utcoffset() is None
+            or any(not isinstance(x.known_at, datetime) or x.known_at.utcoffset() is None for x in observations)):
+        raise ValueError('opponent observation and cutoff times require an explicit timezone')
     eligible=[x for x in observations if x.known_at < cutoff]
     if not eligible:
         return None
-    return eligible[-1].value
+    latest = max(x.known_at for x in eligible)
+    values = [float(x.value) for x in eligible if x.known_at == latest]
+    if not all(isfinite(value) for value in values):
+        raise ValueError("latest prior opponent value must be finite")
+    if len(set(values)) != 1:
+        raise ValueError("conflicting opponent observations at the latest prior time")
+    return values[0]
 
 def referee_bias_bonus(*args, **kwargs) -> float:
     raise RuntimeError("Unsupported referee favors/dislikes-team bonuses are prohibited.")

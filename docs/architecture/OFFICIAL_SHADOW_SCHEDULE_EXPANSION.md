@@ -96,3 +96,7 @@ Every row carries `UNTRUSTED_SHADOW`, `PIT_NOT_ADMITTED`, `PREDICTIVE_SKILL_NOT_
 `SCHEDULE_NOT_ACTUAL_KICKOFF`, `CURRENT_OBSERVATION_NOT_ORIGINAL_PUBLICATION`, `NO_RETROACTIVE_ANCHOR_AUTHORITY` and
 `SUCCESSOR_POLICY_NOT_ORIGINAL_INTERPRETATION` with national coverage `UNKNOWN`; `--require-pit` is always refused. A
 source-data improvement is not a forecast improvement, a skill claim or a scientific hold release.
+
+## Delivered successor
+
+Successor `f1e8bf469572ee3d1732905e58d5c5ac0697be08bdfa5401c4bb03e545640580` (first canonical write BUILD_SCHEDULE_EVIDENCE stage=materialize `20261013T051826419004Z`), bundling the V1 sidecar `a99d70767971b653261c921f57422cc19a749ec53a7ee3ccc8c9c9d5e1c5663e` byte for byte: 25 events, 24 record bound (15 preserved, 9 newly bound, 0 with changed fields, 0 lost), 1 still unsupported; 40 source records, 46 retained attempts, 0 new requests. Observation bound `2026-10-12T18:33:49.597278Z`, policy frozen `2026-10-13T04:34:48.093870Z`, effective availability `2026-10-13T04:34:48.093870Z`. The packaged gate and the reader's `EXPANSION_PROFILE` pin this profile; the values stay in the private data root.

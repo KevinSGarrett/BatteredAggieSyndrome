@@ -267,7 +267,13 @@ SHADOW_PINS = ("population", "identity", "snapshot_sha256", "payload_sha256", "c
 
 #: The actual successor sidecar pinned by the packaged final gate (``artifacts/data_lake/official_shadow_schedule_
 #: expansion_20261017_gate.json``; a test requires equality). None until the sidecar exists (the contract is first).
-EXPANSION_PROFILE: dict[str, Any] | None = None
+EXPANSION_PROFILE: dict[str, Any] | None = {
+    "schedule_identity": "f1e8bf469572ee3d1732905e58d5c5ac0697be08bdfa5401c4bb03e545640580",
+    "schedule_sha256": "4e15fbf307862ddaabe325e13539812d4c2e18a86591f29b44fe333624162b43",
+    "predecessor_identity": "a99d70767971b653261c921f57422cc19a749ec53a7ee3ccc8c9c9d5e1c5663e",
+    "policy_frozen_utc": "2026-10-13T04:34:48.093870Z",
+    "effective_availability_utc": "2026-10-13T04:34:48.093870Z",
+}
 
 IDENTITY_RE = v1.IDENTITY_RE
 UTC = v1.UTC

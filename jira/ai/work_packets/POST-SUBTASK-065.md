@@ -109,6 +109,7 @@ Produce and validate these outputs within this atomic work unit:
 1. Aggregates use only prior eligible state, distinguish returning production/recruits/transfers, expose early-season uncertainty, and do not encode culture/clutch/collapse without measurable definitions.
 2. The declared output `artifacts/context_intelligence/program_feature_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea coaching detail (ORI-049 through ORI-052): explicitly disposition role-conditioned situational coach residuals, including after-win/loss and 1/2/3-game streak hypotheses, portable role history and staff/player relationships. Control or qualify roster, opponent, supporting cast, co-staff, scheme, continuity and sample uncertainty; never infer play-caller from title or add overlapping coach effects as independent bonuses. Bind implemented state or an evidence-backed candidate/deferred decision in program_feature_manifest; empirical comparison remains with the feature/model evaluator.
 
 ## Tests / validation
 

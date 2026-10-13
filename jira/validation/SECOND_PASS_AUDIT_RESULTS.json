@@ -18,6 +18,20 @@
   "invalid_traceability_gate_count": 0,
   "issue_count": 494,
   "master_prompt_compliance_section_count": 68,
+  "original_idea_planning": {
+    "children": 515,
+    "dispositions": {
+      "CANDIDATE_TO_EVALUATE": 153,
+      "CONDITIONAL_INVESTIGATION": 60,
+      "DEFERRED": 4,
+      "IMPLEMENTATION_OBLIGATION": 291,
+      "WITHDRAWN": 7
+    },
+    "groups": 85,
+    "requirements_not_reviewed_at_child_grain": 638,
+    "requirements_with_original_idea_decisions": 107,
+    "scope": "Planning preservation/ownership only; not implementation or scientific acceptance"
+  },
   "ready_count": 0,
   "registry_coverage": {
     "acceptance_control_ids": {
@@ -63,6 +77,6 @@
     "SECURITY": 30,
     "STATIC_VALIDATION": 31
   },
-  "validated_at": "2026-09-09",
+  "validated_at": "2026-10-13",
   "work_packet_count": 232
 }

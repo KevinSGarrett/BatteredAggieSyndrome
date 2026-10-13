@@ -9,7 +9,8 @@
   "acceptance_criteria": [
     "Every active obligation/release-blocking control maps to current evidence and Jira; all 14 final gaps and 310 final risks have actionable, accepted/deferred, N-A, or verified-closed dispositions, with historical-only mappings flagged.",
     "The declared output `artifacts/release/final_traceability_audit.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
-    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Original-idea decision conservation: reconcile all named groups and children in governance/ORIGINAL_IDEA_DECISIONS.json to current requirement/source/plan and actual producer/evaluator Jira scope, with a deliver, investigate, conditional, deferred or withdrawn decision and its evidence/checkpoint. Verify semantics rather than nonempty IDs or keyword matches; preserve original child IDs and valid historical Done scopes. Missing decisions remain owned portfolio work; no finite worker cycle is required to finish every idea, and no candidate is forced into production to satisfy this audit."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -434,6 +435,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-045 (Final traceability, matu
 1. Every active obligation/release-blocking control maps to current evidence and Jira; all 14 final gaps and 310 final risks have actionable, accepted/deferred, N-A, or verified-closed dispositions, with historical-only mappings flagged.
 2. The declared output `artifacts/release/final_traceability_audit.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea decision conservation: reconcile all named groups and children in governance/ORIGINAL_IDEA_DECISIONS.json to current requirement/source/plan and actual producer/evaluator Jira scope, with a deliver, investigate, conditional, deferred or withdrawn decision and its evidence/checkpoint. Verify semantics rather than nonempty IDs or keyword matches; preserve original child IDs and valid historical Done scopes. Missing decisions remain owned portfolio work; no finite worker cycle is required to finish every idea, and no candidate is forced into production to satisfy this audit.
 
 ## Definition of Done
 

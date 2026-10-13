@@ -24213,6 +24213,7 @@ Acceptance Criteria
 1. Every feature maps to source, transformation, temporal class, owner, tests, lineage, and CORE/SUPPORTED/CONDITIONAL/EXPERIMENTAL/REJECTED/BANNED state; design presence is not promotion evidence.
 2. The declared output `artifacts/features/production_feature_inventory.csv` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea feature scope: for every applicable child in governance/ORIGINAL_IDEA_DECISIONS.json, record its exact feature/source/transform identity or an explicit conditional, deferred, rejected or withdrawn disposition, named producer/evaluator, evidence and next decision checkpoint. Parent-family membership or a keyword-generated Jira edge alone does not satisfy child coverage; this does not require every candidate to be implemented or adopted.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-052 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -24493,6 +24494,7 @@ Acceptance Criteria
 1. Rolling/expanding/opponent-adjusted statistics fit only on eligible prior history, declare shrinkage/minimum history, and use visible uncertainty for early-season/lower-division cold starts.
 2. The declared output `artifacts/features/foundation_feature_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea rolling-form decision (ORI-024 and ORI-051): explicitly compare eligible prior win/loss streak and after-win/loss candidates, including the requested 1/2/3-game idea, with opponent-adjusted recent form and continuity. Predeclare candidate windows and support/shrinkage rules before evaluation; preserve null, redundant or unsupported results in the existing foundation_feature_manifest output and do not add a fixed streak bonus.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-055 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -24590,6 +24592,7 @@ Acceptance Criteria
 1. Advanced features use versioned PIT state, separate market-free/market-aware lanes, preserve availability uncertainty, and keep thin/unsupported domains isolated.
 2. The declared output `artifacts/features/advanced_feature_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea advanced children (ORI-026 through ORI-032): make a named source/definition/population/known-at disposition for directional and gap rushing; true pass-depth/location, aDOT and depth-conditioned completion/defense; clean-pocket/pressure/blitz protection; routes/YPRR/YAC and receiver-secondary matchups; fronts/coverage/box/tackling; personnel/formations/motion/play-action/RPO and sequencing. Bind supported transforms and consumers in advanced_feature_manifest; unsupported charting stays explicitly conditional. Gained yards cannot substitute for true throw depth, and this clause does not activate paid PFF, retired assistive execution or Film runtime.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-056 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -24878,6 +24881,7 @@ Acceptance Criteria
 1. Ablations retain null/negative results and report task/season/regime/A&M/peer/market-lane uncertainty, redundancy, and instability rather than cherry-picking one favorable slice.
 2. The declared output `artifacts/features/feature_ablation_stability.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea interactions (ORI-033, ORI-039, ORI-051, ORI-057 and ORI-061): predeclare and adjudicate named offense-versus-defense directional/depth/pressure/personnel interactions, style/halftime residuals, streak-versus-form, weather-football interactions and resource-efficiency/mediation hypotheses. Report target/population support, chronological incremental value, missingness, redundancy and negative results in feature_ablation_stability. A broad matchup category is insufficient, and a valid rejection or evidence-backed deferral satisfies the decision obligation without forced adoption.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-059 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -25448,6 +25452,7 @@ Acceptance Criteria
 1. Aggregates use only prior eligible state, distinguish returning production/recruits/transfers, expose early-season uncertainty, and do not encode culture/clutch/collapse without measurable definitions.
 2. The declared output `artifacts/context_intelligence/program_feature_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea coaching detail (ORI-049 through ORI-052): explicitly disposition role-conditioned situational coach residuals, including after-win/loss and 1/2/3-game streak hypotheses, portable role history and staff/player relationships. Control or qualify roster, opponent, supporting cast, co-staff, scheme, continuity and sample uncertainty; never infer play-caller from title or add overlapping coach effects as independent bonuses. Bind implemented state or an evidence-backed candidate/deferred decision in program_feature_manifest; empirical comparison remains with the feature/model evaluator.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-065 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -25743,6 +25748,7 @@ Acceptance Criteria
 1. Mechanics/officiating/resource data are used only where rights/depth/timing support them, and lower-division opponents receive explicit decreasing-information priors rather than zero strength or dropped games.
 2. The declared output `artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea resources (ORI-059 through ORI-061): explicitly disposition football/coaching/recruiting/support/facility resource observations, institutional payments versus third-party NIL estimates, release versus fiscal-period timing, public/private missingness, resource-efficiency and retention/development mediation. Bind source-compatible observed fields or honest conditional/unavailable decisions in mechanics_sparse_opponent_manifest, preserve the no-resource control, and require incremental evaluation beyond downstream talent/staff. Never convert industry estimates or missing private detail into claimed team spending or causal game bonuses.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-068 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -32079,6 +32085,7 @@ Acceptance Criteria
 1. Every active obligation/release-blocking control maps to current evidence and Jira; all 14 final gaps and 310 final risks have actionable, accepted/deferred, N-A, or verified-closed dispositions, with historical-only mappings flagged.
 2. The declared output `artifacts/release/final_traceability_audit.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea decision conservation: reconcile all named groups and children in governance/ORIGINAL_IDEA_DECISIONS.json to current requirement/source/plan and actual producer/evaluator Jira scope, with a deliver, investigate, conditional, deferred or withdrawn decision and its evidence/checkpoint. Verify semantics rather than nonempty IDs or keyword matches; preserve original child IDs and valid historical Done scopes. Missing decisions remain owned portfolio work; no finite worker cycle is required to finish every idea, and no candidate is forced into production to satisfy this audit.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-133 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.

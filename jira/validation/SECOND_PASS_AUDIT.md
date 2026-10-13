@@ -52,7 +52,7 @@
 | 34 | Verify current Atlassian requirements | PASS | Current official Jira Cloud CSV/Parent/ADF/REST/link assumptions are recorded with verification date and destination-mapping boundaries. |
 | 35 | Minimize custom-field bloat | PASS | The minimal searchable custom-field proposal is present; execution mode remains machine-searchable through the local packet/index schema without unnecessary Jira custom-field bloat. |
 | 36 | Labels and components | PASS | Controlled component and label vocabularies exist. |
-| 37 | Requirement traceability | PASS | All 745 requirement IDs have Jira mappings. |
+| 37 | Requirement traceability | PASS | 745 historical requirement routes are explicitly governance-only; original child decision ownership is validated separately. 638 requirements remain unreviewed at child grain. No implementation completion is asserted. |
 | 38 | Acceptance-control traceability | PASS | All 234 acceptance-control IDs have Jira mappings. |
 | 39 | ADR traceability | PASS | All 349 ADR IDs have Jira mappings. |
 | 40 | Risk and gap traceability | PASS | All 310 risks and 14 final gaps have Jira dispositions. |

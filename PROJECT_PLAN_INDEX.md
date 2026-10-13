@@ -11,6 +11,10 @@ This is a navigation index, not a new plan, acceptance contract or completion de
 - Public capability and scientific limits: [status](docs/public/STATUS.md), [data domains](docs/public/DATA_DOMAINS.md), and [technical usage](docs/public/GETTING_STARTED.md). Read the as-of date on every status statement.
 - Current private manager authority: `C:\BatteredAggieSyndrome.data\ops\manager_review\CURRENT_PROTOCOL.json` selects the release; `C:\BatteredAggieSyndrome.data\ops\manager_review\OPERATING_STATE.md` records current issued work. Resolve the selected release rather than hardcoding its version. The issued worker contract and amendments govern that assignment. These private paths are navigation only and are not exported project data.
 
+## Original ideas: explicit use or investigation decisions
+
+The [original-idea delivery and decision plan](docs/ORIGINAL_IDEA_DECISIONS.md) and [515-child decision registry](governance/ORIGINAL_IDEA_DECISIONS.json) bind each reviewed idea to an existing owner, planned decision output and prerequisite checkpoint. They distinguish required implementation from empirical candidates, conditional sources, deferred research and withdrawn proposals. They do not claim implementation is complete or amend active sealed work.
+
 ## Full product scope
 
 | Area | Governing detail |

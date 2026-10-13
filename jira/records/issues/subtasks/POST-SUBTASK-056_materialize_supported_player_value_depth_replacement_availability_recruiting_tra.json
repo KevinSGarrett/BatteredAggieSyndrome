@@ -3,7 +3,8 @@
   "acceptance_criteria": [
     "Advanced features use versioned PIT state, separate market-free/market-aware lanes, preserve availability uncertainty, and keep thin/unsupported domains isolated.",
     "The declared output `artifacts/features/advanced_feature_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
-    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Original-idea advanced children (ORI-026 through ORI-032): make a named source/definition/population/known-at disposition for directional and gap rushing; true pass-depth/location, aDOT and depth-conditioned completion/defense; clean-pocket/pressure/blitz protection; routes/YPRR/YAC and receiver-secondary matchups; fronts/coverage/box/tackling; personnel/formations/motion/play-action/RPO and sequencing. Bind supported transforms and consumers in advanced_feature_manifest; unsupported charting stays explicitly conditional. Gained yards cannot substitute for true throw depth, and this clause does not activate paid PFF, retired assistive execution or Film runtime."
   ],
   "adr_ids": [],
   "ai_context_notes": [

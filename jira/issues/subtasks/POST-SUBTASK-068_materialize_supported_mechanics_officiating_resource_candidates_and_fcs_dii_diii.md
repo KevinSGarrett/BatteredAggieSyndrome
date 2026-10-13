@@ -9,7 +9,8 @@
   "acceptance_criteria": [
     "Mechanics/officiating/resource data are used only where rights/depth/timing support them, and lower-division opponents receive explicit decreasing-information priors rather than zero strength or dropped games.",
     "The declared output `artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
-    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Original-idea resources (ORI-059 through ORI-061): explicitly disposition football/coaching/recruiting/support/facility resource observations, institutional payments versus third-party NIL estimates, release versus fiscal-period timing, public/private missingness, resource-efficiency and retention/development mediation. Bind source-compatible observed fields or honest conditional/unavailable decisions in mechanics_sparse_opponent_manifest, preserve the no-resource control, and require incremental evaluation beyond downstream talent/staff. Never convert industry estimates or missing private detail into claimed team spending or causal game bonuses."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -433,6 +434,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-023 (Weather, travel, rest, v
 1. Mechanics/officiating/resource data are used only where rights/depth/timing support them, and lower-division opponents receive explicit decreasing-information priors rather than zero strength or dropped games.
 2. The declared output `artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original-idea resources (ORI-059 through ORI-061): explicitly disposition football/coaching/recruiting/support/facility resource observations, institutional payments versus third-party NIL estimates, release versus fiscal-period timing, public/private missingness, resource-efficiency and retention/development mediation. Bind source-compatible observed fields or honest conditional/unavailable decisions in mechanics_sparse_opponent_manifest, preserve the no-resource control, and require incremental evaluation beyond downstream talent/staff. Never convert industry estimates or missing private detail into claimed team spending or causal game bonuses.
 
 ## Definition of Done
 

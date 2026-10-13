@@ -1512,6 +1512,9 @@ def strict_validate(records: list[dict[str, Any]], write_reports: bool = True) -
             dfs(node)
 
     registries = registry_id_sets()
+    from original_idea_traceability import validate_all
+    idea_errors, idea_metrics = validate_all(REPO_ROOT, JIRA_ROOT, records)
+    errors.extend(idea_errors)
     for field, valid in registries.items():
         mapped = {x for r in records for x in r.get(field, [])}
         invalid = mapped - valid
@@ -1624,6 +1627,7 @@ def strict_validate(records: list[dict[str, Any]], write_reports: bool = True) -
         "work_packet_count": sum(1 for _ in (JIRA_ROOT / "ai" / "work_packets").glob("*.md")),
         "master_prompt_compliance_section_count": len(compliance_rows),
         "registry_coverage": {field: {"total": len(valid), "mapped": len({x for r in records for x in r.get(field, [])} & valid)} for field, valid in registries.items()},
+        "original_idea_planning": idea_metrics,
         "errors": errors,
         "validated_at": TODAY,
     }
@@ -2410,7 +2414,7 @@ def patch_generator_for_reproducibility() -> None:
     if marker in text:
         return
     old = """    repo_root = repo_root.resolve()\n    jira_root = repo_root / \"jira\"\n\n    # The baseline must evaluate the authoritative W25 repository, not an earlier generated Jira derivative.\n    if jira_root.exists():\n        shutil.rmtree(jira_root)\n"""
-    new = """    repo_root = repo_root.resolve()\n    jira_root = repo_root / \"jira\"\n    builder_self_text = Path(__file__).read_text(encoding=\"utf-8\")\n    # SECOND_PASS_V2_PRESERVE_AND_APPLY: preserve the v2 hardener/validators before the generator replaces jira/.\n    preserved_v2_tools = {}\n    for _name in [\"jira_pack_lib.py\", \"second_pass_hardening.py\", \"run_second_pass_audit.py\", \"validate_second_pass.py\", \"rebuild_all_derivatives.py\", \"repair_source_refs.py\"]:\n        _p = jira_root / \"tools\" / _name\n        if _p.is_file():\n            preserved_v2_tools[_name] = _p.read_text(encoding=\"utf-8\")\n\n    # The baseline must evaluate the authoritative W25 repository, not an earlier generated Jira derivative.\n    if jira_root.exists():\n        shutil.rmtree(jira_root)\n"""
+    new = """    repo_root = repo_root.resolve()\n    jira_root = repo_root / \"jira\"\n    builder_self_text = Path(__file__).read_text(encoding=\"utf-8\")\n    # SECOND_PASS_V2_PRESERVE_AND_APPLY: preserve the v2 hardener/validators before the generator replaces jira/.\n    preserved_v2_tools = {}\n    for _name in [\"jira_pack_lib.py\", \"second_pass_hardening.py\", \"run_second_pass_audit.py\", \"validate_second_pass.py\", \"rebuild_all_derivatives.py\", \"repair_source_refs.py\", \"original_idea_traceability.py\"]:\n        _p = jira_root / \"tools\" / _name\n        if _p.is_file():\n            preserved_v2_tools[_name] = _p.read_text(encoding=\"utf-8\")\n\n    # The baseline must evaluate the authoritative W25 repository, not an earlier generated Jira derivative.\n    if jira_root.exists():\n        shutil.rmtree(jira_root)\n"""
     if old not in text:
         raise RuntimeError("Could not patch generator preservation block")
     text = text.replace(old, new, 1)

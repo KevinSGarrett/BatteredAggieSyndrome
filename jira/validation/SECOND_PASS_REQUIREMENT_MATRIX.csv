@@ -35,7 +35,7 @@ section,title,status,check_group,detail,evidence_files
 34,Verify current Atlassian requirements,PASS,atlassian,Current official Jira Cloud CSV/Parent/ADF/REST/link assumptions are recorded with verification date and destination-mapping boundaries.,import/ATLASSIAN_2026_COMPATIBILITY.md
 35,Minimize custom-field bloat,PASS,fields,The minimal searchable custom-field proposal is present; execution mode remains machine-searchable through the local packet/index schema without unnecessary Jira custom-field bloat.,project/FIELD_SCHEMA.yaml;index/WORK_PACKET_INDEX.csv
 36,Labels and components,PASS,taxonomy,Controlled component and label vocabularies exist.,project/COMPONENTS.csv;project/LABEL_DICTIONARY.csv
-37,Requirement traceability,PASS,requirements,All 745 requirement IDs have Jira mappings.,index/REQUIREMENT_TRACEABILITY.csv
+37,Requirement traceability,PASS,requirements,745 historical requirement routes are explicitly governance-only; original child decision ownership is validated separately. 638 requirements remain unreviewed at child grain. No implementation completion is asserted.,index/REQUIREMENT_TRACEABILITY.csv;index/ORIGINAL_IDEA_TRACEABILITY.csv;../governance/ORIGINAL_IDEA_DECISIONS.json
 38,Acceptance-control traceability,PASS,controls,All 234 acceptance-control IDs have Jira mappings.,index/ACCEPTANCE_TRACEABILITY.csv
 39,ADR traceability,PASS,adrs,All 349 ADR IDs have Jira mappings.,index/ADR_TRACEABILITY.csv
 40,Risk and gap traceability,PASS,risks_gaps,All 310 risks and 14 final gaps have Jira dispositions.,reconciliation/RISK_TO_JIRA_MAPPING.csv;reconciliation/GAP_TO_JIRA_MAPPING.csv

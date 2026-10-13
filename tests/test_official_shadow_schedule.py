@@ -12,7 +12,9 @@ import gzip
 import hashlib
 import io
 import json
+import ntpath
 import os
+import posixpath
 import shutil
 import sys
 import tempfile
@@ -30,6 +32,10 @@ from aggie_analytics.retrospective_baseline import schedule as sc  # noqa: E402
 
 CUT = "2026-10-13T00:00:00Z"
 GATE = ROOT / "artifacts" / "data_lake" / "official_shadow_schedule_20261017_gate.json"
+#: The original network-share and device spellings of QueryTests.test_locations. They name a namespace only under the
+#: Windows path rules; under the POSIX rules a backslash is an ordinary file-name character (MF54A01-01: PR710's
+#: Ubuntu jobs failed while the Windows refusal was expected on every platform).
+NAMESPACE_SPELLINGS = (r"\\fixture-server\share" + "\\" + "a" * 64 + r"\schedule.json", r"\\.\PhysicalDrive0")
 
 
 def _tmp() -> Path:
@@ -38,6 +44,17 @@ def _tmp() -> Path:
 
 def _cleanup(path: Path) -> None:
     shutil.rmtree(fx.sfx.ext(path), ignore_errors=False)
+
+
+def native_location_case(spelling: str, directory: str, os_name: str = os.name) -> tuple[str, str]:
+    """The location the query is given for an original namespace spelling and the refusal its native path rules owe.
+
+    Windows: the spelling itself, a network share or device that the lexical location rule refuses before any access.
+    POSIX: the same characters as one ordinary file name inside the test's own temporary ``directory`` (never the
+    shared working directory); no such file exists, so the query reports it missing."""
+    if os_name == "nt":
+        return spelling, "SCHEDULE_LOCATION_UNSUPPORTED"
+    return posixpath.join(directory, spelling), "SCHEDULE_MISSING"
 
 
 class ContractTests(unittest.TestCase):
@@ -486,6 +503,21 @@ class SidecarTests(WorldTestCase):
         self.assertEqual((code, fx.refusal(err)), (2, "SCHEDULE_NOT_PINNED_SIDECAR"))
 
 
+class NativeLocationRuleTests(unittest.TestCase):
+    def test_namespace_refusal_is_owed_only_under_windows_path_rules(self) -> None:
+        """MF54A01-01 regression, run on every host: the refusal expected for an original namespace spelling follows the
+        path rules of the platform, never Windows alone. Lexical only; test_locations runs the real query under the
+        host's own rules."""
+        owned = "/owned/tmp"
+        for spelling in NAMESPACE_SPELLINGS:
+            self.assertTrue(ntpath.splitdrive(spelling)[0], spelling)  # a share or device under the Windows rules
+            self.assertEqual(posixpath.split(spelling), ("", spelling))  # one file name under the POSIX rules
+            self.assertEqual(native_location_case(spelling, owned, "nt"), (spelling, "SCHEDULE_LOCATION_UNSUPPORTED"))
+            location, expected = native_location_case(spelling, owned, "posix")
+            self.assertEqual((posixpath.dirname(location), expected), (owned, "SCHEDULE_MISSING"), spelling)
+            self.assertEqual(location, posixpath.join(owned, spelling))
+
+
 class QueryTests(WorldTestCase):
     def test_grains_filters_paging_and_empty_sets(self) -> None:
         code, full, err = self.q("--grain", "shadow-schedule", "--cutoff", CUT, "--all")
@@ -559,9 +591,15 @@ class QueryTests(WorldTestCase):
         code, _doc, err = self.q("--grain", "shadow-schedule", "--cutoff", CUT, path=missing)
         self.assertEqual(fx.refusal(err), "SCHEDULE_MISSING")
         self.assertFalse(missing.parent.exists())
-        for location in (r"\\fixture-server\share" + "\\" + "a" * 64 + r"\schedule.json", r"\\.\PhysicalDrive0"):
+        for spelling in NAMESPACE_SPELLINGS:
+            location, expected = native_location_case(spelling, str(tmp))
             code, _doc, err = self.q("--grain", "shadow-schedule", "--cutoff", CUT, path=Path(location))
-            self.assertEqual(fx.refusal(err), "SCHEDULE_LOCATION_UNSUPPORTED", location)
+            self.assertEqual((code, fx.refusal(err)), (2, expected), spelling)
+            if os.name == "nt":
+                self.assertIn("is a network share or a device or namespace path", err, spelling)
+            else:
+                self.assertFalse(os.path.lexists(location), spelling)
+            self.assertEqual(os.listdir(tmp), [], spelling)
         plain = tmp / "plain"
         fx.sfx.write_tree(plain, fx.sfx.read_tree(self.path.parent))
         code, _doc, err = self.q("--grain", "shadow-schedule", "--cutoff", CUT, path=plain / "schedule.json")

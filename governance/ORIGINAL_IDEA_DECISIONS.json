@@ -2408,11 +2408,24 @@
         "owner_route": [
           {
             "jira_key": "BAT-708",
-            "role": "BAS bridge scope and active-consumer decision"
+            "role": "BAS bridge scope and active-consumer decision",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           },
           {
-            "jira_key": "CFIP-8",
-            "role": "cross-project reciprocal owner integration coordination"
+            "role": "cross-project reciprocal owner integration coordination",
+            "project_key": "CFIP",
+            "dependency_issue_key": "CFIP-8",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           }
         ],
         "authority_boundaries": {
@@ -5508,11 +5521,24 @@
         "owner_route": [
           {
             "jira_key": "BAT-708",
-            "role": "BAS bridge scope and active-consumer decision"
+            "role": "BAS bridge scope and active-consumer decision",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           },
           {
-            "jira_key": "CFIP-8",
-            "role": "cross-project reciprocal owner integration coordination"
+            "role": "cross-project reciprocal owner integration coordination",
+            "project_key": "CFIP",
+            "dependency_issue_key": "CFIP-8",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           }
         ],
         "authority_boundaries": {
@@ -5788,11 +5814,24 @@
         "owner_route": [
           {
             "jira_key": "BAT-708",
-            "role": "BAS bridge scope and active-consumer decision"
+            "role": "BAS bridge scope and active-consumer decision",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           },
           {
-            "jira_key": "CFIP-8",
-            "role": "cross-project reciprocal owner integration coordination"
+            "role": "cross-project reciprocal owner integration coordination",
+            "project_key": "CFIP",
+            "dependency_issue_key": "CFIP-8",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           }
         ],
         "authority_boundaries": {
@@ -6092,11 +6131,24 @@
         "owner_route": [
           {
             "jira_key": "BAT-708",
-            "role": "BAS bridge scope and active-consumer decision"
+            "role": "BAS bridge scope and active-consumer decision",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           },
           {
-            "jira_key": "CFIP-8",
-            "role": "cross-project reciprocal owner integration coordination"
+            "role": "cross-project reciprocal owner integration coordination",
+            "project_key": "CFIP",
+            "dependency_issue_key": "CFIP-8",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           }
         ],
         "authority_boundaries": {
@@ -6318,11 +6370,24 @@
         "owner_route": [
           {
             "jira_key": "BAT-708",
-            "role": "BAS bridge scope and active-consumer decision"
+            "role": "BAS bridge scope and active-consumer decision",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           },
           {
-            "jira_key": "CFIP-8",
-            "role": "cross-project reciprocal owner integration coordination"
+            "role": "cross-project reciprocal owner integration coordination",
+            "project_key": "CFIP",
+            "dependency_issue_key": "CFIP-8",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           }
         ],
         "authority_boundaries": {
@@ -6638,11 +6703,24 @@
         "owner_route": [
           {
             "jira_key": "BAT-708",
-            "role": "BAS bridge scope and active-consumer decision"
+            "role": "BAS bridge scope and active-consumer decision",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           },
           {
-            "jira_key": "CFIP-8",
-            "role": "cross-project reciprocal owner integration coordination"
+            "role": "cross-project reciprocal owner integration coordination",
+            "project_key": "CFIP",
+            "dependency_issue_key": "CFIP-8",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           }
         ],
         "authority_boundaries": {
@@ -6912,11 +6990,24 @@
         "owner_route": [
           {
             "jira_key": "BAT-708",
-            "role": "BAS bridge scope and active-consumer decision"
+            "role": "BAS bridge scope and active-consumer decision",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           },
           {
-            "jira_key": "CFIP-8",
-            "role": "cross-project reciprocal owner integration coordination"
+            "role": "cross-project reciprocal owner integration coordination",
+            "project_key": "CFIP",
+            "dependency_issue_key": "CFIP-8",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           }
         ],
         "authority_boundaries": {
@@ -7151,11 +7242,24 @@
         "owner_route": [
           {
             "jira_key": "BAT-708",
-            "role": "BAS bridge scope and active-consumer decision"
+            "role": "BAS bridge scope and active-consumer decision",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           },
           {
-            "jira_key": "CFIP-8",
-            "role": "cross-project reciprocal owner integration coordination"
+            "role": "cross-project reciprocal owner integration coordination",
+            "project_key": "CFIP",
+            "dependency_issue_key": "CFIP-8",
+            "source_bindings": [
+              "be247971efb5537f6bdb341f08cb37ed5767771f007dfc5f5f36dc305dbcf526",
+              "62e978138150137c416509c59a0a57c0ce1f0c4e07012a38180961680547f6a1",
+              "c49fee5ffa8a373de703d3e865ef47d48466ef95788293aeeb09a956ca0c022b",
+              "0136f238833174df098510654f434b6639bbe5eed665e38eb2f4ff187c56b98a"
+            ]
           }
         ],
         "authority_boundaries": {

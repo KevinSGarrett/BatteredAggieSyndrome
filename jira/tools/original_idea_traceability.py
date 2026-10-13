@@ -32,6 +32,52 @@ def load_source_inventory(repo: Path) -> dict:
     return json.loads(raw)
 
 
+def dependency_source_binding(source: dict) -> str:
+    return hashlib.sha256(json.dumps(source, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
+def validate_dependency_routes(dependency: dict, label: str) -> list[str]:
+    """External coordination references are not BAS owning decision units."""
+    errors = []
+    if not isinstance(dependency, dict):
+        return [f"{label}: dependency block invalid"]
+    refs = dependency.get("source_refs", [])
+    if not isinstance(refs, list) or not refs or any(not isinstance(r, dict) or not isinstance(r.get("repository"), str) or "/" not in r["repository"]
+                       or not re.fullmatch(r"[0-9a-f]{40}", str(r.get("head", "")))
+                       or not isinstance(r.get("relative_path"), str) or not r["relative_path"]
+                       or not re.fullmatch(r"[0-9a-f]{64}", str(r.get("sha256", ""))) for r in refs):
+        return [f"{label}: dependency source identities missing/invalid"]
+    bindings = {dependency_source_binding(r) for r in refs}
+    routes = dependency.get("owner_route", [])
+    seen = set()
+    if not isinstance(routes, list):
+        return [f"{label}: dependency route collection invalid"]
+    if not routes or len(bindings) != len(refs):
+        errors.append(f"{label}: dependency routes/sources missing or duplicated")
+    for route in routes:
+        if not isinstance(route, dict):
+            errors.append(f"{label}: dependency route invalid")
+            continue
+        if not isinstance(route.get("role"), str) or not route["role"].strip():
+            errors.append(f"{label}: dependency role missing/invalid")
+        references = route.get("source_bindings", [])
+        if not isinstance(references, list) or not references or any(not isinstance(v, str) or v not in bindings for v in references) or len(set(references)) != len(references):
+            errors.append(f"{label}: dependency route has missing/unbound/duplicate source references")
+        if "jira_key" in route:
+            key = route["jira_key"]
+            if "project_key" in route or "dependency_issue_key" in route or not isinstance(key, str) or not re.fullmatch(r"BAT-[1-9]\d*", key):
+                errors.append(f"{label}: BAS route cannot supply external dependency authority")
+        else:
+            project, key = route.get("project_key"), route.get("dependency_issue_key")
+            if not isinstance(project, str) or project not in {"CFIP", "CFI", "CFA"} or not isinstance(key, str) or not re.fullmatch(re.escape(project) + r"-[1-9]\d*", key):
+                errors.append(f"{label}: external dependency namespace/key invalid")
+        if isinstance(key, str):
+            if key in seen:
+                errors.append(f"{label}: dependency route duplicated")
+            seen.add(key)
+    return errors
+
+
 def validate_catalog(catalog: dict, records: list[dict], requirement_ids: set[str], source_inventory: dict) -> list[str]:
     errors: list[str] = []
     by_id = {r["local_id"]: r for r in records}
@@ -84,6 +130,8 @@ def validate_catalog(catalog: dict, records: list[dict], requirement_ids: set[st
         for field in ("primary_owner", "evaluation_owner"):
             owner = group.get(field, {})
             check_owner(owner, f"{gid}: {field}")
+        if "cross_project_dependencies" in group:
+            errors.extend(validate_dependency_routes(group["cross_project_dependencies"], gid))
         for child in group.get("children", []):
             cid = child.get("child_id", "?")
             children.append(child)

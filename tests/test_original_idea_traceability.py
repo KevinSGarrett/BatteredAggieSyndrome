@@ -156,6 +156,33 @@ class OriginalIdeaTraceabilityTests(unittest.TestCase):
         self.assertEqual("PARENT", outputs[0][1]["parent_id"])
         self.assertEqual("GATE", outputs[0][1]["governance_traceability_gate"])
 
+    def test_external_coordination_is_source_bound_and_not_a_bas_owner(self):
+        source = {"repository": "GridironCortex/CFBProgramSpecifications", "head": "a" * 40,
+                  "relative_path": "50_BAS_INTEGRATION/04_STAFF_PUBLISHER.md", "sha256": "b" * 64}
+        binding = trace.dependency_source_binding(source)
+        dependency = {"source_refs": [source], "owner_route": [
+            {"jira_key": "BAT-708", "role": "BAS bridge decision", "source_bindings": [binding]},
+            {"project_key": "CFIP", "dependency_issue_key": "CFIP-8", "role": "Reciprocal coordination", "source_bindings": [binding]}]}
+        cat = copy.deepcopy(self.catalog); cat["groups"][0]["cross_project_dependencies"] = dependency
+        self.assertEqual([], self.valid(cat))  # The dependency is not a new canonical child owner.
+        for mutation in ("mixed", "prefix", "placeholder", "zero", "missing_role", "typed_role", "missing_binding", "unbound", "duplicate", "source_path", "source_head", "source_digest", "typed_project"):
+            damaged = copy.deepcopy(cat); block = damaged["groups"][0]["cross_project_dependencies"]; route = block["owner_route"][1]
+            if mutation == "mixed": route["jira_key"] = "BAT-708"
+            if mutation == "prefix": route["dependency_issue_key"] = "CFI-8"
+            if mutation == "placeholder": route["dependency_issue_key"] = "CFIP-XXX"
+            if mutation == "zero": route["dependency_issue_key"] = "CFIP-0"
+            if mutation == "missing_role": del route["role"]
+            if mutation == "typed_role": route["role"] = 12
+            if mutation == "missing_binding": del route["source_bindings"]
+            if mutation == "unbound": route["source_bindings"] = ["f" * 64]
+            if mutation == "duplicate": block["owner_route"].append(copy.deepcopy(route))
+            if mutation == "source_path": block["source_refs"][0]["relative_path"] = "different.md"
+            if mutation == "source_head": block["source_refs"][0]["head"] = "c" * 40
+            if mutation == "source_digest": block["source_refs"][0]["sha256"] = "d" * 64
+            if mutation == "typed_project": route["project_key"] = ["CFIP"]
+            with self.subTest(mutation=mutation):
+                self.assertTrue(any("dependency" in e or "BAS route" in e for e in self.valid(damaged)))
+
 
 if __name__ == "__main__":
     unittest.main()

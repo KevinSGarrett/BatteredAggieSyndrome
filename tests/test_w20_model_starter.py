@@ -49,7 +49,7 @@ class W20ModelStarterTests(unittest.TestCase):
         rt2=OptionalBoostingRuntime(artifact(family='boosting'),spec,lambda xs:.7)
         self.assertAlmostEqual(rt2.predict(row()).value,.7)
     def test_joint_score_distribution_is_normalized_and_coherent(self):
-        d=IndependentPoissonScoreRuntime(artifact('joint_score','poisson'),max_score=45).predict_distribution(row())
+        d=IndependentPoissonScoreRuntime(artifact('joint_score','poisson'),max_score=80).predict_distribution(row())
         s=derive_summary(d)
         self.assertAlmostEqual(sum(x.probability for x in d.outcomes),1.0,places=9)
         self.assertAlmostEqual(s['expected_margin'],s['expected_team_score']-s['expected_opponent_score'])
@@ -76,7 +76,7 @@ class W20ModelStarterTests(unittest.TestCase):
         b=BasProbabilityForecast('game-1','anchor-1',.4,.3,.2,.1,'hash',('joint-1',)); b.validate()
         with self.assertRaises(ValueError): BasProbabilityForecast('game-1','a',.2,.3,.1,.05,'h',('x',)).validate()
     def test_forecast_snapshot_derives_public_outputs_from_joint_distribution(self):
-        art=artifact('joint_score','poisson'); dist=IndependentPoissonScoreRuntime(art,max_score=40).predict_distribution(row())
+        art=artifact('joint_score','poisson'); dist=IndependentPoissonScoreRuntime(art,max_score=80).predict_distribution(row())
         snap=ForecastSnapshot('snap','game-1','feat-1',art.artifact_sha256,dist,7.0,(UncertaintySignal('availability','AVAILABILITY','STARTER'),),
                               'tamu-state','TAMU-SP-00',('feat-1','model-1'))
         out=snap.public_summary(); self.assertIn('win_probability',out); self.assertIn('bas_ge_7',out)

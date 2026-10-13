@@ -2092,7 +2092,27 @@ def remove_retired_board_links(
     write_json_atomic(LEDGER_PATH, ledger)
 
 
+def active_board_jql(auxiliary_issues: Mapping[str, Mapping[str, Any]]) -> str:
+    """Preserve post-wave history and expose the explicitly adopted auxiliary work.
+
+    Native status is deliberately irrelevant: blocked and Done issues retain
+    visibility without promoting historical references or unregistered fixtures.
+    """
+    for key, item in auxiliary_issues.items():
+        if (re.fullmatch(r"BAT-[1-9][0-9]*", key) is None
+                or item.get("jira_key") != key
+                or item.get("classification") != "AUTHORIZED_AUXILIARY_LIVE_UNIT"):
+            raise RuntimeError(f"Invalid authorized auxiliary board identity: {key}")
+    keys = sorted(auxiliary_issues, key=lambda key: int(key.split("-")[1]))
+    selection = "labels = post-wave"
+    if keys:
+        selection = f"({selection} OR key in ({', '.join(keys)}))"
+    return f"project = BAT AND {selection} ORDER BY Rank ASC"
+
+
 def configure_filters(client: JiraClient, ledger: dict[str, Any], field_ids: dict[str, str]) -> None:
+    # Resolve and validate adopted membership before making any platform request.
+    board_jql = active_board_jql(load_auxiliary_issues())
     board_filter = client.get(f"/rest/api/3/filter/{BOARD_FILTER_ID}")
     client.put(
         f"/rest/api/3/filter/{BOARD_FILTER_ID}",
@@ -2100,9 +2120,10 @@ def configure_filters(client: JiraClient, ledger: dict[str, Any], field_ids: dic
             "name": board_filter.get("name", "BAT board filter"),
             "description": (
                 "Active post-W25 execution board for the canonical C:\\BatteredAggieSyndrome\\jira backlog. "
-                "Historical W01-W25 reference work remains searchable but is intentionally excluded from the active board."
+                "Preserves post-wave history and includes every authorized auxiliary registry issue, regardless of native status. "
+                "Other historical references and unregistered fixtures are not added."
             ),
-            "jql": "project = BAT AND labels = post-wave ORDER BY Rank ASC",
+            "jql": board_jql,
             "favourite": True,
         },
     )
@@ -2125,7 +2146,7 @@ def configure_filters(client: JiraClient, ledger: dict[str, Any], field_ids: dic
         else:
             created = client.post("/rest/api/3/filter", body)
             saved[name] = str(created["id"])
-    ledger["board"] = {"id": BOARD_ID, "filter_id": BOARD_FILTER_ID, "active_jql": "project = BAT AND labels = post-wave ORDER BY Rank ASC"}
+    ledger["board"] = {"id": BOARD_ID, "filter_id": BOARD_FILTER_ID, "active_jql": board_jql}
     ledger["saved_filters"] = saved
     ledger["updated_at"] = utc_now()
     write_json_atomic(LEDGER_PATH, ledger)
@@ -3091,12 +3112,17 @@ def verify_live(
         discrepancies.append(f"unexpected links: {len(unexpected_links)}; sample={unexpected_links[:10]}")
     board = client.get(f"/rest/agile/1.0/board/{BOARD_ID}/configuration")
     board_filter = client.get(f"/rest/api/3/filter/{BOARD_FILTER_ID}")
+    expected_board_jql = active_board_jql(auxiliary_issues)
+    if board_filter.get("jql") != expected_board_jql:
+        discrepancies.append("board filter does not match adopted post-wave and auxiliary visibility")
+    if str((board.get("filter") or {}).get("id")) != BOARD_FILTER_ID:
+        discrepancies.append("board is bound to a different filter")
     verification = {
         "schema_version": LIVE_VERIFICATION_SCHEMA_VERSION,
         "verified_at": utc_now(),
         "result": "PASS" if not discrepancies else "FAIL",
         "project": {"key": PROJECT_KEY, "id": PROJECT_ID, "base_url": BASE_URL},
-        "board": {"id": BOARD_ID, "name": board.get("name"), "filter_id": BOARD_FILTER_ID, "jql": board_filter.get("jql")},
+        "board": {"id": BOARD_ID, "name": board.get("name"), "filter_id": BOARD_FILTER_ID, "jql": board_filter.get("jql"), "expected_jql": expected_board_jql},
         "issue_count": len(issues),
         "canonical_expected_count": auxiliary_coverage["canonical_expected_count"],
         "canonical_actual_count": auxiliary_coverage["canonical_actual_count"],

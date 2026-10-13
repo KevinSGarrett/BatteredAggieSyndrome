@@ -407,6 +407,8 @@ class AlertLedger:
             raise ValueError("unsupported escalation severity")
         if SEVERITY_RANK[severity] <= SEVERITY_RANK[record["current_severity"]]:
             raise ValueError("escalation must increase severity")
+        if record["opening_evaluation"]["rule"]["drift_class"] == "TERMS_METADATA" and SEVERITY_RANK[severity] > SEVERITY_RANK["WARNING"]:
+            raise ValueError("terms metadata drift severity cannot exceed WARNING")
         transition = self._transition(
             transition_type="ESCALATED",
             occurred_at_utc=occurred_at_utc,
@@ -526,6 +528,11 @@ def validate_alert_snapshot(payload: Mapping[str, Any]) -> None:
             raise ValueError("alert current severity invalid")
         validate_drift_evaluation(record["opening_evaluation"])
         validate_drift_evaluation(record["latest_evaluation"])
+        opening, latest = record["opening_evaluation"], record["latest_evaluation"]
+        if opening["status"] != "DRIFT":
+            raise ValueError("alert opening evaluation must be drifted")
+        if record["rule_identity"] != opening["rule"]["rule_identity"] or record["scope_id"] != opening["rule"]["scope_id"]:
+            raise ValueError("alert scope or rule does not derive from opening evaluation")
         if record["opening_evaluation"]["dedup_identity"] != record["alert_id"]:
             raise ValueError("alert opening evaluation mismatch")
         if record["latest_evaluation"]["dedup_identity"] != record["alert_id"]:
@@ -534,17 +541,73 @@ def validate_alert_snapshot(payload: Mapping[str, Any]) -> None:
         if not isinstance(transitions, list) or not transitions:
             raise ValueError("alert requires transitions")
         previous = None
-        for transition in transitions:
+        previous_time = None
+        status, severity = "OPEN", opening["severity"]
+        observed_identity = opening["evaluation_identity"]
+        last_observation = None
+        for index, transition in enumerate(transitions):
+            if set(transition) != {"transition_type", "occurred_at_utc", "evidence_sha256", "actor_id", "previous_transition_identity", "details", "transition_identity"}:
+                raise ValueError("alert transition field set mismatch")
             canonical_transition = dict(transition)
             identity = canonical_transition.pop("transition_identity", None)
             if identity != canonical_sha256(canonical_transition):
                 raise ValueError("alert transition identity mismatch")
             if transition["previous_transition_identity"] != previous:
                 raise ValueError("alert transition chain mismatch")
-            _utc(transition["occurred_at_utc"], "transition occurred_at_utc")
+            when = datetime.fromisoformat(_utc(transition["occurred_at_utc"], "transition occurred_at_utc"))
+            if previous_time is not None and when < previous_time:
+                raise ValueError("alert transitions are not chronological")
             _sha256(transition["evidence_sha256"], "transition evidence_sha256")
             _identifier(transition["actor_id"], "transition actor_id")
+            kind, details = transition["transition_type"], transition["details"]
+            if not isinstance(details, dict) or status == "RESOLVED":
+                raise ValueError("invalid alert lifecycle transition")
+            if index == 0:
+                expected = AlertLedger._transition(
+                    transition_type="OPENED", occurred_at_utc=opening["evaluated_at_utc"],
+                    evidence_sha256=opening["observation"]["evidence_sha256"], actor_id="detector",
+                    previous_transition_identity=None, details={"evaluation_identity": opening["evaluation_identity"]},
+                )
+                if transition != expected:
+                    raise ValueError("alert opening transition does not derive from evaluation")
+            elif kind == "ACKNOWLEDGED":
+                if details:
+                    raise ValueError("acknowledgement details mismatch")
+                status = "ACKNOWLEDGED"
+            elif kind == "ESCALATED":
+                if set(details) != {"from_severity", "to_severity", "escalation_rule_id"}:
+                    raise ValueError("escalation details mismatch")
+                target = details["to_severity"]
+                _identifier(details["escalation_rule_id"], "escalation_rule_id")
+                if details["from_severity"] != severity or target not in SEVERITY_RANK or SEVERITY_RANK[target] <= SEVERITY_RANK[severity]:
+                    raise ValueError("escalation does not increase derived severity")
+                if opening["rule"]["drift_class"] == "TERMS_METADATA" and SEVERITY_RANK[target] > SEVERITY_RANK["WARNING"]:
+                    raise ValueError("terms metadata drift severity cannot exceed WARNING")
+                severity, status = target, "ESCALATED"
+            elif kind == "REOBSERVED":
+                if set(details) != {"evaluation_identity"} or transition["actor_id"] != "detector":
+                    raise ValueError("reobservation details mismatch")
+                observed_identity = _sha256(details["evaluation_identity"], "reobservation evaluation_identity")
+                last_observation = transition
+            elif kind == "RESOLVED":
+                if (index != len(transitions) - 1 or details != {"clearing_evaluation_identity": latest["evaluation_identity"]}
+                        or latest["status"] != "NO_DRIFT"
+                        or latest["observation"]["observation_identity"] == opening["observation"]["observation_identity"]
+                        or when < datetime.fromisoformat(latest["evaluated_at_utc"])):
+                    raise ValueError("resolution does not derive from changed clearing evidence")
+                status = "RESOLVED"
+            else:
+                raise ValueError("invalid alert lifecycle transition")
             previous = identity
+            previous_time = when
+        if record["status"] != status or record["current_severity"] != severity:
+            raise ValueError("alert status or severity does not derive from transitions")
+        if status != "RESOLVED":
+            if observed_identity != latest["evaluation_identity"]:
+                raise ValueError("latest evaluation does not derive from observation transitions")
+            if last_observation is not None and (last_observation["occurred_at_utc"] != latest["evaluated_at_utc"]
+                    or last_observation["evidence_sha256"] != latest["observation"]["evidence_sha256"]):
+                raise ValueError("latest observation evidence mismatch")
         if record["status"] == "RESOLVED":
             if transitions[-1]["transition_type"] != "RESOLVED":
                 raise ValueError("resolved alert lacks terminal resolution")

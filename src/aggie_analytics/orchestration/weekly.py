@@ -32,6 +32,9 @@ class LocalWeeklyOrchestrator:
         for step_id in self.order:
             prior=self.checkpoints.get(identity.run_id,step_id)
             if prior is not None:
+                prior.validate()
+                if prior.step_id != step_id:
+                    raise ValueError("checkpoint returned wrong step identity")
                 results[step_id]=prior
                 if prior.state != "SUCCEEDED":
                     status="QUARANTINED" if prior.state=="QUARANTINED" else "FAILED"

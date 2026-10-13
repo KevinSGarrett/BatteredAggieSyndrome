@@ -14,7 +14,8 @@ import json
 import sqlite3
 from typing import Any, Iterable, Iterator, Mapping
 
-from .lineage import canonical_json, content_id, utc_now
+from .lineage import canonical_json, content_hash, content_id, utc_now
+from .queue import make_event, validate_transition
 
 
 SCHEMA_SQL = """
@@ -117,6 +118,7 @@ class ExperimentStore:
         created_at = utc_now()
         spec_hash = content_hash(spec)
         with self.connect() as conn:
+            self._require_integrity(conn)
             existing = conn.execute(
                 "SELECT payload_json FROM experiment_specs WHERE experiment_id=?",
                 (experiment_id,),
@@ -133,6 +135,7 @@ class ExperimentStore:
 
     def get_experiment(self, experiment_id: str) -> StoredExperiment | None:
         with self.connect() as conn:
+            self._require_integrity(conn)
             row = conn.execute(
                 "SELECT experiment_id,payload_json,created_at FROM experiment_specs WHERE experiment_id=?",
                 (experiment_id,),
@@ -145,6 +148,7 @@ class ExperimentStore:
         if limit < 1:
             raise ValueError("limit must be positive")
         with self.connect() as conn:
+            self._require_integrity(conn)
             rows = conn.execute(
                 "SELECT experiment_id,payload_json,created_at FROM experiment_specs ORDER BY created_at, experiment_id LIMIT ?",
                 (limit,),
@@ -159,9 +163,13 @@ class ExperimentStore:
         missing = required.difference(event)
         if missing:
             raise ValueError(f"queue event missing {sorted(missing)}")
+        rebuilt = make_event(**{k: event[k] for k in required if k != "event_hash"})
+        if type(event["event_index"]) is not int or event["event_hash"] != rebuilt["event_hash"]:
+            raise ValueError("queue event content identity mismatch")
         with self.connect() as conn:
+            self._require_integrity(conn)
             last = conn.execute(
-                "SELECT event_index,event_hash FROM queue_events WHERE experiment_id=? ORDER BY event_index DESC LIMIT 1",
+                "SELECT event_index,event_hash,state FROM queue_events WHERE experiment_id=? ORDER BY event_index DESC LIMIT 1",
                 (event["experiment_id"],),
             ).fetchone()
             expected_index = 0 if last is None else int(last["event_index"]) + 1
@@ -170,6 +178,11 @@ class ExperimentStore:
                 raise ValueError(f"queue event_index must be {expected_index}")
             if str(event["previous_event_hash"]) != expected_prev:
                 raise ValueError("queue previous_event_hash does not match append-only chain")
+            if last is None:
+                if event["state"] != "PROPOSED":
+                    raise ValueError("queue must start at PROPOSED")
+            else:
+                validate_transition(last["state"], event["state"], event["actor_role"])
             conn.execute(
                 """INSERT INTO queue_events(
                     experiment_id,event_index,state,actor_role,reason,event_hash,previous_event_hash,created_at
@@ -183,6 +196,7 @@ class ExperimentStore:
 
     def queue_history(self, experiment_id: str) -> list[dict[str, Any]]:
         with self.connect() as conn:
+            self._require_integrity(conn)
             rows = conn.execute(
                 "SELECT * FROM queue_events WHERE experiment_id=? ORDER BY event_index",
                 (experiment_id,),
@@ -198,6 +212,7 @@ class ExperimentStore:
         payload = canonical_json(result)
         result_id = str(result.get("result_id") or content_id("RES", {"experiment_id": exp, "attempt": attempt, "payload": result}))
         with self.connect() as conn:
+            self._require_integrity(conn)
             conn.execute(
                 "INSERT INTO result_packets(result_id,experiment_id,attempt,payload_json,result_sha256,created_at) VALUES (?,?,?,?,?,?)",
                 (result_id, exp, attempt, payload, content_hash(result), utc_now()),
@@ -214,6 +229,7 @@ class ExperimentStore:
         }
         artifact_id = content_id("ART", artifact)
         with self.connect() as conn:
+            self._require_integrity(conn)
             conn.execute(
                 """INSERT INTO artifact_records(
                     artifact_id,experiment_id,attempt,class_name,uri,sha256,size_bytes,sensitivity,created_at
@@ -223,20 +239,74 @@ class ExperimentStore:
         return artifact_id
 
     def integrity_check(self) -> list[str]:
-        findings: list[str] = []
         with self.connect() as conn:
-            pragma = conn.execute("PRAGMA integrity_check").fetchone()[0]
-            if pragma != "ok":
-                findings.append(f"sqlite integrity_check: {pragma}")
-            rows = conn.execute(
-                """SELECT q.experiment_id,q.event_index,q.previous_event_hash,
-                          lag(q.event_hash) OVER(PARTITION BY q.experiment_id ORDER BY q.event_index) AS prior_hash
-                   FROM queue_events q"""
-            ).fetchall()
-            for r in rows:
-                if r["event_index"] == 0:
-                    if r["previous_event_hash"] != "":
-                        findings.append(f"{r['experiment_id']} event0 has previous hash")
-                elif r["previous_event_hash"] != r["prior_hash"]:
-                    findings.append(f"{r['experiment_id']} event {r['event_index']} broken hash chain")
+            return self._integrity_findings(conn)
+
+    @classmethod
+    def _require_integrity(cls, conn: sqlite3.Connection) -> None:
+        findings = cls._integrity_findings(conn)
+        if findings:
+            raise ValueError("experiment store integrity failure: " + "; ".join(findings))
+
+    @staticmethod
+    def _integrity_findings(conn: sqlite3.Connection) -> list[str]:
+        findings: list[str] = []
+        findings.extend(f"sqlite integrity_check: {r[0]}" for r in conn.execute("PRAGMA integrity_check") if r[0] != "ok")
+        findings.extend(f"foreign key failure: {tuple(r)}" for r in conn.execute("PRAGMA foreign_key_check"))
+        for table, key, digest in (("experiment_specs", "experiment_id", "spec_sha256"),
+                                   ("result_packets", "result_id", "result_sha256"),
+                                   ("replay_reports", "replay_id", "replay_sha256")):
+            for row in conn.execute(f"SELECT * FROM {table}"):
+                try:
+                    payload = json.loads(row["payload_json"])
+                    if not isinstance(payload, dict) or content_hash(payload) != row[digest]:
+                        raise ValueError("payload hash mismatch")
+                    if table == "experiment_specs":
+                        expected = str(payload.get("experiment_id") or content_id("EXP", payload))
+                        if expected != row[key]:
+                            raise ValueError("experiment identity mismatch")
+                    elif table == "result_packets":
+                        exp, attempt = str(payload["experiment_id"]), int(payload.get("attempt", 1))
+                        expected = str(payload.get("result_id") or content_id("RES", {"experiment_id": exp, "attempt": attempt, "payload": payload}))
+                        if expected != row[key] or exp != row["experiment_id"] or attempt != row["attempt"] or attempt < 1:
+                            raise ValueError("result binding mismatch")
+                    else:
+                        source = conn.execute("SELECT experiment_id FROM result_packets WHERE result_id=?", (row["source_result_id"],)).fetchone()
+                        if source is None or source[0] != row["experiment_id"]:
+                            raise ValueError("replay source experiment mismatch")
+                        for field in ("experiment_id", "source_result_id", "replay_id", "replay_status"):
+                            if field in payload and payload[field] != row[field]:
+                                raise ValueError("replay binding mismatch")
+                        checks = payload.get("checks")
+                        if not isinstance(checks, dict) or any(type(v) is not bool for v in checks.values()):
+                            raise ValueError("replay checks must be boolean decisions")
+                        status = "VERIFIED" if checks and all(checks.values()) and not payload.get("failure_code") else "MISMATCH"
+                        if row["replay_status"] != status:
+                            raise ValueError("replay status does not derive from checks and failure code")
+                except (ValueError, TypeError, KeyError) as exc:
+                    findings.append(f"{table} {row[key]}: {exc}")
+        previous: dict[str, sqlite3.Row] = {}
+        for row in conn.execute("SELECT * FROM queue_events ORDER BY experiment_id,event_index"):
+            exp = row["experiment_id"]
+            prior = previous.get(exp)
+            expected_index = 0 if prior is None else prior["event_index"] + 1
+            expected_hash = "" if prior is None else prior["event_hash"]
+            if row["event_index"] != expected_index or row["previous_event_hash"] != expected_hash:
+                findings.append(f"{exp} event {row['event_index']}: broken sequence/hash chain")
+            event = make_event(**{k: row[k] for k in ("experiment_id", "state", "actor_role", "reason", "event_index", "previous_event_hash")})
+            if event["event_hash"] != row["event_hash"]:
+                findings.append(f"{exp} event {row['event_index']}: content identity mismatch")
+            try:
+                if prior is None:
+                    if row["state"] != "PROPOSED":
+                        raise ValueError("queue must start at PROPOSED")
+                else:
+                    validate_transition(prior["state"], row["state"], row["actor_role"])
+            except (ValueError, PermissionError) as exc:
+                findings.append(f"{exp} event {row['event_index']}: {exc}")
+            previous[exp] = row
+        for row in conn.execute("SELECT * FROM artifact_records"):
+            artifact = {k: row[k] for k in ("experiment_id", "attempt", "class_name", "uri", "sha256", "size_bytes", "sensitivity")}
+            if content_id("ART", artifact) != row["artifact_id"] or row["size_bytes"] < 0:
+                findings.append(f"artifact {row['artifact_id']}: content identity mismatch")
         return findings

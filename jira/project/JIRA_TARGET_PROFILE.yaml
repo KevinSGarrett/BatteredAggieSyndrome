@@ -116,21 +116,21 @@
   },
   "discovery_required_before_api_execution": false,
   "jira_base_url": "https://kevinsgarrett.atlassian.net",
-  "last_live_verification": "2026-09-06T21:24:24.161669+00:00",
+  "last_live_verification": "2026-10-13T18:01:23.272562+00:00",
   "live_counts": {
-    "issues": 639,
+    "issues": 657,
     "links": 1151,
     "parents": 444
   },
   "local_sync": {
-    "last_successful_sync": "2026-09-06T21:24:24.161669+00:00",
+    "last_successful_sync": "2026-10-13T18:01:23.272562+00:00",
     "pending_issue_ids": [],
     "pending_reason": "",
     "state": "LIVE_SYNCHRONIZED"
   },
   "notes": [
     "BAT was discovered and configured through Jira Cloud REST v3 using returned IDs only.",
-    "The active board is post-W25 execution only; historical W01-W25 reference remains searchable.",
+    "The active board preserves the post-wave population and all explicitly adopted auxiliary issues; historical W01-W25 reference remains searchable.",
     "Local canonical JSON owns specification; Jira owns operational status, assignee, sprint, rank, and comments.",
     "There is no Wave 26. Historical Done does not claim production or empirical completion."
   ],
@@ -148,5 +148,20 @@
     "BAT — Historical W01-W25 Reference": "10140",
     "BAT — Ready Atomic Work": "10136"
   },
-  "schema_version": 1
+  "schema_version": 1,
+  "verification_observation_scope": {
+    "facts": "Original full658issue export, prior five exact applied-description readbacks, fresh changed-issue query overlay BAT727, and fresh native board/filter/readback423keys. Comment/other-platform facts retain prior timestamps; this is not a fabricated fresh whole-site export or global semantic acceptance.",
+    "fixture_move": {
+      "after_key": "BATQ-70",
+      "before_key": "BAT-709",
+      "issue_id": "25841",
+      "readback_path": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle55\\attempt01\\wave3-audit-20261013\\jira\\fixture-move\\ISSUE_READBACK.json",
+      "readback_sha256": "058260def7c808e4a90302786c304e7226e7064308e0c1b0433d2b59cf0c90a5",
+      "scope": "Only the actually moved immutable native issue id is removed from the retained BAT search result. Historical proof remains retained; no extra delivery issue or count carve-out is introduced."
+    },
+    "mode": "NATIVE_VERIFIER_RETAINED_FACTS_WITH_CURRENT_DELTAS",
+    "receipt_path": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle55\\attempt01\\wave3-audit-20261013\\filesystem-coverage\\JIRA_CURRENT_PRODUCER_QUALIFICATION.json",
+    "receipt_sha256": "68e56df1c477ff5e5165aa9059ff3b58f5a44d815c75971ef2c78dcd4ba8cc88",
+    "scientific_acceptance": false
+  }
 }

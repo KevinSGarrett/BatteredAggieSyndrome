@@ -1,8 +1,14 @@
 from __future__ import annotations
 from collections.abc import Iterable
+from math import isfinite
 from .contracts import BasLabel,ExpectedMarginEvidence
 SEVERITY_THRESHOLDS=(3.0,7.0,14.0,21.0)
-def performance_residual(actual_margin:float,expected_margin:float)->float:return float(actual_margin)-float(expected_margin)
+def performance_residual(actual_margin:float,expected_margin:float)->float:
+    actual, expected = float(actual_margin), float(expected_margin)
+    residual = actual-expected
+    if not all(isfinite(value) for value in (actual, expected, residual)):
+        raise ValueError('actual margin, expected margin and residual must be finite')
+    return residual
 def underperformance_shortfall(actual_margin:float,expected_margin:float)->float:return -performance_residual(actual_margin,expected_margin)
 def severity_flags(actual_margin:float,expected_margin:float)->dict[str,bool]:
     s=underperformance_shortfall(actual_margin,expected_margin)

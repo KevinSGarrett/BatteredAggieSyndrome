@@ -47,6 +47,12 @@ kickoff, and carries UNTRUSTED_SHADOW and PIT_NOT_ADMITTED. It is never combined
 ``--model``/``--orientation``/``--contest``/``--partition`` do not apply (FILTER_NOT_APPLICABLE). Invocations without
 the option keep their existing parsers and bytes, ``--help`` included; the mode's own parser describes it
 (``--schedule-evidence <schedule.json> --help``).
+
+The same explicit option also serves a successor sidecar (BAT-727,
+:mod:`aggie_analytics.retrospective_baseline.schedule_expansion`) when the selected sidecar's own bundled contract
+names that profile: a separately frozen policy re-qualifying the retained BAT-726 capture, its predecessor verified
+by the accepted BAT-726 reader, served only at or after both the original observation bound and the successor's
+policy-frozen time. A V1 sidecar is still served by the V1 reader with its unchanged answers and refusals.
 """
 from __future__ import annotations
 
@@ -85,7 +91,10 @@ SCHEDULE_EPILOG = ("explicit official schedule evidence mode (BAT-726): --prospe
                    "for the 25 events of that accepted shadow; OFFICIAL_SCHEDULE_CLAIM, SCHEDULE_NOT_ACTUAL_KICKOFF, "
                    "CURRENT_OBSERVATION_NOT_ORIGINAL_PUBLICATION, NO_RETROACTIVE_ANCHOR_AUTHORITY, UNTRUSTED_SHADOW, "
                    "PIT_NOT_ADMITTED; refused before the observation bound; never combined with --database, "
-                   "--history-database or --prospective-preview")
+                   "--history-database or --prospective-preview. The same option serves an explicitly "
+                   "selected successor sidecar (BAT-727 expansion profile: its own frozen contract and "
+                   "policy time, refused before the policy-frozen time) when its bundled contract names "
+                   "that profile")
 _DEFAULT = object()
 
 
@@ -318,7 +327,8 @@ def schedule_mode(argv: Sequence[str]) -> bool:
 
 
 def run_schedule(args: argparse.Namespace, contract_sha256: str | None = None, profile: Any = _DEFAULT,
-                 shadow_profile: Any = _DEFAULT) -> dict[str, Any]:
+                 shadow_profile: Any = _DEFAULT, expansion_contract_sha256: str | None = None,
+                 expansion_profile: Any = _DEFAULT, predecessor_profile: Any = _DEFAULT) -> dict[str, Any]:
     """The explicit schedule evidence mode (BAT-726): every ambiguous or inapplicable selection and every malformed
     argument is refused before any file is read; then the shadow and the sidecar are verified completely and queried."""
     from aggie_analytics.retrospective_baseline import schedule  # noqa: PLC0415 - explicit option only
@@ -347,6 +357,19 @@ def run_schedule(args: argparse.Namespace, contract_sha256: str | None = None, p
     schedule.parse_cutoff(args.cutoff)
     if args.expect_identity is not None and not schedule.IDENTITY_RE.match(args.expect_identity):
         raise schedule.ScheduleError("STALE_SCHEDULE_IDENTITY", "--expect-identity must be a SHA-256 identity")
+    from aggie_analytics.retrospective_baseline import schedule_expansion  # noqa: PLC0415 - explicit option only
+
+    if schedule_expansion.selects(args.schedule_evidence):
+        successor: dict[str, Any] = {} if expansion_contract_sha256 is None else {
+            "contract_sha256": expansion_contract_sha256}
+        for name, value in (("profile", expansion_profile), ("predecessor_profile", predecessor_profile),
+                            ("shadow_profile", shadow_profile)):
+            if value is not _DEFAULT:
+                successor[name] = value
+        with schedule_expansion.ExpansionEvidence(args.schedule_evidence, args.prospective_shadow,
+                                                  expect_identity=args.expect_identity, **successor) as chosen:
+            return chosen.query(args.grain, cutoff=args.cutoff, season=args.season, event=args.event,
+                                team=args.team, limit=args.limit, offset=args.offset, all_rows=args.all_rows)
     authority: dict[str, Any] = {} if contract_sha256 is None else {"contract_sha256": contract_sha256}
     if profile is not _DEFAULT:
         authority["profile"] = profile
@@ -360,13 +383,16 @@ def run_schedule(args: argparse.Namespace, contract_sha256: str | None = None, p
 
 def main(argv: Sequence[str] | None = None, *, preview_contract_sha256: str | None = None,
          shadow_contract_sha256: str | None = None, shadow_profile: Any = _DEFAULT,
-         schedule_contract_sha256: str | None = None, schedule_profile: Any = _DEFAULT) -> int:
+         schedule_contract_sha256: str | None = None, schedule_profile: Any = _DEFAULT,
+         expansion_contract_sha256: str | None = None, expansion_profile: Any = _DEFAULT,
+         predecessor_profile: Any = _DEFAULT) -> int:
     tokens = list(sys.argv[1:] if argv is None else argv)
     if schedule_mode(tokens):
         args = build_schedule_parser().parse_args(tokens)
         from aggie_analytics.retrospective_baseline import schedule  # noqa: PLC0415 - explicit option only
         try:
-            result = run_schedule(args, schedule_contract_sha256, schedule_profile, shadow_profile)
+            result = run_schedule(args, schedule_contract_sha256, schedule_profile, shadow_profile,
+                                  expansion_contract_sha256, expansion_profile, predecessor_profile)
         except schedule.ScheduleError as exc:
             print(json.dumps({"refused": exc.code, "error": str(exc)}), file=sys.stderr)
             return 2

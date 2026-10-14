@@ -242,7 +242,17 @@ ANCHORS: dict[str, Any] = {
 #: The materialized canonical reference this checkout pins (identities and counts only; the values stay in the private
 #: data root), packaged with artifacts/data_lake/national_retrospective_reference_2016_2023_gate.json after the first
 #: canonical write. None until then: the mounted genuine test skips.
-REFERENCE_PROFILE: dict[str, Any] | None = None
+REFERENCE_PROFILE: dict[str, Any] | None = {
+    "database_identity": "ad01a42f203435627232af9e9ba1a73d29154650553f37926756d821711582d8",
+    "content_identity": "fe303a90d8753956b914d3c7c2adfe2d33d9816bfb45689b0361f8e36e2e6cc0",
+    "database_sha256": "17a0776587eb30918903dc0d38c736958b1984feb4b40379bbfc80425035785d",
+    "contract_sha256": "3cfeff255bb29801b482b02611ad2c72c725d069e9f89d3911e86711af34bb31",
+    "targets": 5875,
+    "views": 11750,
+    "pool": 11528,
+    "training_targets": 5087,
+    "comparison_targets": 788,
+}
 
 IDENTITY_RE = bm.IDENTITY_RE
 DEC12_RE = re.compile(r"-?(0|[1-9][0-9]*)\.[0-9]{12}\Z")

@@ -87,3 +87,7 @@ identities. Each forgery is refused for its own cause. Invocations without the o
 
 The build is `tools/build_national_retrospective_reference.py`. Its reverse-order, shuffled, chunked (1, 17 and 257)
 and interrupted-and-resumed variants reproduce every byte.
+
+## Delivered reference
+
+Database identity `ad01a42f203435627232af9e9ba1a73d29154650553f37926756d821711582d8` (content identity `fe303a90d8753956b914d3c7c2adfe2d33d9816bfb45689b0361f8e36e2e6cc0`; first canonical write BUILD_REFERENCE stage=materialize `20261014T034928803791Z` at `78ae29da5b02`, after the contract commit): 5875 targets, 11750 feature views, 11528 pool games, 5087 fitting targets (2016-2022) and 788 exposed 2023 comparison targets. The logistic fit is CONVERGED in 3 Newton steps and the ridge fit SOLVED; the Elo processed 11528 pool games over 598 dates; the C47 estimate (23500) and label (5875) lines are preserved byte for byte. The packaged gate (artifacts/data_lake/national_retrospective_reference_2016_2023_gate.json) and the reader's `REFERENCE_PROFILE` pin these identities and counts; the values stay in the private data root.

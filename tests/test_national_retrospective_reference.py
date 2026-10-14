@@ -8,16 +8,25 @@ a non-NCAA excluded input, an FBS tie target, an FCS prior-pool tie, cold starts
 mid-season rename, Texas A&M (org:697) in every season, the 2020-21 academic year with spring games and protected
 2024/2025 rows. Forgeries are coordinated -- block bytes, index columns, table counts, identity document, identity
 directory and manifest are rewritten consistently -- so each must be refused by its own rule, never by a stale hash.
+
+Cycle #56 continuation C56-CONT-01 adds the issued consumer behaviour the reviewed head missed: summary selection by
+--team and --contest over the selected canonical games (MF56A01-01, compared with this module's own computation),
+malformed governed record shapes refused for their own cause instead of escaping the refusal boundary (MF56A01-02), and
+an explicit --manifest validated by the literal local-file policy before any filesystem access (MF56A01-03; network and
+device spellings are never accessed: access sentinels refuse them, with native Windows and POSIX expectations).
 """
 from __future__ import annotations
 
+import builtins
 import contextlib
 import copy
 import io
 import json
 import math
 import os
+import re
 import shutil
+import socket
 import sqlite3
 import subprocess
 import sys
@@ -49,6 +58,63 @@ NEW_MODELS = (rc.MODEL_ELO, rc.MODEL_LOGISTIC, rc.MODEL_RIDGE)
 
 def frac(value: dict) -> Fraction:
     return Fraction(value["numerator"], value["denominator"])
+
+
+#: C56-CONT-01 (MF56A01-03): the host and device names an explicit --manifest must never be opened through.
+SENTINEL_HOST = "bas-c56-sentinel-host"
+SENTINEL_TOKENS = (SENTINEL_HOST, "\\\\.\\nul", "\\\\.\\pipe\\", "\\\\?\\globalroot\\", "\\\\?\\volume{",
+                   "dot.\\run_manifest")
+
+
+def manifest_refusal_expected(kind: str, os_name: str) -> str:
+    """The refusal an explicit --manifest spelling of ``kind`` gets on a platform. On Windows a network share, device or
+    other namespace spelling ("unsupported") and a non-literal extended spelling ("not_literal") are refused lexically
+    before any access; on POSIX the same characters name an ordinary local (relative) path, which does not exist."""
+    if os_name == "nt":
+        return {"unsupported": "REFERENCE_MANIFEST_LOCATION_UNSUPPORTED",
+                "not_literal": "REFERENCE_MANIFEST_LOCATION_NOT_LITERAL"}[kind]
+    return "REFERENCE_MANIFEST_MISSING"
+
+
+class ProhibitedAccess(BaseException):
+    """Raised by the access sentinels instead of a filesystem or network operation on a prohibited spelling (never an
+    OSError, so no reader handler can turn it into a refusal)."""
+
+
+@contextlib.contextmanager
+def access_sentinels(tokens: tuple[str, ...]):
+    """Every filesystem, SQLite and network entry point the reader can reach refuses (records and raises) a path, URI or
+    host holding one of ``tokens`` (casefolded, separators normalized); every other call passes through unchanged."""
+    hits: list[str] = []
+    folded = tuple(t.replace("/", "\\").casefold() for t in tokens)
+
+    def prohibited(value: object) -> bool:
+        if isinstance(value, (tuple, list)):
+            return any(prohibited(v) for v in value)
+        try:
+            text = os.fsdecode(os.fspath(value))
+        except TypeError:
+            return False
+        return any(t in text.replace("/", "\\").casefold() for t in folded)
+
+    def wrap(name: str, func):
+        def guarded(*args, **kwargs):
+            for value in (*args[:2], *kwargs.values()):
+                if prohibited(value):
+                    hits.append(f"{name}({value!r})")
+                    raise ProhibitedAccess(f"{name} reached {value!r}")
+            return func(*args, **kwargs)
+        return guarded
+    targets = [(os, "stat"), (os, "lstat"), (os, "open"), (os, "scandir"), (os, "listdir"), (os.path, "exists"),
+               (os.path, "isfile"), (os.path, "isdir"), (os.path, "realpath"), (builtins, "open"), (io, "open"),
+               (sqlite3, "connect"), (socket, "getaddrinfo"), (socket, "create_connection")]
+    with contextlib.ExitStack() as stack:
+        for module, name in targets:
+            stack.enter_context(mock.patch.object(module, name, wrap(f"{module.__name__}.{name}",
+                                                                     getattr(module, name))))
+        stack.enter_context(mock.patch.object(socket.socket, "connect", wrap("socket.connect",
+                                                                              socket.socket.connect)))
+        yield hits
 
 
 class World(unittest.TestCase):
@@ -671,8 +737,12 @@ class ConsumerTests(World):
         for argv, code in ((["--grain", "reference-score", "--require-pit"], "REFERENCE_PIT_NOT_ADMITTED"),
                            (["--grain", "reference-feature", "--model", rc.MODEL_NULL], "FILTER_NOT_APPLICABLE"),
                            (["--grain", "reference-parameter", "--season", "2021"], "FILTER_NOT_APPLICABLE"),
-                           (["--grain", "reference-summary", "--team", "org:1"], "FILTER_NOT_APPLICABLE"),
-                           (["--grain", "reference-summary", "--contest", "1"], "FILTER_NOT_APPLICABLE"),
+                           # the parameter grain describes the models, not games (team/contest select summary games;
+                           # C56-CONT-01 MF56A01-01 removed the reviewed head's summary refusals)
+                           (["--grain", "reference-parameter", "--team", "org:1"], "FILTER_NOT_APPLICABLE"),
+                           (["--grain", "reference-parameter", "--contest", "1"], "FILTER_NOT_APPLICABLE"),
+                           (["--grain", "reference-parameter", "--partition", "SPLIT-DEV-SEL"],
+                            "FILTER_NOT_APPLICABLE"),
                            (["--grain", "reference-score", "--slice", "NATIONAL"], "FILTER_NOT_APPLICABLE"),
                            (["--grain", "reference-score", "--model", "ELO"], "MODEL_UNKNOWN"),
                            (["--grain", "reference-score", "--partition", "SPLIT-PROTECTED"], "PARTITION_UNKNOWN"),
@@ -770,6 +840,265 @@ class ConsumerTests(World):
         man.write_text(json.dumps(doc), encoding="utf-8")
         code, served, refused = self.serve("--grain", "reference-parameter", database=db)
         self.assertEqual((code, refused, served["reference_identity"]), (0, None, identity))
+
+    # ---- C56-CONT-01 MF56A01-01 (TP56 section 4): --team and --contest select canonical games at the summary grain
+
+    def selected(self, team: str | None = None, contest: str | None = None) -> set[str]:
+        """This test's own selection: accepted targets by exact contest key and by either participant through that
+        season's names (org:<digits>, bare digits or a name the team carries in that season)."""
+        names: dict[tuple[int, str], set[str]] = {}
+        for t in self.derived["targets"]:
+            for key, name in ((t["a_key"], t["a_team_name"]), (t["b_key"], t["b_team_name"])):
+                names.setdefault((t["season"], key), set()).add(str(name).casefold())
+
+        def matches(key: str, season: int) -> bool:
+            digits = re.fullmatch(r"(?:org:)?([0-9]{1,12})", team)
+            return key == f"org:{int(digits.group(1))}" if digits else \
+                team.casefold() in names.get((season, key), set())
+        return {t["contest_key"] for t in self.derived["targets"]
+                if (contest is None or t["contest_key"] == (f"ncaa:{contest}" if contest.isdigit() else contest)) and
+                (team is None or matches(t["a_key"], t["season"]) or matches(t["b_key"], t["season"]))}
+
+    def expected_summary(self, games: set[str], **f) -> list[tuple]:
+        """Summary rows then comparisons over the selected games' verified A-oriented score records, computed here from
+        the frozen rules (exact rationals; no row for a slice and scope without a selected game), then the scope, model
+        and slice filters exactly as for the canonical summary."""
+        scores = [s for s in self.derived["scores"] if s["contest_key"] in games]
+        scopes = [(str(s), (s,)) for s in rc.TARGET_SEASONS] + \
+            [(p, tuple(sorted(rc.PARTITION_SEASONS[p]))) for p in rc.PARTITION_IDS] + \
+            [("2016-2023", tuple(rc.TARGET_SEASONS))]
+        member = {"NATIONAL": lambda s: True, "TEXAS_AM": lambda s: rc.TAMU_KEY in (s["a_key"], s["b_key"]),
+                  "FIRST_FOUR_TEAM_GAMES": lambda s: s["first_four_team_games"], "COLD_START": lambda s: s["cold_start"]}
+        rows, comparisons = [], []
+        for slice_id in rc.SLICE_IDS:
+            for scope_id, seasons in scopes:
+                group = [s for s in scores if s["season"] in seasons and member[slice_id](s)]
+                if not group:
+                    continue
+                means = {}
+                for model in rc.MODEL_IDS:
+                    mine = [s for s in group if s["model_id"] == model]
+                    scored = [s for s in mine if s["score_state"] == "SCORED"]
+                    if model in rc.PROBABILITY_MODELS:
+                        brier = sum((frac(s["brier"]) for s in scored), Fraction(0)) / len(scored) if scored else None
+                        log = math.fsum(float(s["log_loss"]) for s in scored) / len(scored) if scored else None
+                        bins = [0] * 10
+                        for s in scored:
+                            bins[min(int(frac(s["probability_a_exact"]) * 10), 9)] += 1
+                        values = (brier, log, tuple(bins))
+                        means[model] = (brier, log, len(scored))
+                    else:
+                        values = tuple(sum((frac(s[k]) for s in scored), Fraction(0)) / len(scored) if scored else None
+                                       for k in ("absolute_error", "squared_error"))
+                    rows.append(("reference_summary_row", slice_id, scope_id, model, len(mine), len(scored), values))
+                for model in (rc.MODEL_SMOOTHED, rc.MODEL_ELO, rc.MODEL_LOGISTIC):
+                    brier, log, scored_games = means[model]
+                    base = means[rc.MODEL_NULL]
+                    comparisons.append(("reference_comparison_row", slice_id, scope_id, model, scored_games,
+                                        None if brier is None or base[0] is None else brier - base[0]))
+        out = []
+        for row in rows + comparisons:
+            scope_id, model, slice_id = row[2], row[3], row[1]
+            if "season" in f:
+                if "partition" in f and f["season"] not in rc.PARTITION_SEASONS[f["partition"]]:
+                    continue
+                if scope_id != str(f["season"]):
+                    continue
+            elif "partition" in f and scope_id != f["partition"]:
+                continue
+            if "model" in f and model != f["model"] or "slice" in f and slice_id != f["slice"]:
+                continue
+            out.append(row)
+        return out
+
+    @staticmethod
+    def project(rows: list[dict]) -> list[tuple]:
+        """Served summary rows and comparisons in the expected shape."""
+        out = []
+        for r in rows:
+            if r["record_type"] == "reference_summary_row":
+                if r["metric_kind"] == "PROBABILITY":
+                    values = (None if r["brier_mean"] is None else frac(r["brier_mean"]),
+                              None if r["log_loss_mean"] is None else float(r["log_loss_mean"]),
+                              tuple(b["count"] for b in r["calibration"]))
+                else:
+                    values = tuple(None if r[k] is None else frac(r[k]) for k in ("mae", "mse"))
+                out.append((r["record_type"], r["slice"], r["scope_id"], r["model_id"], r["score_records"],
+                            r["scored_games"], values))
+            else:
+                out.append((r["record_type"], r["slice"], r["scope_id"], r["model_id"], r["scored_games"],
+                            None if r["brier_mean_difference"] is None else frac(r["brier_mean_difference"])))
+        return out
+
+    def summary_answer(self, ref: rc.ReferenceComparison, **f) -> dict:
+        try:
+            return ref.query("reference-summary", season=f.get("season"), team=f.get("team"), contest=f.get("contest"),
+                             model=f.get("model"), partition=f.get("partition"), slice_id=f.get("slice"),
+                             all_rows=True)
+        except rc.ReferenceError as exc:
+            self.fail(f"MF56A01-01 the summary selection {f} was refused: {exc.code}")
+
+    def test_summary_team_and_contest_select_canonical_games(self) -> None:
+        targets = self.derived["targets"]
+        tamu_b = next(t for t in targets if t["b_key"] == rc.TAMU_KEY)
+        other = next(t for t in targets if rc.TAMU_KEY not in (t["a_key"], t["b_key"]))
+        game = next(t for t in targets if t["season"] == 2022)
+        cases = [("key", {"team": "org:697"}), ("digits", {"team": "697"}), ("name", {"team": "Texas A&M"}),
+                 ("name, other casing", {"team": "texas a&m"}),
+                 ("opponent orientation", {"team": "org:697", "season": tamu_b["season"]}),
+                 ("contest", {"contest": game["contest_key"]}),
+                 ("bare contest digits", {"contest": game["contest_key"].split(":")[1]}),
+                 ("team and its contest", {"team": "org:697", "contest": tamu_b["contest_key"]}),
+                 ("team and another game", {"team": "org:697", "contest": other["contest_key"]}),
+                 ("unknown team key", {"team": "org:999999999"}), ("unknown team name", {"team": "No Such Team"}),
+                 ("unknown contest", {"contest": "ncaa:999999999999"}),
+                 ("unknown team in a season", {"team": "org:999999999", "season": 2022}),
+                 ("known team, season without games", {"team": "org:697", "season": 2016}),
+                 ("contest, other season", {"contest": game["contest_key"], "season": 2023}),
+                 ("compatible partition", {"team": "org:697", "partition": "SPLIT-DEV-SEL"}),
+                 ("season within its partition", {"team": "org:697", "season": 2023, "partition": "SPLIT-DEV-SEL"}),
+                 ("incompatible partition", {"team": "org:697", "season": 2023, "partition": "SPLIT-DEV-HIST"}),
+                 ("contest, incompatible partition", {"contest": game["contest_key"], "partition": "SPLIT-DEV-SEL"})]
+        renamed = sorted({t["season"] for t in targets if "Charlie State" in (t["a_team_name"], t["b_team_name"])})
+        if renamed:
+            cases.append(("renamed name of its season", {"team": "Charlie State", "season": renamed[0]}))
+        plain = sorted({t["season"] for t in targets if "org:3" in (t["a_key"], t["b_key"])} - set(renamed))
+        if plain:
+            cases.append(("renamed name, a season without it", {"team": "Charlie State", "season": plain[0]}))
+        cases += [(f"{m}/{s}", {"team": "org:697", "model": m, "slice": s}) for m in rc.MODEL_IDS for s in rc.SLICE_IDS]
+        self.assertIn(tamu_b["contest_key"], self.selected(team="org:697"))   # the team on side B is selected too
+        empty_seen = known_seen = 0
+        with rc.ReferenceComparison(self.db, history_database=self.world["history_db"],
+                                    population_database=self.world["parent"]["database"], anchors=self.anchors) as ref:
+            for name, f in cases:
+                with self.subTest(name, **f):
+                    games = self.selected(team=f.get("team"), contest=f.get("contest"))
+                    want = self.expected_summary(games, **f)
+                    doc = self.summary_answer(ref, **f)
+                    self.assertEqual(len(doc["rows"]), len(want), f"MF56A01-01 {name}")
+                    self.assertEqual(self.project(doc["rows"]), want, f"MF56A01-01 {name}")
+                    self.assertEqual((doc["total"], doc["returned"], doc["next_offset"]), (len(want), len(want), None))
+                    self.assertEqual(doc["summary_selection"]["canonical_games"], len(games))
+                    empty_seen += not want
+                    known_seen += bool(want)
+            self.assertTrue(empty_seen >= 8 and known_seen >= 20)
+            # a game counts once whichever side the team is on: the pooled national null row counts every selected game
+            pooled = self.summary_answer(ref, team="org:697", slice="NATIONAL", model=rc.MODEL_NULL)["rows"]
+            row = next(r for r in pooled if r["scope_id"] == "2016-2023")
+            self.assertEqual(row["score_records"], len(self.selected(team="org:697")))
+            # Texas A&M's own selection under its slice is the canonical TEXAS_AM summary, every non-empty scope
+            stored = [r for r in self.derived["summary"]["rows"] + self.derived["summary"]["comparisons"]
+                      if r["slice"] == "TEXAS_AM" and any(r["scope_id"] == x["scope_id"] and x["score_records"]
+                                                          for x in self.derived["summary"]["rows"]
+                                                          if x["slice"] == "TEXAS_AM")]
+            self.assertEqual(self.summary_answer(ref, team="org:697", slice="TEXAS_AM")["rows"], stored)
+            # the canonical (unselected) summary and its existing filters are unchanged
+            self.assertEqual(ref.query("reference-summary", all_rows=True)["rows"],
+                             self.derived["summary"]["rows"] + self.derived["summary"]["comparisons"])
+            self.assertNotIn("summary_selection", ref.query("reference-summary", season=2023, all_rows=True))
+
+    def test_summary_selection_through_the_cli_with_paging(self) -> None:
+        for argv in (["--team", "org:697"], ["--team", "Texas A&M", "--season", "2023"], ["--contest", "ncaa:999999999999"],
+                     ["--team", "org:999999999", "--season", "2019"]):
+            with self.subTest(argv):
+                code, doc, refused = self.serve("--grain", "reference-summary", *argv, "--all")
+                self.assertEqual((code, refused), (0, None), "MF56A01-01 the summary selection was refused")
+                f = dict(zip([a[2:] for a in argv[::2]], argv[1::2]))
+                f = {k: int(v) if k == "season" else v for k, v in f.items()}
+                want = self.expected_summary(self.selected(team=f.get("team"), contest=f.get("contest")), **f)
+                self.assertEqual(self.project(doc["rows"]), want)
+                if not want:
+                    self.assertEqual((doc["rows"], doc["total"], doc["returned"], doc["next_offset"]), ([], 0, 0, None))
+                pages, offset = [], 0
+                while True:
+                    page = self.serve("--grain", "reference-summary", *argv, "--limit", "37", "--offset", str(offset))[1]
+                    pages += page["rows"]
+                    if page["next_offset"] is None:
+                        break
+                    offset = page["next_offset"]
+                self.assertEqual(pages, doc["rows"])
+
+    # ---- C56-CONT-01 MF56A01-03: an explicit --manifest passes the literal local-file policy before any access
+
+    def test_manifest_refusal_expectation_on_both_platforms(self) -> None:
+        self.assertEqual(manifest_refusal_expected("unsupported", "nt"), "REFERENCE_MANIFEST_LOCATION_UNSUPPORTED")
+        self.assertEqual(manifest_refusal_expected("not_literal", "nt"), "REFERENCE_MANIFEST_LOCATION_NOT_LITERAL")
+        self.assertEqual(manifest_refusal_expected("unsupported", "posix"), "REFERENCE_MANIFEST_MISSING")
+        self.assertEqual(manifest_refusal_expected("not_literal", "posix"), "REFERENCE_MANIFEST_MISSING")
+        self.assertEqual(rc.MANIFEST_LOCATION_CODES, {"DATABASE_LOCATION_UNSUPPORTED":
+                                                      "REFERENCE_MANIFEST_LOCATION_UNSUPPORTED",
+                                                      "DATABASE_LOCATION_NOT_LITERAL":
+                                                      "REFERENCE_MANIFEST_LOCATION_NOT_LITERAL"})
+
+    def test_explicit_manifest_network_and_device_spellings_are_never_accessed(self) -> None:
+        cases = [(f"\\\\{SENTINEL_HOST}\\share\\run_manifest.json", "unsupported"),
+                 (f"//{SENTINEL_HOST}/share/run_manifest.json", "unsupported"),
+                 (f"\\\\?\\UNC\\{SENTINEL_HOST}\\share\\run_manifest.json", "unsupported"),
+                 ("\\\\.\\NUL", "unsupported"), ("\\\\.\\PIPE\\bas-c56-sentinel-pipe", "unsupported"),
+                 ("\\\\?\\GLOBALROOT\\Device\\Null", "unsupported"),
+                 ("\\\\?\\Volume{00000000-0000-0000-0000-000000000000}\\run_manifest.json", "unsupported"),
+                 (EXT + str(self.tmp / "dot.") + "\\run_manifest.json", "not_literal")]
+        for spelling, kind in cases:
+            with self.subTest(spelling=spelling):
+                want = manifest_refusal_expected(kind, os.name)
+                if WINDOWS:
+                    with access_sentinels(SENTINEL_TOKENS) as hits:
+                        try:
+                            code, _doc, refused = self.serve("--grain", "reference-parameter", "--manifest", spelling)
+                        except ProhibitedAccess as exc:
+                            self.fail(f"MF56A01-03 the explicit manifest location was accessed before validation: "
+                                      f"{exc}")
+                    self.assertEqual(hits, [], "MF56A01-03 an access sentinel was reached")
+                else:   # POSIX: the characters name an ordinary local relative path (MF54A01-01 native expectation)
+                    code, _doc, refused = self.serve("--grain", "reference-parameter", "--manifest", spelling)
+                self.assertEqual((code, refused), (2, want), "MF56A01-03 the manifest spelling was not refused")
+
+    def test_the_access_sentinels_catch_a_real_manifest_access(self) -> None:
+        control = self.tmp / "sentinel-control-dir"
+        control.mkdir(exist_ok=True)
+        shutil.copyfile(rc.manifest_path_for(self.db), control / "run_manifest.json")
+        with access_sentinels(("sentinel-control-dir",)) as hits, self.assertRaises(ProhibitedAccess):
+            self.serve("--grain", "reference-parameter", "--manifest", str(control / "run_manifest.json"))
+        self.assertTrue(hits)
+
+    def test_explicit_manifest_local_spellings_serve_identical_rows(self) -> None:
+        manifest = rc.manifest_path_for(self.db)
+        original = self.serve("--grain", "reference-parameter", "--all")[1]
+        reserved = self.tmp / "mf # % é ' ü 漢"
+        reserved.mkdir(exist_ok=True)
+        shutil.copyfile(manifest, reserved / "run_manifest.json")
+        spellings = {"absolute": (str(manifest), None), "relative": ("run_manifest.json", manifest.parent),
+                     "parent_relative": (os.path.join("..", manifest.parent.name, "run_manifest.json"),
+                                         manifest.parent),
+                     "reserved_and_unicode": (str(reserved / "run_manifest.json"), None)}
+        if WINDOWS:
+            # beyond 300 characters even from a bare drive root (a hosted runner's temporary root is short)
+            far = os.path.join(str(self.tmp), "mlong " + "x" * 140, "deeper # % é ' " + "y" * 140)
+            os.makedirs(EXT + far, exist_ok=True)
+            shutil.copyfile(manifest, EXT + os.path.join(far, "run_manifest.json"))
+            self.addCleanup(shutil.rmtree, EXT + os.path.join(str(self.tmp), "mlong " + "x" * 140))
+            junction = self.tmp / "mjunction"
+            if not junction.exists():
+                import _winapi  # noqa: PLC0415
+                _winapi.CreateJunction(str(reserved), str(junction))
+                self.addCleanup(os.rmdir, str(junction))
+            spellings.update(forward_slashes=(str(manifest).replace("\\", "/"), None),
+                             extended=(EXT + str(manifest), None), local_device=("\\\\.\\" + str(manifest), None),
+                             long_ordinary=(os.path.join(far, "run_manifest.json"), None),
+                             long_extended=(EXT + os.path.join(far, "run_manifest.json"), None),
+                             junction=(str(junction / "run_manifest.json"), None))
+            self.assertGreater(len(spellings["long_ordinary"][0]), 300)
+        else:
+            link = self.tmp / "mlink"
+            if not link.exists():
+                os.symlink(reserved, link)
+            spellings["symlink"] = (str(link / "run_manifest.json"), None)
+        for name, (spelling, cwd) in spellings.items():
+            with self.subTest(name), (contextlib.chdir(cwd) if cwd else contextlib.nullcontext()):
+                code, doc, refused = self.serve("--grain", "reference-parameter", "--all", "--manifest", spelling)
+                self.assertEqual((code, refused), (0, None), f"MF56A01-03 the local spelling {name} was refused")
+                self.assertEqual((doc["rows"], doc["reference_identity"]),
+                                 (original["rows"], original["reference_identity"]))
 
 
 # --------------------------------------------------------------------------------------------- forgeries
@@ -937,6 +1266,89 @@ class ForgeryTests(World):
         self.assertEqual(self.refused(tampered), "REFERENCE_DATABASE_TAMPERED")
         self.assertEqual(self.serve("--grain", "reference-score", "--expect-identity", "1" * 64)[0::2],
                          (2, "STALE_REFERENCE_IDENTITY"))
+
+    # ---- C56-CONT-01 MF56A01-02: malformed governed shapes are refused for their own cause, never escape the boundary
+
+    def shape_refusal(self, path: Path) -> str | None:
+        try:
+            return self.serve("--grain", "reference-parameter", database=path)[2]
+        except Exception as exc:  # noqa: BLE001 - the reviewed head's escape (MF56A01-02) becomes this test's failure
+            return f"UNCAUGHT {type(exc).__name__}: {exc}"[:200]
+
+    def test_malformed_governed_shapes_refuse_for_their_own_cause(self) -> None:
+        def first_contributing(t: dict) -> dict:
+            return next(r for r in t["features"] if r["team"]["contributing"])
+
+        def side(member: str, field: str, value: object):
+            return lambda t: first_contributing(t)[member].__setitem__(field, value)
+
+        def diff(field: str | None, value: object):
+            return lambda t: (t["features"][0].__setitem__("differences", value) if field is None else
+                              t["features"][0]["differences"].__setitem__(field, value))
+
+        def summary(path: tuple, value: object):
+            def apply(t: dict) -> None:
+                node = t["summary"][0]
+                for part in path[:-1]:
+                    node = node[part]
+                node[path[-1]] = value
+            return apply
+
+        def key(table: str, field: str, value: object):
+            return lambda t: t[table][0].__setitem__(field, value)
+        lineage, feature, metric = "REFERENCE_LINEAGE_MISMATCH", "REFERENCE_FEATURE_MISMATCH", "REFERENCE_METRIC_MISMATCH"
+        count, model, record = "REFERENCE_COUNT_TYPE_INVALID", "REFERENCE_MODEL_MISMATCH", "REFERENCE_RECORD_MISMATCH"
+        cases = [
+            # the eight manager classes (MF56A01-02) ...
+            ("s-miss-bool", side("team", "missing", True), lineage),
+            ("s-diff-list", diff(None, ["not a record"]), feature),
+            ("s-pop-list", summary(("population",), ["not a record"]), count),
+            ("s-row-null", summary(("rows", 0), None), metric),
+            ("s-bin-null", summary(("rows", 0, "calibration", 0), None), metric),
+            ("s-cmp-str", summary(("comparisons", 0), "not a record"), metric),
+            ("s-model-list", key("estimates", "model_id", ["wrong model"]), model),
+            ("s-key-list", key("features", "contest_key", ["ncaa:1"]), record),
+            # ... and their nearby null/list/bool/scalar/malformed-key neighbours across the governed tables
+            ("s-miss-list", side("opponent", "missing", [0]), lineage), ("s-miss-null", side("team", "missing", None),
+                                                                          lineage),
+            ("s-miss-str", side("team", "missing", "x"), lineage), ("s-miss-int", side("opponent", "missing", 1), lineage),
+            ("s-con-bool", side("team", "contributing", True), lineage),
+            ("s-con-int", side("team", "contributing", 5), lineage),
+            ("s-con-obj", side("opponent", "contributing", {}), lineage),
+            ("s-con-item", lambda t: first_contributing(t)["team"]["contributing"].__setitem__(0, "x"), lineage),
+            ("s-diff-null", diff(None, None), feature), ("s-diff-str", diff(None, "x"), feature),
+            ("s-mv-bool", diff("missing_values", True), feature), ("s-mv-obj", diff("missing_values", {}), feature),
+            ("s-pop-str", summary(("population",), "x"), count), ("s-pop-null", summary(("population",), None), count),
+            ("s-rows-obj", summary(("rows",), {}), metric), ("s-rows-null", summary(("rows",), None), metric),
+            ("s-row-list", summary(("rows", 0), []), metric), ("s-row-str", summary(("rows", 0), "x"), metric),
+            ("s-cal-bool", summary(("rows", 0, "calibration"), True), metric),
+            ("s-cal-obj", summary(("rows", 0, "calibration"), {}), metric),
+            ("s-bin-list", summary(("rows", 0, "calibration", 0), []), metric),
+            ("s-cmp-null", summary(("comparisons", 0), None), metric),
+            ("s-cmps-bool", summary(("comparisons",), True), metric),
+            ("s-model-obj", key("estimates", "model_id", {"m": 1}), model),
+            ("s-model-null", key("estimates", "model_id", None), model),
+            ("s-model-int", key("scores", "model_id", 5), model),
+            ("s-model-par", key("parameters", "model_id", ["x"]), model),
+            ("s-key-obj", key("labels", "contest_key", {"k": 1}), record),
+            ("s-key-int", key("scores", "contest_key", 5), record),
+            ("s-key-null", key("estimates", "contest_key", None), record),
+            ("s-key-bool", key("features", "contest_key", True), record),
+            # the adjacent controls keep their prior refusals and precedence
+            ("s-diag-bool", lambda t: self.pick(t, "parameters", model_id=rc.MODEL_LOGISTIC).__setitem__(
+                "diagnostics", True), "REFERENCE_PARAMETER_MISMATCH"),
+            ("s-miss-float", lambda t: first_contributing(t)["team"]["missing"].__setitem__("games", 1.0), count),
+            ("s-extra", key("features", "manager_unexpected", "extra"), record)]
+        for name, records, code in cases:
+            with self.subTest(name):
+                self.assertEqual(self.shape_refusal(self.forger.forge(name, records=records)), code,
+                                 f"MF56A01-02 {name}")
+        # genuine empty and missing states stay valid: a cold start's empty contributing list and null rates
+        cold = next(f for f in self.derived["features"] if f["cold_start"])
+        side_ = cold["team"] if cold["team"]["games"] == 0 else cold["opponent"]
+        self.assertEqual((side_["contributing"], side_["win_rate"]), ([], None))
+        self.assertIsNone(rc._container_problem("features", cold))
+        self.assertIsNone(rc._container_problem("summary", self.derived["summary"]))
 
 
 # --------------------------------------------------------------------------------------------- mounted genuine

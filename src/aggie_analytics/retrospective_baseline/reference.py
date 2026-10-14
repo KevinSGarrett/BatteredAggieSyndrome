@@ -40,6 +40,16 @@ Every record carries ``RETROSPECTIVE_REFERENCE_NOT_PIT_NOT_SKILL`` and ``UNTRUST
 publication time: nothing here is PIT eligible, a forecast, a calibration or evidence of predictive skill; 2023 is an
 already-exposed out-of-fit development comparison, never blind; training-sample estimates are IN_SAMPLE and never BAS
 label anchors.
+
+The consumer (:meth:`ReferenceComparison.query`, TP56 section 4) intersects season, partition, team, game, model and
+slice exactly. At the summary grain ``--team`` and ``--contest`` select canonical games -- a team matches either
+participant through that season's name/ID index, a contest its exact key -- and the summary rows and comparisons are
+re-derived over exactly those games' verified score records, each game once in its A orientation, with the frozen
+slice, scope, metric and calibration rules; an unknown or disjoint valid selection has no row (Cycle #56 continuation
+C56-CONT-01, MF56A01-01). Before any check dereferences a stored record, its hashed identity members and the governed
+containers those checks read are checked for their JSON types and refused with the member's own code (MF56A01-02). An
+explicit ``--manifest`` passes the BAT-717 literal local-file location policy before any filesystem access
+(MF56A01-03).
 """
 from __future__ import annotations
 
@@ -256,6 +266,16 @@ REFERENCE_PROFILE: dict[str, Any] | None = {
 
 IDENTITY_RE = bm.IDENTITY_RE
 DEC12_RE = re.compile(r"-?(0|[1-9][0-9]*)\.[0-9]{12}\Z")
+#: An explicit --manifest refused by the BAT-717 literal local-file policy (C56-CONT-01, MF56A01-03).
+MANIFEST_LOCATION_CODES = {readonly_sqlite.LOCATION_UNSUPPORTED: "REFERENCE_MANIFEST_LOCATION_UNSUPPORTED",
+                           readonly_sqlite.LOCATION_NOT_LITERAL: "REFERENCE_MANIFEST_LOCATION_NOT_LITERAL"}
+#: The summary-grain selection rule for --team and --contest (TP56 section 4; C56-CONT-01, MF56A01-01).
+SUMMARY_SELECTION_RULE = ("SELECTED_CANONICAL_GAMES: the accepted targets whose contest key equals --contest and/or with "
+                          "a participant matching --team through that season's name/ID index, each game once in its A "
+                          "(canonical) orientation; the summary rows and comparisons are re-derived over exactly those "
+                          "games' verified score records with the frozen slice, scope, metric and calibration rules "
+                          "(a slice keeps its per-game definition); a slice and scope without a selected game has no "
+                          "row, so an unknown or disjoint valid selection answers zero rows")
 PREDICATES = ("DISPOSITION", "RECONCILIATION", "STATUS", "COMPETITIVE", "DATE", "ORG_KEYS", "SCORES")
 LABEL_FIELDS = bm.LABEL_FIELDS + ("margin_label_a", "y")
 
@@ -886,12 +906,18 @@ def calibration_table(scored: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return table
 
 
-def derive_summary(scores: list[dict[str, Any]], features: list[dict[str, Any]], fits: dict[str, Any],
-                   elo: dict[str, Any], c47: dict[str, Any]) -> dict[str, Any]:
+def summary_tables(scores: list[dict[str, Any]], *, selected_games_only: bool = False
+                   ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """The summary rows and descriptive comparisons of ``scores`` (one A-oriented score record per canonical game and
+    model) by slice, scope and model in the frozen order. The canonical summary keeps every slice and scope, an empty
+    one with null means; a selection (``selected_games_only``) has no row for a slice and scope without a selected
+    game."""
     rows, comparisons = [], []
     for slice_id in SLICE_IDS:
         for kind, scope_id, seasons in _scopes():
             chosen = [s for s in scores if s["season"] in seasons and in_slice(slice_id, s)]
+            if selected_games_only and not chosen:
+                continue
             by_model: dict[str, dict[str, Any]] = {}
             keysets: dict[str, list[str]] = {}
             for model_id in MODEL_IDS:
@@ -955,6 +981,12 @@ def derive_summary(scores: list[dict[str, Any]], features: list[dict[str, Any]],
                     entry.update(brier_mean_difference=None, brier_mean_difference_decimal=None,
                                  log_loss_mean_difference=None, reading="no scored game in this scope")
                 comparisons.append(entry)
+    return rows, comparisons
+
+
+def derive_summary(scores: list[dict[str, Any]], features: list[dict[str, Any]], fits: dict[str, Any],
+                   elo: dict[str, Any], c47: dict[str, Any]) -> dict[str, Any]:
+    rows, comparisons = summary_tables(scores)
     label_states: dict[str, int] = {}
     for label in c47["labels"]:
         label_states[label["label_state"]] = label_states.get(label["label_state"], 0) + 1
@@ -1275,6 +1307,57 @@ SUMMARY_POPULATION_COUNTS = ("targets", "feature_views", "estimates", "labels", 
                              "texas_am_targets")
 
 
+#: Record identity members that the checks before the record comparison hash or use as mapping keys (C56-CONT-01,
+#: MF56A01-02): a present one must be a JSON string; each is refused with its own field's code.
+IDENTITY_MEMBER_CODES = (("contest_key", "REFERENCE_RECORD_MISMATCH"), ("model_id", "REFERENCE_MODEL_MISMATCH"))
+
+
+def _identity_problem(record: dict[str, Any]) -> tuple[str, str] | None:
+    """The first present identity member of ``record`` that is not a JSON string, with its refusal code."""
+    for name, code in IDENTITY_MEMBER_CODES:
+        if name in record and not isinstance(record[name], str):
+            return code, f"{name} is a JSON {type(record[name]).__name__}, not a string"
+    return None
+
+
+def _objects(value: Any) -> bool:
+    return isinstance(value, list) and all(isinstance(item, dict) for item in value)
+
+
+def _container_problem(table: str, record: dict[str, Any]) -> tuple[str, str] | None:
+    """The first governed container that the checks before the record comparison read whose JSON type differs from the
+    contract record (C56-CONT-01, MF56A01-02), with the refusal of its own member: a feature side's ``contributing``
+    (a list of objects) or ``missing`` (an object) is lineage, ``differences`` (an object) and its ``missing_values`` (a
+    list) the feature, the summary ``population`` (an object of integer counts) a count type, and its ``rows``,
+    ``comparisons`` and each row's ``calibration`` (lists of objects) the metrics. A present member, null included, must
+    have its type; an absent one is left to the record comparison (a non-object feature side to the side-count rule)."""
+    if table == "features":
+        for side in ("team", "opponent"):
+            member = record.get(side)
+            if not isinstance(member, dict):
+                continue
+            if "contributing" in member and not _objects(member["contributing"]):
+                return "REFERENCE_LINEAGE_MISMATCH", f"{side}.contributing is not a list of objects"
+            if "missing" in member and not isinstance(member["missing"], dict):
+                return "REFERENCE_LINEAGE_MISMATCH", f"{side}.missing is not an object"
+        if "differences" in record:
+            differences = record["differences"]
+            if not isinstance(differences, dict):
+                return "REFERENCE_FEATURE_MISMATCH", "differences is not an object"
+            if "missing_values" in differences and not isinstance(differences["missing_values"], list):
+                return "REFERENCE_FEATURE_MISMATCH", "differences.missing_values is not a list"
+    elif table == "summary":
+        if "population" in record and not isinstance(record["population"], dict):
+            return "REFERENCE_COUNT_TYPE_INVALID", "population is not an object of integer counts"
+        for name in ("rows", "comparisons"):
+            if name in record and not _objects(record[name]):
+                return "REFERENCE_METRIC_MISMATCH", f"{name} is not a list of objects"
+        for i, row in enumerate(record.get("rows") or []):
+            if "calibration" in row and not _objects(row["calibration"]):
+                return "REFERENCE_METRIC_MISMATCH", f"rows[{i}].calibration is not a list of objects"
+    return None
+
+
 def _count_type_problems(table: str, record: dict[str, Any]) -> list[str]:
     """Count members of ``record`` that are not JSON integers (a boolean or an integral float is not a count)."""
     bad: list[str] = []
@@ -1397,7 +1480,17 @@ class ReferenceComparison:
         identity = absolute.parent.name
         if not IDENTITY_RE.match(identity):
             _refuse("REFERENCE_LOCATION_INVALID", f"directory name {identity!r} is not an identity")
-        manifest_path = Path(manifest) if manifest is not None else manifest_path_for(db)
+        if manifest is None:
+            manifest_path = manifest_path_for(db)
+        else:
+            # An explicit manifest passes the same BAT-717 literal local-file policy as the database, before any
+            # filesystem access: a network share, device or other namespace spelling is refused lexically (C56-CONT-01,
+            # MF56A01-03); the manifest is read through the literal local path the policy returns.
+            try:
+                manifest_path = Path(readonly_sqlite.literal_path(manifest))
+            except readonly_sqlite.DatabaseLocationError as exc:
+                code = MANIFEST_LOCATION_CODES.get(exc.code, exc.code)
+                raise ReferenceError(code, f"--manifest {manifest}: {exc.detail}") from exc
         if not _io_path(manifest_path).is_file():
             _refuse("REFERENCE_MANIFEST_MISSING", f"no run manifest at {manifest_path}")
         try:
@@ -1518,9 +1611,9 @@ class ReferenceComparison:
         self.names = bm.team_name_index(derived["targets"])
 
     def _read_blocks(self, protected: dict[str, int]) -> dict[str, list[tuple[str, dict[str, Any], bool]]]:
-        """Every block's index columns against its own content, then each record's segment and protected membership,
-        label leakage, count types, binary floats, mirrored score rows and game-grain pair coherence -- before any
-        comparison with the re-derived records."""
+        """Every block's index columns against its own content, then each record's identity member types, segment and
+        protected membership, label leakage, side counts, governed container types, count types, binary floats,
+        mirrored score rows and game-grain pair coherence -- before any comparison with the re-derived records."""
         rows = [tuple(r) for r in self.conn.execute(
             "SELECT ord, record_table, segment, records, first_key, last_key, lines_sha256, block FROM blocks "
             "ORDER BY ord")]
@@ -1551,6 +1644,9 @@ class ReferenceComparison:
                     first_key != (keys[0] if keys else None) or last_key != (keys[-1] if keys else None):
                 _refuse("REFERENCE_INDEX_MISMATCH", f"block {ord_} index columns differ from its content")
             for _line, record, _f in parsed:
+                identity = _identity_problem(record)
+                if identity:
+                    _refuse(identity[0], f"{table} record {record_key(table, record)}: {identity[1]}")
                 if record.get("contest_key") in protected:
                     _refuse("REFERENCE_PROTECTED_KEY", f"{table} names protected contest {record.get('contest_key')}")
                 if seasonal and str(record.get("season")) != segment:
@@ -1576,6 +1672,11 @@ class ReferenceComparison:
                         values[1] + values[2] + values[3] != values[0]:
                     _refuse("REFERENCE_COUNT_TYPE_INVALID", f"feature {record_key('features', record)} {side} counts "
                                                             "are not integers with W + L + T = G")
+        for table in (*RECORD_TABLES, "summary"):
+            for _line, record, _f in present[table]:
+                shape = _container_problem(table, record)
+                if shape:
+                    _refuse(shape[0], f"{table} record {record_key(table, record)}: {shape[1]}")
         for table in (*RECORD_TABLES, "summary"):
             for _line, record, _f in present[table]:
                 bad = _count_type_problems(table, record)
@@ -1649,7 +1750,9 @@ class ReferenceComparison:
     def filters(grain: str, *, season: int | None = None, team: str | None = None, contest: str | None = None,
                 model: str | None = None, partition: str | None = None, slice_id: str | None = None
                 ) -> dict[str, Any]:
-        """Validate a selection before any file is read: unknown grains, malformed or inapplicable filters refuse."""
+        """Validate a selection before any file is read: unknown grains, malformed or inapplicable filters refuse. The
+        parameter grain describes the models, not games, so no season, team, contest or partition applies to it; at the
+        summary grain --team and --contest select canonical games (TP56 section 4)."""
         if grain not in GRAINS:
             _refuse("UNKNOWN_GRAIN", f"grain must be one of {list(GRAINS)}")
         filters: dict[str, Any] = {}
@@ -1660,15 +1763,15 @@ class ReferenceComparison:
                 _refuse("FILTER_NOT_APPLICABLE", "season does not apply to the parameter grain")
             filters["season"] = season
         if team is not None:
-            if grain in ("reference-parameter", "reference-summary"):
-                _refuse("FILTER_NOT_APPLICABLE", f"team does not apply to the {grain} grain")
+            if grain == "reference-parameter":
+                _refuse("FILTER_NOT_APPLICABLE", "team does not apply to the parameter grain")
             text = str(team).strip()
             if not text:
                 _refuse("TEAM_INVALID", "team must be org:<digits>, digits or a team name")
             filters["team"] = text
         if contest is not None:
-            if grain in ("reference-parameter", "reference-summary"):
-                _refuse("FILTER_NOT_APPLICABLE", f"contest does not apply to the {grain} grain")
+            if grain == "reference-parameter":
+                _refuse("FILTER_NOT_APPLICABLE", "contest does not apply to the parameter grain")
             text = str(contest).strip()
             filters["contest"] = f"ncaa:{text}" if text.isdigit() and len(text) <= 12 else text
             if not bm.CONTEST_KEY_RE.match(filters["contest"]):
@@ -1726,7 +1829,12 @@ class ReferenceComparison:
             result.update(season_scope_state=state, total=0, returned=0, rows=[], next_offset=None,
                           note="season outside the retrospective 2016-2023 reference; no rows are fabricated")
             return result
-        rows = [r for r in self._records(grain) if self._match(grain, r, filters)]
+        if grain == "reference-summary" and ("team" in filters or "contest" in filters):
+            selection, records = self._summary_selection(filters)
+            result["summary_selection"] = selection
+        else:
+            records = self._records(grain)
+        rows = [r for r in records if self._match(grain, r, filters)]
         total = len(rows)
         page = rows[offset:] if all_rows else rows[offset:offset + (limit or 0)]
         result.update(season_scope_state="RETROSPECTIVE_2016_2023", total=total, returned=len(page), rows=page,
@@ -1737,6 +1845,26 @@ class ReferenceComparison:
         if grain == "reference-summary":
             return list(self.derived["summary"]["rows"]) + list(self.derived["summary"]["comparisons"])
         return self.derived[GRAINS[grain]]
+
+    def _summary_selection(self, filters: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        """The canonical games --team/--contest select (SUMMARY_SELECTION_RULE) and the summary rows then comparisons
+        re-derived over exactly their verified score records; the season, partition, model and slice filters then
+        select among those rows as they do among the canonical summary's."""
+        chosen: dict[str, int] = {}
+        for target in self.derived["targets"]:
+            if "contest" in filters and target["contest_key"] != filters["contest"]:
+                continue
+            if "team" in filters and not any(bm.team_matches(filters["team"], target["season"], side, self.names)
+                                             for side in (target["a_key"], target["b_key"])):
+                continue
+            chosen[target["contest_key"]] = target["season"]
+        rows, comparisons = summary_tables([s for s in self.derived["scores"] if s["contest_key"] in chosen],
+                                           selected_games_only=True)
+        by_season: dict[str, int] = {}
+        for season in chosen.values():
+            by_season[str(season)] = by_season.get(str(season), 0) + 1
+        return ({"rule": SUMMARY_SELECTION_RULE, "canonical_games": len(chosen),
+                 "canonical_games_by_season": dict(sorted(by_season.items()))}, rows + comparisons)
 
     def _match(self, grain: str, record: dict[str, Any], filters: dict[str, Any]) -> bool:
         if grain == "reference-parameter":

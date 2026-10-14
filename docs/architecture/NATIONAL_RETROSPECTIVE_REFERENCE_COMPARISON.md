@@ -76,6 +76,36 @@ Filters: `--season`, `--team`, `--contest`, `--model`, `--partition` and, on the
 Before any row is served, the reader re-derives every record (the refit included) and the content and database
 identities. Each forgery is refused for its own cause. Invocations without the option keep their bytes.
 
+Summary selection (TP56 section 4; Cycle #56 continuation C56-CONT-01, finding MF56A01-01). At the summary grain
+`--team` and `--contest` select canonical games: a team (`org:<digits>`, bare digits or a name the team carries in that
+season) matches either participant, a contest its exact key. The summary rows and comparisons are then re-derived over
+exactly those games' verified score records, each game counted once in its A orientation, with the frozen slice (still
+defined per game), scope, metric and calibration rules. A slice and scope without a selected game has no row, so an
+unknown or disjoint valid selection answers `rows: []`, `total: 0`, `returned: 0` and `next_offset: null`; the
+answer's `summary_selection` names the rule and the selected game count. `--season`, `--partition`, `--model` and
+`--slice` select among those rows exactly as among the canonical summary's, whose answers are unchanged. Only the
+parameter grain (the models, not games) refuses `--season`, `--team`, `--contest` and `--partition`
+(`FILTER_NOT_APPLICABLE`). The research contract's consumer note lists `--team` and `--contest` for the feature,
+estimate and score grains only; that narrower list was never an authorized change of TP56 section 4 and contradicts the
+same contract's empty-summary rule, so the reader follows TP56. The frozen contract bytes and their pinned SHA-256 stay
+unchanged.
+
+Record shapes (MF56A01-02). Before any check dereferences a stored record, a present `contest_key` or `model_id` must be
+a JSON string (`REFERENCE_RECORD_MISMATCH`, `REFERENCE_MODEL_MISMATCH`), and the governed containers those checks read
+must have their contract types: a feature side's `contributing` and `missing` (`REFERENCE_LINEAGE_MISMATCH`),
+`differences` and its `missing_values` (`REFERENCE_FEATURE_MISMATCH`), the summary `population`
+(`REFERENCE_COUNT_TYPE_INVALID`) and its `rows`, `comparisons` and each row's `calibration`
+(`REFERENCE_METRIC_MISMATCH`). Genuine empty lists and null rates stay valid. Every earlier forgery family keeps its
+code; the only changed outcome is that a non-string identity member that is hashable (a number, boolean or null), which
+used to fall through to a missing- or extra-row refusal, is now refused as the malformed member it is.
+
+Manifest locality (MF56A01-03). An explicit `--manifest` passes the same BAT-717 literal local-file policy as the
+database before any filesystem access: on Windows a network share, extended UNC, device or other namespace spelling is
+refused lexically (`REFERENCE_MANIFEST_LOCATION_UNSUPPORTED`), a non-literal extended spelling as
+`REFERENCE_MANIFEST_LOCATION_NOT_LITERAL`; ordinary, relative, extended and local-device drive spellings, long paths,
+junctions and reserved or non-ASCII file names are read through the literal local path. On POSIX the same characters
+name an ordinary local path.
+
 ## Outputs and identity
 
 * Payloads `features.jsonl.gz`, `estimates.jsonl.gz`, `labels.jsonl.gz`, `parameters.jsonl.gz`, `scores.jsonl.gz`

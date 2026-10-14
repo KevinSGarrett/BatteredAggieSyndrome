@@ -1,0 +1,187 @@
+{
+ "schema_version": "BAS-NATIONAL-RETROSPECTIVE-REFERENCE-GATE-1",
+ "jira_key": "BAT-423",
+ "cycle_number": 56,
+ "attempt_number": 1,
+ "contract_id": "BAT-423-NATIONAL-RETROSPECTIVE-REFERENCE-2016-2023-V1.0",
+ "contract_sha256": "3cfeff255bb29801b482b02611ad2c72c725d069e9f89d3911e86711af34bb31",
+ "population_id": "national_retrospective_reference_2016_2023",
+ "audit_unit": "C56-NATIONAL-REFERENCE-5875 (bounded BAT-423 research contribution)",
+ "state": "FROZEN_PRIVATE_RETROSPECTIVE_RESEARCH_REFERENCE",
+ "designation": "UNTRUSTED_SHADOW",
+ "profile": {
+  "database_identity": "ad01a42f203435627232af9e9ba1a73d29154650553f37926756d821711582d8",
+  "content_identity": "fe303a90d8753956b914d3c7c2adfe2d33d9816bfb45689b0361f8e36e2e6cc0",
+  "database_sha256": "17a0776587eb30918903dc0d38c736958b1984feb4b40379bbfc80425035785d",
+  "contract_sha256": "3cfeff255bb29801b482b02611ad2c72c725d069e9f89d3911e86711af34bb31",
+  "targets": 5875,
+  "views": 11750,
+  "pool": 11528,
+  "training_targets": 5087,
+  "comparison_targets": 788
+ },
+ "database_identity_document": {
+  "content_identity": "fe303a90d8753956b914d3c7c2adfe2d33d9816bfb45689b0361f8e36e2e6cc0",
+  "contract_sha256": "3cfeff255bb29801b482b02611ad2c72c725d069e9f89d3911e86711af34bb31",
+  "db_schema_version": "BAS-RETROSPECTIVE-REFERENCE-DB-1",
+  "outputs": {
+   "national_retrospective_reference.sqlite": "17a0776587eb30918903dc0d38c736958b1984feb4b40379bbfc80425035785d"
+  },
+  "population": "national_retrospective_reference_2016_2023",
+  "schema": "BAS-RETROSPECTIVE-REFERENCE-DATABASE-1",
+  "stage": "reference-database",
+  "table_counts": {
+   "blocks": 34,
+   "meta": 15
+  }
+ },
+ "content_identity_document": {
+  "contract_id": "BAT-423-NATIONAL-RETROSPECTIVE-REFERENCE-2016-2023-V1.0",
+  "contract_sha256": "3cfeff255bb29801b482b02611ad2c72c725d069e9f89d3911e86711af34bb31",
+  "models": {
+   "NULL_HALF_V1": "c9f511c047ef9a24ff5873021660e2592e0fd6fa69865418696cbd2cdff6fe04",
+   "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1": "eb074c84ad3e50fd268d354904f6b11c23f6c3fc844b743fc112917adafd8bc5",
+   "PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1": "619cbf736dad1f86efed4791b6537ccad11e546c24ab09de0a9c861797b64d30",
+   "SITE_BLIND_ELO_REFERENCE_V1": "8ed6384a46a630eb32d833ca508bbc6dca61e6e6fa4300f3e38fc8bf7eb7c73a",
+   "SMOOTHED_HISTORY_ODDS_V1": "340128c116d4e5902f582827c0400bb63d8417973d63cd815481fc985126cbfa"
+  },
+  "numeric_contract_sha256": "6489ed6f9241bde171bdf742ed1f426f59b7331ef0b0ae3dde4de1dd73680e21",
+  "outputs": {
+   "estimates.jsonl.gz": "774dd495d61c380848b1fd9ec0018492ac39d9f1017c050d4d13d3c73f3f67d9",
+   "features.jsonl.gz": "509995afde675c8906c755f63f992ba517ce2d92bf429121d25140b47144c088",
+   "labels.jsonl.gz": "5bb3d43c5add4aae185940ca2f00834fcbe13710fa2dd168e8d0cf0baa3119a8",
+   "parameters.jsonl.gz": "bc0c34d829fcf6f22820b1d605aac4477496e9f67851044b5232c13c725709ae",
+   "scores.jsonl.gz": "d4a44a1d24374f9df3d8ab14d4c28bec56684ba7dfc77ac66a4736b724f4fb38",
+   "summary.json": "d7926a182385f7be6b32c500708f328ce3b51023837c0d64310befcae2837215"
+  },
+  "parent": {
+   "benchmark": {
+    "content_identity": "134c857ce6a2af0944438ad975249d386612d4468dbb3481be8f114e0ab19017",
+    "contract_id": "BAT-719-NATIONAL-RETROSPECTIVE-BASELINE-2016-2023-V1.0",
+    "contract_sha256": "32a2ffb6c55d5fda37e06a75847ab3c21345205524ca5a7f60a2ef99b8142ee4",
+    "database_identity": "627b25af33e6d920bce5612f5e9b9c411ce4b2a792e6ff9d53ab04cc7e5521a1",
+    "sqlite_sha256": "b27a7eeb0eb5cba170e9a83cc71441547fb04f854779e5f8fe91e237addb77aa"
+   },
+   "history": {
+    "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+    "contract_id": "BAT-711-NATIONAL-HISTORY-PREFIX-2016-2023-V1.0",
+    "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+    "database_identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b",
+    "expected_targets": {
+     "2016": 733,
+     "2017": 753,
+     "2018": 766,
+     "2019": 769,
+     "2020": 524,
+     "2021": 767,
+     "2022": 775,
+     "2023": 788
+    },
+    "out_of_scope_rows": 3360,
+    "out_of_scope_sha256": "3dce4920fe878f696df99f923d082faa02a0c22f96aebf559b779488d807039e",
+    "sqlite_sha256": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060"
+   },
+   "population": {
+    "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+    "contract_id": "BAT-710-NATIONAL-DI-POPULATION-2016-2025-V1.3",
+    "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+    "database_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+    "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+    "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172"
+   }
+  },
+  "payload_schema": "BAS-RETROSPECTIVE-REFERENCE-PAYLOAD-1",
+  "population": "national_retrospective_reference_2016_2023",
+  "row_counts": {
+   "estimates.jsonl.gz": 58750,
+   "features.jsonl.gz": 11750,
+   "labels.jsonl.gz": 5875,
+   "parameters.jsonl.gz": 5,
+   "scores.jsonl.gz": 29375,
+   "summary.json": 1
+  },
+  "schema": "BAS-RETROSPECTIVE-REFERENCE-CONTENT-1",
+  "stage": "reference-content",
+  "uncompressed_sha256": {
+   "estimates.jsonl": "be62ad1c748c3093e279ad4bfaa6d79f697eb88572d03f62219c963b3359d7e9",
+   "features.jsonl": "4bbb2d629c7c34834584105567094764af360fd555830e0b42ea4fe8a44401fe",
+   "labels.jsonl": "90396872518c281742a2e315374d301b0c6732539eb4ec0f44cd75650ebe8cbc",
+   "parameters.jsonl": "f5285db6a360dfa8ba52accde6095aec6656eb88c3e590c660760a5406d5fab9",
+   "scores.jsonl": "035d7717888c7529400942e4a0edd27726a9441d71ce6ce7cc9530f61f9da846"
+  }
+ },
+ "row_counts": {
+  "estimates.jsonl.gz": 58750,
+  "features.jsonl.gz": 11750,
+  "labels.jsonl.gz": 5875,
+  "parameters.jsonl.gz": 5,
+  "scores.jsonl.gz": 29375,
+  "summary.json": 1
+ },
+ "table_counts": {
+  "blocks": 34,
+  "meta": 15
+ },
+ "fit_states": {
+  "logistic": {
+   "state": "CONVERGED",
+   "newton_steps": 3
+  },
+  "ridge": {
+   "state": "SOLVED",
+   "newton_steps": 0
+  },
+  "training_targets": 5087,
+  "games_used": {
+   "logistic": 5087,
+   "ridge": 5087
+  }
+ },
+ "elo": {
+  "games": 11528,
+  "dates": 598
+ },
+ "c47_preservation": {
+  "estimate_lines_equal": 23500,
+  "label_lines_equal": 5875,
+  "key_overlap": 5875
+ },
+ "summary_population": {
+  "cold_start_targets": 410,
+  "comparison_targets": 788,
+  "estimates": 58750,
+  "feature_views": 11750,
+  "first_four_team_games_targets": 1819,
+  "label_states": {
+   "DECISIVE": 5875
+  },
+  "labels": 5875,
+  "pool_games": 11528,
+  "pool_games_by_season": {
+   "2016": 1501,
+   "2017": 1510,
+   "2018": 1508,
+   "2019": 1566,
+   "2020": 821,
+   "2021": 1526,
+   "2022": 1546,
+   "2023": 1550
+  },
+  "scores": 29375,
+  "targets": 5875,
+  "texas_am_targets": 91,
+  "training_targets": 5087
+ },
+ "first_write": {
+  "lane": "BUILD_REFERENCE stage=materialize",
+  "run": "20261014T034928803791Z",
+  "head": "78ae29da5b02bcc6d1964b5f10aa3f95d1efaf82",
+  "state": "MATERIALIZED"
+ },
+ "limits": [
+  "UNTRUSTED_SHADOW; PIT_NOT_ADMITTED; PREDICTIVE_SKILL_NOT_ESTABLISHED: the accepted history is same-season strictly-earlier calendar-date information, not historical publication-time authority",
+  "fitted on 2016-2022 only; 2023 is an already-exposed out-of-fit development comparison, never blind; 2024/2025 stay protected and unread (RETAIN_PROTECTED_LANE_BLOCKED)",
+  "descriptive retrospective scores only: no champion, calibration, significance or skill claim; adverse and null results retained",
+  "the gate pins identities, hashes and counts only; the reference stays in the private data root outside Git and is served only through the explicit --reference-comparison option"
+ ]
+}

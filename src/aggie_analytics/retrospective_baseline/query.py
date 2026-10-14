@@ -53,6 +53,19 @@ The same explicit option also serves a successor sidecar (BAT-727,
 names that profile: a separately frozen policy re-qualifying the retained BAT-726 capture, its predecessor verified
 by the accepted BAT-726 reader, served only at or after both the original observation bound and the successor's
 policy-frozen time. A V1 sidecar is still served by the V1 reader with its unchanged answers and refusals.
+
+``--reference-comparison <national_retrospective_reference.sqlite>`` (BAT-423 bounded research contribution, Cycle 56)
+is the explicit national retrospective reference comparison mode, served by
+:mod:`aggie_analytics.retrospective_baseline.reference` and imported only then: the immutable 2016-2023 comparison of
+the two unchanged C47 fixed models with a site-blind Elo, a paired zero-intercept L2 logistic probability and a ridge
+expected margin fitted only on 2016-2022, at the ``reference-feature``, ``reference-estimate``,
+``reference-parameter``, ``reference-score`` and ``reference-summary`` grains, verified against
+``--history-database`` and ``--population-database`` (both required) with a complete re-derivation and refit before any
+row is served. Filters ``--season``, ``--team``, ``--contest``, ``--model``, ``--partition`` and (summary only)
+``--slice``; exact paging. Every answer is RETROSPECTIVE_REFERENCE_NOT_PIT_NOT_SKILL and UNTRUSTED_SHADOW;
+``--require-pit`` is refused. It is never combined with ``--database`` or another explicit mode
+(REFERENCE_MODE_CONFLICT). Invocations without the option keep their parsers and bytes, ``--help`` included; the mode's
+own parser describes it (``--reference-comparison <file> --help``).
 """
 from __future__ import annotations
 
@@ -95,6 +108,19 @@ SCHEDULE_EPILOG = ("explicit official schedule evidence mode (BAT-726): --prospe
                    "selected successor sidecar (BAT-727 expansion profile: its own frozen contract and "
                    "policy time, refused before the policy-frozen time) when its bundled contract names "
                    "that profile")
+REFERENCE_OPTION = "--reference-comparison"
+REFERENCE_GRAINS = ("reference-feature", "reference-estimate", "reference-parameter", "reference-score",
+                    "reference-summary")
+REFERENCE_EPILOG = ("explicit national retrospective reference comparison mode (BAT-423, Cycle 56): "
+                    "--reference-comparison <national_retrospective_reference.sqlite> --history-database <accepted "
+                    "history sqlite> --population-database <accepted parent population sqlite> --grain "
+                    "{reference-feature,reference-estimate,reference-parameter,reference-score,reference-summary} "
+                    "[--season] [--team] [--contest] [--model] [--partition] [--slice (summary)] [--limit] [--offset] "
+                    "[--all]: the two unchanged C47 fixed models with a site-blind Elo, a paired zero-intercept L2 "
+                    "logistic probability and a ridge expected margin fitted only on 2016-2022 (2023 an exposed "
+                    "out-of-fit comparison); RETROSPECTIVE_REFERENCE_NOT_PIT_NOT_SKILL, UNTRUSTED_SHADOW, "
+                    "PIT_ELIGIBILITY_NOT_ESTABLISHED, predictive skill and calibration NOT_ESTABLISHED, no champion; "
+                    "never combined with --database or another explicit mode")
 _DEFAULT = object()
 
 
@@ -228,6 +254,92 @@ def build_schedule_parser() -> argparse.ArgumentParser:
     parser.add_argument("--contest", default=None)
     parser.add_argument("--partition", default=None)
     return parser
+
+
+def build_reference_parser() -> argparse.ArgumentParser:
+    """The explicit BAT-423 reference comparison mode's parser (selected only when --reference-comparison is named)."""
+    parser = argparse.ArgumentParser(prog="bas-retrospective-baseline-query --reference-comparison", allow_abbrev=False,
+                                     description="Explicit immutable national retrospective reference comparison "
+                                                 "2016-2023 (research only: not PIT admitted, not a forecast, no "
+                                                 "calibration, skill or champion claim).",
+                                     epilog=REFERENCE_EPILOG)
+    parser.add_argument(REFERENCE_OPTION, dest="reference_comparison", required=True, type=Path,
+                        help="the explicitly selected reference database of a verified identity directory (never a "
+                             "default)")
+    parser.add_argument("--history-database", dest="history_database", type=Path, default=None,
+                        help="the accepted national history-prefix database the reference was built from (required)")
+    parser.add_argument("--population-database", dest="population_database", type=Path, default=None,
+                        help="the accepted parent population database the reference was built from (required)")
+    parser.add_argument("--manifest", type=Path, default=None, help="the reference run manifest (default: beside)")
+    parser.add_argument("--expect-identity", dest="expect_identity", default=None)
+    parser.add_argument("--grain", required=True, choices=list(REFERENCE_GRAINS) + list(bm.GRAINS) +
+                        list(PREVIEW_GRAINS) + list(SHADOW_GRAINS) + list(SCHEDULE_GRAINS))
+    parser.add_argument("--season", type=int, default=None)
+    parser.add_argument("--team", default=None)
+    parser.add_argument("--contest", default=None)
+    parser.add_argument("--model", default=None)
+    parser.add_argument("--partition", default=None)
+    parser.add_argument("--slice", dest="slice_id", default=None,
+                        help="NATIONAL, TEXAS_AM, FIRST_FOUR_TEAM_GAMES or COLD_START (summary grain only)")
+    parser.add_argument("--limit", type=int, default=50)
+    parser.add_argument("--offset", type=int, default=0)
+    parser.add_argument("--all", dest="all_rows", action="store_true")
+    parser.add_argument("--require-pit", dest="require_pit", action="store_true",
+                        help="refused: the reference is never PIT admitted")
+    # Other modes' options, recognized only to refuse the ambiguous or inapplicable selection clearly.
+    parser.add_argument("--database", type=Path, default=None)
+    parser.add_argument(PREVIEW_OPTION, dest="prospective_preview", type=Path, default=None)
+    parser.add_argument(SHADOW_OPTION, dest="prospective_shadow", type=Path, default=None)
+    parser.add_argument(SCHEDULE_OPTION, dest="schedule_evidence", type=Path, default=None)
+    parser.add_argument("--cutoff", default=None)
+    parser.add_argument("--event", default=None)
+    parser.add_argument("--orientation", default=None)
+    return parser
+
+
+def reference_mode(argv: Sequence[str]) -> bool:
+    """Whether an invocation names the explicit reference option (exactly, or as ``--reference-comparison=<path>``)."""
+    return any(token == REFERENCE_OPTION or token.startswith(REFERENCE_OPTION + "=") for token in argv)
+
+
+def run_reference(args: argparse.Namespace, anchors: Any = _DEFAULT) -> dict[str, Any]:
+    """The explicit reference comparison mode (BAT-423): every ambiguous or inapplicable selection and every malformed
+    argument is refused before any file is read; then the inputs and the reference are verified completely (refit
+    included) and queried."""
+    from aggie_analytics.retrospective_baseline import reference  # noqa: PLC0415 - explicit option only
+
+    if args.require_pit:
+        raise reference.ReferenceError("REFERENCE_PIT_NOT_ADMITTED", "the reference is research only and never PIT "
+                                                                     "admitted")
+    conflicts = [flag for flag, value in (("--database", args.database), (PREVIEW_OPTION, args.prospective_preview),
+                                          (SHADOW_OPTION, args.prospective_shadow),
+                                          (SCHEDULE_OPTION, args.schedule_evidence)) if value is not None]
+    if conflicts:
+        raise reference.ReferenceError("REFERENCE_MODE_CONFLICT", f"{conflicts} cannot be combined with "
+                                                                  f"{REFERENCE_OPTION} (ambiguous mode selection)")
+    stray = [flag for flag, value in (("--cutoff", args.cutoff), ("--event", args.event),
+                                      ("--orientation", args.orientation)) if value is not None]
+    if stray:
+        raise reference.ReferenceError("FILTER_NOT_APPLICABLE", f"{stray} do not apply to the reference grains")
+    missing = [flag for flag, value in (("--history-database", args.history_database),
+                                        ("--population-database", args.population_database)) if value is None]
+    if missing:
+        raise reference.ReferenceError("REFERENCE_INPUT_REQUIRED", f"{REFERENCE_OPTION} needs {missing}")
+    reference.ReferenceComparison.filters(args.grain, season=args.season, team=args.team, contest=args.contest,
+                                          model=args.model, partition=args.partition, slice_id=args.slice_id)
+    if args.offset < 0:
+        raise reference.ReferenceError("NEGATIVE_OFFSET", "offset must be zero or positive")
+    if args.limit < 0:
+        raise reference.ReferenceError("NEGATIVE_LIMIT", "limit must be zero or positive")
+    if args.expect_identity is not None and not reference.IDENTITY_RE.match(args.expect_identity):
+        raise reference.ReferenceError("STALE_REFERENCE_IDENTITY", "--expect-identity must be a SHA-256 identity")
+    authority: dict[str, Any] = {} if anchors is _DEFAULT else {"anchors": anchors}
+    with reference.ReferenceComparison(args.reference_comparison, history_database=args.history_database,
+                                       population_database=args.population_database, manifest=args.manifest,
+                                       expect_identity=args.expect_identity, **authority) as selected:
+        return selected.query(args.grain, season=args.season, team=args.team, contest=args.contest, model=args.model,
+                              partition=args.partition, slice_id=args.slice_id, limit=args.limit, offset=args.offset,
+                              all_rows=args.all_rows)
 
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
@@ -385,8 +497,18 @@ def main(argv: Sequence[str] | None = None, *, preview_contract_sha256: str | No
          shadow_contract_sha256: str | None = None, shadow_profile: Any = _DEFAULT,
          schedule_contract_sha256: str | None = None, schedule_profile: Any = _DEFAULT,
          expansion_contract_sha256: str | None = None, expansion_profile: Any = _DEFAULT,
-         predecessor_profile: Any = _DEFAULT) -> int:
+         predecessor_profile: Any = _DEFAULT, reference_anchors: Any = _DEFAULT) -> int:
     tokens = list(sys.argv[1:] if argv is None else argv)
+    if reference_mode(tokens):
+        args = build_reference_parser().parse_args(tokens)
+        from aggie_analytics.retrospective_baseline import reference  # noqa: PLC0415 - explicit option only
+        try:
+            result = run_reference(args, reference_anchors)
+        except reference.ReferenceError as exc:
+            print(json.dumps({"refused": exc.code, "error": str(exc)}), file=sys.stderr)
+            return 2
+        sys.stdout.write(json.dumps(result, ensure_ascii=False, sort_keys=True) + "\n")
+        return 0
     if schedule_mode(tokens):
         args = build_schedule_parser().parse_args(tokens)
         from aggie_analytics.retrospective_baseline import schedule  # noqa: PLC0415 - explicit option only

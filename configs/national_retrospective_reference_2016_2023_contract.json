@@ -1,0 +1,535 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-423-NATIONAL-RETROSPECTIVE-REFERENCE-2016-2023-V1.0",
+  "jira_key": "BAT-423",
+  "cycle_number": 56,
+  "attempt_number": 1,
+  "governing_plan": "TP56-A01 revision 2026-10-14.1 sections 1-8 (Cycle #56 Attempt #1, BAT-423 bounded research contribution)",
+  "classification": "RETROSPECTIVE_RESEARCH_REFERENCE_NOT_PIT_NOT_FORECAST_NOT_SKILL_UNTRUSTED_SHADOW",
+  "population_id": "national_retrospective_reference_2016_2023",
+  "purpose": "One immutable national retrospective reference comparison over the 5,875 accepted 2016-2023 FBS-versus-FBS targets: the two unchanged C47 fixed comparators plus a site-blind season Elo, a paired zero-intercept L2 logistic win probability and a paired zero-intercept ridge expected margin fitted only on the 5,087 targets of 2016-2022, with complete features, estimates, fitted parameters, game-level scores and common-support summaries served by the existing bas-retrospective-baseline-query through the explicit --reference-comparison option. No positive lift is required; adverse, null and unstable results are retained and reported.",
+  "research_authority": {
+    "source": "TP56-A01 section 1 and OWNER_RESEARCH_DECISION (BOUNDED_RESEARCH_SCOPE_ADOPTED, BAT-423)",
+    "permits": "fitting only the declared retrospective 2016-2022 development inputs (targets, their prior records and labels) with UNTRUSTED_SHADOW results; 2023 is an already-exposed out-of-fit development comparison",
+    "does_not": [
+      "relabel the C39 history as an admitted training matrix or change its contract",
+      "release any scientific hold or the protected lane",
+      "authorize protected, forward or production training, PIT admission or forecast activation",
+      "complete BAT-423, BAT-422, F1 or any other baseline family",
+      "rebind, rewrite or read any held BAT-655/668/691 artifact, gate or frozen output"
+    ],
+    "committed_before": "this contract is committed on the assignment branch before the first real fit, the first real model derivation and the first canonical write"
+  },
+  "parent": {
+    "history": {
+      "contract_id": "BAT-711-NATIONAL-HISTORY-PREFIX-2016-2023-V1.0",
+      "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+      "database_identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b",
+      "sqlite_sha256": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060",
+      "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+      "out_of_scope_sha256": "3dce4920fe878f696df99f923d082faa02a0c22f96aebf559b779488d807039e",
+      "out_of_scope_rows": 3360,
+      "expected_targets": {
+        "2016": 733,
+        "2017": 753,
+        "2018": 766,
+        "2019": 769,
+        "2020": 524,
+        "2021": 767,
+        "2022": 775,
+        "2023": 788
+      }
+    },
+    "population": {
+      "contract_id": "BAT-710-NATIONAL-DI-POPULATION-2016-2025-V1.3",
+      "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+      "database_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+      "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172",
+      "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+      "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e"
+    },
+    "benchmark": {
+      "contract_id": "BAT-719-NATIONAL-RETROSPECTIVE-BASELINE-2016-2023-V1.0",
+      "contract_sha256": "32a2ffb6c55d5fda37e06a75847ab3c21345205524ca5a7f60a2ef99b8142ee4",
+      "database_identity": "627b25af33e6d920bce5612f5e9b9c411ce4b2a792e6ff9d53ab04cc7e5521a1",
+      "sqlite_sha256": "b27a7eeb0eb5cba170e9a83cc71441547fb04f854779e5f8fe91e237addb77aa",
+      "content_identity": "134c857ce6a2af0944438ad975249d386612d4468dbb3481be8f114e0ab19017"
+    },
+    "expected": {
+      "targets": 5875,
+      "views": 11750,
+      "pool": 11528,
+      "training_targets": 5087,
+      "comparison_targets": 788
+    },
+    "contract_paths": {
+      "history": "configs/national_history_prefix_2016_2023_contract.json",
+      "population": "configs/national_di_population_2016_2025_contract.json",
+      "benchmark": "configs/national_retrospective_baseline_2016_2023_contract.json"
+    },
+    "read": "the accepted history database (targets, views, target_labels, exclusions) through the accepted C47 loader's full verification plus its out_of_scope.jsonl (protected 2024/2025 keys and seasons only); the accepted parent population database through the accepted population reader's verification, selecting only its 2016-2023 contest rows; the accepted C47 benchmark through its own reader at build time only (byte-equality of its estimate and label lines). No other parent, ranking, venue, market, weather, player, held matrix, fitted weight, contaminated prediction or metric is read; no 2024, 2025 or 2026 outcome column is selected.",
+    "semantics": "accepted facts keep their original semantics; the history and benchmark contracts are neither broadened nor rewritten; 2020 keeps the parent 2020-21 academic-season label (fall 2020 plus spring 2021)"
+  },
+  "labels": {
+    "evidence_label": "RETROSPECTIVE_REFERENCE_NOT_PIT_NOT_SKILL",
+    "observation_authority": "RETROSPECTIVE_OBSERVATION_ONLY",
+    "pit_eligibility": "PIT_ELIGIBILITY_NOT_ESTABLISHED",
+    "temporal_basis": "CALENDAR_DATE_ORDER_ONLY_NOT_PUBLICATION_TIME",
+    "forecast_status": "NOT_A_FORECAST_RETROSPECTIVE_RESEARCH_ONLY",
+    "trust_state": "UNTRUSTED_SHADOW",
+    "predictive_skill": "NOT_ESTABLISHED",
+    "calibration": "NOT_ESTABLISHED",
+    "champion": "NO_CHAMPION_SELECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "fit_authority": "TP56_RESEARCH_AUTHORITY_2016_2022_DEVELOPMENT_FIT_ONLY",
+    "comparison_2023": "ALREADY_EXPOSED_OUT_OF_FIT_DEVELOPMENT_COMPARISON_NOT_BLIND",
+    "bas_label_anchor": "NOT_PERMITTED",
+    "selection": "EXPLICIT_REFERENCE_SELECTION_ONLY_NEVER_A_DEFAULT"
+  },
+  "record_labels": {
+    "evidence_label": "RETROSPECTIVE_REFERENCE_NOT_PIT_NOT_SKILL",
+    "pit_eligibility": "PIT_ELIGIBILITY_NOT_ESTABLISHED",
+    "trust_state": "UNTRUSTED_SHADOW"
+  },
+  "split": {
+    "registry_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "partitions": [
+      {
+        "split_id": "SPLIT-DEV-HIST",
+        "role": "DEVELOPMENT",
+        "seasons": [
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ]
+      },
+      {
+        "split_id": "SPLIT-DEV-SEL",
+        "role": "DEVELOPMENT_SELECTION",
+        "seasons": [
+          2023
+        ]
+      }
+    ],
+    "excluded": [
+      {
+        "split_id": "SPLIT-PROTECTED",
+        "role": "PROTECTED_TEST",
+        "seasons": [
+          2024,
+          2025
+        ]
+      },
+      {
+        "split_id": "SPLIT-FORWARD",
+        "role": "FORWARD_SHADOW",
+        "seasons_from": 2026
+      }
+    ],
+    "rule": "actual canonical-game membership outranks any supplied season label: a contest named by the accepted out-of-scope (2024/2025) payload is refused wherever it appears"
+  },
+  "scope": {
+    "population": "ACCEPTED_BAT711_FBS_ESTIMAND_TARGETS_2016_2023",
+    "target_seasons": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "training_seasons": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "comparison_seasons": [
+      2023
+    ],
+    "views_per_target": 2,
+    "models": [
+      "NULL_HALF_V1",
+      "SMOOTHED_HISTORY_ODDS_V1",
+      "SITE_BLIND_ELO_REFERENCE_V1",
+      "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1",
+      "PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1"
+    ],
+    "probability_models": [
+      "NULL_HALF_V1",
+      "SMOOTHED_HISTORY_ODDS_V1",
+      "SITE_BLIND_ELO_REFERENCE_V1",
+      "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1"
+    ],
+    "margin_models": [
+      "PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1"
+    ],
+    "score_orientation": "A",
+    "protected_seasons": [
+      2024,
+      2025
+    ],
+    "forward_seasons_from": 2026,
+    "slices": [
+      "NATIONAL",
+      "TEXAS_AM",
+      "FIRST_FOUR_TEAM_GAMES",
+      "COLD_START"
+    ],
+    "evidence_label": "RETROSPECTIVE_REFERENCE_NOT_PIT_NOT_SKILL"
+  },
+  "models": {
+    "NULL_HALF_V1": {
+      "model_id": "NULL_HALF_V1",
+      "version": 1,
+      "family": "FIXED_CONSTANT",
+      "formula": "p_A = p_B = 1/2",
+      "inputs": [],
+      "parameters": {
+        "probability": {
+          "numerator": 1,
+          "denominator": 2
+        }
+      },
+      "fitted": false,
+      "home_advantage": null,
+      "role": "NULL_COMPARISON"
+    },
+    "SMOOTHED_HISTORY_ODDS_V1": {
+      "model_id": "SMOOTHED_HISTORY_ODDS_V1",
+      "version": 1,
+      "family": "FIXED_SMOOTHED_RECORD_ODDS_RATIO",
+      "formula": "q_X = (W_X + T_X/2 + 1)/(G_X + 2) for each side X; p_A = q_A(1-q_B) / (q_A(1-q_B) + q_B(1-q_A)); p_B = 1 - p_A",
+      "inputs": [
+        "games",
+        "wins",
+        "losses",
+        "ties"
+      ],
+      "parameters": {
+        "pseudo_wins": 1,
+        "pseudo_games": 2,
+        "tie_weight": {
+          "numerator": 1,
+          "denominator": 2
+        }
+      },
+      "cold_start": "G = 0 gives q = 1/2 (flagged; the target is kept)",
+      "fitted": false,
+      "home_advantage": null,
+      "role": "FIXED_HISTORY_COMPARISON"
+    },
+    "SITE_BLIND_ELO_REFERENCE_V1": {
+      "model_id": "SITE_BLIND_ELO_REFERENCE_V1",
+      "version": 1,
+      "family": "SITE_BLIND_SEASON_ELO",
+      "output": "WIN_PROBABILITY",
+      "formula": "R starts at 1500 per season and organization; for a game of A and B, E_A = 1/(1 + 10^((R_B - R_A)/400)), S_A = 1 win, 0 loss, 1/2 tie, delta_A = 20 (S_A - E_A), delta_B = -delta_A; every game of one date uses the ratings at the start of that date and the updates (math.fsum per organization) apply after the date; p_A of a target = E_A from the ratings at the start of its own date",
+      "parameters": {
+        "initial_rating": 1500,
+        "k_factor": 20,
+        "logistic_base": 10,
+        "scale": 400,
+        "site_bonus": 0,
+        "offseason_carry": "NONE_EVERY_SEASON_AND_TEAM_RESTARTS_AT_1500",
+        "tie_score": {
+          "numerator": 1,
+          "denominator": 2
+        }
+      },
+      "inputs": [
+        "every eligible same-season history-pool game: date, organizations, points"
+      ],
+      "pool": "each of the 11,528 eligible 2016-2023 history-pool games exactly once within its own season label",
+      "fitted": false,
+      "home_advantage": null,
+      "role": "FIXED_RATING_REFERENCE",
+      "distinct_from": "the historical BAT-655 national_elo and the preliminary Elo challenger contracts (configs/elo_*_contract.json); none of their artifacts is read or changed"
+    },
+    "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1": {
+      "model_id": "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1",
+      "version": 1,
+      "family": "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC",
+      "output": "WIN_PROBABILITY",
+      "columns": [
+        "games_difference",
+        "win_rate_difference",
+        "points_for_mean_difference",
+        "points_against_mean_difference",
+        "margin_mean_difference",
+        "games_missing_difference",
+        "win_rate_missing_difference",
+        "points_for_mean_missing_difference",
+        "points_against_mean_missing_difference",
+        "margin_mean_missing_difference"
+      ],
+      "formula": "p = sigmoid(z . beta), z the training-RMS-scaled team-minus-opponent design, zero intercept",
+      "objective": "mean weighted binary cross-entropy over the paired oriented training rows (weight 1/2 each) plus (1/2) sum(beta_j^2) (lambda 1, every column)",
+      "solver": {
+        "method": "Newton from zero with the C37 deterministic partial-pivot solve",
+        "max_newton_steps": 100,
+        "gradient_inf_norm_tolerance": "1e-10",
+        "backtracking": "step 1 halved at most 30 times until the objective does not increase",
+        "failure": "exhausted backtracking or no convergence is a recorded failure, never accepted"
+      },
+      "fit_seasons": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "labels_used": [
+        "DECISIVE"
+      ],
+      "fitted": true,
+      "home_advantage": null,
+      "role": "LEARNED_PROBABILITY_REFERENCE"
+    },
+    "PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1": {
+      "model_id": "PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1",
+      "version": 1,
+      "family": "PAIRED_ZERO_INTERCEPT_RIDGE",
+      "output": "EXPECTED_MARGIN_ONLY_NO_PROBABILITY",
+      "columns": [
+        "games_difference",
+        "win_rate_difference",
+        "points_for_mean_difference",
+        "points_against_mean_difference",
+        "margin_mean_difference",
+        "games_missing_difference",
+        "win_rate_missing_difference",
+        "points_for_mean_missing_difference",
+        "points_against_mean_missing_difference",
+        "margin_mean_missing_difference"
+      ],
+      "formula": "margin_A = z . beta (team-minus-opponent points), zero intercept; no probability link and no score distribution are defined",
+      "objective": "mean weighted squared margin error over the paired oriented training rows (weight 1/2 each) divided by two plus (1/2) sum(beta_j^2) (lambda 1, every column)",
+      "solver": {
+        "method": "regularized normal equations with the C37 deterministic partial-pivot solve",
+        "residual_inf_norm_tolerance": "1e-8",
+        "finite_coefficients": true
+      },
+      "fit_seasons": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "labels_used": [
+        "DECISIVE",
+        "TIE"
+      ],
+      "fitted": true,
+      "home_advantage": null,
+      "role": "LEARNED_MARGIN_REFERENCE"
+    }
+  },
+  "elo": {
+    "initial_rating": 1500,
+    "k_factor": 20,
+    "logistic_base": 10,
+    "scale": 400,
+    "site_bonus": 0,
+    "offseason_carry": "NONE_EVERY_SEASON_AND_TEAM_RESTARTS_AT_1500",
+    "tie_score": {
+      "numerator": 1,
+      "denominator": 2
+    }
+  },
+  "design_columns": [
+    "games_difference",
+    "win_rate_difference",
+    "points_for_mean_difference",
+    "points_against_mean_difference",
+    "margin_mean_difference",
+    "games_missing_difference",
+    "win_rate_missing_difference",
+    "points_for_mean_missing_difference",
+    "points_against_mean_missing_difference",
+    "margin_mean_missing_difference"
+  ],
+  "numeric_contract": {
+    "arithmetic": "IEEE-754 binary64 in a fixed order; every reduction math.fsum; math.exp, math.log1p, math.log, math.sqrt and float ** of the pinned CPython 3.12.10; stable sigmoid and cross-entropy",
+    "features": "exact rationals in lowest terms {numerator, denominator}; a design value is the correctly rounded binary64 of the exact team-minus-opponent difference",
+    "scaling": "column j scale = sqrt(fsum(x_ij^2) / n) over the 2016-2022 training oriented rows (no centering); a zero scale uses 1; z_ij = x_ij / scale_j",
+    "decimal12": "every served binary64 value is its exact decimal expansion rounded half-even to 12 places, negative zero normalized to 0.000000000000, serialized as a JSON string; a probability complement and a margin negation are exact decimal operations on that string",
+    "probability": "0 <= served p <= 1; p_A + p_B = 1 exactly in decimal; ridge serves no probability",
+    "brier": "(p_served - y)^2 as an exact rational of the served decimal (C47 models: of their exact rational)",
+    "log_loss": "-ln(clip(q)) with q = p_served when y = 1 and 1 - p_served when y = 0, q the correctly rounded binary64 of the exact value, clip to [1e-15, 1 - 1e-15] applied only to the logarithm argument (diagnostic convention CLIPPED_LOG_ARGUMENT_1E-15); repr() text; totals math.fsum in canonical target order, mean = total / count",
+    "margin_errors": "absolute and squared error of the served margin against the integer label as exact rationals; MAE and MSE exact rationals; RMSE = math.sqrt of the binary64 of the exact MSE (repr and decimal12)",
+    "means_and_rates": "exact rationals with a 12-place half-even decimal display; an empty scope has null means",
+    "counts": "JSON integers only; a boolean or an integral float is not a count",
+    "unrounded_diagnostics": "fit objectives, gradient and residual norms, scales and coefficients are also kept as repr() text in the parameter records' diagnostics (deterministic under the pinned runtime, never served as rounded results)",
+    "independent_tolerance": "an independent solver agrees within 1e-9 absolute on coefficients and predictions and within 1e-8 on objective and gradient/residual; stored canonical payload bytes are exact and deterministic under the pinned runtime",
+    "canonical_json": "json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False) as UTF-8"
+  },
+  "slices": {
+    "NATIONAL": "every accepted target",
+    "TEXAS_AM": "targets with org:697 (Texas A&M) on either side",
+    "FIRST_FOUR_TEAM_GAMES": "targets where either side has fewer than four eligible prior games",
+    "COLD_START": "targets where either side has zero eligible prior games"
+  },
+  "calibration": {
+    "orientation": "A (parent a side, the canonical game orientation)",
+    "bins": 10,
+    "rule": "bin i = min(floor(10 p), 9) of the served decimal probability; fixed edges i/10, the last bin closed at 1; per bin count, exact mean served probability and exact observed A-win rate; an empty bin has null means"
+  },
+  "population": {
+    "targets": "exactly the accepted history targets: 733, 753, 766, 769, 524, 767, 775 and 788 for 2016-2023 (5,875); 5,087 training targets 2016-2022 and 788 out-of-fit 2023 targets",
+    "views": "exactly two oriented views per target (11,750): A = parent a side, B = parent b side",
+    "pool": "the 11,528 eligible prior-pool games: every 2016-2023 parent contest passing the seven frozen BAT-711 predicates (DISPOSITION, RECONCILIATION, STATUS, COMPETITIVE, DATE, ORG_KEYS, SCORES) whatever the FBS/FCS/outside-division classification of either side, 2020 spring included; the passing parent set must equal the history's pool (targets plus pool-member exclusions) key for key",
+    "exclusions_and_cold_starts": "every history exclusion keeps its reason; cold starts (zero prior games) are kept and flagged, never dropped or imputed",
+    "protected_rule": "a target, pool contest or delivered record named by the accepted out-of-scope (2024/2025) payload, or with a season outside 2016-2023, is refused (REFERENCE_PROTECTED_KEY)"
+  },
+  "features": {
+    "grain": "target contest x view",
+    "prior_rule": "for each side: every pool game of that organization with the same season label dated strictly before the target date (same-date and later games, and the target itself, never enter)",
+    "rederivation": "each prior record is rederived from the parent contest rows (key, date, role A/B, opponent key and contemporaneous division label, points for/against, result) and must equal the accepted history view's contributing contests and totals exactly (REFERENCE_FEATURE_LINEAGE_MISMATCH otherwise)",
+    "side_fields": "games G; win rate (2W + T)/(2G) (ties count one half); points-for mean; points-against mean; margin mean -- exact rationals in lowest terms; a rate with G = 0 is missing: value 0 plus a missing indicator 1; games played is always defined (indicator 0)",
+    "design": "five team-minus-opponent value differences and five missing-indicator differences (the design_columns), A orientation; the B row is the exact negation",
+    "lineage": "full key/role/score lineage of every contributing game and the organization's source names in those parent rows (season-scoped aliases)",
+    "slices": "first_four_team_games = either side has fewer than four eligible prior games; cold_start = either side has zero; texas_am_target = org:697 on either side"
+  },
+  "fit_rules": {
+    "training": "only targets of 2016-2022 (SPLIT-DEV-HIST); logistic labels DECISIVE only (y_A 1 or 0); ridge labels DECISIVE and TIE (margin label a_points - b_points); MISSING/UNSUPPORTED excluded and counted; 2023 never enters the fit, the scaling or any choice",
+    "pairing": "every training game contributes its A row (z, y) and its B row (-z, 1 - y) for the logistic and (z, m) and (-z, -m) for the ridge, each with weight 1/2, so one canonical game has weight one",
+    "scaling": "column root-mean-square over the training oriented rows only, no centering, zero scale uses 1; the same scales apply to 2023 rows",
+    "penalty": "lambda = 1 on every column, zero intercept, no hyperparameter search",
+    "logistic": "Newton from zero; direction from the C37 deterministic partial-pivot solve of H d = -g; backtracking starts at step 1 and halves at most 30 times until the objective does not increase; converged when the gradient infinity norm is at most 1e-10 within 100 Newton steps; exhausted backtracking, a singular system or no convergence is a recorded build failure (REFERENCE_FIT_*), never silently accepted or tuned against 2023",
+    "ridge": "solve the regularized normal equations with the same deterministic solve; coefficients must be finite and the normal-equation residual infinity norm at most 1e-8 (REFERENCE_FIT_RESIDUAL)",
+    "invariance": "held-fixed parameters: changing a target's own or a later outcome cannot alter its pre-date features or Elo state; refitting on changed training labels legitimately changes coefficients and is not a leakage test; changing 2023 labels or features cannot change the scales or coefficients",
+    "sample_states": "learned-model estimates of 2016-2022 are IN_SAMPLE_TRAINING_NOT_A_LABEL_ANCHOR; of 2023 OUT_OF_FIT_EXPOSED_2023; fixed models and Elo are NOT_FITTED; forward out-of-sample margin or BAS labels need a later contract"
+  },
+  "estimates": {
+    "grain": "target contest x model x orientation (58,750)",
+    "c47_models": "NULL_HALF_V1 and SMOOTHED_HISTORY_ODDS_V1 records are the C47 estimate records byte for byte (re-derived by the accepted C47 code and required equal to the accepted benchmark's lines)",
+    "probability_models": "one canonical game-grain probability p_A (decimal12) and its exact decimal complement; orientation B states p_B = 1 - p_A; Elo carries the start-of-date ratings and rating game counts; the logistic its linear predictor (B the exact negation)",
+    "ridge": "one canonical expected margin (decimal12) and its exact negation; no probability, link or score distribution field exists (REFERENCE_RIDGE_PROBABILITY_INVENTED otherwise)",
+    "label_rule": "no label, score or target outcome is in scope when estimates are derived",
+    "pair_adapter": "the BAT-693 coherent saved-pair concept (one canonical game-grain value, its exact complement or negation, unique-game metrics) is applied natively at game grain; its module is not imported because no saved team-grain pair exists to normalize, and its gate and outputs stay unchanged",
+    "antisymmetry": "swapping the roles of a game negates its design exactly; the served B values are the exact complement (probability) or negation (margin) of the canonical A value, and a direct B-view evaluation agrees within the independent tolerance",
+    "old_new_overlap": "before comparison the build requires the reference target keys to equal the accepted C47 benchmark's keys exactly, in the same order (REFERENCE_C47_KEY_OVERLAP_INEXACT otherwise)"
+  },
+  "label_rules": {
+    "source": "the C47 label records byte for byte (accepted target_labels, POSTGAME_OUTCOME_SEPARATED_FROM_FEATURES_AND_ESTIMATES); a decisive or tied label must agree with the parent row's points",
+    "states": "DECISIVE (scored), TIE/MISSING/UNSUPPORTED explicit UNSCORED for the probability models; ridge scores DECISIVE and TIE"
+  },
+  "scores": {
+    "grain": "target contest x model, A orientation only (29,375); mirrored rows are never scored",
+    "probability": "Brier (p_served - y)^2 exact rational; log loss -ln(clip(q)) as repr text with the labelled convention CLIPPED_LOG_ARGUMENT_1E-15; the C47 models' values equal their C47 scores",
+    "margin": "absolute and squared error of the served margin against the integer margin label (exact)",
+    "slices": "each score carries its first_four_team_games, cold_start and texas_am_target flags"
+  },
+  "summary": {
+    "scopes": "slices NATIONAL, TEXAS_AM, FIRST_FOUR_TEAM_GAMES and COLD_START x each season 2016-2023, each development partition (SPLIT-DEV-HIST, SPLIT-DEV-SEL) and pooled 2016-2023, for all five models",
+    "probability_rows": "identical game keys across the four probability families (else REFERENCE_COMMON_SUPPORT_INVALID); scored count, Brier total/mean, log-loss total/mean, scored counts by sample state, the fixed decile calibration table",
+    "margin_rows": "ridge in its own declared scope: MAE, MSE, RMSE and counts",
+    "comparisons": "descriptive model-minus-NULL_HALF_V1 Brier and log-loss mean differences per slice and scope; no significance, skill, calibration or champion claim",
+    "empty": "an empty slice or bin reports zero counts and null means; nothing is fabricated"
+  },
+  "outputs": {
+    "payloads": [
+      "features.jsonl.gz",
+      "estimates.jsonl.gz",
+      "labels.jsonl.gz",
+      "parameters.jsonl.gz",
+      "scores.jsonl.gz",
+      "summary.json"
+    ],
+    "payload_encoding": "each record kind is one JSONL file of canonical lines in payload order, deterministic gzip (no file name, mtime 0, level 6); summary.json is one canonical line",
+    "payload_order": "targets by (season, contest_date, contest_key); features by view A, B; estimates by model NULL_HALF_V1, SMOOTHED_HISTORY_ODDS_V1, SITE_BLIND_ELO_REFERENCE_V1, PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1, PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1 then orientation A, B; labels by target; parameters by model; scores by model",
+    "database": {
+      "file": "national_retrospective_reference.sqlite",
+      "schema_version": "BAS-RETROSPECTIVE-REFERENCE-DB-1",
+      "tables": {
+        "meta": "key/value: schema_version, contract_id, contract_sha256, content_identity, payload and uncompressed SHA-256s, row counts, parent, labels, split, models, numeric_contract, scope, slices, summary_sha256",
+        "blocks": "one zlib (level 9) block per (record table, segment): features, estimates, labels, scores x 2016-2023, then parameters and summary as GLOBAL; records, first/last record key and the SHA-256 of the uncompressed JSONL lines"
+      },
+      "determinism": "page_size 4096, journal_mode OFF, rows inserted in layout order into a fresh file, no deletes and no VACUUM; content and physical bytes reproducible under CPython 3.12.10, SQLite 3.49.1 and zlib 1.3.1 on the pinned Windows runtime"
+    }
+  },
+  "identity_scheme": {
+    "canonical_root": "canonical/national_retrospective_reference_2016_2023/sha256/<id>/",
+    "manifest_root": "manifests/national_retrospective_reference_2016_2023/sha256/<id>/run_manifest.json",
+    "content_identity": "sha256 of the canonical JSON content document {schema, stage: reference-content, population, contract_id, contract_sha256, parent {history, population, benchmark}, models, numeric_contract_sha256, payload_schema, outputs, uncompressed_sha256, row_counts}",
+    "database_identity": "sha256 of the canonical JSON database document {schema, stage: reference-database, population, contract_sha256, content_identity, db_schema_version, outputs {national_retrospective_reference.sqlite: sha256}, table_counts} -- exactly these members",
+    "comparison": "identity documents are compared as canonical bytes: 13 and 13.0 are different documents",
+    "immutability": "create-only; an existing identity is verified and never rewritten; failed or superseded materializations stay immutable; no canonical default pointer changes"
+  },
+  "build": {
+    "producer": "tools/build_national_retrospective_reference.py",
+    "canonical_command": "tools/build_national_retrospective_reference.py --contract configs/national_retrospective_reference_2016_2023_contract.json --history-database <accepted history sqlite> --population-database <accepted parent sqlite> --benchmark-database <accepted C47 sqlite> --output-root <data>/canonical/national_retrospective_reference_2016_2023 --manifest-root <data>/manifests/national_retrospective_reference_2016_2023",
+    "variants": [
+      "--input-order reverse",
+      "--input-order shuffle:<seed>",
+      "--chunk-size 1/17/257 with --checkpoint-dir",
+      "--stop-after-chunks then --resume"
+    ],
+    "rule": "every variant yields the same content identity, payload bytes and SQLite bytes; the committed contract precedes the first real fit and the first canonical write"
+  },
+  "refusals": {
+    "order": "inputs (HISTORY_*, REFERENCE_HISTORY_MISMATCH, POPULATION_*, REFERENCE_POPULATION_MISMATCH, REFERENCE_POOL_MISMATCH), reference location/manifest/bytes/identity, contract, meta claims (parent, PIT, protected, label, split, models, numeric contract, scope, slices), table counts, block index columns and layout, protected keys and segments, label leakage, count types (REFERENCE_COUNT_TYPE_INVALID: a boolean or an integral float is not a count), ridge probability, binary floats, mirrored score rows, game-grain pair coherence (REFERENCE_PAIR_INCOHERENT), duplicate/missing/extra/reordered records, record fields (PIT, label, partition, sample state, model, orientation, team mapping, label, metric, probability, margin, parameter, lineage, feature, slice), summary, content identity, meta and the contract-defined identity document",
+    "pit": "--require-pit is always refused: REFERENCE_PIT_NOT_ADMITTED"
+  },
+  "consumer": {
+    "console_script": "bas-retrospective-baseline-query = aggie_analytics.retrospective_baseline.query:main",
+    "module": "python -m aggie_analytics.retrospective_baseline.query",
+    "option": "--reference-comparison <canonical reference sqlite> with --history-database <accepted history sqlite> and --population-database <accepted parent sqlite>; the mode's own parser, imported only when the option is named; never a default; no generic forecast consumer becomes active",
+    "grains": [
+      "reference-feature",
+      "reference-estimate",
+      "reference-parameter",
+      "reference-score",
+      "reference-summary"
+    ],
+    "filters": {
+      "season": "integer; outside 2016-2023 serves no rows with an explicit scope state",
+      "team": "org:<digits>, bare digits or a team name of that record's own season (feature, estimate, score)",
+      "contest": "ncaa:<digits> or bare digits (feature, estimate, score)",
+      "model": "one of the five model IDs (estimate, parameter, score, summary)",
+      "partition": "SPLIT-DEV-HIST or SPLIT-DEV-SEL (feature, estimate, score, summary)",
+      "slice": "NATIONAL, TEXAS_AM, FIRST_FOUR_TEAM_GAMES or COLD_START (summary only)"
+    },
+    "paging": "--limit/--offset/--all with exact totals in payload order; an unknown valid key returns zero rows (summary included); negative values, unknown or abbreviated flags, malformed and inapplicable filters refuse with exit 2",
+    "conflicts": "--database, --manifest of the benchmark, --prospective-preview, --prospective-shadow and --schedule-evidence cannot be combined with --reference-comparison (REFERENCE_MODE_CONFLICT)",
+    "identity": "every response binds the verified reference database identity, the re-derived content identity, the contract SHA-256 and the history, population and benchmark identities",
+    "locations": "BAT-717 literal read-only SQLite locations (long and extended-length Windows paths, reserved characters, rehoused copies with their manifest beside); a missing database is never created",
+    "defaults": "invocations without the option keep their parsers, answers, refusals and bytes, --help included"
+  },
+  "raw_verification": {
+    "source": "the retained SRC-015 NCAA team-season schedule page bytes named by the parent's page observations (zero requests)",
+    "selection": "declared before any sampled raw page is read: for each stratum the first N contest keys ordered by sha256(contest_key) -- TARGETS_<season> (5 per season 2016-2023), TARGETS_2020_DATED_2021 (5), COLD_START_TARGETS (8), OUTSIDE_DIVISION_PRIORS (8 contributing pool games whose classification pair is not FBS-FBS), PRIOR_POOL_TIES (every tied pool game; none may exist), POOL_2020_SPRING (5) and TEXAS_AM_TARGETS_<season> (every Texas A&M target of each season)",
+    "check": "both participants' schedule pages (both orientations): retained page bytes hash to their observation, the contest row's date and score agree with the parent row",
+    "limits": "a stratified sample of schedule pages, not a complete historical raw-page audit; box scores and second sources are not re-parsed; an unavailable page is reported, never imputed"
+  },
+  "oracle": {
+    "independence": "a standard-library oracle with its own SQL, pool predicates, feature and Elo rebuild, scaling, objective and solver; it imports no producer, reader or query module and no expected decision",
+    "tolerances": "coefficients and predictions within 1e-9 absolute, objective and gradient/residual within 1e-8; keys, counts, rationals and classifications exactly",
+    "challenges": "planted wrong rules (same-date priors, an intercept, centered or all-season scaling, 2023 in the fit, a site bonus, offseason carry, unbatched same-date updates, unpenalized or sum objectives, ties as losses, missing as mean, doubled mirror loss, both-sides slice rules) must each be caught by the stored records"
+  },
+  "non_claims": [
+    "no PIT, known-at or publication-time authority; calendar order only",
+    "not a forecast; predictive skill NOT_ESTABLISHED; calibration NOT_ESTABLISHED; no champion selection",
+    "2023 is already exposed: an out-of-fit development comparison, never blind; 2024-2025 are not untouched protected data and no 2024, 2025 or 2026 outcome is read, scored or labelled",
+    "training-sample estimates are IN_SAMPLE and never BAS label anchors",
+    "no weather, venue, travel, player, market, ranking or held model input",
+    "no completion of BAT-423, BAT-422, F1 or any other baseline family; no dependency release, default change, activation or hold release",
+    "no Jira acceptance"
+  ]
+}

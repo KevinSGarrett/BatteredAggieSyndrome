@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BAS National Retrospective Research (private)</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="/static/research.css" />
+</head>
+<body>
+  <main class="shell research" id="research-app" data-testid="research-app">
+    <header>
+      <p class="eyebrow">AGGIE ANALYTICS ENGINE &middot; PRIVATE RESEARCH</p>
+      <h1>National Retrospective Research</h1>
+      <p class="sub">Accepted 2016&ndash;2023 national reference: canonical games, both-team prior history, model
+        estimates, game-level scores, summaries and comparisons. Retrospective research only &mdash; not a forecast.</p>
+      <nav aria-label="Product navigation"><a href="/">Forecast dashboard</a></nav>
+      <ul class="labels" id="labels" data-testid="labels" aria-label="Evidence labels">
+        <li>RETROSPECTIVE_RESEARCH</li><li>UNTRUSTED_SHADOW</li><li>PIT_NOT_ADMITTED</li>
+        <li>PREDICTIVE SKILL NOT_ESTABLISHED</li>
+      </ul>
+    </header>
+
+    <section class="status" id="status" data-testid="status" data-state="loading" role="status" aria-live="polite">
+      Loading research profiles&hellip;
+    </section>
+    <button type="button" id="retry" data-testid="retry" hidden>Retry</button>
+
+    <section class="panel" aria-labelledby="profile-heading">
+      <h2 id="profile-heading">Profile</h2>
+      <label>Research profile <select id="profile" data-testid="profile" disabled></select></label>
+      <dl class="identity" id="identity" data-testid="identity"></dl>
+      <ul class="limits" id="limitations" data-testid="limitations"></ul>
+    </section>
+
+    <form class="controls research-controls" id="filters" data-testid="filters" aria-label="Research selectors">
+      <label>Season <select id="season" data-testid="season" disabled><option value="">All seasons</option></select></label>
+      <label>Team <input id="team" data-testid="team" type="text" maxlength="120" autocomplete="off"
+                         placeholder="org:697 or a season team name" disabled /></label>
+      <label>Game <input id="game" data-testid="game" type="text" maxlength="120" autocomplete="off"
+                         placeholder="ncaa:&hellip;" disabled /></label>
+      <label>Model <select id="model" data-testid="model" disabled><option value="">All models</option></select></label>
+      <label>Partition <select id="partition" data-testid="partition" disabled><option value="">All partitions</option></select></label>
+      <label>Slice <select id="slice" data-testid="slice" disabled><option value="">All slices</option></select></label>
+      <label>Comparison baseline <select id="baseline" data-testid="baseline" disabled></select></label>
+      <label>Rows per page <select id="limit" data-testid="limit" disabled>
+        <option value="25">25</option><option value="50" selected>50</option><option value="100">100</option>
+      </select></label>
+      <button type="submit" id="apply" data-testid="apply" disabled>Apply selectors</button>
+    </form>
+
+    <div class="tabs" role="tablist" aria-label="Research views" id="tabs" data-testid="tabs">
+      <button type="button" role="tab" id="tab-games" data-grain="games" aria-selected="true" aria-controls="results-panel">Games</button>
+      <button type="button" role="tab" id="tab-features" data-grain="features" aria-selected="false" aria-controls="results-panel">Features &amp; lineage</button>
+      <button type="button" role="tab" id="tab-estimates" data-grain="estimates" aria-selected="false" aria-controls="results-panel">Estimates</button>
+      <button type="button" role="tab" id="tab-scores" data-grain="scores" aria-selected="false" aria-controls="results-panel">Scores</button>
+      <button type="button" role="tab" id="tab-parameters" data-grain="parameters" aria-selected="false" aria-controls="results-panel">Parameters</button>
+      <button type="button" role="tab" id="tab-summary" data-grain="summary" aria-selected="false" aria-controls="results-panel">Summary</button>
+      <button type="button" role="tab" id="tab-comparisons" data-grain="comparisons" aria-selected="false" aria-controls="results-panel">Comparisons</button>
+    </div>
+
+    <section class="panel" id="results-panel" role="tabpanel" aria-labelledby="tab-games" data-testid="results-panel">
+      <p id="count" data-testid="count" aria-live="polite"></p>
+      <div class="table-wrap">
+        <table id="results" data-testid="results"><caption id="results-caption">Results</caption>
+          <thead></thead><tbody></tbody></table>
+      </div>
+      <div class="pager">
+        <button type="button" id="prev" data-testid="prev" disabled>Previous page</button>
+        <button type="button" id="next" data-testid="next" disabled>Next page</button>
+      </div>
+    </section>
+
+    <section class="panel" id="detail" data-testid="detail" aria-labelledby="detail-heading" hidden>
+      <h2 id="detail-heading">Game detail</h2>
+      <button type="button" id="close-detail" data-testid="close-detail">Close game detail</button>
+      <div id="detail-body" data-testid="detail-body"></div>
+    </section>
+
+    <section class="panel" id="adverse" data-testid="adverse" aria-labelledby="adverse-heading">
+      <h2 id="adverse-heading">Exposed 2023 comparison (adverse results kept)</h2>
+      <p class="sub">Served NATIONAL / SPLIT-DEV-SEL summary rows; 2023 is already exposed and never a blind test.</p>
+      <div class="table-wrap"><table id="adverse-table" data-testid="adverse-table"><thead></thead><tbody></tbody></table></div>
+      <p id="adverse-note" data-testid="adverse-note"></p>
+    </section>
+  </main>
+  <script src="/static/research.js"></script>
+</body>
+</html>

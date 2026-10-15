@@ -1,0 +1,27 @@
+.research nav a { color: #9ecbff; }
+.labels { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 12px 0 0; }
+.labels li { border: 1px solid #8b5a00; background: #2b1d00; border-radius: 999px; padding: 4px 10px; font-size: .78rem; }
+.status { border: 1px solid #30363d; border-radius: 8px; padding: 12px; margin: 16px 0; }
+.status[data-state="error"], .status[data-state="unavailable"], .status[data-state="unconfigured"] { border-color: #da3633; background: #2d0f10; }
+.status[data-state="verifying"], .status[data-state="loading"] { border-color: #1f6feb; background: #0c1d33; }
+.status[data-state="empty"] { border-color: #8b5a00; background: #2b1d00; }
+.panel { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 18px; margin-top: 14px; }
+.panel h2 { margin-top: 0; font-size: 1rem; }
+.research-controls input { padding: 10px 12px; border-radius: 8px; border: 1px solid #30363d; background: #161b22; color: inherit; min-width: 14rem; }
+.identity { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: .82rem; }
+.identity dt { opacity: .75; }
+.identity dd { margin: 0; word-break: break-all; font-family: ui-monospace, monospace; }
+.limits { font-size: .85rem; opacity: .85; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.tabs button[aria-selected="true"] { border-color: #1f6feb; background: #0c1d33; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem; }
+caption { text-align: left; opacity: .75; padding-bottom: 6px; }
+th, td { border-bottom: 1px solid #30363d; padding: 6px 8px; text-align: left; vertical-align: top; }
+th { opacity: .85; }
+td.num { font-family: ui-monospace, monospace; }
+.pager { display: flex; gap: 10px; margin-top: 12px; }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid #9ecbff; outline-offset: 2px; }
+button:disabled, select:disabled, input:disabled { opacity: .5; cursor: not-allowed; }
+.lineage h3 { font-size: .92rem; margin-bottom: 4px; }
+.adverse-flag { color: #ffa198; }

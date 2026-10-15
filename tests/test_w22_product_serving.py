@@ -292,5 +292,12 @@ class W22ProductServingTests(unittest.TestCase):
         self.assertEqual([], validate(Path(__file__).resolve().parents[1]))
 
 
+# BAT-728 (Cycle #57): the private research API cases run inside this hosted product profile (no workflow change).
+if str(Path(__file__).resolve().parent) not in __import__("sys").path:
+    __import__("sys").path.insert(0, str(Path(__file__).resolve().parent))
+from research_product_cases import (  # noqa: E402,F401 - collected by the unittest loader from this module
+    GenuineResearchProfileCases, ResearchApiCases, ResearchProfileLifecycleCases)
+
+
 if __name__ == "__main__":
     unittest.main()

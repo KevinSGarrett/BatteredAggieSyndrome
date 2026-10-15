@@ -13,6 +13,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import re
 import shutil
 import socket
 import sys
@@ -122,7 +123,124 @@ def rehouse(fx, root: Path) -> Path:
     return root / "canonical" / population.name / "sha256" / db.parent.name / db.name
 
 
-class ResearchApiCases(unittest.TestCase):
+class ResearchBrowserOwnershipChecks:
+    """MF57A01-01 (Cycle #57 C57-CONT-01): the packaged research browser applies an asynchronous answer only while the
+    request context that issued it is still current. Mixed into ResearchApiCases (the hosted product profile), these
+    checks read the script exactly as the configured app serves it (/static/research.js): every research request
+    captures its context before it awaits and drops a superseded answer (success, refusal or transport failure) before
+    any side effect; results render only under the grain they were requested for; the status line and Retry belong to
+    the owning request; closing the game detail, changing the grain and changing the profile supersede pending answers,
+    and an unavailable profile never disables the profile selector. The hosted product job has no browser: the real
+    headless-Edge race suite (genuine server answers held at the network boundary) runs in the installed browser
+    qualification lane. Every assertion message starts with the finding marker."""
+
+    MARK = "MF57A01-01"
+
+    def research_script(self):
+        status, _headers, body = asgi_get(self.app, "/static/research.js")
+        self.assertTrue(status == 200, f"{self.MARK}: the packaged research script is not served")
+        return body.decode("utf-8")
+
+    def function(self, script, name):
+        """(parameters, source) of a top-level (async) function of the served script, by brace matching."""
+        match = re.search(rf"\n  (?:async )?function {re.escape(name)}\(([^)]*)\) {{", script)
+        self.assertTrue(match is not None, f"{self.MARK}: function {name} is missing")
+        depth, index = 0, match.end() - 1
+        for index in range(match.end() - 1, len(script)):
+            depth += {"{": 1, "}": -1}.get(script[index], 0)
+            if depth == 0:
+                break
+        return match.group(1), script[match.start():index + 1]
+
+    @staticmethod
+    def call_arguments(text, start):
+        """The argument text of the call whose opening parenthesis is at ``start`` (paren matching)."""
+        depth = 0
+        for index in range(start, len(text)):
+            depth += {"(": 1, ")": -1}.get(text[index], 0)
+            if depth == 0:
+                return text[start + 1:index]
+        return ""
+
+    def test_every_research_answer_is_owned_before_its_side_effects(self):
+        script = self.research_script()
+        awaits = [m.end() for m in re.finditer(r"await getJSON\(", script)]
+        self.assertTrue(len(awaits) >= 4, f"{self.MARK}: profile list, profile, results and game requests "
+                                          f"({len(awaits)} found)")
+        for position in awaits:
+            following = script[position:].split(";\n", 1)[1].lstrip(" ")
+            self.assertTrue(following.startswith("if (!current(ctx)) return;\n"),
+                            f"{self.MARK}: a research answer is used before its ownership check: "
+                            f"{script[position - 60:position + 100]!r}")
+        self.assertTrue(script.count("fetch(") == 1, f"{self.MARK}: every request goes through getJSON")
+        others = sorted({m.group(0) for m in re.finditer(r"await [A-Za-z_.$]+\(", script)} -
+                        {"await getJSON(", "await fetch(", "await response.json("})
+        self.assertTrue(others == [], f"{self.MARK}: another asynchronous step reaches the page: {others}")
+
+    def test_every_request_captures_an_immutable_context(self):
+        script = self.research_script()
+        _params, issue = self.function(script, "issue")
+        self.assertTrue("Object.freeze(" in issue, f"{self.MARK}: request contexts must be immutable")
+        for name, channel in (("loadProfiles", "profile"), ("loadGrain", "results"), ("openGame", "detail"),
+                              ("reloadProfile", "profile")):
+            _params, body = self.function(script, name)
+            self.assertTrue(f'issue("{channel}"' in body, f"{self.MARK}: {name} issues no {channel} context")
+            if "await getJSON(" in body:
+                self.assertTrue(body.index(f'issue("{channel}"') < body.index("await getJSON("),
+                                f"{self.MARK}: {name} awaits before capturing its context")
+        params, _body = self.function(script, "chooseProfile")
+        self.assertTrue(params.startswith("ctx"), f"{self.MARK}: chooseProfile must continue its caller's context")
+        _params, current = self.function(script, "current")
+        for rule in ("generation[ctx.channel] !== ctx.generation", "generation.profile !== ctx.profileGeneration",
+                     "ctx.grain === state.grain", "ctx.profileId === state.profileId"):
+            self.assertTrue(rule in current, f"{self.MARK}: ownership rule {rule} is missing")
+
+    def test_results_render_only_under_their_requested_grain(self):
+        _params, body = self.function(self.research_script(), "loadGrain")
+        self.assertTrue("renderTable(ctx.grain, " in body, f"{self.MARK}: results must render under their own grain")
+        owned = body.split("if (!current(ctx)) return;", 1)
+        self.assertTrue(len(owned) == 2 and "state.grain" not in owned[1],
+                        f"{self.MARK}: a results answer reads the live grain after its request")
+        self.assertTrue("${ctx.grain}?${ctx.query}" in body, f"{self.MARK}: the request must use its own context")
+
+    def test_status_and_retry_belong_to_the_owning_request(self):
+        script = self.research_script()
+        for name in ("loadProfiles", "chooseProfile", "loadGrain", "openGame", "handleUnavailable"):
+            _params, body = self.function(script, name)
+            calls = [self.call_arguments(body, m.end() - 1) for m in re.finditer(r"setStatus\(", body)]
+            self.assertTrue(calls, f"{self.MARK}: {name} sets no status")
+            for call in calls:
+                self.assertTrue(call.rstrip().endswith(", ctx"), f"{self.MARK}: {name} sets a status it does not own: "
+                                                                 f"{call[:100]!r}")
+        _params, set_status = self.function(script, "setStatus")
+        self.assertTrue("owner" in set_status and "retry: state.lastAction" in set_status,
+                        f"{self.MARK}: the status must record its owning request and Retry action")
+
+    def test_lifecycle_changes_supersede_pending_answers(self):
+        script = self.research_script()
+        _params, supersede = self.function(script, "supersede")
+        self.assertTrue('if (channel === "profile") { generation.results += 1; generation.detail += 1; }' in supersede,
+                        f"{self.MARK}: a profile change must supersede pending results and game answers")
+        _params, close = self.function(script, "closeDetail")
+        self.assertTrue('supersede("detail")' in close, f"{self.MARK}: closing the detail keeps its pending answer")
+        self.assertTrue('$("close-detail").addEventListener("click", closeDetail);' in script,
+                        f"{self.MARK}: the close button must supersede the pending game answer")
+        _params, tab = self.function(script, "selectTab")
+        self.assertTrue('if (state.detail) loadGrain(); else supersede("results");' in tab,
+                        f"{self.MARK}: a grain change must supersede pending results")
+        change = script.split('$("profile").addEventListener("change", (event) => {', 1)
+        self.assertTrue(len(change) == 2, f"{self.MARK}: the profile change handler is missing")
+        handler = change[1].split("});", 1)[0]
+        for statement in ('$("detail").hidden = true;', 'clear($("detail-body"));', "clearResults();",
+                          "loadProfiles();"):
+            self.assertTrue(statement in handler, f"{self.MARK}: a profile change keeps the previous profile's view "
+                                                  f"({statement})")
+        _params, enabled = self.function(script, "setEnabled")
+        self.assertTrue('"profile"' not in enabled, f"{self.MARK}: an unavailable profile must not disable the profile "
+                                                    "selector (the user could not switch back)")
+
+
+class ResearchApiCases(ResearchBrowserOwnershipChecks, unittest.TestCase):
     """The configured research surface on a verified fixture profile through the actual ASGI application."""
 
     @classmethod

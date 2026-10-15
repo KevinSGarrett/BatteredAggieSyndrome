@@ -107,6 +107,14 @@ paging over every grain, a game detail with both-team contributing and excluded 
 the exposed 2023 comparison. Loading, verifying, empty, unavailable, unconfigured and error/retry states are explicit.
 Every value is a server record inserted as text; no estimate or aggregate is computed in the browser.
 
+Every request the browser issues (profile list and profile, results page, game detail) captures an immutable request
+context. Its answer is applied only while that context is still the current one: a newer request on the same channel,
+a grain change, closing the game detail or changing the profile supersedes it. A superseded success, refusal or
+transport failure therefore never changes rows, pager, counts, status, Retry, game detail or profile identity, and
+results render only under the grain they were requested for. The status line and Retry belong to the request that set
+them. The profile selector stays usable whenever two or more profiles are listed, even while the selected one is
+verifying or unavailable.
+
 ## Validation
 
 `tests/test_research_profile_boundary.py` (core runtime) and `tests/research_product_cases.py` (wired into the hosted

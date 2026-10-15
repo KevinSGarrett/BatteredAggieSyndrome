@@ -9,7 +9,29 @@
   const GRAINS = ["games", "features", "estimates", "scores", "parameters", "summary", "comparisons"];
   const SELECTORS = ["season", "team", "game", "model", "partition", "slice", "baseline"];
   const state = { profiles: [], profileId: null, detail: null, grain: "games", offset: 0, limit: 50, filters: {},
-                  pollTimer: null, lastAction: null };
+                  pollTimer: null, lastAction: null, status: null, beforeDetail: null, detailRequest: null };
+
+  // ------------------------------------------------------------------------------------------- request ownership
+  // Every asynchronous request captures an immutable context: its channel (profile, results or detail), the channel
+  // generation it was issued under, the profile generation and what it asked for. A newer request on the same channel,
+  // a grain change, a closed game detail or a profile change advances the generation, so an older answer (success,
+  // refusal or transport failure) is dropped before it can change rows, pager, counts, status, Retry, game detail,
+  // profile identity, selectors or polling. A results answer renders only under the grain it was requested for.
+  const generation = { profile: 0, results: 0, detail: 0 };
+  function supersede(channel) {
+    generation[channel] += 1;
+    if (channel === "profile") { generation.results += 1; generation.detail += 1; }
+  }
+  function issue(channel, fields) {
+    supersede(channel);
+    return Object.freeze({ ...fields, channel, generation: generation[channel], profileGeneration: generation.profile });
+  }
+  function current(ctx) {
+    if (generation[ctx.channel] !== ctx.generation || generation.profile !== ctx.profileGeneration) return false;
+    if (ctx.channel === "results") return ctx.grain === state.grain && ctx.profileId === state.profileId;
+    if (ctx.channel === "detail") return ctx.profileId === state.profileId;
+    return true;
+  }
 
   // ------------------------------------------------------------------------------------------- DOM helpers
   function el(tag, text, attrs) {
@@ -21,14 +43,18 @@
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
   function rat(v) { return v === null || v === undefined ? "—" : `${v.numerator}/${v.denominator}`; }
   function show(v) { return v === null || v === undefined || v === "" ? "—" : String(v); }
-  function setStatus(kind, text) {
+  // The status line belongs to the request context that set it (owner); Retry repeats that request's action.
+  function setStatus(kind, text, owner) {
     const s = $("status");
     s.dataset.state = kind;
     s.textContent = text;
     $("retry").hidden = !(kind === "error" || kind === "unavailable" || kind === "verifying");
+    state.status = { kind, text, owner: owner || null, retry: state.lastAction };
   }
+  // The profile selector stays usable whenever two or more profiles are listed (an unavailable or verifying profile
+  // must not trap the user); the other selectors follow the current profile.
   function setEnabled(on) {
-    for (const id of [...SELECTORS, "limit", "apply", "profile"]) $(id).disabled = !on;
+    for (const id of [...SELECTORS, "limit", "apply"]) $(id).disabled = !on;
     if (on) applicability();
   }
 
@@ -49,46 +75,53 @@
   // ------------------------------------------------------------------------------------------- profiles
   async function loadProfiles() {
     clearTimeout(state.pollTimer);
+    const ctx = issue("profile", {});
     state.lastAction = loadProfiles;
-    setStatus("loading", "Loading research profiles…");
+    setStatus("loading", "Loading research profiles…", ctx);
     const result = await getJSON(`${API}/profiles`);
-    if (result.network) return setStatus("error", "Network error: the research API could not be reached. Retry when the server is available.");
+    if (!current(ctx)) return;
+    if (result.network) return setStatus("error", "Network error: the research API could not be reached. Retry when the server is available.", ctx);
     if (result.status === 404) {
       setEnabled(false);
-      return setStatus("unconfigured", "Research is unavailable: no research profile is configured on this server.");
+      $("profile").disabled = true;
+      return setStatus("unconfigured", "Research is unavailable: no research profile is configured on this server.", ctx);
     }
-    if (result.status !== 200 || !result.body) return setStatus("error", `Research API error ${errorCode(result)}.`);
+    if (result.status !== 200 || !result.body) return setStatus("error", `Research API error ${errorCode(result)}.`, ctx);
     state.profiles = result.body.profiles || [];
     const select = $("profile");
     clear(select);
     for (const p of state.profiles) select.appendChild(el("option", `${p.display_label} (${p.profile_id})`, { value: p.profile_id }));
-    if (!state.profiles.length) return setStatus("unconfigured", "Research is unavailable: no research profile is configured.");
+    select.disabled = state.profiles.length < 2;
+    if (!state.profiles.length) return setStatus("unconfigured", "Research is unavailable: no research profile is configured.", ctx);
     if (!state.profileId || !state.profiles.some((p) => p.profile_id === state.profileId)) state.profileId = state.profiles[0].profile_id;
     select.value = state.profileId;
-    select.disabled = state.profiles.length < 2;
-    return chooseProfile(result.retryAfter);
+    return chooseProfile(ctx, result.retryAfter);
   }
 
-  async function chooseProfile(retryAfter) {
+  // Retry of a profile detail: a new profile request that supersedes every older answer.
+  function reloadProfile() { return chooseProfile(issue("profile", {})); }
+
+  async function chooseProfile(ctx, retryAfter) {
     const profile = state.profiles.find((p) => p.profile_id === state.profileId);
     renderIdentity(profile, null);
     if (profile.state === "VERIFYING" || profile.state === "NOT_STARTED") {
       setEnabled(false);
-      setStatus("verifying", `Verifying profile ${profile.profile_id} with the accepted reader (state ${profile.state}); nothing is served until verification completes.`);
+      setStatus("verifying", `Verifying profile ${profile.profile_id} with the accepted reader (state ${profile.state}); nothing is served until verification completes.`, ctx);
       state.pollTimer = setTimeout(loadProfiles, 1000 * Math.min(Number(retryAfter) || 2, 10));
       return;
     }
     if (profile.state !== "AVAILABLE") {
       setEnabled(false);
       clearResults();
-      return setStatus("unavailable", `Profile ${profile.profile_id} is unavailable (${profile.refusal_code || profile.state}); nothing is served.`);
+      return setStatus("unavailable", `Profile ${profile.profile_id} is unavailable (${profile.refusal_code || profile.state}); nothing is served.`, ctx);
     }
-    state.lastAction = () => chooseProfile();
-    setStatus("loading", "Loading profile…");
+    state.lastAction = reloadProfile;
+    setStatus("loading", "Loading profile…", ctx);
     const result = await getJSON(`${API}/profiles/${encodeURIComponent(profile.profile_id)}`);
-    if (result.network) return setStatus("error", "Network error while loading the profile.");
-    if (result.status === 503) return handleUnavailable(result);
-    if (result.status !== 200) return setStatus("error", `Profile error ${errorCode(result)}.`);
+    if (!current(ctx)) return;
+    if (result.network) return setStatus("error", "Network error while loading the profile.", ctx);
+    if (result.status === 503) return handleUnavailable(result, ctx);
+    if (result.status !== 200) return setStatus("error", `Profile error ${errorCode(result)}.`, ctx);
     state.detail = result.body;
     renderIdentity(profile, state.detail);
     populateSelectors(state.detail);
@@ -97,17 +130,17 @@
     return loadGrain();
   }
 
-  function handleUnavailable(result) {
+  function handleUnavailable(result, ctx) {
     const code = errorCode(result);
     if (code === "RESEARCH_PROFILE_VERIFYING") {
       setEnabled(false);
-      setStatus("verifying", "Verifying the profile with the accepted reader…");
+      setStatus("verifying", "Verifying the profile with the accepted reader…", ctx);
       state.pollTimer = setTimeout(loadProfiles, 2000);
       return;
     }
     setEnabled(false);
     clearResults();
-    setStatus("unavailable", `Profile unavailable (${code}); nothing is served.`);
+    setStatus("unavailable", `Profile unavailable (${code}); nothing is served.`, ctx);
   }
 
   function renderIdentity(profile, detail) {
@@ -167,27 +200,31 @@
   }
 
   async function loadGrain() {
+    if (!state.detail) { supersede("results"); return; }
     clearTimeout(state.pollTimer);
-    state.lastAction = loadGrain;
+    const grain = state.grain;
     const params = new URLSearchParams();
     for (const [k, v] of Object.entries(state.filters)) {
-      if (state.detail.grains[state.grain].selectors.includes(k) && !(k === "baseline" && v === "NULL_HALF_V1")) params.set(k, v);
+      if (state.detail.grains[grain].selectors.includes(k) && !(k === "baseline" && v === "NULL_HALF_V1")) params.set(k, v);
     }
     params.set("limit", String(state.limit));
     params.set("offset", String(state.offset));
-    setStatus("loading", `Loading ${state.grain}…`);
+    const ctx = issue("results", { profileId: state.profileId, grain, query: params.toString() });
+    state.lastAction = loadGrain;
+    setStatus("loading", `Loading ${grain}…`, ctx);
     $("count").textContent = "";
-    const result = await getJSON(`${API}/profiles/${encodeURIComponent(state.profileId)}/${state.grain}?${params}`);
-    if (result.network) { clearResults(); return setStatus("error", "Network error while loading results. Retry when the server is available."); }
-    if (result.status === 503) return handleUnavailable(result);
+    const result = await getJSON(`${API}/profiles/${encodeURIComponent(ctx.profileId)}/${ctx.grain}?${ctx.query}`);
+    if (!current(ctx)) return;
+    if (result.network) { clearResults(); return setStatus("error", "Network error while loading results. Retry when the server is available.", ctx); }
+    if (result.status === 503) return handleUnavailable(result, ctx);
     if (result.status !== 200) {
       clearResults();
-      return setStatus("error", `Request refused (${errorCode(result)}): ${result.body && result.body.error ? result.body.error.message : ""}`);
+      return setStatus("error", `Request refused (${errorCode(result)}): ${result.body && result.body.error ? result.body.error.message : ""}`, ctx);
     }
-    renderTable(state.grain, result.body);
+    renderTable(ctx.grain, result.body);
     const doc = result.body;
-    if (!doc.total) setStatus("empty", `No ${state.grain} match these selectors (0 rows; ${doc.season_scope_state}).`);
-    else setStatus("ready", `Showing ${doc.offset + 1}–${doc.offset + doc.returned} of ${doc.total} ${state.grain}.`);
+    if (!doc.total) setStatus("empty", `No ${ctx.grain} match these selectors (0 rows; ${doc.season_scope_state}).`, ctx);
+    else setStatus("ready", `Showing ${doc.offset + 1}–${doc.offset + doc.returned} of ${doc.total} ${ctx.grain}.`, ctx);
     $("count").textContent = `total ${doc.total}; returned ${doc.returned}; offset ${doc.offset}; next ${doc.next_offset === null ? "none" : doc.next_offset}`;
     $("prev").disabled = doc.offset === 0;
     $("next").disabled = doc.next_offset === null;
@@ -266,17 +303,37 @@
 
   // ------------------------------------------------------------------------------------------- game detail
   async function openGame(key) {
+    if (!state.profileId) return;
+    // the status shown before this game was requested (never another game's), restored if it is closed while pending
+    if (!state.status || !state.status.owner || state.status.owner.channel !== "detail") state.beforeDetail = state.status;
+    const ctx = issue("detail", { profileId: state.profileId, key });
+    state.detailRequest = ctx;
     state.lastAction = () => openGame(key);
-    setStatus("loading", `Loading game ${key}…`);
-    const result = await getJSON(`${API}/profiles/${encodeURIComponent(state.profileId)}/games/${encodeURIComponent(key)}`);
-    if (result.network) return setStatus("error", "Network error while loading the game.");
-    if (result.status === 503) return handleUnavailable(result);
-    if (result.status !== 200) return setStatus("error", `Game refused (${errorCode(result)}).`);
+    setStatus("loading", `Loading game ${key}…`, ctx);
+    const result = await getJSON(`${API}/profiles/${encodeURIComponent(ctx.profileId)}/games/${encodeURIComponent(key)}`);
+    if (!current(ctx)) return;
+    state.detailRequest = null;
+    if (result.network) return setStatus("error", "Network error while loading the game.", ctx);
+    if (result.status === 503) return handleUnavailable(result, ctx);
+    if (result.status !== 200) return setStatus("error", `Game refused (${errorCode(result)}).`, ctx);
     renderGame(result.body);
-    setStatus("ready", `Game ${key} loaded.`);
+    setStatus("ready", `Game ${key} loaded.`, ctx);
     $("detail").hidden = false;
     $("detail").scrollIntoView({ block: "start" });
     $("close-detail").focus();
+  }
+
+  // Closing the detail supersedes its pending request; a status that request still owns is restored.
+  function closeDetail() {
+    const pending = state.detailRequest;
+    supersede("detail");
+    state.detailRequest = null;
+    $("detail").hidden = true;
+    if (pending && state.status && state.status.owner === pending && state.beforeDetail) {
+      const before = state.beforeDetail;
+      state.lastAction = before.retry;
+      setStatus(before.kind, before.text, before.owner);
+    }
   }
 
   function table(columns, rows, testid) {
@@ -359,7 +416,7 @@
     $("results-panel").setAttribute("aria-labelledby", `tab-${grain}`);
     applicability();
     state.filters = readFilters();
-    if (state.detail) loadGrain();
+    if (state.detail) loadGrain(); else supersede("results");
   }
 
   $("filters").addEventListener("submit", (event) => {
@@ -372,8 +429,17 @@
   $("prev").addEventListener("click", () => { state.offset = Math.max(0, state.offset - state.limit); loadGrain(); });
   $("next").addEventListener("click", () => { state.offset += state.limit; loadGrain(); });
   $("retry").addEventListener("click", () => (state.lastAction || loadProfiles)());
-  $("close-detail").addEventListener("click", () => { $("detail").hidden = true; });
-  $("profile").addEventListener("change", (event) => { state.profileId = event.target.value; state.detail = null; loadProfiles(); });
+  $("close-detail").addEventListener("click", closeDetail);
+  // A profile change invalidates the previous profile's rows, open game detail and every pending answer.
+  $("profile").addEventListener("change", (event) => {
+    state.profileId = event.target.value;
+    state.detail = null;
+    state.detailRequest = null;
+    $("detail").hidden = true;
+    clear($("detail-body"));
+    clearResults();
+    loadProfiles();
+  });
   $("tabs").addEventListener("click", (event) => {
     const button = event.target.closest('[role="tab"]');
     if (button) selectTab(button.dataset.grain);

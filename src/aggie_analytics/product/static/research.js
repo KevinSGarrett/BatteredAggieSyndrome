@@ -9,18 +9,23 @@
   const GRAINS = ["games", "features", "estimates", "scores", "parameters", "summary", "comparisons"];
   const SELECTORS = ["season", "team", "game", "model", "partition", "slice", "baseline"];
   const state = { profiles: [], profileId: null, detail: null, grain: "games", offset: 0, limit: 50, filters: {},
-                  pollTimer: null, lastAction: null, status: null, beforeDetail: null, detailRequest: null };
+                  pollTimer: null, status: null, beforeDetail: null, detailRequest: null };
 
   // ------------------------------------------------------------------------------------------- request ownership
   // Every asynchronous request captures an immutable context: its channel (profile, results or detail), the channel
-  // generation it was issued under, the profile generation and what it asked for. A newer request on the same channel,
-  // a grain change, a closed game detail or a profile change advances the generation, so an older answer (success,
-  // refusal or transport failure) is dropped before it can change rows, pager, counts, status, Retry, game detail,
-  // profile identity, selectors or polling. A results answer renders only under the grain it was requested for.
+  // generation it was issued under, the profile generation, what it asked for and its own retry action. A newer request
+  // on the same channel, a grain change, a closed game detail or a profile change advances the generation, so an older
+  // answer (success, refusal or transport failure) is dropped before it can change rows, pager, counts, status, Retry,
+  // game detail, profile identity, selectors or polling. A results answer renders only under the grain it was requested
+  // for. A newer results request (filters, paging, a tab or Retry) and a profile change also supersede a pending game
+  // detail: the user moved on before that game opened, so its answer may not open the detail, take the status or Retry
+  // or move keyboard focus.
   const generation = { profile: 0, results: 0, detail: 0 };
   function supersede(channel) {
     generation[channel] += 1;
     if (channel === "profile") { generation.results += 1; generation.detail += 1; }
+    if (channel === "results") generation.detail += 1;
+    if (channel !== "detail") state.detailRequest = null;
   }
   function issue(channel, fields) {
     supersede(channel);
@@ -43,14 +48,21 @@
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
   function rat(v) { return v === null || v === undefined ? "—" : `${v.numerator}/${v.denominator}`; }
   function show(v) { return v === null || v === undefined || v === "" ? "—" : String(v); }
-  // The status line belongs to the request context that set it (owner); Retry repeats that request's action.
-  function setStatus(kind, text, owner) {
+  // The status line and Retry are one pair owned by exactly one request context: the request that wrote them last.
+  // Every request takes the pair when it is issued, and Retry repeats only the displayed owner's own request (bound when
+  // the status was written), never whichever request happened to be issued last. A current answer writes the pair only
+  // while its request still owns it, with two exceptions: the profile channel always reports (it governs every view and
+  // re-issues the results), and a failed current results request always reports (it has emptied the results table,
+  // which must say why and offer that request's own Retry). A game answer that no longer owns the pair may still fill
+  // its own detail region but never takes the status, Retry or keyboard focus.
+  function setStatus(kind, text, owner, retry) {
     const s = $("status");
     s.dataset.state = kind;
     s.textContent = text;
     $("retry").hidden = !(kind === "error" || kind === "unavailable" || kind === "verifying");
-    state.status = { kind, text, owner: owner || null, retry: state.lastAction };
+    state.status = { kind, text, owner, retry: retry || (owner && owner.retry) || null };
   }
+  function owns(ctx) { return state.status !== null && state.status.owner === ctx; }
   // The profile selector stays usable whenever two or more profiles are listed (an unavailable or verifying profile
   // must not trap the user); the other selectors follow the current profile.
   function setEnabled(on) {
@@ -75,8 +87,7 @@
   // ------------------------------------------------------------------------------------------- profiles
   async function loadProfiles() {
     clearTimeout(state.pollTimer);
-    const ctx = issue("profile", {});
-    state.lastAction = loadProfiles;
+    const ctx = issue("profile", { retry: loadProfiles });
     setStatus("loading", "Loading research profiles…", ctx);
     const result = await getJSON(`${API}/profiles`);
     if (!current(ctx)) return;
@@ -99,7 +110,7 @@
   }
 
   // Retry of a profile detail: a new profile request that supersedes every older answer.
-  function reloadProfile() { return chooseProfile(issue("profile", {})); }
+  function reloadProfile() { return chooseProfile(issue("profile", { retry: reloadProfile })); }
 
   async function chooseProfile(ctx, retryAfter) {
     const profile = state.profiles.find((p) => p.profile_id === state.profileId);
@@ -115,13 +126,13 @@
       clearResults();
       return setStatus("unavailable", `Profile ${profile.profile_id} is unavailable (${profile.refusal_code || profile.state}); nothing is served.`, ctx);
     }
-    state.lastAction = reloadProfile;
-    setStatus("loading", "Loading profile…", ctx);
+    // the profile detail's own Retry reloads this profile (the listing is not refetched)
+    setStatus("loading", "Loading profile…", ctx, reloadProfile);
     const result = await getJSON(`${API}/profiles/${encodeURIComponent(profile.profile_id)}`);
     if (!current(ctx)) return;
-    if (result.network) return setStatus("error", "Network error while loading the profile.", ctx);
-    if (result.status === 503) return handleUnavailable(result, ctx);
-    if (result.status !== 200) return setStatus("error", `Profile error ${errorCode(result)}.`, ctx);
+    if (result.network) return setStatus("error", "Network error while loading the profile.", ctx, reloadProfile);
+    if (result.status === 503) return handleUnavailable(result, ctx, reloadProfile);
+    if (result.status !== 200) return setStatus("error", `Profile error ${errorCode(result)}.`, ctx, reloadProfile);
     state.detail = result.body;
     renderIdentity(profile, state.detail);
     populateSelectors(state.detail);
@@ -130,17 +141,17 @@
     return loadGrain();
   }
 
-  function handleUnavailable(result, ctx) {
+  function handleUnavailable(result, ctx, retry) {
     const code = errorCode(result);
     if (code === "RESEARCH_PROFILE_VERIFYING") {
       setEnabled(false);
-      setStatus("verifying", "Verifying the profile with the accepted reader…", ctx);
+      setStatus("verifying", "Verifying the profile with the accepted reader…", ctx, retry);
       state.pollTimer = setTimeout(loadProfiles, 2000);
       return;
     }
     setEnabled(false);
     clearResults();
-    setStatus("unavailable", `Profile unavailable (${code}); nothing is served.`, ctx);
+    setStatus("unavailable", `Profile unavailable (${code}); nothing is served.`, ctx, retry);
   }
 
   function renderIdentity(profile, detail) {
@@ -209,12 +220,13 @@
     }
     params.set("limit", String(state.limit));
     params.set("offset", String(state.offset));
-    const ctx = issue("results", { profileId: state.profileId, grain, query: params.toString() });
-    state.lastAction = loadGrain;
+    const ctx = issue("results", { profileId: state.profileId, grain, query: params.toString(), retry: loadGrain });
     setStatus("loading", `Loading ${grain}…`, ctx);
     $("count").textContent = "";
     const result = await getJSON(`${API}/profiles/${encodeURIComponent(ctx.profileId)}/${ctx.grain}?${ctx.query}`);
     if (!current(ctx)) return;
+    // a failure of the current results request always reports: it has emptied the table, which must say why with
+    // this request's own Retry
     if (result.network) { clearResults(); return setStatus("error", "Network error while loading results. Retry when the server is available.", ctx); }
     if (result.status === 503) return handleUnavailable(result, ctx);
     if (result.status !== 200) {
@@ -223,11 +235,15 @@
     }
     renderTable(ctx.grain, result.body);
     const doc = result.body;
-    if (!doc.total) setStatus("empty", `No ${ctx.grain} match these selectors (0 rows; ${doc.season_scope_state}).`, ctx);
-    else setStatus("ready", `Showing ${doc.offset + 1}–${doc.offset + doc.returned} of ${doc.total} ${ctx.grain}.`, ctx);
     $("count").textContent = `total ${doc.total}; returned ${doc.returned}; offset ${doc.offset}; next ${doc.next_offset === null ? "none" : doc.next_offset}`;
     $("prev").disabled = doc.offset === 0;
     $("next").disabled = doc.next_offset === null;
+    const kind = doc.total ? "ready" : "empty";
+    const text = doc.total ? `Showing ${doc.offset + 1}–${doc.offset + doc.returned} of ${doc.total} ${ctx.grain}.`
+      : `No ${ctx.grain} match these selectors (0 rows; ${doc.season_scope_state}).`;
+    if (owns(ctx)) return setStatus(kind, text, ctx);
+    // a newer game selection owns the status: keep the status it displaced current (shown again when it is closed)
+    if (state.beforeDetail && state.beforeDetail.owner === ctx) state.beforeDetail = { kind, text, owner: ctx, retry: ctx.retry };
   }
 
   function clearResults() {
@@ -306,33 +322,36 @@
     if (!state.profileId) return;
     // the status shown before this game was requested (never another game's), restored if it is closed while pending
     if (!state.status || !state.status.owner || state.status.owner.channel !== "detail") state.beforeDetail = state.status;
-    const ctx = issue("detail", { profileId: state.profileId, key });
+    const ctx = issue("detail", { profileId: state.profileId, key, retry: () => openGame(key) });
     state.detailRequest = ctx;
-    state.lastAction = () => openGame(key);
     setStatus("loading", `Loading game ${key}…`, ctx);
     const result = await getJSON(`${API}/profiles/${encodeURIComponent(ctx.profileId)}/games/${encodeURIComponent(key)}`);
     if (!current(ctx)) return;
     state.detailRequest = null;
-    if (result.network) return setStatus("error", "Network error while loading the game.", ctx);
-    if (result.status === 503) return handleUnavailable(result, ctx);
-    if (result.status !== 200) return setStatus("error", `Game refused (${errorCode(result)}).`, ctx);
+    // the game reports (status, Retry, focus) only while it still owns the status: a failed current results request
+    // that took it keeps it with its own Retry; the game may still fill its own detail region
+    const owner = owns(ctx);
+    if (result.network) { if (owner) setStatus("error", "Network error while loading the game.", ctx); return; }
+    if (result.status === 503) { if (owner) handleUnavailable(result, ctx); return; }
+    if (result.status !== 200) { if (owner) setStatus("error", `Game refused (${errorCode(result)}).`, ctx); return; }
     renderGame(result.body);
-    setStatus("ready", `Game ${key} loaded.`, ctx);
     $("detail").hidden = false;
+    if (!owner) return;
+    setStatus("ready", `Game ${key} loaded.`, ctx);
     $("detail").scrollIntoView({ block: "start" });
     $("close-detail").focus();
   }
 
-  // Closing the detail supersedes its pending request; a status that request still owns is restored.
+  // Closing the detail supersedes its pending request; while a game request (pending or answered) still owns the
+  // status, the status and Retry return to the action the game displaced (kept current by that action's own answer).
   function closeDetail() {
-    const pending = state.detailRequest;
+    const owner = state.status && state.status.owner;
     supersede("detail");
     state.detailRequest = null;
     $("detail").hidden = true;
-    if (pending && state.status && state.status.owner === pending && state.beforeDetail) {
+    if (owner && owner.channel === "detail" && state.beforeDetail) {
       const before = state.beforeDetail;
-      state.lastAction = before.retry;
-      setStatus(before.kind, before.text, before.owner);
+      setStatus(before.kind, before.text, before.owner, before.retry);
     }
   }
 
@@ -428,7 +447,8 @@
   });
   $("prev").addEventListener("click", () => { state.offset = Math.max(0, state.offset - state.limit); loadGrain(); });
   $("next").addEventListener("click", () => { state.offset += state.limit; loadGrain(); });
-  $("retry").addEventListener("click", () => (state.lastAction || loadProfiles)());
+  // Retry repeats exactly the displayed status's own request
+  $("retry").addEventListener("click", () => ((state.status && state.status.retry) || loadProfiles)());
   $("close-detail").addEventListener("click", closeDetail);
   // A profile change invalidates the previous profile's rows, open game detail and every pending answer.
   $("profile").addEventListener("change", (event) => {

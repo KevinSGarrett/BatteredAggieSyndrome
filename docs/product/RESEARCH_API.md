@@ -108,12 +108,21 @@ the exposed 2023 comparison. Loading, verifying, empty, unavailable, unconfigure
 Every value is a server record inserted as text; no estimate or aggregate is computed in the browser.
 
 Every request the browser issues (profile list and profile, results page, game detail) captures an immutable request
-context. Its answer is applied only while that context is still the current one: a newer request on the same channel,
-a grain change, closing the game detail or changing the profile supersedes it. A superseded success, refusal or
-transport failure therefore never changes rows, pager, counts, status, Retry, game detail or profile identity, and
-results render only under the grain they were requested for. The status line and Retry belong to the request that set
-them. The profile selector stays usable whenever two or more profiles are listed, even while the selected one is
-verifying or unavailable.
+context with its own Retry action. Its answer is applied only while that context is still the current one: a newer
+request on the same channel, a grain change, closing the game detail or changing the profile supersedes it, and a newer
+results request (filters, paging, a tab change or Retry) also supersedes a pending game detail. A superseded success,
+refusal or transport failure therefore never changes rows, pager, counts, status, Retry, game detail, keyboard focus or
+profile identity, and results render only under the grain they were requested for.
+
+The status line and Retry form one pair owned by the request that wrote them last; every request takes the pair when
+it is issued, and Retry repeats exactly the displayed status's own request. A current answer writes the pair only while
+its request still owns it, with two exceptions: the profile channel always reports, and a failed current results
+request (transport failure or refusal) always reports, because it has emptied the results table, so that error and its
+own Retry are shown. A current answer that no longer owns the pair fills only its own region: an older results answer
+updates the table while a newer game detail keeps the status, and a game answer may fill the detail panel but never
+takes the status, Retry or keyboard focus from a displayed results failure. Closing the detail returns the pair to the
+action the game displaced (kept current by that action's own answer). The profile selector stays usable whenever two or
+more profiles are listed, even while the selected one is verifying or unavailable.
 
 ## Validation
 

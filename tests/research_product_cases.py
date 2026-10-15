@@ -130,9 +130,14 @@ class ResearchBrowserOwnershipChecks:
     captures its context before it awaits and drops a superseded answer (success, refusal or transport failure) before
     any side effect; results render only under the grain they were requested for; the status line and Retry belong to
     the owning request; closing the game detail, changing the grain and changing the profile supersede pending answers,
-    and an unavailable profile never disables the profile selector. The hosted product job has no browser: the real
-    headless-Edge race suite (genuine server answers held at the network boundary) runs in the installed browser
-    qualification lane. Every assertion message starts with the finding marker."""
+    and an unavailable profile never disables the profile selector. C57-CONT-02 (cross-channel ownership): the status
+    line and Retry are one pair owned by one request, every request binds its own Retry action, an answer writes the
+    pair (and moves focus) only while it owns it, except that the profile channel and a failed current results request
+    always report, a newer results request supersedes a pending game detail, and closing the detail returns the pair to
+    the action it displaced. These textual checks are supplementary: the hosted product job has no browser, and the
+    behavioural proof is the real headless-Edge race suite (genuine server answers held at the network boundary,
+    cross-channel transitions, reverse order, shared status and Retry) in the installed browser qualification lane.
+    Every assertion message starts with the finding marker."""
 
     MARK = "MF57A01-01"
 
@@ -161,6 +166,33 @@ class ResearchBrowserOwnershipChecks:
             if depth == 0:
                 return text[start + 1:index]
         return ""
+
+    @staticmethod
+    def top_level_arguments(arguments):
+        """The comma-separated top-level arguments of a call (strings and template literals kept whole)."""
+        parts, depth, quote, start, index = [], 0, None, 0, 0
+        while index < len(arguments):
+            char = arguments[index]
+            if quote:
+                if char == "\\":
+                    index += 1
+                elif char == quote:
+                    quote = None
+                elif quote == "`" and arguments.startswith("${", index):
+                    end = arguments.index("}", index)
+                    index = end
+            elif char in "\"'`":
+                quote = char
+            elif char in "([{":
+                depth += 1
+            elif char in ")]}":
+                depth -= 1
+            elif char == "," and depth == 0:
+                parts.append(arguments[start:index].strip())
+                start = index + 1
+            index += 1
+        parts.append(arguments[start:].strip())
+        return parts
 
     def test_every_research_answer_is_owned_before_its_side_effects(self):
         script = self.research_script()
@@ -210,11 +242,19 @@ class ResearchBrowserOwnershipChecks:
             calls = [self.call_arguments(body, m.end() - 1) for m in re.finditer(r"setStatus\(", body)]
             self.assertTrue(calls, f"{self.MARK}: {name} sets no status")
             for call in calls:
-                self.assertTrue(call.rstrip().endswith(", ctx"), f"{self.MARK}: {name} sets a status it does not own: "
-                                                                 f"{call[:100]!r}")
+                args = self.top_level_arguments(call)
+                self.assertTrue(len(args) in (3, 4) and args[2] == "ctx",
+                                f"{self.MARK}: {name} sets a status it does not own: {call[:100]!r}")
+                self.assertTrue(len(args) == 3 or args[3] in ("reloadProfile", "retry"),
+                                f"{self.MARK}: {name} binds a Retry that is not the owner's own request: {call[:100]!r}")
         _params, set_status = self.function(script, "setStatus")
-        self.assertTrue("owner" in set_status and "retry: state.lastAction" in set_status,
-                        f"{self.MARK}: the status must record its owning request and Retry action")
+        self.assertTrue("state.status = { kind, text, owner, retry: retry || (owner && owner.retry) || null };"
+                        in set_status, f"{self.MARK}: the status must record its owning request and that request's "
+                                       "own Retry action")
+        self.assertTrue("lastAction" not in script, f"{self.MARK}: a global last action must not decide Retry")
+        self.assertTrue('$("retry").addEventListener("click", () => ((state.status && state.status.retry) || '
+                        'loadProfiles)());' in script,
+                        f"{self.MARK}: Retry must repeat exactly the displayed status's own request")
 
     def test_lifecycle_changes_supersede_pending_answers(self):
         script = self.research_script()
@@ -238,6 +278,70 @@ class ResearchBrowserOwnershipChecks:
         _params, enabled = self.function(script, "setEnabled")
         self.assertTrue('"profile"' not in enabled, f"{self.MARK}: an unavailable profile must not disable the profile "
                                                     "selector (the user could not switch back)")
+
+    def test_every_request_binds_its_own_retry_action(self):
+        script = self.research_script()
+        for name, call, retry in (("loadProfiles", 'issue("profile", ', "retry: loadProfiles"),
+                                  ("reloadProfile", 'issue("profile", ', "retry: reloadProfile"),
+                                  ("loadGrain", 'issue("results", ', "retry: loadGrain"),
+                                  ("openGame", 'issue("detail", ', "retry: () => openGame(key)")):
+            _params, body = self.function(script, name)
+            self.assertTrue(call in body, f"{self.MARK}: {name} issues no request context")
+            arguments = self.call_arguments(body, body.index(call) + len("issue"))
+            self.assertTrue(retry in arguments, f"{self.MARK}: {name} does not bind its own Retry action ({retry})")
+
+    def test_a_newer_results_request_supersedes_a_pending_game_detail(self):
+        script = self.research_script()
+        _params, supersede = self.function(script, "supersede")
+        for rule in ('if (channel === "results") generation.detail += 1;',
+                     'if (channel !== "detail") state.detailRequest = null;'):
+            self.assertTrue(rule in supersede, f"{self.MARK}: a newer results request or profile change must "
+                                               f"supersede a pending game answer ({rule})")
+        handlers = script.split('$("filters").addEventListener("submit"', 1)
+        self.assertTrue(len(handlers) == 2, f"{self.MARK}: the filter handler is missing")
+        for marker in ('$("filters").addEventListener("submit"', '$("prev").addEventListener("click"',
+                       '$("next").addEventListener("click"'):
+            handler = script.split(marker, 1)[1].split("});", 1)[0]
+            self.assertTrue("loadGrain();" in handler, f"{self.MARK}: {marker} must issue a results request")
+
+    def test_answers_report_only_while_they_own_the_status(self):
+        script = self.research_script()
+        _params, owns = self.function(script, "owns")
+        self.assertTrue("state.status !== null && state.status.owner === ctx" in owns,
+                        f"{self.MARK}: ownership of the status must be the displayed owner itself")
+        _params, grain = self.function(script, "loadGrain")
+        rendered = grain.split("renderTable(ctx.grain, ", 1)
+        self.assertTrue(len(rendered) == 2, f"{self.MARK}: loadGrain renders no table")
+        after = rendered[1]
+        statuses = [m.start() for m in re.finditer(r"setStatus\(", after)]
+        self.assertTrue(len(statuses) == 1 and "if (owns(ctx)) return setStatus(kind, text, ctx);" in after,
+                        f"{self.MARK}: a results success must write the status only while it owns it")
+        _params, game = self.function(script, "openGame")
+        answer = game.split("if (!current(ctx)) return;", 1)
+        self.assertTrue(len(answer) == 2 and "const owner = owns(ctx);" in answer[1],
+                        f"{self.MARK}: a game answer must check that it still owns the status")
+        tail = answer[1].split("const owner = owns(ctx);", 1)[1]
+        last = tail.split("if (!owner) return;", 1)
+        self.assertTrue(len(last) == 2, f"{self.MARK}: a game answer that no longer owns the status must stop")
+        for call in re.finditer(r"(setStatus|handleUnavailable)\(", last[0]):
+            self.assertTrue(last[0][max(0, call.start() - 11):call.start()] == "if (owner) ",
+                            f"{self.MARK}: a game answer writes the status without owning it: "
+                            f"{last[0][call.start():call.start() + 60]!r}")
+        self.assertTrue(".focus()" not in last[0] and "focus()" in last[1],
+                        f"{self.MARK}: only a game answer that owns the status may move keyboard focus")
+
+    def test_closing_the_detail_returns_the_status_it_displaced(self):
+        script = self.research_script()
+        _params, close = self.function(script, "closeDetail")
+        self.assertTrue('owner && owner.channel === "detail" && state.beforeDetail' in close and
+                        "setStatus(before.kind, before.text, before.owner, before.retry);" in close,
+                        f"{self.MARK}: closing the detail must return the status and Retry to the action it displaced")
+        _params, grain = self.function(script, "loadGrain")
+        self.assertTrue("state.beforeDetail.owner === ctx" in grain,
+                        f"{self.MARK}: a results answer must keep the status it displaced current while a game owns it")
+        _params, game = self.function(script, "openGame")
+        self.assertTrue('state.status.owner.channel !== "detail") state.beforeDetail = state.status;' in game,
+                        f"{self.MARK}: a game must record the status it displaces (never another game's)")
 
 
 class ResearchApiCases(ResearchBrowserOwnershipChecks, unittest.TestCase):

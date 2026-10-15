@@ -76,10 +76,13 @@ partition`; estimates and scores add `model`; parameters `model` only; summary `
 slice`; comparisons add `baseline` (`NULL_HALF_V1` by default, which serves the reader's own comparison rows; another
 probability model serves `research_comparison_row` differences built exactly as the reader builds its comparisons).
 Paging: `limit` 1–500 (default 50), `offset` 0–999,999,999. Unknown or repeated parameters refuse; there is no file,
-path, SQL or expression parameter. `team` matches either participant by `org:<digits>`, digits or a name that team
-carries in that season; `game` is a parent contest key (bare digits read as `ncaa:<digits>`). At the summary and
-comparison grains `team`/`game` select canonical games and the rows are re-derived over exactly those games (the
-accepted reader's rule). Valid unknown or disjoint selectors answer zero rows; an empty summary has no row; a season
+path, SQL or expression parameter. `team` names an organization by `org:<digits>`, digits or a name it carries in that
+season (case-insensitive; never a name from another season); it selects games where either participant matches at the
+games, scores, summary and comparison grains, and the orientation whose own team matches at the features and
+estimates grains (an oriented record belongs to its team). `game` is a parent contest key: `ncaa:`, `nolink:` or
+`cfbd:` followed by 1–200 non-control characters, with bare digits (up to 12) read as `ncaa:<digits>`; at most 120
+characters. At the summary and comparison grains `team`/`game` select canonical games and the rows are re-derived over
+exactly those games (the accepted reader's rule). Valid unknown or disjoint selectors answer zero rows; an empty summary has no row; a season
 outside 2016–2023 answers zero rows with `season_scope_state` (`PROTECTED_SEASON_NOT_IN_REFERENCE`,
 `FORWARD_SEASON_NOT_IN_REFERENCE` or `OUTSIDE_REFERENCE_SCOPE`).
 

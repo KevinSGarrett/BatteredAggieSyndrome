@@ -1,7 +1,8 @@
 """BAT-728 (Cycle #57 TP57-A01): the private research profile boundary, without FastAPI.
 
 Configuration locations are refused lexically before any filesystem access (Windows and POSIX semantics are both
-exercised on every host through the ``os_name`` parameter; no share or device is ever contacted), the operator
+exercised on every host through the ``os_name`` parameter, and each against a simulated host of the other kind; no
+share or device is ever contacted), the operator
 configuration is validated completely with exact JSON types and the packaged accepted pins, and request selectors are
 parsed strictly (unknown, repeated, inapplicable and malformed parameters refuse with their own codes).
 """
@@ -26,6 +27,8 @@ from aggie_analytics.product import research  # noqa: E402
 
 HEX = {k: c * 64 for k, c in zip(research.EXPECTED_KEYS, "abcdef")}
 DB_ID, HIST_ID, POP_ID = HEX["database_identity"], HEX["history_identity"], HEX["population_identity"]
+REF_POP, REF_FILE = "national_retrospective_reference_2016_2023", "national_retrospective_reference.sqlite"
+MARKER = "MF57A01-02"
 
 
 def win_profile(**patch):
@@ -54,6 +57,14 @@ def config(*profiles):
     return {"schema": research.CONFIG_SCHEMA, "profiles": list(profiles)}
 
 
+def spelled(rule, **patch):
+    return win_profile(**patch) if rule == "nt" else posix_profile(**patch)
+
+
+def located(rule, *parts):
+    return "C:\\" + "\\".join(parts) if rule == "nt" else "/" + "/".join(parts)
+
+
 class AccessSentinel:
     """Any filesystem, SQLite or socket access raises (the boundary must refuse before reaching one)."""
 
@@ -74,6 +85,17 @@ class AccessSentinel:
         for item in reversed(self.stack):
             item.stop()
         return False
+
+
+class SimulatedHostOs:
+    """The research module's view of ``os`` on a simulated host: only ``name`` differs from the real module (every
+    real access still reaches the sentinels)."""
+
+    def __init__(self, name):
+        self.name = name
+
+    def __getattr__(self, attr):
+        return getattr(os, attr)
 
 
 class LocationPolicyTests(unittest.TestCase):
@@ -317,6 +339,99 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual("RETROSPECTIVE_RESEARCH", payload["labels"]["research_surface"])
         self.assertEqual("PIT_NOT_ADMITTED", payload["labels"]["pit_admission"])
         self.assertEqual({"code": "X_CODE", "message": "fixed message", "status": 503}, payload["error"])
+
+
+class HostIndependentSemanticsTests(unittest.TestCase):
+    """MF57A01-02: one Windows or POSIX interpretation -- the selected ``os_name``, or the host's when it is omitted --
+    governs a profile's spelling and its file-name, identity-directory and population layout on every host. The host
+    is simulated for the research module only, so both directions run on every real host."""
+
+    HOSTS = ("nt", "posix")
+
+    def outcome(self, doc, *, host, os_name, select=None):
+        with mock.patch.object(research, "os", SimulatedHostOs(host)), AccessSentinel():
+            try:
+                configs = research.load_config(doc, pins=HEX, os_name=os_name)
+                if select is not None:
+                    research.ResearchRegistry(configs).get(select)
+            except research.ResearchError as exc:
+                return exc.code
+        return "ACCEPTED"
+
+    def assertEveryHost(self, expected, build):
+        """``build(rule)`` gives the (configuration, profile ID to select) spelled for one interpretation; selecting
+        that interpretation must give ``expected[rule]`` on both simulated hosts."""
+        for rule in ("nt", "posix"):
+            doc, select = build(rule)
+            for host in self.HOSTS:
+                with self.subTest(host=host, os_name=rule):
+                    self.assertEqual(expected[rule], self.outcome(doc, host=host, os_name=rule, select=select),
+                                     f"{MARKER} host={host} os_name={rule}")
+
+    def test_selected_semantics_accept_valid_profiles_and_manifests_on_every_host(self):
+        accepted = dict.fromkeys(self.HOSTS, "ACCEPTED")
+        self.assertEveryHost(accepted, lambda rule: (config(spelled(rule)), None))
+        self.assertEveryHost(accepted, lambda rule: (config(spelled(rule, reference_manifest=located(
+            rule, "data", "manifests", REF_POP, "sha256", DB_ID, "run_manifest.json"))), None))
+
+    def test_selected_semantics_keep_duplicate_and_unknown_profile_codes_on_every_host(self):
+        self.assertEveryHost(dict.fromkeys(self.HOSTS, "RESEARCH_PROFILE_ID_DUPLICATE"),
+                             lambda rule: (config(spelled(rule), spelled(rule)), None))
+        self.assertEveryHost(dict.fromkeys(self.HOSTS, "RESEARCH_PROFILE_UNKNOWN"),
+                             lambda rule: (config(spelled(rule)), "not-registered"))
+
+    def test_selected_semantics_read_literal_separators_on_every_host(self):
+        # POSIX: a backslash is an ordinary filename character, so it never splits off the file name, the identity
+        # directory or the population root; Windows: '/' and '\' both separate components.
+        separators = {"nt": "ACCEPTED", "posix": "RESEARCH_PROFILE_LAYOUT_INVALID"}
+        self.assertEveryHost(separators, lambda rule: (config(posix_profile(
+            reference_database=f"/data/canonical/{REF_POP}/sha256/{DB_ID}\\{REF_FILE}")) if rule == "posix" else
+            config({k: (v.replace("\\", "/") if k.endswith("_database") else v) for k, v in win_profile().items()}),
+            None))
+        self.assertEveryHost(separators, lambda rule: (config(spelled(rule, history_database=(
+            f"/data/canonical/h/sha256\\{HIST_ID}/national_history.sqlite" if rule == "posix" else
+            f"C:\\data/canonical\\h/sha256\\{HIST_ID}/national_history.sqlite"))), None))
+        self.assertEveryHost(separators, lambda rule: (config(spelled(rule, reference_database=(
+            f"/data/canonical/{REF_POP}\\sha256/{DB_ID}/{REF_FILE}" if rule == "posix" else
+            f"C:/data/canonical/{REF_POP}\\sha256/{DB_ID}\\{REF_FILE}"))), None))
+        # the same '..' between backslashes is one ordinary POSIX component but Windows traversal
+        self.assertEveryHost({"nt": "RESEARCH_LOCATION_TRAVERSAL", "posix": "ACCEPTED"}, lambda rule: (config(spelled(
+            rule, history_database=(f"/data/a\\..\\b/canonical/h/sha256/{HIST_ID}/national_history.sqlite"
+                                    if rule == "posix" else
+                                    f"C:\\data\\a\\..\\b\\canonical\\h\\sha256\\{HIST_ID}\\national_history.sqlite")
+        )), None))
+
+    def test_layout_location_and_type_refusals_hold_on_every_host(self):
+        other = {"nt": "posix", "posix": "nt"}
+        for code, build in (
+                ("RESEARCH_PROFILE_LAYOUT_INVALID", lambda rule: spelled(rule, history_database=located(
+                    rule, "data", "canonical", "h", "sha256", HIST_ID, "other.sqlite"))),
+                ("RESEARCH_PROFILE_LAYOUT_INVALID", lambda rule: spelled(rule, history_database=located(
+                    rule, "data", "canonical", "h", "sha256", "1" * 64, "national_history.sqlite"))),
+                ("RESEARCH_PROFILE_LAYOUT_INVALID", lambda rule: spelled(rule, reference_database=located(
+                    rule, "data", "canonical", "other", "sha256", DB_ID, REF_FILE))),
+                ("RESEARCH_PROFILE_LAYOUT_INVALID", lambda rule: spelled(rule, reference_manifest=located(
+                    rule, "data", "manifests", REF_POP, "sha256", DB_ID, "other.json"))),
+                ("RESEARCH_LOCATION_UNSUPPORTED", lambda rule: spelled(rule, history_database=(
+                    f"\\\\server\\share\\sha256\\{HIST_ID}\\national_history.sqlite" if rule == "nt" else
+                    "/dev/stdin"))),
+                ("RESEARCH_LOCATION_TRAVERSAL", lambda rule: spelled(rule, history_database=located(
+                    rule, "data", "..", "h", "sha256", HIST_ID, "national_history.sqlite"))),
+                ("RESEARCH_CONFIG_INVALID", lambda rule: spelled(rule, history_database=7)),
+                ("RESEARCH_PROFILE_PIN_UNACCEPTED", lambda rule: spelled(
+                    rule, expected=dict(HEX, history_identity="0" * 64))),
+                ("RESEARCH_LOCATION_NOT_ABSOLUTE", lambda rule: spelled(other[rule]))):
+            self.assertEveryHost(dict.fromkeys(self.HOSTS, code), lambda rule, build=build: (config(build(rule)), None))
+
+    def test_omitted_os_name_follows_the_host(self):
+        for host in self.HOSTS:
+            other = "posix" if host == "nt" else "nt"
+            with self.subTest(host=host):
+                self.assertEqual("ACCEPTED", self.outcome(config(spelled(host)), host=host, os_name=None), MARKER)
+                self.assertEqual("RESEARCH_PROFILE_ID_DUPLICATE", self.outcome(
+                    config(spelled(host), spelled(host)), host=host, os_name=None), MARKER)
+                self.assertEqual("RESEARCH_LOCATION_NOT_ABSOLUTE", self.outcome(
+                    config(spelled(other)), host=host, os_name=None), MARKER)
 
 
 if __name__ == "__main__":

@@ -48,7 +48,9 @@ The operator file (`BAS-RESEARCH-PROFILE-CONFIG-1`, strict JSON: strings only, n
   names, streams, `.`/`..` traversal, empty components and components ending in a dot or space are refused. POSIX:
   absolute paths; `.`/`..` traversal and `/dev`, `/proc`, `/sys` are refused; backslashes, colons, `?`, `#`, spaces
   and non-ASCII are ordinary filename characters. The file names and identity directories must match the declared
-  identities. Long Windows locations are opened through the extended form (the same file).
+  identities, read under the same interpretation as the spelling: the host's own, unless the operator's Python code
+  selects the other with `load_config(..., os_name=...)` (files are still opened by the host). Long Windows locations
+  are opened through the extended form (the same file).
 * Each profile is then verified once by the accepted reader (`ReferenceComparison`: inputs verified and pinned,
   every record, the refit and both identities re-derived; about 12–15 s for the accepted reference). Until it
   completes the profile answers `RESEARCH_PROFILE_VERIFYING` (503, `Retry-After: 2`). A refused profile is

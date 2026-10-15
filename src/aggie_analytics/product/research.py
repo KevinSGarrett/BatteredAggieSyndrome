@@ -186,9 +186,12 @@ def io_location(text: str) -> str:
     return text
 
 
-def _layout(path: str, *, file_name: str, identity: str | None = None, population: str | None = None) -> None:
-    """The configured file name, identity directory and population root of a location (lexical)."""
-    parts = re.split(r"[\\/]", path) if os.name == "nt" else path.split("/")
+def _layout(path: str, *, os_name: str, file_name: str, identity: str | None = None,
+            population: str | None = None) -> None:
+    """The configured file name, identity directory and population root of a location (lexical), read under the same
+    interpretation ``os_name`` that validated its spelling, whatever the host: a Windows ``/`` is a separator, a POSIX
+    backslash an ordinary filename character."""
+    parts = re.split(r"[\\/]", path) if os_name == "nt" else path.split("/")
     if parts[-1] != file_name:
         raise ResearchConfigError("RESEARCH_PROFILE_LAYOUT_INVALID", f"the location must name {file_name}")
     if identity is not None and (len(parts) < 4 or parts[-2] != identity or parts[-3] != "sha256"):
@@ -241,7 +244,7 @@ def _strict_json(data: bytes) -> Any:
         raise ResearchConfigError("RESEARCH_CONFIG_INVALID", "the configuration is not UTF-8 JSON") from exc
 
 
-def _profile(item: Any, pins: Mapping[str, str], os_name: str | None) -> ProfileConfig:
+def _profile(item: Any, pins: Mapping[str, str], os_name: str) -> ProfileConfig:
     if not isinstance(item, dict):
         raise ResearchConfigError("RESEARCH_CONFIG_INVALID", "a profile must be a JSON object")
     keys = set(item)
@@ -267,12 +270,15 @@ def _profile(item: Any, pins: Mapping[str, str], os_name: str | None) -> Profile
     for key in ("reference_database", "history_database", "population_database", "reference_manifest"):
         if key in item:
             locations[key] = validate_location(item[key], os_name=os_name)
-    _layout(locations["reference_database"], file_name=REFERENCE_DB_FILE, identity=expected["database_identity"],
-            population=REFERENCE_POPULATION)
-    _layout(locations["history_database"], file_name=HISTORY_DB_FILE, identity=expected["history_identity"])
-    _layout(locations["population_database"], file_name=POPULATION_DB_FILE, identity=expected["population_identity"])
+    _layout(locations["reference_database"], os_name=os_name, file_name=REFERENCE_DB_FILE,
+            identity=expected["database_identity"], population=REFERENCE_POPULATION)
+    _layout(locations["history_database"], os_name=os_name, file_name=HISTORY_DB_FILE,
+            identity=expected["history_identity"])
+    _layout(locations["population_database"], os_name=os_name, file_name=POPULATION_DB_FILE,
+            identity=expected["population_identity"])
     if "reference_manifest" in locations:
-        _layout(locations["reference_manifest"], file_name=MANIFEST_FILE, identity=expected["database_identity"])
+        _layout(locations["reference_manifest"], os_name=os_name, file_name=MANIFEST_FILE,
+                identity=expected["database_identity"])
     return ProfileConfig(profile_id=pid, display_label=label.strip(),
                          reference_database=locations["reference_database"],
                          reference_manifest=locations.get("reference_manifest"),
@@ -284,7 +290,10 @@ def load_config(source: str | os.PathLike[str] | Mapping[str, Any], *, pins: Map
                 os_name: str | None = None) -> list[ProfileConfig]:
     """Validate a complete operator configuration (a JSON file location or an in-memory mapping) before any profile
     location is opened. ``pins`` defaults to the packaged accepted pins; only the operator's own Python code can
-    supply others (fixture worlds), never a request."""
+    supply others (fixture worlds), never a request. ``os_name`` (``"nt"`` Windows, otherwise POSIX; default the
+    host's, which the server always uses) is resolved once and governs every spelling and layout check; files are
+    always opened by the host."""
+    os_name = os.name if os_name is None else os_name
     if isinstance(source, Mapping):
         doc: Any = json.loads(json.dumps(source))
         _reject_numbers(doc)

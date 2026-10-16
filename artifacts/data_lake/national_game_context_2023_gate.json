@@ -1,0 +1,303 @@
+{
+ "schema_version": "BAS-NATIONAL-GAME-CONTEXT-GATE-1",
+ "jira_key": "BAT-729",
+ "cycle_number": 58,
+ "attempt_number": 1,
+ "contract_id": "BAT-729-NATIONAL-GAME-CONTEXT-2023-V1.0",
+ "contract_sha256": "91f1f4e0b3a62ff3f76cd4167f42175f5b0bb9548fa2311df7ca592252c204b7",
+ "population_id": "national_game_context_2023",
+ "audit_unit": "C58-NATIONAL-GAME-CONTEXT-788 (bounded BAT-729 contribution to BAT-417/BAT-419)",
+ "state": "FROZEN_PRIVATE_RETROSPECTIVE_RESEARCH_CONTEXT",
+ "designation": "UNTRUSTED_SHADOW",
+ "profile": {
+  "database_identity": "1abf6ea5aa5c2fe02015664f6aaa5af1eff867e53835d9a1e875f98294065243",
+  "content_identity": "c940707acc3a97b9c7908c93d80c13a3f83252d63c6a23d82c6ce466c049284c",
+  "database_sha256": "10d10f5700987b3ef87b87b1ebad856815b856f3e8044a1f66cad725f4b7a690",
+  "contract_sha256": "91f1f4e0b3a62ff3f76cd4167f42175f5b0bb9548fa2311df7ca592252c204b7",
+  "contests": 788,
+  "team_views": 1576,
+  "witnesses": 11823,
+  "strata_rows": 70
+ },
+ "database_identity_document": {
+  "content_identity": "c940707acc3a97b9c7908c93d80c13a3f83252d63c6a23d82c6ce466c049284c",
+  "contract_sha256": "91f1f4e0b3a62ff3f76cd4167f42175f5b0bb9548fa2311df7ca592252c204b7",
+  "db_schema_version": "BAS-GAME-CONTEXT-DB-1",
+  "outputs": {
+   "national_game_context.sqlite": "10d10f5700987b3ef87b87b1ebad856815b856f3e8044a1f66cad725f4b7a690"
+  },
+  "population": "national_game_context_2023",
+  "schema": "BAS-GAME-CONTEXT-DATABASE-1",
+  "stage": "game-context-database",
+  "table_counts": {
+   "blocks": 5,
+   "meta": 12
+  }
+ },
+ "content_identity_document": {
+  "contract_id": "BAT-729-NATIONAL-GAME-CONTEXT-2023-V1.0",
+  "contract_sha256": "91f1f4e0b3a62ff3f76cd4167f42175f5b0bb9548fa2311df7ca592252c204b7",
+  "inputs": {
+   "history": {
+    "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+    "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+    "database_identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b",
+    "relative_path": "canonical/national_history_prefix_2016_2023/sha256/aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b/national_history.sqlite",
+    "sha256": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060"
+   },
+   "identity_bindings": {
+    "header_contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+    "relative_path": "canonical/national_di_population_2016_2025/sha256/711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e/identity_bindings.jsonl.gz",
+    "sha256": "5d15acf7c12b94d5e7ad5fa2d22c60192aad0b4d6a48cecd66cab6835596dee9"
+   },
+   "population": {
+    "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+    "database_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+    "relative_path": "canonical/national_di_population_2016_2025/sha256/3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27/national_population.sqlite",
+    "sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172"
+   },
+   "provider_games": {
+    "relative_path": "raw/SRC-002/games/sha256_ebf9ea175c3332102dd4555fd8cd126cbd2cbc6cef4aebe95c6c5ae7af1dea03.json",
+    "sha256": "ebf9ea175c3332102dd4555fd8cd126cbd2cbc6cef4aebe95c6c5ae7af1dea03"
+   },
+   "provider_teams": {
+    "relative_path": "ops/cycle30_work/raw/teams/194b170d1efaabbd3ea327ce7a1605f093cfa5f5391bd2a3ebfb39e297590619.json",
+    "sha256": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281"
+   },
+   "reference": {
+    "content_identity": "fe303a90d8753956b914d3c7c2adfe2d33d9816bfb45689b0361f8e36e2e6cc0",
+    "contract_sha256": "3cfeff255bb29801b482b02611ad2c72c725d069e9f89d3911e86711af34bb31",
+    "database_identity": "ad01a42f203435627232af9e9ba1a73d29154650553f37926756d821711582d8",
+    "relative_path": "canonical/national_retrospective_reference_2016_2023/sha256/ad01a42f203435627232af9e9ba1a73d29154650553f37926756d821711582d8/national_retrospective_reference.sqlite",
+    "sha256": "17a0776587eb30918903dc0d38c736958b1984feb4b40379bbfc80425035785d"
+   },
+   "venue_reference": {
+    "relative_path": "ops/cycle30_work/raw/venues/86af256ba80c8b9961950607800057c188f4aec7034c4ac774f4dcf9475bfc93.json",
+    "sha256": "dfc8daff311f5ffea668c613aef61bbd213ea0c08cd13e9c1e8f583a480fb9bf"
+   }
+  },
+  "outputs": {
+   "census.json": "0b29ddc8aa6f00191d1928bfa1256fd1510a6715862bcb93fb713f1874261ae1",
+   "contests.jsonl.gz": "885c81cf2ed50e06341d0b877db6cd4963d4bc4ab4b215509087d2b162273c47",
+   "strata.jsonl.gz": "8dee243eb83b4367fa2b877a6530131097f4728924d204358f31ddfb3e276218",
+   "teams.jsonl.gz": "17d0054dc50a0e14ddba4c927a113bd9a155fc2a221b0a230f7058cad82e3a39",
+   "witnesses.jsonl.gz": "64a9b462613b32b7e297f9eb1c7569e43370e9441456b5d0d4c58f9c1f325553"
+  },
+  "payload_schema": "BAS-GAME-CONTEXT-PAYLOAD-1",
+  "population": "national_game_context_2023",
+  "row_counts": {
+   "census.json": 1,
+   "contests.jsonl.gz": 788,
+   "strata.jsonl.gz": 70,
+   "teams.jsonl.gz": 1576,
+   "witnesses.jsonl.gz": 11823
+  },
+  "rules_sha256": "f0b4bc6644feefe7aa69afa9d5d7f49311c8afa446228f9830a0cfc3134d745f",
+  "schema": "BAS-GAME-CONTEXT-CONTENT-1",
+  "source_clocks": {
+   "provider_games": {
+    "capture_id": "cap_2c82aa5161f3ad63b5abb3c3",
+    "clock_kind": "PROVIDER_CAPTURE_RETRIEVED_AT_NOT_PUBLICATION_OR_KNOWN_AT",
+    "http_status": 200,
+    "parameters": {
+     "classification": "fbs",
+     "year": "2023"
+    },
+    "receipt_kind": "SRC-002 capture manifest",
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_2c82aa5161f3ad63b5abb3c3.json",
+    "receipt_sha256": "6598b949b38fc707831002bc202bbf060ff7faeaceea178fb1748b8d8dbea4f3",
+    "request_id": "req_93d6738739a9e0d462795deb",
+    "response_sha256": "ebf9ea175c3332102dd4555fd8cd126cbd2cbc6cef4aebe95c6c5ae7af1dea03",
+    "retrieved_at_utc": "2026-08-09T16:57:56Z",
+    "row_count": 910,
+    "source_uri": "https://api.collegefootballdata.com/games?classification=fbs&year=2023",
+    "status": "SUCCESS"
+   },
+   "provider_teams": {
+    "clock_kind": "C30_LEDGER_CACHE_HIT_RECORDED_AT_NOT_ORIGINAL_RETRIEVAL_NOT_HISTORICAL",
+    "http_status": 200,
+    "ledger_attempts": [
+     41,
+     42
+    ],
+    "observation": "both classification requests returned the same bytes; the year parameter does not make the location fields historically effective",
+    "parameters": [
+     {
+      "classification": "fbs",
+      "year": 2023
+     },
+     {
+      "classification": "fcs",
+      "year": 2023
+     }
+    ],
+    "receipt_kind": "C30 acquisition ledger attempts 41 and 42",
+    "receipt_relative_path": "ops/cycle30_work/outputs/CYCLE30_ACQUISITION_LEDGER.json",
+    "receipt_sha256": "dd29ab5a2fb1bb3169ef10b1ec6f02438e5c8b4fae5adbef88d6baaa082c9258",
+    "response_sha256": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281",
+    "retrieved_at_utc": "2026-09-09T18:08:44Z",
+    "route": "/teams",
+    "row_count": 671,
+    "status": "CACHE_HIT"
+   },
+   "venue_reference": {
+    "clock_kind": "C30_LEDGER_CACHE_HIT_RECORDED_AT_NOT_ORIGINAL_RETRIEVAL_NOT_HISTORICAL",
+    "http_status": 200,
+    "ledger_attempts": [
+     0
+    ],
+    "observation": "a current venue list without season parameters; later-observed reference geography",
+    "parameters": [
+     {}
+    ],
+    "receipt_kind": "C30 acquisition ledger attempt 0",
+    "receipt_relative_path": "ops/cycle30_work/outputs/CYCLE30_ACQUISITION_LEDGER.json",
+    "receipt_sha256": "dd29ab5a2fb1bb3169ef10b1ec6f02438e5c8b4fae5adbef88d6baaa082c9258",
+    "response_sha256": "dfc8daff311f5ffea668c613aef61bbd213ea0c08cd13e9c1e8f583a480fb9bf",
+    "retrieved_at_utc": "2026-09-09T18:08:43Z",
+    "route": "/venues",
+    "row_count": 852,
+    "status": "CACHE_HIT"
+   }
+  },
+  "stage": "game-context-content",
+  "uncompressed_sha256": {
+   "contests.jsonl": "ed9bbd3b58826a6d706b5e3aebe46bfa124eab23571699620983d9579decdfc3",
+   "strata.jsonl": "80ebdad32db90bcb1e53953e71198528040651011cc5b2b72cac6c500c874cdb",
+   "teams.jsonl": "0591f04eb644baa6ac0b5e7080fb7058cec5b472582e60c3a501a6ed41132388",
+   "witnesses.jsonl": "15982432b316fa6c2cc112c53479dc259dfe7b0753b7a9a8a2324c8aa27fcca4"
+  }
+ },
+ "census_counts": {
+  "contest_states": {
+   "classification_pair": {
+    "FBS-FBS": 788
+   },
+   "max_distance_state": {
+    "QUALIFIED": 788
+   },
+   "max_distance_stratum": {
+    "M_0_499999": 265,
+    "M_1500000_PLUS": 149,
+    "M_500000_1499999": 374
+   },
+   "min_calendar_state": {
+    "NO_PRIOR": 52,
+    "QUALIFIED": 736
+   },
+   "min_calendar_stratum": {
+    "DAYS_14_PLUS": 55,
+    "DAYS_1_6": 62,
+    "DAYS_7": 586,
+    "DAYS_8_13": 33,
+    "NO_PRIOR": 52
+   },
+   "parent_site": {
+    "HOME_A": 367,
+    "HOME_B": 361,
+    "NEUTRAL": 60
+   },
+   "provider_date_state": {
+    "COMPATIBLE_WITH_PARENT_LOCAL_DATE": 788
+   },
+   "provider_join_state": {
+    "JOINED": 788
+   },
+   "site_agreement": {
+    "AGREE": 788
+   },
+   "site_class": {
+    "NEUTRAL": 60,
+    "NON_NEUTRAL_HOME_AWAY": 728
+   },
+   "venue_coordinate_state": {
+    "QUALIFIED_REFERENCE_COORDINATE": 788
+   },
+   "venue_name_state": {
+    "EQUAL": 788
+   }
+  },
+  "team_states": {
+   "binding_rule": {
+    "NAME_CONFIRMED_BY_SCHEDULE": 1541,
+    "SCHEDULE_FINGERPRINT_ONLY": 35
+   },
+   "binding_state": {
+    "BOUND": 1576
+   },
+   "calendar_state": {
+    "NO_ELIGIBLE_SAME_SEASON_PRIOR": 98,
+    "QUALIFIED_CALENDAR_INTERVAL": 1478
+   },
+   "distance_state": {
+    "QUALIFIED_REFERENCE_DISTANCE": 1576
+   },
+   "origin_is_game_venue": {
+    "False": 858,
+    "True": 718
+   },
+   "origin_state": {
+    "QUALIFIED_REFERENCE_ORIGIN": 1576
+   },
+   "parent_role_for_team": {
+    "AWAY": 728,
+    "HOME": 728,
+    "NEUTRAL": 120
+   },
+   "provider_role_for_team": {
+    "AWAY_DESIGNATED": 788,
+    "HOME_DESIGNATED": 788
+   },
+   "provider_site_claim_for_team": {
+    "AWAY": 728,
+    "HOME": 728,
+    "NEUTRAL": 120
+   },
+   "team_division_label": {
+    "FBS": 1576
+   }
+  },
+  "witness_sources": {
+   "ACCEPTED_HISTORY_TARGET": 788,
+   "ACCEPTED_HISTORY_VIEW": 1576,
+   "ACCEPTED_PARENT_CONTEST": 788,
+   "FROZEN_REFERENCE_SCORE": 3940,
+   "IDENTITY_BINDING": 1576,
+   "PROVIDER_GAME": 788,
+   "PROVIDER_TEAM_LOCATION": 1576,
+   "SOURCE_RECEIPT": 3,
+   "VENUE_REFERENCE": 788
+  },
+  "distance_m": {
+   "max": 7713482,
+   "min": 0,
+   "qualified": 1576,
+   "zero": 718
+  },
+  "calendar_interval_days": {
+   "max": 39,
+   "min": 5,
+   "qualified": 1478
+  }
+ },
+ "labels": {
+  "evidence_label": "RETROSPECTIVE_RESEARCH",
+  "trust_state": "UNTRUSTED_SHADOW",
+  "pit_eligibility": "PIT_NOT_ADMITTED",
+  "predictive_skill": "NOT_ESTABLISHED",
+  "temporal_basis": "CALENDAR_DATE_ORDER_ONLY_NOT_PUBLICATION_TIME",
+  "forecast_status": "NOT_A_FORECAST",
+  "geography_authority": "LATER_OBSERVED_REFERENCE_GEOGRAPHY_NOT_HISTORICALLY_EFFECTIVE",
+  "distance_meaning": "REFERENCE_GEOMETRY_NOT_ACTUAL_TRAVEL",
+  "calendar_meaning": "CALENDAR_INTERVAL_NOT_PHYSIOLOGICAL_REST",
+  "site_meaning": "ACCEPTED_PARENT_ROLE_AND_PROVIDER_CLAIM_KEPT_SEPARATE_NO_HOME_EFFECT",
+  "strata_meaning": "DESCRIPTIVE_EXPOSED_2023_SLICES_NOT_CAUSAL_NOT_BLIND_NOT_SKILL"
+ },
+ "limits": [
+  "identities, counts and states only; every record value stays in the private data root",
+  "RETROSPECTIVE_RESEARCH / UNTRUSTED_SHADOW / PIT_NOT_ADMITTED / predictive skill NOT_ESTABLISHED",
+  "later-observed reference geography; reference distance is not travel; calendar intervals are not rest",
+  "descriptive exposed-2023 strata of the unchanged C56 scores; no effect, blind test, calibration or skill claim",
+  "no activation; BAT-417/BAT-419 and every broader owner scope remain open"
+ ]
+}

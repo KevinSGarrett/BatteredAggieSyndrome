@@ -55,6 +55,7 @@ artifacts/data_lake/national_archived_publication_2019_v1_2_gate.json
 artifacts/data_lake/national_di_population_2016_2025_gate.json
 artifacts/data_lake/national_foundation_reconciliation_gate.json
 artifacts/data_lake/national_foundation_status_successor_gate.json
+artifacts/data_lake/national_game_context_2023_gate.json
 artifacts/data_lake/national_history_availability_2019_expansion_gate.json
 artifacts/data_lake/national_history_availability_2019_gate.json
 artifacts/data_lake/national_history_prefix_2016_2023_gate.json
@@ -885,6 +886,7 @@ configs/national_entity_benchmark_targets.json
 configs/national_entity_identity_benchmark_contract.json
 configs/national_expectation_baselines_and_peers_contract.json
 configs/national_foundation_reconciliation_contract.json
+configs/national_game_context_2023_contract.json
 configs/national_history_availability_2019_contract.json
 configs/national_history_availability_2019_expansion_contract.json
 configs/national_history_prefix_2016_2023_contract.json
@@ -1201,6 +1203,7 @@ docs/architecture/DATAFLOW_AND_STORAGE.md
 docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md
 docs/architecture/INTERFACE_CONTRACTS.md
 docs/architecture/MODEL_LAYERS.md
+docs/architecture/NATIONAL_GAME_CONTEXT_2023.md
 docs/architecture/NATIONAL_POPULATION_RECONCILIATION_SIDECAR.md
 docs/architecture/NATIONAL_RECONCILIATION_ALIASES_SUCCESSOR.md
 docs/architecture/NATIONAL_RETROSPECTIVE_BASELINE_BENCHMARK.md
@@ -4160,6 +4163,9 @@ src/aggie_analytics/features/screening.py
 src/aggie_analytics/features/sustainability.py
 src/aggie_analytics/features/transforms.py
 src/aggie_analytics/features/weather_station_matching.py
+src/aggie_analytics/game_context/__init__.py
+src/aggie_analytics/game_context/context.py
+src/aggie_analytics/game_context/query.py
 src/aggie_analytics/governance/.cursor/BUGBOT.md
 src/aggie_analytics/governance/__init__.py
 src/aggie_analytics/governance/branch_worktree_hygiene.py
@@ -4353,6 +4359,7 @@ tests/fixtures/cycle35_season_probes/positive.html
 tests/fixtures/cycle35_season_probes/script_only.html
 tests/fixtures/protected_split_exposure_audit.v2.stale.json
 tests/fixtures/stale_placeholder_contract.json
+tests/game_context_fixture.py
 tests/national_archived_publication_expansion_fixture.py
 tests/national_archived_publication_fixture.py
 tests/national_history_availability_fixture.py
@@ -4617,6 +4624,7 @@ tests/test_national_entity_identity_benchmark.py
 tests/test_national_expectation_baselines.py
 tests/test_national_foundation_reconciliation.py
 tests/test_national_foundation_status_successor.py
+tests/test_national_game_context.py
 tests/test_national_history_availability.py
 tests/test_national_history_availability_expansion.py
 tests/test_national_history_prefix.py
@@ -4931,6 +4939,7 @@ tools/build_national_entity_identity_benchmark.py
 tools/build_national_expectation_baselines.py
 tools/build_national_foundation_reconciliation.py
 tools/build_national_foundation_status_successor.py
+tools/build_national_game_context.py
 tools/build_national_history_availability.py
 tools/build_national_history_prefix.py
 tools/build_national_multi_year_walk_forward.py

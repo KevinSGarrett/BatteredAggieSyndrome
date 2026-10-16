@@ -61,6 +61,7 @@ bas-national-population-query = "aggie_analytics.national_population.query:main"
 bas-national-history-query = "aggie_analytics.national_history.query:main"
 bas-source-time-query = "aggie_analytics.national_source_time.query:main"
 bas-retrospective-baseline-query = "aggie_analytics.retrospective_baseline.query:main"
+bas-game-context-query = "aggie_analytics.game_context.query:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

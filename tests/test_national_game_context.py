@@ -372,6 +372,40 @@ class QueryTests(World):
             self.assertEqual(self.serve("--grain", "contest-context", "--manifest", r"\\server\share\m.json")[2],
                              "CONTEXT_MANIFEST_LOCATION_UNSUPPORTED")
 
+    def test_plain_long_locations_serve_identically(self) -> None:
+        """A byte copy of the release and of every pinned input at a plain (non-extended) location beyond the classic
+        Windows path limit serves exactly what the original serves (INSTALLED_CONSUMERS 20261016T022654085206Z found
+        the plain long database spelling crashing in SQLite's open)."""
+        def ext(path: Path | str) -> str:
+            text = os.path.abspath(str(path))
+            return "\\\\?\\" + text if os.name == "nt" and not text.startswith("\\\\?\\") else text
+        tmp = tempfile.mkdtemp(prefix="gcl-")
+        try:
+            long_root = Path(tmp).joinpath(*[f"long-native-location-component-{c}-" + c * 40 for c in "abcd"])
+            identity = Path(self.db).parent.name
+            pop_root = Path(self.db).parent.parent.parent
+            copies = {Path(self.db): long_root / "canonical" / gc.POPULATION / "sha256" / identity / gc.DB_FILE,
+                      pop_root.parent.parent / "manifests" / gc.POPULATION / "sha256" / identity / "run_manifest.json":
+                      long_root / "manifests" / gc.POPULATION / "sha256" / identity / "run_manifest.json"}
+            for name in gc.INPUT_NAMES:
+                rel = Path(*self.anchors["inputs"][name]["relative_path"].split("/"))
+                copies[Path(self.world["data_root"]) / rel] = long_root / "data" / rel
+            for source, target in copies.items():
+                os.makedirs(ext(target.parent), exist_ok=True)
+                with open(ext(target), "xb") as handle:
+                    handle.write(Path(source).read_bytes())
+            long_db = copies[Path(self.db)]
+            self.assertGreater(len(str(long_db)), 300)
+            for argv in (("--grain", "contest-context", "--all"), ("--grain", "context-score-summary", "--all")):
+                with self.subTest(argv=argv):
+                    original = self.serve(*argv)
+                    rehoused = self.serve(*argv, database=long_db, data_root=long_root / "data")
+                    self.assertEqual(original[0], 0)
+                    self.assertEqual(rehoused, original)
+        finally:
+            import shutil  # noqa: PLC0415
+            shutil.rmtree(ext(tmp), ignore_errors=True)
+
     def test_input_tamper_and_missing_inputs_are_refused(self) -> None:
         with tempfile.TemporaryDirectory(prefix="gct-") as tmp:
             root = Path(tmp)

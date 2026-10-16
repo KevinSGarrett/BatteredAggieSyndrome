@@ -565,12 +565,21 @@ def resolve_inputs(data_root: Path, anchors: dict[str, Any]) -> dict[str, Path]:
     return paths
 
 
+def _sqlite_readonly(path: Path | str, *, immutable: bool) -> sqlite3.Connection:
+    """A read-only connection to exactly the literal local file ``path`` names. Beyond the classic Windows path limit
+    SQLite is handed the verified literal path's extended-length form: it cannot open the plain long spelling."""
+    location = readonly_sqlite.literal_path(path)
+    return readonly_sqlite.connect_readonly(_io_path(Path(location)), immutable=immutable)
+
+
 def _connect(path: Path) -> sqlite3.Connection:
     try:
-        return readonly_sqlite.connect_readonly(path, immutable=True)
+        return _sqlite_readonly(path, immutable=True)
     except readonly_sqlite.DatabaseLocationError as exc:
         raise ContextError("CONTEXT_INPUT_LOCATION_" + ("UNSUPPORTED" if exc.code == readonly_sqlite.LOCATION_UNSUPPORTED
                                                         else "NOT_LITERAL"), exc.detail) from exc
+    except sqlite3.Error as exc:
+        raise ContextError("CONTEXT_INPUT_UNREADABLE", f"{path}: {exc}") from exc
 
 
 def _json_file(path: Path) -> Any:
@@ -1626,9 +1635,11 @@ class GameContext:
                                                  f"reader binds {self.anchors['contract_sha256']}")
         inputs = load_inputs(Path(data_root), self.anchors)
         try:
-            self.conn = readonly_sqlite.connect_readonly(database)
+            self.conn = _sqlite_readonly(database, immutable=False)
         except readonly_sqlite.DatabaseLocationError as exc:
             raise ContextError(exc.code, exc.detail) from exc
+        except sqlite3.Error as exc:
+            raise ContextError("CONTEXT_DATABASE_UNREADABLE", str(exc)) from exc
         try:
             self._verify_database(inputs)
         except sqlite3.DatabaseError as exc:

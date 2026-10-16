@@ -64,7 +64,9 @@ Selectors intersect; an unknown or disjoint valid selection serves no row (the s
 `SEASON_NOT_YET_AUDITED`; malformed or inapplicable selectors and `--require-pit` are refused (exit 2,
 `{"refused": CODE}` on stderr) before any file is read. With `--contest`/`--team` the summary is re-derived over exactly
 the selected games. The database, manifest and data root pass the BAT-717 literal local-file policy; the release is
-opened read-only and a missing file is never created.
+opened read-only and a missing file is never created. A literal local location beyond the classic Windows path limit
+(a plain long spelling) is opened through its extended-length form and serves exactly what the short spelling serves;
+an SQLite open failure is refused as `CONTEXT_DATABASE_UNREADABLE` / `CONTEXT_INPUT_UNREADABLE`, never a traceback.
 
 Before any row is served the reader verifies the location, manifest identity, database bytes, schema, every meta claim,
 every pinned input under the data root, complete membership and multiplicity of every table, every record, the census,

@@ -60,6 +60,7 @@ artifacts/data_lake/national_history_availability_2019_expansion_gate.json
 artifacts/data_lake/national_history_availability_2019_gate.json
 artifacts/data_lake/national_history_prefix_2016_2023_gate.json
 artifacts/data_lake/national_lake_readiness.json
+artifacts/data_lake/national_personnel_evidence_2004_2022_gate.json
 artifacts/data_lake/national_pit_domain_admission_matrix_gate.json
 artifacts/data_lake/national_pit_eligible_slice_gate.json
 artifacts/data_lake/national_pit_eligible_slice_replay.json
@@ -891,6 +892,7 @@ configs/national_history_availability_2019_contract.json
 configs/national_history_availability_2019_expansion_contract.json
 configs/national_history_prefix_2016_2023_contract.json
 configs/national_multi_year_walk_forward_contract.json
+configs/national_personnel_evidence_2004_2022_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
 configs/national_pit_eligible_slice_contract.json
 configs/national_population_reconciliation_2024_2025_contract.json
@@ -1204,6 +1206,7 @@ docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md
 docs/architecture/INTERFACE_CONTRACTS.md
 docs/architecture/MODEL_LAYERS.md
 docs/architecture/NATIONAL_GAME_CONTEXT_2023.md
+docs/architecture/NATIONAL_PERSONNEL_EVIDENCE_2004_2022.md
 docs/architecture/NATIONAL_POPULATION_RECONCILIATION_SIDECAR.md
 docs/architecture/NATIONAL_RECONCILIATION_ALIASES_SUCCESSOR.md
 docs/architecture/NATIONAL_RETROSPECTIVE_BASELINE_BENCHMARK.md
@@ -4249,6 +4252,10 @@ src/aggie_analytics/orchestration/postmortem.py
 src/aggie_analytics/orchestration/promotion.py
 src/aggie_analytics/orchestration/publication.py
 src/aggie_analytics/orchestration/weekly.py
+src/aggie_analytics/personnel_evidence/__init__.py
+src/aggie_analytics/personnel_evidence/anchors.py
+src/aggie_analytics/personnel_evidence/evidence.py
+src/aggie_analytics/personnel_evidence/query.py
 src/aggie_analytics/player_intelligence/__init__.py
 src/aggie_analytics/player_intelligence/advanced_state.py
 src/aggie_analytics/player_intelligence/availability.py
@@ -4369,6 +4376,7 @@ tests/national_site_evidence_fixture.py
 tests/national_source_time_fixture.py
 tests/official_shadow_schedule_expansion_fixture.py
 tests/official_shadow_schedule_fixture.py
+tests/personnel_evidence_fixture.py
 tests/prospective_provider_observation_fixture.py
 tests/provider_record_baseline_preview_fixture.py
 tests/provider_record_shadow_fixture.py
@@ -4630,6 +4638,7 @@ tests/test_national_history_availability_expansion.py
 tests/test_national_history_prefix.py
 tests/test_national_history_query.py
 tests/test_national_multi_year_walk_forward.py
+tests/test_national_personnel_evidence.py
 tests/test_national_pit_domain_admission_matrix.py
 tests/test_national_pit_eligible_slice.py
 tests/test_national_population_query.py
@@ -4943,6 +4952,7 @@ tools/build_national_game_context.py
 tools/build_national_history_availability.py
 tools/build_national_history_prefix.py
 tools/build_national_multi_year_walk_forward.py
+tools/build_national_personnel_evidence.py
 tools/build_national_pit_domain_admission_matrix.py
 tools/build_national_pit_eligible_slice.py
 tools/build_national_population_reconciliation.py

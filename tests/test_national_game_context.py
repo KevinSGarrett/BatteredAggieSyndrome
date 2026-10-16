@@ -547,6 +547,161 @@ class ForgeryTests(World):
         self.assertEqual(self.refused(genuine), "CONTEXT_DATABASE_TAMPERED")
 
 
+# --------------------------------------------------------------------------------------------- malformed JSON boundaries
+
+MARKER = "MF58A01-01"
+LONE = "JSON_LONE_SURROGATE"
+DEEP = "JSON_NESTING_TOO_DEEP"
+#: JSON nesting far beyond any interpreter's decoder/encoder depth (raw text; no canonical encoder produces it).
+DEEP_ARRAY = "[" * 100_000 + "0" + "]" * 100_000
+DEEP_OBJECT = '{"a":' * 100_000 + "0" + "}" * 100_000
+
+
+class MalformedJsonBoundaryTests(World):
+    """MF58A01-01 (TP58 03B controlled malformed-record errors): valid JSON that is malformed data -- an escaped lone
+    surrogate or nesting beyond the JSON depth -- in a block record, a meta claim or the run manifest of a coordinated,
+    rehashed forgery is refused at the query front by that boundary's own rule (exit 2), never escapes as a traceback;
+    genuine Unicode, ordinary malformed fields and the existing rules keep their outcomes."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls.forger = fx.Forger(cls.db, cls.base / "mj")
+        cls.counter = 0
+
+    def outcome(self, **forge) -> str:
+        """``exit:refusal:reason`` of the in-process query front over one forgery; an exception escaping the front is
+        ``UNCAUGHT:<class>``."""
+        type(self).counter += 1
+        path = self.forger.forge(f"m{type(self).counter}", **forge)
+        try:
+            code, _doc, err = fx.query(self.world, self.anchors, path, "--grain", "contest-context", "--limit", "1")
+        except (UnicodeEncodeError, RecursionError) as exc:
+            return f"UNCAUGHT:{type(exc).__name__}"
+        return f"{code}:{fx.refusal(err)}:{next((r for r in (LONE, DEEP) if r in err), '-')}"
+
+    def expect(self, cases: dict[str, tuple[dict, str]]) -> None:
+        for name, (forge, want) in cases.items():
+            with self.subTest(name):
+                got = self.outcome(**forge)
+                if got != want:
+                    self.fail(f"{MARKER} {name}: {got} != {want}")
+
+    @staticmethod
+    def member(table: str, index: int, name: str, text: str):
+        """A ``lines`` forgery replacing one member's JSON value text in one canonical record line."""
+        def edit(raw: dict) -> None:
+            record = json.loads(raw[table][index])
+            old = f'"{name}":' + json.dumps(record[name], sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+            if raw[table][index].count(old) != 1:
+                raise AssertionError(f"{table}[{index}] has no single member text {old!r}")
+            raw[table][index] = raw[table][index].replace(old, f'"{name}":{text}')
+        return edit
+
+    def test_lone_surrogates_in_record_members_are_malformed_records(self) -> None:
+        want = f"2:CONTEXT_RECORD_MALFORMED:{LONE}"
+        self.expect({
+            "high surrogate in a team member": ({"lines": self.member("teams", 0, "origin_location_name",
+                                                                      '"\\ud800"')}, want),
+            "low surrogate in a contest member": ({"lines": self.member("contests", 0, "venue_reference_name",
+                                                                        '"Venue \\udfff"')}, want),
+            "high surrogate in a stratum member": ({"lines": self.member("strata", 0, "reading", '"\\udbff"')}, want),
+            "reversed surrogate pair": ({"lines": self.member("teams", 1, "origin_location_name",
+                                                              '"\\ude00\\ud83d"')}, want),
+            "lone surrogate as a nested object value": ({"lines": self.member("witnesses", 0, "raw",
+                                                                              '{"bad":"\\udfff"}')}, want),
+            "lone surrogate as a nested object key": ({"lines": self.member("witnesses", 0, "raw",
+                                                                            '{"\\ud800":1}')}, want),
+        })
+
+    def test_excessive_record_nesting_is_a_malformed_record(self) -> None:
+        want = f"2:CONTEXT_RECORD_MALFORMED:{DEEP}"
+        self.expect({
+            "array nesting in a team member": ({"lines": self.member("teams", 0, "origin_location_name", DEEP_ARRAY)},
+                                               want),
+            "object nesting in a witness member": ({"lines": self.member("witnesses", 0, "raw", DEEP_OBJECT)}, want),
+            "array nesting in the census record": ({"lines": self.member("census", 0, "contests", DEEP_ARRAY)}, want),
+        })
+
+    def test_lone_surrogates_in_meta_claims_are_malformed_meta(self) -> None:
+        want = f"2:CONTEXT_META_MALFORMED:{LONE}"
+        self.expect({
+            "high surrogate in the inputs claim": ({"meta": {"inputs": '{"history":"\\ud800"}'}}, want),
+            "low surrogate as a nested source-clock key": ({"meta": {"source_clocks": '{"\\udfff":{"x":1}}'}}, want),
+            "high surrogate in the rules claim": ({"meta": {"rules": '{"distance":["\\udbff"]}'}}, want),
+        })
+
+    def test_excessive_meta_nesting_is_malformed_meta(self) -> None:
+        want = f"2:CONTEXT_META_MALFORMED:{DEEP}"
+        self.expect({
+            "array nesting in the inputs claim": ({"meta": {"inputs": DEEP_ARRAY}}, want),
+            "object nesting in the labels claim": ({"meta": {"labels": DEEP_OBJECT}}, want),
+        })
+
+    def test_excessive_manifest_nesting_is_a_malformed_manifest(self) -> None:
+        want = f"2:CONTEXT_MANIFEST_MALFORMED:{DEEP}"
+        self.expect({
+            "identity document member": ({"document": {"extra": "DEEP"},
+                                          "document_text": lambda t: t.replace('"DEEP"', DEEP_ARRAY)}, want),
+            "manifest member outside the identity document": ({"manifest_patch": {"provenance": "DEEP"},
+                                                               "manifest_text": lambda t: t.replace('"DEEP"',
+                                                                                                    DEEP_OBJECT)}, want),
+        })
+
+    def test_unencodable_record_members_never_escape_the_comparison(self) -> None:
+        want_record = self.derived["teams"][0]
+        deep: object = 0
+        for _ in range(100_000):
+            deep = [deep]
+        cases = {"lone high surrogate": ("\ud800", LONE), "lone low surrogate as a nested key": ({"\udfff": 1}, LONE),
+                 "nesting beyond the canonical encoder": (deep, DEEP)}
+        for name, (value, reason) in cases.items():
+            with self.subTest(name):
+                got = {**want_record, "origin_location_name": value}
+                try:
+                    gc.GameContext._compare("teams", [("forged line", got)], [gc.canonical_line(want_record)],
+                                            [want_record])
+                    outcome = "NOT_REFUSED"
+                except gc.ContextError as exc:
+                    outcome = f"{exc.code}:{reason if reason in str(exc) else '-'}"
+                except (UnicodeEncodeError, RecursionError) as exc:
+                    outcome = f"UNCAUGHT:{type(exc).__name__}"
+                if outcome != f"CONTEXT_RECORD_MALFORMED:{reason}":
+                    self.fail(f"{MARKER} {name}: {outcome}")
+
+    def test_genuine_unicode_and_ordinary_malformed_data_keep_their_rules(self) -> None:
+        geography = "2:CONTEXT_GEOGRAPHY_MISMATCH:-"
+        nested = "[" * 64 + '"x"' + "]" * 64
+        self.expect({
+            "ordinary wrong text": ({"lines": self.member("teams", 0, "origin_location_name", '"INVENTED_NAME"')},
+                                    geography),
+            "genuine BMP text": ({"lines": self.member("teams", 0, "origin_location_name", '"São José"')},
+                                 geography),
+            "genuine non-BMP text": ({"lines": self.member("teams", 0, "origin_location_name",
+                                                           '"Honolulu \U0001F33A"')}, geography),
+            "non-BMP text as an escaped surrogate pair": ({"lines": self.member("teams", 0, "origin_location_name",
+                                                                                '"Honolulu \\ud83c\\udf3a"')},
+                                                          geography),
+            "moderate nesting": ({"lines": self.member("teams", 0, "origin_location_name", nested)}, geography),
+            "non-JSON line": ({"lines": lambda raw: raw["teams"].__setitem__(0, "{not json")},
+                              "2:CONTEXT_RECORD_TYPE_INVALID:-"),
+            "lone surrogate in an identity member": ({"lines": self.member("contests", 1, "contest_key",
+                                                                           '"ncaa:1\\ud800"')},
+                                                     "2:CONTEXT_CONTEST_ROW_MISSING:-"),
+            "lone surrogate in the census line": ({"lines": self.member("census", 0, "contests", '"\\udfff"')},
+                                                  "2:CONTEXT_CENSUS_MISMATCH:-"),
+            "lone surrogate in the labels claim": ({"meta": {"labels": gc.canonical_line(gc.LABELS).replace(
+                '"PIT_NOT_ADMITTED"', '"PIT\\ud800"')}}, "2:CONTEXT_PIT_CLAIM_INVALID:-"),
+            "lone surrogate as the content identity": ({"meta": {"content_identity": '"\\ud800"'}},
+                                                       "2:CONTEXT_CONTENT_IDENTITY_MISMATCH:-"),
+            "lone surrogate in the identity document": ({"document": {"extra": "LONE"},
+                                                         "document_text": lambda t: t.replace('"LONE"',
+                                                                                              '"\\ud800"')},
+                                                        "2:CONTEXT_MANIFEST_MALFORMED:-"),
+            "genuine rehashed release": ({}, "0:None:-"),
+        })
+
+
 # --------------------------------------------------------------------------------------------- the genuine release
 
 class MountedGenuineContextTests(unittest.TestCase):

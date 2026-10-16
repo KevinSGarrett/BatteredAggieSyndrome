@@ -299,10 +299,13 @@ class Forger:
               lines: Callable[[dict[str, list[str]]], None] | None = None, meta: dict[str, Any] | None = None,
               document: dict[str, Any] | Callable[[dict[str, Any]], None] | None = None,
               after_blocks: list[tuple[str, tuple]] | None = None, identity_override: str | None = None,
-              manifest_patch: dict[str, Any] | None = None) -> Path:
+              manifest_patch: dict[str, Any] | None = None, document_text: Callable[[str], str] | None = None,
+              manifest_text: Callable[[str], str] | None = None) -> Path:
         """Copy, mutate and rehash. ``records`` edits the decoded record lists in place (blocks are rebuilt from
         canonical lines with consistent index columns); ``lines`` edits raw lines; ``meta`` replaces meta values;
-        ``document`` patches the identity document; ``after_blocks`` runs after the rebuild."""
+        ``document`` patches the identity document; ``after_blocks`` runs after the rebuild. ``document_text`` rewrites
+        the identity document's canonical JSON text (escapes or nesting no canonical encoder produces; the identity is
+        the SHA-256 of the rewritten text) and ``manifest_text`` the manifest's final JSON text."""
         work = self.root / name / "work.sqlite"
         work.parent.mkdir(parents=True)
         shutil.copyfile(self.database, work)
@@ -322,7 +325,7 @@ class Forger:
                 for line in chosen:
                     try:
                         value = json.loads(line)
-                    except ValueError:
+                    except (ValueError, RecursionError):
                         value = {}
                     parsed.append(value if isinstance(value, dict) else {})
                 data = "".join(l + "\n" for l in chosen).encode("utf-8")
@@ -348,13 +351,21 @@ class Forger:
             document(doc)
         else:
             doc.update(document or {})
-        identity = identity_override or gc.sha256_bytes(gc.canonical_json_bytes(doc))
+        doc_text = None if document_text is None else document_text(gc.canonical_line(doc))
+        identity = identity_override or gc.sha256_bytes(
+            gc.canonical_json_bytes(doc) if doc_text is None else doc_text.encode("utf-8"))
         target = self.root / name / "canonical" / POP / "sha256" / identity / gc.DB_FILE
         target.parent.mkdir(parents=True)
         shutil.move(str(work), str(target))
         man = self.root / name / "manifests" / POP / "sha256" / identity / "run_manifest.json"
         man.parent.mkdir(parents=True)
-        body = {"identity": identity, "identity_document": doc, "provenance": {"forgery": name}}
+        body = {"identity": identity, "identity_document": doc if doc_text is None else "IDENTITY_DOCUMENT_TEXT",
+                "provenance": {"forgery": name}}
         body.update(manifest_patch or {})
-        man.write_text(json.dumps(body), encoding="utf-8")
+        text = json.dumps(body)
+        if doc_text is not None:
+            text = text.replace('"IDENTITY_DOCUMENT_TEXT"', doc_text, 1)
+        if manifest_text is not None:
+            text = manifest_text(text)
+        man.write_text(text, encoding="utf-8")
         return target

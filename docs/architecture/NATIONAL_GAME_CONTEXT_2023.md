@@ -68,6 +68,16 @@ opened read-only and a missing file is never created. A literal local location b
 (a plain long spelling) is opened through its extended-length form and serves exactly what the short spelling serves;
 an SQLite open failure is refused as `CONTEXT_DATABASE_UNREADABLE` / `CONTEXT_INPUT_UNREADABLE`, never a traceback.
 
+Valid JSON in the release can still be malformed data: a string holding an escaped lone surrogate decodes but is not
+Unicode text (it cannot be encoded as UTF-8 for the exact canonical comparison), and nesting can exceed the JSON
+decoder or encoder depth. The boundary that read it refuses it with its own code -- `CONTEXT_RECORD_MALFORMED` (a block
+record), `CONTEXT_META_MALFORMED` (a meta claim) or `CONTEXT_MANIFEST_MALFORMED` (the run manifest) -- and the reason
+`JSON_LONE_SURROGATE` or `JSON_NESTING_TOO_DEEP`, never a traceback (the manifest's existing malformed rule already
+refused an unencodable identity document with the codec's own message). Genuine Unicode -- BMP or non-BMP, raw or as a
+valid escaped surrogate pair -- is ordinary text compared by its field's rule; a non-JSON record line stays
+`CONTEXT_RECORD_TYPE_INVALID`; a meta claim that is not JSON is refused by that claim's own rule; the census line is
+compared as raw text.
+
 Before any row is served the reader verifies the location, manifest identity, database bytes, schema, every meta claim,
 every pinned input under the data root, complete membership and multiplicity of every table, every record, the census,
 the content identity and the contract-defined database identity document (canonical bytes) against a complete
@@ -76,8 +86,8 @@ re-derivation. Refusal codes include `CONTEXT_INPUT_TAMPERED`, `CONTEXT_<TABLE>_
 `CONTEXT_PARTICIPANT_MISMATCH`, `CONTEXT_DATE_MISMATCH`, `CONTEXT_SITE_MISMATCH`, `CONTEXT_PROVIDER_CLAIM_MISMATCH`,
 `CONTEXT_GEOGRAPHY_MISMATCH`, `CONTEXT_DISTANCE_MISMATCH`, `CONTEXT_CALENDAR_MISMATCH`, `CONTEXT_SOURCE_CLOCK_MISMATCH`,
 `CONTEXT_PIT_CLAIM_INVALID`, `CONTEXT_MIRROR_DOUBLE_COUNT`, `CONTEXT_STRATA_PARTITION_INVALID`,
-`CONTEXT_RIDGE_PROBABILITY_INVENTED`, `CONTEXT_SCORE_METRIC_MISMATCH`, `CONTEXT_IDENTITY_DOCUMENT_MISMATCH` and
-`CONTEXT_IDENTITY_MISMATCH`.
+`CONTEXT_RIDGE_PROBABILITY_INVENTED`, `CONTEXT_SCORE_METRIC_MISMATCH`, `CONTEXT_IDENTITY_DOCUMENT_MISMATCH`,
+`CONTEXT_IDENTITY_MISMATCH`, `CONTEXT_RECORD_MALFORMED`, `CONTEXT_META_MALFORMED` and `CONTEXT_MANIFEST_MALFORMED`.
 
 ## Not claimed
 

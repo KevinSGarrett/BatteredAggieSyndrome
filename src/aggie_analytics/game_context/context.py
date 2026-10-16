@@ -53,7 +53,10 @@ The reader (:class:`GameContext`) refuses with a stable code unless the location
 bytes, the schema, every meta claim, the complete membership and multiplicity of every table, every record, the
 census, the content identity and the contract-defined database identity document equal what it re-derives from the
 pinned inputs. Identity documents compare as canonical bytes (13.0, booleans and extra members never equal the
-contract document). The query (:meth:`GameContext.query`) serves the contest-context, team-context, context-witness and
+contract document). Valid JSON that is malformed data -- an escaped lone surrogate (not Unicode text) or nesting beyond
+the JSON decoder/encoder depth -- in a block record, a meta claim or the run manifest is refused as
+CONTEXT_RECORD_MALFORMED, CONTEXT_META_MALFORMED or CONTEXT_MANIFEST_MALFORMED with its reason, never a traceback.
+The query (:meth:`GameContext.query`) serves the contest-context, team-context, context-witness and
 context-score-summary grains with exact intersecting selectors and paging; an unknown valid selection serves no row,
 the summary included; other seasons are reported as not yet audited.
 """
@@ -461,6 +464,32 @@ class ContextError(ValueError):
 
 def _refuse(code: str, message: str) -> None:
     raise ContextError(code, message)
+
+
+#: Malformed data at the reader's untrusted JSON boundaries -- the release's block records, its meta claims and its run
+#: manifest. Valid JSON there can still be malformed: a string holding an escaped lone surrogate decodes but is not
+#: Unicode text (it cannot be encoded as UTF-8 for the exact canonical comparison), and nesting can exceed the
+#: interpreter's JSON decoder or encoder depth. Each boundary refuses such data with its own stable code
+#: (CONTEXT_RECORD_MALFORMED, CONTEXT_META_MALFORMED, CONTEXT_MANIFEST_MALFORMED) and one of these reasons, never with a
+#: traceback; JSON syntax errors and genuine Unicode keep their existing rules.
+JSON_LONE_SURROGATE = "JSON_LONE_SURROGATE"
+JSON_NESTING_TOO_DEEP = "JSON_NESTING_TOO_DEEP"
+
+
+def _nesting_refusal(code: str, where: str) -> ContextError:
+    return ContextError(code, f"{where}: {JSON_NESTING_TOO_DEEP} (deeper than the JSON decoder or encoder accepts)")
+
+
+def _untrusted_canonical(value: Any, code: str, where: str) -> bytes:
+    """The canonical UTF-8 bytes of a value decoded from the release, for an exact comparison; a string holding a lone
+    surrogate or nesting beyond the encoder's depth is malformed data refused with ``code``."""
+    try:
+        return canonical_json_bytes(value)
+    except UnicodeEncodeError as exc:
+        raise ContextError(code, f"{where}: {JSON_LONE_SURROGATE} (U+{ord(exc.object[exc.start]):04X} is not Unicode "
+                                 "text)") from exc
+    except RecursionError as exc:
+        raise _nesting_refusal(code, where) from exc
 
 
 #: Natural grains, record keys, ordering, payloads, database layout and the exact identity documents.
@@ -1683,6 +1712,8 @@ class GameContext:
             computed = sha256_bytes(canonical_json_bytes(identity_document))
         except (OSError, ValueError, KeyError, TypeError) as exc:
             raise ContextError("CONTEXT_MANIFEST_MALFORMED", str(exc)) from exc
+        except RecursionError as exc:
+            raise _nesting_refusal("CONTEXT_MANIFEST_MALFORMED", "run manifest") from exc
         if computed != identity or doc.get("identity") != identity:
             _refuse("CONTEXT_IDENTITY_MISMATCH", f"manifest identity document hashes to {computed}, directory is "
                                                  f"{identity}, the manifest names {doc.get('identity')!r}")
@@ -1718,17 +1749,20 @@ class GameContext:
             _refuse("CONTEXT_SCHEMA_UNSUPPORTED", f"schema {meta.get('schema_version')!r}")
         if meta.get("contract_sha256") != a["contract_sha256"] or meta.get("contract_id") != a["contract_id"]:
             _refuse("CONTEXT_CONTRACT_MISMATCH", "the release meta names another contract")
-        claims = {name: _json_or_none(meta.get(name)) for name in ("inputs", "source_clocks", "labels", "rules")}
+        claims = {name: _json_or_none(meta.get(name), name) for name in ("inputs", "source_clocks", "labels", "rules")}
         if claims["labels"] != LABELS:
             labels = claims["labels"] if isinstance(claims["labels"], dict) else {}
             code = ("CONTEXT_PIT_CLAIM_INVALID" if labels.get("pit_eligibility") != LABELS["pit_eligibility"] or
                     labels.get("temporal_basis") != LABELS["temporal_basis"] else "CONTEXT_LABEL_CLAIM_INVALID")
             _refuse(code, "the release declares labels other than the contract's")
-        if canonical_json_bytes(claims["inputs"]) != canonical_json_bytes(inputs_claim(a)):
+        if _untrusted_canonical(claims["inputs"], "CONTEXT_META_MALFORMED", "meta inputs") != \
+                canonical_json_bytes(inputs_claim(a)):
             _refuse("CONTEXT_PARENT_MISMATCH", "the release was built from other inputs")
-        if canonical_json_bytes(claims["source_clocks"]) != canonical_json_bytes(a["source_clocks"]):
+        if _untrusted_canonical(claims["source_clocks"], "CONTEXT_META_MALFORMED", "meta source_clocks") != \
+                canonical_json_bytes(a["source_clocks"]):
             _refuse("CONTEXT_SOURCE_CLOCK_MISMATCH", "the release declares other source clocks")
-        if canonical_json_bytes(claims["rules"]) != canonical_json_bytes(rules_document()):
+        if _untrusted_canonical(claims["rules"], "CONTEXT_META_MALFORMED", "meta rules") != \
+                canonical_json_bytes(rules_document()):
             _refuse("CONTEXT_RULES_CLAIM_INVALID", "the release declares other rules")
         counts = {table: self.conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0] for table in TABLES}
         # value equality keeps a fractional, string or boolean count here; an integral float count is equal by value
@@ -1802,6 +1836,8 @@ class GameContext:
                     record = json.loads(line)
                 except ValueError as exc:
                     raise ContextError("CONTEXT_RECORD_TYPE_INVALID", f"block {ord_} holds a non-JSON line") from exc
+                except RecursionError as exc:
+                    raise _nesting_refusal("CONTEXT_RECORD_MALFORMED", f"block {ord_} ({table})") from exc
                 if not isinstance(record, dict):
                     _refuse("CONTEXT_RECORD_TYPE_INVALID", f"block {ord_} holds a non-object line")
                 for name in IDENTITY_MEMBERS[table]:
@@ -1868,9 +1904,14 @@ class GameContext:
         for (line, got), want_line, want in zip(present, expected, wanted_records):
             if line == want_line:
                 continue
+            # every present member is encoded once, in member order, before any difference is classified: a member that
+            # cannot be compared canonically is a malformed record, whichever other member also differs
+            where = f"{table} {record_key(table, want)}"
+            got_bytes = {f: _untrusted_canonical(got[f], "CONTEXT_RECORD_MALFORMED", f"{where} member {f!r}")
+                         for f in sorted(got)}
             differing = {f for f in set(want) | set(got)
-                         if f not in want or f not in got or canonical_json_bytes(got[f]) != canonical_json_bytes(want[f])}
-            _refuse(_field_code(differing), f"{table} {record_key(table, want)} differs on {sorted(differing)[:6]}")
+                         if f not in want or f not in got or got_bytes[f] != canonical_json_bytes(want[f])}
+            _refuse(_field_code(differing), f"{where} differs on {sorted(differing)[:6]}")
 
     def close(self) -> None:
         self.conn.close()
@@ -2004,8 +2045,12 @@ class GameContext:
         return True
 
 
-def _json_or_none(text: Any) -> Any:
+def _json_or_none(text: Any, name: str = "") -> Any:
+    """A meta claim's JSON value, or None when it is not JSON text (the claim's own rule then refuses it); nesting beyond
+    the decoder's depth is malformed meta (CONTEXT_META_MALFORMED)."""
     try:
         return json.loads(text) if isinstance(text, (str, bytes)) else None
     except ValueError:
         return None
+    except RecursionError as exc:
+        raise _nesting_refusal("CONTEXT_META_MALFORMED", f"meta {name}") from exc

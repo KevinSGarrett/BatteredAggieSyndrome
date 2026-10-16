@@ -465,6 +465,13 @@
         "head_sha": "f50181aab9c40812cbfb91bef867dc960a04f167",
         "classification": "[material]",
         "reason": "Dependabot PR #696 changed the product, data, model, numeric and retired-assistive dependency declarations in pyproject.toml, a runtime behavior change, but its generated subject omitted the required material marker. The manager narrowed the runtime change in a forward commit. Preserve this original commit and classify its actual dependency change; this exact-SHA correction grants no dependency acceptance or scientific admission."
+      },
+      {
+        "commit_sha": "6f9c7cc3e74dc0a019477b80675a48a9225a489f",
+        "pull_request": 718,
+        "head_sha": "c13645d9d23d1972370d1565fe89b35929a3f4be",
+        "classification": "[material]",
+        "reason": "Manager supplied an unclassified squash subject for the independently accepted material C58 context implementation on PR718. Exact immutable integration SHA correction only; original commit/history/failed hosted receipts are preserved. No classifier, limit, scientific source, data or review-control change."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

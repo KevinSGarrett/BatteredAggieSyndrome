@@ -458,6 +458,28 @@ class QueryTests(World):
         finally:
             os.chdir(cwd)
 
+    def test_a_junction_location_serves_identically(self) -> None:
+        """A directory junction (Windows; a directory symlink elsewhere) naming the identity directories is a
+        legitimate local spelling of the same release files."""
+        want = self.serve("--grain", "station-year", "--all")[1]
+        identity = self.result["database_identity"]
+        root = self.base / "junction-root"
+        for kind in ("canonical", "manifests"):
+            link = root / kind / fx.POP / "sha256" / identity
+            link.parent.mkdir(parents=True)
+            target = self.base / "o" / kind / fx.POP / "sha256" / identity
+            if os.name == "nt":
+                import _winapi  # noqa: PLC0415 - Windows CPython; the junction is the spelling under test
+                _winapi.CreateJunction(str(target), str(link))
+                self.addCleanup(os.rmdir, link)
+            else:
+                os.symlink(target, link, target_is_directory=True)
+                self.addCleanup(os.unlink, link)
+        db = root / "canonical" / fx.POP / "sha256" / identity / we.DB_FILE
+        code, doc, err = self.serve("--grain", "station-year", "--all", database=db)
+        self.assertEqual(code, 0, err)
+        self.assertEqual((doc["rows"], doc["release_identity"]), (want["rows"], want["release_identity"]))
+
     def test_the_module_front_matches_the_function_front(self) -> None:
         argv = ["--database", str(self.db), "--grain", "contest-weather", "--station", fx.S1]
         script = ("import json,sys;from aggie_analytics.weather_evidence import query as q;"

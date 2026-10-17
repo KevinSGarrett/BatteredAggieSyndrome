@@ -94,8 +94,10 @@ meta claim, every record's exact members and JSON types, the complete expected c
 the records can re-derive (raw-row decoding, duplicate ranking, candidate order, distances and the tie rule,
 discrepancies, reasons and meanings, relations and associations, transplants, clocks, labels and the census), the
 rebuilt content document, the contract-defined database identity document and the pinned canonical profile. A
-coordinated rehash of changed records the reader cannot re-derive (a raw row hash) is refused only by the pinned profile
-(`WEATHER_PROFILE_MISMATCH`). Lone surrogates, excessive nesting, NaN, Infinity and oversized numbers are refused at
+coordinated rehash of changed records the reader cannot re-derive is refused only by the pinned profile
+(`WEATHER_PROFILE_MISMATCH`): a raw-row hash, or a comparison of an original pilot field with a build input the release
+does not carry (the current-catalog venue fields, the candidate station metadata, the venue-to-station distance), which
+the builder checks against the pinned inputs. Lone surrogates, excessive nesting, NaN, Infinity and oversized numbers are refused at
 their decoding boundary (`WEATHER_RECORD_MALFORMED`, `WEATHER_META_MALFORMED`, `WEATHER_MANIFEST_MALFORMED`), never a
 traceback.
 

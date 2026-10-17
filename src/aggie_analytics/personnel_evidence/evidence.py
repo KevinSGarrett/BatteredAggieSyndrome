@@ -70,6 +70,7 @@ import os
 import random
 import re
 import sqlite3
+import sys
 import zlib
 from pathlib import Path
 from typing import Any, Iterable
@@ -565,6 +566,10 @@ def _untrusted_canonical(value: Any, code: str, where: str) -> bytes:
 
 JSON_NONFINITE_NUMBER = "JSON_NONFINITE_NUMBER"
 JSON_INTEGER_TOO_LONG = "JSON_INTEGER_TOO_LONG"
+#: The least integer magnitude with no finite binary64 value: the largest finite double (2**1024 - 2**971) plus half its
+#: last unit rounds up to 2**1024, so ``float()`` raises OverflowError from here up. JSON decodes integers exactly, so a
+#: record total the reader converts to binary64 is checked against this bound before the conversion (MF59A01-01).
+BINARY64_INTEGER_BOUND = 2 ** 1024 - 2 ** 970
 
 
 class _InvalidNumber(ValueError):
@@ -583,9 +588,11 @@ def _no_constant(text: str) -> Any:
 
 
 def loads_untrusted(text: Any, code: str, where: str, non_json_code: str | None = None) -> Any:
-    """Decode JSON from the release: NaN, Infinity, a number beyond binary64 range and an integer beyond the
+    """Decode JSON from the release: NaN, Infinity, a float literal beyond binary64 range and an integer beyond the
     interpreter's digit limit are malformed data refused with ``code`` and their reason (never accepted, never a
-    traceback); other syntax errors are refused with ``non_json_code`` (default ``code``)."""
+    traceback); other syntax errors are refused with ``non_json_code`` (default ``code``). Integers within the digit
+    limit decode exactly; one the reader later converts to binary64 is checked against
+    :data:`BINARY64_INTEGER_BOUND` where it converts."""
     try:
         return json.loads(text, parse_float=_finite_float, parse_constant=_no_constant)
     except _InvalidNumber as exc:
@@ -869,8 +876,19 @@ def share(numerator: int, denominator: int) -> float | None:
 
 
 def _org_sort(team_key: str) -> tuple[int, str]:
+    """The contract order of program keys: the decimal value of the ``org:<digits>`` body, then the key itself.
+
+    The reader orders untrusted keys before their program grammar is checked, so the numeric domain is validated
+    before the conversion (MF59A01-01): a body is read as a number only when ``int()`` reads it exactly -- decimal
+    digits (``str.isdecimal``) no longer than the interpreter's integer string conversion limit. Any other body (a
+    superscript or circled digit, which ``str.isdigit`` admits but ``int()`` refuses, a digit run beyond the limit,
+    or no digit at all) sorts after every numeric body, as a non-digit body always has, so the collection order and the
+    program grammar refuse it by their own codes. Every key ``int()`` could read keeps its position."""
     body = team_key.split(":", 1)[-1]
-    return (int(body), team_key) if body.isdigit() else (10 ** 13, team_key)
+    limit = sys.get_int_max_str_digits()
+    if body.isdecimal() and (limit == 0 or len(body) <= limit):
+        return (int(body), team_key)
+    return (10 ** 13, team_key)
 
 
 # --------------------------------------------------------------------------------------------- input qualification
@@ -2041,6 +2059,12 @@ class PersonnelEvidence:
             semantics = BOUNDED_SEMANTICS if pair in BOUNDED_COUNT_PAIRS else SIGNED_SEMANTICS
             if c["ratio_semantics"] != semantics:
                 _refuse("PERSONNEL_RATIO_SEMANTICS_INVALID", f"{where}: {c['ratio_semantics']!r}")
+            if c["prior_total"] > 0:  # the share converts both totals to binary64 (a non-positive one never converts)
+                for field in ("returning_total", "prior_total"):
+                    if not -BINARY64_INTEGER_BOUND < c[field] < BINARY64_INTEGER_BOUND:
+                        _refuse("PERSONNEL_RECORD_MALFORMED", f"{where}: {field} {JSON_NONFINITE_NUMBER} (a "
+                                                              f"{c[field].bit_length()}-bit integer has no finite "
+                                                              "binary64 value)")
             value = share(c["returning_total"], c["prior_total"])
             if c["prior_total"] <= 0 and c["returning_share"] is not None:
                 _refuse("PERSONNEL_ZERO_DENOMINATOR_SHARE", f"{where}: a share over a recorded non-positive "

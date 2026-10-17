@@ -1,7 +1,8 @@
 # National personnel evidence 2004–2022 (BAT-730, Cycle #59 TP59-A01)
 
 Cycle #59 — Work round #1 — ORIGINAL DELIVERY (canonical Cycle #59 — Attempt #1). Bounded contribution to BAT-411 and
-BAT-415; it does not complete either.
+BAT-415; it does not complete either. Cycle #59 — Work round #2 — FIRST REPAIR (C59-CONT-01, MF59A01-01) adds the
+reader's numeric and program-key domain checks described under Query; no rule, record or identity changed.
 
 ## What it is
 
@@ -83,9 +84,16 @@ re-derive (returning sets, rates and shares, component and summary links, census
 states, chain links and exact namespace, duplicate diagnoses, witnesses and the census), the rebuilt content document,
 the contract-defined database identity document and the pinned canonical profile. A coordinated rehash of changed
 records is internally consistent and is refused only by the pinned profile (`PERSONNEL_PROFILE_MISMATCH`). Escaped
-lone surrogates, excessive nesting, NaN, Infinity, numbers beyond binary64 and integers beyond the digit limit are
-refused at their boundary (`PERSONNEL_RECORD_MALFORMED`, `PERSONNEL_META_MALFORMED`, `PERSONNEL_MANIFEST_MALFORMED`),
-never a traceback. The refusal catalogue is part of the contract rules.
+lone surrogates, excessive nesting, NaN, Infinity, float literals beyond binary64 and integers beyond the digit limit
+are refused at their decoding boundary (`PERSONNEL_RECORD_MALFORMED`, `PERSONNEL_META_MALFORMED`,
+`PERSONNEL_MANIFEST_MALFORMED`), never a traceback. JSON integers otherwise decode exactly and are compared by their
+field's rule; where the reader converts one, the domain is checked first: a returning-component total the binary64
+share would convert (its denominator positive) that has no finite binary64 value (magnitude at least
+2**1024 - 2**970) is `PERSONNEL_RECORD_MALFORMED` with `JSON_NONFINITE_NUMBER`, and a program key whose body is not a
+decimal digit string within the integer conversion limit (a superscript or circled digit, an oversized digit run) is
+ordered after every numeric key, so the collection order (`PERSONNEL_ORDER_MISMATCH`) or the program grammar
+(`PERSONNEL_KEY_MISMATCH`) refuses it, as it always refused a non-digit key. The refusal catalogue is part of the
+contract rules.
 
 ## Not claimed
 

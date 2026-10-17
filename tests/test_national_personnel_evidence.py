@@ -1,6 +1,6 @@
 """BAT-730 national personnel evidence 2004-2022 (Cycle #59 TP59-A01): contract, input qualification, the six grains,
 independent returning-production reconstruction, determinism, the installed query front, coordinated forgeries and
-valid controls, and malformed JSON boundaries.
+valid controls, malformed JSON boundaries, and the reader's numeric and program-key domains (MF59A01-01).
 
 The tiny world is built once per module through the real input formats (see ``personnel_evidence_fixture``)."""
 from __future__ import annotations
@@ -678,6 +678,149 @@ class MalformedJsonBoundaryTests(ForgingWorld):
         self.assertEqual(self.refused(self.forge(manifest_text=lambda text: text[:-1])), "PERSONNEL_MANIFEST_MALFORMED")
         self.assertEqual(self.refused(self.forge(manifest_text=lambda text: text.replace(
             '"identity_document":', '"identity_document":{"x":"\\udc80"},"q":', 1))), "PERSONNEL_MANIFEST_MALFORMED")
+
+
+# --------------------------------------------------------------------------------------------- numeric and key domains
+
+#: The least integer magnitude ``float()`` cannot convert (independent of the reader's own constant).
+OVERFLOW = 2 ** 1024 - 2 ** 970
+SUPERSCRIPT_TWO, CIRCLED_ONE = "²", "①"
+ARABIC_INDIC = str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩")
+
+
+class NumericAndKeyDomainTests(ForgingWorld):
+    """MF59A01-01: untrusted values reaching an unsafe conversion -- a returning-component total the binary64 share
+    converts, a program-key body the collection order converts -- refuse by their own rule (exit 2, one structured
+    code, no traceback); adjacent values keep their existing codes and the genuine release is served."""
+
+    MARK = "MF59A01-01"
+
+    def outcome(self, path: Path) -> tuple[object, str | None, str]:
+        """(exit, refusal code, stderr) of the query front; an exception escaping the front is the defect itself and
+        is reported as a value, so the assertions below fail rather than error."""
+        try:
+            code, _doc, err = fx.query(self.anchors, path, "--grain", "returning-component", "--limit", "1")
+        except (OverflowError, ValueError) as exc:  # a PersonnelError never escapes main(): it exits 2 there
+            return "UNCAUGHT " + type(exc).__name__, None, str(exc)[:200]
+        return code, fx.refusal(err), err
+
+    def assert_refused(self, path: Path, code: str, reason: str | None = None) -> None:
+        got, refused, err = self.outcome(path)
+        self.assertEqual((got, refused), (2, code), f"{self.MARK}: {err[-300:]}")
+        self.assertNotIn("Traceback", err, self.MARK)
+        if reason:
+            self.assertIn(reason, err, self.MARK)
+
+    def converting(self) -> dict:
+        return next(c for c in self.records["components"] if c["prior_total"] > 0 and c["returning_share"] is not None
+                    and 0.0 <= c["returning_share"] <= 1.0)
+
+    def total(self, **values) -> Path:
+        key = self.converting()["component_key"]
+        return self.forge(records=lambda t: self.first(t, "components", component_key=key).update(values))
+
+    def program_key(self, position: int, team_key) -> Path:
+        """The program-season at ``position`` (0 first, -1 last) of the season with the most program-seasons."""
+        seasons: dict[int, list[dict]] = {}
+        for p in self.records["program_seasons"]:
+            seasons.setdefault(p["season"], []).append(p)
+        rows = max(seasons.values(), key=len)
+        key = rows[position]["program_season_key"]
+        self.assertGreater(len(rows), 2)
+        return self.forge(records=lambda t: self.first(t, "program_seasons", program_season_key=key).update(
+            team_key=team_key))
+
+    def test_component_totals_beyond_binary64_are_malformed_records(self) -> None:
+        cases = {"numerator at the overflow bound": {"returning_total": OVERFLOW},
+                 "negative numerator at the bound": {"returning_total": -OVERFLOW},
+                 "numerator 10**400": {"returning_total": 10 ** 400},
+                 "negative numerator 10**400": {"returning_total": -(10 ** 400)},
+                 "numerator at the decoder digit limit": {"returning_total": 10 ** 4299},
+                 "denominator at the overflow bound": {"prior_total": OVERFLOW},
+                 "denominator 10**400": {"prior_total": 10 ** 400},
+                 "both totals 10**400": {"returning_total": 10 ** 400, "prior_total": 10 ** 400}}
+        for name, values in cases.items():
+            with self.subTest(name):
+                self.assert_refused(self.total(**values), "PERSONNEL_RECORD_MALFORMED", "JSON_NONFINITE_NUMBER")
+
+    def test_program_keys_outside_the_decimal_domain_reach_their_rules(self) -> None:
+        cases = {"superscript digit first": (0, f"org:{SUPERSCRIPT_TWO}", "PERSONNEL_ORDER_MISMATCH"),
+                 "circled digit first": (0, f"org:{CIRCLED_ONE}", "PERSONNEL_ORDER_MISMATCH"),
+                 "5000 digits first": (0, "org:" + "1" * 5000, "PERSONNEL_ORDER_MISMATCH"),
+                 "one digit past the conversion limit first": (0, "org:" + "1" * 4301, "PERSONNEL_ORDER_MISMATCH"),
+                 "superscript digit last (the program grammar)": (-1, f"org:{SUPERSCRIPT_TWO}",
+                                                                  "PERSONNEL_KEY_MISMATCH"),
+                 "5000 digits last (the program grammar)": (-1, "org:" + "9" * 5000, "PERSONNEL_KEY_MISMATCH")}
+        for name, (position, team_key, code) in cases.items():
+            with self.subTest(name):
+                self.assert_refused(self.program_key(position, team_key), code)
+
+    def test_adjacent_numeric_values_keep_their_codes(self) -> None:
+        zero = next(c for c in self.records["components"] if c["prior_total"] == 0)
+        conv = self.converting()
+        cases = {
+            "numerator one below the bound": (self.total(returning_total=OVERFLOW - 1), "PERSONNEL_RATIO_CLIPPED"),
+            "negative numerator one below the bound": (self.total(returning_total=-(OVERFLOW - 1)),
+                                                       "PERSONNEL_RATIO_CLIPPED"),
+            "wrong ordinary numerator": (self.total(returning_total=1234567), "PERSONNEL_RATIO_CLIPPED"),
+            "negative denominator beyond the bound (never converted)": (self.total(prior_total=-OVERFLOW),
+                                                                        "PERSONNEL_ZERO_DENOMINATOR_SHARE"),
+            "numerator beyond the bound over a zero denominator (never converted)": (self.forge(
+                records=lambda t: self.first(t, "components", component_key=zero["component_key"]).update(
+                    returning_total=10 ** 400)), "PERSONNEL_ORIGINAL_IDENTITY_MISMATCH"),
+            "integral float denominator": (self.total(prior_total=1.0), "PERSONNEL_FIELD_TYPE_INVALID"),
+            "boolean numerator": (self.total(returning_total=True), "PERSONNEL_FIELD_TYPE_INVALID"),
+            "nested numerator": (self.total(returning_total=[10 ** 400]), "PERSONNEL_FIELD_TYPE_INVALID"),
+            "string numerator": (self.total(returning_total="1"), "PERSONNEL_FIELD_TYPE_INVALID"),
+            "float literal beyond binary64": (self.forge(lines=lambda raw: raw["components"].__setitem__(
+                0, raw["components"][0].replace('"returning_share":', '"returning_share":1e999,"z":', 1))),
+                "PERSONNEL_RECORD_MALFORMED"),
+            "integer beyond the decoder digit limit": (self.forge(lines=lambda raw: raw["components"].__setitem__(
+                0, raw["components"][0].replace('"returning_total":', '"returning_total":' + "9" * 4301 + ',"z":',
+                                                1))), "PERSONNEL_RECORD_MALFORMED"),
+            "huge integer in a field never converted": (self.forge(records=lambda t: t["memberships"][0].update(
+                source_row_number=10 ** 400)), "PERSONNEL_CONTENT_IDENTITY_MISMATCH"),
+        }
+        self.assertGreater(conv["prior_total"], 0)
+        for name, (path, code) in cases.items():
+            with self.subTest(name):
+                self.assert_refused(path, code)
+
+    def test_adjacent_program_keys_keep_their_codes(self) -> None:
+        seasons: dict[int, list[dict]] = {}
+        for p in self.records["program_seasons"]:
+            seasons.setdefault(p["season"], []).append(p)
+        body = max(seasons.values(), key=len)[0]["team_key"].split(":", 1)[1]
+        cases = {"non-digit body": (0, "org:x", "PERSONNEL_ORDER_MISMATCH"),
+                 "zero body": (0, "org:0", "PERSONNEL_KEY_MISMATCH"),
+                 "Arabic-Indic digits of the same value": (0, "org:" + body.translate(ARABIC_INDIC),
+                                                           "PERSONNEL_KEY_MISMATCH"),
+                 "leading zeros beyond twelve digits": (0, "org:" + "0" * 13 + body, "PERSONNEL_KEY_MISMATCH"),
+                 "exactly the conversion limit": (0, "org:" + "1" * 4300, "PERSONNEL_ORDER_MISMATCH"),
+                 "no namespace prefix": (0, body, "PERSONNEL_KEY_MISMATCH"),
+                 "integer key": (0, 101, "PERSONNEL_FIELD_TYPE_INVALID"),
+                 "nested key": (0, [f"org:{body}"], "PERSONNEL_FIELD_TYPE_INVALID"),
+                 "null key": (0, None, "PERSONNEL_FIELD_TYPE_INVALID")}
+        for name, (position, team_key, code) in cases.items():
+            with self.subTest(name):
+                self.assert_refused(self.program_key(position, team_key), code)
+        for program in (SUPERSCRIPT_TWO, CIRCLED_ONE, "1" * 5000, body.translate(ARABIC_INDIC), f"org:{body}²"):
+            with self.subTest(selector=program[:24]):
+                self.assertEqual(self.serve("--grain", "program-season-coverage", "--program", program)[2],
+                                 "PROGRAM_INVALID")
+
+    def test_genuine_release_keeps_unicode_signed_ratios_null_and_partial_states(self) -> None:
+        code, doc, refused = self.serve("--grain", "returning-component", "--all")
+        self.assertEqual((code, refused, doc["rows"]), (0, None, self.records["components"]))
+        self.assertTrue(any(c["returning_share"] is not None and c["returning_share"] > 1.0 for c in doc["rows"]))
+        self.assertTrue(any(c["prior_total"] == 0 and c["returning_share"] is None for c in doc["rows"]))
+        code, doc, _r = self.serve("--grain", "program-season-coverage", "--all")
+        self.assertEqual(doc["rows"], self.records["program_seasons"])
+        self.assertEqual([p["program_season_key"] for p in doc["rows"]],
+                         sorted((p["program_season_key"] for p in doc["rows"]),
+                                key=lambda k: (int(k.split("|")[0]), int(k.split(":")[1]))))
+        renamed = self.forge(records=lambda t: t["program_seasons"][0].update(team_names=["São José ☃"]))
+        self.assert_refused(renamed, "PERSONNEL_CONTENT_IDENTITY_MISMATCH")
 
 
 # --------------------------------------------------------------------------------------------- the genuine release

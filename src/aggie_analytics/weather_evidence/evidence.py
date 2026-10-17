@@ -46,7 +46,8 @@ Observation rules (the frozen pilot contract's rules, restated and reproduced fr
 chosen fields): a station-year file must hold only its station and calendar year; TMP/DEW (tenths of a degree Celsius,
 sentinel +9999), SLP (tenths of a hectopascal, sentinel 99999), VIS (metres, sentinel 999999) and WND (direction degrees
 with sentinel 999; speed tenths of a metre per second with sentinel 9999) decode to null at a sentinel, an empty or a
-non-integer value, keeping the raw string and the quality code; precipitation AA groups stay raw text (never an hourly
+non-integer value, keeping the raw string and the quality code; a scaled integer without a finite binary64 value has no
+decode and is refused (``WEATHER_DECODE_MISMATCH``); precipitation AA groups stay raw text (never an hourly
 total). Among rows sharing a timestamp the row with the most decoded common fields wins, then the lower report type,
 source code and row number. The before candidate is the latest observation at or before the association clock, the
 after candidate the earliest at or after it (one row when exactly equal), and the nearest is the before candidate when
@@ -656,24 +657,43 @@ def station_file_id(station_id: str) -> str:
     return "".join(parts)
 
 
-def _scaled(raw: str, sentinel: str, divisor: float) -> tuple[float | None, str]:
+#: The least integer magnitude without a finite binary64 value: the largest finite double (2**1024 - 2**971) plus half its
+#: last unit rounds up to 2**1024, so converting a decoded raw integer to binary64 raises OverflowError from here up. A
+#: scaled raw field (TMP, DEW, VIS, SLP, WND speed) at or beyond it has no decode under the frozen rules: the decoding
+#: boundary refuses it (C60-CONT-01, MF60A01-01) instead of letting the conversion overflow.
+BINARY64_INTEGER_BOUND = 2 ** 1024 - 2 ** 970
+
+
+def _binary64_scaled(value: int, divisor: float, name: str, where: str) -> float:
+    """``value / divisor`` for a decoded raw integer. An integer with no finite binary64 value cannot be the decoded
+    value of any record, so it is refused as a raw decoding mismatch (``WEATHER_DECODE_MISMATCH``), never converted."""
+    if not -BINARY64_INTEGER_BOUND < value < BINARY64_INTEGER_BOUND:
+        _refuse("WEATHER_DECODE_MISMATCH", f"{where}: raw {name} is a {value.bit_length()}-bit integer with no finite "
+                                           "binary64 value")
+    return value / divisor
+
+
+def _scaled(raw: str, sentinel: str, divisor: float, name: str, where: str) -> tuple[float | None, str]:
     parts = str(raw or "").split(",")
     value_text = parts[0] if parts else ""
     quality = parts[1] if len(parts) > 1 else ""
     if not value_text or value_text in (sentinel, f"+{sentinel}", f"-{sentinel}"):
         return None, quality
     try:
-        return int(value_text) / divisor, quality
+        value = int(value_text)
     except ValueError:
         return None, quality
+    return _binary64_scaled(value, divisor, name, where), quality
 
 
-def decode_row(fields: dict[str, str], row_number: int | None) -> dict[str, Any]:
-    """The decoded observation of one raw row (the frozen pilot decoding; plain Python)."""
-    temperature, temperature_quality = _scaled(fields.get("TMP"), "9999", 10.0)
-    dew_point, dew_point_quality = _scaled(fields.get("DEW"), "9999", 10.0)
-    visibility, visibility_quality = _scaled(fields.get("VIS"), "999999", 1.0)
-    pressure, pressure_quality = _scaled(fields.get("SLP"), "99999", 10.0)
+def decode_row(fields: dict[str, str], row_number: int | None, where: str | None = None) -> dict[str, Any]:
+    """The decoded observation of one raw row (the frozen pilot decoding; plain Python). A scaled value whose integer
+    has no finite binary64 value is refused (``WEATHER_DECODE_MISMATCH``); ``where`` names the row in that refusal."""
+    where = where or f"raw row {row_number}"
+    temperature, temperature_quality = _scaled(fields.get("TMP"), "9999", 10.0, "TMP", where)
+    dew_point, dew_point_quality = _scaled(fields.get("DEW"), "9999", 10.0, "DEW", where)
+    visibility, visibility_quality = _scaled(fields.get("VIS"), "999999", 1.0, "VIS", where)
+    pressure, pressure_quality = _scaled(fields.get("SLP"), "99999", 10.0, "SLP", where)
     wind = str(fields.get("WND") or "").split(",")
     direction = speed = None
     if len(wind) >= 4:
@@ -684,9 +704,10 @@ def decode_row(fields: dict[str, str], row_number: int | None) -> dict[str, Any]
                 direction = None
         if wind[3] and wind[3] != "9999":
             try:
-                speed = int(wind[3]) / 10.0
+                speed_value = int(wind[3])
             except ValueError:
-                speed = None
+                speed_value = None
+            speed = None if speed_value is None else _binary64_scaled(speed_value, 10.0, "WND speed", where)
     precipitation = {key: value for key, value in sorted(fields.items()) if key.startswith("AA") and value}
     decoded = sum(v is not None for v in (temperature, dew_point, visibility, pressure, direction, speed))
     return {"observed_at_utc": utc_text(parse_utc(str(fields.get("DATE") or ""))),
@@ -2132,7 +2153,9 @@ class WeatherEvidence:
                 any(c not in station["header_columns"] for c in fields):
             _refuse("WEATHER_WITNESS_MISMATCH", f"row witness {key} raw columns {extra or sorted(fields)[:4]}")
         try:
-            decoded = decode_row(fields, w["source_row_number"])
+            decoded = decode_row(fields, w["source_row_number"], f"row witness {key}")
+        except WeatherError:
+            raise  # a scaled raw integer without a finite binary64 value: refused by the decoding boundary itself
         except (ValueError, TypeError) as exc:
             raise WeatherError("WEATHER_DECODE_MISMATCH", f"row witness {key} raw DATE does not decode: {exc}") from exc
         for name, _code in OBSERVATION_FIELDS:

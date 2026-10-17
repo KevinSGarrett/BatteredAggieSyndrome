@@ -3,6 +3,10 @@
 Cycle #60 — Work round #1 — ORIGINAL DELIVERY (canonical Cycle #60 — Attempt #1). Bounded contribution to BAT-417 and
 BAT-419; it does not complete either.
 
+**Cycle #60 — Work round #2 — FIRST REPAIR** (C60-CONT-01, MF60A01-01): the raw decoding boundary refuses a scaled raw
+integer that has no finite binary64 value (below). No rule, contract, profile, record, identity or served answer
+changes.
+
 ## What it is
 
 One immutable, create-only, content-addressed release of the complete retained 2024 observed-weather evidence, served
@@ -40,9 +44,14 @@ import no third-party package). Every decode, ranking, selection, join and rule 
 
 TMP/DEW are tenths of a degree Celsius (sentinel `+9999`), SLP tenths of a hectopascal (`99999`), VIS metres
 (`999999`), WND direction degrees (`999`) and speed tenths of a metre per second (`9999`); a sentinel, empty or
-non-integer value decodes to null with its raw string and quality code kept. Calm (`C`, speed `0000`) and variable
-(`999`/`V`) wind keep their raw type. AA precipitation groups stay raw text (never an hourly total). Among rows sharing a
-timestamp the row with the most decoded common fields wins, then the lower report type, source code and row number.
+non-integer value decodes to null with its raw string and quality code kept. A scaled integer (TMP, DEW, VIS, SLP or
+the WND speed) whose magnitude is at least 2^1024 − 2^970 has no finite binary64 value and so no decode: it is refused
+at the decoding boundary (`WEATHER_DECODE_MISMATCH`, naming the row and field), never converted and never null. One
+below that bound still converts; a value beyond the interpreter's 4,300-digit integer limit is not an integer to the
+frozen decoding and stays null; the WND direction is an exact integer that is never converted. Calm (`C`, speed
+`0000`) and variable (`999`/`V`) wind keep their raw type. AA precipitation groups stay raw text (never an hourly total).
+Among rows sharing a timestamp the row with the most decoded common fields wins, then the lower report type, source code
+and row number.
 Before is the latest observation at or before the association clock, after the earliest at or after it, and nearest
 is the before candidate when it is not farther (earlier wins a tie). Only the kickoff calendar year's file is searched;
 there is no maximum time distance, acceptance threshold, quality promotion or alternate station. Quality codes and
@@ -99,7 +108,9 @@ coordinated rehash of changed records the reader cannot re-derive is refused onl
 does not carry (the current-catalog venue fields, the candidate station metadata, the venue-to-station distance), which
 the builder checks against the pinned inputs. Lone surrogates, excessive nesting, NaN, Infinity and oversized numbers are refused at
 their decoding boundary (`WEATHER_RECORD_MALFORMED`, `WEATHER_META_MALFORMED`, `WEATHER_MANIFEST_MALFORMED`), never a
-traceback.
+traceback. A selected-row witness whose raw scaled field has no finite binary64 value is refused where its raw fields
+are decoded (`WEATHER_DECODE_MISMATCH`), after the earlier transplant, member and column checks of that witness and
+before its recorded decode is compared, so every earlier refusal keeps its code (MF60A01-01).
 
 ## Not claimed
 

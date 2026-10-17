@@ -1,7 +1,7 @@
 """BAT-731 national observed-weather evidence 2024 (Cycle #60 TP60-A01): contract, input qualification, the four grains,
 independent raw-row reconstruction of the original pilot, exact provider/parent relations, determinism, the installed
-query front, coordinated forgeries by their own rules with valid controls, malformed JSON boundaries and the reader's
-numeric and key domains.
+query front, coordinated forgeries by their own rules with valid controls, malformed JSON boundaries, the reader's
+numeric and key domains and the raw numeric decoding boundary (MF60A01-01).
 
 The tiny world is built once per module through the real input formats (see ``weather_evidence_fixture``)."""
 from __future__ import annotations
@@ -740,6 +740,167 @@ class NumericAndKeyDomainTests(ForgingWorld):
                                               .update(source_row_number=10 ** 30)), "WEATHER_KEY_INVALID"),
             "candidate list member type": (lambda t: self.first(t, "witnesses", witness_kind="SELECTED_RAW_ROW")[
                 "timestamp_candidates"][0].update(source_row_number="2"), "WEATHER_FIELD_TYPE_INVALID")})
+
+
+#: The least integer magnitude ``float()`` cannot convert (independent of the reader's own constant).
+OVERFLOW = 2 ** 1024 - 2 ** 970
+SCALED_FIELDS = ("TMP", "DEW", "VIS", "SLP")
+
+
+class RawNumericDecodingTests(ForgingWorld):
+    """MF60A01-01: a scaled raw integer of a selected-row witness (TMP, DEW, VIS, SLP or the WND speed) with no finite
+    binary64 value refuses at the raw decoding boundary (exit 2, WEATHER_DECODE_MISMATCH, no traceback), signed or not;
+    adjacent raw values keep their existing codes and refusal precedence; valid signed values, sentinels, quality flags
+    and the genuine release still decode and serve."""
+
+    MARK = "MF60A01-01"
+
+    def outcome(self, path: Path, anchors: dict | None = None) -> tuple[object, str | None, str]:
+        """(exit, refusal code, stderr) of the query front; an OverflowError escaping the front is the defect itself and
+        is reported as a value, so the assertions below fail rather than error."""
+        try:
+            code, _doc, err = fx.query(anchors or self.anchors, path, "--grain", "station-year", "--limit", "1")
+        except OverflowError as exc:  # a WeatherError never escapes main(): it exits 2 there
+            return "UNCAUGHT " + type(exc).__name__, None, str(exc)[:200]
+        return code, fx.refusal(err), err
+
+    def assert_refused(self, path: Path, code: str, contains: str | None = None, anchors: dict | None = None) -> None:
+        got, refused, err = self.outcome(path, anchors)
+        self.assertEqual((got, refused), (2, code), f"{self.MARK}: {err[-300:]}")
+        self.assertNotIn("Traceback", err, self.MARK)
+        if contains:
+            self.assertIn(contains, err, self.MARK)
+
+    def witness(self, only_before_after: bool = False) -> dict:
+        """The first selected raw-row witness (or the first that no pilot selects as its nearest observation, so its raw
+        strings are compared with no pilot's verified nearest raw strings)."""
+        return next(w for w in self.records["witnesses"] if w["witness_kind"] == "SELECTED_RAW_ROW" and
+                    (not only_before_after or not any(s.endswith(":NEAREST") for s in w["selected_by"])))
+
+    def raw(self, *, witness: dict | None = None, extra=None, **values) -> Path:
+        """A forgery whose selected raw row carries ``values`` in its raw fields (WND_SPEED replaces the speed part of
+        WND and WND_DIRECTION its direction part); the recorded decode is left as it was; ``extra`` mutates more."""
+        key = (witness or self.witness())["witness_key"]
+
+        def mutate(t):
+            fields = self.first(t, "witnesses", witness_key=key)["raw_fields"]
+            for name, value in values.items():
+                if name in ("WND_SPEED", "WND_DIRECTION"):
+                    parts = fields["WND"].split(",")
+                    parts[3 if name == "WND_SPEED" else 0] = value
+                    fields["WND"] = ",".join(parts)
+                else:
+                    fields[name] = value
+            if extra is not None:
+                extra(t, fields)
+        return self.forge(records=mutate)
+
+    def test_scaled_raw_integers_beyond_binary64_are_decode_refusals(self) -> None:
+        magnitudes = {"400 nines": "9" * 400, "negative 400 nines": "-" + "9" * 400, "signed 400 nines": "+" + "9" * 400,
+                      "the overflow bound": str(OVERFLOW), "the negative overflow bound": str(-OVERFLOW),
+                      "the decoder digit limit": "9" * 4300}
+        for field in (*SCALED_FIELDS, "WND_SPEED"):
+            for name, digits in magnitudes.items():
+                with self.subTest(field=field, value=name):
+                    value = digits if field == "WND_SPEED" else digits + ",1"
+                    label = "WND speed" if field == "WND_SPEED" else field
+                    self.assert_refused(self.raw(**{field: value}), "WEATHER_DECODE_MISMATCH",
+                                        f"raw {label} is a ")
+
+    def test_the_shared_decoding_boundary_refuses_and_names_the_row(self) -> None:
+        """decode_row is shared by the builder and the reader: the refusal is its own, never an OverflowError."""
+        row = dict(self.witness()["raw_fields"])
+        for field, value in (("TMP", f"{OVERFLOW},1"), ("DEW", f"-{OVERFLOW},5"), ("VIS", "9" * 400 + ",1,9,9"),
+                             ("SLP", "9" * 4300 + ",1"), ("WND", "190,1,N," + "9" * 400 + ",1")):
+            with self.subTest(field=field):
+                try:
+                    result = we.decode_row({**row, field: value}, 7)
+                except we.WeatherError as exc:
+                    result = exc
+                except OverflowError as exc:
+                    result = f"UNCAUGHT OverflowError: {exc}"
+                self.assertIsInstance(result, we.WeatherError, f"{self.MARK}: {result!r}"[:300])
+                self.assertEqual(result.code, "WEATHER_DECODE_MISMATCH", self.MARK)
+                self.assertIn(f"raw row 7: raw {'WND speed' if field == 'WND' else field} is a ", str(result),
+                              self.MARK)
+
+    def test_adjacent_raw_values_keep_their_codes(self) -> None:
+        mismatch = "is not the decode"
+
+        def invented_column(_t, fields):
+            fields["HOURLY_TOTAL"] = "5"
+
+        def transplanted_station(_t, fields):
+            fields["STATION"] = "99999999999"
+
+        def omitted_contest(t, _fields):
+            t["contests"].remove(self.first(t, "contests", contest_key="ncaa:1004"))
+        cases = {
+            "one below the overflow bound": (self.raw(TMP=f"{OVERFLOW - 1},1"), "WEATHER_DECODE_MISMATCH", mismatch),
+            "negative one below the bound": (self.raw(DEW=f"-{OVERFLOW - 1},1"), "WEATHER_DECODE_MISMATCH", mismatch),
+            "300 nines (finite)": (self.raw(VIS="9" * 300 + ",1,9,9"), "WEATHER_DECODE_MISMATCH", mismatch),
+            "WND speed one below the bound": (self.raw(WND_SPEED=str(OVERFLOW - 1)), "WEATHER_DECODE_MISMATCH",
+                                              mismatch),
+            "beyond the digit limit (not an integer to int(); null decode)": (
+                self.raw(SLP="9" * 4301 + ",1"), "WEATHER_DECODE_MISMATCH", mismatch),
+            "float text": (self.raw(TMP="1e999,1"), "WEATHER_DECODE_MISMATCH", mismatch),
+            "underscore digit grouping": (self.raw(TMP="1_234,1"), "WEATHER_DECODE_MISMATCH", "is not the decode 123.4"),
+            "400-digit WND direction (an exact integer, never converted)": (
+                self.raw(WND_DIRECTION="9" * 400), "WEATHER_DECODE_MISMATCH", mismatch),
+            "null raw value": (self.raw(TMP=None), "WEATHER_FIELD_TYPE_INVALID", None),
+            "nested raw value": (self.raw(TMP={"value": "123"}), "WEATHER_FIELD_TYPE_INVALID", None),
+            "integer raw value": (self.raw(TMP=262), "WEATHER_FIELD_TYPE_INVALID", None),
+            "unparseable raw DATE": (self.raw(DATE="2024-13-99T00:00:00"), "WEATHER_DECODE_MISMATCH",
+                                     "raw DATE does not decode"),
+            "invented column before the oversized value (precedence)": (
+                self.raw(TMP="9" * 400 + ",1", extra=invented_column), "WEATHER_WITNESS_MISMATCH", None),
+            "transplanted station before the oversized value (precedence)": (
+                self.raw(DEW="9" * 400 + ",1", extra=transplanted_station), "WEATHER_TRANSPLANT", None),
+            "omitted contest before the oversized value (precedence)": (
+                self.raw(SLP="9" * 400 + ",1", extra=omitted_contest), "WEATHER_CONTEST_ROW_MISSING", None)}
+        for name, (path, code, contains) in cases.items():
+            with self.subTest(name):
+                self.assert_refused(path, code, contains)
+
+    def test_genuine_signed_values_sentinels_and_flags_still_decode(self) -> None:
+        rows = [w for w in self.records["witnesses"] if w["witness_kind"] == "SELECTED_RAW_ROW"]
+        self.assertGreater(len(rows), 3)
+        names = [n for n, _c in we.OBSERVATION_FIELDS if n != "source_row_number" and not n.startswith("raw_")]
+        for w in rows:
+            decoded = we.decode_row(w["raw_fields"], w["source_row_number"])
+            with self.subTest(witness=w["witness_key"]):
+                self.assertEqual({n: decoded[n] for n in names}, {n: w[f"row_{n}"] for n in names})
+        base = dict(rows[0]["raw_fields"])
+        for fields, want in (
+                ({"TMP": "-0050,1"}, {"temperature_c": -5.0, "temperature_quality": "1"}),
+                ({"TMP": "+9999,9"}, {"temperature_c": None, "temperature_quality": "9"}),
+                ({"DEW": "-9999,9"}, {"dew_point_c": None, "dew_point_quality": "9"}),
+                ({"VIS": "999999,9,9,9"}, {"visibility_m": None, "visibility_quality": "9"}),
+                ({"SLP": "99999,9"}, {"sea_level_pressure_hpa": None, "sea_level_pressure_quality": "9"}),
+                ({"TMP": "+0105,6"}, {"temperature_c": 10.5, "temperature_quality": "6"}),
+                ({"TMP": f"+{OVERFLOW - 1},1"}, {"temperature_c": (OVERFLOW - 1) / 10.0}),
+                ({"VIS": f"-{OVERFLOW - 1},1"}, {"visibility_m": -float(OVERFLOW - 1)}),
+                ({"TMP": "+" + "0" * 400 + "262,1"}, {"temperature_c": 26.2}),
+                ({"SLP": "9" * 4301 + ",1"}, {"sea_level_pressure_hpa": None, "sea_level_pressure_quality": "1"}),
+                ({"TMP": "1e999,1"}, {"temperature_c": None, "temperature_quality": "1"}),
+                ({"TMP": "1_234,1"}, {"temperature_c": 123.4}),
+                ({"WND": "999,9,V,0030,1"}, {"wind_direction_degrees": None, "wind_type_code": "V",
+                                             "wind_speed_mps": 3.0}),
+                ({"WND": "999,9,C,0000,1"}, {"wind_direction_degrees": None, "wind_type_code": "C",
+                                             "wind_speed_mps": 0.0}),
+                ({"WND": "190,1,N,9999,9"}, {"wind_direction_degrees": 190, "wind_speed_mps": None,
+                                             "wind_speed_quality": "9"})):
+            with self.subTest(fields=fields):
+                decoded = we.decode_row({**base, **fields}, 3)
+                self.assertEqual({k: decoded[k] for k in want}, want)
+        # leading zeros decode to the same value: served without a profile, refused only by the pinned profile
+        quiet = self.witness(only_before_after=True)
+        value, _sep, quality = quiet["raw_fields"]["TMP"].partition(",")
+        same = self.raw(witness=quiet, TMP=f"{value[0]}{'0' * 400}{value[1:]},{quality}")
+        self.assertIsNone(self.refused(same))
+        self.assert_refused(same, "WEATHER_PROFILE_MISMATCH", anchors=self.profiled)
+        code, doc, refused = self.serve("--grain", "source-witness", "--all")
+        self.assertEqual((code, refused, doc["rows"]), (0, None, self.records["witnesses"]))
 
 
 # --------------------------------------------------------------------------------------------- the genuine release

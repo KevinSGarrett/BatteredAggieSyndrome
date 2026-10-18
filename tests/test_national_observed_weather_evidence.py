@@ -689,7 +689,9 @@ class MalformedJsonBoundaryTests(ForgingWorld):
     with their boundary code and reason, never a traceback (the C58/C59 boundary rule)."""
 
     def test_record_lines_with_malformed_json_values(self) -> None:
-        deep = "[" * 4000 + "]" * 4000
+        # Other suites may raise the process limit; the fixture must still exceed the active decoder limit.
+        depth = max(4000, sys.getrecursionlimit() + 1000)
+        deep = "[" * depth + "]" * depth
         for name, mutate, reason in (
                 ("lone surrogate", lambda r: r["contests"].__setitem__(0, r["contests"][0].replace(
                     '"a_team_name":"', '"a_team_name":"\\ud800', 1)), "JSON_LONE_SURROGATE"),
@@ -707,7 +709,8 @@ class MalformedJsonBoundaryTests(ForgingWorld):
                 self.assertNotIn("Traceback", err)
 
     def test_meta_and_manifest_with_malformed_json(self) -> None:
-        deep = "[" * 4000 + "]" * 4000
+        depth = max(4000, sys.getrecursionlimit() + 1000)
+        deep = "[" * depth + "]" * depth
         meta_path = self.forge(meta={"rules": '{"a": NaN}'})
         self.assertEqual(self.refused(meta_path), "WEATHER_META_MALFORMED")
         manifest_path = self.forge(manifest_text=lambda text: text.replace('"provenance": {',

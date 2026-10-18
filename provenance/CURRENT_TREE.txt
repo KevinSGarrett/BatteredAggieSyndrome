@@ -60,6 +60,7 @@ artifacts/data_lake/national_history_availability_2019_expansion_gate.json
 artifacts/data_lake/national_history_availability_2019_gate.json
 artifacts/data_lake/national_history_prefix_2016_2023_gate.json
 artifacts/data_lake/national_lake_readiness.json
+artifacts/data_lake/national_observed_weather_evidence_2024_gate.json
 artifacts/data_lake/national_personnel_evidence_2004_2022_gate.json
 artifacts/data_lake/national_pit_domain_admission_matrix_gate.json
 artifacts/data_lake/national_pit_eligible_slice_gate.json
@@ -892,6 +893,7 @@ configs/national_history_availability_2019_contract.json
 configs/national_history_availability_2019_expansion_contract.json
 configs/national_history_prefix_2016_2023_contract.json
 configs/national_multi_year_walk_forward_contract.json
+configs/national_observed_weather_evidence_2024_contract.json
 configs/national_personnel_evidence_2004_2022_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
 configs/national_pit_eligible_slice_contract.json
@@ -1206,6 +1208,7 @@ docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md
 docs/architecture/INTERFACE_CONTRACTS.md
 docs/architecture/MODEL_LAYERS.md
 docs/architecture/NATIONAL_GAME_CONTEXT_2023.md
+docs/architecture/NATIONAL_OBSERVED_WEATHER_EVIDENCE_2024.md
 docs/architecture/NATIONAL_PERSONNEL_EVIDENCE_2004_2022.md
 docs/architecture/NATIONAL_POPULATION_RECONCILIATION_SIDECAR.md
 docs/architecture/NATIONAL_RECONCILIATION_ALIASES_SUCCESSOR.md
@@ -4353,6 +4356,10 @@ src/aggie_analytics/validation/retraining_admission.py
 src/aggie_analytics/validation/roster_domain_completeness.py
 src/aggie_analytics/validation/tracked_file_purity.py
 src/aggie_analytics/validation/unittest_census.py
+src/aggie_analytics/weather_evidence/__init__.py
+src/aggie_analytics/weather_evidence/anchors.py
+src/aggie_analytics/weather_evidence/evidence.py
+src/aggie_analytics/weather_evidence/query.py
 src/aggie_analytics/workspace/__init__.py
 src/aggie_analytics/workspace/paths.py
 tests/cycle26_frozen_predecessor.py
@@ -4638,6 +4645,7 @@ tests/test_national_history_availability_expansion.py
 tests/test_national_history_prefix.py
 tests/test_national_history_query.py
 tests/test_national_multi_year_walk_forward.py
+tests/test_national_observed_weather_evidence.py
 tests/test_national_personnel_evidence.py
 tests/test_national_pit_domain_admission_matrix.py
 tests/test_national_pit_eligible_slice.py
@@ -4853,6 +4861,7 @@ tests/test_week_zero_2026_scoreboard_fallback_conditions.py
 tests/test_wmt_provider_timestamp_pit.py
 tests/test_wmt_tamu_specialization_feature_pit.py
 tests/test_worktree_resource_policy.py
+tests/weather_evidence_fixture.py
 tools/__init__.py
 tools/acquire_2026_prospective_schedule.py
 tools/acquire_2026_week_zero_live_execution_evidence.py
@@ -4952,6 +4961,7 @@ tools/build_national_game_context.py
 tools/build_national_history_availability.py
 tools/build_national_history_prefix.py
 tools/build_national_multi_year_walk_forward.py
+tools/build_national_observed_weather_evidence.py
 tools/build_national_personnel_evidence.py
 tools/build_national_pit_domain_admission_matrix.py
 tools/build_national_pit_eligible_slice.py

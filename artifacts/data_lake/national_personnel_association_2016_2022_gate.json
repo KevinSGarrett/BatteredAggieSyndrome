@@ -1,0 +1,52 @@
+{
+ "schema": "BAS-PERSONNEL-ASSOCIATION-GATE-1",
+ "population": "national_personnel_association_2016_2022",
+ "contract_id": "BAT-732-NATIONAL-PERSONNEL-ASSOCIATION-2016-2022-V1.0",
+ "contract_sha256": "c6d65546c9d47c466324a01ba530819809410411e2a4be2bf85fb319a26b1c1a",
+ "profile": {
+  "database_identity": "7d3105c363fa0986522fbcda43b254889ba1fef668969426e67475c051ed01bc",
+  "content_identity": "fea50675a2eaa4fe3aaa88dce72b3bc5e652356c546b83b585c6b98f88fbb1f0",
+  "database_sha256": "916c7fdd00b80deca607795f5c6a2d5f84fe6412c40513c4eb346b49b28cc05f",
+  "database_bytes": 8359936,
+  "contract_sha256": "c6d65546c9d47c466324a01ba530819809410411e2a4be2bf85fb319a26b1c1a",
+  "rules_sha256": "272d6b17e716febfe7157a5d151a4c5c8d878d79bec96368baf0d57b73f96a9e",
+  "row_counts": {
+   "estimates": 40696,
+   "features": 10174,
+   "parameters": 4,
+   "qualifications": 1760,
+   "scores": 20348,
+   "summary": 1
+  },
+  "table_counts": {
+   "blocks": 30,
+   "meta": 10
+  },
+  "lines_sha256": {
+   "estimates": "b3a584e6c80417817657d38bf4bd2f62b6ebbc57d3ddc310eb399ce73d3472c1",
+   "features": "4a7c48a6b688ebd1f74ea6e1a0ce3f366d93ae5f2e40bd5f95240f9ab527558e",
+   "parameters": "1c2a0ed970fa1f2832f4a2289059c7c0e301632b83d30f81f6783e577214a39b",
+   "qualifications": "ad86e3a5ca56b59e112f08a099564e0c7b33b7f7bd845831202035f663634137",
+   "scores": "69bb59e973a7a1e0ef67d71f78b2c454777e3a9127797e369e2da4d27b603db0",
+   "summary": "891c1a14275e524e90d200db028fa897ed1927adcfd8796f49dec38b230805b4"
+  },
+  "summary_sha256": "9b2c061e93def14eb929a4e70fb24a1929d903ec1820592ea194a5a6f88ac9c5"
+ },
+ "materialized_by": {
+  "lane": "BUILD_ASSOCIATION",
+  "run": "20261019T232802146170Z",
+  "head": "1d9f5f47568647c4595c8067f6a69ce2e5ccca3e",
+  "receipt_sha256": "9441a7d9a89936a084ee897d6d8d896e4f3a5bc0161ed12454502eefc9e3e05c",
+  "canonical_receipt_sha256": "10229619454f20811d9b5276480bc8db0ecb5572e267e3ec0f2b7b71f4292ac2",
+  "state": "MATERIALIZED"
+ },
+ "labels": {
+  "evidence_label": "RETROSPECTIVE_RESEARCH",
+  "association_authority": "POSTHOC_ROSTER_ASSOCIATION_NOT_FORECAST",
+  "trust_state": "UNTRUSTED_SHADOW",
+  "pit_eligibility": "PIT_NOT_ADMITTED",
+  "calibration": "NOT_CALIBRATED",
+  "predictive_skill": "NOT_ESTABLISHED"
+ },
+ "note": "identities and counts of the first canonical write only; no fitted value, probability or score; the canonical build at the pinning head must reproduce this profile (ALREADY_PRESENT_IDENTICAL)"
+}

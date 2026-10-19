@@ -31954,4 +31954,32 @@ ANCHORS: dict[str, Any] = json.loads(r'''{
 }''')
 
 #: The canonical release profile the create-only build reproduces (None until the first canonical write).
-ASSOCIATION_PROFILE: dict[str, Any] | None = None
+ASSOCIATION_PROFILE: dict[str, Any] | None = json.loads(r'''{
+ "database_identity": "7d3105c363fa0986522fbcda43b254889ba1fef668969426e67475c051ed01bc",
+ "content_identity": "fea50675a2eaa4fe3aaa88dce72b3bc5e652356c546b83b585c6b98f88fbb1f0",
+ "database_sha256": "916c7fdd00b80deca607795f5c6a2d5f84fe6412c40513c4eb346b49b28cc05f",
+ "database_bytes": 8359936,
+ "contract_sha256": "c6d65546c9d47c466324a01ba530819809410411e2a4be2bf85fb319a26b1c1a",
+ "rules_sha256": "272d6b17e716febfe7157a5d151a4c5c8d878d79bec96368baf0d57b73f96a9e",
+ "row_counts": {
+  "estimates": 40696,
+  "features": 10174,
+  "parameters": 4,
+  "qualifications": 1760,
+  "scores": 20348,
+  "summary": 1
+ },
+ "table_counts": {
+  "blocks": 30,
+  "meta": 10
+ },
+ "lines_sha256": {
+  "estimates": "b3a584e6c80417817657d38bf4bd2f62b6ebbc57d3ddc310eb399ce73d3472c1",
+  "features": "4a7c48a6b688ebd1f74ea6e1a0ce3f366d93ae5f2e40bd5f95240f9ab527558e",
+  "parameters": "1c2a0ed970fa1f2832f4a2289059c7c0e301632b83d30f81f6783e577214a39b",
+  "qualifications": "ad86e3a5ca56b59e112f08a099564e0c7b33b7f7bd845831202035f663634137",
+  "scores": "69bb59e973a7a1e0ef67d71f78b2c454777e3a9127797e369e2da4d27b603db0",
+  "summary": "891c1a14275e524e90d200db028fa897ed1927adcfd8796f49dec38b230805b4"
+ },
+ "summary_sha256": "9b2c061e93def14eb929a4e70fb24a1929d903ec1820592ea194a5a6f88ac9c5"
+}''')

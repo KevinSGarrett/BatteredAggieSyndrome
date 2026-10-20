@@ -853,6 +853,253 @@ class ProcessTests(WorldCase):
         self.assertIn("pit_admission=NOT_ADMITTED", text)
 
 
+# --------------------------------------------------------------------------------------------- public input boundaries
+
+class PublicInputBoundaryTests(WorldCase):
+    """C62-CONT-01 (Cycle #62 — Work round #2 — FIRST REPAIR): the cutoff (MF62A01-01), explicit --as-of (MF62A01-02)
+    and OFFICIAL person-ID program text (MF62A01-03) boundaries. Every assertion of a negative method carries its finding
+    marker; the control methods hold on the unrepaired and the repaired reader alike. Characters under test are built
+    from their code points. A NUL cannot be passed in a Windows process argument, so that case runs through the public
+    main only; real child processes cover the other spellings."""
+
+    LF, TAB, CR, NUL, DEL = chr(10), chr(9), chr(13), chr(0), chr(127)
+    HIGH, LOW, LAST = chr(0xD800), chr(0xDC00), chr(0xDFFF)
+    UNDERFLOW = ("0001-01-01T00:00:00+00:01", "0001-01-01T00:00:00+23:59", "0001-01-01T00:59:59.999999+01:00")
+    OVERFLOW = ("9999-12-31T23:59:59-00:01", "9999-12-31T23:59:59-23:59", "9999-12-31T23:00:00-01:00")
+    BAD_MINUTES = ("2026-09-23T03:00:00+00:60", "2026-09-23T03:00:00+00:99", "2026-09-23T03:00:00-00:60",
+                   "2026-09-23T03:00:00-00:99", "2026-09-23T03:00:00+05:60", "2026-09-23T03:00+12:75")
+
+    def bad_programs(self) -> list[str]:
+        return ["bad" + self.LF + "name", "bad" + self.TAB + "name", "bad" + self.CR + "name", "bad" + self.NUL + "name",
+                "bad" + self.DEL + "name", self.HIGH, self.LOW, "Tex" + self.HIGH + "as", "Texas" + self.LAST,
+                self.HIGH + "Texas", self.LOW + self.HIGH, "Texas A&M" + self.LF]
+
+    @staticmethod
+    def outcome(call) -> str:
+        """The refusal code of ``call``; an uncaught exception or an accepted value is reported, never raised."""
+        try:
+            call()
+        except ae.AvailabilityError as exc:
+            return exc.code
+        except Exception as exc:  # noqa: BLE001 - the unrepaired reader's uncaught OverflowError is the defect
+            return f"UNCAUGHT_{type(exc).__name__}"
+        return "ACCEPTED"
+
+    def selector(self, option: str, value: str) -> str:
+        return self.outcome(lambda: ae.validate_selectors("statement", {option: value}))
+
+    def public(self, *args: str) -> tuple:
+        """The public main over a missing database and data root under a filesystem-access sentinel: (exit, refusal,
+        stdout, access hits, uncaught exception class)."""
+        missing = str(self.tmp / "absent" / "db.sqlite")
+        hits: list[str] = []
+
+        def trap(*_args, **_kwargs):
+            hits.append("FILESYSTEM_ACCESS")
+            raise AssertionError("ACCESS_SENTINEL")
+        out, err = io.StringIO(), io.StringIO()
+        with mock.patch.object(Path, "is_file", side_effect=trap), mock.patch.object(Path, "is_dir", side_effect=trap), \
+                mock.patch.object(ae, "_file_identity", side_effect=trap), redirect_stdout(out), redirect_stderr(err):
+            try:
+                code, uncaught = q.main(["--database", missing, "--data-root", missing, *args]), None
+            except Exception as exc:  # noqa: BLE001 - an uncaught defect or the access sentinel
+                code, uncaught = None, type(exc).__name__
+        text = err.getvalue().strip()
+        refused = json.loads(text.splitlines()[-1]).get("refused") if text.startswith("{") else None
+        return code, refused, out.getvalue(), hits, uncaught
+
+    def not_refused_before_access(self, want: str, *args: str) -> str | None:
+        """None when the public main refuses ``want`` (exit 2, empty stdout) before any input access; else a summary."""
+        code, refused, stdout, hits, uncaught = self.public(*args)
+        if (code, refused, stdout, hits, uncaught) == (2, want, "", [], None):
+            return None
+        return f"{ascii(args)}: exit={code} refused={refused} access={len(hits)} uncaught={uncaught}"
+
+    def child(self, *args: str) -> subprocess.CompletedProcess:
+        """A real ``python -m`` child of the module over a missing database and data root."""
+        env = dict(os.environ)
+        env["PYTHONPATH"] = os.pathsep.join([str(REPO / "src"), env.get("PYTHONPATH", "")])
+        missing = str(self.tmp / "absent" / "db.sqlite")
+        return subprocess.run([sys.executable, "-B", "-m", "aggie_analytics.availability_evidence.query", "--database",
+                               missing, "--data-root", missing, *args], capture_output=True, env=env, check=False)
+
+    def child_not_refused(self, want: str, *args: str) -> str | None:
+        proc = self.child(*args)
+        stderr = proc.stderr.decode("utf-8", "replace")
+        try:
+            refused = json.loads(stderr.strip().splitlines()[-1]).get("refused")
+        except (ValueError, IndexError):
+            refused = None
+        got = (proc.returncode, refused, "Traceback" in stderr, proc.stdout, (self.tmp / "absent").exists())
+        return None if got == (2, want, False, b"", False) else f"{ascii(args)}: {got[:3]}"
+
+    # ---- MF62A01-01 negatives
+    def test_cutoffs_outside_the_utc_range_refuse_before_any_input_access(self) -> None:
+        bad = [f"{v}: {self.selector('--cutoff', v)}" for v in self.UNDERFLOW + self.OVERFLOW
+               if self.selector("--cutoff", v) != "INVALID_SELECTOR"]
+        bad += [x for v in self.UNDERFLOW + self.OVERFLOW
+                if (x := self.not_refused_before_access("INVALID_SELECTOR", "--grain", "statement", "--cutoff", v))]
+        self.assertEqual(len(bad), 0, f"MF62A01-01 {bad}")
+
+    def test_cutoff_offset_minutes_beyond_59_refuse_before_any_input_access(self) -> None:
+        bad = [f"{v}: {self.selector('--cutoff', v)}" for v in self.BAD_MINUTES
+               if self.selector("--cutoff", v) != "INVALID_SELECTOR"]
+        bad += [x for v in self.BAD_MINUTES
+                if (x := self.not_refused_before_access("INVALID_SELECTOR", "--grain", "statement", "--cutoff", v))]
+        got, out, err = self.cli("--grain", "statement", "--cutoff", "2026-09-23T03:00:00+00:60")
+        if (got, (err or {}).get("refused"), out) != (2, "INVALID_SELECTOR", None):
+            bad.append(f"synthetic world answered exit {got}")
+        self.assertEqual(len(bad), 0, f"MF62A01-01 {bad}")
+
+    def test_a_real_child_process_refuses_unrepresentable_cutoffs_without_a_traceback(self) -> None:
+        bad = [x for v in ("0001-01-01T00:00:00+00:01", "9999-12-31T23:59:59-00:01", "2026-09-23T03:00:00+00:60")
+               if (x := self.child_not_refused("INVALID_SELECTOR", "--grain", "statement", "--cutoff", v))]
+        self.assertEqual(len(bad), 0, f"MF62A01-01 {bad}")
+
+    # ---- MF62A01-01 controls
+    def test_representable_boundary_cutoffs_offsets_and_fractions_keep_their_exact_utc_instant(self) -> None:
+        import datetime as dt
+
+        def utc(*parts: int) -> dt.datetime:
+            return dt.datetime(*parts, tzinfo=dt.timezone.utc)
+        cases = {"0001-01-01T00:00:00Z": utc(1, 1, 1), "0001-01-01T00:00:00-00:01": utc(1, 1, 1, 0, 1),
+                 "0001-01-02T00:00:00+00:01": utc(1, 1, 1, 23, 59), "0001-01-01T01:00:00+01:00": utc(1, 1, 1),
+                 "9999-12-31T23:59:59.999999Z": utc(9999, 12, 31, 23, 59, 59, 999999),
+                 "9999-12-31T23:59:59+00:01": utc(9999, 12, 31, 23, 58, 59),
+                 "9999-12-30T23:59:59-00:01": utc(9999, 12, 31, 0, 0, 59),
+                 "9999-12-31T22:59:59.999999-01:00": utc(9999, 12, 31, 23, 59, 59, 999999),
+                 "2026-09-23T04:59:00+01:59": utc(2026, 9, 23, 3), "2026-09-23T01:01:00-01:59": utc(2026, 9, 23, 3),
+                 "2026-09-23T03:00:00+23:59": utc(2026, 9, 22, 3, 1), "2026-09-23T03:00:00-23:59": utc(2026, 9, 24, 2, 59),
+                 "2026-09-23T03:00:00.5Z": utc(2026, 9, 23, 3, 0, 0, 500000),
+                 "2026-09-23T08:30:00.123456+05:30": utc(2026, 9, 23, 3, 0, 0, 123456),
+                 "2024-02-29T12:00:00Z": utc(2024, 2, 29, 12), "2026-09-23T03:00Z": utc(2026, 9, 23, 3),
+                 "2026-09-23T03:00:00-00:00": utc(2026, 9, 23, 3)}
+        for text, want in cases.items():
+            with self.subTest(cutoff=text):
+                got = ae.validate_selectors("statement", {"--cutoff": text})["--cutoff"]
+                self.assertEqual((got, got.utcoffset()), (want, dt.timedelta(0)))
+
+    def test_invalid_dates_times_offsets_and_newlines_stay_refused(self) -> None:
+        for text in ("2025-02-29T00:00:00Z", "2026-02-30T00:00:00Z", "2026-13-01T00:00:00Z", "0000-01-01T00:00:00Z",
+                     "2026-09-23T24:00:00Z", "2026-09-23T23:60:00Z", "2026-09-23T23:59:60Z", "2026-09-23T03:00:00+24:00",
+                     "2026-09-23T03:00:00+23:60", "2026-09-23T03:00:00-23:99", "2026-09-23T03:00:00z",
+                     "2026-09-23T03:00:00Z" + self.LF, "2026-09-23T03:00:00+00:60" + self.LF, "2026-09-23",
+                     "2026-09-23T03:00:00"):
+            with self.subTest(cutoff=text):
+                self.assertEqual(self.selector("--cutoff", text), "INVALID_SELECTOR")
+                self.assertIsNone(self.not_refused_before_access("INVALID_SELECTOR", "--grain", "statement",
+                                                                 "--cutoff", text))
+
+    def test_offset_and_fraction_spellings_of_one_instant_compare_clocks_identically(self) -> None:
+        s = self.session()
+        plain = s.query("statement", {}, all_rows=True)
+        for text, want in (("2026-09-23T03:00:00Z", "AT"), ("2026-09-23T04:59:00+01:59", "AT"),
+                           ("2026-09-23T01:01:00-01:59", "AT"), ("2026-09-23T03:00:00.000001Z", "BEFORE"),
+                           ("2026-09-22T23:59:59.999999-03:00", "AFTER")):
+            with self.subTest(cutoff=text):
+                cut = s.query("statement", {"--cutoff": text}, all_rows=True)
+                self.assertEqual([r["original_record"] for r in cut["rows"]],
+                                 [r["original_record"] for r in plain["rows"]])
+                claim = next(r for r in cut["rows"] if r["original_record"]["publication_time_established"])
+                clocks = {c["clock"]: c["relation"] for c in claim["cutoff_comparison"]["clocks"]}
+                self.assertEqual((clocks["SOURCE_REPORTED_POSTING_CLAIM"], clocks["EFFECTIVE_TIME"],
+                                  clocks["FIRST_KNOWN_TIME"]), (want, "UNKNOWN", "UNKNOWN"))
+
+    # ---- MF62A01-02 negatives
+    def test_an_explicitly_empty_as_of_refuses_before_any_input_access(self) -> None:
+        bad = [x for args in (("--grain", "statement", "--as-of", ""), ("--grain", "profile", "--as-of", ""),
+                              ("--grain", "statement", "--as-of="), ("--grain", "policy", "--as-of", "", "--profile",
+                                                                     "OTHER_PROFILE"))
+               if (x := self.not_refused_before_access("AS_OF_STATE_NOT_SUPPORTED", *args))]
+        self.assertEqual(len(bad), 0, f"MF62A01-02 {bad}")
+
+    def test_an_explicitly_empty_as_of_never_serves_an_answer(self) -> None:
+        bad = []
+        for args in (("--grain", "statement", "--as-of", ""), ("--grain", "profile", "--as-of", ""),
+                     ("--grain", "statement", "--team", "Kansas", "--as-of=")):
+            got, out, err = self.cli(*args)
+            if (got, (err or {}).get("refused"), out) != (2, "AS_OF_STATE_NOT_SUPPORTED", None):
+                bad.append(f"{args}: exit {got}, answered={out is not None}")
+        self.assertEqual(len(bad), 0, f"MF62A01-02 {bad}")
+
+    def test_a_real_child_process_refuses_an_explicitly_empty_as_of(self) -> None:
+        bad = [x for args in (("--grain", "statement", "--as-of", ""), ("--grain", "profile", "--as-of="))
+               if (x := self.child_not_refused("AS_OF_STATE_NOT_SUPPORTED", *args))]
+        self.assertEqual(len(bad), 0, f"MF62A01-02 {bad}")
+
+    # ---- MF62A01-02 controls
+    def test_absent_as_of_keeps_the_answer_and_temporal_refusals_keep_their_precedence(self) -> None:
+        got, out, _err = self.cli("--grain", "statement", "--team", "Kansas")
+        self.assertEqual((got, out["total_count"]), (0, self.session().query("statement", {"--team": "Kansas"})[
+            "total_count"]))
+        self.refused("AS_OF_STATE_NOT_SUPPORTED", "--grain", "statement", "--as-of", " ")
+        self.refused("AS_OF_STATE_NOT_SUPPORTED", "--grain", "statement", "--as-of", "2026-09-23T03:00:00Z",
+                     "--current")
+        self.refused("CURRENT_STATE_NOT_SUPPORTED", "--grain", "statement", "--current", "--latest")
+        self.refused("AS_OF_STATE_NOT_SUPPORTED", "--grain", "statement", "--as-of", "x", "--profile", "OTHER_PROFILE")
+        self.refused("ARGUMENT_INVALID", "--grain", "statement", "--as-of", "", "--as-of", "")
+        self.refused("ARGUMENT_INVALID", "--grain", "statement", "--as-of", "x", "--as-of", "y")
+        self.refused("ARGUMENT_INVALID", "--grain", "statement", "--as-of")
+        self.assertIsNone(self.not_refused_before_access("AS_OF_STATE_NOT_SUPPORTED", "--grain", "statement",
+                                                         "--as-of", "2026-09-23T03:00:00Z"))
+        self.assertIsNone(self.not_refused_before_access("PIT_NOT_ADMITTED", "--grain", "statement", "--require-pit"))
+
+    # ---- MF62A01-03 negatives
+    def test_malformed_official_program_text_refuses_before_any_input_access(self) -> None:
+        bad = [x for p in self.bad_programs()
+               if (x := self.not_refused_before_access("INVALID_SELECTOR", "--grain", "statement", "--person-id",
+                                                       f"OFFICIAL:{p}:2026:1"))]
+        bad += [x for p in (self.HIGH, "bad" + self.LF + "name")
+                if (x := self.not_refused_before_access("INVALID_SELECTOR", "--grain", "statement", "--person-id",
+                                                        f"OFFICIAL:{p}:2025:1"))]
+        self.assertEqual(len(bad), 0, f"MF62A01-03 {bad}")
+
+    def test_malformed_official_program_text_refuses_in_process(self) -> None:
+        bad = [f"{ascii(p)}: {got}" for p in self.bad_programs()
+               if (got := self.selector("--person-id", f"OFFICIAL:{p}:2026:1")) != "INVALID_SELECTOR"]
+        bad += [f"{ascii(p)} foreign season: {got}" for p in (self.TAB, "Tex" + self.LOW + "as")
+                if (got := self.selector("--person-id", f"OFFICIAL:{p}:2019:3")) != "INVALID_SELECTOR"]
+        got = self.outcome(lambda: self.session().query("statement", {"--person-id": f"OFFICIAL:{self.HIGH}:2026:5"}))
+        if got != "INVALID_SELECTOR":
+            bad.append(f"session query: {got}")
+        self.assertEqual(len(bad), 0, f"MF62A01-03 {bad}")
+
+    def test_a_real_child_process_refuses_malformed_program_text(self) -> None:
+        programs = ["bad" + self.LF + "name", "bad" + self.TAB + "name"]
+        if os.name == "nt":  # a lone surrogate reaches a Windows child unchanged; POSIX argv cannot encode it
+            programs += [self.HIGH, self.LOW, "Tex" + self.HIGH + "as", "Texas" + self.LAST]
+        bad = [x for p in programs
+               if (x := self.child_not_refused("INVALID_SELECTOR", "--grain", "statement", "--person-id",
+                                               f"OFFICIAL:{p}:2026:1"))]
+        self.assertEqual(len(bad), 0, f"MF62A01-03 {bad}")
+
+    # ---- MF62A01-03 controls
+    def test_genuine_program_spaces_unicode_and_source_ids_keep_their_answers(self) -> None:
+        s = self.session()
+        self.assertEqual(s.query("statement", {"--person-id": "OFFICIAL:Texas A&M:2026:5"})["total_count"], 4)
+        self.assertGreater(s.query("statement", {"--person-id": "CFBD:1001"})["total_count"], 0)
+        for value, code in (("OFFICIAL:Normal Space:2026:1", "KEY_NOT_IN_PROFILE"),
+                            ("OFFICIAL:Snowman " + chr(0x2603) + ":2026:1", "KEY_NOT_IN_PROFILE"),
+                            ("OFFICIAL:" + chr(0x1F3C8) + " Gridiron:2026:1", "KEY_NOT_IN_PROFILE"),
+                            ("OFFICIAL:Caf" + chr(0xE9) + ":2026:1", "KEY_NOT_IN_PROFILE"),
+                            ("OFFICIAL:Texas :2026:5", "KEY_NOT_IN_PROFILE"),
+                            ("OFFICIAL:" + "x" * 100 + ":2026:1", "KEY_NOT_IN_PROFILE"),
+                            ("CFBD:999", "KEY_NOT_IN_PROFILE"), ("OFFICIAL:Kansas:2025:2", "SEASON_NOT_IN_PROFILE"),
+                            ("OFFICIAL::2026:1", "INVALID_SELECTOR"), ("OFFICIAL:a:b:2026:1", "INVALID_SELECTOR"),
+                            ("OFFICIAL:" + "x" * 101 + ":2026:1", "INVALID_SELECTOR"),
+                            ("OFFICIAL:Texas A&M:26:5", "INVALID_SELECTOR")):
+            with self.subTest(person_id=ascii(value)):
+                self.assertEqual(self.outcome(lambda v=value: s.query("statement", {"--person-id": v})), code)
+        with self.assertRaises(ae.AvailabilityError) as ctx:
+            ae.validate_selectors("opportunity", {"--person-id": "OFFICIAL:Texas A&M:2026:5"})
+        self.assertEqual(ctx.exception.code, "SELECTOR_NOT_APPLICABLE")
+        for program in ("Normal Space", "NonBMP " + chr(0x1F3C8)):
+            with self.subTest(program=ascii(program)):
+                _code, _refused, _out, hits, uncaught = self.public("--grain", "statement", "--person-id",
+                                                                    f"OFFICIAL:{program}:2026:1")
+                self.assertEqual((hits, uncaught), (["FILESYSTEM_ACCESS"], "AssertionError"))
+
+
 # --------------------------------------------------------------------------------------------- mounted genuine
 
 def _genuine() -> tuple[Path, Path] | None:

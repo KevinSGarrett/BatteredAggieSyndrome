@@ -98,6 +98,21 @@ capture observation, the later posting capture, the reported posting claim and t
 with the cutoff (`BEFORE`/`AT`/`AFTER`/`UNKNOWN`) and filters nothing. `--as-of`, `--current`, `--latest`,
 `--require-pit` and `--forecast-input` are always refused.
 
+Input validation at the public boundary (C62-CONT-01, Cycle #62 — Work round #2 — FIRST REPAIR; no rule, profile,
+audit or data change). A cutoff whose offset minutes exceed 59 (`+00:60` would otherwise be carried into the hours),
+an invalid date or time, a trailing newline, and an instant whose UTC conversion leaves the representable range (year
+1 with a positive offset, year 9999 with a negative one) are `INVALID_SELECTOR`, exit 2, before any input is read;
+representable boundary instants (`0001-01-01T00:00:00Z`, `9999-12-31T23:59:59.999999Z`, year 1 with a negative or
+year 9999 with a positive offset), offsets up to `±23:59` and fractions keep their exact UTC instant and clock
+comparison. Every explicitly supplied `--as-of` value is refused as `AS_OF_STATE_NOT_SUPPORTED` (presence, not
+truthiness: an empty value included), before any input is read; an absent option keeps the exact answers, and the
+other temporal refusals, duplicate-option refusals and their precedence are unchanged. The program component of an
+`OFFICIAL:<program>:<season>:<number>` person ID follows the LITERAL_TEXT character rule: a control character
+(U+0000 to U+001F, U+007F) or a lone surrogate is `INVALID_SELECTOR` before any input is read (and before the season
+check), while program spaces, other valid Unicode (non-BMP included), CFBD IDs, well-formed unknown keys
+(`KEY_NOT_IN_PROFILE`) and inapplicable grains (`SELECTOR_NOT_APPLICABLE`) answer as before. NUL cannot be passed in
+a Windows process argument, so that case is exercised through the public `main` with an access sentinel.
+
 ## Qualified audit pin and gate
 
 The first real qualification (QUALIFY_SOURCE_ASSERTIONS run 20261020T154352516976Z at 5a86bf4b, after the contract

@@ -313,17 +313,31 @@ def parse_instant(text: Any) -> dt.datetime | None:
 
 
 _CUTOFF = re.compile(P.RULES["cutoff"]["grammar"])
+#: The offset of a cutoff. The frozen grammar admits any two digits as its minutes, which ``fromisoformat`` would carry
+#: into the hours (+00:60 became +01:00), so minutes beyond 59 are malformed here (C62-CONT-01, MF62A01-01).
+_CUTOFF_OFFSET = re.compile(r"[+-][0-9]{2}:([0-9]{2})\Z")
 
 
 def parse_cutoff(text: str) -> dt.datetime:
-    """A cutoff instant with an explicit offset, normalized to UTC (date-only, naive and malformed values refused)."""
+    """A cutoff instant with an explicit offset, normalized to UTC. Date-only, naive and malformed values (an invalid
+    date or time, offset minutes beyond 59) and instants whose UTC conversion leaves the representable range (year 1
+    with a positive offset, year 9999 with a negative one) are refused before any input is read; source clocks are
+    parsed separately by :func:`parse_instant`."""
     if not isinstance(text, str) or not _CUTOFF.match(text):
         raise AvailabilityError("INVALID_SELECTOR", f"--cutoff must be an ISO-8601 instant with an explicit offset, "
                                                     f"got {text!r}")
-    value = parse_instant(text)
-    if value is None:
-        raise AvailabilityError("INVALID_SELECTOR", f"--cutoff is not a valid instant: {text!r}")
-    return value
+    offset = _CUTOFF_OFFSET.search(text)
+    if offset and int(offset[1]) > 59:
+        raise AvailabilityError("INVALID_SELECTOR", f"--cutoff offset minutes must be 00 to 59, got {text!r}")
+    try:
+        value = dt.datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        raise AvailabilityError("INVALID_SELECTOR", f"--cutoff is not a valid instant: {text!r}") from None
+    try:
+        return value.astimezone(dt.timezone.utc)
+    except OverflowError:
+        raise AvailabilityError("INVALID_SELECTOR", f"--cutoff is outside the representable UTC range: "
+                                                    f"{text!r}") from None
 
 
 def relation(clock: dt.datetime | None, cutoff: dt.datetime) -> str:
@@ -337,9 +351,15 @@ def relation(clock: dt.datetime | None, cutoff: dt.datetime) -> str:
 _LITERAL_MAX = 200
 
 
+def malformed_text(value: str) -> bool:
+    """A control character (U+0000 to U+001F or U+007F) or a lone surrogate (U+D800 to U+DFFF): text that is not a
+    well-formed selector value. The one character rule of LITERAL_TEXT selectors and OFFICIAL person-ID programs."""
+    return any(ord(c) < 32 or ord(c) == 127 or 0xD800 <= ord(c) <= 0xDFFF for c in value)
+
+
 def literal_text(name: str, value: Any) -> str:
     if not isinstance(value, str) or not value or value != value.strip() or len(value) > _LITERAL_MAX or \
-            any(ord(c) < 32 or ord(c) == 127 or 0xD800 <= ord(c) <= 0xDFFF for c in value):
+            malformed_text(value):
         raise AvailabilityError("INVALID_SELECTOR", f"{name} must be exact non-empty literal text without leading or "
                                                     f"trailing white space, control characters or lone surrogates")
     return value
@@ -378,10 +398,17 @@ def validate_selectors(grain: str, selectors: dict[str, Any]) -> dict[str, Any]:
                 out[option] = value
             elif option in ("--season", "--policy-season"):
                 out[option] = int(raw)
-            elif option == "--person-id" and raw.startswith("OFFICIAL:") and int(raw.split(":")[-2]) != \
-                    P.PROFILE["report_season"]:
-                raise AvailabilityError("SEASON_NOT_IN_PROFILE", f"{option} names roster season {raw.split(':')[-2]}; "
-                                                                 f"the fixed profile holds {P.PROFILE['report_season']}")
+            elif option == "--person-id" and raw.startswith("OFFICIAL:"):
+                # The grammar's program component admits any text but a colon; a control character or a lone
+                # surrogate there is malformed, refused before any input is read (C62-CONT-01, MF62A01-03).
+                if malformed_text(raw.split(":")[1]):
+                    raise AvailabilityError("INVALID_SELECTOR", f"{option} program text must not contain control "
+                                                                f"characters or lone surrogates")
+                if int(raw.split(":")[-2]) != P.PROFILE["report_season"]:
+                    raise AvailabilityError("SEASON_NOT_IN_PROFILE", f"{option} names roster season "
+                                                                     f"{raw.split(':')[-2]}; the fixed profile holds "
+                                                                     f"{P.PROFILE['report_season']}")
+                out[option] = raw
             else:
                 out[option] = raw
     for option in ("--season",):

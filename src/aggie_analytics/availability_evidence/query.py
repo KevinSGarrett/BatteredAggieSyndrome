@@ -14,8 +14,9 @@ matrix (``RULES['selectors']``): an inapplicable selector is refused (SELECTOR_N
 INVALID_SELECTOR, a well-formed key or name not represented in the fixed profile is KEY_NOT_IN_PROFILE, a foreign
 season is SEASON_NOT_IN_PROFILE, and represented selectors whose intersection is empty answer ``rows=[]`` with an
 explicit empty-match disposition. ``--cutoff`` compares each statement's clocks with an instant and filters nothing.
-``--as-of``, ``--current``, ``--latest``, ``--require-pit`` and ``--forecast-input`` are always refused: this is a
-static retained slice of source/parser assertions, never an availability state, a PIT gateway or a forecast input.
+``--as-of``, ``--current``, ``--latest``, ``--require-pit`` and ``--forecast-input`` are always refused (any supplied
+``--as-of`` value, an empty one included): this is a static retained slice of source/parser assertions, never an
+availability state, a PIT gateway or a forecast input.
 
 Exit 0 answers one JSON document on stdout; exit 2 is a request refusal and exit 3 an input integrity failure, each
 with ``{"refused": CODE, "refusal_class": ..., "error": ...}`` on stderr.
@@ -110,7 +111,10 @@ def run(args: argparse.Namespace, *, profile: dict[str, Any] | None = None,
     are internal test injections (a trusted synthetic profile); the console never passes them."""
     for flag, dest in (("--as-of", "as_of"), ("--current", "current"), ("--latest", "latest"),
                        ("--require-pit", "require_pit"), ("--forecast-input", "forecast_input")):
-        if getattr(args, dest):
+        # Presence, never truthiness: an explicitly supplied --as-of value is refused whatever it is, an empty one
+        # included (C62-CONT-01, MF62A01-02); the other four are flags.
+        supplied = getattr(args, dest)
+        if supplied is not None and supplied is not False:
             raise ae.AvailabilityError(TEMPORAL_REFUSALS[flag], f"{flag}: the fixed profile is a static retained slice "
                                                                 f"of source/parser assertions; no as-of, current or "
                                                                 f"latest availability state, PIT admission or forecast "

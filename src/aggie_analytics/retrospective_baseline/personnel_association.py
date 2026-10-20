@@ -54,6 +54,11 @@ expected collection of every grain, every qualification and feature rule the rec
 the complete re-derivation of every estimate, score, parameter and summary record, the content document, the
 contract-defined database identity document and the pinned canonical profile. The query serves six grains through the
 explicit ``bas-retrospective-baseline-query --personnel-association`` mode only.
+
+Cycle #61 -- Work round #2 -- FIRST REPAIR (C61-CONT-01): on Windows the release layout and identity are checked on the
+genuine native names of the existing file (:func:`native_location`: an 8.3 short or case-equivalent spelling of the same
+release serves it, MF61A01-01), and a team selector holding a lone surrogate is refused as TEAM_INVALID before any file
+is read (MF61A01-02).
 """
 from __future__ import annotations
 
@@ -1531,6 +1536,72 @@ def _check_type(code: str, value: Any) -> bool:
 
 MANIFEST_MEMBERS = ("content_document", "content_identity", "identity", "identity_document", "provenance")
 
+# --------------------------------------------------------------------------------------------- native location
+
+_VERBATIM_ROOT = re.compile(r"\\\\\?\\[A-Za-z]:\\")
+_DRIVE_ROOT = re.compile(r"[A-Za-z]:\\")
+#: Characters FindFirstFileW reads as a pattern; a component holding one keeps the spelling it was given.
+_FIND_PATTERN_CHARACTERS = frozenset('*?<>"')
+
+
+def _directory_entry_names(query: str) -> tuple[str, str] | None:
+    """The long and 8.3 names of the one directory entry Windows resolves the last component of ``query`` to
+    (FindFirstFileW: the entry's own name in its parent directory, never the target of a junction or link), or None when
+    Windows cannot report it, for example below a directory the caller may traverse but not list."""
+    import ctypes  # noqa: PLC0415 - Windows only
+    from ctypes import wintypes  # noqa: PLC0415 - Windows only
+
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.FindFirstFileW.argtypes = [wintypes.LPCWSTR, ctypes.POINTER(wintypes.WIN32_FIND_DATAW)]
+    kernel32.FindFirstFileW.restype = wintypes.HANDLE
+    kernel32.FindClose.argtypes = [wintypes.HANDLE]
+    kernel32.FindClose.restype = wintypes.BOOL
+    data = wintypes.WIN32_FIND_DATAW()
+    handle = kernel32.FindFirstFileW(query, ctypes.byref(data))
+    if handle is None or handle == wintypes.HANDLE(-1).value:
+        return None
+    kernel32.FindClose(handle)
+    return data.cFileName, data.cAlternateFileName
+
+
+def native_location(location: str) -> str:
+    """The native spelling of an existing local Windows file (MF61A01-01).
+
+    ``location`` is the literal local path (:func:`aggie_analytics.readonly_sqlite.literal_path`: a drive path or its
+    native extended-length form; network and device spellings were refused before any filesystem access). Each component
+    after the drive becomes the name of the directory entry Windows resolves it to: an 8.3 short name becomes its long
+    name and a case-equivalent spelling becomes the entry's own spelling, so the release layout and identity are
+    checked on the genuine names of the file that is opened. A junction or link component keeps its own entry name (its
+    target is never substituted). A component Windows cannot report, or one whose reported entry does not carry that
+    spelling as its long or 8.3 name, keeps the spelling it was given (the literal rule). Every path the caller opened
+    before keeps opening the same file; nothing is created. POSIX spellings are never rewritten here (callers keep the
+    native case-sensitive POSIX rule)."""
+    if os.name != "nt":
+        return location
+    verbatim = location.startswith("\\\\?\\")
+    root_match = (_VERBATIM_ROOT if verbatim else _DRIVE_ROOT).match(location)
+    if root_match is None:
+        return location
+    root = root_match.group(0)
+    parts = location[len(root):].split("\\")
+    if not all(parts):
+        return location
+    resolved: list[str] = []
+    for part in parts:
+        spelled = part
+        if not _FIND_PATTERN_CHARACTERS.intersection(part):
+            query = root + "\\".join([*resolved, part])
+            if not verbatim and len(query) >= 250:
+                query = "\\\\?\\" + query
+            names = _directory_entry_names(query)
+            if names is not None:
+                long_name, short_name = names
+                if long_name and (long_name.casefold() == part.casefold() or
+                                  (short_name and short_name.casefold() == part.casefold())):
+                    spelled = long_name
+        resolved.append(spelled)
+    return root + "\\".join(resolved)
+
 
 class PersonnelAssociation:
     """A verified, read-only handle on one content-addressed national personnel association release.
@@ -1551,7 +1622,7 @@ class PersonnelAssociation:
             _refuse("ASSOCIATION_CONTRACT_MISMATCH", f"the release names contract {document.get('contract_sha256')}, "
                                                      f"the reader binds {self.anchors['contract_sha256']}")
         try:
-            location = readonly_sqlite.literal_path(database)
+            location = readonly_sqlite.literal_path(self.binding["location"])
             self.conn = readonly_sqlite.connect_readonly(_io_path(Path(location)), immutable=False)
         except readonly_sqlite.DatabaseLocationError as exc:
             raise AssociationError(exc.code, exc.detail) from exc
@@ -1571,7 +1642,7 @@ class PersonnelAssociation:
     def _verify_location_and_manifest(database: Path, manifest: Path | None,
                                       expect_identity: str | None) -> dict[str, Any]:
         try:
-            readonly_sqlite.literal_path(database)
+            literal = readonly_sqlite.literal_path(database)
         except readonly_sqlite.DatabaseLocationError as exc:
             raise AssociationError(exc.code, exc.detail) from exc
         manifest_path = None
@@ -1585,7 +1656,11 @@ class PersonnelAssociation:
         db = Path(database)
         if not _io_path(db).is_file():
             _refuse("ASSOCIATION_DATABASE_MISSING", f"no personnel association database file at {db}")
-        absolute = Path(os.path.abspath(db))
+        # MF61A01-01: on Windows the layout and identity are checked on the genuine names of the existing file (an 8.3
+        # or case-equivalent spelling of the same release is that release); every later read uses that one location.
+        # POSIX keeps its native, case-sensitive spelling rule unchanged.
+        absolute = Path(native_location(literal)) if os.name == "nt" else Path(os.path.abspath(db))
+        db = absolute
         if absolute.name != DB_FILE or absolute.parent.parent.name != "sha256" or \
                 absolute.parent.parent.parent.name != POPULATION:
             _refuse("ASSOCIATION_LOCATION_INVALID", f"the release must sit at <root>/{POPULATION}/sha256/<id>/{DB_FILE}")
@@ -1628,7 +1703,7 @@ class PersonnelAssociation:
                                                      f"{outputs.get(DB_FILE)}")
         if expect_identity is not None and expect_identity != identity:
             _refuse("STALE_ASSOCIATION_IDENTITY", f"expected {expect_identity}, found {identity}")
-        return {"identity": identity, "sha256": actual_sha, "manifest": str(manifest_path),
+        return {"identity": identity, "sha256": actual_sha, "location": str(db), "manifest": str(manifest_path),
                 "identity_document": identity_document, "content_document": doc["content_document"],
                 "content_identity_claim": doc.get("content_identity"), "provenance": doc.get("provenance")}
 
@@ -2087,6 +2162,12 @@ class PersonnelAssociation:
             text = team.strip() if isinstance(team, str) else None
             if not text or len(text) > 200 or any(ord(c) < 32 for c in text):
                 _refuse("TEAM_INVALID", f"team must be org:<digits>, digits or a team name, got {team!r}")
+            # MF61A01-02: a team name is Unicode text; a lone UTF-16 surrogate code point is not a Unicode scalar value
+            # and is refused here, before any file is read (never echoed into an answer it cannot be encoded in).
+            surrogate = next((c for c in text if 0xD800 <= ord(c) <= 0xDFFF), None)
+            if surrogate is not None:
+                _refuse("TEAM_INVALID", f"team must be Unicode text: U+{ord(surrogate):04X} is a lone surrogate, not a "
+                                        f"Unicode scalar value, got {team!r}")
             match = TEAM_SELECTOR_RE.match(text)
             out["team"] = f"org:{int(match.group(1))}" if match else text
         if contest is not None:

@@ -101,6 +101,25 @@ qualification and feature rule, a fresh refit, and the complete re-derivation of
 summary record. Last come the content document, the database identity document and the pinned canonical profile. Each
 forgery is refused for its own cause.
 
+Location spelling (Cycle #61 -- Work round #2 -- FIRST REPAIR, C61-CONT-01, MF61A01-01). Network, device and namespace
+spellings are refused first, before any filesystem access, and a missing file is refused next, never created. Then, on
+Windows, the release layout
+(`<root>/national_personnel_association_2016_2022/sha256/<id>/national_personnel_association.sqlite`) and the
+directory identity are checked on the genuine native names of the existing file: each path component becomes
+the name of the directory entry Windows resolves it to (FindFirstFileW), so a native 8.3 short spelling or a
+case-equivalent spelling of any component -- ordinary, extended-length (`\\?\X:\...`) or relative -- is the same
+release and is served byte-identically. A junction or link component keeps its own entry name; its target is never
+substituted. A component Windows cannot report keeps the spelling it was given. The manifest beside the release, its
+bytes and the SQLite connection all use that one native location. An on-disk name outside the layout (another
+population name, an upper-case identity directory, a `SHA256` directory, a loose file, a data-stream spelling) is still
+refused as `ASSOCIATION_LOCATION_INVALID`. Every manifest, identity-document, content, profile and record rule then
+applies unchanged. POSIX keeps its native case-sensitive spelling rule: no component is rewritten there.
+
+Team selector text (MF61A01-02). `--team` must be Unicode text. A selector holding a lone UTF-16 surrogate code point
+(high, low, interior or trailing, including a surrogate pair given as two code points) is refused as `TEAM_INVALID`
+(exit 2, one JSON line on stderr, nothing on stdout, no traceback) before any release access. Valid Unicode names,
+non-BMP names included, keep their exact answers through the strict UTF-8 output; an unknown name serves zero rows.
+
 The module is imported only when the option is named. Invocations without it keep their parsers, answers and refusals;
 only the original parser's `--help` gains one paragraph naming the mode.
 

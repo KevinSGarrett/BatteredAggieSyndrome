@@ -17,6 +17,7 @@ import tempfile
 import unittest
 from fractions import Fraction
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tests"))
@@ -729,6 +730,313 @@ class LocationTests(unittest.TestCase):
         finally:
             os.chdir(cwd)
         self.assertEqual((code, doc["rows"]), (0, genuine["rows"]), err)
+
+
+# --------------------------------------------------------------------------------------------- C61-CONT-01
+# Cycle #61 -- Work round #2 -- FIRST REPAIR. MF61A01-01: genuine native Windows aliases (8.3 short and case-equivalent
+# spellings, through ordinary, extended-length, relative and junction paths) of the same existing release serve it, and
+# every integrity rule still refuses by its own code under an alias; spellings outside the genuine layout and POSIX
+# spellings keep their refusals. MF61A01-02: a lone surrogate in --team is refused (TEAM_INVALID, exit 2, no traceback)
+# before any release access, through real strict UTF-8 output; valid Unicode, non-BMP, unknown and same-season names keep
+# their answers. Every assertion that the unrepaired reader fails carries its finding marker.
+
+MF01 = "MF61A01-01"
+MF02 = "MF61A01-02"
+#: Lone surrogate team selectors: high, low, interior, trailing, a reversed pair and a valid pair given as two code points.
+SURROGATE_TEAMS = {"high": "\ud800", "low": "\udc00", "interior": "Tex\ud800as", "trailing": "Texas\udfff",
+                   "reversed_pair": "\udc00\ud800", "pair_as_two_code_points": "\ud83d\ude00"}
+TEAM_GRAINS = tuple(grain for grain, allowed in pa.SELECTOR_MATRIX.items() if "team" in allowed)
+#: A child that answers the fixture release through q.main with its real stdout and stderr pipes (the strict UTF-8 output
+#: path a StringIO hides): argv[1] the tests directory, argv[2] the fixture contract, then "argv" and the tokens, or the
+#: path of a JSON file holding them (a POSIX argv cannot carry every lone surrogate).
+REAL_OUTPUT_CHILD = (
+    "import json, sys\n"
+    "from pathlib import Path\n"
+    "sys.path.insert(0, sys.argv[1])\n"
+    "import personnel_association_fixture as fx\n"
+    "from aggie_analytics.retrospective_baseline import query as q\n"
+    "anchors = fx.contract_anchors(Path(sys.argv[2]))\n"
+    "tokens = sys.argv[4:] if sys.argv[3] == 'argv' else json.loads(Path(sys.argv[3]).read_text(encoding='utf-8'))\n"
+    "raise SystemExit(q.main(tokens, association_anchors=anchors))\n")
+
+
+def _short_spelling(path: Path) -> str | None:
+    """The native 8.3 spelling Windows reports for an existing path (GetShortPathNameW), or None."""
+    if os.name != "nt":
+        return None
+    import ctypes  # noqa: PLC0415 - Windows only
+    from ctypes import wintypes  # noqa: PLC0415 - Windows only
+
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.GetShortPathNameW.argtypes = [wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.DWORD]
+    kernel32.GetShortPathNameW.restype = wintypes.DWORD
+    size = kernel32.GetShortPathNameW(str(path), None, 0)
+    if not size:
+        return None
+    buffer = ctypes.create_unicode_buffer(size)
+    return buffer.value if kernel32.GetShortPathNameW(str(path), buffer, size) else None
+
+
+def _respell(db: Path | str, index: int, spell) -> Path:
+    """``db`` with one layout component respelled: 0 the file, 1 the identity, 2 sha256, 3 the population."""
+    parts = list(Path(db).parts)
+    parts[-1 - index] = spell(parts[-1 - index])
+    return Path(*parts)
+
+
+def _filter_refusal(grain: str, team: str) -> str | None:
+    try:
+        pa.PersonnelAssociation.filters(grain, team=team)
+    except pa.AssociationError as exc:
+        return exc.code
+    return None
+
+
+def _refusal_of(stderr: bytes) -> str | None:
+    try:
+        return json.loads(stderr.decode("ascii").strip().splitlines()[-1]).get("refused")
+    except (ValueError, UnicodeDecodeError, IndexError, AttributeError):
+        return None
+
+
+class NativeLocationAliasTests(unittest.TestCase):
+    """MF61A01-01: the reader checks the release layout and identity on the genuine names of the existing file."""
+
+    def setUp(self) -> None:
+        self.base = Path(tempfile.mkdtemp(prefix="npa-a-"))
+        self.addCleanup(shutil.rmtree, self.base, True)
+        self.genuine = ask("--grain", "personnel-summary", "--limit", "3")[1]
+
+    def served(self, spelling, why: str, *argv: str, cwd: Path | None = None) -> None:
+        previous = os.getcwd()
+        try:
+            if cwd is not None:
+                os.chdir(cwd)
+            code, doc, err = ask("--grain", "personnel-summary", "--limit", "3", *argv, db=spelling)
+        finally:
+            os.chdir(previous)
+        self.assertEqual(code, 0, f"{MF01} {why} {spelling}: {err[-300:]}")
+        self.assertEqual((doc["release_identity"], doc["rows"]), (self.genuine["release_identity"],
+                                                                  self.genuine["rows"]), f"{MF01} {why} {spelling}")
+
+    def refusal(self, spelling, *argv: str, anchors=None) -> str | None:
+        code, _doc, err = ask("--grain", "personnel-parameter", *argv, db=spelling, anchors=anchors)
+        self.assertNotIn("Traceback", err)
+        return fx.refusal(err) if code == 2 else None
+
+    def junction(self, target: Path, link: Path) -> Path:
+        import _winapi  # noqa: PLC0415 - Windows CPython; the junction is the spelling under test
+
+        link.parent.mkdir(parents=True, exist_ok=True)
+        _winapi.CreateJunction(str(target), str(link))
+        self.addCleanup(os.rmdir, link)   # removes only the reparse point, before the scratch tree is removed
+        return link
+
+    @unittest.skipUnless(os.name == "nt", "Windows case-equivalent spellings (POSIX names are case-sensitive)")
+    def test_case_equivalent_spellings_of_every_layout_component_serve_the_release(self) -> None:
+        db = STATE["db"]
+        spellings = [_respell(db, index, spell) for index in range(4) for spell in (str.upper, str.swapcase)]
+        spellings.append(Path(str(db).upper()))
+        for spelling in spellings:
+            self.assertTrue(os.path.samefile(spelling, db), spelling)
+            self.served(spelling, "case-equivalent spelling")
+        self.served("\\\\?\\" + os.path.abspath(_respell(_respell(db, 3, str.upper), 1, str.upper)),
+                    "extended-length case-equivalent spelling")
+        self.served(pa.DB_FILE.upper(), "relative case-equivalent file name", cwd=db.parent)
+        relative = os.path.join(pa.POPULATION.upper(), "SHA256", db.parent.name.upper(), pa.DB_FILE)
+        self.served(relative, "relative case-equivalent layout", cwd=db.parents[3])
+
+    @unittest.skipUnless(os.name == "nt", "Windows native 8.3 short names")
+    def test_native_short_spellings_serve_the_release(self) -> None:
+        db = STATE["db"]
+        short = _short_spelling(db)
+        long_parts = Path(db).parts
+        short_parts = Path(short).parts if short else ()
+        shortened = [i for i in range(4) if len(short_parts) == len(long_parts) and
+                     short_parts[-1 - i] != long_parts[-1 - i]]
+        if not shortened:
+            self.skipTest(f"this volume reports no 8.3 short name for the release layout ({short!r})")
+        self.assertTrue(os.path.samefile(short, db), short)
+        self.served(short, "native short spelling")
+        for index in shortened:
+            self.served(_respell(db, index, lambda _part, i=index: short_parts[-1 - i]),
+                        f"native short spelling of layout component {index}")
+        self.served("\\\\?\\" + short, "extended-length native short spelling")
+        self.served(short_parts[-1], "relative native short file name", cwd=db.parent)
+        mixed = _respell(_respell(db, shortened[-1], lambda _part: short_parts[-1 - shortened[-1]]), 0, str.upper)
+        self.served(mixed, "native short and case-equivalent spelling")
+
+    @unittest.skipUnless(os.name == "nt", "Windows directory junctions")
+    def test_aliases_through_junctions_serve_the_release(self) -> None:
+        db = STATE["db"]
+        ident = db.parent.name
+        data_root = db.parents[4]
+        root_link = self.junction(data_root, self.base / "jroot")
+        self.served(root_link / "canonical" / pa.POPULATION.upper() / "SHA256" / ident.upper() / pa.DB_FILE.upper(),
+                    "case-equivalent spelling through a data-root junction")
+        self.served(self.base / "JROOT" / "canonical" / pa.POPULATION / "sha256" / ident / pa.DB_FILE,
+                    "case-equivalent spelling of the junction itself")
+        for kind in ("canonical", "manifests"):
+            self.junction(data_root / kind / pa.POPULATION / "sha256" / ident,
+                          self.base / "jid" / kind / pa.POPULATION / "sha256" / ident)
+        self.served(self.base / "jid" / "canonical" / pa.POPULATION.upper() / "sha256" / ident.upper() / pa.DB_FILE,
+                    "case-equivalent spelling through an identity-directory junction")
+        short = _short_spelling(root_link / "canonical" / pa.POPULATION / "sha256" / ident / pa.DB_FILE)
+        if short and Path(short).name != pa.DB_FILE:
+            self.served(short, "native short spelling through a junction")
+
+    @unittest.skipUnless(os.name == "nt", "Windows native aliases")
+    def test_aliases_reach_every_integrity_refusal_by_its_own_rule(self) -> None:
+        forger = fx.Forger(STATE["db"], self.base / "f", STATE["anchors"])
+
+        def rate(t):
+            q_ = next(r for r in t["qualifications"] if r["summary"] is not None)
+            q_["summary"]["roster_retention_rate"] = 0.5
+            q_["summary"]["roster_retention_rate_exact"] = {"numerator": 1, "denominator": 2}
+
+        def share(t):
+            q_ = next(r for r in t["qualifications"] if r["summary"] is not None)
+            q_["summary"]["shares"]["rushing_carries_returning_share"] = 0.5
+        upper = lambda path: _respell(path, 3, str.upper)  # noqa: E731
+        rated = forger.forge("rate", records=rate)
+        self.assertEqual(self.refusal(upper(rated)), "ASSOCIATION_RATE_MISMATCH",
+                         f"{MF01} a rehashed forgery under an alias")
+        pinned = dict(STATE["anchors"], profile={"database_identity": STATE["result"]["database_identity"],
+                                                 "content_identity": STATE["result"]["content_identity"]})
+        self.assertEqual(self.refusal(upper(forger.forge("share", records=share)), anchors=pinned),
+                         "ASSOCIATION_PROFILE_MISMATCH", f"{MF01} the pinned profile under an alias")
+        ident = STATE["result"]["database_identity"]
+        tampered = self.base / "t"
+        for kind in ("canonical", "manifests"):
+            shutil.copytree(STATE["db"].parents[3].parent / kind / pa.POPULATION / "sha256" / ident,
+                            tampered / kind / pa.POPULATION / "sha256" / ident)
+        moved = tampered / "canonical" / pa.POPULATION / "sha256" / ident / pa.DB_FILE
+        with moved.open("ab") as handle:
+            handle.write(b"\0")
+        self.assertEqual(self.refusal(_respell(moved, 1, str.upper)), "ASSOCIATION_DATABASE_TAMPERED",
+                         f"{MF01} tampered bytes under an alias")
+        alias = _respell(STATE["db"], 0, str.upper)
+        self.assertEqual(self.refusal(alias, "--expect-identity", "f" * 64), "STALE_ASSOCIATION_IDENTITY",
+                         f"{MF01} a stale expected identity under an alias")
+        self.assertEqual(self.refusal(alias, "--manifest", str(fx.manifest_of(rated))), "ASSOCIATION_IDENTITY_MISMATCH",
+                         f"{MF01} another release's manifest under an alias")
+        self.assertEqual(self.refusal(alias, "--manifest", str(self.base / "no" / "m.json")),
+                         "ASSOCIATION_MANIFEST_MISSING", f"{MF01} a missing explicit manifest under an alias")
+
+    def test_spellings_outside_the_genuine_layout_stay_refused(self) -> None:
+        ident = STATE["result"]["database_identity"]
+        source = STATE["db"].parents[3].parent
+        loose = self.base / "loose" / pa.DB_FILE
+        loose.parent.mkdir()
+        shutil.copyfile(STATE["db"], loose)
+        layouts = {"population": ("canonical", pa.POPULATION + "_copy", "sha256", ident),
+                   "identity_directory": ("canonical", pa.POPULATION, "sha256", ident.upper()),
+                   "sha256_directory": ("canonical", pa.POPULATION, "SHA256", ident)}
+        for name, parts in layouts.items():
+            target = self.base / name / Path(*parts)
+            os.makedirs(target)
+            shutil.copyfile(STATE["db"], target / pa.DB_FILE)
+            self.assertEqual(self.refusal(target / pa.DB_FILE), "ASSOCIATION_LOCATION_INVALID", name)
+        self.assertEqual(self.refusal(loose), "ASSOCIATION_LOCATION_INVALID")
+        loose_alias = _respell(loose, 0, str.upper)
+        self.assertEqual(self.refusal(loose_alias), "ASSOCIATION_LOCATION_INVALID" if os.path.exists(loose_alias)
+                         else "ASSOCIATION_DATABASE_MISSING")
+        missing = _respell(STATE["db"].parent / "nope.sqlite", 3, str.upper)
+        self.assertEqual(self.refusal(missing), "ASSOCIATION_DATABASE_MISSING")
+        self.assertFalse(os.path.exists(missing))
+        if os.name == "nt":
+            self.assertEqual(self.refusal(str(STATE["db"]) + "::$DATA"), "ASSOCIATION_LOCATION_INVALID")
+            short = _short_spelling(loose)
+            if short:
+                self.assertEqual(self.refusal(short), "ASSOCIATION_LOCATION_INVALID")
+        self.assertEqual(self.refusal(STATE["db"]), None)
+
+    def test_posix_spelling_semantics_are_unchanged(self) -> None:
+        class PosixOs:
+            name = "posix"
+
+            def __getattr__(self, key: str):
+                return getattr(os, key)
+        alias = _respell(STATE["db"], 3, str.upper)
+        want = "ASSOCIATION_LOCATION_INVALID" if os.path.exists(alias) else "ASSOCIATION_DATABASE_MISSING"
+        with mock.patch.object(pa, "os", PosixOs()):
+            got = self.refusal(alias)
+            exact = self.refusal(STATE["db"])
+        self.assertEqual((got, exact), (want, None))
+
+    @unittest.skipUnless(os.name == "nt", "Windows directory junctions")
+    def test_exact_spellings_through_junctions_serve_the_release(self) -> None:
+        db = STATE["db"]
+        ident = db.parent.name
+        link = self.junction(db.parents[4], self.base / "jroot")
+        self.served(link / "canonical" / pa.POPULATION / "sha256" / ident / pa.DB_FILE, "exact junction spelling")
+        self.served(db, "exact spelling")
+
+
+class TeamUnicodeTests(unittest.TestCase):
+    """MF61A01-02: team selectors are Unicode text, validated before any release access."""
+
+    def setUp(self) -> None:
+        self.base = Path(tempfile.mkdtemp(prefix="npa-u-"))
+        self.addCleanup(shutil.rmtree, self.base, True)
+
+    def real_query(self, *tokens: str) -> tuple[int, bytes, bytes]:
+        argv = ["--personnel-association", str(STATE["db"]), *tokens]
+        if os.name == "nt":
+            carrier = ["argv", *argv]
+        else:
+            path = self.base / f"tokens_{len(list(self.base.iterdir()))}.json"
+            path.write_text(json.dumps(argv), encoding="ascii")
+            carrier = [str(path)]
+        env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
+        proc = subprocess.run([sys.executable, "-B", "-c", REAL_OUTPUT_CHILD, str(ROOT / "tests"),
+                               str(STATE["contract"]), *carrier], capture_output=True, env=env, check=False,
+                              timeout=600)
+        return proc.returncode, proc.stdout, proc.stderr
+
+    def test_lone_surrogate_team_selectors_are_refused_before_any_release_access(self) -> None:
+        missing = self.base / "nowhere" / "canonical" / pa.POPULATION / "sha256" / ("0" * 64) / pa.DB_FILE
+        for name, team in SURROGATE_TEAMS.items():
+            for grain in TEAM_GRAINS:
+                self.assertEqual(_filter_refusal(grain, team), "TEAM_INVALID", f"{MF02} {name} at the {grain} filter")
+            code, doc, err = ask("--grain", "personnel-feature", "--team", team, db=missing)
+            self.assertEqual((code, fx.refusal(err)), (2, "TEAM_INVALID"),
+                             f"{MF02} {name} before release access: {err[-300:]}")
+            self.assertIsNone(doc, MF02)
+            self.assertNotIn("Traceback", err, MF02)
+        self.assertFalse(missing.parent.exists())
+
+    def test_lone_surrogate_team_selectors_refuse_through_real_utf8_output(self) -> None:
+        for name in ("high", "low", "interior", "trailing"):
+            code, out, err = self.real_query("--grain", "personnel-feature", "--team", SURROGATE_TEAMS[name])
+            self.assertEqual((code, _refusal_of(err)), (2, "TEAM_INVALID"),
+                             f"{MF02} {name} through real UTF-8 output: {err[-400:]!r}")
+            self.assertEqual(out, b"", MF02)
+            self.assertNotIn(b"Traceback", err, MF02)
+            self.assertTrue(err.isascii(), MF02)
+
+    def test_valid_unicode_unknown_and_same_season_names_answer_through_real_utf8_output(self) -> None:
+        feature = next(f for f in records("personnel-feature") if f["season"] == 2021)
+        season = str(feature["season"])
+        names = {"bmp": "Snowman \u2603", "non_bmp": "\U0001F3C8 Gridiron", "unknown": "No Such Program",
+                 "same_season": feature["team_name"], "same_season_case": feature["team_name"].upper()}
+        for key, team in names.items():
+            for grain in TEAM_GRAINS:
+                self.assertIsNone(_filter_refusal(grain, team), f"{key} at the {grain} filter")
+            code, out, err = self.real_query("--grain", "personnel-feature", "--team", team, "--season", season,
+                                             "--all")
+            self.assertEqual(code, 0, f"{key}: {err[-400:]!r}")
+            doc = json.loads(out.decode("utf-8"))
+            in_code, in_doc, in_err = ask("--grain", "personnel-feature", "--team", team, "--season", season, "--all")
+            self.assertEqual(in_code, 0, in_err)
+            self.assertEqual(out, (json.dumps(in_doc, ensure_ascii=False, sort_keys=True) + "\n").encode("utf-8"), key)
+            self.assertEqual(doc["filters"]["team"], team, key)
+            if key.startswith("same_season"):
+                self.assertTrue(doc["rows"], key)
+                self.assertEqual({r["team_key"] for r in doc["rows"]}, {feature["team_key"]}, key)
+            else:
+                self.assertEqual((doc["total"], doc["rows"]), (0, []), key)
+        self.assertEqual(err, b"")
 
 
 class MountedGenuineTests(unittest.TestCase):

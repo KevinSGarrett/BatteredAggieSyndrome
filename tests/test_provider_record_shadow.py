@@ -630,8 +630,13 @@ class QueryTests(_Workspace):
         self.assertTrue(help_text.startswith(plain))
         added = help_text[len(plain):]
         self.assertTrue(added.startswith("\n") and added.endswith("\n"))
-        self.assertEqual(" ".join(added.split()), " ".join(query.SHADOW_EPILOG.split()))
-        self.assertNotIn("\n\n", added.strip("\n"))
+        # Cycle 61 (BAT-732, TP61) authorizes exactly one more paragraph, naming the personnel association mode, after
+        # the unchanged shadow paragraph
+        shadow_paragraph, association_paragraph = added.strip("\n").split("\n\n")
+        self.assertEqual(" ".join(shadow_paragraph.split()), " ".join(query.SHADOW_EPILOG.split()))
+        association_formatter = parser._get_formatter()
+        association_formatter.add_text(query.ASSOCIATION_EPILOG)
+        self.assertEqual(association_paragraph, association_formatter.format_help().strip("\n"))
         self.assertNotIn("prospective-shadow", query.build_preview_parser().format_help())
 
 

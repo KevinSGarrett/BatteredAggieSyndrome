@@ -66,6 +66,21 @@ row is served. Filters ``--season``, ``--team``, ``--contest``, ``--model``, ``-
 ``--require-pit`` is refused. It is never combined with ``--database`` or another explicit mode
 (REFERENCE_MODE_CONFLICT). Invocations without the option keep their parsers and bytes, ``--help`` included; the mode's
 own parser describes it (``--reference-comparison <file> --help``).
+
+``--personnel-association <national_personnel_association.sqlite>`` (BAT-732 bounded research contribution, Cycle 61)
+is the explicit national posthoc personnel/history association mode, served by
+:mod:`aggie_analytics.retrospective_baseline.personnel_association` and imported only then: the immutable 2016-2022
+association of the 2023-observed C59 season roster set rates with the accepted C56 history and outcomes on one common
+cohort (fixed NULL and unchanged C47 smoothed controls, and exactly two frozen zero-intercept L2 logistic fits on
+2016-2020: history only, and history plus three roster-rate differences), at the ``personnel-qualification``,
+``personnel-feature``, ``personnel-estimate``, ``personnel-parameter``, ``personnel-score`` and ``personnel-summary``
+grains. The reader needs no data root: it verifies every record, collection, rule, a fresh refit and every identity
+before serving. Filters ``--season``, ``--team``, ``--contest``, ``--model`` and ``--partition`` follow the declared
+selector matrix (an inapplicable one is refused); exact paging. Every answer is POSTHOC_ROSTER_ASSOCIATION_NOT_FORECAST,
+RETROSPECTIVE_RESEARCH, UNTRUSTED_SHADOW, PIT_NOT_ADMITTED and NOT_CALIBRATED with predictive skill NOT_ESTABLISHED;
+``--require-pit`` is refused. It is never combined with ``--database``, ``--history-database`` or another explicit mode
+(ASSOCIATION_MODE_CONFLICT). Invocations without the option keep their parsers, answers and refusals; only ``--help`` of
+the original parser gains one paragraph naming it.
 """
 from __future__ import annotations
 
@@ -121,17 +136,31 @@ REFERENCE_EPILOG = ("explicit national retrospective reference comparison mode (
                     "out-of-fit comparison); RETROSPECTIVE_REFERENCE_NOT_PIT_NOT_SKILL, UNTRUSTED_SHADOW, "
                     "PIT_ELIGIBILITY_NOT_ESTABLISHED, predictive skill and calibration NOT_ESTABLISHED, no champion; "
                     "never combined with --database or another explicit mode")
+ASSOCIATION_OPTION = "--personnel-association"
+ASSOCIATION_EPILOG = ("explicit national posthoc personnel/history association mode (BAT-732, Cycle 61): "
+                      "--personnel-association <national_personnel_association.sqlite> --grain "
+                      "{personnel-qualification,personnel-feature,personnel-estimate,personnel-parameter,"
+                      "personnel-score,personnel-summary} [--season] [--team] [--contest] [--model] [--partition] "
+                      "[--limit] [--offset] [--all] [--manifest] [--expect-identity]: 2023-observed C59 season roster "
+                      "set rates associated after the fact with the accepted C56 2016-2022 history and outcomes on one "
+                      "common cohort (fixed null and C47 smoothed controls, two frozen L2 logistic fits on 2016-2020); "
+                      "POSTHOC_ROSTER_ASSOCIATION_NOT_FORECAST, RETROSPECTIVE_RESEARCH, UNTRUSTED_SHADOW, "
+                      "PIT_NOT_ADMITTED, NOT_CALIBRATED, predictive skill NOT_ESTABLISHED; never combined with "
+                      "--database or another explicit mode")
 _DEFAULT = object()
 
 
 class _HistoricalParser(argparse.ArgumentParser):
-    """The original parser; its help gains one trailing paragraph naming the shadow mode (usage, description, the
-    preview epilog and every error output are unchanged)."""
+    """The original parser; its help gains one trailing paragraph naming the shadow mode and (Cycle 61) one more
+    trailing paragraph naming the personnel association mode (usage, description, the preview epilog, the shadow
+    paragraph and every error output are unchanged)."""
 
     def format_help(self) -> str:
         formatter = self._get_formatter()
         formatter.add_text(SHADOW_EPILOG)
-        return super().format_help() + "\n" + formatter.format_help()
+        association = self._get_formatter()
+        association.add_text(ASSOCIATION_EPILOG)
+        return super().format_help() + "\n" + formatter.format_help() + "\n" + association.format_help()
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -342,6 +371,107 @@ def run_reference(args: argparse.Namespace, anchors: Any = _DEFAULT) -> dict[str
                               all_rows=args.all_rows)
 
 
+def association_mode(argv: Sequence[str]) -> bool:
+    """Whether an invocation names the explicit personnel association option (exactly, or as
+    ``--personnel-association=<path>``)."""
+    return any(token == ASSOCIATION_OPTION or token.startswith(ASSOCIATION_OPTION + "=") for token in argv)
+
+
+def build_association_parser() -> argparse.ArgumentParser:
+    """The explicit BAT-732 personnel association mode's parser (selected only when --personnel-association is named);
+    every argument error is a controlled ARGUMENT_INVALID refusal (exit 2, JSON on stderr), never a usage dump."""
+    from aggie_analytics.retrospective_baseline import personnel_association as pa  # noqa: PLC0415 - explicit option
+
+    class _AssociationParser(argparse.ArgumentParser):
+        def error(self, message: str) -> Any:
+            raise pa.AssociationError("ARGUMENT_INVALID", message)
+
+    parser = _AssociationParser(prog="bas-retrospective-baseline-query --personnel-association", allow_abbrev=False,
+                                description="Explicit immutable national posthoc personnel/history association "
+                                            "2016-2022 (research only: POSTHOC_ROSTER_ASSOCIATION_NOT_FORECAST, not PIT "
+                                            "admitted, not calibrated, no skill, champion or causal claim).",
+                                epilog=ASSOCIATION_EPILOG)
+    parser.add_argument(ASSOCIATION_OPTION, dest="personnel_association", required=True, type=Path,
+                        help="the explicitly selected association database of a verified identity directory (never a "
+                             "default)")
+    parser.add_argument("--manifest", type=Path, default=None, help="the release run manifest (default: beside)")
+    parser.add_argument("--expect-identity", dest="expect_identity", default=None)
+    parser.add_argument("--grain", required=True)
+    parser.add_argument("--season", default=None)
+    parser.add_argument("--team", default=None)
+    parser.add_argument("--contest", default=None)
+    parser.add_argument("--model", default=None)
+    parser.add_argument("--partition", default=None)
+    parser.add_argument("--limit", default="50")
+    parser.add_argument("--offset", default="0")
+    parser.add_argument("--all", dest="all_rows", action="store_true")
+    parser.add_argument("--require-pit", dest="require_pit", action="store_true",
+                        help="refused: the association is research only and never PIT admitted")
+    # Other modes' options, recognized only to refuse the ambiguous or inapplicable selection clearly.
+    for flag in ("--database", "--history-database", "--population-database", REFERENCE_OPTION, PREVIEW_OPTION,
+                 SHADOW_OPTION, SCHEDULE_OPTION):
+        parser.add_argument(flag, dest="conflict_" + flag.lstrip("-").replace("-", "_"), default=None)
+    for flag in ("--cutoff", "--event", "--orientation", "--slice"):
+        parser.add_argument(flag, dest="stray_" + flag.lstrip("-"), default=None)
+    return parser
+
+
+def _association_integer(text: Any, code: str, what: str) -> int:
+    from aggie_analytics.retrospective_baseline import personnel_association as pa  # noqa: PLC0415 - explicit option
+
+    value = str(text).strip()
+    body = value[1:] if value.startswith("-") else value
+    if not body.isascii() or not body.isdigit() or len(body) > 12:
+        raise pa.AssociationError(code, f"{what} must be an integer, got {text!r}")
+    return int(value)
+
+
+def run_association(args: argparse.Namespace, anchors: Any = _DEFAULT) -> dict[str, Any]:
+    """The explicit personnel association mode (BAT-732): every ambiguous, inapplicable or malformed selection is
+    refused before any file is read; then the release is verified completely (refit included) and queried."""
+    from aggie_analytics.retrospective_baseline import personnel_association as pa  # noqa: PLC0415 - explicit option
+
+    if args.require_pit:
+        raise pa.AssociationError("ASSOCIATION_PIT_NOT_ADMITTED", "the association is RETROSPECTIVE_RESEARCH and "
+                                                                  "POSTHOC_ROSTER_ASSOCIATION_NOT_FORECAST; it is never "
+                                                                  "PIT admitted and no as-of claim is supported")
+    conflicts = [name[len("conflict_"):] for name, value in sorted(vars(args).items())
+                 if name.startswith("conflict_") and value is not None]
+    if conflicts:
+        raise pa.AssociationError("ASSOCIATION_MODE_CONFLICT", f"{conflicts} cannot be combined with "
+                                                               f"{ASSOCIATION_OPTION} (ambiguous mode selection)")
+    stray = [name[len("stray_"):] for name, value in sorted(vars(args).items())
+             if name.startswith("stray_") and value is not None]
+    if stray:
+        raise pa.AssociationError("FILTER_NOT_APPLICABLE", f"{stray} do not apply to the personnel association grains")
+    season = None if args.season is None else _association_integer(args.season, "SEASON_INVALID", "season")
+    limit = _association_integer(args.limit, "LIMIT_INVALID", "limit")
+    offset = _association_integer(args.offset, "OFFSET_INVALID", "offset")
+    if limit < 0:
+        raise pa.AssociationError("NEGATIVE_LIMIT", "limit must be zero or positive")
+    if offset < 0:
+        raise pa.AssociationError("NEGATIVE_OFFSET", "offset must be zero or positive")
+    pa.PersonnelAssociation.filters(args.grain, season=season, team=args.team, contest=args.contest, model=args.model,
+                                    partition=args.partition)
+    if args.expect_identity is not None and not pa.IDENTITY_RE.match(args.expect_identity):
+        raise pa.AssociationError("STALE_ASSOCIATION_IDENTITY", "--expect-identity must be a SHA-256 identity")
+    authority: dict[str, Any] = {} if anchors is _DEFAULT else {"anchors": anchors}
+    with pa.PersonnelAssociation(args.personnel_association, manifest=args.manifest,
+                                 expect_identity=args.expect_identity, **authority) as selected:
+        return selected.query(args.grain, season=season, team=args.team, contest=args.contest, model=args.model,
+                              partition=args.partition, limit=limit, offset=offset, all_rows=args.all_rows)
+
+
+def _write_utf8(text: str) -> None:
+    buffer = getattr(sys.stdout, "buffer", None)
+    if buffer is not None:
+        sys.stdout.flush()
+        buffer.write(text.encode("utf-8"))
+        buffer.flush()
+    else:
+        sys.stdout.write(text)
+
+
 def run(args: argparse.Namespace) -> dict[str, Any]:
     if args.require_pit:
         raise bm.BenchmarkError("PIT_ELIGIBILITY_NOT_ESTABLISHED",
@@ -497,8 +627,19 @@ def main(argv: Sequence[str] | None = None, *, preview_contract_sha256: str | No
          shadow_contract_sha256: str | None = None, shadow_profile: Any = _DEFAULT,
          schedule_contract_sha256: str | None = None, schedule_profile: Any = _DEFAULT,
          expansion_contract_sha256: str | None = None, expansion_profile: Any = _DEFAULT,
-         predecessor_profile: Any = _DEFAULT, reference_anchors: Any = _DEFAULT) -> int:
+         predecessor_profile: Any = _DEFAULT, reference_anchors: Any = _DEFAULT,
+         association_anchors: Any = _DEFAULT) -> int:
     tokens = list(sys.argv[1:] if argv is None else argv)
+    if association_mode(tokens):
+        from aggie_analytics.retrospective_baseline import personnel_association as pa  # noqa: PLC0415 - explicit
+        try:
+            args = build_association_parser().parse_args(tokens)
+            result = run_association(args, association_anchors)
+        except pa.AssociationError as exc:
+            print(json.dumps({"refused": exc.code, "error": str(exc)}), file=sys.stderr)
+            return 2
+        _write_utf8(json.dumps(result, ensure_ascii=False, sort_keys=True) + "\n")
+        return 0
     if reference_mode(tokens):
         args = build_reference_parser().parse_args(tokens)
         from aggie_analytics.retrospective_baseline import reference  # noqa: PLC0415 - explicit option only

@@ -1,0 +1,69 @@
+{
+ "schema": "BAS-AVAILABILITY-EVIDENCE-GATE-1",
+ "issue": "BAT-733",
+ "profile_id": "C37_2026_AVAILABILITY_ASSERTIONS_V1",
+ "contract_id": "BAT-733-C37-2026-AVAILABILITY-ASSERTIONS-V1",
+ "contract_config": "configs/availability_evidence_2026_contract.json",
+ "contract_config_sha256": "3775bfa2eee84307db6c543ff5ba80294f70c18e3a8f4807b35018eea62a44e9",
+ "rules_sha256": "4a99cfc76f76c45b219f47cef4dd688aa179b0911adaa2b03927746174efb96a",
+ "profile_sha256": "4ebc6c01cc13396f33668b40ca390aa34d5c8a841492b0b0a69ca5549a37b27b",
+ "database_sha256": "757d4b5f0649d60943c4594d6e0c22b7c930f5ef3acf9f675b4f93f328a7d331",
+ "database_bytes": 236834816,
+ "qualified_audit": {
+  "sha256": "cf8975ae98f5b5a009b1ad825f86139631b7973f3f24032cd93cbdaf5ffef7d2",
+  "lines": 5079,
+  "summary": {
+   "source_cells": {
+    "VERIFIED_RETAINED_SOURCE_CELL": 1592
+   },
+   "source_cell_fields_compared": 27940,
+   "publication": {
+    "PUBLICATION_TIME_UNKNOWN": 1573,
+    "SOURCE_POSTING_CLAIM_WITNESSED_IN_LATER_CAPTURE": 19
+   },
+   "opportunity_occurrence": {
+    "EXACT_DUPLICATE_ASSERTION_OF_THE_SAME_BUSINESS_KEY": 508,
+    "SINGLETON_BUSINESS_KEY": 2966
+   },
+   "statements_ingested_reconciled": 3474,
+   "opportunity_policy_foreign_keys_present": 1751,
+   "quarantine_flag_agrees_with_identity_claim": 1592
+  },
+  "pin": "src/aggie_analytics/availability_evidence/audit.py"
+ },
+ "qualified_by": {
+  "lane": "QUALIFY_SOURCE_ASSERTIONS",
+  "run": "20261020T154352516976Z",
+  "head": "5a86bf4bbc0fdf501f1a48bf177bae9f551d8651",
+  "receipt_sha256": "ed033ddee31498340dd0c0bb615dddd52163458dcc021b5ee68b32df11f0c485",
+  "audit_lines_gzip_sha256": "7f5edd2f48cac37e08c2a8da1e73ddbe1c00c3a430f149e7745be7ece282a502",
+  "checks_passed": 21,
+  "checks": 21
+ },
+ "population": {
+  "statements": 1592,
+  "source_player_rows": 398,
+  "source_cells": 1592,
+  "opportunity_occurrences": 3474,
+  "opportunity_distinct_business_keys": 3220,
+  "schedule_record_occurrences": 1737,
+  "schedule_distinct_game_ids": 1610,
+  "schedule_duplicate_game_ids": 127,
+  "policies": 13,
+  "publication_claims": 19
+ },
+ "labels": {
+  "authority": "HISTORICAL_SOURCE_AND_PARSER_ASSERTIONS_ONLY",
+  "slice": "FIXED_2026_CAPTURED_REPORT_OPPORTUNITY_SLICE",
+  "availability_state_asserted": false,
+  "pit_admission": "NOT_ADMITTED",
+  "model_feature_admission": "NOT_ADMITTED",
+  "healthy_default": false,
+  "predictive_skill": "NOT_ESTABLISHED"
+ },
+ "consumer": {
+  "console_script": "bas-availability-evidence-query",
+  "module": "aggie_analytics.availability_evidence.query"
+ },
+ "note": "identities and counts of the first real qualification only; no record body, raw source text, health, availability or PIT claim; the reader recomputes the per-row qualification on every session and refuses a collection that differs from this pin"
+}

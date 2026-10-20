@@ -97,3 +97,14 @@ beyond the population keeps the exact total. `--cutoff <instant with offset>` (s
 capture observation, the later posting capture, the reported posting claim and the unknown effective/first-known times
 with the cutoff (`BEFORE`/`AT`/`AFTER`/`UNKNOWN`) and filters nothing. `--as-of`, `--current`, `--latest`,
 `--require-pit` and `--forecast-input` are always refused.
+
+## Qualified audit pin and gate
+
+The first real qualification (QUALIFY_SOURCE_ASSERTIONS run 20261020T154352516976Z at 5a86bf4b, after the contract
+commit) observed the complete per-row qualification collection of the builtin profile: 5,079 canonical lines
+(1,592 statement, 3,474 opportunity and 13 policy qualifications), SHA-256
+`cf8975ae98f5b5a009b1ad825f86139631b7973f3f24032cd93cbdaf5ffef7d2`. `audit.py` pins exactly that identity (rules
+digest, database digest, line count, line digest and qualification summary) without changing any rule, and the reader
+recomputes the collection on every session and refuses one that differs (`QUALIFICATION_AUDIT_MISMATCH`).
+`artifacts/data_lake/availability_evidence_2026_gate.json` records the same identities, the frozen population counts
+and the labels; it carries no record body, raw source text, health, availability or PIT claim.

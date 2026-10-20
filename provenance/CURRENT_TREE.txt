@@ -39,6 +39,7 @@ artifacts/benchmarks/ac038_target_benchmark.json
 artifacts/benchmarks/ac038_target_benchmark.log
 artifacts/data/historical_game_outcome_spine_gate.json
 artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json
+artifacts/data_lake/availability_evidence_2026_gate.json
 artifacts/data_lake/core_acquisition_manifest.json
 artifacts/data_lake/core_coverage_gate.json
 artifacts/data_lake/core_normalization_report.json

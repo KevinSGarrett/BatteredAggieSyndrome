@@ -24,6 +24,7 @@ from unittest import mock
 
 import availability_evidence_fixture as fx
 
+from aggie_analytics.availability_evidence import audit
 from aggie_analytics.availability_evidence import evidence as ae
 from aggie_analytics.availability_evidence import profile as P
 from aggie_analytics.availability_evidence import query as q
@@ -109,6 +110,20 @@ class ContractTests(unittest.TestCase):
     def test_pyproject_declares_the_console_script(self) -> None:
         text = (REPO / "pyproject.toml").read_text(encoding="utf-8")
         self.assertIn('bas-availability-evidence-query = "aggie_analytics.availability_evidence.query:main"', text)
+
+    def test_the_gate_records_the_committed_audit_pin_and_frozen_identities(self) -> None:
+        gate = json.loads((REPO / "artifacts" / "data_lake" / "availability_evidence_2026_gate.json").read_text(
+            encoding="utf-8"))
+        self.assertEqual((gate["profile_id"], gate["rules_sha256"], gate["profile_sha256"], gate["database_sha256"]),
+                         (P.PROFILE_ID, P.RULES_SHA256, P.PROFILE_SHA256, P.PROFILE["database"]["sha256"]))
+        self.assertEqual((gate["qualified_audit"]["sha256"], gate["qualified_audit"]["lines"],
+                          gate["qualified_audit"]["summary"]),
+                         (audit.QUALIFIED_AUDIT["lines_sha256"], audit.QUALIFIED_AUDIT["rows"],
+                          audit.QUALIFIED_AUDIT["summary"]))
+        self.assertEqual((audit.QUALIFIED_AUDIT["rules_sha256"], audit.QUALIFIED_AUDIT["database_sha256"]),
+                         (P.RULES_SHA256, P.PROFILE["database"]["sha256"]))
+        self.assertEqual((gate["labels"]["pit_admission"], gate["labels"]["availability_state_asserted"],
+                          gate["labels"]["healthy_default"]), ("NOT_ADMITTED", False, False))
 
 
 # --------------------------------------------------------------------------------------------- grains and records
@@ -894,6 +909,12 @@ class MountedGenuineTests(unittest.TestCase):
         code, _out, err = run_cli(["--database", str(self.db), "--data-root", str(self.root), "--grain", "statement",
                                    "--require-pit"])
         self.assertEqual((code, err["refused"]), (2, "PIT_NOT_ADMITTED"))
+
+    def test_the_committed_audit_pin_is_the_genuine_qualification(self) -> None:
+        self.assertIsNotNone(audit.QUALIFIED_AUDIT)
+        self.assertEqual(self.session.audit_identity(), audit.QUALIFIED_AUDIT)
+        self.assertEqual(self.query("--grain", "profile")["qualified_audit"],
+                         {"lines_sha256": audit.QUALIFIED_AUDIT["lines_sha256"], "rows": 5079})
 
 
 if __name__ == "__main__":

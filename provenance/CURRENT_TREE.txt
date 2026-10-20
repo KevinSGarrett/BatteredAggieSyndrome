@@ -822,6 +822,7 @@ configs/assistive_downstream_adoptions.json
 configs/assistive_provider_registry.json
 configs/assistive_route_readiness.json
 configs/authority_checkout_sampling_contract.json
+configs/availability_evidence_2026_contract.json
 configs/backlog_policy.json
 configs/backup_retention_policy.json
 configs/bas_science_registry.json
@@ -1205,6 +1206,7 @@ docs/ORIGINAL_IDEA_DECISIONS.md
 docs/README.md
 docs/SYSTEM_REFERENCE_INTEGRITY_BOUNDARIES.md
 docs/architecture/ARCHIVE_CAPTURE_SERVICE_PAUSE.md
+docs/architecture/AVAILABILITY_EVIDENCE.md
 docs/architecture/DATAFLOW_AND_STORAGE.md
 docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md
 docs/architecture/INTERFACE_CONTRACTS.md
@@ -3847,6 +3849,11 @@ src/aggie_analytics/assistive_plane/storage.py
 src/aggie_analytics/assistive_plane/watchdog.py
 src/aggie_analytics/assistive_plane/worker.py
 src/aggie_analytics/atomic_io.py
+src/aggie_analytics/availability_evidence/__init__.py
+src/aggie_analytics/availability_evidence/audit.py
+src/aggie_analytics/availability_evidence/evidence.py
+src/aggie_analytics/availability_evidence/profile.py
+src/aggie_analytics/availability_evidence/query.py
 src/aggie_analytics/bas/__init__.py
 src/aggie_analytics/bas/contracts.py
 src/aggie_analytics/bas/labels.py
@@ -4367,6 +4374,7 @@ src/aggie_analytics/weather_evidence/evidence.py
 src/aggie_analytics/weather_evidence/query.py
 src/aggie_analytics/workspace/__init__.py
 src/aggie_analytics/workspace/paths.py
+tests/availability_evidence_fixture.py
 tests/cycle26_frozen_predecessor.py
 tests/fixtures/cycle28/synthetic_gridiron/bundle.json
 tests/fixtures/cycle29/ci_scoring_rows.jsonl
@@ -4409,6 +4417,7 @@ tests/test_artifact_policy_full.py
 tests/test_assistive_downstream_review.py
 tests/test_authority_placeholders.py
 tests/test_autonomous_control_tools.py
+tests/test_availability_evidence.py
 tests/test_backlog_governance.py
 tests/test_backup_catalog_integrity.py
 tests/test_bas_science_governance.py

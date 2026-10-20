@@ -136,3 +136,5 @@ The build is `tools/build_national_personnel_association.py`. Its reverse-order,
 interrupted-and-resumed variants reproduce every byte. The release's identities and counts are pinned in the anchors
 module's canonical profile after the first canonical write, and recorded in
 `artifacts/data_lake/national_personnel_association_2016_2022_gate.json`.
+
+The Windows existing-file check uses the already validated absolute literal path before layout resolution, including relative spellings whose uncollapsed working-directory path exceeds MAX_PATH. The missing-file diagnostic and POSIX layout semantics are unchanged (C61-INTEGRATION-DELTA-01).

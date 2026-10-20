@@ -1654,7 +1654,7 @@ class PersonnelAssociation:
                 raise AssociationError(f"ASSOCIATION_MANIFEST_LOCATION_{suffix}", f"--manifest {manifest}: "
                                                                                  f"{exc.detail}") from exc
         db = Path(database)
-        if not _io_path(db).is_file():
+        if not _io_path(Path(literal) if os.name == "nt" else db).is_file():
             _refuse("ASSOCIATION_DATABASE_MISSING", f"no personnel association database file at {db}")
         # MF61A01-01: on Windows the layout and identity are checked on the genuine names of the existing file (an 8.3
         # or case-equivalent spelling of the same release is that release); every later read uses that one location.

@@ -846,6 +846,26 @@ class NativeLocationAliasTests(unittest.TestCase):
         relative = os.path.join(pa.POPULATION.upper(), "SHA256", db.parent.name.upper(), pa.DB_FILE)
         self.served(relative, "relative case-equivalent layout", cwd=db.parents[3])
 
+    @unittest.skipUnless(os.name == "nt", "Windows raw relative-path MAX_PATH handling")
+    def test_relative_spelling_from_long_cwd_uses_validated_native_location(self) -> None:
+        db = STATE["db"]
+        if len(os.path.abspath(db)) >= 250:
+            self.skipTest("this case needs a short normalized target; the issued Windows TEMP roots provide one")
+        cwd = self.base / "relative-cwd"
+        while len(str(cwd)) < 180:
+            cwd /= "nested_" + "x" * 24
+        cwd.mkdir(parents=True)
+        relative = os.path.relpath(db, cwd)
+        self.assertGreater(len(os.path.join(str(cwd), relative)), 260,
+                           "MI61-R2-01 regression must exercise the long uncollapsed spelling")
+        self.assertEqual(os.path.abspath(cwd / relative), os.path.abspath(db))
+        for spelling in (relative, ".\\" + relative, relative.replace("\\", "/"), relative.upper()):
+            for explicit_manifest in (False, True):
+                with self.subTest(spelling=spelling, explicit_manifest=explicit_manifest):
+                    argv = ("--manifest", str(fx.manifest_of(db))) if explicit_manifest else ()
+                    self.served(spelling, "MI61-R2-01 normalized relative path before file existence", *argv, cwd=cwd)
+        self.served(db, "MI61-R2-01 canonical control")
+
     @unittest.skipUnless(os.name == "nt", "Windows native 8.3 short names")
     def test_native_short_spellings_serve_the_release(self) -> None:
         db = STATE["db"]

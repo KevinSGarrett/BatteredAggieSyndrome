@@ -19,7 +19,11 @@ Before any record is interpreted the reader (fixed order, each refusal for its o
 5. re-hashes the database file after reading and refuses any change during the session
    (``INPUT_CHANGED_DURING_SESSION``);
 6. recomputes the frozen rules identity (``QUALIFICATION_RULES_MISMATCH``) and, once pinned, the qualified audit
-   identity of the complete per-row qualification collection (``QUALIFICATION_AUDIT_MISMATCH``).
+   identity of the builtin profile's complete per-row qualification collection (``QUALIFICATION_AUDIT_MISMATCH``).
+
+Qualification is a function of the verified records alone, never of the order they reached it: records are taken in
+their pinned original SQLite rowid order (so an occurrence's ordinal and siblings within its business key, the
+audit-line order and the re-derived population do not depend on input or iteration order).
 
 Each served row keeps the original record in its original schema beside a separate ``qualification`` object (and, for
 opportunities, a ``source_occurrence`` wrapper naming the pinned database SHA-256, table and original SQLite rowid).
@@ -424,7 +428,9 @@ class AvailabilityEvidence:
                  audit: dict[str, Any] | None = None, hooks: dict[str, Callable[[], None]] | None = None) -> None:
         self.profile = P.PROFILE if profile is None else profile
         self.rules = P.RULES if rules is None else rules
-        self.audit_pin = _audit.QUALIFIED_AUDIT if audit is None else audit
+        # The committed audit pin belongs to the builtin profile; an injected (internal, synthetic) profile is bound
+        # only by an audit identity passed with it.
+        self.audit_pin = audit if audit is not None else _audit.QUALIFIED_AUDIT if profile is None else None
         hooks = hooks or {}
         if P.rules_sha256(self.rules) != P.RULES_SHA256:
             raise AvailabilityError("QUALIFICATION_RULES_MISMATCH", "the packaged qualification rules differ from the "
@@ -672,6 +678,8 @@ class AvailabilityEvidence:
 
     def _qualify(self) -> None:
         sq = self.rules["statement_qualification"]
+        # the pinned original rowid order, whatever order the records arrived in
+        self.records = {grain: sorted(rows, key=lambda pair: pair[0]) for grain, rows in self.records.items()}
         self.qualifications: dict[str, list[dict[str, Any]]] = {"statement": [], "opportunity": [], "policy": []}
         for _rid, r in self.records["statement"]:
             identity, contest = self._identity(r), self._contest(r)

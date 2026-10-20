@@ -312,6 +312,25 @@ class QualificationTests(WorldCase):
         self.assertEqual(a.audit_lines(), b.audit_lines())
         self.assertEqual(a.audit_identity(), b.audit_identity())
 
+    def test_qualification_does_not_depend_on_input_record_order(self) -> None:
+        # The duplicate business key SRC-002:GAME:200 (rowids 5 and 7, 6 and 8) makes an order-dependent occurrence
+        # ordinal or sibling list visible.
+        base = self.session()
+        lines, ident = base.audit_lines(), base.audit_identity()
+        for name, reorder in (("reversed", lambda rows: list(reversed(rows))),
+                              ("interleaved", lambda rows: rows[1::2] + rows[0::2])):
+            other = self.session()
+            other.records = {grain: reorder(rows) for grain, rows in other.records.items()}
+            other._qualify()
+            other._population()
+            with self.subTest(order=name):
+                self.assertEqual(other.audit_lines(), lines)
+                self.assertEqual(other.audit_identity(), ident)
+                dup = [q["occurrence"] for q in other.qualifications["opportunity"]
+                       if q["key"]["original_sqlite_rowid"] in (5, 7)]
+                self.assertEqual([(d["occurrence_ordinal_within_key"], d["sibling_original_sqlite_rowids"])
+                                  for d in dup], [(1, [7]), (2, [5])])
+
 
 # --------------------------------------------------------------------------------------------- selectors
 
@@ -657,6 +676,14 @@ class IntegrityTests(WorldCase):
         with self.assertRaises(ae.AvailabilityError) as ctx:
             self.session(audit=wrong)
         self.assertEqual(ctx.exception.code, "QUALIFICATION_AUDIT_MISMATCH")
+
+    def test_the_committed_audit_pin_binds_only_the_builtin_profile(self) -> None:
+        wrong = {**self.session().audit_identity(), "lines_sha256": "0" * 64}
+        with mock.patch.object(ae._audit, "QUALIFIED_AUDIT", wrong):
+            # an injected synthetic profile is not bound by the builtin profile's pin ...
+            self.assertIsNone(self.session().query("profile", {})["qualified_audit"])
+            # ... while the builtin profile still verifies the whole-file anchor before any pin
+            self.refused("DATABASE_IDENTITY_MISMATCH", "--grain", "profile", profile=None, exit_code=3)
 
     def test_refusal_codes_are_closed_and_classified(self) -> None:
         with self.assertRaises(ValueError):

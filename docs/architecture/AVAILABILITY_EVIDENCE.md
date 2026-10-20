@@ -54,8 +54,11 @@ used for every file operation); the whole-file database SHA-256 (`DATABASE_IDENT
 (`EXPECTED_SHA256_MISMATCH`); each witness read once, verified and parsed from the same bytes; the closed schemas,
 storage classes, keys, counts, contiguous rowids and strict decoding; a second whole-file hash after reading
 (`INPUT_CHANGED_DURING_SESSION`); the re-derived population; the frozen rules and profile identities; and, once pinned
-in `audit.py`, the qualified audit identity of the complete per-row qualification collection. A coordinated
-record/schema forgery always refuses first at the whole-file anchor. Request refusals exit 2; input integrity failures
+in `audit.py`, the qualified audit identity of the builtin profile's complete per-row qualification collection (an
+internal injected synthetic profile is bound only by an audit identity passed with it). Qualification is computed from
+the records in their pinned original SQLite rowid order, so occurrence ordinals, sibling lists, audit lines and the
+re-derived population never depend on input order. A coordinated record/schema forgery always refuses first at the
+whole-file anchor. Request refusals exit 2; input integrity failures
 exit 3; both print `{"refused", "refusal_class", "error"}` on stderr.
 
 ## Qualifications (separate from the original records)

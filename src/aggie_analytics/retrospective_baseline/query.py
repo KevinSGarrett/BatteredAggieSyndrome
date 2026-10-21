@@ -81,6 +81,23 @@ RETROSPECTIVE_RESEARCH, UNTRUSTED_SHADOW, PIT_NOT_ADMITTED and NOT_CALIBRATED wi
 ``--require-pit`` is refused. It is never combined with ``--database``, ``--history-database`` or another explicit mode
 (ASSOCIATION_MODE_CONFLICT). Invocations without the option keep their parsers, answers and refusals; only ``--help`` of
 the original parser gains one paragraph naming it.
+
+``--context-association <national_site_calendar_association.sqlite>`` (BAT-734 bounded research contribution, Cycle 63)
+is the explicit national retrospective site/calendar association mode, served by
+:mod:`aggie_analytics.retrospective_baseline.context_association` and imported only then: every accepted 2016-2023 target
+qualified for its agreed designated source site and its latest strictly earlier eligible same-season calendar interval,
+the frozen complete-case common cohort, exactly two frozen zero-intercept lambda-1 logistic fits on its 2016-2022 games
+(CTX-HISTORY-LOGIT-V1 on history, CTX-SITE-CALENDAR-LOGIT-V1 on history, site and calendar) and the five unchanged C56
+game-score comparators projected on the same cohort, at the ``context-qualification``, ``context-feature``,
+``context-parameter``, ``context-estimate``, ``context-score`` and ``context-summary`` grains. The reader needs no data
+root: it verifies every record, collection, rule, a fresh refit and every identity before serving. Filters ``--season``,
+``--partition``, ``--team``, ``--contest`` and ``--model`` follow the declared applicability matrix (an inapplicable one
+is refused before any file is read); exact paging (``--all`` excludes an explicit ``--limit``/``--offset``). Every
+answer is RETROSPECTIVE_RESEARCH, UNTRUSTED_SHADOW, PIT_NOT_ADMITTED, NOT_A_FORECAST and NOT_CALIBRATED with predictive
+skill NOT_ESTABLISHED; ``--require-pit`` is refused. It is never combined with another mode's option
+(CONTEXT_MODE_CONFLICT). Invocations without the option keep their parsers, answers and refusals byte for byte, the
+original ``--help`` included (TP63 allows one added help paragraph; it is not used because the accepted Cycle 61 test
+pins that help text exactly); the mode's own parser describes it (``--context-association <file> --help``).
 """
 from __future__ import annotations
 
@@ -147,6 +164,18 @@ ASSOCIATION_EPILOG = ("explicit national posthoc personnel/history association m
                       "POSTHOC_ROSTER_ASSOCIATION_NOT_FORECAST, RETROSPECTIVE_RESEARCH, UNTRUSTED_SHADOW, "
                       "PIT_NOT_ADMITTED, NOT_CALIBRATED, predictive skill NOT_ESTABLISHED; never combined with "
                       "--database or another explicit mode")
+CONTEXT_OPTION = "--context-association"
+CONTEXT_EPILOG = ("explicit national retrospective site/calendar association mode (BAT-734, Cycle 63): "
+                  "--context-association <national_site_calendar_association.sqlite> --grain "
+                  "{context-qualification,context-feature,context-parameter,context-estimate,context-score,"
+                  "context-summary} [--season] [--partition] [--team] [--contest] [--model] [--limit] [--offset] "
+                  "[--all] [--manifest] [--expect-identity]: every accepted 2016-2023 target's agreed designated "
+                  "source site and latest strictly earlier eligible same-season calendar interval, two frozen "
+                  "zero-intercept L2 logistic fits on the common 2016-2022 games (history; history, site and calendar) "
+                  "and the five unchanged C56 comparators on the same cohort, 2023 an exposed comparison; "
+                  "RETROSPECTIVE_RESEARCH, UNTRUSTED_SHADOW, PIT_NOT_ADMITTED, NOT_A_FORECAST, NOT_CALIBRATED, "
+                  "predictive skill NOT_ESTABLISHED, no causal site, rest or travel claim; never combined with "
+                  "--database or another explicit mode")
 _DEFAULT = object()
 
 
@@ -462,6 +491,103 @@ def run_association(args: argparse.Namespace, anchors: Any = _DEFAULT) -> dict[s
                               partition=args.partition, limit=limit, offset=offset, all_rows=args.all_rows)
 
 
+def context_mode(argv: Sequence[str]) -> bool:
+    """Whether an invocation names the explicit site/calendar association option (exactly, or as
+    ``--context-association=<path>``)."""
+    return any(token == CONTEXT_OPTION or token.startswith(CONTEXT_OPTION + "=") for token in argv)
+
+
+#: Other modes' options the context parser recognizes only to refuse the ambiguous combination (CONTEXT_MODE_CONFLICT).
+CONTEXT_CONFLICTS = ("--database", "--history-database", "--population-database", REFERENCE_OPTION, ASSOCIATION_OPTION,
+                     PREVIEW_OPTION, SHADOW_OPTION, SCHEDULE_OPTION)
+#: Temporal flags (TEMPORAL_FLAG_UNSUPPORTED) and inapplicable selectors (SELECTOR_NOT_APPLICABLE) it recognizes.
+CONTEXT_TEMPORAL = ("--cutoff", "--as-of")
+CONTEXT_STRAY = ("--event", "--orientation", "--slice")
+
+
+def build_context_parser() -> argparse.ArgumentParser:
+    """The explicit BAT-734 site/calendar association mode's parser (selected only when --context-association is
+    named); every argument error is a controlled ARGUMENT_INVALID refusal (exit 2, JSON on stderr), never a usage dump.
+    Values are kept as the given text, so an explicit empty value is refused by its own rule, never read as absent."""
+    from aggie_analytics.retrospective_baseline import context_association as ca  # noqa: PLC0415 - explicit option
+
+    class _ContextParser(argparse.ArgumentParser):
+        def error(self, message: str) -> Any:
+            raise ca.ContextError("ARGUMENT_INVALID", message)
+
+    parser = _ContextParser(prog="bas-retrospective-baseline-query --context-association", allow_abbrev=False,
+                            description="Explicit immutable national retrospective site/calendar association "
+                                        "2016-2023 (research only: not a forecast, not PIT admitted, not calibrated, no "
+                                        "skill, champion or causal site, rest or travel claim).",
+                            epilog=CONTEXT_EPILOG)
+    parser.add_argument(CONTEXT_OPTION, dest="context_association", required=True,
+                        help="the explicitly selected association database of a verified identity directory (never a "
+                             "default)")
+    parser.add_argument("--manifest", default=None, help="the release run manifest (default: beside)")
+    parser.add_argument("--expect-identity", dest="expect_identity", default=None)
+    parser.add_argument("--grain", required=True)
+    parser.add_argument("--season", default=None)
+    parser.add_argument("--partition", default=None)
+    parser.add_argument("--team", default=None)
+    parser.add_argument("--contest", default=None)
+    parser.add_argument("--model", default=None)
+    parser.add_argument("--limit", default=None, help="page size (default 50)")
+    parser.add_argument("--offset", default=None, help="page offset (default 0)")
+    parser.add_argument("--all", dest="all_rows", action="store_true")
+    parser.add_argument("--require-pit", dest="require_pit", action="store_true",
+                        help="refused: the association is research only and never PIT admitted")
+    for flag in CONTEXT_CONFLICTS:
+        parser.add_argument(flag, dest="conflict_" + flag.lstrip("-").replace("-", "_"), default=None)
+    for flag in CONTEXT_TEMPORAL:
+        parser.add_argument(flag, dest="temporal_" + flag.lstrip("-").replace("-", "_"), default=None)
+    for flag in CONTEXT_STRAY:
+        parser.add_argument(flag, dest="stray_" + flag.lstrip("-"), default=None)
+    return parser
+
+
+def run_context(args: argparse.Namespace, anchors: Any = _DEFAULT) -> dict[str, Any]:
+    """The explicit site/calendar association mode (BAT-734): every ambiguous, inapplicable or malformed selection is
+    refused before any file is read, in the frozen precedence of ``context_association.PRECEDENCE``; then the release
+    is verified completely (refit included) and queried."""
+    from aggie_analytics.retrospective_baseline import context_association as ca  # noqa: PLC0415 - explicit option
+
+    if args.require_pit:
+        raise ca.ContextError("CONTEXT_PIT_NOT_ADMITTED", "the association is RETROSPECTIVE_RESEARCH and "
+                                                          "NOT_A_FORECAST; it is never PIT admitted and no as-of claim "
+                                                          "is supported")
+    conflicts = [name[len("conflict_"):] for name, value in sorted(vars(args).items())
+                 if name.startswith("conflict_") and value is not None]
+    if conflicts:
+        raise ca.ContextError("CONTEXT_MODE_CONFLICT", f"{conflicts} cannot be combined with {CONTEXT_OPTION} "
+                                                       "(ambiguous mode selection)")
+    temporal = [name[len("temporal_"):] for name, value in sorted(vars(args).items())
+                if name.startswith("temporal_") and value is not None]
+    if temporal:
+        raise ca.ContextError("TEMPORAL_FLAG_UNSUPPORTED", f"{temporal}: no historical as-of or cutoff selector exists "
+                                                           "for the retrospective association")
+    stray = [name[len("stray_"):] for name, value in sorted(vars(args).items())
+             if name.startswith("stray_") and value is not None]
+    if stray:
+        raise ca.ContextError("SELECTOR_NOT_APPLICABLE", f"{stray} do not apply to the context association grains")
+    if args.grain not in ca.GRAINS:
+        raise ca.ContextError("UNKNOWN_GRAIN", f"grain must be one of {list(ca.GRAINS)}, got {args.grain!r}")
+    limit = 50 if args.limit is None else args.limit
+    offset = 0 if args.offset is None else args.offset
+    ca.validate_paging(limit, offset, args.all_rows, limit_given=args.limit is not None,
+                       offset_given=args.offset is not None)
+    ca.validate_selection(args.grain, season=args.season, partition=args.partition, team=args.team,
+                          contest=args.contest, model=args.model)
+    if args.expect_identity is not None and not ca.IDENTITY_RE.match(args.expect_identity):
+        raise ca.ContextError("STALE_CONTEXT_IDENTITY", "--expect-identity must be a SHA-256 identity")
+    authority: dict[str, Any] = {} if anchors is _DEFAULT else {"anchors": anchors}
+    with ca.ContextAssociation(args.context_association, manifest=args.manifest,
+                               expect_identity=args.expect_identity, **authority) as selected:
+        return selected.query(args.grain, season=args.season, partition=args.partition, team=args.team,
+                              contest=args.contest, model=args.model, limit=limit, offset=offset,
+                              all_rows=args.all_rows, limit_given=args.limit is not None,
+                              offset_given=args.offset is not None)
+
+
 def _write_utf8(text: str) -> None:
     buffer = getattr(sys.stdout, "buffer", None)
     if buffer is not None:
@@ -628,8 +754,18 @@ def main(argv: Sequence[str] | None = None, *, preview_contract_sha256: str | No
          schedule_contract_sha256: str | None = None, schedule_profile: Any = _DEFAULT,
          expansion_contract_sha256: str | None = None, expansion_profile: Any = _DEFAULT,
          predecessor_profile: Any = _DEFAULT, reference_anchors: Any = _DEFAULT,
-         association_anchors: Any = _DEFAULT) -> int:
+         association_anchors: Any = _DEFAULT, context_anchors: Any = _DEFAULT) -> int:
     tokens = list(sys.argv[1:] if argv is None else argv)
+    if context_mode(tokens):
+        from aggie_analytics.retrospective_baseline import context_association as ca  # noqa: PLC0415 - explicit
+        try:
+            args = build_context_parser().parse_args(tokens)
+            result = run_context(args, context_anchors)
+        except ca.ContextError as exc:
+            print(json.dumps({"refused": exc.code, "error": str(exc)}), file=sys.stderr)
+            return 2
+        _write_utf8(json.dumps(result, ensure_ascii=False, sort_keys=True) + "\n")
+        return 0
     if association_mode(tokens):
         from aggie_analytics.retrospective_baseline import personnel_association as pa  # noqa: PLC0415 - explicit
         try:

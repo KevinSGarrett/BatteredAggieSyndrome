@@ -1,0 +1,865 @@
+{
+ "console_script": "bas-availability-evidence-query",
+ "contract_id": "BAT-733-C37-2026-AVAILABILITY-ASSERTIONS-V1",
+ "jira_key": "BAT-733",
+ "module": "aggie_analytics.availability_evidence.query",
+ "plan": "TP62-A01 (Cycle #62 — Attempt #1)",
+ "profile": {
+  "database": {
+   "bytes": 236834816,
+   "content_addressed_directory_key": "67d2ce357dc36d5a13a8edc94d0ffa9fc27115768817b1ee1ac9dff567757671",
+   "directory_key_meaning": "A_DIFFERENT_RETAINED_IDENTITY_NEVER_A_SUBSTITUTE_FOR_THE_FILE_SHA256",
+   "release": "CYCLE37_CORRECTED_NATIONAL_RELEASE",
+   "sha256": "757d4b5f0649d60943c4594d6e0c22b7c930f5ef3acf9f675b4f93f328a7d331"
+  },
+  "offline_witnesses": {
+   "policy_witnesses": 13,
+   "proof": "RETAINED_OFFLINE_EVIDENCE_NOT_PRESENT_QUERY_RAW_AUDIT",
+   "roster_witnesses": 31,
+   "schedule": {
+    "relative_path": "ops/cycle30_work/outputs/CFBD_GAMES_TRANCHE.jsonl",
+    "season": 2026,
+    "sha256": "7072f260d0cd373602e8121d5d875ae3e9d722c3dc8735f56390845e7b32aac2"
+   }
+  },
+  "population": {
+   "contest_states": {
+    "CONTEST_BOUND": 1552,
+    "CONTEST_LABEL_NAMES_THE_PROGRAM_ITSELF": 40
+   },
+   "distinct_key_inventory": {
+    "opportunity_states": {
+     "REPORT_STATEMENTS_INGESTED": 43,
+     "UNKNOWN_NOT_HEALTHY": 3177
+    },
+    "policy_expected": 974,
+    "policy_expected_before_as_of": 77,
+    "policy_expected_ingested": 31
+   },
+   "effective_time_known": 0,
+   "identity_states": {
+    "RESOLVED_NAME_AND_JERSEY_AGREE": 1548,
+    "RESOLVED_UNIQUE_NAME_JERSEY_NOT_STATED": 4,
+    "UNRESOLVED_JERSEY_SHARED_BY_SEVERAL_PLAYERS": 8,
+    "UNRESOLVED_NAME_AND_JERSEY_POINT_AT_DIFFERENT_PLAYERS": 8,
+    "UNRESOLVED_NO_ROSTER_ROW_MATCHES": 24
+   },
+   "joint_person_contest": {
+    "CONTEST_CLAIM_NOT_QUALIFIED": 40,
+    "PERSON_CLAIM_UNRESOLVED": 40,
+    "PERSON_UNRESOLVED_AND_CONTEST_NOT_QUALIFIED": 0,
+    "RETAINED_PERSON_AND_CONTEST_CLAIMS": 1512
+   },
+   "opportunity_distinct_business_keys": 3220,
+   "opportunity_duplicate_business_key_groups": 254,
+   "opportunity_occurrences": 3474,
+   "opportunity_singleton_business_keys": 2966,
+   "opportunity_states": {
+    "REPORT_STATEMENTS_INGESTED": 43,
+    "UNKNOWN_NOT_HEALTHY": 3431
+   },
+   "pit_admitted": 0,
+   "policies": 13,
+   "policy_expected_before_as_of_occurrences": 89,
+   "policy_expected_ingested_occurrences": 31,
+   "policy_expected_occurrences": 989,
+   "presence": {
+    "PUBLISHED_EMPTY": 179,
+    "PUBLISHED_VALUE": 1413
+   },
+   "publication_claims": 19,
+   "quarantined": 40,
+   "schedule_distinct_game_ids": 1610,
+   "schedule_duplicate_game_ids": 127,
+   "schedule_record_occurrences": 1737,
+   "source_cells": 1592,
+   "source_empty_representations": {
+    "normalized_null": 129,
+    "normalized_unknown_sec": 50
+   },
+   "source_person_id_prefixes": {
+    "CFBD": 276,
+    "OFFICIAL": 1276,
+    "null": 40
+   },
+   "source_player_rows": 398,
+   "statements": 1592,
+   "statements_by_conference": {
+    "ACC": 872,
+    "Big 12": 216,
+    "Big Ten": 252,
+    "SEC": 252
+   },
+   "statements_by_stage": {
+    "game_day_status": 398,
+    "initial_status": 398,
+    "update_1_status": 398,
+    "update_2_status": 398
+   },
+   "status_texts": {
+    "-": 179,
+    "Available": 105,
+    "Doubtful": 65,
+    "Exempt": 3,
+    "Game Time Decision": 23,
+    "Out": 899,
+    "Probable": 138,
+    "Questionable": 180
+   }
+  },
+  "profile_id": "C37_2026_AVAILABILITY_ASSERTIONS_V1",
+  "report_season": 2026,
+  "retained_opportunity_as_of_utc": "2026-09-23T10:45:16.941Z",
+  "schedule_season": 2026,
+  "tables": {
+   "opportunity": {
+    "boolean_columns": [
+     "conference_game",
+     "kickoff_before_as_of"
+    ],
+    "business_key": [
+     "canonical_contest_id",
+     "team_id",
+     "side"
+    ],
+    "columns": {
+     "absent_players": [
+      "text"
+     ],
+     "canonical_contest_id": [
+      "text"
+     ],
+     "classification": [
+      "null",
+      "text"
+     ],
+     "conference": [
+      "null",
+      "text"
+     ],
+     "conference_game": [
+      "integer"
+     ],
+     "governing_policy": [
+      "null",
+      "text"
+     ],
+     "kickoff_before_as_of": [
+      "integer"
+     ],
+     "kickoff_utc": [
+      "text"
+     ],
+     "label": [
+      "text"
+     ],
+     "policy_covers_2026": [
+      "null",
+      "text"
+     ],
+     "program": [
+      "text"
+     ],
+     "report_expectation": [
+      "text"
+     ],
+     "side": [
+      "text"
+     ],
+     "state": [
+      "text"
+     ],
+     "statements_ingested": [
+      "integer"
+     ],
+     "team_id": [
+      "integer"
+     ]
+    },
+    "data_grain": "RETAINED_SCHEDULE_RECORD_OCCURRENCE_X_PROGRAM_SIDE",
+    "json_columns": {},
+    "key": null,
+    "occurrence_key": [
+     "database_sha256",
+     "table",
+     "original_sqlite_rowid"
+    ],
+    "order": [
+     "canonical_contest_id",
+     "team_id",
+     "side",
+     "original_sqlite_rowid"
+    ],
+    "rows": 3474,
+    "table": "availability_opportunity"
+   },
+   "policy": {
+    "boolean_columns": [],
+    "columns": {
+     "absence_rule": [
+      "text"
+     ],
+     "absence_rule_applies_only_to": [
+      "text"
+     ],
+     "conference": [
+      "text"
+     ],
+     "covers_2026": [
+      "text"
+     ],
+     "first_report_contest_date": [
+      "null",
+      "text"
+     ],
+     "format": [
+      "text"
+     ],
+     "label": [
+      "text"
+     ],
+     "non_conference": [
+      "text"
+     ],
+     "policy_id": [
+      "text"
+     ],
+     "policy_season": [
+      "integer",
+      "null"
+     ],
+     "quotes": [
+      "text"
+     ],
+     "quotes_verified_in_extracted_text": [
+      "text"
+     ],
+     "schedule": [
+      "text"
+     ],
+     "scope": [
+      "text"
+     ],
+     "source_kind": [
+      "text"
+     ],
+     "source_path": [
+      "text"
+     ],
+     "source_sha256": [
+      "text"
+     ],
+     "supersedes": [
+      "null",
+      "text"
+     ],
+     "url": [
+      "text"
+     ],
+     "version_as_stated": [
+      "null",
+      "text"
+     ],
+     "vocabulary_gameday": [
+      "text"
+     ],
+     "vocabulary_observed_in_ingested_reports": [
+      "null",
+      "text"
+     ],
+     "vocabulary_pregame": [
+      "text"
+     ]
+    },
+    "data_grain": "RETAINED_POLICY_OBSERVATION",
+    "json_columns": {
+     "quotes": "list",
+     "quotes_verified_in_extracted_text": "object",
+     "schedule": "list",
+     "vocabulary_gameday": "list",
+     "vocabulary_observed_in_ingested_reports": "list",
+     "vocabulary_pregame": "list"
+    },
+    "key": "policy_id",
+    "order": [
+     "policy_id"
+    ],
+    "rows": 13,
+    "table": "availability_policy"
+   },
+   "statement": {
+    "boolean_columns": [
+     "no_medical_detail",
+     "out_does_not_imply_injury",
+     "pit_admitted",
+     "publication_time_established",
+     "quarantined"
+    ],
+    "columns": {
+     "availability_row_id": [
+      "integer"
+     ],
+     "conference": [
+      "text"
+     ],
+     "contest": [
+      "text"
+     ],
+     "contest_label": [
+      "text"
+     ],
+     "effective_utc": [
+      "null"
+     ],
+     "embedded_in": [
+      "null",
+      "text"
+     ],
+     "exact_status_text": [
+      "text"
+     ],
+     "identity": [
+      "text"
+     ],
+     "identity_version": [
+      "text"
+     ],
+     "jersey": [
+      "text"
+     ],
+     "label": [
+      "text"
+     ],
+     "no_medical_detail": [
+      "integer"
+     ],
+     "normalized_status": [
+      "null",
+      "text"
+     ],
+     "out_does_not_imply_injury": [
+      "integer"
+     ],
+     "pit_admitted": [
+      "integer"
+     ],
+     "player_name": [
+      "text"
+     ],
+     "presence": [
+      "text"
+     ],
+     "program": [
+      "text"
+     ],
+     "program_as_written": [
+      "text"
+     ],
+     "publication_basis": [
+      "null",
+      "text"
+     ],
+     "publication_time_established": [
+      "integer"
+     ],
+     "publication_utc": [
+      "null",
+      "text"
+     ],
+     "quarantined": [
+      "integer"
+     ],
+     "report_vintage_retrieval_utc": [
+      "text"
+     ],
+     "rights_state": [
+      "text"
+     ],
+     "season_out_carried_from": [
+      "null"
+     ],
+     "source_locator": [
+      "text"
+     ],
+     "source_sha256": [
+      "text"
+     ],
+     "source_url": [
+      "null",
+      "text"
+     ],
+     "stage": [
+      "text"
+     ]
+    },
+    "data_grain": "SOURCE_ROW_STAGE_ASSERTION",
+    "json_columns": {
+     "contest": "object",
+     "identity": "object"
+    },
+    "key": "availability_row_id",
+    "order": [
+     "availability_row_id"
+    ],
+    "rows": 1592,
+    "table": "availability_statement_successor"
+   }
+  },
+  "witnesses": {
+   "ACC_ARCHIVE": {
+    "bytes": 507827,
+    "conference": "ACC",
+    "embedded_in": "https://theacc.com/sports/2025/8/28/availability-reporting-football-archive.aspx",
+    "format": "RENDERED_JSON_ROWS",
+    "locator_prefix": "rows",
+    "player_rows": 218,
+    "relative_path": "ops/cycle37/attempts/REWORK-20260922T171601Z/private/acquisition/availability/bfd5b51508cad4d2fdc918a4ac5ab3af0ba8fa2b980fb46a844eb52cd8d7b49c.bin",
+    "retrieval_observation_basis": "CAPTURE_EMBEDDED_RENDERED_UTC",
+    "retrieval_observation_utc": "2026-09-23T10:44:03.913Z",
+    "role": "PRIMARY_REPORT_CAPTURE",
+    "sha256": "bfd5b51508cad4d2fdc918a4ac5ab3af0ba8fa2b980fb46a844eb52cd8d7b49c",
+    "source_url": "https://app.hdintelligence.com/?source=ACC&sport=Football&conf=ACC&type=archive"
+   },
+   "ACC_CURRENT_POSTING": {
+    "bytes": 2059,
+    "conference": "ACC",
+    "embedded_in": "https://theacc.com/sports/2025/8/28/availability-reporting-football.aspx",
+    "format": "RENDERED_JSON_CARDS",
+    "locator_prefix": null,
+    "player_rows": null,
+    "relative_path": "ops/cycle37/attempts/REWORK-20260922T171601Z/private/acquisition/availability/b8953b637350f5e367170fa9e125d4b125489944b18c9e319768fc5525171e98.bin",
+    "retrieval_observation_basis": "CAPTURE_EMBEDDED_RENDERED_UTC",
+    "retrieval_observation_utc": "2026-09-23T10:42:51.193Z",
+    "role": "LATER_POSTING_VIEW_CAPTURE",
+    "sha256": "b8953b637350f5e367170fa9e125d4b125489944b18c9e319768fc5525171e98",
+    "source_url": "https://app.hdintelligence.com/?source=ACC&sport=Football&conf=ACC&type=report"
+   },
+   "BIG12_ARCHIVE": {
+    "bytes": 149859,
+    "conference": "Big 12",
+    "embedded_in": "https://big12sports.com/sports/2025/8/21/FBReportArchive.aspx",
+    "format": "RENDERED_JSON_ROWS",
+    "locator_prefix": "rows",
+    "player_rows": 54,
+    "relative_path": "ops/cycle37/attempts/REWORK-20260922T171601Z/private/acquisition/availability/07a9bdadee51c46fcc588174c148758e017c2be7235c4967205ebd5349ef430c.bin",
+    "retrieval_observation_basis": "CAPTURE_EMBEDDED_RENDERED_UTC",
+    "retrieval_observation_utc": "2026-09-23T10:44:35.512Z",
+    "role": "PRIMARY_REPORT_CAPTURE",
+    "sha256": "07a9bdadee51c46fcc588174c148758e017c2be7235c4967205ebd5349ef430c",
+    "source_url": "https://app.hdintelligence.com/?source=B12&sport=Football&conf=B12&type=archive"
+   },
+   "BIGTEN_ARCHIVE": {
+    "bytes": 165189,
+    "conference": "Big Ten",
+    "embedded_in": "https://bigten.org/fb/article/60323/",
+    "format": "RENDERED_JSON_ROWS",
+    "locator_prefix": "rows",
+    "player_rows": 63,
+    "relative_path": "ops/cycle37/attempts/REWORK-20260922T171601Z/private/acquisition/availability/660569f36bcd8825e8ab68307a1e619f565c9e2ae507e2c54b7619f6a4c13384.bin",
+    "retrieval_observation_basis": "CAPTURE_EMBEDDED_RENDERED_UTC",
+    "retrieval_observation_utc": "2026-09-23T10:45:16.941Z",
+    "role": "PRIMARY_REPORT_CAPTURE",
+    "sha256": "660569f36bcd8825e8ab68307a1e619f565c9e2ae507e2c54b7619f6a4c13384",
+    "source_url": "https://app.hdintelligence.com/?source=B10&sport=Football&conf=B10&type=archive"
+   },
+   "SEC_RAW_CAPTURE": {
+    "bytes": 4764,
+    "conference": "SEC",
+    "embedded_in": null,
+    "format": "TAB_SEPARATED_TEXT_TABLE",
+    "locator_prefix": "row",
+    "player_rows": 63,
+    "relative_path": "ops/cycle34/20260919T_R34_receipts/r34_12_browser_capture/sec_official_availability_raw_20260920T054326Z.txt",
+    "retrieval_observation_basis": "RETAINED_CAPTURE_RECEIPT_TIME_NOT_EMBEDDED_IN_THE_CAPTURE",
+    "retrieval_observation_utc": "2026-09-20T05:43:26+00:00",
+    "role": "PRIMARY_REPORT_CAPTURE",
+    "sha256": "7006a61eda1a172e0198363a3899ff66ddeae3b6d52783c34d56231ac8ddac67",
+    "source_url": null
+   }
+  }
+ },
+ "rules": {
+  "authority": {
+   "availability_state_asserted": false,
+   "evidence_class": "HISTORICAL_SOURCE_AND_PARSER_ASSERTIONS_ONLY",
+   "healthy_default": false,
+   "model_feature_admission": "NOT_ADMITTED",
+   "pit_admission": "NOT_ADMITTED",
+   "predictive_skill": "NOT_ESTABLISHED",
+   "slice": "FIXED_2026_CAPTURED_REPORT_OPPORTUNITY_SLICE"
+  },
+  "cutoff": {
+   "clocks": [
+    "PRIMARY_CAPTURE_RETRIEVAL_OBSERVATION",
+    "LATER_POSTING_CAPTURE_OBSERVATION",
+    "SOURCE_REPORTED_POSTING_CLAIM",
+    "EFFECTIVE_TIME",
+    "FIRST_KNOWN_TIME"
+   ],
+   "grammar": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]{1,6})?)?(Z|[+-][0-9]{2}:[0-9]{2})$",
+   "relations": [
+    "BEFORE",
+    "AT",
+    "AFTER",
+    "UNKNOWN"
+   ],
+   "rule": "A comparison only: every selected row is kept; no version, stage, last value or forecast input is selected; a date-only, naive or local-time value is refused."
+  },
+  "domains": "A well-formed value not represented in the fixed profile's domain for that selector is KEY_NOT_IN_PROFILE (team: programs of the statement and opportunity tables; conference: every retained conference; contest: every retained contest claim; source-sha256: statement and policy source digests and the posting witness; person-id, published-name, statement-id, reported-status: the statement table; policy-id: the policy table and every retained governing-policy claim); a foreign season is SEASON_NOT_IN_PROFILE. Represented values whose intersection is empty succeed with rows=[], total_count=0 and an explicit empty-match disposition.",
+  "grains": [
+   "statement",
+   "opportunity",
+   "policy",
+   "profile"
+  ],
+  "literal_text": "Exact, case-sensitive, code-point equality with the retained value: no substring, fuzzy, case or whitespace folding, alias or numeric equivalence. A malformed value (empty, leading or trailing white space, a control character, a lone surrogate or more than 200 characters) is INVALID_SELECTOR.",
+  "opportunity_qualification": {
+   "denominator": "RETAINED_FIXED_AS_OF_DENOMINATOR_ASSERTION",
+   "not_current": "RETAINED_AS_OF_2026-09-23T10:45:16.941Z_NOT_CURRENT_COVERAGE",
+   "occurrence": {
+    "exact_duplicate": "EXACT_DUPLICATE_ASSERTION_OF_THE_SAME_BUSINESS_KEY",
+    "meaning": "DUPLICATE_ASSERTIONS_ARE_NOT_DIFFERENT_GAMES_SOURCES_VERSIONS_OR_COVERAGE",
+    "nonidentical_repeat": "NONIDENTICAL_BUSINESS_KEY_REPEAT",
+    "singleton": "SINGLETON_BUSINESS_KEY"
+   },
+   "policy": {
+    "absent": "NO_GOVERNING_POLICY_HELD",
+    "present": "POLICY_OBSERVATION_NOT_REPORT_COMPLETENESS_PROOF"
+   },
+   "schedule_witness_proof": "RETAINED_OFFLINE_EVIDENCE_NOT_PRESENT_QUERY_RAW_AUDIT",
+   "state": {
+    "REPORT_STATEMENTS_INGESTED": "SOURCE_STAGE_ASSERTIONS_INGESTED_NOT_REPORT_COMPLETENESS",
+    "UNKNOWN_NOT_HEALTHY": "NO_REPORT_STATEMENT_INGESTED_UNKNOWN_NOT_HEALTHY"
+   },
+   "statements_ingested": "A_COUNT_OF_RETAINED_SOURCE_STAGE_ASSERTIONS_FOR_THE_CONTEST_AND_PROGRAM_NOT_PEOPLE_OR_REPORTS"
+  },
+  "ordering": {
+   "collation": "Python code-point order for text, numeric order for integers; null sorts first",
+   "opportunity": [
+    "canonical_contest_id",
+    "team_id",
+    "side",
+    "original_sqlite_rowid"
+   ],
+   "policy": [
+    "policy_id"
+   ],
+   "profile": [
+    "SINGLETON"
+   ],
+   "statement": [
+    "availability_row_id"
+   ]
+  },
+  "original_record": {
+   "json_max_depth": 32,
+   "rule": "Every column of the original table row in its original order. JSON-text columns are decoded with strict JSON (no NaN/Infinity, no duplicate member names, depth at most 32) into the declared object or list type (null stays null); Boolean columns accept only the integers 0 and 1 and are served as false/true; every other value keeps its exact SQLite storage class (integer, text or null). Nested values are never flattened and integers, floats and Booleans are never coerced into one another. The table's union columns and nulls are the retained table representation, not a claim that a JSONL source object carried every key.",
+   "source_occurrence": "opportunity rows only: {database_sha256, table, original_sqlite_rowid}, a wrapper identifying the occurrence in the pinned database bytes; never inserted into original_record and never a declared source column"
+  },
+  "paging": {
+   "all_excludes_explicit_paging": true,
+   "default_limit": 100,
+   "grammar": "^[0-9]{1,19}$",
+   "max_limit": 1000,
+   "max_offset": 9223372036854775807,
+   "min_limit": 1,
+   "rule": "Paging applies after filtering; an offset beyond the filtered population returns rows=[] with the exact filtered total."
+  },
+  "policy_qualification": {
+   "absence_rule": "APPLIES_ONLY_TO_AN_ACTUAL_COMPLETE_CURRENT_REPORT_NEVER_TO_A_MISSING_PARTIAL_OR_STALE_ONE",
+   "coverage": "ORIGINAL_POLICY_COVERAGE_CLAIM_NOT_NATIONAL_COMPLETENESS",
+   "policy_season": {
+    "stated": "ORIGINAL_POLICY_SEASON",
+    "unstated": "POLICY_SEASON_UNSTATED"
+   },
+   "quotes": "RETAINED_PRODUCER_QUOTE_VERIFICATION_CLAIM",
+   "state": "POLICY_OBSERVATION_NOT_REPORT_COMPLETENESS_PROOF",
+   "witness_proof": "RETAINED_OFFLINE_EVIDENCE_NOT_PRESENT_QUERY_RAW_AUDIT"
+  },
+  "refusals": {
+   "exit_codes": {
+    "integrity": 3,
+    "request": 2
+   },
+   "integrity": [
+    "DATABASE_MISSING",
+    "DATA_ROOT_MISSING",
+    "WITNESS_MISSING",
+    "DATABASE_IDENTITY_MISMATCH",
+    "WITNESS_IDENTITY_MISMATCH",
+    "WITNESS_FORMAT_INVALID",
+    "SCHEMA_MISMATCH",
+    "RECORD_INVALID",
+    "POPULATION_MISMATCH",
+    "INPUT_CHANGED_DURING_SESSION",
+    "QUALIFICATION_RULES_MISMATCH",
+    "PROFILE_INTEGRITY_MISMATCH",
+    "QUALIFICATION_AUDIT_MISMATCH"
+   ],
+   "request": [
+    "ARGUMENT_INVALID",
+    "PROFILE_UNKNOWN",
+    "SELECTOR_NOT_APPLICABLE",
+    "INVALID_SELECTOR",
+    "KEY_NOT_IN_PROFILE",
+    "SEASON_NOT_IN_PROFILE",
+    "PAGING_INVALID",
+    "AS_OF_STATE_NOT_SUPPORTED",
+    "CURRENT_STATE_NOT_SUPPORTED",
+    "PIT_NOT_ADMITTED",
+    "FORECAST_ADMISSION_NOT_SUPPORTED",
+    "DATABASE_LOCATION_UNSUPPORTED",
+    "DATABASE_LOCATION_NOT_LITERAL",
+    "DATA_ROOT_LOCATION_UNSUPPORTED",
+    "EXPECTED_SHA256_MISMATCH"
+   ],
+   "rule": "A request refusal is exit 2; an input integrity failure is exit 3 and is never a scientific unsupported-result answer. Network, device and namespace spellings and every malformed or inapplicable selector are refused before any filesystem access; the whole-file database SHA-256 is checked before any record is interpreted, so a coordinated record/schema forgery refuses as DATABASE_IDENTITY_MISMATCH."
+  },
+  "response_schema": "BAS-AVAILABILITY-EVIDENCE-RESPONSE-1",
+  "schema": "BAS-AVAILABILITY-EVIDENCE-QUALIFICATION-1",
+  "selectors": {
+   "--conference": {
+    "grains": [
+     "statement",
+     "opportunity",
+     "policy"
+    ],
+    "grammar": "LITERAL_TEXT",
+    "match": "conference"
+   },
+   "--contest": {
+    "grains": [
+     "statement",
+     "opportunity"
+    ],
+    "grammar": "^SRC-002:GAME:[0-9]{1,18}$",
+    "match": {
+     "opportunity": "canonical_contest_id",
+     "statement": "contest.canonical_contest_id"
+    }
+   },
+   "--contest-state": {
+    "grains": [
+     "statement"
+    ],
+    "grammar": "ENUM",
+    "match": "contest.state",
+    "values": [
+     "CONTEST_BOUND",
+     "CONTEST_LABEL_NAMES_THE_PROGRAM_ITSELF"
+    ]
+   },
+   "--cutoff": {
+    "grains": [
+     "statement"
+    ],
+    "grammar": "CUTOFF",
+    "match": "NONE_COMPARISON_ONLY"
+   },
+   "--identity-state": {
+    "grains": [
+     "statement"
+    ],
+    "grammar": "ENUM",
+    "match": "identity.state",
+    "values": [
+     "RESOLVED_NAME_AND_JERSEY_AGREE",
+     "RESOLVED_UNIQUE_NAME_JERSEY_NOT_STATED",
+     "UNRESOLVED_JERSEY_SHARED_BY_SEVERAL_PLAYERS",
+     "UNRESOLVED_NAME_AND_JERSEY_POINT_AT_DIFFERENT_PLAYERS",
+     "UNRESOLVED_NO_ROSTER_ROW_MATCHES"
+    ]
+   },
+   "--person-id": {
+    "grains": [
+     "statement"
+    ],
+    "grammar": "^(CFBD:[0-9]{1,18}|OFFICIAL:[^:]{1,100}:[0-9]{4}:[0-9]{1,6})$",
+    "match": "identity.canonical_player_id"
+   },
+   "--policy-id": {
+    "grains": [
+     "opportunity",
+     "policy"
+    ],
+    "grammar": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$",
+    "match": {
+     "opportunity": "governing_policy",
+     "policy": "policy_id"
+    }
+   },
+   "--policy-season": {
+    "grains": [
+     "policy"
+    ],
+    "grammar": "^[0-9]{4}$",
+    "match": "policy_season"
+   },
+   "--presence": {
+    "grains": [
+     "statement"
+    ],
+    "grammar": "ENUM",
+    "match": "presence",
+    "values": [
+     "PUBLISHED_EMPTY",
+     "PUBLISHED_VALUE"
+    ]
+   },
+   "--published-name": {
+    "grains": [
+     "statement"
+    ],
+    "grammar": "LITERAL_TEXT",
+    "match": "player_name"
+   },
+   "--reported-status": {
+    "grains": [
+     "statement"
+    ],
+    "grammar": "LITERAL_TEXT",
+    "match": "exact_status_text"
+   },
+   "--season": {
+    "grains": [
+     "statement",
+     "opportunity"
+    ],
+    "grammar": "^[0-9]{4}$",
+    "match": {
+     "opportunity": "SCHEDULE_SEASON_2026",
+     "statement": "contest.season"
+    }
+   },
+   "--source-sha256": {
+    "grains": [
+     "statement",
+     "policy"
+    ],
+    "grammar": "^[0-9a-f]{64}$",
+    "match": {
+     "policy": "source_sha256",
+     "statement": "source_sha256"
+    }
+   },
+   "--stage": {
+    "grains": [
+     "statement"
+    ],
+    "grammar": "ENUM",
+    "match": "stage",
+    "values": [
+     "initial_status",
+     "update_1_status",
+     "update_2_status",
+     "game_day_status"
+    ]
+   },
+   "--statement-id": {
+    "grains": [
+     "statement"
+    ],
+    "grammar": "^[1-9][0-9]{0,18}$",
+    "match": "availability_row_id"
+   },
+   "--team": {
+    "grains": [
+     "statement",
+     "opportunity"
+    ],
+    "grammar": "LITERAL_TEXT",
+    "match": "program"
+   }
+  },
+  "statement_qualification": {
+   "contest": {
+    "bound": "RETAINED_PARSER_CONTEST_CLAIM",
+    "schedule_witness_proof": "RETAINED_OFFLINE_EVIDENCE_NOT_PRESENT_QUERY_RAW_AUDIT",
+    "self_opponent": "CONTEST_NOT_QUALIFIED_SELF_OPPONENT"
+   },
+   "effective_time": "EFFECTIVE_TIME_UNKNOWN",
+   "first_known": "FIRST_KNOWN_NOT_ESTABLISHED",
+   "identity": {
+    "global_person_identity": "NOT_QUALIFIED",
+    "resolved": "RETAINED_PARSER_IDENTITY_CLAIM",
+    "roster_witness_proof": "RETAINED_OFFLINE_EVIDENCE_NOT_PRESENT_QUERY_RAW_AUDIT",
+    "scope": {
+     "CFBD": "PROVIDER_SCOPED_PERSON_ID",
+     "OFFICIAL": "SOURCE_SCOPED_ROSTER_ROW_ID"
+    },
+    "unresolved": "the original UNRESOLVED_* state is served as the reason"
+   },
+   "joint": [
+    "RETAINED_PERSON_AND_CONTEST_CLAIMS",
+    "PERSON_CLAIM_UNRESOLVED",
+    "CONTEST_CLAIM_NOT_QUALIFIED",
+    "PERSON_UNRESOLVED_AND_CONTEST_NOT_QUALIFIED"
+   ],
+   "publication": {
+    "authority": "SOURCE_REPORTED_POSTING_CLAIM_NOT_FIRST_KNOWN_NOT_VERSION_SEAL_NOT_PIT",
+    "disputed": "DISPUTED_AGAINST_PINNED_WITNESS",
+    "rule": "An original publication_time_established claim is witnessed only when the later posting capture holds an INITIAL REPORT card for the row's initial_status stage whose game date (card footer and page heading year) equals the contest date, whose team column equals program_as_written and lists exactly one entry '<position> #<jersey> <player>' under the heading equal to the upper-cased status text, whose 'Report posted on <Weekday>, <Month> <D> at <h>:<mm><am|pm> ET' line has a consistent weekday and converts (US Eastern time, daylight time from the second Sunday of March 2:00 to the first Sunday of November 2:00) to publication_utc, and whose capture time is later than the claim. Every other row is PUBLICATION_TIME_UNKNOWN.",
+    "unknown": "PUBLICATION_TIME_UNKNOWN",
+    "update_cards": "an UPDATE REPORT card would be listed as a card kind; none is invented",
+    "witnessed": "SOURCE_POSTING_CLAIM_WITNESSED_IN_LATER_CAPTURE"
+   },
+   "quarantine_flag": "IDENTITY_ONLY_FLAG_NOT_WHOLE_ROW_QUALIFICATION",
+   "source_cell": {
+    "compared_fields": [
+     "source_sha256",
+     "locator_prefix",
+     "locator_stage",
+     "stage",
+     "conference",
+     "report_vintage_retrieval_utc",
+     "source_url",
+     "embedded_in",
+     "program_as_written",
+     "date_as_written",
+     "contest_label",
+     "opponent_as_written",
+     "jersey",
+     "player_name",
+     "exact_status_text",
+     "presence"
+    ],
+    "consequence_of_dispute": "ORIGINAL_RETAINED_UNCHANGED_DISPUTE_VISIBLE_WITH_COMPETING_WITNESS_TEXT",
+    "disputed": "DISPUTED_AGAINST_PINNED_WITNESS",
+    "field_rules": {
+     "conference": "equals the witness conference",
+     "contest_label": "equals '<month>/<day>/<two-digit year> <raw Opponent>' (the retained producer label form)",
+     "date_as_written": "contest.date_as_written equals the ISO date of the raw Date cell (M/D/YY or 'Ddd, Mon D, YYYY' with a consistent weekday)",
+     "embedded_in": "equals the witness embedding page (null for the SEC capture)",
+     "exact_status_text": "equals the raw stage cell",
+     "jersey": "equals the raw Number cell (an empty cell is an empty string)",
+     "locator_prefix": "row for the SEC capture, rows for the rendered JSON archives",
+     "locator_stage": "the locator's stage token equals the row's stage",
+     "opponent_as_written": "only when the contest claim carries it: equals the raw Opponent without a leading 'vs. ' or 'at '",
+     "player_name": "equals the raw Player cell",
+     "presence": "PUBLISHED_EMPTY exactly when the raw stage cell is '-', otherwise PUBLISHED_VALUE",
+     "program_as_written": "equals the raw Team cell",
+     "report_vintage_retrieval_utc": "equals the witness retrieval observation text",
+     "source_url": "equals the witness source URL (null for the SEC capture)"
+    },
+    "locator": "^(row|rows)\\[([1-9][0-9]{0,5})\\]\\.(initial_status|update_1_status|update_2_status|game_day_status)$",
+    "source_empty": "a raw '-' cell is SOURCE_EMPTY_CELL whichever original normalized representation (null or SEC UNKNOWN) the producer stored; the originals are served unchanged",
+    "verified": "VERIFIED_RETAINED_SOURCE_CELL"
+   },
+   "stage_time": "SOURCE_COLUMN_ONLY_PUBLICATION_INSTANT_UNKNOWN",
+   "status": {
+    "available": "A_SOURCE_AVAILABLE_STATEMENT_IS_NOT_AN_INDEPENDENTLY_ESTABLISHED_HEALTHY_PERSON",
+    "exempt": "EXEMPT_IS_NEITHER_AVAILABLE_NOR_OUT_NOR_A_MEDICAL_CAUSE",
+    "meaning": "SOURCE_STATEMENT_LITERAL_NOT_INDEPENDENT_HEALTH_OR_AVAILABILITY_STATE",
+    "source_empty": "SOURCE_EMPTY_CELL_NOT_HEALTH_NOT_AVAILABILITY_NOT_REPORT_COMPLETENESS"
+   }
+  },
+  "temporal_state_refusals": {
+   "--as-of": "AS_OF_STATE_NOT_SUPPORTED",
+   "--current": "CURRENT_STATE_NOT_SUPPORTED",
+   "--forecast-input": "FORECAST_ADMISSION_NOT_SUPPORTED",
+   "--latest": "CURRENT_STATE_NOT_SUPPORTED",
+   "--require-pit": "PIT_NOT_ADMITTED"
+  }
+ },
+ "rules_sha256": "4a99cfc76f76c45b219f47cef4dd688aa179b0911adaa2b03927746174efb96a"
+}

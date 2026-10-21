@@ -64,6 +64,7 @@ bas-retrospective-baseline-query = "aggie_analytics.retrospective_baseline.query
 bas-game-context-query = "aggie_analytics.game_context.query:main"
 bas-personnel-evidence-query = "aggie_analytics.personnel_evidence.query:main"
 bas-weather-evidence-query = "aggie_analytics.weather_evidence.query:main"
+bas-availability-evidence-query = "aggie_analytics.availability_evidence.query:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

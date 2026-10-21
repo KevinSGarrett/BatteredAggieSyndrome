@@ -11212,5 +11212,38 @@ ANCHORS: dict[str, Any] = json.loads(r'''{
 }''')
 #: The canonical release profile the create-only build reproduces (identities and counts only; None until the first
 #: canonical write).
-CONTEXT_PROFILE: dict[str, Any] | None = None
+CONTEXT_PROFILE: dict[str, Any] | None = json.loads(r'''{
+ "database_identity": "bb30768dc7279009c6abd41365d71ed9e6fc28f184c3328a67f68109cc5a2783",
+ "content_identity": "1b7a8286d33a9a55a55bb67ddae2f6357d0c8ddff935d675ea735763c925e784",
+ "database_sha256": "35f3ea2e56ed24fa1a6569e2db3e4200b02d635ff7d01889f26359a367ef725c",
+ "database_bytes": 13619200,
+ "contract_sha256": "9b74dfe73d9d4236752d2c173e0effe284044801ed73c7bf40082aa97a5677a5",
+ "rules_sha256": "49018c0e54b83e05f166cdf6ea5dfa62ae79974c5ff41ea8cebab2d76d06c3bf",
+ "row_counts": {
+  "census": 1,
+  "estimates": 23500,
+  "features": 11750,
+  "parameters": 2,
+  "qualifications": 5875,
+  "scores": 11750,
+  "summary": 70,
+  "witnesses": 29375
+ },
+ "table_counts": {
+  "blocks": 43,
+  "meta": 11
+ },
+ "lines_sha256": {
+  "census": "7e52794c82e1c08bd4f666cf795c06f0587aee3882804d514bbb0f004284f62a",
+  "estimates": "f514f5b22152ef039457dff7e1100090b23506f6f8990b56a057585a15ba9248",
+  "features": "33f1b8b98b04ff1f9eab1a9caa847b1913b0870752af530e773698fbdfd132ee",
+  "parameters": "d7b2f2735412bf8749005b807fe83409ae3d34f26d5cf07e6e0b312954ff01b7",
+  "qualifications": "32c583fd8065c9f028ec87645b79bea2058c9aeb9609b8dbbae508d287b7fb52",
+  "scores": "2d5bc18dd8289c6f9ea41943d74d2441969e30ba8d58026e9649409c26996ef3",
+  "summary": "b4b98a4a05d78dfd54b939edfe9469a5b6188f1982a56e57489147892d2a11d8",
+  "witnesses": "b2741c43a247a74a7d0758c3d578ffb7c81f8587556578ad2076d51500678339"
+ },
+ "summary_sha256": "b4b98a4a05d78dfd54b939edfe9469a5b6188f1982a56e57489147892d2a11d8",
+ "census_sha256": "7e52794c82e1c08bd4f666cf795c06f0587aee3882804d514bbb0f004284f62a"
+}''')
 # ---- END GENERATED ANCHORS ----

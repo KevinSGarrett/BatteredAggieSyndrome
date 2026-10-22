@@ -997,6 +997,168 @@ class TeamUnicodeTests(unittest.TestCase):
             self.assertEqual((code, doc["total"]), (0, 0), err)
 
 
+#: MF63A01-01 (C63-CONT-01): every Unicode category Cc character (C0 U+0000-U+001F, DEL U+007F, C1 U+0080-U+009F).
+CC_POINTS = (*range(0x20), *range(0x7F, 0xA0))
+#: The five string options a raw control can reach, a valid token for each and its own refusal code.
+RAW_OPTIONS = {"season": ("2021", "INVALID_SELECTOR"), "team": ("org:697", "INVALID_SELECTOR"),
+               "contest": ("ncaa:1001", "INVALID_SELECTOR"), "limit": ("20", "LIMIT_INVALID"),
+               "offset": ("10", "OFFSET_INVALID")}
+TAB, LF, VT, FS, US, DEL, PAD, NEL, APC = chr(9), chr(10), chr(11), chr(28), chr(31), chr(127), chr(0x80), chr(0x85), \
+    chr(0x9F)
+NBSP, IDEOGRAPHIC_SPACE, SOFT_HYPHEN, ZWJ, COMBINING_ACUTE = chr(0xA0), chr(0x3000), chr(0xAD), chr(0x200D), chr(0x301)
+HIGH, LOW, LAST = chr(0xD800), chr(0xDC00), chr(0xDFFF)
+RAW_MISSING = "never-read/national_site_calendar_association.sqlite"
+
+
+class _InputAccess(Exception):
+    """Raised by the access sentinel: the selection reached the release's input access."""
+
+
+def _no_input_access(path):
+    raise _InputAccess(str(path))
+
+
+def raw_ask(*argv: str) -> tuple:
+    """The public main on a never-read database path with every input access trapped by a sentinel:
+    (exit, refusal code, input accessed, stderr)."""
+    with mock.patch.object(ca, "_io_path", _no_input_access):
+        try:
+            code, _doc, err = fx.query(STATE["anchors"], RAW_MISSING, *argv)
+        except _InputAccess:
+            return None, None, True, ""
+    return code, fx.refusal(err), False, err
+
+
+def raw_spellings(value: str, character: str) -> dict:
+    half = len(value) // 2
+    return {"prefix": character + value, "suffix": value + character,
+            "infix": value[:half] + character + value[half:]}
+
+
+class RawControlSelectorTests(unittest.TestCase):
+    """MF63A01-01: a raw control character in a supplied season, team, contest, limit or offset string is refused by
+    that option's own rule before any trimming or input access; ordinary and Unicode spaces still trim, valid Unicode
+    text still selects, lone surrogates and already-malformed values keep their codes and the frozen precedence holds."""
+
+    def test_raw_controls_in_every_option_refuse_by_their_own_code_before_any_input_access(self) -> None:
+        for option, (value, code) in RAW_OPTIONS.items():
+            for point in CC_POINTS:
+                for where, text in raw_spellings(value, chr(point)).items():
+                    with self.subTest(option=option, codepoint=f"U+{point:04X}", position=where):
+                        exit_code, refused, accessed, err = raw_ask("--grain", "context-feature", f"--{option}", text)
+                        mark = f"MF63A01-01 --{option} U+{point:04X} {where}"
+                        self.assertFalse(accessed, mark + " reached input access")
+                        self.assertEqual((exit_code, refused), (2, code), mark)
+                        self.assertNotIn("Traceback", err, mark)
+
+    def test_raw_controls_keep_the_frozen_refusal_precedence(self) -> None:
+        cases = [
+            # paging precedes the model and the game selectors; the limit precedes the offset
+            (("--grain", "context-score", "--limit", TAB + "20", "--model", "NOPE"), "LIMIT_INVALID", "limit"),
+            (("--grain", "context-score", "--offset", "10" + NEL, "--team", "org:x"), "OFFSET_INVALID", "offset"),
+            (("--grain", "context-score", "--limit", "20" + LF, "--offset", APC + "10"), "LIMIT_INVALID", "limit"),
+            # game selector values precede applicability and the identity check
+            (("--grain", "context-parameter", "--season", "2021" + TAB), "INVALID_SELECTOR", "season"),
+            (("--grain", "context-parameter", "--team", PAD + "Texas"), "INVALID_SELECTOR", "team"),
+            (("--grain", "context-score", "--contest", US + "ncaa:1001", "--expect-identity", "abc"),
+             "INVALID_SELECTOR", "contest"),
+            # season precedes team: the earlier malformed value is the one reported
+            (("--grain", "context-score", "--season", LF + "2021", "--team", "Tex" + NEL + "as"), "INVALID_SELECTOR",
+             "season")]
+        for argv, code, option in cases:
+            with self.subTest(argv=repr(argv)):
+                exit_code, refused, accessed, err = raw_ask(*argv)
+                mark = f"MF63A01-01 precedence {argv!r}"
+                self.assertFalse(accessed, mark + " reached input access")
+                self.assertEqual((exit_code, refused), (2, code), mark)
+                self.assertIn(f"{option} must", err, mark)
+
+    def test_a_real_child_process_refuses_raw_controls_without_a_traceback(self) -> None:
+        env = dict(os.environ)
+        env["PYTHONPATH"] = os.pathsep.join(p for p in (str(ROOT / "src"), env.get("PYTHONPATH")) if p)
+        cases = (("season", TAB + "2023", "INVALID_SELECTOR"), ("team", NEL + "org:697", "INVALID_SELECTOR"),
+                 ("team", "Tex" + PAD + "as", "INVALID_SELECTOR"), ("contest", "ncaa:2276000" + FS, "INVALID_SELECTOR"),
+                 ("limit", LF + "20", "LIMIT_INVALID"), ("offset", "10" + VT, "OFFSET_INVALID"))
+        with tempfile.TemporaryDirectory(prefix="scs-r-") as tmp:
+            missing = Path(tmp) / "absent" / ca.DB_FILE
+            for option, text, code in cases:
+                proc = subprocess.run([sys.executable, "-B", "-m", "aggie_analytics.retrospective_baseline.query",
+                                       "--context-association", str(missing), "--grain", "context-feature",
+                                       f"--{option}", text], capture_output=True, env=env, cwd=tmp, timeout=300)
+                with self.subTest(option=option, text=repr(text)):
+                    mark = f"MF63A01-01 child --{option} {text!r}"
+                    self.assertEqual(proc.returncode, 2, mark)
+                    self.assertEqual(fx.refusal(proc.stderr.decode("utf-8", "replace")), code, mark)
+                    self.assertNotIn(b"Traceback", proc.stderr, mark)
+                    self.assertEqual(proc.stdout, b"", mark)
+            self.assertFalse(missing.parent.exists())
+
+    def test_ordinary_and_unicode_spaces_and_valid_unicode_text_still_reach_the_release(self) -> None:
+        for option, (value, _code) in RAW_OPTIONS.items():
+            for text in (value, " " + value, value + " ", NBSP + value + IDEOGRAPHIC_SPACE):
+                with self.subTest(option=option, text=repr(text)):
+                    exit_code, refused, accessed, err = raw_ask("--grain", "context-feature", f"--{option}", text)
+                    self.assertEqual((exit_code, refused, accessed), (None, None, True), err)
+        for team in ("Snowman " + chr(0x2603), "Gridiron " + chr(0x1F3C8), "Cafe" + COMBINING_ACUTE,
+                     "Join" + ZWJ + "er", "Tex" + SOFT_HYPHEN + "as"):
+            with self.subTest(team=repr(team)):
+                exit_code, refused, accessed, err = raw_ask("--grain", "context-feature", "--team", team)
+                self.assertEqual((exit_code, refused, accessed), (None, None, True), err)
+
+    def test_trimmed_selectors_and_paging_answer_exactly_as_their_plain_spelling(self) -> None:
+        record = next(r for r in quals().values() if r["season"] == 2022)
+        pairs = [(("--season", " 2022 "), ("--season", "2022")),
+                 (("--team", " " + record["a_key"]), ("--team", record["a_key"])),
+                 (("--contest", record["contest_key"] + " "), ("--contest", record["contest_key"])),
+                 (("--limit", " 3", "--offset", "1 "), ("--limit", "3", "--offset", "1"))]
+        for padded, plain in pairs:
+            with self.subTest(padded=repr(padded)):
+                got, want = ask("--grain", "context-feature", *padded), ask("--grain", "context-feature", *plain)
+                self.assertEqual((got[0], want[0]), (0, 0), got[2] + want[2])
+                self.assertTrue(want[1]["rows"])
+                for key in ("rows", "total", "returned", "next_offset"):
+                    self.assertEqual(got[1].get(key), want[1].get(key), key)
+
+    def test_lone_surrogates_and_already_malformed_values_keep_their_codes(self) -> None:
+        cases = [("season", HIGH), ("season", "20" + LOW + "21"), ("team", HIGH), ("team", "Tex" + LAST + "as"),
+                 ("contest", "ncaa:" + HIGH), ("limit", "2" + HIGH), ("offset", LOW + "1"),
+                 ("team", "a" + US + "b"), ("team", "Tex" + chr(7) + "as"), ("season", "20" + DEL + "21"),
+                 ("contest", "ncaa:" + chr(0) + "1"), ("limit", "x"), ("offset", "1.5"), ("contest", "espn:1"),
+                 ("season", "20x1"), ("team", "org:x"), ("team", ""), ("limit", ""), ("offset", ""),
+                 ("limit", "1234567890123")]
+        for option, text in cases:
+            with self.subTest(option=option, text=repr(text)):
+                exit_code, refused, accessed, err = raw_ask("--grain", "context-feature", f"--{option}", text)
+                self.assertEqual((exit_code, refused, accessed), (2, RAW_OPTIONS[option][1], False), err)
+        for team in (HIGH, "Tex" + LAST + "as", LOW + HIGH):
+            with self.subTest(surrogate=repr(team)):
+                self.assertIn("lone surrogate", raw_ask("--grain", "context-feature", "--team", team)[3])
+
+    def test_earlier_refusal_families_still_win_over_raw_controls(self) -> None:
+        cases = [(("--grain", "context-score", "--require-pit", "--limit", TAB + "20"), "CONTEXT_PIT_NOT_ADMITTED"),
+                 (("--grain", "context-score", "--database", "x.sqlite", "--season", LF + "2021"),
+                  "CONTEXT_MODE_CONFLICT"),
+                 (("--grain", "context-score", "--cutoff", "x", "--team", NEL + "Texas"), "TEMPORAL_FLAG_UNSUPPORTED"),
+                 (("--grain", "context-forecast", "--offset", US + "1"), "UNKNOWN_GRAIN"),
+                 (("--grain", "context-score", "--model", "NOPE", "--season", TAB + "2021"), "MODEL_INVALID"),
+                 (("--grain", "context-score", "--limit", "-1", "--season", APC + "2021"), "NEGATIVE_LIMIT")]
+        for argv, code in cases:
+            with self.subTest(argv=repr(argv)):
+                exit_code, refused, accessed, err = raw_ask(*argv)
+                self.assertEqual((exit_code, refused, accessed), (2, code, False), err)
+
+    def test_python_integer_paging_keeps_its_rule_without_a_digit_cap(self) -> None:
+        self.assertEqual(ca.validate_paging(10 ** 15, 10 ** 13, False, limit_given=True, offset_given=True),
+                         (10 ** 15, 10 ** 13))
+        self.assertEqual(ca.validate_paging(" 12 ", "0", False, limit_given=True, offset_given=True), (12, 0))
+        self.assertEqual(ca.validate_paging("123456789012", "0", False, limit_given=True, offset_given=True),
+                         (123456789012, 0))
+        for limit, offset, code in (("1234567890123", "0", "LIMIT_INVALID"), ("5", NBSP + "x", "OFFSET_INVALID")):
+            with self.assertRaises(ca.ContextError) as caught:
+                ca.validate_paging(limit, offset, False, limit_given=True, offset_given=True)
+            self.assertEqual(caught.exception.code, code)
+
+
 class MountedGenuineTests(unittest.TestCase):
     def test_the_canonical_release_verifies_with_the_pinned_profile(self) -> None:
         data = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT") or "")

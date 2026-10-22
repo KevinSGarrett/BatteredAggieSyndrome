@@ -1676,13 +1676,22 @@ def native_location(location: str) -> str:
 _SELECTOR_LIMIT = 200
 
 
+def _raw_control(text: str) -> str | None:
+    """The first raw Unicode category Cc character of a supplied selector or paging string: a C0 control
+    (U+0000-U+001F), DEL (U+007F) or a C1 control (U+0080-U+009F), or None. Checked on the raw value, before any
+    whitespace is trimmed and before any file access (MF63A01-01), so a control at either end can never trim away
+    into a valid selector or page count; ordinary spaces, format, combining and non-BMP characters are not
+    controls."""
+    return next((c for c in text if ord(c) < 0x20 or 0x7F <= ord(c) <= 0x9F), None)
+
+
 def _game_selector_values(season: Any, partition: Any, team: Any, contest: Any) -> dict[str, Any]:
     """Validate the supplied game selectors' values in the frozen order (season, partition, team, contest)."""
     out: dict[str, Any] = {}
     if season is not None:
         if is_int(season) and 1000 <= season <= 9999:
             out["season"] = season
-        elif isinstance(season, str) and SEASON_SELECTOR_RE.match(season.strip()):
+        elif isinstance(season, str) and _raw_control(season) is None and SEASON_SELECTOR_RE.match(season.strip()):
             out["season"] = int(season.strip())
         else:
             _refuse("INVALID_SELECTOR", f"season must be four ASCII digits, got {season!r}")
@@ -1691,8 +1700,8 @@ def _game_selector_values(season: Any, partition: Any, team: Any, contest: Any) 
             _refuse("INVALID_SELECTOR", f"partition must be one of {list(PARTITION_IDS)}, got {partition!r}")
         out["partition"] = partition
     if team is not None:
-        text = team.strip() if isinstance(team, str) else None
-        if not text or len(text) > _SELECTOR_LIMIT or any(ord(c) < 32 or ord(c) == 127 for c in text):
+        text = team.strip() if isinstance(team, str) and _raw_control(team) is None else None
+        if not text or len(text) > _SELECTOR_LIMIT:
             _refuse("INVALID_SELECTOR", f"team must be org:<digits>, digits or a team name, got {team!r}")
         surrogate = next((c for c in text if 0xD800 <= ord(c) <= 0xDFFF), None)
         if surrogate is not None:
@@ -1703,7 +1712,7 @@ def _game_selector_values(season: Any, partition: Any, team: Any, contest: Any) 
             _refuse("INVALID_SELECTOR", f"team key must be org:<1-12 digits>, got {team!r}")
         out["team"] = f"org:{int(match.group(1))}" if match else text
     if contest is not None:
-        text = contest.strip() if isinstance(contest, str) else None
+        text = contest.strip() if isinstance(contest, str) and _raw_control(contest) is None else None
         match = CONTEST_SELECTOR_RE.match(text) if text else None
         if not match:
             _refuse("INVALID_SELECTOR", f"contest must be an accepted contest key ncaa:<digits>, got {contest!r}")
@@ -1739,7 +1748,7 @@ def validate_paging(limit: Any, offset: Any, all_rows: bool, *, limit_given: boo
     def integer(text: Any, code: str, what: str) -> int:
         if is_int(text):
             return text
-        value = str(text).strip() if isinstance(text, str) else None
+        value = str(text).strip() if isinstance(text, str) and _raw_control(text) is None else None
         body = value[1:] if value and value.startswith("-") else value
         if not body or not body.isascii() or not body.isdigit() or len(body) > 12:
             _refuse(code, f"{what} must be an integer of at most 12 digits, got {text!r}")

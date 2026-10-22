@@ -96,3 +96,18 @@ explicit --limit or --offset), MODEL_INVALID (an unknown model, an explicit empt
 applicability matrix above) and STALE_CONTEXT_IDENTITY. A well-formed unknown or disjoint selection serves no row,
 summaries included (`rows = []`); a well-formed season outside 2016-2023 is SEASON_OUTSIDE_RELEASE and an incompatible
 season/partition pair SEASON_AND_PARTITION_DISJOINT, both with no row.
+
+Raw control characters (MF63A01-01; Cycle #63 work round #2, first repair C63-CONT-01). A supplied `--season`, `--team`,
+`--contest`, `--limit` or `--offset` string that contains any Unicode category Cc character anywhere (a C0 control
+U+0000-U+001F, DEL U+007F or a C1 control U+0080-U+009F; tab, line feed, the file/group/record/unit separators and next
+line included) is refused by that option's own code (INVALID_SELECTOR for the season, team and contest; LIMIT_INVALID and
+OFFSET_INVALID for the page counts) before any whitespace is trimmed and before any file access, so a control at either
+end never trims away into a valid selector or page count and a C1 control is never team-name text. Only a control-free
+value is trimmed: ordinary and Unicode spaces around a value still trim (` 2021 ` selects 2021), and Unicode format,
+combining and non-BMP characters remain valid team-name text (no ASCII or printable-only rule). A lone surrogate keeps its
+INVALID_SELECTOR refusal (within one team value a control is reported before a lone surrogate, as C0 controls already
+were), and every value that already refused keeps its code. The frozen precedence is unchanged: paging before the model
+and the game selectors, then season, partition, team and contest; integers passed directly to the Python functions keep
+their non-negative rule with no digit cap. A Windows process argument cannot carry NUL, so NUL reaches the rule only
+through the in-process main. The frozen rule texts (`SELECTORS`, `PRECEDENCE`, `REFUSALS`) and the contract that restates
+them are unchanged; this paragraph clarifies how the reader applies them.

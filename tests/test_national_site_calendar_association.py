@@ -813,7 +813,10 @@ class MalformedJsonTests(unittest.TestCase):
 
     def test_malformed_record_lines_are_controlled_refusals(self) -> None:
         backslash = chr(92)
-        for name, member in (("nan", '"x":NaN,'), ("huge", '"x":1e999,'), ("deep", '"x":' + "[" * 5000 + "]" * 5000 + ","),
+        # Decoder stack limits differ by Python build and host. Exceed both the Python limit and
+        # native decoder limits rather than assuming that 5,000 levels are malformed everywhere.
+        depth = max(sys.getrecursionlimit() * 2 + 50, 100_000)
+        for name, member in (("nan", '"x":NaN,'), ("huge", '"x":1e999,'), ("deep", '"x":' + "[" * depth + "]" * depth + ","),
                              ("surrogate", '"x":"' + backslash + 'ud800",'), ("long_int", '"x":' + "9" * 5000 + ",")):
             def inject(raw, member=member):
                 line = raw["census"][0]
@@ -831,7 +834,8 @@ class MalformedJsonTests(unittest.TestCase):
                             root / kind / ca.POPULATION / "sha256" / ident)
         manifest = root / "manifests" / ca.POPULATION / "sha256" / ident / "run_manifest.json"
         db = root / "canonical" / ca.POPULATION / "sha256" / ident / ca.DB_FILE
-        for text in ("not json", '{"identity": NaN}', "[1]", "[" * 5000 + "]" * 5000):
+        depth = max(sys.getrecursionlimit() * 2 + 50, 100_000)
+        for text in ("not json", '{"identity": NaN}', "[1]", "[" * depth + "]" * depth):
             manifest.write_text(text, encoding="utf-8")
             self.assertEqual(self.code(db), "CONTEXT_MANIFEST_MALFORMED", text[:20])
 

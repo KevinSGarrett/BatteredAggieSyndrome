@@ -10,9 +10,10 @@ recruiting array; no person, program, value or time decision) and regenerates th
 committed contract bytes and the module's anchors equal them.
 
 ``--profile <build receipt>`` pins RECRUITING_PROFILE from the first authorized canonical build's receipt (its content
-and database identities, database SHA-256 and bytes, row and table counts and every table's lines digest); the contract
-and anchors stay byte-identical and the receipt must name the pinned contract. Nothing here reads or writes canonical
-data.
+and database identities, database SHA-256 and bytes, row and table counts and every table's lines digest) and writes the
+same profile into the gate artifact ``artifacts/data_lake/national_recruiting_evidence_2010_2017_gate.json``; the
+contract and anchors stay byte-identical and the receipt must name the pinned contract. ``--check`` also requires the
+gate to equal the module's pinned profile once one is pinned. Nothing here reads or writes canonical data.
 """
 from __future__ import annotations
 
@@ -31,6 +32,8 @@ from aggie_analytics.personnel_evidence import recruiting_build as rb  # noqa: E
 
 MODULE = ROOT / "src" / "aggie_analytics" / "personnel_evidence" / "recruiting.py"
 CONTRACT = ROOT / rc.CONTRACT_REL
+GATE = ROOT / "artifacts" / "data_lake" / "national_recruiting_evidence_2010_2017_gate.json"
+GATE_SCHEMA = "BAS-RECRUITING-EVIDENCE-GATE-1"
 BEGIN = "# ---- BEGIN GENERATED ANCHORS (tools/cycle64/make_recruiting_contract.py; never hand edited) ----"
 END = "# ---- END GENERATED ANCHORS ----"
 PROFILE_KEYS = ("content_identity", "database_identity", "database_sha256", "database_bytes", "contract_sha256",
@@ -68,6 +71,18 @@ def contract_anchors(contract: dict[str, Any], contract_sha256: str) -> dict[str
             **{key: contract[key] for key in rb.ANCHOR_KEYS}}
 
 
+def gate_bytes(anchors: dict[str, Any], profile: dict[str, Any]) -> bytes:
+    """The gate artifact of a pinned release: the identities and counts of the canonical profile (never values)."""
+    doc = {"schema": GATE_SCHEMA, "population": rc.POPULATION, "contract_id": anchors["contract_id"],
+           "contract_sha256": anchors["contract_sha256"], "profile": profile, "labels": rc.LABELS,
+           "state": "CREATE_ONLY_RELEASE_PINNED_RETROSPECTIVE_RESEARCH_UNTRUSTED_SHADOW_PIT_NOT_ADMITTED",
+           "statement": "The first authorized canonical build's content and database identities, database SHA-256 and "
+                        "bytes, row and table counts and lines digests, pinned after that build; the release stays in "
+                        "the private data root (outside Git); no record value, PIT admission, feature, model or "
+                        "activation."}
+    return (json.dumps(doc, indent=1, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--data-root", type=Path)
@@ -75,6 +90,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--frozen-at")
     parser.add_argument("--contract", type=Path, default=CONTRACT)
     parser.add_argument("--module", type=Path, default=MODULE)
+    parser.add_argument("--gate", type=Path, default=GATE)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--write", action="store_true")
     mode.add_argument("--check", action="store_true")
@@ -94,6 +110,8 @@ def main(argv: list[str] | None = None) -> int:
         profile = {key: receipt[key] for key in PROFILE_KEYS}
         new_text = replace_block(module_text, anchors_block(anchors, profile))
         args.module.write_text(new_text, encoding="utf-8", newline="\n")
+        args.gate.parent.mkdir(parents=True, exist_ok=True)
+        args.gate.write_bytes(gate_bytes(anchors, profile))
         print(json.dumps({"profile_pinned": profile["database_identity"], "contract_sha256": anchors["contract_sha256"]},
                          indent=1))
         return 0
@@ -119,9 +137,11 @@ def main(argv: list[str] | None = None) -> int:
         start, end = module_text.index(BEGIN), module_text.index(END)
         committed_block = module_text[start:end + len(END) + 1]
         same_anchors = committed_block == block
-        print(json.dumps({"contract_equal": same_contract, "anchors_equal": same_anchors,
+        same_gate = current_profile is None or (args.gate.is_file() and
+                                                args.gate.read_bytes() == gate_bytes(anchors, current_profile))
+        print(json.dumps({"contract_equal": same_contract, "anchors_equal": same_anchors, "gate_equal": same_gate,
                           "contract_sha256": anchors["contract_sha256"]}, indent=1))
-        return 0 if same_contract and same_anchors else 1
+        return 0 if same_contract and same_anchors and same_gate else 1
     args.contract.parent.mkdir(parents=True, exist_ok=True)
     args.contract.write_bytes(data)
     args.module.write_text(replace_block(module_text, block), encoding="utf-8", newline="\n")

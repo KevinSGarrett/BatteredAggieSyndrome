@@ -1,0 +1,46 @@
+{
+ "contract_id": "BAT-735-NATIONAL-RECRUITING-EVIDENCE-2010-2017-V1.0",
+ "contract_sha256": "ee81ba6cf824d73ade7af3f3a3f831abd2ae5086f7890230b22a442544998d99",
+ "labels": {
+  "evidence_authority": "RETROSPECTIVE_SOURCE_OBSERVATION_AND_CORRESPONDENCE_NOT_EVENT_HISTORY",
+  "evidence_label": "RETROSPECTIVE_RESEARCH",
+  "national_coverage": "NATIONAL_FBS_FCS_RECRUIT_UNIVERSE_NOT_ESTABLISHED",
+  "pit_eligibility": "PIT_NOT_ADMITTED",
+  "predictive_skill": "NOT_ESTABLISHED",
+  "rights": "PRIVATE_LOCAL_RESEARCH_SRC_002_NO_RAW_PAYLOAD_REDISTRIBUTION",
+  "source_clock": "SRC_002_CAPTURES_RETRIEVED_2026_08_10_NOT_HISTORICAL_KNOWN_AT",
+  "trust_state": "UNTRUSTED_SHADOW"
+ },
+ "population": "national_recruiting_evidence_2010_2017",
+ "profile": {
+  "content_identity": "224f6377c4a933a1015254f7adc8bc350d5deb2ca4075a2f7e7f26bb213a2da7",
+  "contract_sha256": "ee81ba6cf824d73ade7af3f3a3f831abd2ae5086f7890230b22a442544998d99",
+  "database_bytes": 20598784,
+  "database_identity": "dc58bd9699f31965dd70c43678be806c26c28a2858e6d1f4a75682899e52b85b",
+  "database_sha256": "af6434a77e6c1d50c7c155c30ecdfb97ddf5d7d5de1868a3024b051100840137",
+  "lines_sha256": {
+   "census": "19fc83b03e07c8f50b7f237857ddfe33a66ee9d632cb804a358dd4e50600738b",
+   "observations": "7f7127fbc07890da749b78870a2856f88d42c76d9fd9f4d0ff4ddae3daddedc1",
+   "partitions": "1824a3bb72bc795c34340503fda9453b659f23dbfe8db00e25d8dfde7df01908",
+   "qualifications": "5cfe4efa086640abe86227ea0fce686b627acedb7e05338b6c92ef3e469b768f",
+   "sources": "30a8259fb2ccf6822d38c37a2ed64b8523f6082f615a88cb114ad0fad1b43102",
+   "summary": "a95fe20e5102ac783f323312c08dd9052a0e650f05e16979d5c30e73c8d6f536"
+  },
+  "row_counts": {
+   "census": 1,
+   "observations": 28093,
+   "partitions": 34,
+   "qualifications": 28093,
+   "sources": 1077,
+   "summary": 9
+  },
+  "rules_sha256": "77f40a0f6229a081a15daa340ece2907d6aba1ab961de01266a52ac2776d5e1c",
+  "table_counts": {
+   "blocks": 20,
+   "meta": 10
+  }
+ },
+ "schema": "BAS-RECRUITING-EVIDENCE-GATE-1",
+ "state": "CREATE_ONLY_RELEASE_PINNED_RETROSPECTIVE_RESEARCH_UNTRUSTED_SHADOW_PIT_NOT_ADMITTED",
+ "statement": "The first authorized canonical build's content and database identities, database SHA-256 and bytes, row and table counts and lines digests, pinned after that build; the release stays in the private data root (outside Git); no record value, PIT admission, feature, model or activation."
+}

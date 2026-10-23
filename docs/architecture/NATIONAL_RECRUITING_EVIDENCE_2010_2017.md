@@ -35,8 +35,11 @@ sequence `SRC-002|<capture>|<ordinal>|<recruit id>`. No person, program, value o
 manager's readiness counts were known before the rules were frozen; no blind design is claimed.
 
 The derived records and their content, database and profile identities arise only in the first authorized canonical
-build. A separate commit then pins exactly that build's identities as `RECRUITING_PROFILE` (`--profile`); every later
-build must reproduce them (ALREADY_PRESENT_IDENTICAL) and the reader refuses any release that is not that profile.
+build. A separate commit then pins exactly that build's identities as `RECRUITING_PROFILE` (`--profile`, which also
+writes the same profile to `artifacts/data_lake/national_recruiting_evidence_2010_2017_gate.json`); every later build
+must reproduce them (ALREADY_PRESENT_IDENTICAL) and the reader refuses any release that is not that profile. The pinned
+release is `dc58bd9699f31965dd70c43678be806c26c28a2858e6d1f4a75682899e52b85b` (content
+`224f6377c4a933a1015254f7adc8bc350d5deb2ca4075a2f7e7f26bb213a2da7`), kept in the private data root outside Git.
 
 ## Qualification rules
 

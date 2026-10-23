@@ -100,6 +100,14 @@ class RuleTests(unittest.TestCase):
         counts = contract["expected"]["counts"]
         self.assertEqual(counts["requested_cells"], counts["captured_cells"] + counts["not_captured_cells"])
         self.assertEqual(contract["expected"]["national_expected_universe"], "NOT_ESTABLISHED")
+        if rc.RECRUITING_PROFILE is not None:
+            gate = json.loads((ROOT / "artifacts" / "data_lake" / "national_recruiting_evidence_2010_2017_gate.json")
+                              .read_text(encoding="utf-8"))
+            self.assertEqual(gate["profile"], rc.RECRUITING_PROFILE)
+            self.assertEqual(gate["contract_sha256"], rc.ANCHORS["contract_sha256"])
+            self.assertEqual(rc.RECRUITING_PROFILE["contract_sha256"], rc.ANCHORS["contract_sha256"])
+            self.assertEqual(rc.RECRUITING_PROFILE["rules_sha256"], rc.rules_sha256())
+            self.assertEqual(gate["labels"], rc.LABELS)
 
     def test_identity_formulas_match_the_independent_restatements(self) -> None:
         a = plan("A")

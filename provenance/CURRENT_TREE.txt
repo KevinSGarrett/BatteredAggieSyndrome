@@ -68,6 +68,7 @@ artifacts/data_lake/national_pit_domain_admission_matrix_gate.json
 artifacts/data_lake/national_pit_eligible_slice_gate.json
 artifacts/data_lake/national_pit_eligible_slice_replay.json
 artifacts/data_lake/national_retrospective_reference_2016_2023_gate.json
+artifacts/data_lake/national_site_calendar_association_2016_2023_gate.json
 artifacts/data_lake/national_source_time_2016_2023_gate.json
 artifacts/data_lake/national_tiered_game_spine_gate.json
 artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
@@ -906,6 +907,7 @@ configs/national_reconciliation_aliases_2024_2025_contract.json
 configs/national_retrospective_baseline_2016_2023_contract.json
 configs/national_retrospective_reference_2016_2023_contract.json
 configs/national_shadow_operations_contract.json
+configs/national_site_calendar_association_2016_2023_contract.json
 configs/national_site_evidence_2024_2025_contract.json
 configs/national_source_time_2016_2023_contract.json
 configs/national_tiered_game_spine_contract.json
@@ -1232,6 +1234,7 @@ docs/architecture/PROSPECTIVE_PROVIDER_OBSERVATION_CAPSULE.md
 docs/architecture/PROVIDER_RECORD_BASELINE_PREVIEW.md
 docs/architecture/PROVIDER_RECORD_SHADOW.md
 docs/architecture/RESEARCH_AND_LLM_PLANE.md
+docs/architecture/SITE_CALENDAR_ASSOCIATION.md
 docs/architecture/SYSTEM_BOUNDARIES.md
 docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 docs/architecture/W24_FINAL_ARCHITECTURE_CHALLENGE.md
@@ -4295,6 +4298,8 @@ src/aggie_analytics/readiness/e2e.py
 src/aggie_analytics/readonly_sqlite.py
 src/aggie_analytics/retrospective_baseline/__init__.py
 src/aggie_analytics/retrospective_baseline/benchmark.py
+src/aggie_analytics/retrospective_baseline/context_association.py
+src/aggie_analytics/retrospective_baseline/context_association_build.py
 src/aggie_analytics/retrospective_baseline/personnel_association.py
 src/aggie_analytics/retrospective_baseline/personnel_association_anchors.py
 src/aggie_analytics/retrospective_baseline/preview.py
@@ -4405,6 +4410,7 @@ tests/provider_record_shadow_fixture.py
 tests/research_product_cases.py
 tests/retrospective_baseline_fixture.py
 tests/retrospective_reference_fixture.py
+tests/site_calendar_association_fixture.py
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
 tests/test_action_play_summary.py
@@ -4672,6 +4678,7 @@ tests/test_national_reconciliation_aliases.py
 tests/test_national_retrospective_baseline.py
 tests/test_national_retrospective_reference.py
 tests/test_national_shadow_state_machine.py
+tests/test_national_site_calendar_association.py
 tests/test_national_site_evidence.py
 tests/test_national_source_time.py
 tests/test_national_tiered_game_spine.py
@@ -5342,6 +5349,8 @@ tools/cycle37/source_identity_crosswalk.py
 tools/cycle37/storage_admission.py
 tools/cycle37/storage_snapshot.py
 tools/cycle37/v37_01_cli_probe.py
+tools/cycle63/build_national_site_calendar_association.py
+tools/cycle63/make_site_calendar_contract.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py

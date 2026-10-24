@@ -406,7 +406,7 @@ class QueryTests(unittest.TestCase):
         association = parser._get_formatter()
         association.add_text(q.ASSOCIATION_EPILOG)
         old = super(q._HistoricalParser, parser).format_help() + "\n" + formatter.format_help()
-        self.assertEqual(text, old + "\n" + association.format_help())
+        self.assertEqual(text, old + "\n" + association.format_help() + "\n" + q.BOOSTING_HELP_PARAGRAPH + "\n")
         self.assertIn("--personnel-association", association.format_help())
 
     def test_invocations_without_the_option_never_import_the_mode(self) -> None:

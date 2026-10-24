@@ -98,6 +98,17 @@ skill NOT_ESTABLISHED; ``--require-pit`` is refused. It is never combined with a
 (CONTEXT_MODE_CONFLICT). Invocations without the option keep their parsers, answers and refusals byte for byte, the
 original ``--help`` included (TP63 allows one added help paragraph; it is not used because the accepted Cycle 61 test
 pins that help text exactly); the mode's own parser describes it (``--context-association <file> --help``).
+
+``--boosting-comparison <national_shallow_boosting_comparison.sqlite>`` (BAT-736 bounded research contribution, Cycle
+65) is the explicit national frozen shallow-tree comparison mode, served by
+:mod:`aggie_analytics.retrospective_baseline.boosting_query` and imported only then: exactly two frozen
+HistGradientBoosting definitions (depth 2 and depth 3) fitted on the 5,087 decisive 2016-2022 C56 games and exported as
+plain-data trees, the unchanged five C56 comparators on the same games and the exposed 2023 descriptive comparison, at
+the ``tree-feature``, ``tree-parameter``, ``tree-estimate``, ``tree-score`` and ``tree-summary`` grains, verified
+completely (the embedded byte-exact C56 parent included) by a standard-library reader before any row is served. It is
+routed before every other mode and never combined with another mode's option (TREE_MODE_CONFLICT). Invocations without
+the option keep their parsers, answers and refusals byte for byte; the original ``--help`` gains exactly one appended
+paragraph naming it.
 """
 from __future__ import annotations
 
@@ -176,20 +187,28 @@ CONTEXT_EPILOG = ("explicit national retrospective site/calendar association mod
                   "RETROSPECTIVE_RESEARCH, UNTRUSTED_SHADOW, PIT_NOT_ADMITTED, NOT_A_FORECAST, NOT_CALIBRATED, "
                   "predictive skill NOT_ESTABLISHED, no causal site, rest or travel claim; never combined with "
                   "--database or another explicit mode")
+BOOSTING_OPTION = "--boosting-comparison"
+#: The one paragraph Cycle 65 (BAT-736, TP65 query design) appends, unwrapped, to the original help.
+BOOSTING_HELP_PARAGRAPH = (
+    "Explicit --boosting-comparison <database> selects the private 2016-2023 shallow-tree research comparison: "
+    "tree-feature, tree-parameter, tree-estimate, tree-score and tree-summary. This mode is RETROSPECTIVE_RESEARCH, "
+    "UNTRUSTED_SHADOW and PIT_NOT_ADMITTED; predictive skill is NOT_ESTABLISHED.")
 _DEFAULT = object()
 
 
 class _HistoricalParser(argparse.ArgumentParser):
-    """The original parser; its help gains one trailing paragraph naming the shadow mode and (Cycle 61) one more
-    trailing paragraph naming the personnel association mode (usage, description, the preview epilog, the shadow
-    paragraph and every error output are unchanged)."""
+    """The original parser; its help gains one trailing paragraph naming the shadow mode, (Cycle 61) one more trailing
+    paragraph naming the personnel association mode and (Cycle 65) one blank line, the exact boosting comparison
+    paragraph and a newline (usage, description, the preview epilog, the earlier paragraphs and every error output are
+    unchanged)."""
 
     def format_help(self) -> str:
         formatter = self._get_formatter()
         formatter.add_text(SHADOW_EPILOG)
         association = self._get_formatter()
         association.add_text(ASSOCIATION_EPILOG)
-        return super().format_help() + "\n" + formatter.format_help() + "\n" + association.format_help()
+        return super().format_help() + "\n" + formatter.format_help() + "\n" + association.format_help() + \
+            "\n" + BOOSTING_HELP_PARAGRAPH + "\n"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -754,8 +773,14 @@ def main(argv: Sequence[str] | None = None, *, preview_contract_sha256: str | No
          schedule_contract_sha256: str | None = None, schedule_profile: Any = _DEFAULT,
          expansion_contract_sha256: str | None = None, expansion_profile: Any = _DEFAULT,
          predecessor_profile: Any = _DEFAULT, reference_anchors: Any = _DEFAULT,
-         association_anchors: Any = _DEFAULT, context_anchors: Any = _DEFAULT) -> int:
+         association_anchors: Any = _DEFAULT, context_anchors: Any = _DEFAULT, boosting_anchors: Any = _DEFAULT) -> int:
     tokens = list(sys.argv[1:] if argv is None else argv)
+    if any(type(token) is str and (token == BOOSTING_OPTION or token.startswith(BOOSTING_OPTION + "="))
+           for token in tokens):
+        from aggie_analytics.retrospective_baseline import boosting_query  # noqa: PLC0415 - explicit option only
+        if boosting_anchors is _DEFAULT:
+            return boosting_query.main(tokens)
+        return boosting_query.main(tokens, boosting_anchors)
     if context_mode(tokens):
         from aggie_analytics.retrospective_baseline import context_association as ca  # noqa: PLC0415 - explicit
         try:

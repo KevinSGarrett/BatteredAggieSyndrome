@@ -909,6 +909,7 @@ configs/national_recruiting_evidence_2010_2017_contract.json
 configs/national_retrospective_baseline_2016_2023_contract.json
 configs/national_retrospective_reference_2016_2023_contract.json
 configs/national_shadow_operations_contract.json
+configs/national_shallow_boosting_comparison_2016_2023_contract.json
 configs/national_site_calendar_association_2016_2023_contract.json
 configs/national_site_evidence_2024_2025_contract.json
 configs/national_source_time_2016_2023_contract.json
@@ -1237,6 +1238,7 @@ docs/architecture/PROSPECTIVE_PROVIDER_OBSERVATION_CAPSULE.md
 docs/architecture/PROVIDER_RECORD_BASELINE_PREVIEW.md
 docs/architecture/PROVIDER_RECORD_SHADOW.md
 docs/architecture/RESEARCH_AND_LLM_PLANE.md
+docs/architecture/SHALLOW_BOOSTING_COMPARISON.md
 docs/architecture/SITE_CALENDAR_ASSOCIATION.md
 docs/architecture/SYSTEM_BOUNDARIES.md
 docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
@@ -4304,6 +4306,9 @@ src/aggie_analytics/readiness/e2e.py
 src/aggie_analytics/readonly_sqlite.py
 src/aggie_analytics/retrospective_baseline/__init__.py
 src/aggie_analytics/retrospective_baseline/benchmark.py
+src/aggie_analytics/retrospective_baseline/boosting_build.py
+src/aggie_analytics/retrospective_baseline/boosting_comparison.py
+src/aggie_analytics/retrospective_baseline/boosting_query.py
 src/aggie_analytics/retrospective_baseline/context_association.py
 src/aggie_analytics/retrospective_baseline/context_association_build.py
 src/aggie_analytics/retrospective_baseline/personnel_association.py
@@ -4417,6 +4422,7 @@ tests/recruiting_evidence_fixture.py
 tests/research_product_cases.py
 tests/retrospective_baseline_fixture.py
 tests/retrospective_reference_fixture.py
+tests/shallow_boosting_fixture.py
 tests/site_calendar_association_fixture.py
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
@@ -4686,6 +4692,7 @@ tests/test_national_recruiting_evidence.py
 tests/test_national_retrospective_baseline.py
 tests/test_national_retrospective_reference.py
 tests/test_national_shadow_state_machine.py
+tests/test_national_shallow_boosting_comparison.py
 tests/test_national_site_calendar_association.py
 tests/test_national_site_evidence.py
 tests/test_national_source_time.py
@@ -5361,6 +5368,8 @@ tools/cycle63/build_national_site_calendar_association.py
 tools/cycle63/make_site_calendar_contract.py
 tools/cycle64/build_national_recruiting_evidence.py
 tools/cycle64/make_recruiting_contract.py
+tools/cycle65/build_national_shallow_boosting_comparison.py
+tools/cycle65/make_shallow_boosting_contract.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py

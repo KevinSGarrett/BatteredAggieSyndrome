@@ -841,12 +841,14 @@ class LocationTests(_World):
         shutil.copyfile(bc.manifest_path_for(self.db), "\\\\?\\" + str(manifest))
         self.assertGreater(len(str(target)), 260)
         self.assertEqual(self.answers(target), genuine)
+        import _winapi  # in-process junction (the write guard refuses a cmd child)
+
         junction = self.base / "jn"
-        made = subprocess.run(["cmd", "/c", "mklink", "/J", str(junction), str(self.db.parents[4])],
-                              capture_output=True, text=True)
-        if made.returncode == 0:
+        _winapi.CreateJunction(str(self.db.parents[4]), str(junction))
+        try:
             via = junction / "canonical" / bc.POPULATION / "sha256" / self.db.parent.name / bc.DB_FILE
             self.assertEqual(self.answers(via), genuine)
+        finally:
             os.rmdir(junction)
 
     def test_layout_and_missing_manifest_refuse(self) -> None:

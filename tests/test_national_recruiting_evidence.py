@@ -31,6 +31,7 @@ import recruiting_evidence_fixture as fx  # noqa: E402
 from aggie_analytics.personnel_evidence import query as pq  # noqa: E402
 from aggie_analytics.personnel_evidence import recruiting as rc  # noqa: E402
 from aggie_analytics.personnel_evidence import recruiting_build as rb  # noqa: E402
+from aggie_analytics.personnel_evidence import recruiting_query as rq  # noqa: E402
 
 STATE: dict = {}
 TAB, LF, US, DEL, NEL, APC, NBSP = chr(9), chr(10), chr(31), chr(127), chr(0x85), chr(0x9F), chr(0xA0)
@@ -657,6 +658,180 @@ class RawControlSelectorTests(unittest.TestCase):
                                        "--recruiting-evidence", str(missing), "--grain", "recruiting-observation",
                                        f"--{option}", text], capture_output=True, env=env, cwd=tmp, timeout=300)
                 with self.subTest(option=option):
+                    self.assertEqual((proc.returncode, fx.refusal(proc.stderr.decode("utf-8", "replace")),
+                                      proc.stdout), (2, code, b""))
+                    self.assertNotIn(b"Traceback", proc.stderr)
+            self.assertFalse(missing.parent.exists())
+
+
+#: A typed integer beyond Python's default 4,300-digit integer-to-text conversion limit (MF64A01-01).
+HUGE = 10 ** 5000
+
+
+class _Unprintable:
+    """An invalid grain whose repr raises: a refusal diagnostic must never format the rejected value."""
+
+    def __repr__(self) -> str:
+        raise RuntimeError("the repr of a rejected value was formatted")
+
+
+def _nested(depth: int) -> list:
+    value: list = []
+    for _ in range(depth):
+        value = [value]
+    return value
+
+
+class TypedNumericSelectorTests(unittest.TestCase):
+    """MF64A01-01: typed (in-process) grain, season, limit and offset values at the initialized reader's query and at
+    recruiting_query.run with a parser-produced namespace, every input access trapped. The process fronts carry only
+    text, so the oversized decimal strings are controls of their own (the public main and a real child process)."""
+
+    FRONTS = ("reader-query", "query-run")
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.reader = rc.RecruitingEvidence(STATE["db"], anchors=STATE["anchors"])
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.reader.close()
+
+    def outcome(self, front: str, grain="recruiting-observation", **selection) -> tuple:
+        """(kind, code, input accessed, diagnostic): kind 'refused', 'answered' (reader query), 'accessed' (the run
+        reached the never-read release) or 'raised'; an exception other than a controlled refusal is returned as the
+        observed value, never raised, so the finding-marked assertion reports it."""
+        try:
+            with mock.patch.object(rc, "_io_path", _no_input_access):
+                if front == "reader-query":
+                    self.reader.query(grain, **selection)
+                else:
+                    ns = rq.build_parser().parse_args(["--recruiting-evidence", RAW_MISSING, "--grain",
+                                                       "recruiting-observation"])
+                    ns.grain = grain
+                    for name, value in selection.items():
+                        setattr(ns, name, value)
+                    rq.run(ns, STATE["anchors"])
+        except rc.RecruitingError as exc:
+            return "refused", exc.code, False, str(exc)
+        except _InputAccess:
+            return "accessed", None, True, ""
+        except Exception as exc:  # noqa: BLE001 - the MF64A01-01 failure class, returned as the observed value
+            return "raised", type(exc).__name__, False, ""
+        return "answered", None, False, ""
+
+    def expect_refused(self, label: str, code: str, front: str, grain="recruiting-observation", **selection) -> None:
+        got = self.outcome(front, grain, **selection)
+        if got[:3] != ("refused", code, False) or len(got[3]) > 400:
+            self.fail(f"MF64A01-01 {label} at {front}: {got[:3]} != ('refused', {code!r}, False) "
+                      f"(diagnostic of {len(got[3])} characters)")
+
+    def test_huge_typed_numbers_refuse_by_their_own_code_before_any_input_access(self) -> None:
+        self.assertEqual(sys.get_int_max_str_digits(), sys.int_info.default_max_str_digits)
+        for field, code in (("grain", "UNKNOWN_GRAIN"), ("season", "SEASON_INVALID"), ("limit", "LIMIT_INVALID"),
+                            ("offset", "OFFSET_INVALID")):
+            for name, value in (("10**4300", 10 ** 4300), ("10**5000", HUGE), ("-10**5000", -HUGE)):
+                for front in self.FRONTS:
+                    with self.subTest(field=field, value=name, front=front):
+                        if field == "grain":
+                            self.expect_refused(f"grain={name}", code, front, value)
+                        else:
+                            self.expect_refused(f"{field}={name}", code, front, **{field: value})
+        self.assertEqual(sys.get_int_max_str_digits(), sys.int_info.default_max_str_digits)
+
+    def test_invalid_typed_grains_refuse_with_a_type_only_diagnostic_before_access(self) -> None:
+        for name, value in (("list_holding_10**5000", [HUGE]), ("dict_holding_10**5000", {"value": HUGE}),
+                            ("tuple_holding_-10**5000", (1, -HUGE)), ("nested_list_100000", _nested(100_000)),
+                            ("unprintable_object", _Unprintable())):
+            for front in self.FRONTS:
+                with self.subTest(grain=name, front=front):
+                    self.expect_refused(f"grain={name}", "UNKNOWN_GRAIN", front, value)
+
+    def test_huge_typed_numbers_keep_the_frozen_refusal_precedence(self) -> None:
+        obs = "recruiting-observation"
+        cases = (("grain_before_season", "UNKNOWN_GRAIN", HUGE, {"season": HUGE}),
+                 ("season_before_team", "SEASON_INVALID", obs, {"season": -HUGE, "team": "x"}),
+                 ("season_before_applicability", "SEASON_INVALID", "recruiting-source", {"season": HUGE}),
+                 ("limit_before_offset", "LIMIT_INVALID", obs, {"limit": HUGE, "offset": -HUGE}),
+                 ("limit_domain_before_its_sign", "LIMIT_INVALID", obs, {"limit": -HUGE, "offset": -1}),
+                 ("offset_after_valid_limit", "OFFSET_INVALID", obs, {"limit": 3, "offset": HUGE}),
+                 ("offset_before_identity", "OFFSET_INVALID", obs, {"offset": -HUGE, "expect_identity": "z"}))
+        for label, code, grain, selection in cases:
+            for front in self.FRONTS:
+                if front == "reader-query" and "expect_identity" in selection:
+                    continue  # the expected identity is a release-opening argument, not a query selection
+                with self.subTest(case=label, front=front):
+                    self.expect_refused(label, code, front, grain, **selection)
+
+    def test_typed_numeric_boundaries_signs_and_types_keep_their_rules(self) -> None:
+        reached = {"reader-query": "answered", "query-run": "accessed"}
+        for front in self.FRONTS:
+            for value in (1000, 9999):
+                self.assertEqual(self.outcome(front, season=value)[0], reached[front], (front, value))
+            for name in ("limit", "offset"):
+                self.assertEqual(self.outcome(front, **{name: 999_999_999_999})[0], reached[front], (front, name))
+                got = self.outcome(front, **{name: -999_999_999_999})
+                self.assertEqual(got[:2], ("refused", "NEGATIVE_" + name.upper()), (front, name))
+                for value, text in ((10 ** 12, "1000000000000"), (-(10 ** 12), "-1000000000000"), (10 ** 99, None)):
+                    got = self.outcome(front, **{name: value})
+                    self.assertEqual(got[:2], ("refused", name.upper() + "_INVALID"), (front, name, value))
+                    if text is not None:
+                        self.assertEqual(got[3], f"{name.upper()}_INVALID: {name} must have at most 12 digits, "
+                                                 f"got {text}")
+                for value in (True, 1.0, [3], b"3"):
+                    self.assertEqual(self.outcome(front, **{name: value})[:2], ("refused", name.upper() + "_INVALID"),
+                                     (front, name, value))
+            for value in (999, 10000, 0, -1):
+                got = self.outcome(front, season=value)
+                self.assertEqual(got[:2], ("refused", "SEASON_INVALID"), (front, value))
+                self.assertEqual(got[3], f"SEASON_INVALID: season must be 1000-9999, got {value}")
+            for value in (True, 2014.0, b"2014"):
+                self.assertEqual(self.outcome(front, season=value)[:2], ("refused", "SEASON_INVALID"), (front, value))
+            for value in (None, 5, b"recruiting-observation"):
+                self.assertEqual(self.outcome(front, value)[:2], ("refused", "UNKNOWN_GRAIN"), (front, value))
+            got = self.outcome(front, "recruiting-nope")
+            self.assertEqual(got[:2], ("refused", "UNKNOWN_GRAIN"))
+            self.assertTrue(got[3].endswith("got 'recruiting-nope'"), got[3])
+        doc = self.reader.query("recruiting-observation", limit=0, offset=2)
+        self.assertEqual((doc["rows"], doc["returned"], doc["total"], doc["next_offset"]), ([], 0, 16, 2))
+        self.assertEqual(sys.get_int_max_str_digits(), sys.int_info.default_max_str_digits)
+
+    def test_earlier_refusal_families_still_win_over_huge_typed_numbers(self) -> None:
+        team, obs = STATE["world"]["teams"]["alpha"], "recruiting-observation"
+        for label, code, grain, selection in (
+                ("pit_before_grain", "RECRUITING_PIT_NOT_ADMITTED", HUGE, {"require_pit": True}),
+                ("as_of_before_season", "AS_OF_STATE_NOT_SUPPORTED", obs, {"as_of": "", "season": HUGE}),
+                ("mode_conflict_before_limit", "RECRUITING_MODE_CONFLICT", obs, {"conflict_database": "",
+                                                                                 "limit": HUGE}),
+                ("team_before_limit", "TEAM_INVALID", obs, {"team": team.upper(), "limit": HUGE}),
+                ("paging_conflict_before_limit", "PAGING_CONFLICT", obs, {"all_rows": True, "limit": HUGE}),
+                ("applicability_before_limit", "FILTER_NOT_APPLICABLE", "recruiting-partition",
+                 {"team": team, "limit": -HUGE})):
+            with self.subTest(case=label):
+                got = self.outcome("query-run", grain, **selection)
+                self.assertEqual(got[:3], ("refused", code, False), label)
+        got = self.outcome("reader-query", "recruiting-source", all_rows=True, limit=HUGE, limit_given=True)
+        self.assertEqual(got[:3], ("refused", "PAGING_CONFLICT", False))
+
+    def test_oversized_decimal_strings_refuse_at_the_public_main_and_in_a_real_child(self) -> None:
+        digits = "9" * 5001
+        for option, text, code in (("season", digits, "SEASON_INVALID"), ("limit", digits, "LIMIT_INVALID"),
+                                   ("offset", "-" + digits, "OFFSET_INVALID"), ("recruit", digits, "RECRUIT_INVALID")):
+            with self.subTest(option=option):
+                exit_code, refused, accessed, err = raw_ask("--grain", "recruiting-observation", f"--{option}", text)
+                self.assertEqual((exit_code, refused, accessed), (2, code, False), err[:300])
+        exit_code, refused, accessed, err = raw_ask("--grain", digits)
+        self.assertEqual((exit_code, refused, accessed), (2, "UNKNOWN_GRAIN", False), err[:300])
+        env = dict(os.environ)
+        env["PYTHONPATH"] = os.pathsep.join(p for p in (str(ROOT / "src"), env.get("PYTHONPATH")) if p)
+        with tempfile.TemporaryDirectory(prefix="rce-n-") as tmp:
+            missing = Path(tmp) / "absent" / rc.DB_FILE
+            for option, text, code in (("season", digits, "SEASON_INVALID"), ("limit", digits, "LIMIT_INVALID"),
+                                       ("offset", "-" + digits, "OFFSET_INVALID")):
+                proc = subprocess.run([sys.executable, "-B", "-m", "aggie_analytics.personnel_evidence.query",
+                                       "--recruiting-evidence", str(missing), "--grain", "recruiting-observation",
+                                       f"--{option}", text], capture_output=True, env=env, cwd=tmp, timeout=300)
+                with self.subTest(option=option, front="child"):
                     self.assertEqual((proc.returncode, fx.refusal(proc.stderr.decode("utf-8", "replace")),
                                       proc.stdout), (2, code, b""))
                     self.assertNotIn(b"Traceback", proc.stderr)

@@ -100,6 +100,14 @@ interrupted, resumed build reproduce the same bytes; every observation keeps its
   Unicode names are served as record text only); a recruit is 1-12 ASCII digits kept as the exact string.
 * Paging: limit 50 and offset 0 by default; `--all` with an explicit `--limit` or `--offset` is PAGING_CONFLICT;
   `--limit 0` is count-only (next_offset = offset when offset < total, else null).
+* Typed values (the Python interface: `RecruitingEvidence.query` and `recruiting_query.run`, whose namespace fields
+  may hold any Python value; command-line arguments are always text): a typed integer season outside 1000-9999 is
+  SEASON_INVALID and a typed limit or offset outside the absolute 12-digit domain is LIMIT_INVALID / OFFSET_INVALID
+  (an in-domain negative stays NEGATIVE_LIMIT / NEGATIVE_OFFSET), each decided by comparison with the frozen bound
+  before any decimal text is made of the value; a non-string grain is UNKNOWN_GRAIN and its diagnostic names only the
+  type. A refusal quotes a typed integer only below 100 decimal digits, so a value of any size (such as 10**5000, beyond
+  Python's default 4,300-digit integer-to-text limit) or an unprintable container is refused before any file access
+  without an uncaught exception; Python's integer-to-text and recursion limits are never changed (MF64A01-01).
 * Refusal precedence: parser and mode conflict (`--database`, even empty), `--require-pit`, any `--as-of` (even
   empty), grain, season, team, player, recruit, applicability, paging conflict, limit, offset, expected identity, the
   database then the explicit manifest literal spelling, native existence and layout, then the manifest, identity, bytes,

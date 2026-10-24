@@ -1386,6 +1386,21 @@ def _surrogate(text: str) -> str | None:
     return next((c for c in text if 0xD800 <= ord(c) <= 0xDFFF), None)
 
 
+#: The exclusive magnitude bound of a typed paging integer: the frozen absolute 12-digit domain.
+_PAGE_INTEGER_BOUND = 10 ** 12
+#: Typed integers a refusal diagnostic may quote: fewer than 100 decimal digits, far below the smallest integer-to-text
+#: conversion limit Python accepts (640 digits; 4,300 by default), so building a refusal never raises (MF64A01-01).
+_QUOTABLE_INTEGER_BOUND = 10 ** 100
+
+
+def _quoted_integer(value: int) -> str:
+    """A typed integer for a refusal diagnostic, decided by comparison alone: its repr below 100 decimal digits,
+    otherwise only its sign and size class (the rejected value is never converted to decimal text)."""
+    if -_QUOTABLE_INTEGER_BOUND < value < _QUOTABLE_INTEGER_BOUND:
+        return repr(value)
+    return ("a negative" if value < 0 else "an") + " integer of more than 100 decimal digits"
+
+
 def _selector_text(value: Any, code: str, what: str) -> str:
     """A supplied string selector after the frozen boundary: a raw control or lone surrogate refuses before anything
     else; only U+0020 spaces at either end are trimmed."""
@@ -1404,7 +1419,7 @@ def validate_season(value: Any) -> int:
     if type(value) is int:
         if 1000 <= value <= 9999:
             return value
-        _refuse("SEASON_INVALID", f"season must be 1000-9999, got {value!r}")
+        _refuse("SEASON_INVALID", f"season must be 1000-9999, got {_quoted_integer(value)}")
     if type(value) is not str:
         _refuse("SEASON_INVALID", f"season must be four ASCII digits, got {type(value).__name__}")
     text = _selector_text(value, "SEASON_INVALID", "season")
@@ -1416,8 +1431,10 @@ def validate_season(value: Any) -> int:
 def validate_selection(grain: Any, *, season: Any = None, team: Any = None, player: Any = None,
                        recruit: Any = None) -> dict[str, Any]:
     """Validate a selection before any file is read, in the frozen precedence: grain, season, team, player, recruit,
-    then applicability."""
-    if not isinstance(grain, str) or grain not in GRAINS:
+    then applicability. A non-string grain is named only by its type: its repr may be unbounded or may raise."""
+    if not isinstance(grain, str):
+        _refuse("UNKNOWN_GRAIN", f"grain must be one of {list(GRAINS)}, got {type(grain).__name__}")
+    if grain not in GRAINS:
         _refuse("UNKNOWN_GRAIN", f"grain must be one of {list(GRAINS)}, got {grain!r}")
     out: dict[str, Any] = {}
     if season is not None:
@@ -1447,9 +1464,10 @@ def validate_selection(grain: Any, *, season: Any = None, team: Any = None, play
 
 
 def _page_integer(value: Any, code: str, what: str) -> int:
+    """A typed integer is checked against the absolute 12-digit bound by comparison before any text is made of it."""
     if type(value) is int:
-        if len(str(abs(value))) > 12:
-            _refuse(code, f"{what} must have at most 12 digits, got {value!r}")
+        if not -_PAGE_INTEGER_BOUND < value < _PAGE_INTEGER_BOUND:
+            _refuse(code, f"{what} must have at most 12 digits, got {_quoted_integer(value)}")
         return value
     if type(value) is not str:
         _refuse(code, f"{what} must be an integer, got {type(value).__name__}")

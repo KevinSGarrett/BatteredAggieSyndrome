@@ -2392,5 +2392,33 @@ ANCHORS: dict[str, Any] = json.loads(r'''{
  }
 }''')
 #: The canonical profile of the first authorized build (None until that build is pinned by --profile).
-BOOSTING_PROFILE: dict[str, Any] | None = None
+BOOSTING_PROFILE: dict[str, Any] | None = json.loads(r'''{
+ "content_identity": "0bf5cc2629cbe4e3a95f020a40ef02df52b4c17047fdb63118cacbc2e60a19ca",
+ "contract_sha256": "be9b82c48bbeff21e012370c31bdbaa8cbfcc66e9051562c3d6ba2501b055a76",
+ "database_bytes": 21336064,
+ "database_identity": "59886b794aa50a4a532dd41c0c732719ef0992f38906741db13c2930902bb0ba",
+ "database_sha256": "66bd20d3d1691d175611641a83cde1379a87b800f6d2435f62dee643d730803b",
+ "lines_sha256": {
+  "estimates": "2b00eede7f95006a0e8e44c3494375764ae52c2025ad7f2a3dc39fd6aa50c675",
+  "features": "4b68d70eb0e764056c8510f8c0114fb3771dcc0641fdbb80ecfc831a8e56735d",
+  "labels": "6724db9fe5af66b2d4dbfb2f285d2699cc8f03219567e309733f21e70fa7f0fa",
+  "parameters": "f8f93ff587fff460bb17bcedd0297245b48786bcda4e844a6fd44263be507754",
+  "scores": "7887dea86cd148bd3c63fb3c5e3c83b3b021f7a5258ce1c4f382921ff68e7e5c",
+  "summary": "e6cbdeaabe0322083241a7b26b42b6c2ff979529abfd5f6c57f939dc2ae49b72"
+ },
+ "row_counts": {
+  "estimates": 23500,
+  "features": 11750,
+  "labels": 5875,
+  "parameters": 2,
+  "scores": 41125,
+  "summary": 308
+ },
+ "rules_sha256": "7da0997841d2a413eaf3bf477c262ab9453256609ecb78653d9b9353b3c4577b",
+ "table_counts": {
+  "blocks": 34,
+  "meta": 9,
+  "parent_reference": 1
+ }
+}''')
 # ---- END GENERATED ANCHORS ----

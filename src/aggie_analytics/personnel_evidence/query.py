@@ -25,6 +25,10 @@ is refused, never ignored. ``--require-pit`` is always refused and no historical
 states the source time explicitly and is RETROSPECTIVE_RESEARCH, UNTRUSTED_SHADOW, PIT_NOT_ADMITTED and predictive skill
 NOT_ESTABLISHED; season roster presence is not completeness or availability, and a seasonal arrival or departure is not
 a transfer episode.
+
+An argument that is exactly ``--recruiting-evidence`` or ``--recruiting-evidence=<path>`` routes the whole invocation,
+before this parser, to the explicit private recruiting evidence mode (:mod:`.recruiting_query`, BAT-735); every other
+invocation is unchanged, and the legacy ``--help`` gains only the one appended paragraph naming that mode.
 """
 from __future__ import annotations
 
@@ -41,6 +45,12 @@ EPILOG = ("explicit national personnel evidence 2004-2022 (BAT-730): grains rost
           "UNTRUSTED_SHADOW, PIT_NOT_ADMITTED, predictive skill NOT_ESTABLISHED; source clock 2023-05-05T03:50:21Z "
           "(repository commit, season grain only); roster presence is not completeness, availability, depth, starter, "
           "injury or eligibility; seasonal arrival/departure is not a transfer episode")
+#: The explicit BAT-735 recruiting evidence mode option and the one paragraph the legacy help appends (TP64 section 5).
+RECRUITING_OPTION = "--recruiting-evidence"
+RECRUITING_HELP_PARAGRAPH = (
+    "Explicit --recruiting-evidence <database> selects the private 2010-2017 recruiting evidence release: "
+    "recruiting-observation, recruiting-qualification, recruiting-partition, recruiting-source and recruiting-summary. "
+    "This mode is RETROSPECTIVE_RESEARCH, UNTRUSTED_SHADOW and PIT_NOT_ADMITTED; predictive skill is NOT_ESTABLISHED.")
 
 
 class _Parser(argparse.ArgumentParser):
@@ -48,6 +58,16 @@ class _Parser(argparse.ArgumentParser):
 
     def error(self, message: str) -> NoReturn:
         raise pe.PersonnelError("ARGUMENT_INVALID", message)
+
+    def format_help(self) -> str:
+        """The accepted help, byte for byte, then one blank line, the recruiting mode paragraph and one newline."""
+        return super().format_help() + "\n" + RECRUITING_HELP_PARAGRAPH + "\n"
+
+
+def recruiting_mode(argv: Sequence[str]) -> bool:
+    """Whether an invocation names the explicit recruiting evidence option (exactly, or as
+    ``--recruiting-evidence=<path>``); a substring inside another option's value never routes."""
+    return any(token == RECRUITING_OPTION or token.startswith(RECRUITING_OPTION + "=") for token in argv)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -113,8 +133,13 @@ def _write(text: str) -> None:
         sys.stdout.write(text)
 
 
-def main(argv: Sequence[str] | None = None, *, anchors: dict[str, Any] | None = None) -> int:
+def main(argv: Sequence[str] | None = None, *, anchors: dict[str, Any] | None = None,
+         recruiting_anchors: dict[str, Any] | None = None) -> int:
     tokens = list(sys.argv[1:] if argv is None else argv)
+    if recruiting_mode(tokens):
+        from aggie_analytics.personnel_evidence import recruiting_query  # noqa: PLC0415 - explicit option only
+
+        return recruiting_query.main(tokens, anchors=recruiting_anchors)
     try:
         args = build_parser().parse_args(tokens)
         result = run(args, anchors)

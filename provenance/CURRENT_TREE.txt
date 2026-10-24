@@ -67,6 +67,7 @@ artifacts/data_lake/national_personnel_evidence_2004_2022_gate.json
 artifacts/data_lake/national_pit_domain_admission_matrix_gate.json
 artifacts/data_lake/national_pit_eligible_slice_gate.json
 artifacts/data_lake/national_pit_eligible_slice_replay.json
+artifacts/data_lake/national_recruiting_evidence_2010_2017_gate.json
 artifacts/data_lake/national_retrospective_reference_2016_2023_gate.json
 artifacts/data_lake/national_site_calendar_association_2016_2023_gate.json
 artifacts/data_lake/national_source_time_2016_2023_gate.json
@@ -904,6 +905,7 @@ configs/national_pit_domain_admission_matrix_contract.json
 configs/national_pit_eligible_slice_contract.json
 configs/national_population_reconciliation_2024_2025_contract.json
 configs/national_reconciliation_aliases_2024_2025_contract.json
+configs/national_recruiting_evidence_2010_2017_contract.json
 configs/national_retrospective_baseline_2016_2023_contract.json
 configs/national_retrospective_reference_2016_2023_contract.json
 configs/national_shadow_operations_contract.json
@@ -1220,6 +1222,7 @@ docs/architecture/NATIONAL_PERSONNEL_ASSOCIATION_2016_2022.md
 docs/architecture/NATIONAL_PERSONNEL_EVIDENCE_2004_2022.md
 docs/architecture/NATIONAL_POPULATION_RECONCILIATION_SIDECAR.md
 docs/architecture/NATIONAL_RECONCILIATION_ALIASES_SUCCESSOR.md
+docs/architecture/NATIONAL_RECRUITING_EVIDENCE_2010_2017.md
 docs/architecture/NATIONAL_RETROSPECTIVE_BASELINE_BENCHMARK.md
 docs/architecture/NATIONAL_RETROSPECTIVE_REFERENCE_COMPARISON.md
 docs/architecture/NATIONAL_SITE_EVIDENCE_SIDECAR.md
@@ -4273,6 +4276,9 @@ src/aggie_analytics/personnel_evidence/__init__.py
 src/aggie_analytics/personnel_evidence/anchors.py
 src/aggie_analytics/personnel_evidence/evidence.py
 src/aggie_analytics/personnel_evidence/query.py
+src/aggie_analytics/personnel_evidence/recruiting.py
+src/aggie_analytics/personnel_evidence/recruiting_build.py
+src/aggie_analytics/personnel_evidence/recruiting_query.py
 src/aggie_analytics/player_intelligence/__init__.py
 src/aggie_analytics/player_intelligence/advanced_state.py
 src/aggie_analytics/player_intelligence/availability.py
@@ -4407,6 +4413,7 @@ tests/personnel_evidence_fixture.py
 tests/prospective_provider_observation_fixture.py
 tests/provider_record_baseline_preview_fixture.py
 tests/provider_record_shadow_fixture.py
+tests/recruiting_evidence_fixture.py
 tests/research_product_cases.py
 tests/retrospective_baseline_fixture.py
 tests/retrospective_reference_fixture.py
@@ -4675,6 +4682,7 @@ tests/test_national_pit_eligible_slice.py
 tests/test_national_population_query.py
 tests/test_national_population_reconciliation.py
 tests/test_national_reconciliation_aliases.py
+tests/test_national_recruiting_evidence.py
 tests/test_national_retrospective_baseline.py
 tests/test_national_retrospective_reference.py
 tests/test_national_shadow_state_machine.py
@@ -5351,6 +5359,8 @@ tools/cycle37/storage_snapshot.py
 tools/cycle37/v37_01_cli_probe.py
 tools/cycle63/build_national_site_calendar_association.py
 tools/cycle63/make_site_calendar_contract.py
+tools/cycle64/build_national_recruiting_evidence.py
+tools/cycle64/make_recruiting_contract.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py

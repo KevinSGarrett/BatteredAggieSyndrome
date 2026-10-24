@@ -1,0 +1,2194 @@
+{
+ "attempt_number": 1,
+ "contract_id": "BAT-735-NATIONAL-RECRUITING-EVIDENCE-2010-2017-V1.0",
+ "cycle_number": 64,
+ "expected": {
+  "captures": {
+   "cap_08ab140a68fa01a7f7168376": {
+    "capture_id": "cap_08ab140a68fa01a7f7168376",
+    "capture_known_at_utc": "2026-08-10T01:48:07Z",
+    "dataset": "transfer_portal",
+    "endpoint_id": "CFBD-GetTransferPortal",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/transfer_portal/2012/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+    "parameters": {
+     "year": 2012
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:07 GMT",
+    "receipt_bytes": 1610,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_08ab140a68fa01a7f7168376.json",
+    "receipt_sha256": "1a4a0a4e89ae77d54104ed6bb1e0160047d865cb60c20fbad0c9bf660ce6cbe9",
+    "response_bytes": 2,
+    "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:07Z",
+    "row_count": 0,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/player/portal?year=2012",
+    "top_level_schema_fields": [],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_126c16a995cacf21b48d69ab": {
+    "capture_id": "cap_126c16a995cacf21b48d69ab",
+    "capture_known_at_utc": "2026-08-10T01:48:07Z",
+    "dataset": "recruiting_players",
+    "endpoint_id": "CFBD-GetRecruitingPlayers",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/recruiting_players/2010/sha256_9815ff35dd2d50faa2aa521e7cc57ce087497da9474ea9709bff76dfa428edce.json",
+    "parameters": {
+     "year": 2010
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:07 GMT",
+    "receipt_bytes": 1905,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_126c16a995cacf21b48d69ab.json",
+    "receipt_sha256": "f843f77f42a17d872f93ce9f720d060cad938c18eab0e3931025b47186d779a2",
+    "response_bytes": 896684,
+    "response_sha256": "9815ff35dd2d50faa2aa521e7cc57ce087497da9474ea9709bff76dfa428edce",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:07Z",
+    "row_count": 2445,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/recruiting/players?year=2010",
+    "top_level_schema_fields": [
+     "athleteId",
+     "city",
+     "committedTo",
+     "country",
+     "height",
+     "hometownInfo",
+     "id",
+     "name",
+     "position",
+     "ranking",
+     "rating",
+     "recruitType",
+     "school",
+     "stars",
+     "stateProvince",
+     "weight",
+     "year"
+    ],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_1442929482cbbc5acf9c0ee1": {
+    "capture_id": "cap_1442929482cbbc5acf9c0ee1",
+    "capture_known_at_utc": "2026-08-10T01:48:07Z",
+    "dataset": "recruiting_players",
+    "endpoint_id": "CFBD-GetRecruitingPlayers",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/recruiting_players/2012/sha256_a86fc2acf03f44cdff309ae48734d469fadee369f2c8b25ac330a4dc133394a3.json",
+    "parameters": {
+     "year": 2012
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:07 GMT",
+    "receipt_bytes": 1908,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_1442929482cbbc5acf9c0ee1.json",
+    "receipt_sha256": "66b2a2ec6edceb185915dc36afb77552a322272de47c35ee65b971dc8a79a75b",
+    "response_bytes": 1129678,
+    "response_sha256": "a86fc2acf03f44cdff309ae48734d469fadee369f2c8b25ac330a4dc133394a3",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:07Z",
+    "row_count": 3086,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/recruiting/players?year=2012",
+    "top_level_schema_fields": [
+     "athleteId",
+     "city",
+     "committedTo",
+     "country",
+     "height",
+     "hometownInfo",
+     "id",
+     "name",
+     "position",
+     "ranking",
+     "rating",
+     "recruitType",
+     "school",
+     "stars",
+     "stateProvince",
+     "weight",
+     "year"
+    ],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_21f95171e4119ae863098273": {
+    "capture_id": "cap_21f95171e4119ae863098273",
+    "capture_known_at_utc": "2026-08-10T01:48:08Z",
+    "dataset": "recruiting_players",
+    "endpoint_id": "CFBD-GetRecruitingPlayers",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/recruiting_players/2015/sha256_f708f8529c8743c399fd18393186668bcca8c60b65c49a1dbad642431d388ac7.json",
+    "parameters": {
+     "year": 2015
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:08 GMT",
+    "receipt_bytes": 1908,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_21f95171e4119ae863098273.json",
+    "receipt_sha256": "d1c15c62b93967127132fca328006a0526e22a62760651b04d683aab468ba2d5",
+    "response_bytes": 1282318,
+    "response_sha256": "f708f8529c8743c399fd18393186668bcca8c60b65c49a1dbad642431d388ac7",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:08Z",
+    "row_count": 3516,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/recruiting/players?year=2015",
+    "top_level_schema_fields": [
+     "athleteId",
+     "city",
+     "committedTo",
+     "country",
+     "height",
+     "hometownInfo",
+     "id",
+     "name",
+     "position",
+     "ranking",
+     "rating",
+     "recruitType",
+     "school",
+     "stars",
+     "stateProvince",
+     "weight",
+     "year"
+    ],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_3d1d412cea46422d65df5410": {
+    "capture_id": "cap_3d1d412cea46422d65df5410",
+    "capture_known_at_utc": "2026-08-10T01:48:07Z",
+    "dataset": "transfer_portal",
+    "endpoint_id": "CFBD-GetTransferPortal",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/transfer_portal/2013/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+    "parameters": {
+     "year": 2013
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:07 GMT",
+    "receipt_bytes": 1610,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_3d1d412cea46422d65df5410.json",
+    "receipt_sha256": "d1c7f5622124f17b92a691ce8def6e2540c86573663547cd87884f831e8c49a2",
+    "response_bytes": 2,
+    "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:07Z",
+    "row_count": 0,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/player/portal?year=2013",
+    "top_level_schema_fields": [],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_5b1944b11cc20a36c617ba07": {
+    "capture_id": "cap_5b1944b11cc20a36c617ba07",
+    "capture_known_at_utc": "2026-08-10T01:48:07Z",
+    "dataset": "recruiting_players",
+    "endpoint_id": "CFBD-GetRecruitingPlayers",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/recruiting_players/2011/sha256_6c0f2498d2e9f3df7fd8415f3e773ac0e56df14918acf8a6ab455798fbdfa6da.json",
+    "parameters": {
+     "year": 2011
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:07 GMT",
+    "receipt_bytes": 1905,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_5b1944b11cc20a36c617ba07.json",
+    "receipt_sha256": "bfea2d33706696cea1ee82e1d82292a00af68cf173e6a0bd5aafa7cf074a478c",
+    "response_bytes": 981445,
+    "response_sha256": "6c0f2498d2e9f3df7fd8415f3e773ac0e56df14918acf8a6ab455798fbdfa6da",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:07Z",
+    "row_count": 2682,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/recruiting/players?year=2011",
+    "top_level_schema_fields": [
+     "athleteId",
+     "city",
+     "committedTo",
+     "country",
+     "height",
+     "hometownInfo",
+     "id",
+     "name",
+     "position",
+     "ranking",
+     "rating",
+     "recruitType",
+     "school",
+     "stars",
+     "stateProvince",
+     "weight",
+     "year"
+    ],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_74c32a321fa77d51e0c7d7b6": {
+    "capture_id": "cap_74c32a321fa77d51e0c7d7b6",
+    "capture_known_at_utc": "2026-08-10T01:48:08Z",
+    "dataset": "transfer_portal",
+    "endpoint_id": "CFBD-GetTransferPortal",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/transfer_portal/2016/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+    "parameters": {
+     "year": 2016
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:08 GMT",
+    "receipt_bytes": 1610,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_74c32a321fa77d51e0c7d7b6.json",
+    "receipt_sha256": "08fde4d20469b62c56060f75070815c0ecb3b55dd70ef9b56af3fab0abdf2985",
+    "response_bytes": 2,
+    "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:08Z",
+    "row_count": 0,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/player/portal?year=2016",
+    "top_level_schema_fields": [],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_883e831cb17e35a57a517203": {
+    "capture_id": "cap_883e831cb17e35a57a517203",
+    "capture_known_at_utc": "2026-08-10T01:48:08Z",
+    "dataset": "transfer_portal",
+    "endpoint_id": "CFBD-GetTransferPortal",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/transfer_portal/2015/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+    "parameters": {
+     "year": 2015
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:08 GMT",
+    "receipt_bytes": 1610,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_883e831cb17e35a57a517203.json",
+    "receipt_sha256": "91fd7597372a8abeb6d5ee71b6a760760615a959fada19a2e6a5b05bff4661b2",
+    "response_bytes": 2,
+    "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:08Z",
+    "row_count": 0,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/player/portal?year=2015",
+    "top_level_schema_fields": [],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_8b69c09f46749cbf0c410a59": {
+    "capture_id": "cap_8b69c09f46749cbf0c410a59",
+    "capture_known_at_utc": "2026-08-10T01:48:08Z",
+    "dataset": "recruiting_players",
+    "endpoint_id": "CFBD-GetRecruitingPlayers",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/recruiting_players/2014/sha256_21c06d18038f3baf1c1f67123af4c66b293bb8df02ed4dba50b8d24aed791f68.json",
+    "parameters": {
+     "year": 2014
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:08 GMT",
+    "receipt_bytes": 1908,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_8b69c09f46749cbf0c410a59.json",
+    "receipt_sha256": "04ff13e92599392600b4b26a008ae9517dfab46f73794ed9fc57eccf47d31806",
+    "response_bytes": 1376497,
+    "response_sha256": "21c06d18038f3baf1c1f67123af4c66b293bb8df02ed4dba50b8d24aed791f68",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:08Z",
+    "row_count": 3772,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/recruiting/players?year=2014",
+    "top_level_schema_fields": [
+     "athleteId",
+     "city",
+     "committedTo",
+     "country",
+     "height",
+     "hometownInfo",
+     "id",
+     "name",
+     "position",
+     "ranking",
+     "rating",
+     "recruitType",
+     "school",
+     "stars",
+     "stateProvince",
+     "weight",
+     "year"
+    ],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_95ef7dd6da73a3638f303af7": {
+    "capture_id": "cap_95ef7dd6da73a3638f303af7",
+    "capture_known_at_utc": "2026-08-10T01:48:07Z",
+    "dataset": "transfer_portal",
+    "endpoint_id": "CFBD-GetTransferPortal",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/transfer_portal/2010/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+    "parameters": {
+     "year": 2010
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:07 GMT",
+    "receipt_bytes": 1610,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_95ef7dd6da73a3638f303af7.json",
+    "receipt_sha256": "ca669a76fb4c740dda01e2436898c7650efe16e1c1e5aff3521b2e431ce541e0",
+    "response_bytes": 2,
+    "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:07Z",
+    "row_count": 0,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/player/portal?year=2010",
+    "top_level_schema_fields": [],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_96b7e887aa16ce54914bca71": {
+    "capture_id": "cap_96b7e887aa16ce54914bca71",
+    "capture_known_at_utc": "2026-08-10T01:48:07Z",
+    "dataset": "transfer_portal",
+    "endpoint_id": "CFBD-GetTransferPortal",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/transfer_portal/2014/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+    "parameters": {
+     "year": 2014
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:07 GMT",
+    "receipt_bytes": 1610,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_96b7e887aa16ce54914bca71.json",
+    "receipt_sha256": "65883523131177f53248be448e881713a5d21aea9578fd63152947f7d69f3f6f",
+    "response_bytes": 2,
+    "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:07Z",
+    "row_count": 0,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/player/portal?year=2014",
+    "top_level_schema_fields": [],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_9959459628d2527d3ab4fdaf": {
+    "capture_id": "cap_9959459628d2527d3ab4fdaf",
+    "capture_known_at_utc": "2026-08-10T01:48:08Z",
+    "dataset": "recruiting_players",
+    "endpoint_id": "CFBD-GetRecruitingPlayers",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/recruiting_players/2016/sha256_d126650ce35a886ce6e9d27196ae9699131d741f6e0475a57a0c306b55bb70ac.json",
+    "parameters": {
+     "year": 2016
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:08 GMT",
+    "receipt_bytes": 1908,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_9959459628d2527d3ab4fdaf.json",
+    "receipt_sha256": "8677a4f36ec5e31b2a0f41c80d2923814f785ea7fb92dda84d785df969cfc9da",
+    "response_bytes": 1632499,
+    "response_sha256": "d126650ce35a886ce6e9d27196ae9699131d741f6e0475a57a0c306b55bb70ac",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:08Z",
+    "row_count": 4452,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/recruiting/players?year=2016",
+    "top_level_schema_fields": [
+     "athleteId",
+     "city",
+     "committedTo",
+     "country",
+     "height",
+     "hometownInfo",
+     "id",
+     "name",
+     "position",
+     "ranking",
+     "rating",
+     "recruitType",
+     "school",
+     "stars",
+     "stateProvince",
+     "weight",
+     "year"
+    ],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_a3226eb4157c8aa293f77f01": {
+    "capture_id": "cap_a3226eb4157c8aa293f77f01",
+    "capture_known_at_utc": "2026-08-10T01:48:08Z",
+    "dataset": "recruiting_players",
+    "endpoint_id": "CFBD-GetRecruitingPlayers",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/recruiting_players/2017/sha256_e8347d6bc067cbcd9e9ec78b18f1d6974204e21fd1420dcf666e2591914c221c.json",
+    "parameters": {
+     "year": 2017
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:08 GMT",
+    "receipt_bytes": 1908,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_a3226eb4157c8aa293f77f01.json",
+    "receipt_sha256": "11f13e8a8a27624d647a37df45e355355d093140958fbbaf79f431a9b742bb8b",
+    "response_bytes": 1725700,
+    "response_sha256": "e8347d6bc067cbcd9e9ec78b18f1d6974204e21fd1420dcf666e2591914c221c",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:08Z",
+    "row_count": 4710,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/recruiting/players?year=2017",
+    "top_level_schema_fields": [
+     "athleteId",
+     "city",
+     "committedTo",
+     "country",
+     "height",
+     "hometownInfo",
+     "id",
+     "name",
+     "position",
+     "ranking",
+     "rating",
+     "recruitType",
+     "school",
+     "stars",
+     "stateProvince",
+     "weight",
+     "year"
+    ],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_bf49415cdad986ee67ce2f4c": {
+    "capture_id": "cap_bf49415cdad986ee67ce2f4c",
+    "capture_known_at_utc": "2026-08-10T01:48:08Z",
+    "dataset": "recruiting_players",
+    "endpoint_id": "CFBD-GetRecruitingPlayers",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/recruiting_players/2013/sha256_ca91d4dd6ba17945c728c3d937bb4b71f43345f8d8889fa695b4ff5c3db84972.json",
+    "parameters": {
+     "year": 2013
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:07 GMT",
+    "receipt_bytes": 1908,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_bf49415cdad986ee67ce2f4c.json",
+    "receipt_sha256": "3d7b09b9a752294cada8b5c338359867a47a6011c9d2dca3561038b73706ddab",
+    "response_bytes": 1251572,
+    "response_sha256": "ca91d4dd6ba17945c728c3d937bb4b71f43345f8d8889fa695b4ff5c3db84972",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:08Z",
+    "row_count": 3430,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/recruiting/players?year=2013",
+    "top_level_schema_fields": [
+     "athleteId",
+     "city",
+     "committedTo",
+     "country",
+     "height",
+     "hometownInfo",
+     "id",
+     "name",
+     "position",
+     "ranking",
+     "rating",
+     "recruitType",
+     "school",
+     "stars",
+     "stateProvince",
+     "weight",
+     "year"
+    ],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   },
+   "cap_fa9bb1e9b5fdf06566e75814": {
+    "capture_id": "cap_fa9bb1e9b5fdf06566e75814",
+    "capture_known_at_utc": "2026-08-10T01:48:07Z",
+    "dataset": "transfer_portal",
+    "endpoint_id": "CFBD-GetTransferPortal",
+    "historical_coverage_status": "CAPTURED_REQUESTED_PARTITION",
+    "http_status": 200,
+    "immutable_path": "raw/SRC-002/bat388-people/transfer_portal/2011/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+    "parameters": {
+     "year": 2011
+    },
+    "provider_http_date": "Mon, 10 Aug 2026 01:48:07 GMT",
+    "receipt_bytes": 1610,
+    "receipt_relative_path": "manifests/captures/SRC-002/cap_fa9bb1e9b5fdf06566e75814.json",
+    "receipt_sha256": "69b3567939fce3b98aa508a0f48b480d985dbfd812db6f7f60974b682355f9a1",
+    "response_bytes": 2,
+    "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "result": "SUCCESS",
+    "retrieved_at_utc": "2026-08-10T01:48:07Z",
+    "row_count": 0,
+    "run_id": "bat388-people-sources-v1",
+    "source_id": "SRC-002",
+    "source_uri": "https://api.collegefootballdata.com/player/portal?year=2011",
+    "top_level_schema_fields": [],
+    "upstream_lineage": "CFBD_PUBLIC_API_RECORD; SOURCE_URL_AND_CAPTURE_ID_PRESERVED"
+   }
+  },
+  "cells": [
+   {
+    "capture_id": "cap_126c16a995cacf21b48d69ab",
+    "cell_key": "recruiting_players|year=2010",
+    "dataset": "recruiting_players",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2010
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_5b1944b11cc20a36c617ba07",
+    "cell_key": "recruiting_players|year=2011",
+    "dataset": "recruiting_players",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2011
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_1442929482cbbc5acf9c0ee1",
+    "cell_key": "recruiting_players|year=2012",
+    "dataset": "recruiting_players",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2012
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_bf49415cdad986ee67ce2f4c",
+    "cell_key": "recruiting_players|year=2013",
+    "dataset": "recruiting_players",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2013
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_8b69c09f46749cbf0c410a59",
+    "cell_key": "recruiting_players|year=2014",
+    "dataset": "recruiting_players",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2014
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_21f95171e4119ae863098273",
+    "cell_key": "recruiting_players|year=2015",
+    "dataset": "recruiting_players",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2015
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_9959459628d2527d3ab4fdaf",
+    "cell_key": "recruiting_players|year=2016",
+    "dataset": "recruiting_players",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2016
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_a3226eb4157c8aa293f77f01",
+    "cell_key": "recruiting_players|year=2017",
+    "dataset": "recruiting_players",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2017
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "recruiting_players|year=2018",
+    "dataset": "recruiting_players",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2018
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "recruiting_players|year=2019",
+    "dataset": "recruiting_players",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2019
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "recruiting_players|year=2020",
+    "dataset": "recruiting_players",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2020
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "recruiting_players|year=2021",
+    "dataset": "recruiting_players",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2021
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "recruiting_players|year=2022",
+    "dataset": "recruiting_players",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2022
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "recruiting_players|year=2023",
+    "dataset": "recruiting_players",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2023
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "recruiting_players|year=2024",
+    "dataset": "recruiting_players",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2024
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "recruiting_players|year=2025",
+    "dataset": "recruiting_players",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2025
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": "cap_95ef7dd6da73a3638f303af7",
+    "cell_key": "transfer_portal|year=2010",
+    "dataset": "transfer_portal",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2010
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_fa9bb1e9b5fdf06566e75814",
+    "cell_key": "transfer_portal|year=2011",
+    "dataset": "transfer_portal",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2011
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_08ab140a68fa01a7f7168376",
+    "cell_key": "transfer_portal|year=2012",
+    "dataset": "transfer_portal",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2012
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_3d1d412cea46422d65df5410",
+    "cell_key": "transfer_portal|year=2013",
+    "dataset": "transfer_portal",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2013
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_96b7e887aa16ce54914bca71",
+    "cell_key": "transfer_portal|year=2014",
+    "dataset": "transfer_portal",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2014
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_883e831cb17e35a57a517203",
+    "cell_key": "transfer_portal|year=2015",
+    "dataset": "transfer_portal",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2015
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": "cap_74c32a321fa77d51e0c7d7b6",
+    "cell_key": "transfer_portal|year=2016",
+    "dataset": "transfer_portal",
+    "missing_reason": null,
+    "parameters": {
+     "year": 2016
+    },
+    "state": "CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "transfer_portal|year=2017",
+    "dataset": "transfer_portal",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2017
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "transfer_portal|year=2018",
+    "dataset": "transfer_portal",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2018
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "transfer_portal|year=2019",
+    "dataset": "transfer_portal",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2019
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "transfer_portal|year=2020",
+    "dataset": "transfer_portal",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2020
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "transfer_portal|year=2021",
+    "dataset": "transfer_portal",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2021
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "transfer_portal|year=2022",
+    "dataset": "transfer_portal",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2022
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "transfer_portal|year=2023",
+    "dataset": "transfer_portal",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2023
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "transfer_portal|year=2024",
+    "dataset": "transfer_portal",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2024
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "transfer_portal|year=2025",
+    "dataset": "transfer_portal",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "year": 2025
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "coaches|maxYear=2025,minYear=2010",
+    "dataset": "coaches",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "maxYear": 2025,
+     "minYear": 2010
+    },
+    "state": "NOT_CAPTURED"
+   },
+   {
+    "capture_id": null,
+    "cell_key": "coach_seasons|maxYear=2025,minYear=2010",
+    "dataset": "coach_seasons",
+    "missing_reason": "PROVIDER_MONTHLY_CALL_QUOTA_EXCEEDED",
+    "parameters": {
+     "maxYear": 2025,
+     "minYear": 2010
+    },
+    "state": "NOT_CAPTURED"
+   }
+  ],
+  "counts": {
+   "captured_cells": 15,
+   "not_captured_cells": 19,
+   "observations": 28093,
+   "requested_cells": 34
+  },
+  "national_expected_universe": "NOT_ESTABLISHED",
+  "observations": {
+   "2010": {
+    "capture_id": "cap_126c16a995cacf21b48d69ab",
+    "keys_sha256": "a2c669942403069cc0ca5de43efdf530880fe9e390f04818be1b3849a8008888",
+    "rows": 2445
+   },
+   "2011": {
+    "capture_id": "cap_5b1944b11cc20a36c617ba07",
+    "keys_sha256": "30b64fefed92197c1eea67bf2577fe8fe171e3308c1d6a2854db8f4154d4e7cc",
+    "rows": 2682
+   },
+   "2012": {
+    "capture_id": "cap_1442929482cbbc5acf9c0ee1",
+    "keys_sha256": "a7277679e87fab4075cda73da18b28a4d8ca540411188e68476185fc82d44794",
+    "rows": 3086
+   },
+   "2013": {
+    "capture_id": "cap_bf49415cdad986ee67ce2f4c",
+    "keys_sha256": "4ba374b785422e6c921532f48f8d2fb1fdbb4922bddddb57bc9fc01396f5eb8d",
+    "rows": 3430
+   },
+   "2014": {
+    "capture_id": "cap_8b69c09f46749cbf0c410a59",
+    "keys_sha256": "dc592ad4735fd2f2eff44187fd89035241a44802f08e09e4d0b1be772fb75a02",
+    "rows": 3772
+   },
+   "2015": {
+    "capture_id": "cap_21f95171e4119ae863098273",
+    "keys_sha256": "4dc0aeede751b3db65dbc82d2353b9e450e884599f9255691ccde512a1d5e645",
+    "rows": 3516
+   },
+   "2016": {
+    "capture_id": "cap_9959459628d2527d3ab4fdaf",
+    "keys_sha256": "5214723274af585bdf79f06c703496b4400a979bc232dbde929701e1cb457e7d",
+    "rows": 4452
+   },
+   "2017": {
+    "capture_id": "cap_a3226eb4157c8aa293f77f01",
+    "keys_sha256": "8880a3223b089ff58a22b47f265ea85e2d58844728dfdfe8d879bfbdcefa4904",
+    "rows": 4710
+   }
+  }
+ },
+ "frozen_at_utc": "2026-10-23T04:04:39Z",
+ "inputs": {
+  "acquisition_manifest": {
+   "bytes": 35106,
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/acquisition/bat388-people-sources-v1/people_source_acquisition_manifest.json",
+   "sha256": "fe2bfa3754fd29510a2f438f4f534b823871233a0bf0ac6c32202faad9a6cbee"
+  },
+  "core_manifest": {
+   "bytes": 3069,
+   "locator": "REPOSITORY",
+   "relative_path": "artifacts/entities/canonical_core_registry_manifest.json",
+   "sha256": "6293b25d58afb394d9fe37ded6da1e05aaf584302c582205d13603e9659ab6e7"
+  },
+  "core_registry": {
+   "bytes": 42502985,
+   "locator": "DATA_ROOT",
+   "relative_path": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+   "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+  },
+  "legacy_people_builder": {
+   "bytes": 33275,
+   "locator": "DATA_ROOT",
+   "relative_path": "runtime/BAT-388/build_canonical_people_registry.py",
+   "sha256": "d0c070f68b0deff129fd2674e83d00fd21e0e1409c90e0b91aedded94c418cd4"
+  },
+  "people_manifest": {
+   "bytes": 3768,
+   "locator": "REPOSITORY",
+   "relative_path": "artifacts/entities/canonical_people_registry_manifest.json",
+   "sha256": "2e03ea2c65c26e3eab7e14a3d5efb4a516faaa5f05942008c20af5599768df35"
+  },
+  "people_registry": {
+   "bytes": 420562884,
+   "locator": "DATA_ROOT",
+   "relative_path": "canonical/BAT-388/sha256/0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d/canonical_people_registry.csv",
+   "sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d"
+  },
+  "portal_receipt:2010": {
+   "bytes": 1610,
+   "capture_id": "cap_95ef7dd6da73a3638f303af7",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_95ef7dd6da73a3638f303af7.json",
+   "sha256": "ca669a76fb4c740dda01e2436898c7650efe16e1c1e5aff3521b2e431ce541e0"
+  },
+  "portal_receipt:2011": {
+   "bytes": 1610,
+   "capture_id": "cap_fa9bb1e9b5fdf06566e75814",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_fa9bb1e9b5fdf06566e75814.json",
+   "sha256": "69b3567939fce3b98aa508a0f48b480d985dbfd812db6f7f60974b682355f9a1"
+  },
+  "portal_receipt:2012": {
+   "bytes": 1610,
+   "capture_id": "cap_08ab140a68fa01a7f7168376",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_08ab140a68fa01a7f7168376.json",
+   "sha256": "1a4a0a4e89ae77d54104ed6bb1e0160047d865cb60c20fbad0c9bf660ce6cbe9"
+  },
+  "portal_receipt:2013": {
+   "bytes": 1610,
+   "capture_id": "cap_3d1d412cea46422d65df5410",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_3d1d412cea46422d65df5410.json",
+   "sha256": "d1c7f5622124f17b92a691ce8def6e2540c86573663547cd87884f831e8c49a2"
+  },
+  "portal_receipt:2014": {
+   "bytes": 1610,
+   "capture_id": "cap_96b7e887aa16ce54914bca71",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_96b7e887aa16ce54914bca71.json",
+   "sha256": "65883523131177f53248be448e881713a5d21aea9578fd63152947f7d69f3f6f"
+  },
+  "portal_receipt:2015": {
+   "bytes": 1610,
+   "capture_id": "cap_883e831cb17e35a57a517203",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_883e831cb17e35a57a517203.json",
+   "sha256": "91fd7597372a8abeb6d5ee71b6a760760615a959fada19a2e6a5b05bff4661b2"
+  },
+  "portal_receipt:2016": {
+   "bytes": 1610,
+   "capture_id": "cap_74c32a321fa77d51e0c7d7b6",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_74c32a321fa77d51e0c7d7b6.json",
+   "sha256": "08fde4d20469b62c56060f75070815c0ecb3b55dd70ef9b56af3fab0abdf2985"
+  },
+  "recruiting_players:2010": {
+   "bytes": 896684,
+   "capture_id": "cap_126c16a995cacf21b48d69ab",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/recruiting_players/2010/sha256_9815ff35dd2d50faa2aa521e7cc57ce087497da9474ea9709bff76dfa428edce.json",
+   "rows": 2445,
+   "sha256": "9815ff35dd2d50faa2aa521e7cc57ce087497da9474ea9709bff76dfa428edce"
+  },
+  "recruiting_players:2011": {
+   "bytes": 981445,
+   "capture_id": "cap_5b1944b11cc20a36c617ba07",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/recruiting_players/2011/sha256_6c0f2498d2e9f3df7fd8415f3e773ac0e56df14918acf8a6ab455798fbdfa6da.json",
+   "rows": 2682,
+   "sha256": "6c0f2498d2e9f3df7fd8415f3e773ac0e56df14918acf8a6ab455798fbdfa6da"
+  },
+  "recruiting_players:2012": {
+   "bytes": 1129678,
+   "capture_id": "cap_1442929482cbbc5acf9c0ee1",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/recruiting_players/2012/sha256_a86fc2acf03f44cdff309ae48734d469fadee369f2c8b25ac330a4dc133394a3.json",
+   "rows": 3086,
+   "sha256": "a86fc2acf03f44cdff309ae48734d469fadee369f2c8b25ac330a4dc133394a3"
+  },
+  "recruiting_players:2013": {
+   "bytes": 1251572,
+   "capture_id": "cap_bf49415cdad986ee67ce2f4c",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/recruiting_players/2013/sha256_ca91d4dd6ba17945c728c3d937bb4b71f43345f8d8889fa695b4ff5c3db84972.json",
+   "rows": 3430,
+   "sha256": "ca91d4dd6ba17945c728c3d937bb4b71f43345f8d8889fa695b4ff5c3db84972"
+  },
+  "recruiting_players:2014": {
+   "bytes": 1376497,
+   "capture_id": "cap_8b69c09f46749cbf0c410a59",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/recruiting_players/2014/sha256_21c06d18038f3baf1c1f67123af4c66b293bb8df02ed4dba50b8d24aed791f68.json",
+   "rows": 3772,
+   "sha256": "21c06d18038f3baf1c1f67123af4c66b293bb8df02ed4dba50b8d24aed791f68"
+  },
+  "recruiting_players:2015": {
+   "bytes": 1282318,
+   "capture_id": "cap_21f95171e4119ae863098273",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/recruiting_players/2015/sha256_f708f8529c8743c399fd18393186668bcca8c60b65c49a1dbad642431d388ac7.json",
+   "rows": 3516,
+   "sha256": "f708f8529c8743c399fd18393186668bcca8c60b65c49a1dbad642431d388ac7"
+  },
+  "recruiting_players:2016": {
+   "bytes": 1632499,
+   "capture_id": "cap_9959459628d2527d3ab4fdaf",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/recruiting_players/2016/sha256_d126650ce35a886ce6e9d27196ae9699131d741f6e0475a57a0c306b55bb70ac.json",
+   "rows": 4452,
+   "sha256": "d126650ce35a886ce6e9d27196ae9699131d741f6e0475a57a0c306b55bb70ac"
+  },
+  "recruiting_players:2017": {
+   "bytes": 1725700,
+   "capture_id": "cap_a3226eb4157c8aa293f77f01",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/recruiting_players/2017/sha256_e8347d6bc067cbcd9e9ec78b18f1d6974204e21fd1420dcf666e2591914c221c.json",
+   "rows": 4710,
+   "sha256": "e8347d6bc067cbcd9e9ec78b18f1d6974204e21fd1420dcf666e2591914c221c"
+  },
+  "recruiting_receipt:2010": {
+   "bytes": 1905,
+   "capture_id": "cap_126c16a995cacf21b48d69ab",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_126c16a995cacf21b48d69ab.json",
+   "sha256": "f843f77f42a17d872f93ce9f720d060cad938c18eab0e3931025b47186d779a2"
+  },
+  "recruiting_receipt:2011": {
+   "bytes": 1905,
+   "capture_id": "cap_5b1944b11cc20a36c617ba07",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_5b1944b11cc20a36c617ba07.json",
+   "sha256": "bfea2d33706696cea1ee82e1d82292a00af68cf173e6a0bd5aafa7cf074a478c"
+  },
+  "recruiting_receipt:2012": {
+   "bytes": 1908,
+   "capture_id": "cap_1442929482cbbc5acf9c0ee1",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_1442929482cbbc5acf9c0ee1.json",
+   "sha256": "66b2a2ec6edceb185915dc36afb77552a322272de47c35ee65b971dc8a79a75b"
+  },
+  "recruiting_receipt:2013": {
+   "bytes": 1908,
+   "capture_id": "cap_bf49415cdad986ee67ce2f4c",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_bf49415cdad986ee67ce2f4c.json",
+   "sha256": "3d7b09b9a752294cada8b5c338359867a47a6011c9d2dca3561038b73706ddab"
+  },
+  "recruiting_receipt:2014": {
+   "bytes": 1908,
+   "capture_id": "cap_8b69c09f46749cbf0c410a59",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_8b69c09f46749cbf0c410a59.json",
+   "sha256": "04ff13e92599392600b4b26a008ae9517dfab46f73794ed9fc57eccf47d31806"
+  },
+  "recruiting_receipt:2015": {
+   "bytes": 1908,
+   "capture_id": "cap_21f95171e4119ae863098273",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_21f95171e4119ae863098273.json",
+   "sha256": "d1c15c62b93967127132fca328006a0526e22a62760651b04d683aab468ba2d5"
+  },
+  "recruiting_receipt:2016": {
+   "bytes": 1908,
+   "capture_id": "cap_9959459628d2527d3ab4fdaf",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_9959459628d2527d3ab4fdaf.json",
+   "sha256": "8677a4f36ec5e31b2a0f41c80d2923814f785ea7fb92dda84d785df969cfc9da"
+  },
+  "recruiting_receipt:2017": {
+   "bytes": 1908,
+   "capture_id": "cap_a3226eb4157c8aa293f77f01",
+   "locator": "DATA_ROOT",
+   "relative_path": "manifests/captures/SRC-002/cap_a3226eb4157c8aa293f77f01.json",
+   "sha256": "11f13e8a8a27624d647a37df45e355355d093140958fbbaf79f431a9b742bb8b"
+  },
+  "rights_metadata": {
+   "bytes": 38203,
+   "decision": {
+    "allowed_access": "PUBLIC_OR_OWNER_CREDENTIALED_FACTUAL_DATA_FOR_PRIVATE_RESEARCH",
+    "attribution_decision": "PRESERVE_SOURCE_URL_TIMESTAMP_AND_PROVENANCE_METADATA",
+    "dataset": "CollegeFootballData API",
+    "decision_id": "PRIVATE-RESEARCH-SRC-002",
+    "derived_use_decision": "ALLOW_PRIVATE_LOCAL_ANALYSIS_FEATURES_AND_MODELS",
+    "local_storage_decision": "ALLOW_IMMUTABLE_RAW_AND_NORMALIZED_DATA_OUTSIDE_GIT",
+    "owner_authorization_basis": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
+    "policy_version": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
+    "private_research_acquisition_allowed": "true",
+    "provider": "Rad Sports Analytics / CollegeFootballData",
+    "publication_decision": "SEPARATE_FUTURE_PUBLICATION_REVIEW_REQUIRED_NO_RAW_PAYLOAD_PUBLICATION",
+    "redistribution_decision": "DO_NOT_PUBLISH_OR_REDISTRIBUTE_RAW_THIRD_PARTY_PAYLOADS",
+    "retention_decision": "LOCAL_RETENTION_ALLOWED_UNDER_EXTERNAL_DATA_ROOT_AND_DISK_POLICY",
+    "rights_decision": "METADATA_ONLY_NONBLOCKING",
+    "rights_metadata_nonblocking": "true",
+    "row_sha256": "bd9b842a178f494efec1bd89f93b3c07958a40ad7d077d197dfcdcef54cebbee",
+    "source_id": "SRC-002"
+   },
+   "locator": "REPOSITORY",
+   "relative_path": "artifacts/source_governance/tier1_rights_decisions.csv",
+   "sha256": "20a3051b5836538fafea6455c16abe372a3fd1e9175a7cd882e1de7cd6541a83"
+  },
+  "transfer_portal:2010": {
+   "bytes": 2,
+   "capture_id": "cap_95ef7dd6da73a3638f303af7",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/transfer_portal/2010/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+   "rows": 0,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "transfer_portal:2011": {
+   "bytes": 2,
+   "capture_id": "cap_fa9bb1e9b5fdf06566e75814",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/transfer_portal/2011/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+   "rows": 0,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "transfer_portal:2012": {
+   "bytes": 2,
+   "capture_id": "cap_08ab140a68fa01a7f7168376",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/transfer_portal/2012/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+   "rows": 0,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "transfer_portal:2013": {
+   "bytes": 2,
+   "capture_id": "cap_3d1d412cea46422d65df5410",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/transfer_portal/2013/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+   "rows": 0,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "transfer_portal:2014": {
+   "bytes": 2,
+   "capture_id": "cap_96b7e887aa16ce54914bca71",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/transfer_portal/2014/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+   "rows": 0,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "transfer_portal:2015": {
+   "bytes": 2,
+   "capture_id": "cap_883e831cb17e35a57a517203",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/transfer_portal/2015/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+   "rows": 0,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "transfer_portal:2016": {
+   "bytes": 2,
+   "capture_id": "cap_74c32a321fa77d51e0c7d7b6",
+   "locator": "DATA_ROOT",
+   "relative_path": "raw/SRC-002/bat388-people/transfer_portal/2016/sha256_4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945.json",
+   "rows": 0,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  }
+ },
+ "jira_key": "BAT-735",
+ "labels": {
+  "evidence_authority": "RETROSPECTIVE_SOURCE_OBSERVATION_AND_CORRESPONDENCE_NOT_EVENT_HISTORY",
+  "evidence_label": "RETROSPECTIVE_RESEARCH",
+  "national_coverage": "NATIONAL_FBS_FCS_RECRUIT_UNIVERSE_NOT_ESTABLISHED",
+  "pit_eligibility": "PIT_NOT_ADMITTED",
+  "predictive_skill": "NOT_ESTABLISHED",
+  "rights": "PRIVATE_LOCAL_RESEARCH_SRC_002_NO_RAW_PAYLOAD_REDISTRIBUTION",
+  "source_clock": "SRC_002_CAPTURES_RETRIEVED_2026_08_10_NOT_HISTORICAL_KNOWN_AT",
+  "trust_state": "UNTRUSTED_SHADOW"
+ },
+ "outputs": {
+  "database": "national_recruiting_evidence.sqlite"
+ },
+ "population_id": "national_recruiting_evidence_2010_2017",
+ "rules": {
+  "alias_witness_states": [
+   "SOURCE_BACKED_VERIFIED",
+   "NOT_SOURCE_BACKED",
+   "INTEGRITY_FAILED"
+  ],
+  "contract_id": "BAT-735-NATIONAL-RECRUITING-EVIDENCE-2010-2017-V1.0",
+  "core_columns": [
+   "schema_version",
+   "dataset_version",
+   "record_type",
+   "entity_type",
+   "record_id",
+   "canonical_id",
+   "candidate_canonical_id",
+   "identity_key",
+   "assignment_slot",
+   "source_system_id",
+   "source_entity_key",
+   "mapping_method",
+   "resolution_state",
+   "relationship_type",
+   "parent_canonical_id",
+   "alias",
+   "alias_normalized",
+   "effective_from",
+   "effective_to_exclusive",
+   "season",
+   "season_type",
+   "week",
+   "start_time_utc",
+   "home_team_id",
+   "away_team_id",
+   "venue_id",
+   "neutral_site",
+   "game_status",
+   "completed",
+   "source_snapshot_ids",
+   "source_payload_sha256s",
+   "quality_state",
+   "eligibility",
+   "provenance_sha256",
+   "record_sha256",
+   "notes"
+  ],
+  "core_roles": {
+   "CORE_TEAM_ALIAS_ROW": "EXACT_LABEL_TEAM_ALIAS_WITNESS_ROW",
+   "CORE_TEAM_ENTITY_ROW": "REFERENCED_TEAM_ENTITY_WITNESS_ROW"
+  },
+  "dataset_order": [
+   "recruiting_players",
+   "transfer_portal",
+   "coaches",
+   "coach_seasons"
+  ],
+  "field_names": {
+   "athleteId": "source_athlete_id",
+   "committedTo": "committed_to",
+   "id": "source_recruit_id",
+   "name": "name",
+   "position": "position",
+   "ranking": "ranking",
+   "rating": "rating",
+   "recruitType": "recruit_type",
+   "school": "school",
+   "stars": "stars",
+   "year": "cohort_year"
+  },
+  "field_types": {
+   "census": {
+    "census_key": "s",
+    "evidence_label": "s",
+    "pit_eligibility": "s",
+    "population": "j",
+    "predictive_skill": "s",
+    "record_type": "s",
+    "trust_state": "s"
+   },
+   "observations": {
+    "absent_served_fields": "ls",
+    "capture_id": "s",
+    "capture_sha256": "s",
+    "cohort_year": "i?",
+    "committed_to": "s?",
+    "dataset": "s",
+    "evidence_label": "s",
+    "name": "s?",
+    "observation_key": "s",
+    "pit_eligibility": "s",
+    "position": "s?",
+    "predictive_skill": "s",
+    "ranking": "i?",
+    "rating": "num?",
+    "raw_member_names": "ls",
+    "raw_row_ordinal": "i",
+    "raw_row_sha256": "s",
+    "receipt_sha256": "s",
+    "record_type": "s",
+    "recruit_type": "s?",
+    "request_season": "i",
+    "school": "s?",
+    "source_athlete_id": "s?",
+    "source_field_kinds": "kinds",
+    "source_id": "s",
+    "source_recruit_id": "s",
+    "stars": "i?",
+    "trust_state": "s"
+   },
+   "partitions": {
+    "capture_id": "s?",
+    "capture_known_at_utc": "s?",
+    "coverage_meaning": "s",
+    "dataset": "s",
+    "endpoint_id": "s?",
+    "evidence_label": "s",
+    "http_status": "i?",
+    "max_year": "i?",
+    "min_year": "i?",
+    "missing_reason": "s?",
+    "parameters": "j",
+    "partition_key": "s",
+    "payload_state": "s?",
+    "pit_eligibility": "s",
+    "predictive_skill": "s",
+    "provider_http_date": "s?",
+    "receipt_sha256": "s?",
+    "record_type": "s",
+    "release_observations": "i?",
+    "release_scope": "s",
+    "request_state": "s",
+    "response_bytes": "i?",
+    "response_sha256": "s?",
+    "result": "s?",
+    "retrieved_at_utc": "s?",
+    "row_count": "i?",
+    "season": "i?",
+    "source_id": "s",
+    "source_uri": "s?",
+    "trust_state": "s"
+   },
+   "qualifications": {
+    "alias_witnesses": "l@alias",
+    "assignment_slot": "s?",
+    "candidate_team_ids": "ls",
+    "canonical_player_id": "s?",
+    "canonical_team_id": "s?",
+    "capture_id": "s",
+    "capture_known_at_utc": "s",
+    "cohort_year_state": "s",
+    "commitment_time": "s?",
+    "decommitment_time": "s?",
+    "effective_from": "s?",
+    "effective_to": "s?",
+    "enrollment_time": "s?",
+    "evidence_label": "s",
+    "historical_known_at": "s?",
+    "historical_membership_state": "s",
+    "identity_key": "s",
+    "legacy_observation_state": "s",
+    "legacy_observation_witnesses": "l@legacy",
+    "legacy_program_agreement": "s",
+    "mapping_witnesses": "l@mapping",
+    "observation_key": "s",
+    "observation_record_sha256": "s",
+    "person_meaning": "s",
+    "person_reasons": "ls",
+    "person_state": "s",
+    "person_witnesses": "l@person",
+    "pit_eligibility": "s",
+    "pit_eligible": "b",
+    "portal_event_time": "s?",
+    "predictive_skill": "s",
+    "program_label": "s?",
+    "program_label_state": "s",
+    "program_meaning": "s",
+    "program_state": "s",
+    "provider_http_date": "s",
+    "qualification_key": "s",
+    "ranking_domain_state": "s?",
+    "ranking_state": "s",
+    "rating_domain_state": "s?",
+    "rating_publication_time": "s?",
+    "rating_scale": "s",
+    "rating_state": "s",
+    "rating_system_version": "s?",
+    "rating_triplet_state": "s",
+    "rating_update_time": "s?",
+    "rating_upstream_independence": "s",
+    "raw_row_ordinal": "i",
+    "record_type": "s",
+    "request_season": "i",
+    "retrieved_at_utc": "s",
+    "signing_time": "s?",
+    "source_athlete_id": "s?",
+    "source_mapping_entity_key": "s",
+    "source_namespace": "s",
+    "source_recruit_id": "s",
+    "stars_domain_state": "s?",
+    "stars_state": "s",
+    "team_witnesses": "l@team",
+    "time_state": "s",
+    "trust_state": "s"
+   },
+   "sources": {
+    "bytes": "i?",
+    "capture_id": "s?",
+    "capture_known_at_utc": "s?",
+    "dataset": "s?",
+    "evidence_label": "s",
+    "frozen_at_utc": "s?",
+    "integrity_state": "s?",
+    "locator_root": "s?",
+    "parameters": "j",
+    "pit_eligibility": "s",
+    "predictive_skill": "s",
+    "provider_http_date": "s?",
+    "record_type": "s",
+    "registry": "s?",
+    "registry_row": "i?",
+    "registry_sha256": "s?",
+    "relative_path": "s?",
+    "retrieved_at_utc": "s?",
+    "rights_decision": "j",
+    "role": "s",
+    "role_meaning": "s",
+    "row": "j",
+    "row_count": "i?",
+    "sha256": "s?",
+    "source_key": "s",
+    "trust_state": "s",
+    "witness_kind": "s",
+    "witness_state": "s?"
+   },
+   "summary": {
+    "athlete_id_observations": "i",
+    "cohort_year_states": "j",
+    "distinct_canonical_players": "i",
+    "distinct_canonical_teams": "i",
+    "distinct_source_recruit_ids": "i",
+    "evidence_label": "s",
+    "historical_times_known": "i",
+    "legacy_observation_states": "j",
+    "legacy_program_agreements": "j",
+    "negative_athlete_id_observations": "i",
+    "observations": "i",
+    "person_reasons": "j",
+    "person_states": "j",
+    "pit_eligibility": "s",
+    "pit_eligible_observations": "i",
+    "positions": "j",
+    "predictive_skill": "s",
+    "program_label_states": "j",
+    "program_states": "j",
+    "ranking_domain_states": "j",
+    "ranking_kinds": "j",
+    "rating_domain_states": "j",
+    "rating_kinds": "j",
+    "rating_triplet_states": "j",
+    "reading": "s",
+    "record_type": "s",
+    "recruit_only_observations": "i",
+    "recruit_types": "j",
+    "scope_id": "s",
+    "scope_kind": "s",
+    "stars_domain_states": "j",
+    "stars_kinds": "j",
+    "summary_key": "s",
+    "trust_state": "s"
+   }
+  },
+  "file_roles": {
+   "acquisition_manifest": "ORIGINAL_REQUESTED_CELL_UNIVERSE_AND_QUOTA_MISSING_STATUS",
+   "contract": "FROZEN_DATA_CONTRACT",
+   "core_manifest": "EXISTING_CORE_REGISTRY_MANIFEST_WITNESS",
+   "core_registry": "EXISTING_TEAM_ALIAS_AND_ENTITY_CLAIMS_REQUALIFIED_NOT_ORACLE",
+   "legacy_people_builder": "LEGACY_BUILDER_LINEAGE_ONLY_NOT_SCIENTIFIC_AUTHORITY",
+   "people_manifest": "EXISTING_PEOPLE_REGISTRY_MANIFEST_WITNESS",
+   "people_registry": "EXISTING_PERSON_AND_SOURCE_MAPPING_CLAIMS_REQUALIFIED_NOT_ORACLE",
+   "portal_receipt": "RETAINED_CAPTURE_RECEIPT_CLOCK_AND_REQUEST_AUTHORITY",
+   "recruiting_players": "RETAINED_PROVIDER_RECRUITING_ARRAY_PRIMARY_OBSERVATION_AUTHORITY",
+   "recruiting_receipt": "RETAINED_CAPTURE_RECEIPT_CLOCK_AND_REQUEST_AUTHORITY",
+   "rights_metadata": "SRC_002_PRIVATE_RESEARCH_RIGHTS_DECISION_NONBLOCKING_METADATA",
+   "transfer_portal": "RETAINED_EMPTY_PROVIDER_PORTAL_ARRAY_DISTINCT_CAPTURED_CELL"
+  },
+  "grains": {
+   "recruiting-observation": "observations",
+   "recruiting-partition": "partitions",
+   "recruiting-qualification": "qualifications",
+   "recruiting-source": "sources",
+   "recruiting-summary": "summary"
+  },
+  "identity": {
+   "legacy_observation": "the existing RECRUITING_OBSERVATION row obs_ + uuid5(e2c44387-e588-579b-86b3-eeb22436d1d0, 'recruit|<capture_id>|<recruitId>').hex is a lineage witness only; its ASCII-normalized team join is reported, never adopted",
+   "namespaces": {
+    "SOURCE_ATHLETE_ID": "PLAYER|SRC-002|<athleteId> with source-mapping entity key <athleteId>",
+    "SOURCE_RECRUIT_ID_ONLY": "PLAYER|SRC-002|RECRUIT|<recruitId> with source-mapping entity key RECRUIT:<recruitId>"
+   },
+   "no_fallback": "an observation with an athlete ID is never matched through its recruit-only key, nor the reverse; no name, rating, team, position or mutable state ever defines or merges an identity",
+   "observation_key": "SRC-002|<capture_id>|<zero-based original raw-array ordinal>|<source recruit id>",
+   "people_hashes": "provenance_sha256 = sha256(json.dumps(every column but the two hashes, sort_keys, separators ',' ':', ASCII escaping)); record_sha256 = the same over every column but record_sha256",
+   "person": "exactly one PERSON row (person_type player) of the existing registry carries the identity key; its record_id is its canonical_id; its assignment slot is people-v1:player:<8 digits>; canonical_id = player_ + uuid5(0b9087ea-43c1-5f46-a133-63cc34d403c4, slot).hex; mapping OPAQUE_APPEND_ONLY_ASSIGNMENT, resolution AUTO_ACCEPTED_VERIFIED; its provenance and record hashes reproduce; no other PERSON row carries its slot or canonical_id",
+   "source_mapping": "exactly one SOURCE_MAPPING row with source_system_id SRC-002 and the entity key; record_id = map_ + uuid5(e2c44387-e588-579b-86b3-eeb22436d1d0, 'SRC-002|<entity key>|<canonical_id>').hex; its canonical_id, identity key and slot equal the person's; method one of DIRECT_SOURCE_PERSON_ID, RECRUITING_SOURCE_ID; resolution AUTO_ACCEPTED_VERIFIED; hashes reproduce",
+   "unsupported": "any failed person condition keeps the keyed observation retrievable as UNSUPPORTED_SOURCE_PERSON with every reason; no new identity is minted and no registry row is repaired"
+  },
+  "labels": {
+   "evidence_authority": "RETROSPECTIVE_SOURCE_OBSERVATION_AND_CORRESPONDENCE_NOT_EVENT_HISTORY",
+   "evidence_label": "RETROSPECTIVE_RESEARCH",
+   "national_coverage": "NATIONAL_FBS_FCS_RECRUIT_UNIVERSE_NOT_ESTABLISHED",
+   "pit_eligibility": "PIT_NOT_ADMITTED",
+   "predictive_skill": "NOT_ESTABLISHED",
+   "rights": "PRIVATE_LOCAL_RESEARCH_SRC_002_NO_RAW_PAYLOAD_REDISTRIBUTION",
+   "source_clock": "SRC_002_CAPTURES_RETRIEVED_2026_08_10_NOT_HISTORICAL_KNOWN_AT",
+   "trust_state": "UNTRUSTED_SHADOW"
+  },
+  "layout": {
+   "checkpoint_unit": "a run of consecutive canonical observations (--chunk-size observations): their observation and qualification lines; partitions, sources, summary and census follow",
+   "database": {
+    "block_layout": [
+     [
+      "observations",
+      "2010"
+     ],
+     [
+      "observations",
+      "2011"
+     ],
+     [
+      "observations",
+      "2012"
+     ],
+     [
+      "observations",
+      "2013"
+     ],
+     [
+      "observations",
+      "2014"
+     ],
+     [
+      "observations",
+      "2015"
+     ],
+     [
+      "observations",
+      "2016"
+     ],
+     [
+      "observations",
+      "2017"
+     ],
+     [
+      "qualifications",
+      "2010"
+     ],
+     [
+      "qualifications",
+      "2011"
+     ],
+     [
+      "qualifications",
+      "2012"
+     ],
+     [
+      "qualifications",
+      "2013"
+     ],
+     [
+      "qualifications",
+      "2014"
+     ],
+     [
+      "qualifications",
+      "2015"
+     ],
+     [
+      "qualifications",
+      "2016"
+     ],
+     [
+      "qualifications",
+      "2017"
+     ],
+     [
+      "partitions",
+      "GLOBAL"
+     ],
+     [
+      "sources",
+      "GLOBAL"
+     ],
+     [
+      "summary",
+      "GLOBAL"
+     ],
+     [
+      "census",
+      "GLOBAL"
+     ]
+    ],
+    "ddl": [
+     [
+      "table",
+      "meta",
+      "CREATE TABLE meta (key TEXT NOT NULL, value TEXT NOT NULL)"
+     ],
+     [
+      "table",
+      "blocks",
+      "CREATE TABLE blocks (ord INTEGER PRIMARY KEY, record_table TEXT NOT NULL, segment TEXT NOT NULL, records INTEGER NOT NULL, first_key TEXT, last_key TEXT, lines_sha256 TEXT NOT NULL, block BLOB NOT NULL)"
+     ]
+    ],
+    "file": "national_recruiting_evidence.sqlite",
+    "journal_mode": "OFF",
+    "page_size": 4096
+   },
+   "grains": {
+    "census": "census",
+    "observations": "one record per retained recruiting observation (28,093 expected), keyed SRC-002|<capture>|<ordinal>|<recruit id>",
+    "partitions": "one record per requested dataset/parameter cell (34), keyed <dataset>|<k=v,...>",
+    "qualifications": "one record per observation, same key",
+    "sources": "FILE|<input name> per pinned input, CORE|<registry row>|<record id> per referenced core registry row",
+    "summary": "SELECTION|ALL and REQUEST_SEASON|<season>"
+   },
+   "identity_documents": {
+    "content": [
+     "schema",
+     "stage",
+     "population",
+     "contract_id",
+     "contract_sha256",
+     "inputs",
+     "rules_sha256",
+     "payload_schema",
+     "row_counts",
+     "lines_sha256",
+     "blocks"
+    ],
+    "database": [
+     "schema",
+     "stage",
+     "population",
+     "contract_sha256",
+     "content_identity",
+     "db_schema_version",
+     "outputs",
+     "table_counts"
+    ],
+    "identity": "SHA-256 of the canonical JSON bytes of the document; compared as canonical bytes, never by Python equality (an integral float, a boolean or an extra member differs)",
+    "location": "<root>/canonical/national_recruiting_evidence_2010_2017/sha256/<database identity>/national_recruiting_evidence.sqlite; manifest at <root>/manifests/national_recruiting_evidence_2010_2017/sha256/<database identity>/run_manifest.json with members identity, identity_document, content_identity, content_document and provenance; create-only (identical rebuild ALREADY_PRESENT_IDENTICAL, differing bytes REFUSED_IMMUTABLE_COLLISION)"
+   },
+   "ordering": {
+    "census": "one record",
+    "observations": "request season, then the zero-based original raw-array ordinal",
+    "partitions": "dataset (recruiting_players, transfer_portal, coaches, coach_seasons), then the parameters (year, or minYear then maxYear)",
+    "qualifications": "the order of their observations",
+    "sources": "the pinned file witnesses in contract order, then the referenced core registry rows by registry row",
+    "summary": "SELECTION|ALL, then REQUEST_SEASON|<season> ascending (only seasons of the selection)"
+   },
+   "profile": "the first authorized canonical build derives the content and database identities; a separate commit pins exactly those values here (RECRUITING_PROFILE) and every later build must reproduce them",
+   "serialization": "canonical JSON lines (sorted keys, separators ',' ':', UTF-8, no ASCII escaping, integers and floats kept as their JSON kinds); one zlib level-9 block per seasonal table and request season, one GLOBAL block each for partitions, sources, summary and census"
+  },
+  "legacy_program_agreements": [
+   "SAME_TEAM",
+   "DIFFERENT_TEAM",
+   "LEGACY_ONLY_NOT_ADOPTED",
+   "QUALIFIED_ONLY",
+   "BOTH_UNBOUND",
+   "NO_LEGACY_WITNESS"
+  ],
+  "legacy_states": [
+   "AGREES",
+   "DISAGREES",
+   "ABSENT",
+   "DUPLICATED"
+  ],
+  "people_columns": [
+   "schema_version",
+   "dataset_version",
+   "record_type",
+   "person_type",
+   "record_id",
+   "canonical_id",
+   "candidate_canonical_id",
+   "identity_key",
+   "assignment_slot",
+   "source_system_id",
+   "source_entity_key",
+   "mapping_method",
+   "resolution_state",
+   "display_name",
+   "display_name_normalized",
+   "first_name",
+   "last_name",
+   "suffix",
+   "team_canonical_id",
+   "team_label",
+   "season",
+   "effective_from",
+   "effective_to_exclusive",
+   "role",
+   "position",
+   "class_year",
+   "jersey",
+   "height",
+   "weight",
+   "hometown",
+   "origin_team_canonical_id",
+   "origin_team_label",
+   "destination_team_canonical_id",
+   "destination_team_label",
+   "transfer_date",
+   "recruiting_rating",
+   "recruiting_ranking",
+   "recruiting_stars",
+   "recruiting_school",
+   "recruiting_type",
+   "source_capture_ids",
+   "source_payload_sha256s",
+   "quality_state",
+   "eligibility",
+   "provenance_sha256",
+   "record_sha256",
+   "notes"
+  ],
+  "person_reasons": [
+   "NO_PERSON_RECORD",
+   "MULTIPLE_PERSON_RECORDS",
+   "PERSON_RECORD_INTEGRITY_FAILED",
+   "PERSON_RECORD_NOT_ACCEPTED",
+   "PERSON_SLOT_INVALID",
+   "PERSON_ID_DERIVATION_MISMATCH",
+   "PERSON_SLOT_NOT_UNIQUE",
+   "PERSON_ID_NOT_UNIQUE",
+   "NO_SOURCE_MAPPING",
+   "MULTIPLE_SOURCE_MAPPINGS",
+   "SOURCE_MAPPING_INTEGRITY_FAILED",
+   "SOURCE_MAPPING_NOT_ACCEPTED",
+   "SOURCE_MAPPING_CONFLICT"
+  ],
+  "person_states": [
+   "QUALIFIED_EXISTING_SOURCE_PERSON",
+   "UNSUPPORTED_SOURCE_PERSON"
+  ],
+  "population": "national_recruiting_evidence_2010_2017",
+  "precedence": [
+   "parser_and_mode_conflict",
+   "require_pit",
+   "provided_as_of",
+   "grain",
+   "season",
+   "team",
+   "player",
+   "recruit",
+   "selector_applicability",
+   "all_explicit_paging_conflict",
+   "limit_type_then_negative",
+   "offset_type_then_negative",
+   "expected_identity_grammar",
+   "database_literal_spelling",
+   "explicit_manifest_literal_spelling",
+   "native_local_existence_names_layout",
+   "manifest_identity_hash_schema_and_complete_collection"
+  ],
+  "program": {
+   "decision": "EXACT_ALIAS_CORRESPONDENCE needs at least one source-backed exact witness, no witness integrity failure, exactly one distinct canonical team among all exact witnesses and exactly one verified TEAM entity record of that team (slot core-v1:team:<8 digits>, canonical_id = team_ + uuid5(a4cfb063-a2ab-5b3d-8a9b-39af49c66e36, slot).hex)",
+   "match": "the raw committedTo string equals a core registry TEAM_ALIAS row's alias column exactly (full string, no case folding, ASCII stripping, whitespace normalization, substring or fuzzy rule)",
+   "meaning": "a correspondence names a program; it never proves commitment, signing, enrollment, membership, a roster, availability or an effective interval, even where an alias interval and the cohort year overlap; historical membership stays UNQUALIFIED",
+   "source_backed": "witness integrity verified, mapping VERIFIED_SOURCE_ID_LINKED_ALIAS, resolution AUTO_ACCEPTED_VERIFIED and nonempty source system, snapshots and payload hashes",
+   "states": [
+    "EXACT_ALIAS_CORRESPONDENCE",
+    "SOURCE_PROGRAM_LABEL_NULL",
+    "SOURCE_PROGRAM_LABEL_ABSENT",
+    "NO_EXACT_SOURCE_BACKED_ALIAS",
+    "AMBIGUOUS_ALIAS_CANDIDATES",
+    "ALIAS_WITNESS_INTEGRITY_FAILED",
+    "TEAM_RECORD_UNSUPPORTED"
+   ],
+   "witnesses": "every exact-label team alias row is a witness with its own source system, effective interval, original label, record id and hashes; record_id = obs_ + uuid5(bb6c5227-80dd-54f4-b392-a69a23aaab68, 'team-alias|<canonical>|<source>|<alias>|<alias_normalized>|<start>|<end>').hex; provenance = sha256('|'.join(source_system_id, source_entity_key, source_snapshot_ids, source_payload_sha256s, mapping_method, resolution_state)); record = sha256(US-joined every column but record_sha256)"
+  },
+  "record_label_keys": [
+   "evidence_label",
+   "trust_state",
+   "pit_eligibility",
+   "predictive_skill"
+  ],
+  "record_types": {
+   "census": "RECRUITING_CENSUS",
+   "observations": "RECRUITING_OBSERVATION",
+   "partitions": "RECRUITING_PARTITION",
+   "qualifications": "RECRUITING_QUALIFICATION",
+   "sources": "RECRUITING_SOURCE_WITNESS",
+   "summary": "RECRUITING_SUMMARY"
+  },
+  "recruit_seasons": [
+   2010,
+   2011,
+   2012,
+   2013,
+   2014,
+   2015,
+   2016,
+   2017
+  ],
+  "refusals": {
+   "blocks_and_records": [
+    "RECRUITING_INDEX_MISMATCH",
+    "RECRUITING_RECORD_TYPE_INVALID",
+    "RECRUITING_RECORD_MALFORMED",
+    "RECRUITING_RECORD_SHAPE_INVALID",
+    "RECRUITING_FIELD_TYPE_INVALID",
+    "RECRUITING_RECORD_NOT_CANONICAL"
+   ],
+   "build_inputs": [
+    "RECRUITING_DATA_ROOT_MISSING",
+    "RECRUITING_DATA_ROOT_LOCATION_UNSUPPORTED",
+    "RECRUITING_DATA_ROOT_LOCATION_NOT_LITERAL",
+    "RECRUITING_INPUT_LOCATION_UNSUPPORTED",
+    "RECRUITING_INPUT_LOCATION_NOT_LITERAL",
+    "RECRUITING_INPUT_MISSING",
+    "RECRUITING_INPUT_TAMPERED",
+    "RECRUITING_INPUT_MALFORMED",
+    "RECRUITING_SOURCE_SCHEMA_INVALID",
+    "RECRUITING_SOURCE_DUPLICATE_ID",
+    "RECRUITING_RECEIPT_MISMATCH",
+    "RECRUITING_INPUT_POPULATION_DRIFT"
+   ],
+   "collections": [
+    "RECRUITING_DUPLICATE_ROW",
+    "RECRUITING_ORDER_MISMATCH",
+    "RECRUITING_OBSERVATION_ROW_MISSING",
+    "RECRUITING_OBSERVATION_ROW_EXTRA",
+    "RECRUITING_OBSERVATION_KEYS_MISMATCH",
+    "RECRUITING_QUALIFICATION_ROW_MISSING",
+    "RECRUITING_QUALIFICATION_ROW_EXTRA",
+    "RECRUITING_QUALIFICATION_KEYS_MISMATCH",
+    "RECRUITING_PARTITION_ROW_MISSING",
+    "RECRUITING_PARTITION_ROW_EXTRA",
+    "RECRUITING_PARTITION_KEYS_MISMATCH",
+    "RECRUITING_SOURCE_ROW_MISSING",
+    "RECRUITING_SOURCE_ROW_EXTRA",
+    "RECRUITING_SOURCE_KEYS_MISMATCH",
+    "RECRUITING_SUMMARY_ROW_MISSING",
+    "RECRUITING_SUMMARY_ROW_EXTRA",
+    "RECRUITING_SUMMARY_KEYS_MISMATCH",
+    "RECRUITING_CENSUS_ROW_MISSING",
+    "RECRUITING_CENSUS_ROW_EXTRA",
+    "RECRUITING_CENSUS_KEYS_MISMATCH"
+   ],
+   "exit_code": 2,
+   "location": [
+    "RECRUITING_DATABASE_LOCATION_UNSUPPORTED",
+    "RECRUITING_DATABASE_LOCATION_NOT_LITERAL",
+    "RECRUITING_MANIFEST_LOCATION_UNSUPPORTED",
+    "RECRUITING_MANIFEST_LOCATION_NOT_LITERAL",
+    "RECRUITING_DATABASE_MISSING",
+    "RECRUITING_LOCATION_INVALID",
+    "RECRUITING_MANIFEST_MISSING",
+    "RECRUITING_DATABASE_UNREADABLE"
+   ],
+   "malformed_json_reasons": [
+    "JSON_LONE_SURROGATE",
+    "JSON_NESTING_TOO_DEEP",
+    "JSON_NONFINITE_NUMBER",
+    "JSON_INTEGER_TOO_LONG"
+   ],
+   "manifest_and_identity": [
+    "RECRUITING_MANIFEST_MALFORMED",
+    "RECRUITING_IDENTITY_MISMATCH",
+    "RECRUITING_SCHEMA_UNSUPPORTED",
+    "RECRUITING_IDENTITY_DOCUMENT_MISMATCH",
+    "RECRUITING_DATABASE_TAMPERED",
+    "RECRUITING_CONTRACT_MISMATCH",
+    "RECRUITING_CONTENT_IDENTITY_MISMATCH",
+    "RECRUITING_PROFILE_MISMATCH"
+   ],
+   "meta": [
+    "RECRUITING_META_MISMATCH",
+    "RECRUITING_META_MALFORMED",
+    "RECRUITING_PIT_CLAIM_INVALID",
+    "RECRUITING_LABEL_CLAIM_INVALID",
+    "RECRUITING_INPUTS_CLAIM_INVALID",
+    "RECRUITING_RULES_CLAIM_INVALID",
+    "RECRUITING_COUNT_MISMATCH"
+   ],
+   "rules": [
+    "RECRUITING_OBSERVATION_KEY_MISMATCH",
+    "RECRUITING_CAPTURE_BINDING_INVALID",
+    "RECRUITING_SOURCE_ID_INVALID",
+    "RECRUITING_DUPLICATE_SOURCE_ID",
+    "RECRUITING_OBSERVATION_KIND_MISMATCH",
+    "RECRUITING_QUALIFICATION_BINDING_INVALID",
+    "RECRUITING_TIME_CLAIM_INVALID",
+    "RECRUITING_IDENTITY_KEY_MISMATCH",
+    "RECRUITING_PERSON_CORRESPONDENCE_INVALID",
+    "RECRUITING_PROGRAM_CORRESPONDENCE_INVALID",
+    "RECRUITING_VALUE_STATE_MISMATCH",
+    "RECRUITING_LEGACY_WITNESS_MISMATCH",
+    "RECRUITING_QUALIFICATION_MISMATCH",
+    "RECRUITING_PARTITION_MISMATCH",
+    "RECRUITING_SOURCE_MISMATCH",
+    "RECRUITING_SOURCE_CLOSURE_INVALID",
+    "RECRUITING_SUMMARY_MISMATCH",
+    "RECRUITING_CENSUS_MISMATCH"
+   ],
+   "selection": [
+    "ARGUMENT_INVALID",
+    "RECRUITING_MODE_CONFLICT",
+    "RECRUITING_PIT_NOT_ADMITTED",
+    "AS_OF_STATE_NOT_SUPPORTED",
+    "UNKNOWN_GRAIN",
+    "SEASON_INVALID",
+    "TEAM_INVALID",
+    "PLAYER_INVALID",
+    "RECRUIT_INVALID",
+    "FILTER_NOT_APPLICABLE",
+    "PAGING_CONFLICT",
+    "LIMIT_INVALID",
+    "OFFSET_INVALID",
+    "NEGATIVE_LIMIT",
+    "NEGATIVE_OFFSET",
+    "STALE_RECRUITING_IDENTITY"
+   ],
+   "stderr": "one JSON object with members refused (the code) and error (the text); nothing on stdout; no traceback"
+  },
+  "scope": {
+   "foreknowledge": "the manager's readiness counts (28,093 observations, 21,194 literal program correspondences, 6,844 null and 55 unmapped labels, 890 joint-null triplets, 3/27,200/890 rating kinds, 5,339 negative athlete IDs) were known before these rules were frozen; no blind claim is made and none is a forced expectation",
+   "not_in_scope": "source acquisition, fits, features, forecasts, PIT admission, rosters, enrollment, availability, transfer histories, talent priors, class scores, national completeness and A&M specialization",
+   "population": "every retained 2010-2017 recruiting observation of the eight captured recruiting arrays and all 34 requested cells of the original acquisition manifest (15 captured, 19 provider-quota missing, including seven distinct empty 2010-2016 portal captures)",
+   "registry_reads": "whole registry files are hashed and scanned only for the exact identity, source-mapping, legacy observation, team alias and team entity witnesses of these observations; no roster, game, feature, label or 2024/2025 evaluation row is selected"
+  },
+  "selectors": {
+   "applicability": {
+    "recruiting-observation": [
+     "season",
+     "team",
+     "player",
+     "recruit"
+    ],
+    "recruiting-partition": [
+     "season"
+    ],
+    "recruiting-qualification": [
+     "season",
+     "team",
+     "player",
+     "recruit"
+    ],
+    "recruiting-source": [],
+    "recruiting-summary": [
+     "season",
+     "team",
+     "player",
+     "recruit"
+    ]
+   },
+   "intersection": "applicable selectors intersect exact observation keys before summaries and paging; an inapplicable supplied selector is FILTER_NOT_APPLICABLE; nothing is silently ignored",
+   "names": "no name selector exists; Unicode source text is served in record fields, never accepted as an ID",
+   "paging": "defaults limit 50, offset 0; strings: control/surrogate refuse, U+0020 trims, an optional leading minus and 1-12 ASCII digits; a direct integer of at most 12 digits; booleans and floats invalid; negatives NEGATIVE_LIMIT / NEGATIVE_OFFSET; --all with any explicit --limit or --offset is PAGING_CONFLICT; limit 0 serves rows [] with the selected total and next_offset = offset when offset < total, otherwise null; positive or unbounded pages next_offset = offset + returned only while rows remain",
+   "player": "player_<32 lower hex> after the same rule; PLAYER_INVALID; the qualified source person correspondence",
+   "recruit": "1-12 ASCII digits after the same rule, kept as the exact string (no integer normalization; a leading zero is another opaque ID); RECRUIT_INVALID",
+   "season": "string: a raw Cc control or lone surrogate refuses; only U+0020 spaces trim; four ASCII digits 1000-9999; a direct integer the same range (a boolean or float is invalid); SEASON_INVALID. It selects the captured request season; a valid unknown season selects nothing; on partitions it selects only exact single-year cells (the two minYear/maxYear coach cells have season null)",
+   "team": "team_<32 lower hex> after the same control/surrogate/U+0020 rule; TEAM_INVALID; the qualified canonical program reference only (never a raw label)",
+   "temporal": "any supplied --as-of (empty included) AS_OF_STATE_NOT_SUPPORTED; --require-pit RECRUITING_PIT_NOT_ADMITTED"
+  },
+  "served_fields": [
+   "id",
+   "athleteId",
+   "name",
+   "recruitType",
+   "year",
+   "position",
+   "school",
+   "committedTo",
+   "rating",
+   "ranking",
+   "stars"
+  ],
+  "source_schema": {
+   "athleteId": "absent, null or an ASCII decimal string of 1-12 digits with an optional leading minus (opaque: a signed negative spelling is a valid provider identifier, never invalidated or normalized)",
+   "decoding": "JSON with NaN, Infinity, a float beyond binary64 range or an integer beyond the decoder's digit limit is malformed source data (refused, never a null)",
+   "id": "required ASCII decimal string of 1-12 digits (opaque: never integer-normalized)",
+   "kinds": {
+    "athleteId": [
+     "string",
+     "null",
+     "absent"
+    ],
+    "committedTo": [
+     "string",
+     "null",
+     "absent"
+    ],
+    "id": [
+     "string"
+    ],
+    "name": [
+     "string",
+     "null",
+     "absent"
+    ],
+    "position": [
+     "string",
+     "null",
+     "absent"
+    ],
+    "ranking": [
+     "integer",
+     "null",
+     "absent"
+    ],
+    "rating": [
+     "integer",
+     "float",
+     "null",
+     "absent"
+    ],
+    "recruitType": [
+     "string",
+     "null",
+     "absent"
+    ],
+    "school": [
+     "string",
+     "null",
+     "absent"
+    ],
+    "stars": [
+     "integer",
+     "null",
+     "absent"
+    ],
+    "year": [
+     "integer",
+     "null",
+     "absent"
+    ]
+   },
+   "numbers": "a boolean is never an integer; a float must be finite; integers stay integers and floats stay floats (an integer 1 and a float 1.0 are different source values)",
+   "row": "every element of a captured recruiting array is a JSON object",
+   "text": "served strings are preserved exactly (Unicode, format, combining and non-BMP text included); a lone surrogate is not Unicode text and refuses the source",
+   "uniqueness": "every source recruit ID and every nonnull source athlete ID is unique within the retained source population"
+  },
+  "subspecs": {
+   "alias": {
+    "alias": "s",
+    "canonical_id": "s",
+    "effective_from": "s",
+    "effective_to_exclusive": "s",
+    "mapping_method": "s",
+    "record_id": "s",
+    "record_sha256": "s",
+    "registry_row": "i",
+    "resolution_state": "s",
+    "source_key": "s",
+    "source_system_id": "s",
+    "witness_state": "s"
+   },
+   "legacy": {
+    "assignment_slot": "s",
+    "canonical_id": "s",
+    "identity_key": "s",
+    "integrity_state": "s",
+    "record_id": "s",
+    "record_sha256": "s",
+    "record_type": "s",
+    "registry_row": "i",
+    "resolution_state": "s",
+    "source_capture_ids": "s",
+    "source_entity_key": "s",
+    "source_payload_sha256s": "s",
+    "source_system_id": "s",
+    "team_canonical_id": "s",
+    "team_label": "s"
+   },
+   "mapping": {
+    "assignment_slot": "s",
+    "canonical_id": "s",
+    "identity_key": "s",
+    "integrity_state": "s",
+    "mapping_method": "s",
+    "person_type": "s",
+    "provenance_sha256": "s",
+    "record_id": "s",
+    "record_sha256": "s",
+    "record_type": "s",
+    "registry_row": "i",
+    "resolution_state": "s",
+    "source_entity_key": "s",
+    "source_system_id": "s"
+   },
+   "person": {
+    "assignment_slot": "s",
+    "canonical_id": "s",
+    "canonical_person_records": "i",
+    "identity_key": "s",
+    "integrity_state": "s",
+    "mapping_method": "s",
+    "person_type": "s",
+    "provenance_sha256": "s",
+    "record_id": "s",
+    "record_sha256": "s",
+    "record_type": "s",
+    "registry_row": "i",
+    "resolution_state": "s",
+    "slot_person_records": "i"
+   },
+   "team": {
+    "assignment_slot": "s",
+    "canonical_id": "s",
+    "identity_key": "s",
+    "record_id": "s",
+    "record_sha256": "s",
+    "registry_row": "i",
+    "source_key": "s",
+    "witness_state": "s"
+   }
+  },
+  "summary": {
+   "reading": "COUNTS_AND_DISTRIBUTIONS_OF_SELECTED_SOURCE_OBSERVATIONS_ONLY: no mean talent, class rank, fitted prior, impact or skill; program and person counts are correspondence counts, not membership or roster counts",
+   "rows": "SELECTION|ALL over the selected observations, then one REQUEST_SEASON|<season> row per request season present in the selection; an empty selection serves no row (never a zero-valued summary)",
+   "selection": "every applicable supplied selector intersects the exact observation keys before aggregation and paging; the stored summary rows are the unfiltered selection"
+  },
+  "team_witness_states": [
+   "TEAM_RECORD_VERIFIED",
+   "TEAM_RECORD_INVALID"
+  ],
+  "time": {
+   "build_and_freeze": "the contract freeze time is the contract's frozen_at_utc; the build clock is the run manifest's provenance only (never identity-bound)",
+   "clocks": "capture_known_at_utc and retrieved_at_utc are the capture receipt's 2026-08-10 retrieval clocks and provider_http_date its response Date header; they are never historical known-at or publication times",
+   "historical": "every historical known-at, rating publication/update, commitment, signing, enrollment, decommitment, portal-event and effective time is null (the source carries none); pit_eligible is false for every observation; the cohort year never becomes January 1 or a signing day"
+  },
+  "time_fields": [
+   "historical_known_at",
+   "commitment_time",
+   "signing_time",
+   "enrollment_time",
+   "decommitment_time",
+   "portal_event_time",
+   "rating_publication_time",
+   "rating_update_time",
+   "effective_from",
+   "effective_to"
+  ],
+  "values": {
+   "cohort_year": "EQUALS_REQUEST_SEASON, DIFFERS_FROM_REQUEST_SEASON, NULL or ABSENT; the cohort year is never a date",
+   "ranking": "POSITIVE_INTEGER when ranking >= 1, otherwise NONPOSITIVE_INTEGER; null and absent stay null",
+   "rating": "the source value as served (integer or finite float kept as its kind); WITHIN_DECLARED_UNIT_INTERVAL when 0 <= rating <= 1, otherwise OUTSIDE_DECLARED_UNIT_INTERVAL; null and absent stay null",
+   "scale": "SOURCE_AS_SERVED_SCALE_UNVERIFIED: rating system, version, publication and update times null; upstream independence of a shared provider tag NOT_ESTABLISHED; no imputation, rank-to-rating or star inference, cross-source normalization, composite class score or talent prior",
+   "stars": "INTEGER_ZERO_TO_FIVE when 0 <= stars <= 5, otherwise OUTSIDE_ZERO_TO_FIVE; null and absent stay null",
+   "triplet": "ALL_PRESENT, JOINT_NULL (rating, ranking and stars all null or absent) or MIXED"
+  }
+ },
+ "schema": "BAS-RECRUITING-EVIDENCE-CONTRACT-1",
+ "statement": "Frozen before any real qualification or canonical write: rules, schemas, record types, identity and profile algorithms, the pinned source files and the source key universe (requested cells, captures, observation keys). Derived qualification records and their content, database and profile identities arise only in the first authorized build; a separate pin of exactly those values follows. Manager readiness counts were known before these rules (no blind claim)."
+}

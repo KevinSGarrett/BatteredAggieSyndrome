@@ -1981,7 +1981,9 @@ class BoostingComparison:
         profile = a.get("profile")
         if self.expect_identity is not None and self.expect_identity != database_identity:
             _refuse("STALE_TREE_IDENTITY", "the release is not the expected identity")
-        if self.expect_identity is None and profile is not None and \
+        # MF65A01-01: a pinned profile binds every release whether or not an expected identity is given; the option
+        # only adds the caller's own identity assertion and never replaces the committed profile authority
+        if profile is not None and \
                 (profile.get("database_identity"), profile.get("content_identity"), profile.get("database_sha256")) \
                 != (database_identity, content_identity, self.binding["sha256"]):
             _refuse("STALE_TREE_IDENTITY", "the release is not the committed canonical profile")

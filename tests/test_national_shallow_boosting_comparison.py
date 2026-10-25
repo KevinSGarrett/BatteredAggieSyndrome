@@ -813,6 +813,91 @@ class ForgeryTests(_World):
             self.assertEqual(_code(bc.BoostingComparison, self.db, anchors=self.anchors), "TREE_ESTIMATE_MISMATCH")
 
 
+class ProfileAuthorityTests(_World):
+    """MF65A01-01: a pinned profile binds the public reader whether or not --expect-identity is given. The tiny world's
+    genuine release is its pinned profile; a coordinated self-consistent copy whose one stored tree log-loss moves within
+    the intentional 1e-12 tolerance passes every own rule, so only the profile can refuse it. The tests named
+    ``test_mf65a01_01_*`` are the finding's negatives; the controls hold before and after the repair."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls.genuine = {"database_identity": cls.reader.database_identity,
+                       "content_identity": cls.reader.content_identity, "database_sha256": bc.sha256_file(cls.db)}
+        cls.pinned = {**cls.anchors, "profile": cls.genuine}
+        forger = fx.Forger(cls.db, cls.base / "pf")
+        score = next(i for i, s in enumerate(cls.reader.records["scores"]) if s["model_id"] == bc.TREE_DEPTH2)
+
+        def moved(delta):
+            def mutate(tables):
+                s = tables["scores"][score]
+                s["log_loss"] = repr(float(s["log_loss"]) + delta)
+            return mutate
+        cls.within = forger.forge("within", records=moved(1e-13), rehash_content=True, anchors=cls.anchors)
+        cls.beyond = forger.forge("beyond", records=moved(1e-6), rehash_content=True, anchors=cls.anchors)
+
+    def public(self, database, *argv, packaged: bool = False, anchors=None):
+        """The public query front with the pinned tiny-world authority: injected trusted anchors, or (``packaged``) the
+        module's own default ANCHORS/BOOSTING_PROFILE replaced by the tiny world's contract anchors and profile."""
+        if not packaged:
+            return self.ask(*argv, anchors=anchors or self.pinned, database=database)
+        base = {k: v for k, v in self.anchors.items() if k != "profile"}
+        with mock.patch.object(bc, "ANCHORS", base), mock.patch.object(bc, "BOOSTING_PROFILE", self.genuine):
+            return fx.query(None, database, *argv, front=lambda tokens, boosting_anchors: q.main(tokens))
+
+    def test_mf65a01_01_explicit_identity_never_replaces_the_pinned_profile(self) -> None:
+        with self.assertRaises(bc.BoostingError) as caught:
+            bc.BoostingComparison(self.within, anchors=self.pinned, expect_identity=self.within.parent.name)
+        self.assertEqual(caught.exception.code, "STALE_TREE_IDENTITY")
+        self.assertIn("committed canonical profile", str(caught.exception))
+
+    def test_mf65a01_01_public_query_refuses_the_unpinned_copy_with_its_own_identity(self) -> None:
+        for packaged in (False, True):
+            with self.subTest(packaged=packaged):
+                code, doc, err = self.public(self.within, "--grain", "tree-score", "--all", "--expect-identity",
+                                             self.within.parent.name, packaged=packaged)
+                self.assertEqual((code, doc, fx.refusal(err)), (2, None, "STALE_TREE_IDENTITY"))
+                self.assertEqual(len(err.strip().splitlines()), 1, err)
+                self.assertIn("committed canonical profile", err)
+
+    def test_mf65a01_01_query_api_refuses_the_unpinned_copy_with_its_own_identity(self) -> None:
+        with self.assertRaises(bc.BoostingError) as caught:
+            bc.query(self.within, "tree-parameter", expect_identity=self.within.parent.name, anchors=self.pinned)
+        self.assertEqual(caught.exception.code, "STALE_TREE_IDENTITY")
+
+    def test_profile_controls_hold_with_and_without_an_explicit_identity(self) -> None:
+        changed, genuine = self.within.parent.name, self.genuine["database_identity"]
+        with bc.BoostingComparison(self.within, anchors=self.anchors, expect_identity=changed) as reader:
+            self.assertEqual(reader.database_identity, changed)
+        for packaged in (False, True):
+            with self.subTest(packaged=packaged):
+                code, _doc, err = self.public(self.within, "--grain", "tree-parameter", packaged=packaged)
+                self.assertEqual((code, fx.refusal(err)), (2, "STALE_TREE_IDENTITY"))
+                self.assertIn("committed canonical profile", err)
+                code, _doc, err = self.public(self.within, "--grain", "tree-parameter", "--expect-identity", genuine,
+                                              packaged=packaged)
+                self.assertEqual((code, fx.refusal(err)), (2, "STALE_TREE_IDENTITY"))
+                self.assertIn("expected identity", err)
+                code, _doc, err = self.public(self.beyond, "--grain", "tree-parameter", "--expect-identity",
+                                              self.beyond.parent.name, packaged=packaged)
+                self.assertEqual((code, fx.refusal(err)), (2, "TREE_SCORE_MISMATCH"))
+                answers = []
+                for expect in ((), ("--expect-identity", genuine)):
+                    code, doc, err = self.public(self.db, "--grain", "tree-score", "--all", *expect, packaged=packaged)
+                    self.assertEqual(code, 0, err)
+                    self.assertEqual(doc["release_identity"], genuine)
+                    self.assertTrue(doc["verification"]["profile_pinned"])
+                    self.assertEqual(doc["verification"].pop("expected_identity_given"), bool(expect))
+                    answers.append(doc)
+                self.assertEqual(answers[0], answers[1])
+        # the trusted direct tiny-world facility without a profile still serves the release it is given
+        code, doc, err = self.public(self.within, "--grain", "tree-parameter", "--expect-identity", changed,
+                                     anchors=self.anchors)
+        self.assertEqual(code, 0, err)
+        self.assertEqual(doc["release_identity"], changed)
+        self.assertFalse(doc["verification"]["profile_pinned"])
+
+
 class LocationTests(_World):
     def answers(self, database) -> list:
         code, doc, err = self.ask("--grain", "tree-parameter", database=database)

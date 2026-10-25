@@ -92,7 +92,9 @@ integers, nested objects or surrogates. Then the literal local spelling of the d
 the genuine on-disk names (8.3, case, long, relative and junction spellings of the genuine release serve identical
 bytes), the manifest identity and database hash, the parent BLOB (type, bytes, SHA-256 before parse), the parent's schema,
 blocks and witnesses, and every record, collection, tree, traversal, estimate, score, summary and identity, ending with the
-pinned profile (STALE_TREE_IDENTITY).
+pinned profile (STALE_TREE_IDENTITY). `--expect-identity` only adds the caller's own identity assertion (a mismatch is
+STALE_TREE_IDENTITY first); it never replaces the pinned profile, which binds every release whether or not the option is
+given (MF65A01-01), so a self-rehashed copy within the numeric tolerance is refused even under its own identity.
 
 Selection: applicable filters intersect canonical game keys first; a team matches either participant (`org:<digits>`,
 bare digits, or the parent source team name of that season, casefolded by the committed parent rule; a name matching two

@@ -578,11 +578,15 @@ class PrecedenceTests(unittest.TestCase):
             self.assertEqual(self.code(*argv), want, argv)
 
     def test_location_spellings_refuse_by_their_own_code(self) -> None:
+        # The issued native-path contract treats backslashes as ordinary POSIX filename characters.
+        # Both locations are lexically valid there, so the missing database is the first refusal.
+        database_code = "TREE_DATABASE_LOCATION_UNSUPPORTED" if os.name == "nt" else "TREE_DATABASE_MISSING"
+        manifest_code = "TREE_MANIFEST_LOCATION_UNSUPPORTED" if os.name == "nt" else "TREE_DATABASE_MISSING"
         cases = [
-            (["--boosting-comparison", r"\\server\share\x.sqlite"], "TREE_DATABASE_LOCATION_UNSUPPORTED"),
+            (["--boosting-comparison", r"\\server\share\x.sqlite"], database_code),
             (["--boosting-comparison", ""], "TREE_DATABASE_LOCATION_UNSUPPORTED"),
             (["--boosting-comparison", self.missing, "--manifest", r"\\server\share\m.json"],
-             "TREE_MANIFEST_LOCATION_UNSUPPORTED"),
+             manifest_code),
         ]
         if os.name == "nt":
             cases.append((["--boosting-comparison", "\\\\?\\C:\\x\\..\\y.sqlite"], "TREE_DATABASE_LOCATION_NOT_LITERAL"))

@@ -1,0 +1,1058 @@
+{
+ "attempt_number": 1,
+ "contract_id": "BAT-736-NATIONAL-SHALLOW-BOOSTING-COMPARISON-2016-2023-V1.0",
+ "cycle_number": 65,
+ "expected": {
+  "comparison_games": 788,
+  "counts": {
+   "estimates": 23500,
+   "features": 11750,
+   "labels": 5875,
+   "parameters": 2,
+   "scores": 41125,
+   "summary": 308
+  },
+  "fit_games": 5087,
+  "games": 5875,
+  "games_by_season": {
+   "2016": 733,
+   "2017": 753,
+   "2018": 766,
+   "2019": 769,
+   "2020": 524,
+   "2021": 767,
+   "2022": 775,
+   "2023": 788
+  },
+  "keys_sha256": {
+   "estimates": "c7082cfed6153aa14e0278f0bcbdb5c4b93491a9bcf45fe00901089b8fc01f7a",
+   "features": "1ed268adf813b641c1f3192ed6486c515dc7b2182410f1e1fb72ef79e7915865",
+   "labels": "0405bc1908928050630aa3c5e2f97430a8724c72bb48cfc4f9ae179ec1de6367",
+   "parameters": "0aed033adbc3c458dc61523717f848bc45f29931d2a57994fea24beb5a7427ae",
+   "scores": "c8a9302ef2b3473fb8c2c68924faa2ee4d41f739f5358d7731373b35a67b1ed9",
+   "summary": "961f7a361b76ffeb7794c0d6d095be1a98baab7c8fc940a176d7ef8ad29b3015"
+  },
+  "label_states": {
+   "DECISIVE": 5875,
+   "TIE": 0
+  },
+  "slice_games": {
+   "COLD_START": 410,
+   "FIRST_FOUR_TEAM_GAMES": 1819,
+   "NATIONAL": 5875,
+   "TEXAS_AM": 91
+  },
+  "y_a_counts": {
+   "0": 3032,
+   "1": 2843
+  }
+ },
+ "frozen_at_utc": "2026-10-24T17:49:32Z",
+ "jira_key": "BAT-736",
+ "parent": {
+  "blocks": 34,
+  "bytes": 10584064,
+  "content_identity": "fe303a90d8753956b914d3c7c2adfe2d33d9816bfb45689b0361f8e36e2e6cc0",
+  "contract_id": "BAT-423-NATIONAL-RETROSPECTIVE-REFERENCE-2016-2023-V1.0",
+  "contract_sha256": "3cfeff255bb29801b482b02611ad2c72c725d069e9f89d3911e86711af34bb31",
+  "database_identity": "ad01a42f203435627232af9e9ba1a73d29154650553f37926756d821711582d8",
+  "model_sha256": {
+   "NULL_HALF_V1": "c9f511c047ef9a24ff5873021660e2592e0fd6fa69865418696cbd2cdff6fe04",
+   "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1": "eb074c84ad3e50fd268d354904f6b11c23f6c3fc844b743fc112917adafd8bc5",
+   "PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1": "619cbf736dad1f86efed4791b6537ccad11e546c24ab09de0a9c861797b64d30",
+   "SITE_BLIND_ELO_REFERENCE_V1": "8ed6384a46a630eb32d833ca508bbc6dca61e6e6fa4300f3e38fc8bf7eb7c73a",
+   "SMOOTHED_HISTORY_ODDS_V1": "340128c116d4e5902f582827c0400bb63d8417973d63cd815481fc985126cbfa"
+  },
+  "population": "national_retrospective_reference_2016_2023",
+  "record_counts": {
+   "estimates": 58750,
+   "features": 11750,
+   "labels": 5875,
+   "parameters": 5,
+   "scores": 29375,
+   "summary": 1
+  },
+  "schema_version": "BAS-RETROSPECTIVE-REFERENCE-DB-1",
+  "sqlite_sha256": "17a0776587eb30918903dc0d38c736958b1984feb4b40379bbfc80425035785d",
+  "total_decompressed_bytes": 156335348
+ },
+ "population_id": "national_shallow_boosting_comparison_2016_2023",
+ "rules": {
+  "calibration": {
+   "bins": 10,
+   "edges": "i/10 for i = 0..10; bin i = min(floor(10 p_exact_served), 9); intervals [i/10, (i+1)/10), the last closed at 1",
+   "families": "the six probability families (four unchanged C56 probability controls and the two trees); ridge has no probability or calibration",
+   "interpretation": "fixed descriptive tables only, no calibrated-forecast or skill claim; POOLED, FIT, COMPARISON and season summaries overlap descriptively and never sum as partitions",
+   "orientation": "canonical parent A",
+   "per_bin": "integer count, a_wins, exact rational mean served probability and exact observed A win rate of the scored decisive games; an empty bin has count 0 and null means and rates"
+  },
+  "clip_convention": "CLIPPED_LOG_ARGUMENT_1E-15",
+  "codes": {
+   "applicability": "FILTER_NOT_APPLICABLE",
+   "argument": "ARGUMENT_INVALID",
+   "asof": "AS_OF_STATE_NOT_SUPPORTED",
+   "collection": "TREE_COLLECTION_MISMATCH",
+   "contest": "CONTEST_INVALID",
+   "database_missing": "TREE_DATABASE_MISSING",
+   "database_spelling_not_literal": "TREE_DATABASE_LOCATION_NOT_LITERAL",
+   "database_spelling_unsupported": "TREE_DATABASE_LOCATION_UNSUPPORTED",
+   "estimate": "TREE_ESTIMATE_MISMATCH",
+   "expected_identity": "STALE_TREE_IDENTITY",
+   "features": "TREE_FEATURE_MISMATCH",
+   "fit": "TREE_FIT_MISMATCH",
+   "grain": "UNKNOWN_GRAIN",
+   "labels": "TREE_LABEL_MISMATCH",
+   "layout": "TREE_LOCATION_INVALID",
+   "limit": "LIMIT_INVALID",
+   "manifest": "TREE_MANIFEST_MALFORMED",
+   "manifest_missing": "TREE_MANIFEST_MISSING",
+   "manifest_spelling_not_literal": "TREE_MANIFEST_LOCATION_NOT_LITERAL",
+   "manifest_spelling_unsupported": "TREE_MANIFEST_LOCATION_UNSUPPORTED",
+   "meta": "TREE_META_MALFORMED",
+   "mode_conflict": "TREE_MODE_CONFLICT",
+   "model": "MODEL_INVALID",
+   "negative_limit": "NEGATIVE_LIMIT",
+   "negative_offset": "NEGATIVE_OFFSET",
+   "offset": "OFFSET_INVALID",
+   "paging_conflict": "PAGING_CONFLICT",
+   "parent": "TREE_PARENT_REFERENCE_MISMATCH",
+   "parent_block": "TREE_PARENT_BLOCK_MALFORMED",
+   "parent_schema": "TREE_PARENT_SCHEMA_MISMATCH",
+   "partition": "PARTITION_INVALID",
+   "pit": "TREE_PIT_NOT_ADMITTED",
+   "record": "TREE_RECORD_MALFORMED",
+   "score": "TREE_SCORE_MISMATCH",
+   "season": "SEASON_INVALID",
+   "slice": "SLICE_INVALID",
+   "summary": "TREE_SUMMARY_MISMATCH",
+   "team": "TEAM_INVALID",
+   "team_ambiguous": "TEAM_AMBIGUOUS",
+   "tree": "TREE_STRUCTURE_MISMATCH"
+  },
+  "columns": [
+   "games_difference",
+   "win_rate_difference",
+   "points_for_mean_difference",
+   "points_against_mean_difference",
+   "margin_mean_difference",
+   "games_missing_difference",
+   "win_rate_missing_difference",
+   "points_for_mean_missing_difference",
+   "points_against_mean_missing_difference",
+   "margin_mean_missing_difference"
+  ],
+  "contract_id": "BAT-736-NATIONAL-SHALLOW-BOOSTING-COMPARISON-2016-2023-V1.0",
+  "decimal_context": {
+   "Emax": 999999,
+   "Emin": -999999,
+   "capitals": 1,
+   "clamp": 0,
+   "flags": [],
+   "prec": 50,
+   "rounding": "ROUND_HALF_EVEN",
+   "traps": [
+    "InvalidOperation",
+    "DivisionByZero",
+    "Overflow"
+   ]
+  },
+  "error_envelope": "controlled exit 2, stdout empty, stderr one UTF-8 JSON object {refused: <code>, error: <detail>} and a newline; no traceback, no catch-all, no change of Python's integer-to-text or recursion limits",
+  "field_types": {
+   "estimates": {
+    "a_key": "s",
+    "b_key": "s",
+    "contest_date": "s",
+    "contest_key": "s",
+    "estimate_key": "s",
+    "evidence_label": "s",
+    "feature_record_sha256": "s",
+    "game_grain_probability_a": "d",
+    "model_id": "s",
+    "model_sha256": "s",
+    "opponent_key": "s",
+    "opponent_name": "s",
+    "opponent_probability": "d",
+    "orientation": "s",
+    "parameter_record_sha256": "s",
+    "partition": "s",
+    "pit_eligibility": "s",
+    "predictive_skill": "s",
+    "probability": "d",
+    "raw_q_a_repr": "s",
+    "raw_q_b_repr": "s",
+    "raw_z_a_repr": "s",
+    "raw_z_b_repr": "s",
+    "record_type": "s",
+    "sample_state": "s",
+    "season": "i",
+    "team_key": "s",
+    "team_name": "s",
+    "trust_state": "s"
+   },
+   "features": {
+    "a_key": "s",
+    "b_key": "s",
+    "cold_start": "b",
+    "contest_date": "s",
+    "contest_key": "s",
+    "design": "lf",
+    "design_rational": "lq",
+    "evidence_label": "s",
+    "feature_key": "s",
+    "first_four_team_games": "b",
+    "opponent_key": "s",
+    "opponent_name": "s",
+    "opponent_prior_games": "i",
+    "parent_feature_line_sha256": "s",
+    "parent_partition": "s",
+    "partition": "s",
+    "pit_eligibility": "s",
+    "predictive_skill": "s",
+    "record_type": "s",
+    "season": "i",
+    "team_key": "s",
+    "team_name": "s",
+    "team_prior_games": "i",
+    "texas_am_game": "b",
+    "trust_state": "s",
+    "view": "s"
+   },
+   "labels": {
+    "a_key": "s",
+    "a_points": "i",
+    "b_key": "s",
+    "b_points": "i",
+    "contest_date": "s",
+    "contest_key": "s",
+    "evidence_label": "s",
+    "label_key": "s",
+    "label_state": "s",
+    "label_use": "s",
+    "parent_label_line_sha256": "s",
+    "partition": "s",
+    "pit_eligibility": "s",
+    "predictive_skill": "s",
+    "record_type": "s",
+    "season": "i",
+    "trust_state": "s",
+    "unscored_reason": "s?",
+    "y_a": "i?"
+   },
+   "parameters": {
+    "backend_agreement": "@agreement",
+    "baseline": "f",
+    "definition": "j",
+    "evidence_label": "s",
+    "export_sha256": "s",
+    "leaf_count": "i",
+    "max_depth_seen": "i",
+    "model_id": "s",
+    "model_sha256": "s",
+    "node_count": "i",
+    "parameter_key": "s",
+    "pit_eligibility": "s",
+    "predictive_skill": "s",
+    "record_type": "s",
+    "stage_count": "i",
+    "stages": "j",
+    "training": "@training",
+    "trust_state": "s"
+   },
+   "scores": {
+    "a_key": "s",
+    "a_team_name": "s",
+    "absolute_error": "q?",
+    "absolute_error_decimal": "s?",
+    "b_key": "s",
+    "b_team_name": "s",
+    "brier": "q?",
+    "brier_decimal": "s?",
+    "cold_start": "b",
+    "contest_date": "s",
+    "contest_key": "s",
+    "estimate_record_sha256": "s",
+    "evidence_label": "s",
+    "first_four_team_games": "b",
+    "label_record_sha256": "s",
+    "label_state": "s",
+    "log_loss": "s?",
+    "log_loss_convention": "s?",
+    "margin_a": "d?",
+    "margin_label_a": "i?",
+    "metric_kind": "s",
+    "model_id": "s",
+    "model_sha256": "s",
+    "parent_score": "j",
+    "parent_score_line_sha256": "s?",
+    "partition": "s",
+    "pit_eligibility": "s",
+    "predictive_skill": "s",
+    "probability_a": "d?",
+    "probability_a_exact": "q?",
+    "record_type": "s",
+    "sample_state": "s",
+    "score_key": "s",
+    "score_source": "s",
+    "score_state": "s",
+    "season": "i",
+    "squared_error": "q?",
+    "squared_error_decimal": "s?",
+    "texas_am_game": "b",
+    "trust_state": "s",
+    "unscored_reason": "s?",
+    "y_a": "i?"
+   },
+   "summary": {
+    "brier_mean": "q?",
+    "brier_mean_decimal": "s?",
+    "brier_total": "q?",
+    "brier_total_decimal": "s?",
+    "calibration": "j",
+    "comparisons": "j",
+    "evidence_label": "s",
+    "game_keys_sha256": "s",
+    "games": "i",
+    "log_loss_mean": "s?",
+    "log_loss_total": "s?",
+    "mae": "q?",
+    "mae_decimal": "s?",
+    "metric_kind": "s",
+    "model_id": "s",
+    "model_sha256": "s",
+    "mse": "q?",
+    "mse_decimal": "s?",
+    "pit_eligibility": "s",
+    "predictive_skill": "s",
+    "record_type": "s",
+    "rmse": "s?",
+    "rmse_decimal": "s?",
+    "scope": "s",
+    "score_source": "s",
+    "scored_by_sample_state": "j",
+    "scored_games": "i",
+    "seasons": "li",
+    "slice": "s",
+    "summary_key": "s",
+    "trust_state": "s",
+    "unscored_by_reason": "j",
+    "unscored_games": "i"
+   }
+  },
+  "foreknowledge": {
+   "adverse_results": "both trees losing to the controls is a valid completed result; integrity and runtime failures remain failures",
+   "comparison_2023": "already exposed descriptive comparison, never a blind or protected test",
+   "exposure": "2016-2023 outcomes, the C56 parent scores and summaries (2023 included) were published before these two definitions were frozen by the manager's TP65 v6 design; the worker read the parent summary values while qualifying the parent before any real fit; no tree result was known before the rules were committed",
+   "protected": "no 2024, 2025 or 2026 outcome is selected, read for modeling or scored; the parent holds only 2016-2023 targets"
+  },
+  "grains": {
+   "tree-estimate": "estimates",
+   "tree-feature": "features",
+   "tree-parameter": "parameters",
+   "tree-score": "scores",
+   "tree-summary": "summary"
+  },
+  "inference": "z starts at the finite binary64 baseline; in each of the 100 stages in contract order the tree is traversed from node 0: left when x[feature_idx] <= num_threshold, otherwise right (a NaN, which no real feature is, follows missing_go_to_left); z = z + leaf value in binary64 and math.isfinite(z) is checked after every addition and again before the sigmoid (a nonfinite intermediate is TREE_ESTIMATE_MISMATCH reason TREE_MARGIN_NONFINITE); stable sigmoid: z >= 0: 1/(1 + exp(-z)), z < 0: e = exp(z), e/(1 + e); q is finite in [0, 1]",
+  "json_boundary": "every stored JSON text is decoded with NaN, Infinity, a float literal beyond binary64 range, an integer beyond the interpreter's digit limit and nesting beyond the decoder's depth refused by the stage's own code (manifest, meta or record) and reason (JSON_NONFINITE_NUMBER, JSON_INTEGER_TOO_LONG, JSON_NESTING_TOO_DEEP, JSON_LONE_SURROGATE); a boolean is never an integer or a float; rationals are bounded and checked before any float conversion; ordinary Unicode and the exact allowed JSON types are preserved; cross-field and collection authority outranks a merely self-consistent hash; no error message stringifies an oversized integer, a nested object or a lone surrogate",
+  "key_fields": {
+   "estimates": "estimate_key",
+   "features": "feature_key",
+   "labels": "label_key",
+   "parameters": "parameter_key",
+   "scores": "score_key",
+   "summary": "summary_key"
+  },
+  "labels": {
+   "backend": "SCIKIT_LEARN_1_9_0_BUILD_ONLY_EXPORTED_PLAIN_DATA_TREES",
+   "calibration": "NOT_ESTABLISHED_DESCRIPTIVE_DECILE_TABLES_ONLY",
+   "causal_claim": "NONE",
+   "champion": "NO_CHAMPION_SELECTED",
+   "comparison_2023": "ALREADY_EXPOSED_DESCRIPTIVE_COMPARISON_NOT_BLIND",
+   "evidence_label": "RETROSPECTIVE_RESEARCH",
+   "fit_authority": "TP65_RESEARCH_AUTHORITY_TWO_FROZEN_DEFINITIONS_FIT_2016_2022_ONLY",
+   "forecast_status": "NOT_A_FORECAST",
+   "pit_eligibility": "PIT_NOT_ADMITTED",
+   "predictive_skill": "NOT_ESTABLISHED",
+   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+   "selection": "EXPLICIT_BOOSTING_COMPARISON_SELECTION_ONLY_NEVER_A_DEFAULT",
+   "temporal_basis": "CALENDAR_DATE_ORDER_ONLY_NOT_PUBLICATION_TIME",
+   "trust_state": "UNTRUSTED_SHADOW"
+  },
+  "layout": {
+   "checkpoint_unit": "a run of consecutive canonical games (--chunk-size games): their feature, label, estimate and score lines; parameters and summary follow",
+   "database": {
+    "block_layout": [
+     [
+      "features",
+      "2016"
+     ],
+     [
+      "features",
+      "2017"
+     ],
+     [
+      "features",
+      "2018"
+     ],
+     [
+      "features",
+      "2019"
+     ],
+     [
+      "features",
+      "2020"
+     ],
+     [
+      "features",
+      "2021"
+     ],
+     [
+      "features",
+      "2022"
+     ],
+     [
+      "features",
+      "2023"
+     ],
+     [
+      "labels",
+      "2016"
+     ],
+     [
+      "labels",
+      "2017"
+     ],
+     [
+      "labels",
+      "2018"
+     ],
+     [
+      "labels",
+      "2019"
+     ],
+     [
+      "labels",
+      "2020"
+     ],
+     [
+      "labels",
+      "2021"
+     ],
+     [
+      "labels",
+      "2022"
+     ],
+     [
+      "labels",
+      "2023"
+     ],
+     [
+      "estimates",
+      "2016"
+     ],
+     [
+      "estimates",
+      "2017"
+     ],
+     [
+      "estimates",
+      "2018"
+     ],
+     [
+      "estimates",
+      "2019"
+     ],
+     [
+      "estimates",
+      "2020"
+     ],
+     [
+      "estimates",
+      "2021"
+     ],
+     [
+      "estimates",
+      "2022"
+     ],
+     [
+      "estimates",
+      "2023"
+     ],
+     [
+      "scores",
+      "2016"
+     ],
+     [
+      "scores",
+      "2017"
+     ],
+     [
+      "scores",
+      "2018"
+     ],
+     [
+      "scores",
+      "2019"
+     ],
+     [
+      "scores",
+      "2020"
+     ],
+     [
+      "scores",
+      "2021"
+     ],
+     [
+      "scores",
+      "2022"
+     ],
+     [
+      "scores",
+      "2023"
+     ],
+     [
+      "parameters",
+      "GLOBAL"
+     ],
+     [
+      "summary",
+      "GLOBAL"
+     ]
+    ],
+    "blocks": "one zlib (level 9) block per (record table, segment): a season for the seasonal tables, GLOBAL for parameters and summary; records, first/last key and the SHA-256 of the uncompressed JSONL lines",
+    "ddl": [
+     [
+      "table",
+      "blocks",
+      "CREATE TABLE blocks (ord INTEGER PRIMARY KEY, record_table TEXT NOT NULL, segment TEXT NOT NULL, records INTEGER NOT NULL, first_key TEXT, last_key TEXT, lines_sha256 TEXT NOT NULL, block BLOB NOT NULL)"
+     ],
+     [
+      "table",
+      "meta",
+      "CREATE TABLE meta (key TEXT NOT NULL, value TEXT NOT NULL)"
+     ],
+     [
+      "table",
+      "parent_reference",
+      "CREATE TABLE parent_reference (singleton INTEGER PRIMARY KEY CHECK(singleton=1), byte_count INTEGER NOT NULL, sha256 TEXT NOT NULL, snapshot BLOB NOT NULL)"
+     ]
+    ],
+    "file": "national_shallow_boosting_comparison.sqlite",
+    "journal_mode": "OFF",
+    "meta_keys": [
+     "schema_version",
+     "contract_id",
+     "contract_sha256",
+     "rules_sha256",
+     "content_identity",
+     "labels",
+     "parent",
+     "row_counts",
+     "lines_sha256"
+    ],
+    "page_size": 4096,
+    "parent_reference": "exactly one row: singleton 1, byte_count, sha256 and the byte-exact parent database as a BLOB",
+    "tables": [
+     "meta",
+     "blocks",
+     "parent_reference"
+    ]
+   },
+   "location": "<data>/canonical/national_shallow_boosting_comparison_2016_2023/sha256/<database identity>/national_shallow_boosting_comparison.sqlite; manifest at <data>/manifests/national_shallow_boosting_comparison_2016_2023/sha256/<database identity>/run_manifest.json with members identity, identity_document, content_identity, content_document and provenance; create-only (an identical rebuild is ALREADY_PRESENT_IDENTICAL, differing bytes REFUSED_IMMUTABLE_COLLISION)",
+   "record_order": {
+    "estimates": "(season, contest_key, view A then B, declared tree model order)",
+    "features": "(season, contest_key, view A then B)",
+    "labels": "(season, contest_key)",
+    "parameters": "declared tree model order",
+    "parent_witnesses": "the parent's exact lines keep their original parent order inside the embedded BLOB",
+    "scores": "(season, contest_key, the five parent models in order then the two trees)",
+    "sort": "canonical binary Unicode code-point order of the key strings, never a locale",
+    "summary": "(frozen slice order, scope order POOLED / FIT_2016_2022 / COMPARISON_EXPOSED_2023 / SEASON_2016..SEASON_2023, declared seven-model order)"
+   }
+  },
+  "log_clip": "1e-15",
+  "margin_models": [
+   "PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1"
+  ],
+  "model_ids": [
+   "NULL_HALF_V1",
+   "SMOOTHED_HISTORY_ODDS_V1",
+   "SITE_BLIND_ELO_REFERENCE_V1",
+   "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1",
+   "PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1",
+   "HIST_GB_DEPTH2_V1",
+   "HIST_GB_DEPTH3_V1"
+  ],
+  "models": {
+   "HIST_GB_DEPTH2_V1": {
+    "backend": {
+     "dependencies": {
+      "joblib": "1.5.3",
+      "narwhals": "2.24.0",
+      "numpy": "2.5.1",
+      "scipy": "1.18.0",
+      "threadpoolctl": "3.6.0"
+     },
+     "distribution": "scikit-learn",
+     "estimator": "sklearn.ensemble.HistGradientBoostingClassifier",
+     "python": "CPython 3.12.10 (the pinned offline build runtime; build only, never imported by a reader)",
+     "threads": "OMP_NUM_THREADS=OPENBLAS_NUM_THREADS=MKL_NUM_THREADS=1 (frozen reproducibility setting)",
+     "version": "1.9.0"
+    },
+    "columns": [
+     "games_difference",
+     "win_rate_difference",
+     "points_for_mean_difference",
+     "points_against_mean_difference",
+     "margin_mean_difference",
+     "games_missing_difference",
+     "win_rate_missing_difference",
+     "points_for_mean_missing_difference",
+     "points_against_mean_missing_difference",
+     "margin_mean_missing_difference"
+    ],
+    "constructor": {
+     "categorical_features": null,
+     "class_weight": null,
+     "early_stopping": false,
+     "interaction_cst": null,
+     "l2_regularization": 1.0,
+     "learning_rate": 0.05,
+     "loss": "log_loss",
+     "max_bins": 255,
+     "max_depth": 2,
+     "max_features": 1.0,
+     "max_iter": 100,
+     "max_leaf_nodes": 8,
+     "min_samples_leaf": 20,
+     "monotonic_cst": null,
+     "n_iter_no_change": 10,
+     "random_state": 0,
+     "scoring": "loss",
+     "tol": 1e-07,
+     "validation_fraction": 0.1,
+     "verbose": 0,
+     "warm_start": false
+    },
+    "family": "SHALLOW_HISTOGRAM_GRADIENT_BOOSTING",
+    "fit_seasons": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022
+    ],
+    "model_id": "HIST_GB_DEPTH2_V1",
+    "output": "WIN_PROBABILITY",
+    "role": "FROZEN_RESEARCH_DEFINITION_FIXED_BEFORE_ANY_REAL_FIT_NOT_SELECTED_AFTER_RESULTS",
+    "training": {
+     "fit": "HistGradientBoostingClassifier(**constructor).fit(X, y, sample_weight=w): no early stopping, no validation split, no search, no calibration, no refit, no winner selection",
+     "games": "every FIT_2016_2022 canonical game whose parent label is DECISIVE (no 2023 game, no TIE)",
+     "repeats": "the same exact definition may be executed again only to prove determinism or to reproduce it independently; every execution is counted and must export identical bytes",
+     "rows": "two oriented rows per game in canonical (season, contest key) order, view A then view B",
+     "sample_weight": "1/2 for every oriented row",
+     "x": "the ten parent difference columns in contract order, each exact rational converted once to binary64 (float(Fraction)); the missing-indicator differences are integers; known redundant columns are retained",
+     "y": "view A: y_A; view B: 1 - y_A (classes [0, 1])"
+    },
+    "version": 1
+   },
+   "HIST_GB_DEPTH3_V1": {
+    "backend": {
+     "dependencies": {
+      "joblib": "1.5.3",
+      "narwhals": "2.24.0",
+      "numpy": "2.5.1",
+      "scipy": "1.18.0",
+      "threadpoolctl": "3.6.0"
+     },
+     "distribution": "scikit-learn",
+     "estimator": "sklearn.ensemble.HistGradientBoostingClassifier",
+     "python": "CPython 3.12.10 (the pinned offline build runtime; build only, never imported by a reader)",
+     "threads": "OMP_NUM_THREADS=OPENBLAS_NUM_THREADS=MKL_NUM_THREADS=1 (frozen reproducibility setting)",
+     "version": "1.9.0"
+    },
+    "columns": [
+     "games_difference",
+     "win_rate_difference",
+     "points_for_mean_difference",
+     "points_against_mean_difference",
+     "margin_mean_difference",
+     "games_missing_difference",
+     "win_rate_missing_difference",
+     "points_for_mean_missing_difference",
+     "points_against_mean_missing_difference",
+     "margin_mean_missing_difference"
+    ],
+    "constructor": {
+     "categorical_features": null,
+     "class_weight": null,
+     "early_stopping": false,
+     "interaction_cst": null,
+     "l2_regularization": 1.0,
+     "learning_rate": 0.05,
+     "loss": "log_loss",
+     "max_bins": 255,
+     "max_depth": 3,
+     "max_features": 1.0,
+     "max_iter": 100,
+     "max_leaf_nodes": 8,
+     "min_samples_leaf": 20,
+     "monotonic_cst": null,
+     "n_iter_no_change": 10,
+     "random_state": 0,
+     "scoring": "loss",
+     "tol": 1e-07,
+     "validation_fraction": 0.1,
+     "verbose": 0,
+     "warm_start": false
+    },
+    "family": "SHALLOW_HISTOGRAM_GRADIENT_BOOSTING",
+    "fit_seasons": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022
+    ],
+    "model_id": "HIST_GB_DEPTH3_V1",
+    "output": "WIN_PROBABILITY",
+    "role": "FROZEN_RESEARCH_DEFINITION_FIXED_BEFORE_ANY_REAL_FIT_NOT_SELECTED_AFTER_RESULTS",
+    "training": {
+     "fit": "HistGradientBoostingClassifier(**constructor).fit(X, y, sample_weight=w): no early stopping, no validation split, no search, no calibration, no refit, no winner selection",
+     "games": "every FIT_2016_2022 canonical game whose parent label is DECISIVE (no 2023 game, no TIE)",
+     "repeats": "the same exact definition may be executed again only to prove determinism or to reproduce it independently; every execution is counted and must export identical bytes",
+     "rows": "two oriented rows per game in canonical (season, contest key) order, view A then view B",
+     "sample_weight": "1/2 for every oriented row",
+     "x": "the ten parent difference columns in contract order, each exact rational converted once to binary64 (float(Fraction)); the missing-indicator differences are integers; known redundant columns are retained",
+     "y": "view A: y_A; view B: 1 - y_A (classes [0, 1])"
+    },
+    "version": 1
+   }
+  },
+  "numeric": {
+   "arithmetic": "IEEE-754 binary64; every reduction math.fsum; math.exp, math.log and math.sqrt of the pinned CPython 3.12.10 at build time",
+   "canonical_json": "json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False) as UTF-8",
+   "decimal12": "12 fixed places, half-even, zero normalized; exact rationals by integer arithmetic; a served probability by the fixed DECIMAL_CONTEXT",
+   "rationals": "exact {numerator, denominator} in lowest terms; integers are JSON integers only (a boolean or an integral float is not an integer)",
+   "tolerances": {
+    "backend_predict_proba_vs_stdlib_q": "1e-12 (build only)",
+    "every other field": "exact",
+    "margins": "exact",
+    "reader_log_loss_and_aggregates": "1e-12",
+    "reader_q_recomputation": "1e-12"
+   }
+  },
+  "parent": {
+   "copy_precondition": "before the copy the original passes the literal local-file spelling, existence, layout and hash checks; the exact bytes are copied create-only and the original is never written",
+   "identity": "the new content and database identity documents bind the parent BLOB SHA-256, byte count, identities and complete witness counts as well as every new record",
+   "representation": "one byte-exact complete C56 SQLite snapshot BLOB inside the private release; never base64, executable serialization or Git data",
+   "serving": "verify the BLOB storage type, exact byte count and full SHA-256 against the committed pin before any SQLite parse; standard-library in-memory deserialize, query_only ON, fixed whitelisted SELECTs, no extension and no stored SQL; exact schema, meta keys and 34 blocks; bounded decompression (8 MiB per block), complete stream, no trailing data, the exact total and six collection counts; every per-table line digest equals the parent's own meta claim; all records read and every witness validated"
+  },
+  "parent_models": [
+   "NULL_HALF_V1",
+   "SMOOTHED_HISTORY_ODDS_V1",
+   "SITE_BLIND_ELO_REFERENCE_V1",
+   "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1",
+   "PAIRED_ZERO_INTERCEPT_RIDGE_MARGIN_V1"
+  ],
+  "parent_partitions": {
+   "COMPARISON_EXPOSED_2023": "SPLIT-DEV-SEL",
+   "FIT_2016_2022": "SPLIT-DEV-HIST"
+  },
+  "partitions": {
+   "COMPARISON_EXPOSED_2023": [
+    2023
+   ],
+   "FIT_2016_2022": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+   ]
+  },
+  "paths": "the database and an explicit manifest each pass the BAT-717 literal local-file spelling check before any filesystem access (UNC, device and namespace spellings refused on Windows; POSIX backslashes are ordinary characters); on Windows each component is respelled with the genuine on-disk long name of the entry it resolves to (8.3 and case-equivalent spellings validate the actual population/sha256/identity/basename layout, a junction keeps its own name and its target never names the identity); long, relative, Unicode, extended and junction spellings of the genuine release serve identical bytes; a missing path creates nothing; the default manifest is <data>/manifests/national_shallow_boosting_comparison_2016_2023/sha256/<identity>/run_manifest.json; an explicit manifest may be a genuine copy but must bind this database",
+  "population": "national_shallow_boosting_comparison_2016_2023",
+  "precedence": [
+   "parser_mode_conflict",
+   "require_pit",
+   "provided_as_of",
+   "grain",
+   "season",
+   "team",
+   "contest",
+   "model",
+   "partition",
+   "slice",
+   "selector_applicability",
+   "all_explicit_paging_conflict",
+   "limit_type_and_bound_then_negative",
+   "offset_type_and_bound_then_negative",
+   "expected_identity_grammar",
+   "database_literal_spelling",
+   "manifest_literal_spelling",
+   "native_existence_names_layout",
+   "manifest_identity_schema_hash",
+   "parent_BLOB_exacttype_bytecount_SHA_beforeparse",
+   "parent_expected_schema_bounded_completecollections",
+   "complete_record_collection_and_semantic_validation"
+  ],
+  "probability_models": [
+   "NULL_HALF_V1",
+   "SMOOTHED_HISTORY_ODDS_V1",
+   "SITE_BLIND_ELO_REFERENCE_V1",
+   "PAIRED_ZERO_INTERCEPT_L2_LOGISTIC_V1",
+   "HIST_GB_DEPTH2_V1",
+   "HIST_GB_DEPTH3_V1"
+  ],
+  "raw_q": "the build derives q_A and q_B of every canonical game by the stdlib traversal of its A and B feature views and stores them once as canonical repr strings raw_q_a_repr / raw_q_b_repr (with the exact margins raw_z_a_repr / raw_z_b_repr) on both oriented estimate records; repr(float(text)) equals the text, finite, in [0, 1]; the build-only backend predict_proba agrees within 1e-12; a reader recomputes the margins exactly and the probabilities within absolute 1e-12 and derives the served pair from the stored q values, never from a fresh libm recomputation; tolerance never permits altering a stored value or skipping the profile pin",
+  "record_labels": [
+   "evidence_label",
+   "trust_state",
+   "pit_eligibility",
+   "predictive_skill"
+  ],
+  "record_types": {
+   "estimates": "TREE_ESTIMATE",
+   "features": "TREE_FEATURE",
+   "labels": "TREE_LABEL",
+   "parameters": "TREE_PARAMETER",
+   "scores": "TREE_SCORE",
+   "summary": "TREE_SUMMARY"
+  },
+  "scopes": [
+   [
+    "POOLED",
+    [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023
+    ]
+   ],
+   [
+    "FIT_2016_2022",
+    [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022
+    ]
+   ],
+   [
+    "COMPARISON_EXPOSED_2023",
+    [
+     2023
+    ]
+   ],
+   [
+    "SEASON_2016",
+    [
+     2016
+    ]
+   ],
+   [
+    "SEASON_2017",
+    [
+     2017
+    ]
+   ],
+   [
+    "SEASON_2018",
+    [
+     2018
+    ]
+   ],
+   [
+    "SEASON_2019",
+    [
+     2019
+    ]
+   ],
+   [
+    "SEASON_2020",
+    [
+     2020
+    ]
+   ],
+   [
+    "SEASON_2021",
+    [
+     2021
+    ]
+   ],
+   [
+    "SEASON_2022",
+    [
+     2022
+    ]
+   ],
+   [
+    "SEASON_2023",
+    [
+     2023
+    ]
+   ]
+  ],
+  "scores": {
+   "parent_families": "the five unchanged C56 game scores (one A-oriented record per game and model) embedded byte for byte (parent_score, its line SHA-256) with their metric fields copied unchanged",
+   "reader_portability": "a reader recomputes each tree log loss on its own host and compares it numerically within absolute 1e-12 (never demanding repr text equality); aggregates are checked from the stored canonical per-game values in frozen game order with math.fsum within the same tolerance; Brier values, totals and means, counts, cohort keys, served decimals and calibration stay exact",
+   "ties": "a TIE label (none among the accepted targets) keeps label_state TIE, y_A null and unscored_reason LABEL_TIE: the probability families are unscored with null metrics and explicit support counts, the record is never dropped and no 0.5 target is invented; the unchanged parent RIDGE keeps its valid tied margin metrics; half credit belongs only to the parent's prior win rates and Elo updates",
+   "trees": "Brier = (Fraction(served decimal p_A) - y_A)^2 as an exact rational; log loss: q = p_A if y_A = 1 else 1 - p_A (exact), converted once to binary64, only the logarithm argument clipped to [1e-15, 1 - 1e-15], -math.log, repr text; served probabilities, Brier and calibration are never clipped"
+  },
+  "seasons": {
+   "comparison": [
+    2023
+   ],
+   "fit": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+   ],
+   "study": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+   ]
+  },
+  "selectors": {
+   "applicability": {
+    "tree-estimate": [
+     "season",
+     "team",
+     "contest",
+     "model",
+     "partition"
+    ],
+    "tree-feature": [
+     "season",
+     "team",
+     "contest",
+     "partition"
+    ],
+    "tree-parameter": [
+     "model"
+    ],
+    "tree-score": [
+     "season",
+     "team",
+     "contest",
+     "model",
+     "partition"
+    ],
+    "tree-summary": [
+     "season",
+     "team",
+     "contest",
+     "model",
+     "partition",
+     "slice"
+    ]
+   },
+   "contest": "exact ncaa:<1-12 ASCII digits>; no bare digits and no numeric normalization; a valid unknown key selects no game",
+   "expect_identity": "--expect-identity: [0-9a-f]{64} or STALE_TREE_IDENTITY before any file access; omitted means the committed profile pin applies; no --expected-identity alias",
+   "model": "a str fullmatching [A-Z][A-Z0-9_]{0,99} after U+0020-only trimming (otherwise MODEL_INVALID with a type-only diagnostic); a grammar-valid model outside the grain's collection matches zero rows",
+   "paging": "default limit 50 / offset 0; --all conflicts with any explicitly supplied limit or offset, zero included (PAGING_CONFLICT); strings: raw Cc and lone surrogates refused before U+0020 trimming, then an optional minus and 1-12 ASCII digits; typed ints with absolute value < 10**12 (bool, float and objects invalid; bounds compared before any text conversion); negative values NEGATIVE_LIMIT / NEGATIVE_OFFSET; limit 0 is count-only (rows [], returned 0, next_offset = offset when offset < total else null); a positive page advances to offset + returned while rows remain, else null",
+   "partition": "exactly FIT_2016_2022 or COMPARISON_EXPOSED_2023",
+   "season": "string ASCII [0-9]{4} after U+0020-only trimming, or a typed int 1000..9999 (never a boolean); raw Unicode Cc controls and lone surrogates refused before trimming; a valid unknown year selects no game",
+   "selection": "applicable filters intersect canonical game keys before record selection, summaries or paging; an unknown or disjoint selection gives zero rows, total 0, returned 0, next_offset null",
+   "slice": "summary only: NATIONAL, TEXAS_AM, FIRST_FOUR_TEAM_GAMES or COLD_START (default NATIONAL); frozen per canonical game",
+   "team": "exact org:<1-12 ASCII digits>, bare 1-12 ASCII digits (org:<digits>, no numeric normalization) or a parent source team name of the game's own season, matched by the committed parent rule (casefolded); a name matching two keys in one season is TEAM_AMBIGUOUS; a well-formed unknown team selects no game; matches either participant"
+  },
+  "serving": "q_A = float(raw_q_a_repr), q_B = float(raw_q_b_repr), both finite in [0, 1]; p_A = (q_A + (1.0 - q_B)) / 2.0 in binary64 with the inner subtraction first, finite in [0, 1]; within decimal.localcontext(the fixed DECIMAL_CONTEXT): served_A = Decimal.from_float(p_A).quantize(Decimal('0.000000000001'), rounding=ROUND_HALF_EVEN), served_B = Decimal(1) - served_A exactly; both serialized with 12 fixed places, zero normalized; the ambient decimal context, flags and traps are never read or changed; B is never rounded independently and A is never replaced",
+  "slices": {
+   "COLD_START": "either parent feature side has 0 eligible prior games (the parent per-game flag, independently re-derived and required equal)",
+   "FIRST_FOUR_TEAM_GAMES": "either parent feature side has fewer than 4 eligible prior games (the parent per-game flag, independently re-derived and required equal)",
+   "NATIONAL": "every accepted selected canonical game",
+   "TEXAS_AM": "exact org:697 on either parent participant key (never a name proxy)"
+  },
+  "subspecs": {
+   "agreement": {
+    "max_abs_difference_repr": "s",
+    "repeat_exports_identical": "b",
+    "repeat_fits": "i",
+    "rule": "s",
+    "state": "s",
+    "tolerance_repr": "s",
+    "views": "i"
+   },
+   "training": {
+    "comparison_games_excluded": "i",
+    "excluded_tie_games": "i",
+    "games": "i",
+    "oriented_rows": "i",
+    "positive_rows": "i",
+    "row_weight": "q",
+    "rows_sha256": "s",
+    "seasons": "li"
+   }
+  },
+  "summary": {
+   "comparisons": "tree rows carry the model-minus-control differences against each of the four C56 probability controls on identical scored game keys (brier mean difference exact, log-loss mean difference binary64); no significance, lift threshold, selection or champion",
+   "margin_metrics": "parent ridge only: MAE and MSE (exact rationals), RMSE = math.sqrt(float(MSE)) (repr)",
+   "parent_witness": "the parent-family rows of the canonical summary must equal the parent's own summary rows (scope POOLED = POOLED 2016-2023, FIT_2016_2022 = SPLIT-DEV-HIST, COMPARISON_EXPOSED_2023 = SPLIT-DEV-SEL, SEASON_s = season s)",
+   "probability_metrics": "brier total and mean (exact rationals), log-loss total (math.fsum of the stored per-game values in canonical game order) and mean (total / count), the fixed decile calibration",
+   "rows": "one row per frozen slice x scope x model in the order slices, scopes (POOLED, FIT_2016_2022, COMPARISON_EXPOSED_2023, SEASON_2016..SEASON_2023), models (five parent then two trees); a slice and scope without a selected game has no row (never a fabricated zero-count mean)",
+   "selection": "applicable filters intersect canonical game keys first; the summary is re-derived over exactly the selected games with the frozen slice, scope, metric and calibration rules"
+  },
+  "time": {
+   "build_clock": "the run manifest provenance issued_at_utc is the build time, never identity-bound",
+   "query_state": "no as-of, cutoff, effective or known-at query state exists: every provided --as-of is refused (AS_OF_STATE_NOT_SUPPORTED) before parsing and --require-pit is refused (TREE_PIT_NOT_ADMITTED)",
+   "source_clock": "calendar date order of the accepted C56 targets only; not publication time"
+  },
+  "tree_export": {
+   "content": "baseline (the backend's binary64 _baseline_prediction) and 100 stages in fit order, one binary tree per stage, each a list of nodes with the 13 typed node fields of the backend's predictor node record",
+   "node_fields": {
+    "bin_threshold": "i",
+    "bitset_idx": "i",
+    "count": "i",
+    "depth": "i",
+    "feature_idx": "i",
+    "gain": "f",
+    "is_categorical": "b",
+    "is_leaf": "b",
+    "left": "i",
+    "missing_go_to_left": "b",
+    "num_threshold": "f",
+    "right": "i",
+    "value": "f"
+   },
+   "rules": [
+    "baseline, every value, num_threshold and gain is a finite binary64 (JSON number); every index, count, feature, depth and bin field is a JSON integer (never a boolean); every flag is a JSON boolean",
+    "node 0 is the root at depth 0; an internal node has feature_idx 0..9, a finite threshold, children in range, distinct and at depth + 1; a leaf has left = right = 0",
+    "every node is reachable from the root exactly once (no cycle, no dangling or shared node)",
+    "no categorical split and no bitset (is_categorical false, bitset_idx 0); depth <= the model's max_depth; at most max_leaf_nodes leaves; exactly max_iter stages",
+    "a leaf value already includes the learning rate; it is never multiplied again",
+    "no pickle, plugin, callable or executable serialization; the export SHA-256 is the canonical JSON of {baseline, stages}"
+   ],
+   "schema": "BAS-SHALLOW-BOOSTING-TREE-EXPORT-1"
+  },
+  "tree_models": [
+   "HIST_GB_DEPTH2_V1",
+   "HIST_GB_DEPTH3_V1"
+  ]
+ },
+ "rules_sha256": "7da0997841d2a413eaf3bf477c262ab9453256609ecb78653d9b9353b3c4577b",
+ "schema": "BAS-SHALLOW-BOOSTING-COMPARISON-CONTRACT-1"
+}

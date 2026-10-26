@@ -562,7 +562,8 @@ class QueryTests(unittest.TestCase):
         association = parser._get_formatter()
         association.add_text(q.ASSOCIATION_EPILOG)
         old = super(q._HistoricalParser, parser).format_help() + "\n" + formatter.format_help()
-        self.assertEqual(parser.format_help(), old + "\n" + association.format_help())
+        self.assertEqual(parser.format_help(), old + "\n" + association.format_help() + "\n" +
+                         q.BOOSTING_HELP_PARAGRAPH + "\n")
         self.assertNotIn("context-association", parser.format_help())
         context = q.build_context_parser()
         epilog = context._get_formatter()

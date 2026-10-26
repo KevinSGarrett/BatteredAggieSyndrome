@@ -479,6 +479,13 @@
         "head_sha": "3be5f4a20373f7c7262b8cc9289dcf457ffa5399",
         "classification": "[material]",
         "reason": "Manager repeated an unclassified squash-title error for independently accepted material C59 personnel implementation on PR720. Exact immutable integration SHA correction only; original history and failed hosted receipts retained. No classifier, classification limit, source, scientific data or review-control change."
+      },
+      {
+        "commit_sha": "ae4f0a4b0b48ce9059fcfc00ff6574c0e525588b",
+        "pull_request": 727,
+        "head_sha": "782db7ce188d0139966952f3c7033f015427cee3",
+        "classification": "[material]",
+        "reason": "Manager omitted the required material marker in the squash title of independently reviewed 17-path C65 implementation PR727. Exact immutable integration SHA correction only; original history and failed hosted CI receipts retained. No classifier, classification limit, scientific source, data, dependency or review-control change."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",
